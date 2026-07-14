@@ -194,7 +194,7 @@ export const CATEGORY_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[
 };
 
 // Layer 1.5b: specific per-question overrides for questions whose OWN category is
-// misleading, or resolved by the classify+verify pass. Keyed by base question id.
+// misleading or resolved by the classify+verify pass. Keyed by base question id.
 // Highest-precedence auto layer (below only a manual per-item move). The bulk
 // comes from the generated classification file; hand-authored entries below win.
 export const QUESTION_FRAMEWORK_OVERRIDES: Record<string, Record<string, string[]>> = {

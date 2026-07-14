@@ -317,7 +317,7 @@ export function ReportConfigSelector({
           />
           <span className="toggle-text">
             <strong>Include evidence</strong>
-            <span className="toggle-hint">Show photos, documents, and notes attached to questions</span>
+            <span className="toggle-hint">Show photos, documents and notes attached to questions</span>
           </span>
         </label>
       </div>

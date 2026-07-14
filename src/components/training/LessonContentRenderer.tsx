@@ -280,7 +280,7 @@ function InteractiveChecklistBlock({
   };
 
   const activeItems = hasTools && tool && itemsByTool![tool] ? itemsByTool![tool] : items;
-  // Key ticks by format and tool so different formats, and the Word vs Google
+  // Key ticks by format and tool so different formats and the Word vs Google
   // Docs lists, do not stomp on each other in localStorage.
   const checklistKey = [title, selectedFormat, hasTools ? tool : undefined]
     .filter(Boolean)

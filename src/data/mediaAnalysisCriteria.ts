@@ -24,7 +24,7 @@ export const MEDIA_ANALYSIS_CONFIGS: Record<MediaAnalysisType, MediaAnalysisConf
     acceptedFileTypes: ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'],
     maxFileSize: 10 * 1024 * 1024, // 10MB
     standards: ['WCAG 2.1', 'Best Practice'],
-    examplePrompt: 'Upload a photo or PDF of your menu to check font size, contrast, and layout accessibility',
+    examplePrompt: 'Upload a photo or PDF of your menu to check font size, contrast and layout accessibility',
     icon: '📋',
     criteria: [
       {
@@ -628,7 +628,7 @@ export const MEDIA_ANALYSIS_CONFIGS: Record<MediaAnalysisType, MediaAnalysisConf
       {
         id: 'ramp-landings',
         name: 'Landings',
-        description: 'Level landings at top, bottom, and intervals',
+        description: 'Level landings at top, bottom and intervals',
         standard: 'AS 1428.1',
         reference: 'AS 1428.1 Section 10.5',
         weight: 15,

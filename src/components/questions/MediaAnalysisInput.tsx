@@ -1,7 +1,7 @@
 /**
  * MediaAnalysisInput Component
  *
- * Allows users to upload photos, documents, or URLs for AI-powered
+ * Allows users to upload photos, documents or URLs for AI-powered
  * accessibility analysis of various materials and environments.
  */
 

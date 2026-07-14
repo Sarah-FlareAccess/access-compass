@@ -14,9 +14,9 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
     labelOnline: 'Before they engage',
     subLabel: 'Planning and booking',
     subLabelOnline: 'Discovery and booking',
-    description: 'How people find you, plan their visit, and decide whether to engage.',
-    descriptionOnline: 'How people find you, explore your offering, and decide to get started.',
-    tip: 'Think about how customers research, prepare, and make decisions before they interact with you in person.',
+    description: 'How people find you, plan their visit and decide whether to engage.',
+    descriptionOnline: 'How people find you, explore your offering and decide to get started.',
+    tip: 'Think about how customers research, prepare and make decisions before they interact with you in person.',
     tipOnline: 'Think about how customers discover your services and what information they need before getting started.',
     icon: 'search',
     bgColorClass: 'journey-before',
@@ -37,7 +37,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'finding-online',
         label: 'Can customers find you online?',
-        description: 'Your website, social media, search results, and online listings',
+        description: 'Your website, social media, search results and online listings',
         example: 'e.g. Website homepage, Google Business profile, Facebook page, council community directory',
         subTouchpoints: [
           { id: 'website', label: 'Main website' },
@@ -50,8 +50,8 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         id: 'planning-visit',
         label: 'Do customers plan or research before visiting?',
         labelOnline: 'Do customers explore your offering beforehand?',
-        description: 'Programs, schedules, service information, and visitor guides they might look at',
-        descriptionOnline: 'Services, programs, pricing, and what to expect before getting started',
+        description: 'Programs, schedules, service information and visitor guides they might look at',
+        descriptionOnline: 'Services, programs, pricing and what to expect before getting started',
         example: 'e.g. Class timetables, library catalog, pool session times, facility photos, service guides',
         subTouchpoints: [
           { id: 'menus-programs', label: 'Menus or programs' },
@@ -63,14 +63,14 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'costs-policies',
         label: 'Do customers need to understand pricing or policies?',
-        description: 'Fees, memberships, concessions, permits, and terms and conditions',
+        description: 'Fees, memberships, concessions, permits and terms and conditions',
         example: 'e.g. Membership fees, concession pricing, permit costs, refund policies, library borrowing rules',
         moduleMapping: ['3.5', '4.3'],
       },
       {
         id: 'booking',
-        label: 'Do customers book, register, or apply?',
-        description: 'Bookings, registrations, applications, permits, and ticketing',
+        label: 'Do customers book, register or apply?',
+        description: 'Bookings, registrations, applications, permits and ticketing',
         example: 'e.g. Room or facility bookings, program registrations, permit applications, event ticketing',
         subTouchpoints: [
           { id: 'online-booking', label: 'Online booking system' },
@@ -83,7 +83,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
         id: 'enquiries',
         label: 'Do customers contact you with questions beforehand?',
         labelOnline: 'Do customers contact you with questions before engaging?',
-        description: 'Enquiries, contact methods, and how you respond',
+        description: 'Enquiries, contact methods and how you respond',
         example: 'e.g. Phone enquiries, contact forms, service centre front desk, email responses, live chat',
         moduleMapping: ['4.2', '1.4', '1.5'],
       },
@@ -94,7 +94,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
     label: "When they're here",
     subLabel: 'Space, environment and experiences',
     description: 'What the experience involves once someone is onsite.',
-    tip: 'Consider the physical journey, the environment, and the activities or experiences a customer might take part in.',
+    tip: 'Consider the physical journey, the environment and the activities or experiences a customer might take part in.',
     icon: 'map-pin',
     bgColorClass: 'journey-during',
     blocks: [
@@ -113,7 +113,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'getting-in',
         label: 'How do customers get in and move around?',
-        description: 'Parking, paths, entry, internal routes, and queues',
+        description: 'Parking, paths, entry, internal routes and queues',
         example: 'e.g. Car park, drop-off area, front entrance, hallways, waiting areas, library entrance, pool entry',
         autoInclude: 'physical',
         subTouchpoints: [
@@ -128,7 +128,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'using-space',
         label: 'How do customers use your space?',
-        description: 'Seating, counters, furniture, shared equipment, and toilets',
+        description: 'Seating, counters, furniture, shared equipment and toilets',
         example: 'e.g. Waiting area seating, service counters, public computers, study desks, meeting rooms, bathrooms',
         autoInclude: 'physical',
         subTouchpoints: [
@@ -141,7 +141,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'accommodation-rooms',
         label: 'Do you offer accommodation or guest rooms?',
-        description: 'Guest rooms, in-room facilities, and amenities',
+        description: 'Guest rooms, in-room facilities and amenities',
         example: 'e.g. Room layout, bathroom, kitchenette, lighting, room entry',
         subTouchpoints: [
           { id: 'guest-rooms', label: 'Guest rooms and layout' },
@@ -153,7 +153,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'wayfinding',
         label: 'How do customers find their way around?',
-        description: 'Signage, wayfinding, and clarity of layout',
+        description: 'Signage, wayfinding and clarity of layout',
         example: 'e.g. Clear directional signs, maps, colour-coded zones, staff available to assist',
         autoInclude: 'physical',
         moduleMapping: ['2.3', '3.5', '3.7'],
@@ -161,15 +161,15 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'sensory',
         label: 'What is the sensory environment like?',
-        description: 'Lighting, noise, smells, and busy vs quieter times',
+        description: 'Lighting, noise, smells and busy vs quieter times',
         example: 'e.g. Lighting levels, background music, noise levels, scents, busy periods',
         autoInclude: 'physical',
         moduleMapping: ['3.1', '4.4'],
       },
       {
         id: 'experiences-activities',
-        label: 'Do customers take part in programs, activities, or experiences?',
-        description: 'Programs, classes, recreation, tours, community activities, and health services',
+        label: 'Do customers take part in programs, activities or experiences?',
+        description: 'Programs, classes, recreation, tours, community activities and health services',
         example: 'e.g. Library programs, swim classes, community workshops, guided tours, gym sessions, public consultations',
         subTouchpoints: [
           { id: 'events-performances', label: 'Events or performances' },
@@ -183,14 +183,14 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'retail-shopping',
         label: 'Do customers browse or purchase products?',
-        description: 'How customers browse, try on, and buy products in your space',
+        description: 'How customers browse, try on and buy products in your space',
         example: 'e.g. Store layout, fitting rooms, checkout counters, product labels, shopping baskets',
         moduleMapping: ['3.10', '4.3'],
       },
       {
         id: 'outdoor-grounds',
         label: 'Do customers use outdoor areas or playgrounds?',
-        description: 'Gardens, courtyards, outdoor dining, walking trails, playgrounds, and exterior grounds',
+        description: 'Gardens, courtyards, outdoor dining, walking trails, playgrounds and exterior grounds',
         example: 'e.g. Beer gardens, courtyards, walking paths, picnic areas, playgrounds, pools, outdoor event spaces',
         subTouchpoints: [
           { id: 'outdoor-paths', label: 'Outdoor paths and walkways' },
@@ -202,7 +202,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'events-management',
         label: 'Do you plan or run events?',
-        description: 'Planning, running, and managing events at your venue or in the community',
+        description: 'Planning, running and managing events at your venue or in the community',
         example: 'e.g. Community festivals, public meetings, library events, markets, conferences, on-the-day operations',
         subTouchpoints: [
           { id: 'event-planning', label: 'Event planning and promotion' },
@@ -227,7 +227,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'staff-interaction',
         label: 'How do customers interact with your staff?',
-        description: 'Customer service, communication support, and assistance animals',
+        description: 'Customer service, communication support and assistance animals',
         example: 'e.g. Front desk staff, librarians, service officers, lifeguards, phone support',
         autoInclude: 'physical',
         subTouchpoints: [
@@ -240,7 +240,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'service-flexibility',
         label: 'Can your service adapt to different customer needs?',
-        description: 'Adjustments, alternative service channels, and flexible options',
+        description: 'Adjustments, alternative service channels and flexible options',
         autoInclude: 'physical',
         example: 'e.g. Home library services, alternative formats, extra time, modified service delivery, phone alternatives',
         moduleMapping: ['4.2', '4.3', '3.8'],
@@ -275,44 +275,44 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
   {
     id: 'policy-operations',
     label: 'How you operate',
-    subLabel: 'Policies, people, and improvement',
+    subLabel: 'Policies, people and improvement',
     description: 'The internal practices that shape how your organisation runs.',
-    tip: 'Think about your policies, how you hire and train staff, and how you work with suppliers.',
+    tip: 'Think about your policies, how you hire and train staff and how you work with suppliers.',
     icon: 'clipboard',
     bgColorClass: 'journey-policy',
     touchpoints: [
       {
         id: 'accessibility-policy',
         label: 'Do you have documented policies and guidelines?',
-        description: 'Customer service standards, staff guidelines, and operational policies',
+        description: 'Customer service standards, staff guidelines and operational policies',
         example: 'e.g. Customer service charter, inclusion policy, council access policy, staff conduct guidelines',
         moduleMapping: ['5.1'],
       },
       {
         id: 'inclusive-employment',
         label: 'Do you employ staff (recruitment, onboarding, workplace adjustments)?',
-        description: 'Hiring, interviews, onboarding, workplace adjustments, retention, and inclusive culture. Skip if you have no employees or only short-term contractors.',
+        description: 'Hiring, interviews, onboarding, workplace adjustments, retention and inclusive culture. Skip if you have no employees or only short-term contractors.',
         example: 'e.g. Job ads, interviews, onboarding, workplace adjustments, ERGs, retention',
         moduleMapping: ['5.7', '5.8', '5.9', '5.10'],
       },
       {
         id: 'staff-training',
         label: 'How do you train and develop your staff?',
-        description: 'Onboarding, ongoing training, and professional development',
+        description: 'Onboarding, ongoing training and professional development',
         example: 'e.g. Induction programs, training modules, awareness sessions, skill development',
         moduleMapping: ['5.3', '4.2'],
       },
       {
         id: 'procurement-partnerships',
-        label: 'Do you work with suppliers, contractors, or partners?',
-        description: 'How you manage suppliers, contractors, and partner relationships. Skip if you do not outsource any customer-facing work.',
+        label: 'Do you work with suppliers, contractors or partners?',
+        description: 'How you manage suppliers, contractors and partner relationships. Skip if you do not outsource any customer-facing work.',
         example: 'e.g. Supplier contracts, tender requirements, vendor agreements, community partners, third-party platforms',
         moduleMapping: ['5.4', '5.6'],
       },
       {
         id: 'continuous-improvement',
         label: 'How do you track progress and improve?',
-        description: 'Action plans, audits, reviews, and progress tracking',
+        description: 'Action plans, audits, reviews and progress tracking',
         example: 'e.g. Action plans, access audits, annual reviews, DIAP reporting, community satisfaction tracking',
         moduleMapping: ['5.5', '4.5'],
       },

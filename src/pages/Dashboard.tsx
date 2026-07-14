@@ -80,7 +80,7 @@ const DASHBOARD_FEATURES: GuideFeature[] = [
   { icon: Gauge, title: 'Confidence snapshot', description: 'See how confident each module assessment is (strong, mixed, needs work).' },
   { icon: ImagePlus, title: 'Evidence Library', description: 'Upload and manage photos and documents collected during assessments.' },
   { icon: BarChart3, title: 'Report and DIAP', description: 'Jump to your Report or DIAP directly from any completed module.' },
-  { icon: ClipboardList, title: 'Activity Log', description: 'Track completed modules, DIAP changes, and team actions. Copy a weekly digest or share progress.' },
+  { icon: ClipboardList, title: 'Activity Log', description: 'Track completed modules, DIAP changes and team actions. Copy a weekly digest or share progress.' },
   { icon: ListChecks, title: 'Expand module groups', description: 'Click group headers to expand and see individual module progress.' },
 ];
 
@@ -1004,7 +1004,7 @@ Thanks!`;
                     );
                   })}
                 </div>
-                <p className="maturity-note">Reflects the accessibility practice you've tracked here and how you follow through, not the size of your organisation or barriers outside your control. A self-review signal, not a compliance grade, certification, or benchmark, so it may not capture everything you do.</p>
+                <p className="maturity-note">Reflects the accessibility practice you've tracked here and how you follow through, not the size of your organisation or barriers outside your control. A self-review signal, not a compliance grade, certification or benchmark, so it may not capture everything you do.</p>
               </section>
             )}
             {/* Overall Progress Card - dashboard overview only */}
@@ -1667,7 +1667,7 @@ Thanks!`;
                     <div className="evidence-icon">📁</div>
                     <h3>Evidence Library</h3>
                     <p>
-                      As you complete module reviews, you can upload photos, documents, and links
+                      As you complete module reviews, you can upload photos, documents and links
                       to support your accessibility improvements.
                     </p>
                     <p className="evidence-note">
@@ -2090,7 +2090,7 @@ Thanks!`;
                       <strong>{assignmentModal.moduleName}</strong>.
                     </p>
                     <p className="email-template-hint">
-                      Copy the message below to notify them via email, Slack, or Teams:
+                      Copy the message below to notify them via email, Slack or Teams:
                     </p>
                   </div>
 

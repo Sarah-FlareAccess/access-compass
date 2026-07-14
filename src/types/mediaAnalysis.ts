@@ -3,7 +3,7 @@
  *
  * Defines types for analyzing various materials and environments
  * for accessibility compliance against AS 1428, Access to Premises
- * Standards, and WCAG guidelines.
+ * Standards and WCAG guidelines.
  */
 
 // All supported media/material types for analysis
@@ -197,7 +197,7 @@ export const MEDIA_TYPE_OPTIONS: Array<{
     value: 'menu',
     label: 'Menu',
     category: 'printed-materials',
-    description: 'Restaurant, cafe, or service menu',
+    description: 'Restaurant, cafe or service menu',
     inputTypes: ['photo', 'document'],
   },
   {
@@ -225,7 +225,7 @@ export const MEDIA_TYPE_OPTIONS: Array<{
     value: 'signage',
     label: 'Signage',
     category: 'printed-materials',
-    description: 'Wayfinding, information, or safety signage',
+    description: 'Wayfinding, information or safety signage',
     inputTypes: ['photo'],
   },
   // Physical Environment
@@ -240,7 +240,7 @@ export const MEDIA_TYPE_OPTIONS: Array<{
     value: 'ground-surface',
     label: 'Ground Surface',
     category: 'physical-environment',
-    description: 'Floor, pathway, or ground surface',
+    description: 'Floor, pathway or ground surface',
     inputTypes: ['photo'],
   },
   {

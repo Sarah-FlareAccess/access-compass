@@ -69,13 +69,13 @@ export const DIAP_CATEGORIES: DIAPCategoryGroup[] = [
   {
     id: 'physical-access',
     name: 'Physical Access',
-    description: 'Physical spaces, facilities, and navigation',
+    description: 'Physical spaces, facilities and navigation',
     icon: '🏢',
   },
   {
     id: 'information-communication-marketing',
     name: 'Information, Communication & Marketing',
-    description: 'Digital, print, signage, and marketing materials',
+    description: 'Digital, print, signage and marketing materials',
     icon: '📢',
   },
   {
@@ -93,7 +93,7 @@ export const DIAP_CATEGORIES: DIAPCategoryGroup[] = [
   {
     id: 'people-culture',
     name: 'People & Culture',
-    description: 'Staff capability, training, and workplace culture',
+    description: 'Staff capability, training and workplace culture',
     icon: '🤝',
   },
 ];
@@ -119,7 +119,7 @@ export const DIAP_SECTIONS: DIAPSection[] = [
   {
     id: 'built-environment',
     name: 'Built Environment',
-    description: 'Physical access including entry, movement, facilities, and wayfinding',
+    description: 'Physical access including entry, movement, facilities and wayfinding',
     categoryId: 'physical-access',
   },
   {
@@ -131,7 +131,7 @@ export const DIAP_SECTIONS: DIAPSection[] = [
   {
     id: 'customer-service-training',
     name: 'Customer Service & Training',
-    description: 'Staff knowledge, attitudes, and training related to disability inclusion',
+    description: 'Staff knowledge, attitudes and training related to disability inclusion',
     categoryId: 'people-culture',
   },
   {

@@ -377,7 +377,7 @@ Your response MUST be valid JSON in this exact format:
   "quickWins": ["<quick win 1>"]
 }
 
-Be specific, constructive, and practical. Focus on actionable feedback.
+Be specific, constructive and practical. Focus on actionable feedback.
 Do not be overly critical - acknowledge what's working well.
 If something cannot be assessed from the image, mark it as "not-applicable".`;
 

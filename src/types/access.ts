@@ -2,7 +2,7 @@
 // ACCESS COMPASS - ACCESS SYSTEM TYPES
 // ============================================
 // Types for paywall, authentication, entitlements,
-// organisations, and purchases
+// organisations and purchases
 // ============================================
 
 // ============================================

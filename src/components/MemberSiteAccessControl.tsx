@@ -143,7 +143,7 @@ export function MemberSiteAccessControl({ membershipId, sites, getAccess, setAcc
 
               {restricted && selected.size === 0 && (
                 <p style={{ margin: '4px 0 0', color: '#7c2d12' }}>
-                  Select at least one site, or choose All sites.
+                  Select at least one site or choose All sites.
                 </p>
               )}
             </>

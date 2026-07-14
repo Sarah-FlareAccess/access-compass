@@ -14,13 +14,13 @@ export const questions: Question[] = [
     module: 'physical-access',
     question_text: 'Do you have an accessible bathroom?',
     helper_text:
-      'An accessible bathroom has features like grab rails, adequate space, and accessible fittings',
+      'An accessible bathroom has features like grab rails, adequate space and accessible fittings',
   },
   {
     id: 'physical-3',
     module: 'physical-access',
     question_text: 'Can someone using a wheelchair move through your main customer areas?',
-    helper_text: 'Consider aisle width, turning space, and obstacles',
+    helper_text: 'Consider aisle width, turning space and obstacles',
   },
   {
     id: 'physical-4',
@@ -39,13 +39,13 @@ export const questions: Question[] = [
     id: 'physical-6',
     module: 'physical-access',
     question_text: 'Do you have seating options for people who need to rest?',
-    helper_text: 'Seating with arms, varied heights, and stable support',
+    helper_text: 'Seating with arms, varied heights and stable support',
   },
   {
     id: 'physical-7',
     module: 'physical-access',
     question_text: 'Are pathways clear of obstacles?',
-    helper_text: 'Free from furniture, displays, cords, or clutter',
+    helper_text: 'Free from furniture, displays, cords or clutter',
   },
   {
     id: 'physical-8',
@@ -65,7 +65,7 @@ export const questions: Question[] = [
     id: 'communication-2',
     module: 'communication-information',
     question_text: 'Do you have braille or tactile information available?',
-    helper_text: 'For signs, menus, or key information',
+    helper_text: 'For signs, menus or key information',
   },
   {
     id: 'communication-3',
@@ -77,7 +77,7 @@ export const questions: Question[] = [
     id: 'communication-4',
     module: 'communication-information',
     question_text: 'Can customers access information in digital formats?',
-    helper_text: 'QR codes, online menus, or screen-reader compatible versions',
+    helper_text: 'QR codes, online menus or screen-reader compatible versions',
   },
 
   // Customer Service and Staff Module
@@ -97,13 +97,13 @@ export const questions: Question[] = [
     id: 'customer-service-3',
     module: 'customer-service-staff',
     question_text: 'Can customers contact you to ask about accessibility before visiting?',
-    helper_text: 'Phone, email, or other contact methods',
+    helper_text: 'Phone, email or other contact methods',
   },
   {
     id: 'customer-service-4',
     module: 'customer-service-staff',
     question_text: 'Do you have a process for responding to accessibility feedback?',
-    helper_text: 'A way to receive, review, and act on feedback',
+    helper_text: 'A way to receive, review and act on feedback',
   },
   {
     id: 'customer-service-5',
@@ -131,7 +131,7 @@ export const questions: Question[] = [
     module: 'online-bookings',
     question_text: 'Do you provide accessibility info in confirmation emails?',
     helper_text:
-      'Include information about access features, parking, or how to request support',
+      'Include information about access features, parking or how to request support',
   },
   {
     id: 'online-4',
@@ -195,14 +195,14 @@ export const questions: Question[] = [
     id: 'sensory-3',
     module: 'sensory-considerations',
     question_text: 'Is background noise at a level that allows conversation?',
-    helper_text: 'Music, machinery, and ambient noise don\'t overwhelm speech',
+    helper_text: 'Music, machinery and ambient noise don\'t overwhelm speech',
   },
   {
     id: 'sensory-4',
     module: 'sensory-considerations',
     question_text:
       'Are there any flashing lights or sudden loud noises that could affect some visitors?',
-    helper_text: 'Consider people with sensory sensitivities, migraines, or epilepsy',
+    helper_text: 'Consider people with sensory sensitivities, migraines or epilepsy',
   },
 
   // Emergency and Safety Module

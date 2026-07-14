@@ -277,7 +277,7 @@ export const FRAMEWORKS: Record<string, Framework> = {
 };
 
 // Queensland and Tasmania both adopt Australia's Disability Strategy 7 outcome
-// areas verbatim as their own plan structure, and neither statutorily mandates
+// areas verbatim as their own plan structure and neither statutorily mandates
 // council plans - so they reuse the national ADS domains, badged voluntary.
 FRAMEWORKS['AU-QLD'] = {
   key: 'AU-QLD',

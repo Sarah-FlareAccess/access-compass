@@ -2,7 +2,7 @@
  * Help Content Index
  *
  * Exports all help content and provides lookup functions
- * for accessing help by question ID, module, or DIAP category.
+ * for accessing help by question ID, module or DIAP category.
  */
 
 import type {
@@ -79,7 +79,7 @@ export function searchHelp(query: string): HelpContent[] {
   if (!lowerQuery) return [];
 
   return allHelpContent.filter((content) => {
-    // Search in title, summary, and keywords
+    // Search in title, summary and keywords
     const searchableText = [
       content.title,
       content.summary,

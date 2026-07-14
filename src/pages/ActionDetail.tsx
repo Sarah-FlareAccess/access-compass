@@ -139,7 +139,7 @@ export default function ActionDetail() {
               <div className="form-group">
                 <label>
                   Notes
-                  <span className="field-hint">Add any notes, progress updates, or blockers...</span>
+                  <span className="field-hint">Add any notes, progress updates or blockers...</span>
                   <textarea
                     value={diapFields.notes}
                     onChange={(e) => setDiapFields({ ...diapFields, notes: e.target.value })}

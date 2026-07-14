@@ -4,9 +4,9 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
   id: 'course-ai-accessible-resources',
   slug: 'ai-accessible-resources',
   title: 'Using AI to Create Accessible & Inclusive Resources',
-  subtitle: 'A practical mini-program for creating Easy Read, Plain Language, social stories, sensory maps, and more',
-  description: 'Learn to use AI tools like Claude, ChatGPT, Copilot, and Gemini to create high-quality accessible resources. This beginner-friendly program walks you through structured prompting methods and real-world exercises.',
-  longDescription: 'This seven-lesson program teaches you a practical, repeatable method for using generative AI to create accessible and inclusive resources. You will learn to create Easy Read documents, Plain Language content, social stories, pre-visit guides, sensory maps, visual schedules, large print materials, and accessibility guides. Each lesson includes video instruction, hands-on exercises, reusable prompt templates, and quality checklists aligned with Inclusion Australia guidelines and the Australian Government Style Manual.',
+  subtitle: 'A practical mini-program for creating Easy Read, Plain Language, social stories, sensory maps and more',
+  description: 'Learn to use AI tools like Claude, ChatGPT, Copilot and Gemini to create high-quality accessible resources. This beginner-friendly program walks you through structured prompting methods and real-world exercises.',
+  longDescription: 'This seven-lesson program teaches you a practical, repeatable method for using generative AI to create accessible and inclusive resources. You will learn to create Easy Read documents, Plain Language content, social stories, pre-visit guides, sensory maps, visual schedules, large print materials and accessibility guides. Each lesson includes video instruction, hands-on exercises, reusable prompt templates and quality checklists aligned with Inclusion Australia guidelines and the Australian Government Style Manual.',
   category: 'ai-tools',
   accessTier: 'premium',
   totalEstimatedMinutes: 160,
@@ -24,7 +24,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
     'Use a structured 5-step prompting method to produce accessible content with AI',
     'Create Easy Read documents that follow Inclusion Australia guidelines',
     'Write social stories and pre-visit guides for neurodiverse audiences',
-    'Produce sensory maps, visual schedules, and accessibility guides',
+    'Produce sensory maps, visual schedules and accessibility guides',
     'Convert existing documents to Plain Language and Large Print formats',
     'Apply quality review checklists to ensure content meets Australian standards',
     'Maintain and update accessible resources as part of an ongoing workflow',
@@ -32,12 +32,12 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
   prerequisites: [
     'No prior AI experience required',
     'Basic computer literacy (web browsing, copy-paste, file management)',
-    'Access to at least one AI tool (free tiers of ChatGPT, Claude, Copilot, or Gemini are sufficient)',
+    'Access to at least one AI tool (free tiers of ChatGPT, Claude, Copilot or Gemini are sufficient)',
   ],
   courseDownloads: [
     {
       title: 'Complete Course Workbook',
-      description: 'All prompt templates, quality checklists, and exercise worksheets in one document',
+      description: 'All prompt templates, quality checklists and exercise worksheets in one document',
       fileName: 'ai-accessible-resources-workbook.pdf',
       fileUrl: '/training/downloads/ai-accessible-resources-workbook.pdf',
       fileType: 'PDF',
@@ -53,7 +53,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
       courseId: 'course-ai-accessible-resources',
       title: 'Why Accessible Resources Matter',
       subtitle: 'The case for inclusive communications',
-      description: 'Understand who benefits from accessible resources, why they matter, and what formats you will learn to create in this program.',
+      description: 'Understand who benefits from accessible resources, why they matter and what formats you will learn to create in this program.',
       order: 1,
       estimatedMinutes: 15,
       accessTier: 'free',
@@ -73,7 +73,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
         {
           type: 'text',
           heading: 'The accessibility gap in everyday communications',
-          body: `<p>44% of Australian adults have literacy levels below what is needed to cope with the demands of everyday life (ABS, Programme for the International Assessment of Adult Competencies). That means nearly half of your potential audience may struggle with standard documents, forms, and communications.</p>
+          body: `<p>44% of Australian adults have literacy levels below what is needed to cope with the demands of everyday life (ABS, Programme for the International Assessment of Adult Competencies). That means nearly half of your potential audience may struggle with standard documents, forms and communications.</p>
 <p>Accessible resources are not just "nice to have." They are essential for reaching people with:</p>
 <ul>
 <li>Intellectual disability or learning difficulties</li>
@@ -90,8 +90,8 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
           heading: 'What you will create in this program',
           body: `<p>Over seven lessons, you will learn to use AI tools to create:</p>
 <ul>
-<li><strong>Easy Read documents</strong> using short sentences, simple words, and supporting images</li>
-<li><strong>Plain Language content</strong> that is clear, concise, and jargon-free</li>
+<li><strong>Easy Read documents</strong> using short sentences, simple words and supporting images</li>
+<li><strong>Plain Language content</strong> that is clear, concise and jargon-free</li>
 <li><strong>Social stories</strong> that prepare people for new experiences</li>
 <li><strong>Pre-visit guides</strong> with step-by-step information about visiting a venue</li>
 <li><strong>Sensory maps</strong> that describe the sensory environment of a space</li>
@@ -104,7 +104,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
           type: 'callout',
           callout: {
             variant: 'info',
-            text: 'This program uses a tool-agnostic approach. The prompting methods work with Claude, ChatGPT, Microsoft Copilot, Google Gemini, and other generative AI tools. You only need access to one.',
+            text: 'This program uses a tool-agnostic approach. The prompting methods work with Claude, ChatGPT, Microsoft Copilot, Google Gemini and other generative AI tools. You only need access to one.',
           },
         },
         {
@@ -126,7 +126,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
         {
           type: 'text',
           heading: 'How AI fits in',
-          body: `<p>AI does not replace the need for consultation with people with disability, but it dramatically reduces the time and cost of creating a first draft. A document that might take days to write from scratch can be drafted in minutes, freeing you to focus on review, refinement, and co-design.</p>
+          body: `<p>AI does not replace the need for consultation with people with disability, but it dramatically reduces the time and cost of creating a first draft. A document that might take days to write from scratch can be drafted in minutes, freeing you to focus on review, refinement and co-design.</p>
 <p>In the next lesson, you will learn the Structured Prompting Method: a 5-step approach that produces consistently high-quality results from any AI tool.</p>`,
         },
       ],
@@ -165,7 +165,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
 <li><strong>Audience</strong>: Define who the content is for (e.g., "adults with intellectual disability" or "families preparing for their first visit")</li>
 <li><strong>Format</strong>: Specify the output format and its rules (e.g., "Easy Read: one idea per sentence, no jargon, suggest image placement")</li>
 <li><strong>Content</strong>: Provide the source material or topic to be transformed</li>
-<li><strong>Constraints</strong>: Add quality criteria, word limits, tone, standards to follow, and anything to avoid</li>
+<li><strong>Constraints</strong>: Add quality criteria, word limits, tone, standards to follow and anything to avoid</li>
 </ol>
 <p>When you include all five steps, the AI has enough context to produce a strong first draft that needs only minor editing rather than a complete rewrite.</p>`,
         },
@@ -185,7 +185,7 @@ export const aiAccessibleResourcesCourse: TrainingCourse = {
           type: 'exercise',
           exercise: {
             title: 'Exercise: Create a Plain Language version',
-            instructions: 'Take a paragraph from your organisation\'s website (e.g., an "About Us" section, a policy statement, or a service description) and use the Structured Prompting Method to convert it to Plain Language. Paste the original text where indicated in the prompt template below.',
+            instructions: 'Take a paragraph from your organisation\'s website (e.g., an "About Us" section, a policy statement or a service description) and use the Structured Prompting Method to convert it to Plain Language. Paste the original text where indicated in the prompt template below.',
             promptTemplate: `Role: You are a Plain Language specialist who follows the Australian Government Style Manual.
 
 Audience: General public readers, including people with low English literacy and people who use English as an additional language. Aim for a reading level equivalent to Year 7-8 (age 12-13).
@@ -210,10 +210,10 @@ Constraints:
               'Try the same text in two different AI tools and compare the results',
             ],
             exampleOutput: `Original (62 words):
-"The organisation endeavours to facilitate optimal outcomes for all stakeholders through the implementation of comprehensive accessibility protocols that are aligned with current legislative requirements and international best-practice frameworks, ensuring that all individuals regardless of their abilities are afforded equitable access to services, programs, and facilities."
+"The organisation endeavours to facilitate optimal outcomes for all stakeholders through the implementation of comprehensive accessibility protocols that are aligned with current legislative requirements and international best-practice frameworks, ensuring that all individuals regardless of their abilities are afforded equitable access to services, programs and facilities."
 
 Plain Language (32 words):
-"We work to make our services, programs, and facilities accessible to everyone. We follow Australian accessibility laws and international best-practice guidelines. Our goal is equal access for all people, including people with disability."`,
+"We work to make our services, programs and facilities accessible to everyone. We follow Australian accessibility laws and international best-practice guidelines. Our goal is equal access for all people, including people with disability."`,
           },
         },
         {
@@ -246,7 +246,7 @@ Plain Language (32 words):
       courseId: 'course-ai-accessible-resources',
       title: 'Creating Easy Read Documents',
       subtitle: 'Inclusion Australia guidelines and AI workflows',
-      description: 'Learn Easy Read principles, formatting rules from Inclusion Australia, and how to use AI to create Easy Read content with proper image placement suggestions.',
+      description: 'Learn Easy Read principles, formatting rules from Inclusion Australia and how to use AI to create Easy Read content with proper image placement suggestions.',
       order: 3,
       estimatedMinutes: 30,
       accessTier: 'premium',
@@ -265,7 +265,7 @@ Plain Language (32 words):
         {
           type: 'text',
           heading: 'What is Easy Read?',
-          body: `<p>Easy Read is a way of writing information so it is easier to understand. It was developed for people with intellectual disability, but it benefits many people including those with low literacy, acquired brain injury, or English as an additional language.</p>
+          body: `<p>Easy Read is a way of writing information so it is easier to understand. It was developed for people with intellectual disability, but it benefits many people including those with low literacy, acquired brain injury or English as an additional language.</p>
 <p>Easy Read uses:</p>
 <ul>
 <li>Short sentences with one idea each</li>
@@ -281,7 +281,7 @@ Plain Language (32 words):
           type: 'callout',
           callout: {
             variant: 'warning',
-            text: 'Easy Read is not the same as Plain Language. Easy Read is simpler, uses images, and typically has one sentence per line. Plain Language is simpler than standard writing but still uses paragraphs and more complex sentence structures.',
+            text: 'Easy Read is not the same as Plain Language. Easy Read is simpler, uses images and typically has one sentence per line. Plain Language is simpler than standard writing but still uses paragraphs and more complex sentence structures.',
           },
         },
         {
@@ -304,7 +304,7 @@ Plain Language (32 words):
           type: 'exercise',
           exercise: {
             title: 'Exercise: Create an Easy Read document',
-            instructions: 'Choose a short document from your organisation (a policy summary, welcome letter, or event information) and use the prompt template below to create an Easy Read version. After the AI produces the text, you will need to add images manually or use an image-generation tool.',
+            instructions: 'Choose a short document from your organisation (a policy summary, welcome letter or event information) and use the prompt template below to create an Easy Read version. After the AI produces the text, you will need to add images manually or use an image-generation tool.',
             promptTemplate: `Role: You are an Easy Read content specialist. You follow Inclusion Australia's guidelines for creating Easy Read information.
 
 Audience: Adults with intellectual disability. The content must be understandable by people with a reading age of approximately 8-10 years.
@@ -326,12 +326,12 @@ Content: Please convert the following text to Easy Read format:
 
 Constraints:
 - Do not add information that is not in the original
-- Do not use metaphors, idioms, or figures of speech
+- Do not use metaphors, idioms or figures of speech
 - Do not use abbreviations unless you explain them first
 - Keep the document structure logical (introduction, main points, what to do next)
 - Use Australian English spelling
 - At the end, list any hard words you had to include and their Easy Read definitions`,
-            expectedOutcome: 'An Easy Read version of your document with one sentence per line, image placement suggestions, and a word list for any unavoidable complex terms.',
+            expectedOutcome: 'An Easy Read version of your document with one sentence per line, image placement suggestions and a word list for any unavoidable complex terms.',
             tips: [
               'Start with a short document (under 500 words) for your first attempt',
               'Check that every sentence truly has only one idea',
@@ -378,7 +378,7 @@ Hard words:
               'Every key idea has an image suggestion',
               'Text uses "you" or "we" (not third person)',
               'All sentences use active voice',
-              'No metaphors, idioms, or figures of speech',
+              'No metaphors, idioms or figures of speech',
               'No abbreviations without explanation',
               'Content follows a logical order',
               'A contents page is included for documents over 4 pages',
@@ -422,7 +422,7 @@ Hard words:
         {
           type: 'text',
           heading: 'What are social stories?',
-          body: `<p>Social stories were developed by Carol Gray in 1991. They are short, personalised stories that describe a situation, skill, or concept using specific guidelines. They help people (particularly autistic people and children) understand what to expect in a new or unfamiliar situation.</p>
+          body: `<p>Social stories were developed by Carol Gray in 1991. They are short, personalised stories that describe a situation, skill or concept using specific guidelines. They help people (particularly autistic people and children) understand what to expect in a new or unfamiliar situation.</p>
 <p>A social story follows a specific sentence ratio:</p>
 <ul>
 <li><strong>Descriptive sentences</strong>: Describe what happens ("The library has many books on shelves.")</li>
@@ -437,7 +437,7 @@ Hard words:
           heading: 'What are pre-visit guides?',
           body: `<p>Pre-visit guides are practical, step-by-step documents that help someone prepare for visiting a venue or attending an event. They typically include:</p>
 <ul>
-<li>Photos of the exterior, entrance, and key areas</li>
+<li>Photos of the exterior, entrance and key areas</li>
 <li>Information about what will happen, in chronological order</li>
 <li>Sensory information (noise levels, lighting, smells)</li>
 <li>Practical details (parking, toilets, food, quiet spaces)</li>
@@ -473,12 +473,12 @@ Option B - Pre-visit guide:
 - [PHOTO] suggestions for each step
 - Written in second person ("you")
 
-Content: The venue/event is [DESCRIBE YOUR VENUE OR EVENT: include name, type of venue, what happens there, any sensory features like noise or lighting, key areas visitors go to, and any accessibility features you have].
+Content: The venue/event is [DESCRIBE YOUR VENUE OR EVENT: include name, type of venue, what happens there, any sensory features like noise or lighting, key areas visitors go to and any accessibility features you have].
 
 Constraints:
 - Use simple, concrete language
-- Avoid idioms, metaphors, and abstract concepts
-- Include what the person might see, hear, feel, and smell
+- Avoid idioms, metaphors and abstract concepts
+- Include what the person might see, hear, feel and smell
 - Include at least one reference to what to do if feeling overwhelmed (quiet space, asking for help)
 - Australian English spelling`,
             expectedOutcome: 'A complete social story (10-15 sentences with correct sentence ratio) or pre-visit guide (chronological steps with sensory details) tailored to your specific venue.',
@@ -501,14 +501,14 @@ Constraints:
     },
 
     // ========================================
-    // LESSON 5: Sensory Maps, Visual Schedules, and Accessibility Guides
+    // LESSON 5: Sensory Maps, Visual Schedules and Accessibility Guides
     // ========================================
     {
       id: 'lesson-5-sensory-maps',
       courseId: 'course-ai-accessible-resources',
       title: 'Sensory Maps, Visual Schedules and Accessibility Guides',
       subtitle: 'Creating spatial and sequential accessible resources',
-      description: 'Learn format principles for sensory maps, visual schedules, and accessibility guides, then create one for your venue using AI.',
+      description: 'Learn format principles for sensory maps, visual schedules and accessibility guides, then create one for your venue using AI.',
       order: 5,
       estimatedMinutes: 25,
       accessTier: 'premium',
@@ -518,7 +518,7 @@ Constraints:
           type: 'video',
           video: {
             vimeoId: '000000005',
-            title: 'Sensory Maps, Visual Schedules, and Accessibility Guides',
+            title: 'Sensory Maps, Visual Schedules and Accessibility Guides',
             duration: '11:00',
             hasCaptions: true,
             hasTranscript: true,
@@ -527,7 +527,7 @@ Constraints:
         {
           type: 'text',
           heading: 'Sensory maps',
-          body: `<p>A sensory map describes the sensory environment of a space: what you might see, hear, feel, and smell in each area. They help people with sensory processing differences plan their visit and identify areas they might want to avoid or spend more time in.</p>
+          body: `<p>A sensory map describes the sensory environment of a space: what you might see, hear, feel and smell in each area. They help people with sensory processing differences plan their visit and identify areas they might want to avoid or spend more time in.</p>
 <p>Key elements of a sensory map:</p>
 <ul>
 <li><strong>Area-by-area breakdown</strong>: Each distinct zone or room gets its own section</li>
@@ -546,7 +546,7 @@ Constraints:
 <li>Event timelines (what happens first, next, last)</li>
 <li>Step-by-step processes (checking in, using a self-service kiosk)</li>
 </ul>
-<p>Each step should have: a number, a simple image or icon, a short label (2-5 words), and optionally a time.</p>`,
+<p>Each step should have: a number, a simple image or icon, a short label (2-5 words) and optionally a time.</p>`,
         },
         {
           type: 'text',
@@ -557,18 +557,18 @@ Constraints:
 <li>Sensory access: hearing loops, quiet spaces, lighting, tactile features</li>
 <li>Communication: staff training, Auslan, Easy Read materials available</li>
 <li>Getting there: accessible transport options, drop-off zones</li>
-<li>What to expect: typical noise, crowd levels, and duration</li>
+<li>What to expect: typical noise, crowd levels and duration</li>
 <li>Contact: who to call with access questions</li>
 </ul>`,
         },
         {
           type: 'exercise',
           exercise: {
-            title: 'Exercise: Create a sensory map, visual schedule, or accessibility guide',
+            title: 'Exercise: Create a sensory map, visual schedule or accessibility guide',
             instructions: 'Choose the format most relevant to your venue or service and use the prompt template below. Provide as much detail about your space as possible.',
-            promptTemplate: `Role: You are an accessibility content specialist experienced in creating sensory maps, visual schedules, and accessibility guides for venues and events.
+            promptTemplate: `Role: You are an accessibility content specialist experienced in creating sensory maps, visual schedules and accessibility guides for venues and events.
 
-Audience: People with disability, their families, and support workers who are planning a visit. Content should be useful for people with sensory processing differences, mobility requirements, and communication needs.
+Audience: People with disability, their families and support workers who are planning a visit. Content should be useful for people with sensory processing differences, mobility requirements and communication needs.
 
 Format: [Choose one]
 Option A - Sensory map: Create an area-by-area sensory description with these columns: Area Name | Sound Level (quiet/moderate/loud) | Lighting (dim/natural/bright/fluorescent) | Smells | Floor Surface | Temperature | Notes. Include a "Quiet Spaces" section and a "Peak Times" note.
@@ -605,14 +605,14 @@ Constraints:
     },
 
     // ========================================
-    // LESSON 6: Large Print, Plain Language, and Other Formats
+    // LESSON 6: Large Print, Plain Language and Other Formats
     // ========================================
     {
       id: 'lesson-6-other-formats',
       courseId: 'course-ai-accessible-resources',
       title: 'Large Print, Plain Language and Other Formats',
       subtitle: 'Converting existing content to accessible formats',
-      description: 'Learn large print standards, the distinction between Plain Language and Easy Read, and how to convert existing documents into accessible formats.',
+      description: 'Learn large print standards, the distinction between Plain Language and Easy Read and how to convert existing documents into accessible formats.',
       order: 6,
       estimatedMinutes: 20,
       accessTier: 'premium',
@@ -622,7 +622,7 @@ Constraints:
           type: 'video',
           video: {
             vimeoId: '000000006',
-            title: 'Large Print, Plain Language, and Other Formats',
+            title: 'Large Print, Plain Language and Other Formats',
             duration: '9:45',
             hasCaptions: true,
             hasTranscript: true,
@@ -634,7 +634,7 @@ Constraints:
           body: `<p>Large print is one of the most commonly requested accessible formats, yet many organisations get it wrong. Key standards:</p>
 <ul>
 <li><strong>Minimum 18pt font</strong> for body text (Vision Australia recommends 18pt as large print, 24pt+ for giant print)</li>
-<li><strong>Sans-serif fonts</strong>: Arial, Helvetica, Verdana, or Calibri. Avoid decorative fonts</li>
+<li><strong>Sans-serif fonts</strong>: Arial, Helvetica, Verdana or Calibri. Avoid decorative fonts</li>
 <li><strong>Bold for headings</strong>, not italics (italics are harder to read at large sizes)</li>
 <li><strong>High contrast</strong>: Black text on white or cream background. Avoid coloured text on coloured backgrounds</li>
 <li><strong>Line spacing</strong>: 1.5 to 2.0 line spacing</li>
@@ -647,15 +647,15 @@ Constraints:
           type: 'text',
           heading: 'Plain Language vs Easy Read',
           body: `<p>These two formats are often confused. Here is how they differ:</p>
-<p><strong>Plain Language</strong> (covered in Lesson 2) targets the general public. It uses short sentences, active voice, and common words, but still uses paragraphs, moderate sentence complexity, and assumes basic literacy. Reading level target: Year 7-8 (age 12-13).</p>
-<p><strong>Easy Read</strong> (covered in Lesson 3) targets people with intellectual disability or very low literacy. It uses one idea per sentence, images supporting every concept, and much simpler vocabulary. Reading level target: Year 3-4 (age 8-10).</p>
-<p>For most organisations, you should offer both: Plain Language as your default communication style, and Easy Read as an alternative format available on request or downloadable from your website.</p>`,
+<p><strong>Plain Language</strong> (covered in Lesson 2) targets the general public. It uses short sentences, active voice and common words, but still uses paragraphs, moderate sentence complexity and assumes basic literacy. Reading level target: Year 7-8 (age 12-13).</p>
+<p><strong>Easy Read</strong> (covered in Lesson 3) targets people with intellectual disability or very low literacy. It uses one idea per sentence, images supporting every concept and much simpler vocabulary. Reading level target: Year 3-4 (age 8-10).</p>
+<p>For most organisations, you should offer both: Plain Language as your default communication style and Easy Read as an alternative format available on request or downloadable from your website.</p>`,
         },
         {
           type: 'exercise',
           exercise: {
             title: 'Exercise: Convert an existing document',
-            instructions: 'Take a document your organisation currently publishes (a policy, brochure, form, or webpage) and use the prompt below to convert it to Large Print format guidelines AND Plain Language in one pass.',
+            instructions: 'Take a document your organisation currently publishes (a policy, brochure, form or webpage) and use the prompt below to convert it to Large Print format guidelines AND Plain Language in one pass.',
             promptTemplate: `Role: You are a document accessibility specialist experienced in creating large print and Plain Language versions of standard business documents.
 
 Audience: People with low vision (large print version) and the general public including people with low literacy (Plain Language version).
@@ -687,7 +687,7 @@ Constraints:
 - Flag anything that may need a subject matter expert to simplify
 - Australian English spelling
 - For the large print version, note any content that would not work well at 18pt (e.g., complex diagrams, dense tables)`,
-            expectedOutcome: 'Two ready-to-use versions of your document: one with large print formatting guidance, and one rewritten in Plain Language.',
+            expectedOutcome: 'Two ready-to-use versions of your document: one with large print formatting guidance and one rewritten in Plain Language.',
             tips: [
               'For the large print version, actually set your word processor to 18pt Arial and see how it looks before publishing',
               'Test the Plain Language version with someone outside your industry to check if they understand it',
@@ -699,21 +699,21 @@ Constraints:
           type: 'callout',
           callout: {
             variant: 'info',
-            text: 'Other accessible formats to consider: audio descriptions, Auslan (Australian Sign Language) video translations, Braille, and digital accessible formats (tagged PDFs, HTML). AI can help draft the text content, but specialist providers are needed for Auslan, Braille, and audio production.',
+            text: 'Other accessible formats to consider: audio descriptions, Auslan (Australian Sign Language) video translations, Braille and digital accessible formats (tagged PDFs, HTML). AI can help draft the text content, but specialist providers are needed for Auslan, Braille and audio production.',
           },
         },
       ],
     },
 
     // ========================================
-    // LESSON 7: Review, Refine, and Maintain
+    // LESSON 7: Review, Refine and Maintain
     // ========================================
     {
       id: 'lesson-7-review-refine',
       courseId: 'course-ai-accessible-resources',
       title: 'Review, Refine and Maintain',
       subtitle: 'Quality assurance and ongoing workflows',
-      description: 'Learn to review AI-generated content against the Australian Government Style Manual and Inclusion Australia guidelines, set up a maintenance workflow, and plan next steps.',
+      description: 'Learn to review AI-generated content against the Australian Government Style Manual and Inclusion Australia guidelines, set up a maintenance workflow and plan next steps.',
       order: 7,
       estimatedMinutes: 20,
       accessTier: 'premium',
@@ -723,7 +723,7 @@ Constraints:
           type: 'video',
           video: {
             vimeoId: '000000007',
-            title: 'Review, Refine, and Maintain',
+            title: 'Review, Refine and Maintain',
             duration: '10:00',
             hasCaptions: true,
             hasTranscript: true,
@@ -751,14 +751,14 @@ Constraints:
 <li><strong>Accuracy check</strong>: Compare side-by-side with the source. Is all essential information present? Has anything been added that was not in the original?</li>
 <li><strong>Format compliance</strong>: Use the relevant checklist (Easy Read, Plain Language, Large Print, etc.) to verify format rules are followed</li>
 <li><strong>Readability test</strong>: Read the content aloud. Does it flow naturally? Would the target audience understand every sentence?</li>
-<li><strong>Lived experience review</strong>: Have the content reviewed by someone from the target audience, or by an advocacy organisation. This is the most important step and cannot be replaced by AI</li>
+<li><strong>Lived experience review</strong>: Have the content reviewed by someone from the target audience or by an advocacy organisation. This is the most important step and cannot be replaced by AI</li>
 </ol>`,
         },
         {
           type: 'exercise',
           exercise: {
             title: 'Exercise: Peer review using the quality checklist',
-            instructions: 'Take one of the documents you created in a previous lesson (Easy Read, social story, or Plain Language version) and work through the review checklist below. Mark each item as Pass, Fail, or N/A. Fix any failures using a follow-up AI prompt or manual editing.',
+            instructions: 'Take one of the documents you created in a previous lesson (Easy Read, social story or Plain Language version) and work through the review checklist below. Mark each item as Pass, Fail or N/A. Fix any failures using a follow-up AI prompt or manual editing.',
             promptTemplate: `Role: You are a quality reviewer for accessible content. You check content against Inclusion Australia Easy Read guidelines and the Australian Government Style Manual for Plain Language.
 
 Audience: Internal team member reviewing AI-generated accessible content before publication.
@@ -796,7 +796,7 @@ Constraints:
 <li><strong>Trigger-based updates</strong>: Update whenever the source content changes (new opening hours, new services, renovations)</li>
 <li><strong>Version control</strong>: Keep the AI conversation/prompts you used so you can re-run them with updated content</li>
 <li><strong>Feedback loop</strong>: Add a "Was this helpful?" feedback mechanism to published resources</li>
-<li><strong>Format register</strong>: Maintain a list of which documents have which accessible versions, and when each was last updated</li>
+<li><strong>Format register</strong>: Maintain a list of which documents have which accessible versions and when each was last updated</li>
 </ul>`,
         },
         {
@@ -831,10 +831,10 @@ Constraints:
 <li>Plain Language content meeting Style Manual standards</li>
 <li>Social stories using the Carol Gray framework</li>
 <li>Pre-visit guides with sensory and practical information</li>
-<li>Sensory maps, visual schedules, and accessibility guides</li>
+<li>Sensory maps, visual schedules and accessibility guides</li>
 <li>Large print materials meeting vision accessibility standards</li>
 </ul>
-<p>Remember: AI accelerates the creation process, but the quality of your accessible resources ultimately depends on review, refinement, and input from people with lived experience of disability. Keep practising, keep iterating, and keep including people with disability in the process.</p>`,
+<p>Remember: AI accelerates the creation process, but the quality of your accessible resources ultimately depends on review, refinement and input from people with lived experience of disability. Keep practising, keep iterating and keep including people with disability in the process.</p>`,
         },
       ],
     },

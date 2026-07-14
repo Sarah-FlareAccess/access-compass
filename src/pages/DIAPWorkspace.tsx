@@ -98,11 +98,11 @@ function resourceLinkForItem(item: DIAPItem): { to: string; label: string } {
 const DIAP_FEATURES: GuideFeature[] = [
   { icon: Plus, title: 'Add a DIAP item', description: 'Click "Add Item" in the top-right to create a new action item manually.' },
   { icon: Zap, title: 'Generate from responses', description: 'Auto-populate action items from your completed module assessment findings.' },
-  { icon: Upload, title: 'Import and export', description: 'Import from CSV, Excel, or PDF. Export as CSV or formatted PDF to share with management.' },
-  { icon: Paperclip, title: 'Upload evidence', description: 'Attach photos, quotes, or research to each action item as supporting evidence.' },
+  { icon: Upload, title: 'Import and export', description: 'Import from CSV, Excel or PDF. Export as CSV or formatted PDF to share with management.' },
+  { icon: Paperclip, title: 'Upload evidence', description: 'Attach photos, quotes or research to each action item as supporting evidence.' },
   { icon: UsersIcon, title: 'Assign responsibility', description: 'Set a responsible role for each item so ownership is clear.' },
   { icon: CalendarDays, title: 'Set due dates', description: 'Add a due date for accountability. Cards colour-code automatically as deadlines approach.' },
-  { icon: Filter, title: 'Filter items', description: 'Filter by status, priority, category, assigned role, or due date. Click a summary card to jump to that section.' },
+  { icon: Filter, title: 'Filter items', description: 'Filter by status, priority, category, assigned role or due date. Click a summary card to jump to that section.' },
 ];
 
 // Filter types are Set-based for multi-select
@@ -135,7 +135,7 @@ function saveManagedRoles(roles: string[]) {
   localStorage.setItem(DIAP_ROLES_KEY, JSON.stringify(roles));
 }
 
-// Moves focus into a dialog when it opens, keeps Tab cycling within it, and
+// Moves focus into a dialog when it opens, keeps Tab cycling within it and
 // restores focus to the trigger when it closes. Attach the returned ref to the
 // dialog container (give the container tabIndex={-1} as a focus fallback).
 function useFocusTrap<T extends HTMLElement>(active: boolean) {
@@ -205,7 +205,7 @@ export default function DIAPWorkspace() {
   const [activeSiteId] = useActiveSiteId();
   const activeSiteName = sites.find(s => s.id === activeSiteId)?.name;
   // Site filter for the action plan. Empty = all (org-wide + every site).
-  // Entries are site ids, or ORG_WIDE_SITE for items with no site.
+  // Entries are site ids or ORG_WIDE_SITE for items with no site.
   const [filterSites, setFilterSites] = useState<Set<string>>(
     () => (activeSiteId ? new Set([activeSiteId]) : new Set()),
   );
@@ -872,7 +872,7 @@ export default function DIAPWorkspace() {
 
   // Whether any filter beyond the default venue scope is narrowing the view.
   // The site chip follows the active venue by default; anything else (status,
-  // priority, category, role, due date, or a manual site override) means the
+  // priority, category, role, due date or a manual site override) means the
   // list and export show only a subset.
   const filtersApplied = useMemo(() => {
     const nonSite = filterStatuses.size > 0 || filterCategories.size > 0
@@ -939,7 +939,7 @@ export default function DIAPWorkspace() {
     });
   };
 
-  // Select all shown actions, or clear them if all are already selected.
+  // Select all shown actions or clear them if all are already selected.
   const allShownSelected = filteredItems.length > 0 && filteredItems.every(i => selectedIds.has(i.id));
   const toggleSelectAll = () => {
     setSelectedIds(prev => {
@@ -1258,7 +1258,7 @@ export default function DIAPWorkspace() {
   // for EVERY venue that has a completed assessment but no actions yet, straight
   // from the cloud (not just the venue you're viewing). This is what makes the
   // plans "just work" - org-wide and every venue are populated on first load on
-  // any browser, and the results sync so they persist. Runs once per mount;
+  // any browser and the results sync so they persist. Runs once per mount;
   // generateFromResponses de-dupes per venue, so it's safe/idempotent.
   const backfilledRef = useRef(false);
   useEffect(() => {
@@ -1581,7 +1581,7 @@ export default function DIAPWorkspace() {
               This plan&rsquo;s actions cover {covered.length} of {frameworkOutcomes.domains.length} {frameworkOutcomes.fw.short} outcome domains
               {strongest && strongest.total > 0 && `, most under “${strongest.name}”`}.
               {gaps.length > 0
-                ? ` No actions are mapped yet to ${gaps.map(d => d.name).join(', ')} — review whether ${gaps.length === 1 ? 'this domain applies' : 'these domains apply'} to this venue, or add actions to strengthen coverage.`
+                ? ` No actions are mapped yet to ${gaps.map(d => d.name).join(', ')} — review whether ${gaps.length === 1 ? 'this domain applies' : 'these domains apply'} to this venue or add actions to strengthen coverage.`
                 : ' Every outcome domain has at least one action.'}
             </p>
             <div className="diap-fw-legend">
@@ -1745,7 +1745,7 @@ export default function DIAPWorkspace() {
                 {!importResult ? (
                   <>
                     <p className="import-intro">
-                      Add your existing Disability Inclusion Action Plan — paste it in, or upload from Excel, CSV, or PDF.
+                      Add your existing Disability Inclusion Action Plan — paste it in or upload from Excel, CSV or PDF.
                       Items are added to your current plan.
                     </p>
 
@@ -1754,7 +1754,7 @@ export default function DIAPWorkspace() {
                       <div className="import-option recommended">
                         <div className="import-option-icon">✍️</div>
                         <h3>Type or paste your actions</h3>
-                        <p>Paste one action per line, choose a category and status, then add them. Nothing is uploaded — your plan stays in your browser, and it still counts toward your maturity score.</p>
+                        <p>Paste one action per line, choose a category and status, then add them. Nothing is uploaded — your plan stays in your browser and it still counts toward your maturity score.</p>
                         <textarea
                           className="paste-actions-input"
                           value={pasteText}
@@ -1811,7 +1811,7 @@ export default function DIAPWorkspace() {
                           />
                         </div>
                         <p className="import-note">
-                          Your spreadsheet should have columns for Action/Task, and optionally: Priority, Status, Due Date, Responsible Person.
+                          Your spreadsheet should have columns for Action/Task and optionally: Priority, Status, Due Date, Responsible Person.
                         </p>
                       </div>
 
@@ -2217,7 +2217,7 @@ export default function DIAPWorkspace() {
           />
         )}
 
-        {/* View toolbar: List vs Board, and (on the board) Status vs Sections */}
+        {/* View toolbar: List vs Board and (on the board) Status vs Sections */}
         <div className="diap-view-toolbar">
           <div className="diap-view-toggle" role="group" aria-label="Choose view">
             <button
@@ -2683,7 +2683,7 @@ export default function DIAPWorkspace() {
                     <span className="upload-icon">+</span>
                     <span>Add evidence</span>
                   </label>
-                  <p className="upload-hint">PDF, Word, or images up to 10MB</p>
+                  <p className="upload-hint">PDF, Word or images up to 10MB</p>
                 </div>
 
                 {documents.length > 0 && (
@@ -4021,7 +4021,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
       <div className="form-row">
         <label>
           Success Indicators
-          <span className="field-hint">How will you measure success? These are suggested starting points based on Australian accessibility standards and best practice. Please adjust the targets, timeframes, and percentages to suit your business size, resources, and context.</span>
+          <span className="field-hint">How will you measure success? These are suggested starting points based on Australian accessibility standards and best practice. Please adjust the targets, timeframes and percentages to suit your business size, resources and context.</span>
           <textarea
             value={formData.successIndicators}
             onChange={(e) => setFormData({ ...formData, successIndicators: e.target.value })}
@@ -4058,7 +4058,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
           <label>
             Evidence
             <span className="field-hint">
-              Upload photos, quotes, research, or documents. Examples: site photos showing current state,
+              Upload photos, quotes, research or documents. Examples: site photos showing current state,
               supplier quotes for improvements, staff training certificates, policy documents.
             </span>
           </label>

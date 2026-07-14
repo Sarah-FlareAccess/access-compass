@@ -228,7 +228,7 @@ function saveLocalProgress(progress: Record<string, ModuleProgress>, siteId: str
         window.dispatchEvent(new CustomEvent('access-compass:storage-warning', {
           detail: {
             level: 'error',
-            message: 'We couldn\'t save your latest changes on this device. Try refreshing the page, or signing in so your work syncs to the cloud.',
+            message: 'We couldn\'t save your latest changes on this device. Try refreshing the page or signing in so your work syncs to the cloud.',
           },
         }));
       }

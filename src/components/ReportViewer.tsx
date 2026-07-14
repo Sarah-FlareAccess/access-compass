@@ -1332,7 +1332,7 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
               <h2>Important Disclaimer</h2>
               <p>
                 This guidance is for information only. It is not legal advice, a compliance
-                certificate, or a substitute for professional accessibility auditing. Actions are
+                certificate or a substitute for professional accessibility auditing. Actions are
                 suggestions based on your responses.
               </p>
               <p>

@@ -478,7 +478,7 @@ export function ModuleRunSelector({
           {view === 'new' && (
             <div className="new-run-form">
               <p className="form-intro">
-                Start a new assessment to track progress over time, compare different teams or departments,
+                Start a new assessment to track progress over time, compare different teams or departments
                 or evaluate recurring events.
               </p>
 
@@ -576,7 +576,7 @@ export function ModuleRunSelector({
           {view === 'compare' && (
             <div className="compare-view">
               <p className="form-intro">
-                Compare two assessments to track progress, identify improvements, and see where more work is needed.
+                Compare two assessments to track progress, identify improvements and see where more work is needed.
               </p>
 
               <div className="compare-selectors">

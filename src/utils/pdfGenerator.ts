@@ -2,7 +2,7 @@
  * PDF Report Generator
  *
  * Generates professionally formatted PDF reports using jsPDF.
- * Includes headers, footers, page numbers, and proper formatting.
+ * Includes headers, footers, page numbers and proper formatting.
  */
 
 import jsPDF from 'jspdf';
@@ -100,7 +100,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   let currentPage = 1;
   let yPosition = PAGE.marginTop;
 
-  // Contents-page support: record the page each section title lands on, and
+  // Contents-page support: record the page each section title lands on and
   // where each contents line was drawn, so a second pass can fill in accurate
   // page numbers (the pages are not known when the contents page is drawn).
   const sectionPages = new Map<string, number>();
@@ -1820,7 +1820,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
   const disclaimerLines = doc.splitTextToSize(
-    'This guidance is for information only. It is not legal advice, a compliance certificate, or a substitute for professional accessibility auditing. Actions are suggestions based on your responses. This review is indicative only and based on self-reported information. It does not verify accuracy or confirm compliance with accessibility standards or legal requirements.',
+    'This guidance is for information only. It is not legal advice, a compliance certificate or a substitute for professional accessibility auditing. Actions are suggestions based on your responses. This review is indicative only and based on self-reported information. It does not verify accuracy or confirm compliance with accessibility standards or legal requirements.',
     PAGE.contentWidth - 12
   );
   const disclaimerBoxH = disclaimerLines.length * 5 + 8;

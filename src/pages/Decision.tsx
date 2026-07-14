@@ -212,7 +212,7 @@ export default function Decision() {
         console.error('[handleSignUp] SignUp error:', signUpError);
         const msg = signUpError.message?.toLowerCase() || '';
         if (msg.includes('already') || msg.includes('exists')) {
-          setError('An account with this email already exists. Please sign in instead, or use a different email.');
+          setError('An account with this email already exists. Please sign in instead or use a different email.');
         } else if (msg.includes('password') && (msg.includes('weak') || msg.includes('short') || msg.includes('length'))) {
           setError('Password must be at least 8 characters. Please choose a stronger password.');
         } else if (msg.includes('email') && msg.includes('invalid')) {

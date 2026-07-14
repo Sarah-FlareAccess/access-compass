@@ -17,14 +17,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Seating variety and wheelchair spaces',
   coveredQuestionIds: ['3.1-1-2', '3.1-D-1', '3.1-D-4', '3.1-D-5', '3.1-D-12', '3.1-D-13', '3.1-D-14'],
-  summary: 'Providing diverse seating options, designated wheelchair spaces with companion seating, and accessible seating during events and peak periods ensures every visitor can participate comfortably regardless of mobility, size, or pain needs.',
+  summary: 'Providing diverse seating options, designated wheelchair spaces with companion seating and accessible seating during events and peak periods ensures every visitor can participate comfortably regardless of mobility, size or pain needs.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
     text: 'Seating is not a one-size-fits-all proposition. People who use wheelchairs need clear floor space to pull up to a table or event row. People with chronic pain need seats with firm back support. People of larger body size need chairs without fixed armrests. Companion seating next to wheelchair spaces ensures people with disability can sit with family and friends rather than being isolated. During events and peak periods, accessible seating is often the first to be removed or repurposed, leaving wheelchair users with nowhere to go.',
     statistic: {
       value: '2.1 million',
-      context: 'Australians use mobility aids including wheelchairs, scooters, and walking frames. All need seating that works for them.',
+      context: 'Australians use mobility aids including wheelchairs, scooters and walking frames. All need seating that works for them.',
       source: 'ABS Survey of Disability, Ageing and Carers 2018'
     },
     quote: {
@@ -48,7 +48,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'Armchair',
-      text: 'Offer seats of varied types: standard, wide (EAS/extra-width), chairs with arms, and seats with back support.',
+      text: 'Offer seats of varied types: standard, wide (EAS/extra-width), chairs with arms and seats with back support.',
       detail: 'Wide Companion Area (WCA) seating is 600mm wide. Enhanced Amenity Seating (EAS) provides additional width and legroom. Extra-width seating accommodates people of larger body size. Having a mix available means fewer people need to ask for special treatment.',
       priority: 3
     },
@@ -61,7 +61,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'CalendarCheck',
       text: 'Protect accessible seating during events and peak periods.',
-      detail: 'Create a procedure that prevents accessible seating areas from being converted to standing room, storage, or additional standard seating during busy times. Brief event setup crews specifically about this.',
+      detail: 'Create a procedure that prevents accessible seating areas from being converted to standing room, storage or additional standard seating during busy times. Brief event setup crews specifically about this.',
       priority: 5
     },
     {
@@ -87,10 +87,10 @@ export const duringVisitHelp: HelpContent[] = [
         text: 'Check that each wheelchair space has a companion seat immediately adjacent, at the same level, without a fixed armrest blocking proximity.',
         measurement: { target: 'Companion seat gap', acceptable: 'Adjacent with no barrier, same floor level', unit: 'mm' }
       },
-      { text: 'Sit in a wheelchair or low seat at each accessible position and check whether the stage, screen, or main attraction is visible when other audience members are standing.' },
-      { text: 'Catalogue the range of seat types available: standard, wide/EAS/extra-width (minimum 600mm), armrest chairs, firm-back chairs, and seats with removable armrests.' },
+      { text: 'Sit in a wheelchair or low seat at each accessible position and check whether the stage, screen or main attraction is visible when other audience members are standing.' },
+      { text: 'Catalogue the range of seat types available: standard, wide/EAS/extra-width (minimum 600mm), armrest chairs, firm-back chairs and seats with removable armrests.' },
       { text: 'Check your booking system or reservation process. Can customers select or request accessible seating online without needing to phone?' },
-      { text: 'Simulate an event or peak scenario. Set up as you would for a busy period and confirm that accessible seating has not been displaced by extra chairs, equipment, or standing room.' },
+      { text: 'Simulate an event or peak scenario. Set up as you would for a busy period and confirm that accessible seating has not been displaced by extra chairs, equipment or standing room.' },
       { text: 'Review your event setup procedures or run sheets. Is there a specific step requiring staff to verify accessible seating is in place and unobstructed?' },
       { text: 'Check the floor surface at each wheelchair space. It must be level (maximum 1:40 gradient) and firm.' }
     ],
@@ -102,28 +102,28 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'Access-to-Premises',
       section: 'Part D3.8',
-      requirement: 'Wheelchair seating spaces must be provided in assembly buildings in accordance with Table D3.8. Spaces must have clear dimensions, be on an accessible path of travel, and have companion seating.'
+      requirement: 'Wheelchair seating spaces must be provided in assembly buildings in accordance with Table D3.8. Spaces must have clear dimensions, be on an accessible path of travel and have companion seating.'
     },
     related: [
-      { code: 'AS1428.1', relevance: 'Section 15 specifies wheelchair seating space dimensions (800mm x 1300mm), surface requirements, and adjacency to companion seating.' },
+      { code: 'AS1428.1', relevance: 'Section 15 specifies wheelchair seating space dimensions (800mm x 1300mm), surface requirements and adjacency to companion seating.' },
       { code: 'DDA', relevance: 'Discrimination includes providing inferior seating locations or failing to maintain accessible seating during events.' },
       { code: 'NCC', relevance: 'Table D3.8 sets ratios: 1 space for up to 100 seats, 2 for 101-400, then 1 additional per 200.' }
     ],
-    plainEnglish: 'If your venue has fixed seating or hosts events, you must provide wheelchair spaces that are properly sized, have companion seats, offer good sightlines, and are maintained during all events.',
+    plainEnglish: 'If your venue has fixed seating or hosts events, you must provide wheelchair spaces that are properly sized, have companion seats, offer good sightlines and are maintained during all events.',
     complianceNote: 'The ratios in Table D3.8 are minimums. Best practice is to exceed them and distribute accessible seating throughout the venue rather than concentrating it in one area.'
   },
 
   solutions: [
     {
       title: 'Designate and mark wheelchair spaces in existing seating',
-      description: 'Identify positions in your current layout that can serve as wheelchair spaces. Remove one or two fixed seats to create clear floor areas, add companion seat markers, and update your floor plan.',
+      description: 'Identify positions in your current layout that can serve as wheelchair spaces. Remove one or two fixed seats to create clear floor areas, add companion seat markers and update your floor plan.',
       resourceLevel: 'low',
       costRange: '$0-300',
       timeRequired: '2-4 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Walk your seating area and identify positions with the best combination of sightlines, level surface, and proximity to an accessible path.',
+        'Walk your seating area and identify positions with the best combination of sightlines, level surface and proximity to an accessible path.',
         'Remove or fold back one seat at each chosen position to create an 800mm x 1300mm clear floor space.',
         'Mark the companion seat next to each space. If it has a fixed armrest on the wheelchair-adjacent side, remove the armrest or replace the seat with one that has a flip-up arm.',
         'Place a small floor marker or tactile indicator at each wheelchair space so setup crews can locate them quickly.',
@@ -142,8 +142,8 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Audit your current seat inventory by type, width, and condition.',
-        'Purchase additional seat types to fill gaps: at least 10% wide or extra-width seats (600mm+), chairs with firm lumbar support, and seats with flip-up armrests.',
+        'Audit your current seat inventory by type, width and condition.',
+        'Purchase additional seat types to fill gaps: at least 10% wide or extra-width seats (600mm+), chairs with firm lumbar support and seats with flip-up armrests.',
         'Design two or three layout templates for different event sizes, each showing wheelchair space locations distributed throughout the seating area.',
         'Install removable seat brackets or floor sockets that allow seats to be removed to create wheelchair spaces at various positions.',
         'Create a written seating policy that specifies the minimum number and distribution of wheelchair spaces for each event type.',
@@ -151,11 +151,11 @@ export const duringVisitHelp: HelpContent[] = [
         'Train event setup crews on each layout template and require a supervisor sign-off that accessible seating is correctly positioned before doors open.',
         'Collect feedback from wheelchair users after events and adjust positions based on their input.'
       ],
-      notes: 'Wide seats benefit many people, not just wheelchair users. People with hip replacements, larger body sizes, or chronic pain conditions all appreciate extra width.'
+      notes: 'Wide seats benefit many people, not just wheelchair users. People with hip replacements, larger body sizes or chronic pain conditions all appreciate extra width.'
     },
     {
       title: 'Professional accessible seating redesign',
-      description: 'Engage an access consultant and seating specialist to redesign your venue seating for maximum flexibility, compliance, and inclusion, including raised platforms, sightline engineering, and integrated booking.',
+      description: 'Engage an access consultant and seating specialist to redesign your venue seating for maximum flexibility, compliance and inclusion, including raised platforms, sightline engineering and integrated booking.',
       resourceLevel: 'high',
       costRange: '$10,000-50,000',
       timeRequired: '4-8 weeks',
@@ -163,13 +163,13 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage an access consultant to audit your current seating against AS1428.1 and NCC Table D3.8.',
-        'Commission a seating layout design that exceeds minimum wheelchair space ratios by 50% and distributes spaces across front, middle, and rear sections.',
+        'Commission a seating layout design that exceeds minimum wheelchair space ratios by 50% and distributes spaces across front, middle and rear sections.',
         'Design raised platforms at rear wheelchair positions so sightlines are maintained when the audience stands.',
-        'Specify a seat mix including standard, WCA (600mm), EAS (enhanced amenity), and bariatric-rated options.',
+        'Specify a seat mix including standard, WCA (600mm), EAS (enhanced amenity) and bariatric-rated options.',
         'Install removable seat mounting systems so wheelchair spaces can be created at any position in the venue.',
         'Integrate accessible seating into your booking platform with 3D view previews, showing the actual sightline from each position.',
         'Commission the installation and conduct a compliance audit before reopening.',
-        'Promote your upgraded accessible seating through disability organisations, tourism channels, and your website.'
+        'Promote your upgraded accessible seating through disability organisations, tourism channels and your website.'
       ],
       notes: 'A well-designed accessible seating layout often improves flow and comfort for all patrons, not just those with disability. Consider this investment as a general venue upgrade.'
     }
@@ -180,7 +180,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Theatre',
       scenario: 'A 500-seat community theatre had two wheelchair spaces, both at the very back of the stalls with obstructed views. Companion seats were across the aisle, not adjacent.',
-      solution: 'Removed selected seats to create six wheelchair spaces: two front stalls, two mid-stalls, and two rear stalls. Installed flip-up armrests on adjacent seats for companions. Added a small raised platform at the rear positions for standing-audience sightlines.',
+      solution: 'Removed selected seats to create six wheelchair spaces: two front stalls, two mid-stalls and two rear stalls. Installed flip-up armrests on adjacent seats for companions. Added a small raised platform at the rear positions for standing-audience sightlines.',
       outcome: 'Wheelchair bookings increased threefold. The theatre received an accessibility award from the local disability advisory committee.',
       cost: '$8,500',
       timeframe: '3 weeks'
@@ -188,8 +188,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Restaurant',
-      scenario: 'A popular restaurant had uniform bistro-style seating with narrow, fixed chairs. Wheelchair users could not pull up to tables, and larger guests were uncomfortable in the narrow seats.',
-      solution: 'Replaced 20% of chairs with wider models (550mm seat width), removed one chair from three tables to create wheelchair pull-up spaces, and added two high-back chairs with armrests near the entrance for guests who need extra support.',
+      scenario: 'A popular restaurant had uniform bistro-style seating with narrow, fixed chairs. Wheelchair users could not pull up to tables and larger guests were uncomfortable in the narrow seats.',
+      solution: 'Replaced 20% of chairs with wider models (550mm seat width), removed one chair from three tables to create wheelchair pull-up spaces and added two high-back chairs with armrests near the entrance for guests who need extra support.',
       outcome: 'Positive reviews mentioning comfort. Staff reported fewer awkward conversations about seating limitations.',
       cost: '$2,200',
       timeframe: '1 week'
@@ -220,7 +220,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Section 15 covers wheelchair seating spaces, companion seating, and sightline requirements in assembly buildings.',
+      description: 'Section 15 covers wheelchair seating spaces, companion seating and sightline requirements in assembly buildings.',
       isAustralian: true,
       isFree: false
     },
@@ -238,7 +238,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://humanrights.gov.au/our-work/disability-rights/publications',
       type: 'guide',
       source: 'Australian Human Rights Commission',
-      description: 'Includes guidance on accessible seating at events, sightlines, and companion seating requirements.',
+      description: 'Includes guidance on accessible seating at events, sightlines and companion seating requirements.',
       isAustralian: true,
       isFree: true
     },
@@ -247,7 +247,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://liveperformance.com.au/resources/',
       type: 'guide',
       source: 'Live Performance Australia',
-      description: 'Industry guidance on wheelchair spaces, sightlines, and accessible booking systems for performance venues.',
+      description: 'Industry guidance on wheelchair spaces, sightlines and accessible booking systems for performance venues.',
       isAustralian: true,
       isFree: true
     }
@@ -265,11 +265,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Tables, counters and writing surfaces',
   coveredQuestionIds: ['3.1-D-3', '3.1-D-10'],
-  summary: 'Accessible tables and counters have the right height for wheelchair approach (750-850mm), sufficient knee clearance underneath (700mm high, 500mm deep), and a lowered section at service counters so all customers can interact face-to-face.',
+  summary: 'Accessible tables and counters have the right height for wheelchair approach (750-850mm), sufficient knee clearance underneath (700mm high, 500mm deep) and a lowered section at service counters so all customers can interact face-to-face.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'A wheelchair user who cannot reach the counter, write on a form, or eat at a table is effectively excluded from your service. Standard bench-height counters (900-1000mm) are too high for someone seated in a wheelchair. Without knee clearance under a table, a wheelchair cannot pull in close enough for comfortable use. These are simple dimensional issues with straightforward solutions.',
+    text: 'A wheelchair user who cannot reach the counter, write on a form or eat at a table is effectively excluded from your service. Standard bench-height counters (900-1000mm) are too high for someone seated in a wheelchair. Without knee clearance under a table, a wheelchair cannot pull in close enough for comfortable use. These are simple dimensional issues with straightforward solutions.',
     statistic: {
       value: '1 in 5',
       context: 'Australian adults has disability. For those using wheelchairs, inaccessible counters and tables are among the most frequently reported barriers.',
@@ -303,7 +303,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'PenLine',
       text: 'Provide a writing surface at reception and service areas at accessible height.',
-      detail: 'An accessible writing shelf (750-850mm height) near the reception counter allows wheelchair users to fill in forms, sign documents, or review paperwork. A clipboard is a simple alternative if a permanent surface is not feasible.',
+      detail: 'An accessible writing shelf (750-850mm height) near the reception counter allows wheelchair users to fill in forms, sign documents or review paperwork. A clipboard is a simple alternative if a permanent surface is not feasible.',
       priority: 4
     },
     {
@@ -315,7 +315,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Scan',
       text: 'Leave 800mm x 1300mm clear floor space in front of counters and accessible tables.',
-      detail: 'This is the minimum manoeuvring area for a wheelchair to approach and turn. Ensure furniture, displays, or queue barriers do not encroach on this space.',
+      detail: 'This is the minimum manoeuvring area for a wheelchair to approach and turn. Ensure furniture, displays or queue barriers do not encroach on this space.',
       priority: 6
     }
   ],
@@ -348,7 +348,7 @@ export const duringVisitHelp: HelpContent[] = [
         measurement: { target: 'Clear floor space', acceptable: '800mm x 1300mm minimum', unit: 'mm' }
       },
       { text: 'Attempt to pull a wheelchair (or office chair at similar seat height) up to each table and counter. Can you reach the surface comfortably and write on it?' },
-      { text: 'Check that no cable trays, decorative panels, or structural bracing blocks knee space under tables.' },
+      { text: 'Check that no cable trays, decorative panels or structural bracing blocks knee space under tables.' },
       { text: 'Count the total tables and the number that meet accessible height and clearance requirements. Aim for at least 25% of tables to be accessible, spread across all seating zones.' }
     ],
     tools: ['Tape measure (3m)', 'Wheelchair or low office chair for testing', 'Camera for documentation'],
@@ -367,7 +367,7 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'DDA', relevance: 'Failure to provide accessible service points may constitute discrimination in the provision of goods and services.' }
     ],
     plainEnglish: 'Tables need to be the right height (750-850mm) with enough space underneath for wheelchair footplates. Service counters must have a lowered section so wheelchair users can interact face-to-face with staff.',
-    complianceNote: 'AS1428.2 is a best-practice standard, not mandatory under the Premises Standards. However, the DDA requires reasonable adjustments, and providing accessible counters and tables is generally considered reasonable.'
+    complianceNote: 'AS1428.2 is a best-practice standard, not mandatory under the Premises Standards. However, the DDA requires reasonable adjustments and providing accessible counters and tables is generally considered reasonable.'
   },
 
   solutions: [
@@ -418,11 +418,11 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an access consultant to audit all service points, writing surfaces, and dining/work tables.',
+        'Engage an access consultant to audit all service points, writing surfaces and dining/work tables.',
         'Specify motorised height-adjustable counter sections at reception and primary service points (adjustment range 650-1100mm covers seated and standing users).',
         'Select a furniture system with adjustable-height tables for at least 25% of positions.',
         'Design the service area layout so all counters have 800mm x 1300mm clear floor space and an accessible path of travel.',
-        'Install contrast strips, rounded edges, and tactile markers on all new surfaces.',
+        'Install contrast strips, rounded edges and tactile markers on all new surfaces.',
         'Commission installation and verify all dimensions against AS1428.2 specifications.',
         'Train staff on operating adjustable counters and the rationale behind the design.',
         'Promote the upgraded facilities on your website and accessibility page.'
@@ -444,7 +444,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'local-government',
       businessTypeLabel: 'Council Service Centre',
-      scenario: 'A council customer service centre had a high bench counter (1050mm) running the full width of the room. Wheelchair users had to conduct business by looking up at staff, and could not sign forms on the counter.',
+      scenario: 'A council customer service centre had a high bench counter (1050mm) running the full width of the room. Wheelchair users had to conduct business by looking up at staff and could not sign forms on the counter.',
       solution: 'Cut a 1200mm-wide lowered section into the existing counter at 800mm height with knee clearance underneath. Added a pull-out writing shelf and a lowered EFTPOS terminal.',
       outcome: 'Council received positive feedback from disability advisory committee. The approach was rolled out to all branch offices.',
       cost: '$2,800',
@@ -476,7 +476,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-2-colon-1992',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Specifies work surface heights, knee clearance dimensions, and counter requirements for wheelchair access.',
+      description: 'Specifies work surface heights, knee clearance dimensions and counter requirements for wheelchair access.',
       isAustralian: true,
       isFree: false
     },
@@ -512,11 +512,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Furniture flexibility and circulation',
   coveredQuestionIds: ['3.1-D-2', '3.1-D-15'],
-  summary: 'Moveable furniture allows staff to create wheelchair-accessible pathways, clear floor space, and outdoor seating options. Aisles between furniture should be at least 900mm wide (1200mm preferred) to allow comfortable passage for wheelchairs and mobility aids.',
+  summary: 'Moveable furniture allows staff to create wheelchair-accessible pathways, clear floor space and outdoor seating options. Aisles between furniture should be at least 900mm wide (1200mm preferred) to allow comfortable passage for wheelchairs and mobility aids.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'A venue with beautiful fixed furniture arranged in tight rows can be completely inaccessible to a wheelchair user. Moveable furniture gives you the flexibility to create clear pathways, open up space for wheelchair users at tables, and respond to different group configurations. Outdoor seating areas are often overlooked for accessibility, but they are popular destinations, especially in Australian climates, and must be reachable and usable by everyone.',
+    text: 'A venue with beautiful fixed furniture arranged in tight rows can be completely inaccessible to a wheelchair user. Moveable furniture gives you the flexibility to create clear pathways, open up space for wheelchair users at tables and respond to different group configurations. Outdoor seating areas are often overlooked for accessibility, but they are popular destinations, especially in Australian climates and must be reachable and usable by everyone.',
     statistic: {
       value: '900mm',
       context: 'is the absolute minimum clear width for a wheelchair to pass through. At this width, turning is very difficult. 1200mm allows comfortable two-way traffic.',
@@ -532,7 +532,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Move',
       text: 'Choose lightweight, stackable furniture that staff can rearrange quickly.',
-      detail: 'Heavy or bolted-down furniture limits your ability to accommodate wheelchair users, walkers, and prams. Lightweight aluminium or moulded chairs can be moved in seconds. Keep at least two spare chairs stored nearby for quick swaps.',
+      detail: 'Heavy or bolted-down furniture limits your ability to accommodate wheelchair users, walkers and prams. Lightweight aluminium or moulded chairs can be moved in seconds. Keep at least two spare chairs stored nearby for quick swaps.',
       priority: 1
     },
     {
@@ -544,19 +544,19 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'TreePine',
       text: 'Ensure outdoor seating areas have a firm, level path and at least one accessible table.',
-      detail: 'Outdoor areas on grass, gravel, or uneven pavers are barriers for wheelchair users. A concrete or decking path at least 1000mm wide leading to a level, firm-surface area with an accessible table makes outdoor seating inclusive.',
+      detail: 'Outdoor areas on grass, gravel or uneven pavers are barriers for wheelchair users. A concrete or decking path at least 1000mm wide leading to a level, firm-surface area with an accessible table makes outdoor seating inclusive.',
       priority: 3
     },
     {
       icon: 'Route',
       text: 'Create and mark a primary accessible route through the venue.',
-      detail: 'Even in flexible layouts, designate one route that must always remain at least 1200mm wide. Mark it on setup plans and brief staff not to place furniture, displays, or queue barriers in this path.',
+      detail: 'Even in flexible layouts, designate one route that must always remain at least 1200mm wide. Mark it on setup plans and brief staff not to place furniture, displays or queue barriers in this path.',
       priority: 4
     },
     {
       icon: 'Undo2',
       text: 'Establish a "reset" layout that staff return to after events or rearrangements.',
-      detail: 'Without a defined default layout, furniture gradually migrates into narrower configurations. Take a photo of the accessible default layout, laminate it, and post it in the staff area as a reference.',
+      detail: 'Without a defined default layout, furniture gradually migrates into narrower configurations. Take a photo of the accessible default layout, laminate it and post it in the staff area as a reference.',
       priority: 5
     },
     {
@@ -584,7 +584,7 @@ export const duringVisitHelp: HelpContent[] = [
       },
       { text: 'Try to move three different pieces of furniture. Can one person do it without excessive effort? If furniture is too heavy, note which items need replacing with lighter alternatives.' },
       { text: 'Walk the route to outdoor seating. Is the surface firm and level the entire way? Is there at least one table at accessible height (750-850mm) on a level surface?' },
-      { text: 'Check whether queue barriers, A-frame signs, flower pots, or displays narrow any aisle below 900mm.' },
+      { text: 'Check whether queue barriers, A-frame signs, flower pots or displays narrow any aisle below 900mm.' },
       { text: 'Sit in a wheelchair or low office chair and attempt to navigate from the entrance to three different seating positions. Note any points where you cannot pass or turn.' },
       { text: 'Review your event or function layout plans. Do they show accessible routes and wheelchair positions?' }
     ],
@@ -603,14 +603,14 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'Access-to-Premises', relevance: 'Requires accessible paths of travel to and within all areas available to the public.' },
       { code: 'DDA', relevance: 'Failure to provide accessible circulation may constitute discrimination in access to services and premises.' }
     ],
-    plainEnglish: 'The spaces between your furniture must be wide enough for a wheelchair to pass through comfortably. The ideal is 1200mm, and 900mm is the bare minimum. Outdoor seating must also be reachable on a firm, level surface.',
+    plainEnglish: 'The spaces between your furniture must be wide enough for a wheelchair to pass through comfortably. The ideal is 1200mm and 900mm is the bare minimum. Outdoor seating must also be reachable on a firm, level surface.',
     complianceNote: 'While furniture layout is not prescribed by building codes (which focus on fixed elements), the DDA requires that the way you arrange and use your space does not create barriers for people with disability.'
   },
 
   solutions: [
     {
       title: 'Respace existing furniture and create an accessible layout plan',
-      description: 'Rearrange your current furniture to achieve minimum aisle widths, document the layout as your default, and brief staff on maintaining it.',
+      description: 'Rearrange your current furniture to achieve minimum aisle widths, document the layout as your default and brief staff on maintaining it.',
       resourceLevel: 'low',
       costRange: '$0-100',
       timeRequired: '1-2 hours',
@@ -628,7 +628,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Replace heavy furniture with lightweight, moveable alternatives',
-      description: 'Purchase lightweight, stackable chairs and tables that staff can easily rearrange, and create a firm path to outdoor seating.',
+      description: 'Purchase lightweight, stackable chairs and tables that staff can easily rearrange and create a firm path to outdoor seating.',
       resourceLevel: 'medium',
       costRange: '$1,000-5,000',
       timeRequired: '1-2 weeks',
@@ -654,11 +654,11 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an access consultant to audit current circulation, identify pinch points, and recommend improvements.',
+        'Engage an access consultant to audit current circulation, identify pinch points and recommend improvements.',
         'Commission an interior designer to create a furniture plan with modular pieces that can be reconfigured for different events and capacities.',
-        'Specify furniture with integrated accessibility features: flip-up arms, adjustable height, nesting capability, and contrasting edges.',
+        'Specify furniture with integrated accessibility features: flip-up arms, adjustable height, nesting capability and contrasting edges.',
         'Install floor markers or subtle guide strips showing the minimum accessible route width.',
-        'Design outdoor areas with compliant surfaces, accessible tables, shade structures, and level paving.',
+        'Design outdoor areas with compliant surfaces, accessible tables, shade structures and level paving.',
         'Create a digital layout tool (even a simple PowerPoint template) so event organisers can plan configurations that maintain accessible routes.',
         'Commission the fit-out and conduct a walkthrough with wheelchair users before reopening.',
         'Establish a quarterly layout audit schedule.'
@@ -672,7 +672,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Bistro',
       scenario: 'A bistro had heavy timber tables spaced 600mm apart. Staff could barely squeeze between them, let alone wheelchair users. Outdoor courtyard seating was on uneven bluestone pavers.',
-      solution: 'Replaced timber chairs with lightweight aluminium stackers, respaced tables to 1200mm aisles, and laid a 1200mm-wide concrete strip through the courtyard to one accessible table on a level pad.',
+      solution: 'Replaced timber chairs with lightweight aluminium stackers, respaced tables to 1200mm aisles and laid a 1200mm-wide concrete strip through the courtyard to one accessible table on a level pad.',
       outcome: 'Increased covers by 8% (better flow meant faster table turns). Wheelchair users could dine inside or outside for the first time.',
       cost: '$4,500',
       timeframe: '2 weeks'
@@ -703,7 +703,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Specifies minimum widths, passing spaces, and turning areas for accessible paths within buildings.',
+      description: 'Specifies minimum widths, passing spaces and turning areas for accessible paths within buildings.',
       isAustralian: true,
       isFree: false
     },
@@ -721,7 +721,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://includeability.gov.au/',
       type: 'checklist',
       source: 'AHRC',
-      description: 'National resources covering physical access including outdoor areas, surface, shade, and table requirements.',
+      description: 'National resources covering physical access including outdoor areas, surface, shade and table requirements.',
       isAustralian: true,
       isFree: true
     }
@@ -739,11 +739,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Assistance animals at your venue',
   coveredQuestionIds: ['3.1-D-7'],
-  summary: 'Under Australian law, assistance animals must be allowed in all public areas. Venues should provide water bowls, relief areas, and staff training to ensure handlers and their animals are welcomed confidently.',
+  summary: 'Under Australian law, assistance animals must be allowed in all public areas. Venues should provide water bowls, relief areas and staff training to ensure handlers and their animals are welcomed confidently.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Assistance animals perform vital tasks for their handlers: guiding people with vision impairment, alerting people who are deaf, detecting seizures, and providing psychiatric support. Refusing entry to an assistance animal is unlawful under the Disability Discrimination Act 1992. Despite this, handlers regularly report being challenged, turned away, or subjected to uncomfortable questioning. Clear policies and staff training prevent these incidents and protect your business from legal liability.',
+    text: 'Assistance animals perform vital tasks for their handlers: guiding people with vision impairment, alerting people who are deaf, detecting seizures and providing psychiatric support. Refusing entry to an assistance animal is unlawful under the Disability Discrimination Act 1992. Despite this, handlers regularly report being challenged, turned away or subjected to uncomfortable questioning. Clear policies and staff training prevent these incidents and protect your business from legal liability.',
     statistic: {
       value: '63%',
       context: 'of assistance animal handlers in Australia report being denied access or challenged at least once in the past year.',
@@ -759,13 +759,13 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'PawPrint',
       text: 'Under the DDA, assistance animals must be permitted in all areas open to the public.',
-      detail: 'This applies regardless of food safety regulations, "no pets" policies, or strata rules. The only lawful exceptions are operating theatres and other sterile clinical environments. Food preparation areas must allow the animal to accompany the handler through, though the handler should be offered seating away from food preparation if practical.',
+      detail: 'This applies regardless of food safety regulations, "no pets" policies or strata rules. The only lawful exceptions are operating theatres and other sterile clinical environments. Food preparation areas must allow the animal to accompany the handler through, though the handler should be offered seating away from food preparation if practical.',
       priority: 1
     },
     {
       icon: 'Shield',
       text: 'Never ask for "proof" beyond what the law allows.',
-      detail: 'Under the DDA, you may ask to see evidence that the animal is an assistance animal (e.g. ID card, vest, or a letter from a health professional). However, you cannot require specific documentation or refuse entry while the person obtains proof. If in doubt, allow entry.',
+      detail: 'Under the DDA, you may ask to see evidence that the animal is an assistance animal (e.g. ID card, vest or a letter from a health professional). However, you cannot require specific documentation or refuse entry while the person obtains proof. If in doubt, allow entry.',
       priority: 2
     },
     {
@@ -783,7 +783,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Train all front-line staff on assistance animal rights and etiquette.',
-      detail: 'Staff should know: do not pat or distract the animal, do not feed the animal, speak to the handler (not the animal), and never separate the handler from the animal. Include this in induction training.',
+      detail: 'Staff should know: do not pat or distract the animal, do not feed the animal, speak to the handler (not the animal) and never separate the handler from the animal. Include this in induction training.',
       priority: 5
     },
     {
@@ -820,40 +820,40 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'Access-to-Premises', relevance: 'The Premises Standards require premises to be accessible, which includes not creating barriers through policies that exclude assistance animals.' },
       { code: 'NCC', relevance: 'The Building Code does not restrict assistance animals. Food safety regulations include exemptions for assistance animals in dining areas.' }
     ],
-    plainEnglish: 'Assistance animals must be allowed everywhere the public can go. You cannot refuse entry, charge extra, or require them to be separated from their handler. Staff should welcome them calmly and provide water and a relief area.',
-    complianceNote: 'Refusing entry to an assistance animal can result in a complaint to the Australian Human Rights Commission. Conciliation outcomes can include apologies, policy changes, and financial compensation. Penalties under state legislation may also apply.'
+    plainEnglish: 'Assistance animals must be allowed everywhere the public can go. You cannot refuse entry, charge extra or require them to be separated from their handler. Staff should welcome them calmly and provide water and a relief area.',
+    complianceNote: 'Refusing entry to an assistance animal can result in a complaint to the Australian Human Rights Commission. Conciliation outcomes can include apologies, policy changes and financial compensation. Penalties under state legislation may also apply.'
   },
 
   solutions: [
     {
       title: 'Create an assistance animal policy and brief all staff',
-      description: 'Write a one-page assistance animal policy, train all front-line staff, update signage, and set up a water station.',
+      description: 'Write a one-page assistance animal policy, train all front-line staff, update signage and set up a water station.',
       resourceLevel: 'low',
       costRange: '$0-50',
       timeRequired: '1-2 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Write a one-page policy covering: assistance animals are welcome in all areas; staff should speak to the handler, not the animal; staff must not pat, feed, or distract the animal; only lawful questions about evidence are permitted; provide water and relief area information.',
+        'Write a one-page policy covering: assistance animals are welcome in all areas; staff should speak to the handler, not the animal; staff must not pat, feed or distract the animal; only lawful questions about evidence are permitted; provide water and relief area information.',
         'Print the policy and include it in the staff handbook or induction pack.',
         'Brief all current front-line staff at the next team meeting (15-minute agenda item).',
         'Update any "No Pets" or "No Dogs" signs to read "No pets (assistance animals welcome)" or remove them entirely.',
         'Place a stainless steel water bowl near the entrance or reception.',
         'Identify the nearest grassy relief area and add its location to your accessibility page.'
       ],
-      notes: 'Vision Australia, Guide Dogs Australia, and Assistance Dogs Australia all provide free template policies and training materials.'
+      notes: 'Vision Australia, Guide Dogs Australia and Assistance Dogs Australia all provide free template policies and training materials.'
     },
     {
       title: 'Develop comprehensive staff training with scenario-based learning',
-      description: 'Create a training module for all staff covering assistance animal law, etiquette, and common scenarios, delivered annually with refreshers for new starters.',
+      description: 'Create a training module for all staff covering assistance animal law, etiquette and common scenarios, delivered annually with refreshers for new starters.',
       resourceLevel: 'medium',
       costRange: '$200-800',
       timeRequired: '2-4 hours to develop; 30 minutes per staff member',
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Source training materials from Guide Dogs Australia, Vision Australia, or Assistance Dogs Australia (many provide free resources).',
-        'Develop a 30-minute training module covering: types of assistance animals (guide, hearing, medical alert, psychiatric), legal requirements, appropriate questions, floor space and water provision, and relief areas.',
+        'Source training materials from Guide Dogs Australia, Vision Australia or Assistance Dogs Australia (many provide free resources).',
+        'Develop a 30-minute training module covering: types of assistance animals (guide, hearing, medical alert, psychiatric), legal requirements, appropriate questions, floor space and water provision and relief areas.',
         'Include scenario-based exercises: "A customer arrives with a small dog in a vest. Another customer complains about allergies. What do you do?"',
         'Deliver training to all current staff and include in the induction program for new hires.',
         'Create a laminated quick-reference card for reception and service points.',
@@ -864,19 +864,19 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Establish a fully welcoming assistance animal environment',
-      description: 'Partner with an assistance animal organisation to audit and certify your venue as assistance-animal-friendly, including designated rest areas, staff certification, and marketing.',
+      description: 'Partner with an assistance animal organisation to audit and certify your venue as assistance-animal-friendly, including designated rest areas, staff certification and marketing.',
       resourceLevel: 'high',
       costRange: '$500-2,000',
       timeRequired: '2-4 weeks',
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Contact Guide Dogs Australia, Assistance Dogs Australia, or your state equivalent to discuss a venue partnership or certification program.',
+        'Contact Guide Dogs Australia, Assistance Dogs Australia or your state equivalent to discuss a venue partnership or certification program.',
         'Commission an audit of your venue from the perspective of an assistance animal handler: space under tables, floor surfaces, relief areas, water access, staff knowledge.',
-        'Install a permanent, signed relief area with grass or synthetic turf, waste bag dispenser, and a small waste bin.',
+        'Install a permanent, signed relief area with grass or synthetic turf, waste bag dispenser and a small waste bin.',
         'Design and install signage at the entrance: "Assistance Animals Welcome" with the ISA symbol.',
         'Have all front-line staff complete accredited training and display the certification.',
-        'Add assistance animal welcome information to your website, booking system, and marketing materials.',
+        'Add assistance animal welcome information to your website, booking system and marketing materials.',
         'Include a question on your booking form: "Will you be accompanied by an assistance animal? Let us know so we can prepare."',
         'Review and update your approach annually in consultation with the partner organisation.'
       ],
@@ -889,7 +889,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Restaurant',
       scenario: 'A restaurant had a strict "No Dogs" sign and a staff member turned away a guide dog handler, citing food safety. The handler lodged a complaint with the Australian Human Rights Commission.',
-      solution: 'After conciliation, the restaurant removed the sign, trained all staff, placed a water bowl at reception, and added "Assistance Animals Welcome" to their door and website. The manager attended a Guide Dogs presentation.',
+      solution: 'After conciliation, the restaurant removed the sign, trained all staff, placed a water bowl at reception and added "Assistance Animals Welcome" to their door and website. The manager attended a Guide Dogs presentation.',
       outcome: 'No further incidents. The restaurant was recommended by Guide Dogs Victoria as a welcoming dining option.',
       cost: '$300 (training and signage)',
       timeframe: '2 weeks'
@@ -898,7 +898,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'accommodation',
       businessTypeLabel: 'Hotel',
       scenario: 'A hotel charged an assistance dog handler a $200 "pet cleaning fee" for their guide dog. The handler complained to the AHRC.',
-      solution: 'The hotel revised its policy to explicitly exempt assistance animals from all pet fees. Added the exemption to the booking terms, trained reservations staff, and placed a water bowl and waste bags in the lobby.',
+      solution: 'The hotel revised its policy to explicitly exempt assistance animals from all pet fees. Added the exemption to the booking terms, trained reservations staff and placed a water bowl and waste bags in the lobby.',
       outcome: 'Policy change applied across all properties in the chain. The hotel group partnered with Assistance Dogs Australia for annual staff training.',
       cost: '$0 (policy change)',
       timeframe: '1 week'
@@ -929,7 +929,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://humanrights.gov.au/our-work/disability-rights/frequently-asked-questions-assistance-animals',
       type: 'guide',
       source: 'Australian Human Rights Commission',
-      description: 'Official FAQ covering legal requirements, what counts as an assistance animal, and evidence requirements.',
+      description: 'Official FAQ covering legal requirements, what counts as an assistance animal and evidence requirements.',
       isAustralian: true,
       isFree: true
     },
@@ -938,7 +938,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.guidedogsaustralia.com/access-awareness',
       type: 'guide',
       source: 'Guide Dogs Australia',
-      description: 'Free training materials, policy templates, and workplace presentations for businesses.',
+      description: 'Free training materials, policy templates and workplace presentations for businesses.',
       isAustralian: true,
       isFree: true
     },
@@ -974,14 +974,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Accessible storage and controls',
   coveredQuestionIds: ['3.1-D-9'],
-  summary: 'Coat hooks, lockers, and controls should be mounted at 900-1100mm height so they can be reached from a seated position. Controls must be operable with one hand and without tight grasping, pinching, or twisting.',
+  summary: 'Coat hooks, lockers and controls should be mounted at 900-1100mm height so they can be reached from a seated position. Controls must be operable with one hand and without tight grasping, pinching or twisting.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'When a wheelchair user cannot reach a coat hook, locker, light switch, or power point, they lose independence and must ask for help with basic tasks. Controls that require tight gripping, pinching, or twisting exclude people with limited hand dexterity, arthritis, or upper limb conditions. Mounting storage and controls within the accessible reach range (900-1100mm) and using lever or push-button mechanisms is a simple design principle that benefits everyone.',
+    text: 'When a wheelchair user cannot reach a coat hook, locker, light switch or power point, they lose independence and must ask for help with basic tasks. Controls that require tight gripping, pinching or twisting exclude people with limited hand dexterity, arthritis or upper limb conditions. Mounting storage and controls within the accessible reach range (900-1100mm) and using lever or push-button mechanisms is a simple design principle that benefits everyone.',
     statistic: {
       value: '3.4 million',
-      context: 'Australians have arthritis. Many have difficulty with gripping, twisting, and fine motor tasks.',
+      context: 'Australians have arthritis. Many have difficulty with gripping, twisting and fine motor tasks.',
       source: 'Arthritis Australia'
     },
     quote: {
@@ -993,14 +993,14 @@ export const duringVisitHelp: HelpContent[] = [
   tips: [
     {
       icon: 'ArrowUpDown',
-      text: 'Mount coat hooks, lockers, and shelves at 900-1100mm from the floor.',
+      text: 'Mount coat hooks, lockers and shelves at 900-1100mm from the floor.',
       detail: 'This range is reachable for most wheelchair users (forward reach from a seated position). If you need hooks at standard height for standing users as well, install a second set at the lower height rather than only providing high hooks.',
       priority: 1
     },
     {
       icon: 'Hand',
-      text: 'Use lever handles, rocker switches, or push buttons for all controls.',
-      detail: 'Round door knobs, twist locks, and small toggle switches are difficult or impossible for people with limited hand dexterity. Lever handles can be operated with a closed fist, elbow, or forearm.',
+      text: 'Use lever handles, rocker switches or push buttons for all controls.',
+      detail: 'Round door knobs, twist locks and small toggle switches are difficult or impossible for people with limited hand dexterity. Lever handles can be operated with a closed fist, elbow or forearm.',
       priority: 2
     },
     {
@@ -1012,7 +1012,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Scan',
       text: 'Provide 800mm x 1300mm clear floor space in front of storage and controls.',
-      detail: 'A wheelchair needs this space to approach and use the control. Ensure no furniture, bins, or displays block the approach.',
+      detail: 'A wheelchair needs this space to approach and use the control. Ensure no furniture, bins or displays block the approach.',
       priority: 4
     },
     {
@@ -1035,14 +1035,14 @@ export const duringVisitHelp: HelpContent[] = [
         measurement: { target: 'Locker/shelf height', acceptable: '900-1100mm from floor', unit: 'mm' }
       },
       {
-        text: 'Check the height of light switches, thermostats, and other customer-operated controls.',
+        text: 'Check the height of light switches, thermostats and other customer-operated controls.',
         measurement: { target: 'Control height', acceptable: '900-1100mm from floor', unit: 'mm' }
       },
       {
         text: 'Check the height of power points near accessible seating or workstations.',
         measurement: { target: 'Power point height', acceptable: '600-1100mm from floor', unit: 'mm' }
       },
-      { text: 'Test each control for one-hand operation. Can you operate it with a closed fist (simulating limited dexterity)? If you must grip, pinch, or twist, the control needs replacing.' },
+      { text: 'Test each control for one-hand operation. Can you operate it with a closed fist (simulating limited dexterity)? If you must grip, pinch or twist, the control needs replacing.' },
       { text: 'Check the clear floor space in front of each control and storage unit. Is there at least 800mm x 1300mm of unobstructed space?' },
       { text: 'Assess colour contrast between controls and their background. Can you easily see the switch or handle from 1 metre away?' },
       { text: 'Sit in a wheelchair or low chair and attempt to use each control and storage point. Note any that are unreachable or require excessive effort.' }
@@ -1055,13 +1055,13 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 13',
-      requirement: 'Controls and operating mechanisms on accessible paths must be located between 900mm and 1100mm from the floor, be operable with one hand, and not require tight grasping, pinching, or twisting of the wrist.'
+      requirement: 'Controls and operating mechanisms on accessible paths must be located between 900mm and 1100mm from the floor, be operable with one hand and not require tight grasping, pinching or twisting of the wrist.'
     },
     related: [
       { code: 'AS1428.2', relevance: 'Section 22 specifies forward and side reach ranges for people in wheelchairs: 400-1200mm side reach, 400-1100mm forward reach.' },
       { code: 'Access-to-Premises', relevance: 'Controls along accessible paths of travel must comply with AS1428.1 reach and operability requirements.' }
     ],
-    plainEnglish: 'Switches, handles, hooks, and controls that customers use must be at a height a wheelchair user can reach (900-1100mm) and must work with one hand without needing to grip tightly or twist.',
+    plainEnglish: 'Switches, handles, hooks and controls that customers use must be at a height a wheelchair user can reach (900-1100mm) and must work with one hand without needing to grip tightly or twist.',
     complianceNote: 'These requirements apply to new construction and significant renovations. For existing buildings, retrofitting controls is usually inexpensive and is a reasonable adjustment under the DDA.'
   },
 
@@ -1075,7 +1075,7 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'diy',
       impact: 'quick-win',
       steps: [
-        'Walk through customer areas and list every hook, switch, control, and power point that is above 1100mm or below 900mm.',
+        'Walk through customer areas and list every hook, switch, control and power point that is above 1100mm or below 900mm.',
         'Install additional coat hooks at 1000mm height alongside existing high hooks (typically $5-10 per hook from hardware stores).',
         'Replace round door knobs on customer-facing doors with lever handles ($20-50 per handle).',
         'Replace any toggle or twist light switches in customer areas with rocker-style switches ($10-20 each).',
@@ -1106,7 +1106,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive accessible controls and smart building integration',
-      description: 'Integrate accessible control systems throughout the venue, including smart lighting, automated doors, and a centralised control system accessible from a smartphone app.',
+      description: 'Integrate accessible control systems throughout the venue, including smart lighting, automated doors and a centralised control system accessible from a smartphone app.',
       resourceLevel: 'high',
       costRange: '$5,000-20,000',
       timeRequired: '2-4 weeks',
@@ -1114,7 +1114,7 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage an access consultant and building services engineer to audit all customer-operated systems.',
-        'Design a smart building system that allows lighting, temperature, and other controls to be operated from a smartphone app (eliminating the need to reach physical switches).',
+        'Design a smart building system that allows lighting, temperature and other controls to be operated from a smartphone app (eliminating the need to reach physical switches).',
         'Install automatic door openers on heavy customer-facing doors, activated by push pads at accessible height.',
         'Replace all customer storage with RFID-operated lockers at 900-1100mm height.',
         'Install accessible-height power points and USB charging outlets at all accessible seating positions.',
@@ -1139,8 +1139,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'accommodation',
       businessTypeLabel: 'Hostel',
-      scenario: 'A hostel had round door knobs, high light switches (1300mm), and no accessible coat hooks in dormitory rooms.',
-      solution: 'Replaced door knobs with lever handles, installed rocker switches at 1000mm in accessible rooms, and added lower coat hooks. Total cost was modest across four accessible rooms.',
+      scenario: 'A hostel had round door knobs, high light switches (1300mm) and no accessible coat hooks in dormitory rooms.',
+      solution: 'Replaced door knobs with lever handles, installed rocker switches at 1000mm in accessible rooms and added lower coat hooks. Total cost was modest across four accessible rooms.',
       outcome: 'Guests with mobility conditions reported a much-improved experience. The hostel received positive reviews mentioning the accessible room details.',
       cost: '$600 (4 rooms)',
       timeframe: '1 day'
@@ -1162,7 +1162,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Section 13 specifies height ranges, operability requirements, and clear floor space for controls.',
+      description: 'Section 13 specifies height ranges, operability requirements and clear floor space for controls.',
       isAustralian: true,
       isFree: false
     },
@@ -1180,7 +1180,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.arthritisaustralia.com.au/',
       type: 'guide',
       source: 'Arthritis Australia',
-      description: 'Practical guidance on designing controls, handles, and switches that work for people with arthritis and limited hand dexterity.',
+      description: 'Practical guidance on designing controls, handles and switches that work for people with arthritis and limited hand dexterity.',
       isAustralian: true,
       isFree: true
     }
@@ -1198,11 +1198,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Lighting for comfort and safety',
   coveredQuestionIds: ['3.3-D-1', '3.3-D-2', '3.3-D-3', '3.3-D-15'],
-  summary: 'Good lighting supports people with low vision, reduces fall risk for everyone, and creates a safer environment. General areas need at least 150 lux, task areas need 300 lux, and transitions between bright and dark areas should be gradual to allow eyes to adjust.',
+  summary: 'Good lighting supports people with low vision, reduces fall risk for everyone and creates a safer environment. General areas need at least 150 lux, task areas need 300 lux and transitions between bright and dark areas should be gradual to allow eyes to adjust.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'For the estimated 575,000 Australians with low vision, lighting is the single biggest environmental factor affecting their ability to navigate, read signs, recognise faces, and avoid hazards. Poor lighting increases fall risk for elderly visitors and creates trip hazards that sighted people would normally avoid. Glare from reflective surfaces or unshielded lights can be painful and blinding for people with conditions like cataracts, macular degeneration, or photosensitivity. Sudden transitions between bright and dark areas (e.g. stepping from bright sunlight into a dim lobby) cause temporary blindness that lasts 20-30 seconds.',
+    text: 'For the estimated 575,000 Australians with low vision, lighting is the single biggest environmental factor affecting their ability to navigate, read signs, recognise faces and avoid hazards. Poor lighting increases fall risk for elderly visitors and creates trip hazards that sighted people would normally avoid. Glare from reflective surfaces or unshielded lights can be painful and blinding for people with conditions like cataracts, macular degeneration or photosensitivity. Sudden transitions between bright and dark areas (e.g. stepping from bright sunlight into a dim lobby) cause temporary blindness that lasts 20-30 seconds.',
     statistic: {
       value: '575,000',
       context: 'Australians have low vision that cannot be fully corrected with glasses or contact lenses. Good lighting is their primary environmental support.',
@@ -1218,13 +1218,13 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Sun',
       text: 'Maintain minimum 150 lux in general circulation areas and 300 lux at task points.',
-      detail: 'General areas include corridors, lobbies, and dining rooms. Task areas include reception desks, menus, information boards, and wayfinding signs. Use a lux meter app on a smartphone for a quick indicative reading.',
+      detail: 'General areas include corridors, lobbies and dining rooms. Task areas include reception desks, menus, information boards and wayfinding signs. Use a lux meter app on a smartphone for a quick indicative reading.',
       priority: 1
     },
     {
       icon: 'Contrast',
-      text: 'Reduce glare by using matte surfaces, diffused lighting, and shielded fixtures.',
-      detail: 'Glossy floors, glass tabletops, and unshielded downlights create glare that is painful for people with photosensitivity. Replace glossy surfaces with matte finishes and use frosted or diffused light fittings rather than exposed bulbs.',
+      text: 'Reduce glare by using matte surfaces, diffused lighting and shielded fixtures.',
+      detail: 'Glossy floors, glass tabletops and unshielded downlights create glare that is painful for people with photosensitivity. Replace glossy surfaces with matte finishes and use frosted or diffused light fittings rather than exposed bulbs.',
       priority: 2
     },
     {
@@ -1247,8 +1247,8 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'ArrowDown',
-      text: 'Light stairways, ramps, and level changes to at least 200 lux.',
-      detail: 'Level changes are high-risk areas. Illuminate the edges of stairs and ramps directly, and ensure the nosings (front edges) are marked with a contrasting strip. Shadow-free lighting prevents misjudging step depth.',
+      text: 'Light stairways, ramps and level changes to at least 200 lux.',
+      detail: 'Level changes are high-risk areas. Illuminate the edges of stairs and ramps directly and ensure the nosings (front edges) are marked with a contrasting strip. Shadow-free lighting prevents misjudging step depth.',
       priority: 6
     }
   ],
@@ -1265,17 +1265,17 @@ export const duringVisitHelp: HelpContent[] = [
         measurement: { target: 'Task area lighting', acceptable: 'Minimum 300 lux', unit: 'lux' }
       },
       {
-        text: 'Measure lighting on stairways, ramps, and level changes.',
+        text: 'Measure lighting on stairways, ramps and level changes.',
         measurement: { target: 'Stairway/ramp lighting', acceptable: 'Minimum 200 lux', unit: 'lux' }
       },
       {
         text: 'Measure the transition lighting ratio between the brightest and darkest areas that a visitor passes through consecutively.',
         measurement: { target: 'Transition ratio', acceptable: 'No greater than 10:1 between adjacent areas', unit: 'ratio' }
       },
-      { text: 'Walk the venue looking for glare sources: unshielded downlights, reflective floors, glass surfaces in direct sunlight, or bright windows behind service counters.' },
-      { text: 'Check for dark spots or shadows along main paths, especially near steps, doorways, and changes in direction.' },
+      { text: 'Walk the venue looking for glare sources: unshielded downlights, reflective floors, glass surfaces in direct sunlight or bright windows behind service counters.' },
+      { text: 'Check for dark spots or shadows along main paths, especially near steps, doorways and changes in direction.' },
       { text: 'Visit your venue in the evening (if open at night) and repeat measurements. Night conditions may reveal lighting gaps not visible during daylight hours.' },
-      { text: 'Check outdoor areas: car park, entrance path, and outdoor seating. Minimum 40 lux for pathways, 80 lux at entrances.' },
+      { text: 'Check outdoor areas: car park, entrance path and outdoor seating. Minimum 40 lux for pathways, 80 lux at entrances.' },
       { text: 'Review whether staff can adjust lighting in different zones (dimmers, zone switches) to respond to customer needs.' }
     ],
     tools: ['Lux meter or smartphone lux meter app', 'Tape measure', 'Camera for documenting problem areas', 'Notepad for recording readings'],
@@ -1293,22 +1293,22 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'NCC', relevance: 'The NCC references AS1680.0 for lighting design. Emergency lighting requirements are separate and address safe evacuation.' },
       { code: 'Access-to-Premises', relevance: 'Adequate lighting is an implied requirement for accessible paths of travel and signage visibility.' }
     ],
-    plainEnglish: 'Your venue needs to be well-lit so people with low vision can navigate safely, read signs, and avoid hazards. Key numbers: 150 lux in corridors, 300 lux at reading points, and smooth transitions between bright and dark areas.',
+    plainEnglish: 'Your venue needs to be well-lit so people with low vision can navigate safely, read signs and avoid hazards. Key numbers: 150 lux in corridors, 300 lux at reading points and smooth transitions between bright and dark areas.',
     complianceNote: 'Lighting requirements apply to new buildings and significant renovations. For existing buildings, improving lighting is usually one of the most cost-effective accessibility upgrades and is a reasonable adjustment under the DDA.'
   },
 
   solutions: [
     {
       title: 'Improve lighting at key points and reduce glare',
-      description: 'Add task lighting at critical points, reduce glare from reflective surfaces, and ensure stairways are well-lit. This targets the highest-impact areas first.',
+      description: 'Add task lighting at critical points, reduce glare from reflective surfaces and ensure stairways are well-lit. This targets the highest-impact areas first.',
       resourceLevel: 'low',
       costRange: '$100-800',
       timeRequired: '1-2 days',
       implementedBy: 'diy',
       impact: 'quick-win',
       steps: [
-        'Measure current lighting levels at reception, menus/information boards, stairways, and main pathways using a lux meter or smartphone app.',
-        'Add plug-in task lamps at reception, information desks, and menu-reading areas where levels are below 300 lux.',
+        'Measure current lighting levels at reception, menus/information boards, stairways and main pathways using a lux meter or smartphone app.',
+        'Add plug-in task lamps at reception, information desks and menu-reading areas where levels are below 300 lux.',
         'Replace any exposed or unshielded bulbs with frosted or diffused fittings to reduce glare.',
         'Apply anti-glare film to glass surfaces that catch direct sunlight (e.g. glass tabletops, display cabinets).',
         'Add clip-on or adhesive LED strips to illuminate stair nosings and ramp edges.',
@@ -1326,11 +1326,11 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'moderate',
       steps: [
         'Engage an electrician to audit current circuits and identify opportunities for zoning.',
-        'Install dimmer controls for key zones: entrance/transition area, main floor, task areas, and stairways.',
+        'Install dimmer controls for key zones: entrance/transition area, main floor, task areas and stairways.',
         'Add additional light fittings where current levels are below minimums, targeting task areas first.',
-        'Install a well-lit transition zone at the main entrance (canopy with lighting, or a gradually lit foyer).',
+        'Install a well-lit transition zone at the main entrance (canopy with lighting or a gradually lit foyer).',
         'Replace reflective flooring in high-glare areas with matte-finish alternatives or apply anti-slip matte coating.',
-        'Create a "lighting settings guide" for staff showing recommended levels for daytime, evening, and different event types.',
+        'Create a "lighting settings guide" for staff showing recommended levels for daytime, evening and different event types.',
         'Label each dimmer control clearly so any staff member can operate the system.',
         'Schedule quarterly maintenance to replace any failed or dimming bulbs.'
       ],
@@ -1338,7 +1338,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Professional lighting design for accessibility',
-      description: 'Commission a lighting designer to create a fully compliant, comfortable lighting scheme that addresses low vision, glare, transitions, and ambiance throughout the venue.',
+      description: 'Commission a lighting designer to create a fully compliant, comfortable lighting scheme that addresses low vision, glare, transitions and ambiance throughout the venue.',
       resourceLevel: 'high',
       costRange: '$5,000-25,000',
       timeRequired: '2-6 weeks',
@@ -1346,8 +1346,8 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a lighting designer with accessibility experience to audit the entire venue.',
-        'Specify design requirements: minimum lux levels per area, maximum glare ratings, transition zones, and adjustability.',
-        'Design a layered lighting scheme: ambient (general illumination), task (reading and working points), accent (wayfinding and hazard highlighting), and emergency (evacuation routes).',
+        'Specify design requirements: minimum lux levels per area, maximum glare ratings, transition zones and adjustability.',
+        'Design a layered lighting scheme: ambient (general illumination), task (reading and working points), accent (wayfinding and hazard highlighting) and emergency (evacuation routes).',
         'Select fittings with high colour rendering index (CRI 90+) and appropriate colour temperature (3000-4000K).',
         'Install the lighting system with automated controls that adjust based on time of day and ambient daylight levels.',
         'Create a smooth transition zone at each entrance where lighting gradually changes between outdoor and indoor levels.',
@@ -1380,8 +1380,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'attraction',
       businessTypeLabel: 'Museum',
-      scenario: 'A museum had very low lighting in gallery spaces (30 lux) to protect artworks, but visitors with low vision could not read labels, navigate safely, or appreciate the exhibits.',
-      solution: 'Added focused LED spotlights on labels (300 lux, narrow beam), installed subtle floor-level LED strips along pathways, and provided free handheld magnifier-torch devices at reception for visitors who needed additional light.',
+      scenario: 'A museum had very low lighting in gallery spaces (30 lux) to protect artworks, but visitors with low vision could not read labels, navigate safely or appreciate the exhibits.',
+      solution: 'Added focused LED spotlights on labels (300 lux, narrow beam), installed subtle floor-level LED strips along pathways and provided free handheld magnifier-torch devices at reception for visitors who needed additional light.',
       outcome: 'Visitors with low vision reported a dramatically improved experience. The torch-magnifiers were popular with all age groups.',
       cost: '$4,200 (lighting) + $500 (20 magnifier-torches)',
       timeframe: '2 weeks'
@@ -1448,11 +1448,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Sound environment and acoustic management',
   coveredQuestionIds: ['3.3-D-4', '3.3-D-5', '3.3-D-6'],
-  summary: 'Background noise makes it extremely difficult for people with hearing loss to follow conversation. Managing acoustics through sound-absorbing materials, zoning noisy equipment, and providing quiet areas supports the 3.6 million Australians with hearing loss.',
+  summary: 'Background noise makes it extremely difficult for people with hearing loss to follow conversation. Managing acoustics through sound-absorbing materials, zoning noisy equipment and providing quiet areas supports the 3.6 million Australians with hearing loss.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Hearing aids amplify all sounds, not just the ones you want to hear. In a venue with hard surfaces, background music, air conditioning noise, and crowd chatter, a hearing aid user may hear a wall of distorted sound rather than the person speaking to them. For people without hearing aids who have mild to moderate hearing loss (the majority), noisy environments make communication exhausting. Acoustic management benefits everyone: it reduces fatigue, improves service interactions, and creates a more pleasant atmosphere. A quiet zone gives everyone a place to retreat when they need a break from noise.',
+    text: 'Hearing aids amplify all sounds, not just the ones you want to hear. In a venue with hard surfaces, background music, air conditioning noise and crowd chatter, a hearing aid user may hear a wall of distorted sound rather than the person speaking to them. For people without hearing aids who have mild to moderate hearing loss (the majority), noisy environments make communication exhausting. Acoustic management benefits everyone: it reduces fatigue, improves service interactions and creates a more pleasant atmosphere. A quiet zone gives everyone a place to retreat when they need a break from noise.',
     statistic: {
       value: '3.6 million',
       context: 'Australians have hearing loss. By 2060, this is expected to reach 7.8 million due to population ageing.',
@@ -1474,25 +1474,25 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Layers',
       text: 'Add sound-absorbing materials to reduce reverberation.',
-      detail: 'Hard surfaces (concrete floors, glass walls, metal ceilings) reflect sound and create echo. Acoustic panels, fabric wall hangings, carpet, upholstered furniture, and ceiling baffles all absorb sound. Even adding tablecloths and seat cushions makes a noticeable difference.',
+      detail: 'Hard surfaces (concrete floors, glass walls, metal ceilings) reflect sound and create echo. Acoustic panels, fabric wall hangings, carpet, upholstered furniture and ceiling baffles all absorb sound. Even adding tablecloths and seat cushions makes a noticeable difference.',
       priority: 2
     },
     {
       icon: 'MapPin',
       text: 'Zone noisy equipment away from conversation areas.',
-      detail: 'Coffee machines, blenders, ice machines, and HVAC outlets should be positioned or screened so their noise does not intrude on customer seating. Even partial screening (a wall, partition, or acoustic curtain) helps significantly.',
+      detail: 'Coffee machines, blenders, ice machines and HVAC outlets should be positioned or screened so their noise does not intrude on customer seating. Even partial screening (a wall, partition or acoustic curtain) helps significantly.',
       priority: 3
     },
     {
       icon: 'Mic',
-      text: 'Ensure PA announcements are clear, slow, and repeated.',
+      text: 'Ensure PA announcements are clear, slow and repeated.',
       detail: 'PA systems should produce clear speech, not distorted echoes. Position speakers to avoid reflection and use modern digital PA systems with speech enhancement. Repeat important announcements and supplement with visual displays.',
       priority: 4
     },
     {
       icon: 'DoorClosed',
       text: 'Provide at least one quiet zone or low-noise area.',
-      detail: 'A quiet zone does not have to be a separate room. It can be a section of the venue away from speakers, kitchen noise, and high-traffic areas. Mark it on your map so visitors can find it easily.',
+      detail: 'A quiet zone does not have to be a separate room. It can be a section of the venue away from speakers, kitchen noise and high-traffic areas. Mark it on your map so visitors can find it easily.',
       priority: 5
     },
     {
@@ -1519,8 +1519,8 @@ export const duringVisitHelp: HelpContent[] = [
         measurement: { target: 'Reverberation time', acceptable: 'Under 1 second for small rooms, under 1.5 seconds for large spaces', unit: 'seconds' }
       },
       { text: 'Stand at a service counter and try to hold a conversation at normal volume. Can you understand every word? If not, identify the noise source that is interfering.' },
-      { text: 'Check the PA system: Play an announcement and listen from the furthest customer area. Is it clear and intelligible, or distorted and echoey?' },
-      { text: 'Identify all sources of background noise: music, HVAC, kitchen, coffee machine, traffic, other customers. List each one and rate whether it can be reduced, relocated, or screened.' },
+      { text: 'Check the PA system: Play an announcement and listen from the furthest customer area. Is it clear and intelligible or distorted and echoey?' },
+      { text: 'Identify all sources of background noise: music, HVAC, kitchen, coffee machine, traffic, other customers. List each one and rate whether it can be reduced, relocated or screened.' },
       { text: 'Walk the venue and identify the quietest area. Could this be designated as a quiet zone with a sign or map marker?' },
       { text: 'Check whether staff are aware of noise levels and can adjust music volume or redirect customers to quieter areas on request.' }
     ],
@@ -1539,14 +1539,14 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'NCC', relevance: 'Part F5 addresses sound insulation requirements for buildings, though primarily between rooms rather than within public spaces.' },
       { code: 'DDA', relevance: 'Noise environments that prevent people with hearing loss from accessing services may constitute indirect discrimination.' }
     ],
-    plainEnglish: 'If your venue is too noisy for people with hearing loss to communicate, you may need to reduce background noise, add sound-absorbing materials, and ensure your PA system produces clear speech.',
+    plainEnglish: 'If your venue is too noisy for people with hearing loss to communicate, you may need to reduce background noise, add sound-absorbing materials and ensure your PA system produces clear speech.',
     complianceNote: 'While there is no specific dB limit mandated for most venues, the DDA requires reasonable adjustments. Acoustic management is generally considered a reasonable step, especially where it also improves the experience for all customers.'
   },
 
   solutions: [
     {
       title: 'Reduce noise sources and designate a quiet zone',
-      description: 'Lower background music, relocate or screen noisy equipment, and identify the quietest area as a designated low-noise zone.',
+      description: 'Lower background music, relocate or screen noisy equipment and identify the quietest area as a designated low-noise zone.',
       resourceLevel: 'low',
       costRange: '$0-300',
       timeRequired: '1-2 hours',
@@ -1554,8 +1554,8 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'quick-win',
       steps: [
         'Turn background music down by at least 5 dB (or off) in conversation areas. Test with a decibel meter app.',
-        'Identify the three loudest equipment sources and check whether they can be moved, screened, or scheduled to operate during quieter periods.',
-        'Add soft furnishings where possible: tablecloths, seat cushions, curtains, or fabric wall hangings. These absorb sound at minimal cost.',
+        'Identify the three loudest equipment sources and check whether they can be moved, screened or scheduled to operate during quieter periods.',
+        'Add soft furnishings where possible: tablecloths, seat cushions, curtains or fabric wall hangings. These absorb sound at minimal cost.',
         'Designate the quietest area as a "low-noise zone" and add a small sign. Include it on any venue map.',
         'Brief staff to offer the quiet zone to customers who mention hearing difficulty.',
         'Add a note to your website: "Quiet seating available on request."'
@@ -1564,7 +1564,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Install acoustic panels and upgrade PA clarity',
-      description: 'Add acoustic absorption materials to walls and ceilings, and upgrade the PA system for speech clarity.',
+      description: 'Add acoustic absorption materials to walls and ceilings and upgrade the PA system for speech clarity.',
       resourceLevel: 'medium',
       costRange: '$1,000-8,000',
       timeRequired: '1-2 weeks',
@@ -1583,7 +1583,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Professional acoustic design and treatment',
-      description: 'Commission an acoustic consultant to design a comprehensive sound management solution, including absorption, isolation, PA design, and ongoing monitoring.',
+      description: 'Commission an acoustic consultant to design a comprehensive sound management solution, including absorption, isolation, PA design and ongoing monitoring.',
       resourceLevel: 'high',
       costRange: '$8,000-30,000',
       timeRequired: '3-6 weeks',
@@ -1592,8 +1592,8 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Engage an acoustic consultant to model the current sound environment and identify problem areas.',
         'Specify target noise levels for each zone: under 40 dB in quiet zones, under 50 dB in general areas, under 55 dB in active/social areas.',
-        'Design a treatment plan including: wall and ceiling acoustic panels, floor treatments, equipment enclosures, and partition walls.',
-        'Design a new PA system with zoned speakers, speech-enhancement processing, and hearing loop integration.',
+        'Design a treatment plan including: wall and ceiling acoustic panels, floor treatments, equipment enclosures and partition walls.',
+        'Design a new PA system with zoned speakers, speech-enhancement processing and hearing loop integration.',
         'Install acoustic treatments and the new PA system.',
         'Conduct post-installation testing with calibrated equipment to verify target levels are met.',
         'Train staff on the system including zone controls and how to adjust for different event types.',
@@ -1607,8 +1607,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Cafe',
-      scenario: 'A trendy cafe with polished concrete floors, exposed brick, and metal ceiling had noise levels exceeding 70 dB during peak hours. Older customers and hearing aid users had stopped visiting.',
-      solution: 'Installed decorative acoustic panels on the ceiling (printed with coffee-themed art), added felt pads under chair legs, placed fabric banquette seating along one wall, and turned music down to background level.',
+      scenario: 'A trendy cafe with polished concrete floors, exposed brick and metal ceiling had noise levels exceeding 70 dB during peak hours. Older customers and hearing aid users had stopped visiting.',
+      solution: 'Installed decorative acoustic panels on the ceiling (printed with coffee-themed art), added felt pads under chair legs, placed fabric banquette seating along one wall and turned music down to background level.',
       outcome: 'Noise levels dropped from 70 dB to 52 dB during peak. Older customers returned and several mentioned the improvement specifically. Staff also reported less fatigue.',
       cost: '$4,500',
       timeframe: '1 week'
@@ -1626,7 +1626,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'retail',
       businessTypeLabel: 'Shopping Centre',
       scenario: 'A shopping centre food court was extremely noisy (75 dB+). Complaints from elderly shoppers and parents of children with autism were frequent.',
-      solution: 'Designated one corner as a "quiet dining zone" with acoustic screens, no background music, and carpet tiles. Added acoustic panels to the ceiling above the main food court and reduced PA announcement frequency.',
+      solution: 'Designated one corner as a "quiet dining zone" with acoustic screens, no background music and carpet tiles. Added acoustic panels to the ceiling above the main food court and reduced PA announcement frequency.',
       outcome: 'The quiet zone became the most popular area. Centre-wide noise levels dropped 8 dB with the ceiling panels alone.',
       cost: '$15,000',
       timeframe: '3 weeks'
@@ -1675,14 +1675,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Hearing augmentation systems',
   coveredQuestionIds: ['3.3-D-7', '3.3-D-8'],
-  summary: 'Hearing augmentation systems (hearing loops, FM, or infrared) transmit audio directly to hearing aids or receivers, cutting through background noise. Where a PA or amplification system is installed, hearing augmentation is a legal requirement under the Premises Standards.',
+  summary: 'Hearing augmentation systems (hearing loops, FM or infrared) transmit audio directly to hearing aids or receivers, cutting through background noise. Where a PA or amplification system is installed, hearing augmentation is a legal requirement under the Premises Standards.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'A hearing aid amplifies everything. In a venue with a PA system, a hearing aid user hears the PA, the echo, the crowd, and the air conditioning, all at similar volume. A hearing loop transmits the PA audio directly to their hearing aid via an electromagnetic signal, bypassing the room noise entirely. The result is crystal-clear speech. Most hearing aids sold in Australia have a T-coil (telecoil) that receives loop signals. FM and infrared systems serve those without T-coils by using portable receivers. Without hearing augmentation, venues with PA systems are effectively excluding millions of Australians from understanding announcements, presentations, performances, and counter-service interactions.',
+    text: 'A hearing aid amplifies everything. In a venue with a PA system, a hearing aid user hears the PA, the echo, the crowd and the air conditioning, all at similar volume. A hearing loop transmits the PA audio directly to their hearing aid via an electromagnetic signal, bypassing the room noise entirely. The result is crystal-clear speech. Most hearing aids sold in Australia have a T-coil (telecoil) that receives loop signals. FM and infrared systems serve those without T-coils by using portable receivers. Without hearing augmentation, venues with PA systems are effectively excluding millions of Australians from understanding announcements, presentations, performances and counter-service interactions.',
     statistic: {
       value: '3.6 million',
-      context: 'Australians have hearing loss, and this is projected to double by 2060. Most hearing aids have T-coils that work with hearing loops.',
+      context: 'Australians have hearing loss and this is projected to double by 2060. Most hearing aids have T-coils that work with hearing loops.',
       source: 'Hearing Australia'
     },
     quote: {
@@ -1695,7 +1695,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Ear',
       text: 'Install hearing loops at all points where a PA or amplification system is used.',
-      detail: 'This includes theatres, cinemas, conference rooms, churches, and any venue with speakers. Loops can cover a full room (area loop) or a specific zone (perimeter loop). Both require professional installation and calibration to AS1428.5.',
+      detail: 'This includes theatres, cinemas, conference rooms, churches and any venue with speakers. Loops can cover a full room (area loop) or a specific zone (perimeter loop). Both require professional installation and calibration to AS1428.5.',
       priority: 1
     },
     {
@@ -1725,7 +1725,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Train all front-of-house staff to mention the hearing loop proactively.',
-      detail: 'Do not wait for customers to ask. Train staff to mention the loop when greeting customers, particularly at reception, ticketing, and service counters: "We have a hearing loop available if that would help." Include this in staff induction.',
+      detail: 'Do not wait for customers to ask. Train staff to mention the loop when greeting customers, particularly at reception, ticketing and service counters: "We have a hearing loop available if that would help." Include this in staff induction.',
       priority: 6
     }
   ],
@@ -1734,7 +1734,7 @@ export const duringVisitHelp: HelpContent[] = [
     title: 'Auditing hearing augmentation systems',
     steps: [
       { text: 'Identify every area with a PA or amplification system. List them: main hall, conference rooms, chapel, cinema, etc.' },
-      { text: 'Check whether a hearing loop is installed in each area. Look for the loop symbol, ask building management, or check the electrical plans.' },
+      { text: 'Check whether a hearing loop is installed in each area. Look for the loop symbol, ask building management or check the electrical plans.' },
       {
         text: 'Test each loop using a loop listener device. Walk the entire loop area and check for consistent signal strength.',
         measurement: { target: 'Loop field strength', acceptable: '-2 to +2 dB relative to 400mA/m at 1.6m height (per AS1428.5)', unit: 'dB' }
@@ -1742,9 +1742,9 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Check when each loop was last professionally tested and serviced. If it has been more than 12 months, schedule a service.' },
       { text: 'Check whether hearing loop signage is displayed at the entrance and at the point of use (e.g. near the stage, at the counter).' },
       { text: 'Check whether portable counter loops are available at reception and service desks. Test them using a loop listener or by asking a hearing aid user.' },
-      { text: 'Check whether FM or infrared receivers with headphones are available for people without T-coils. Are they charged, clean, and stored where staff can find them?' },
+      { text: 'Check whether FM or infrared receivers with headphones are available for people without T-coils. Are they charged, clean and stored where staff can find them?' },
       { text: 'Ask three front-of-house staff members: "Do we have a hearing loop? Where is it? How do customers use it?" Assess their confidence.' },
-      { text: 'Check your website and booking materials. Is hearing augmentation mentioned, and does it specify which system is available and where?' }
+      { text: 'Check your website and booking materials. Is hearing augmentation mentioned and does it specify which system is available and where?' }
     ],
     tools: ['Loop listener device ($50) or smartphone loop testing app', 'Notepad for documenting coverage areas', 'Camera for signage photos'],
     estimatedTime: '30-45 minutes'
@@ -1754,21 +1754,21 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'Access-to-Premises',
       section: 'Part D3.7',
-      requirement: 'Where an inbuilt amplification system is provided, a hearing augmentation system must also be installed. This applies to assembly areas including theatres, cinemas, conference rooms, lecture halls, and places of worship.'
+      requirement: 'Where an inbuilt amplification system is provided, a hearing augmentation system must also be installed. This applies to assembly areas including theatres, cinemas, conference rooms, lecture halls and places of worship.'
     },
     related: [
-      { code: 'AS1428.5', relevance: 'Specifies technical requirements for hearing augmentation systems including loop field strength (400mA/m +/- 3dB), frequency response, and signal-to-noise ratio.' },
+      { code: 'AS1428.5', relevance: 'Specifies technical requirements for hearing augmentation systems including loop field strength (400mA/m +/- 3dB), frequency response and signal-to-noise ratio.' },
       { code: 'NCC', relevance: 'Part D3.7 references the Premises Standards requirement for hearing augmentation where amplification is provided.' },
       { code: 'DDA', relevance: 'Failure to provide hearing augmentation where PA systems exist may constitute discrimination in access to information and services.' }
     ],
-    plainEnglish: 'If you have a PA system or speakers, you are legally required to have hearing augmentation (usually a hearing loop). This applies to performance spaces, conference rooms, cinemas, and any venue where sound is amplified for an audience.',
+    plainEnglish: 'If you have a PA system or speakers, you are legally required to have hearing augmentation (usually a hearing loop). This applies to performance spaces, conference rooms, cinemas and any venue where sound is amplified for an audience.',
     complianceNote: 'This is a legal requirement, not just best practice. The Premises Standards specifically mandate hearing augmentation where amplification exists. Counter loops at service desks are not legally required but are strongly recommended as a reasonable adjustment under the DDA.'
   },
 
   solutions: [
     {
       title: 'Install portable counter loops and display signage',
-      description: 'Start with affordable portable counter loops at service desks, display the hearing loop symbol, and train staff to offer the service.',
+      description: 'Start with affordable portable counter loops at service desks, display the hearing loop symbol and train staff to offer the service.',
       resourceLevel: 'low',
       costRange: '$300-800',
       timeRequired: '1-2 hours per counter',
@@ -1776,7 +1776,7 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'quick-win',
       steps: [
         'Purchase a portable counter loop for each main service desk ($300-500 each from hearing equipment suppliers).',
-        'Place the loop pad under or on the counter, plug into a power point, and connect the microphone to the staff position.',
+        'Place the loop pad under or on the counter, plug into a power point and connect the microphone to the staff position.',
         'Print and display the hearing loop symbol (at least A5 size) at each counter where a loop is available.',
         'Train all counter staff to mention the loop: "We have a hearing loop at this counter if that would help."',
         'Create a brief troubleshooting guide: check power, check microphone connection, test with a loop listener.',
@@ -1787,7 +1787,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Install a room-wide hearing loop system',
-      description: 'Professionally install a hearing loop covering your main assembly or performance space, with signage, testing equipment, and staff training.',
+      description: 'Professionally install a hearing loop covering your main assembly or performance space, with signage, testing equipment and staff training.',
       resourceLevel: 'medium',
       costRange: '$3,000-15,000',
       timeRequired: '1-2 weeks',
@@ -1796,18 +1796,18 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Engage a qualified hearing loop installer (look for IEC 60118-4 accreditation) to assess your space.',
         'Specify the loop type based on the room: perimeter loop for simple rooms, phased array for large or metal-framed buildings.',
-        'Install the loop cable, amplifier, and connection to the PA system.',
+        'Install the loop cable, amplifier and connection to the PA system.',
         'Commission the loop with field strength testing across the entire coverage area, measured at seated ear height (approximately 1.2m).',
-        'Install hearing loop signage at room entrances, near the stage or screen, and at ticketing points.',
+        'Install hearing loop signage at room entrances, near the stage or screen and at ticketing points.',
         'Purchase a loop listener device and train at least two staff members to test the loop before each event.',
         'Set up a maintenance contract for annual professional testing and calibration.',
-        'Add the hearing loop to all marketing materials, booking confirmations, and your website.'
+        'Add the hearing loop to all marketing materials, booking confirmations and your website.'
       ],
       notes: 'Metal-framed buildings may cause interference with standard perimeter loops. A phased array design overcomes this but costs more. Always use an accredited installer.'
     },
     {
       title: 'Implement a comprehensive hearing augmentation ecosystem',
-      description: 'Install hearing loops in all PA-equipped areas, provide FM/IR receivers, integrate with captioning services, and establish a maintenance and marketing program.',
+      description: 'Install hearing loops in all PA-equipped areas, provide FM/IR receivers, integrate with captioning services and establish a maintenance and marketing program.',
       resourceLevel: 'high',
       costRange: '$15,000-50,000',
       timeRequired: '4-8 weeks',
@@ -1815,13 +1815,13 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a hearing augmentation specialist to audit every space with amplification and design a comprehensive system.',
-        'Install hearing loops in all assembly areas: main hall, breakout rooms, conference rooms, and any space with a PA.',
-        'Install portable counter loops at all service desks, reception, and ticketing points.',
+        'Install hearing loops in all assembly areas: main hall, breakout rooms, conference rooms and any space with a PA.',
+        'Install portable counter loops at all service desks, reception and ticketing points.',
         'Purchase FM or infrared receivers with headphones (at least 5% of the largest room capacity) for visitors without T-coils.',
         'Integrate hearing augmentation with live captioning services (CART or AI-assisted) for major events.',
         'Commission all systems with calibrated testing against AS1428.5.',
-        'Train all front-of-house, AV, and event staff on operating and testing the systems.',
-        'Establish quarterly staff testing, annual professional servicing, and a replacement schedule for receivers.'
+        'Train all front-of-house, AV and event staff on operating and testing the systems.',
+        'Establish quarterly staff testing, annual professional servicing and a replacement schedule for receivers.'
       ],
       notes: 'A comprehensive system positions your venue as a leader in hearing accessibility. Promote it actively. Many organisations specifically seek venues with proven hearing augmentation.'
     }
@@ -1832,7 +1832,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Theatre',
       scenario: 'A community theatre had an old hearing loop installed 15 years ago that had never been tested. Hearing aid users reported no benefit from switching to T-coil.',
-      solution: 'Engaged a loop specialist who found the loop cable was damaged and the amplifier was miscalibrated. Replaced the cable, recalibrated the amplifier, and installed new signage. Added a loop listener for pre-show testing.',
+      solution: 'Engaged a loop specialist who found the loop cable was damaged and the amplifier was miscalibrated. Replaced the cable, recalibrated the amplifier and installed new signage. Added a loop listener for pre-show testing.',
       outcome: 'Patrons with hearing aids reported a dramatic improvement. The theatre now tests the loop before every performance.',
       cost: '$2,800 (repair and recalibration)',
       timeframe: '3 days'
@@ -1858,8 +1858,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'accommodation',
       businessTypeLabel: 'Hotel',
-      scenario: 'A hotel had a hearing loop in its conference room but it was never mentioned in marketing. Conference organisers did not know it existed, and staff could not operate it.',
-      solution: 'Added hearing loop information to the conference booking kit, trained AV staff to test the loop before each event, included a "Hearing loop available" line on all conference room signage, and added it to the hotel website.',
+      scenario: 'A hotel had a hearing loop in its conference room but it was never mentioned in marketing. Conference organisers did not know it existed and staff could not operate it.',
+      solution: 'Added hearing loop information to the conference booking kit, trained AV staff to test the loop before each event, included a "Hearing loop available" line on all conference room signage and added it to the hotel website.',
       outcome: 'Loop usage increased from near-zero to regular use at most events. Two corporate clients specifically chose the venue for its hearing accessibility.',
       cost: '$0 (existing equipment, just marketing and training)',
       timeframe: '2 days'
@@ -1872,7 +1872,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-5-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'The primary standard for hearing augmentation systems, specifying loop field strength, frequency response, and testing procedures.',
+      description: 'The primary standard for hearing augmentation systems, specifying loop field strength, frequency response and testing procedures.',
       isAustralian: true,
       isFree: false
     },
@@ -1881,7 +1881,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.hearing.com.au/Hearing-loss/Hearing-Devices/Hearing-loops',
       type: 'website',
       source: 'Hearing Australia',
-      description: 'Overview of hearing loop technology, how T-coils work, and where to find loops in Australia.',
+      description: 'Overview of hearing loop technology, how T-coils work and where to find loops in Australia.',
       isAustralian: true,
       isFree: true
     },
@@ -1917,18 +1917,18 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Sensory spaces, kits and support',
   coveredQuestionIds: ['3.3-1-2', '3.3-1-4', '3.3-1-5', '3.3-1-7', '3.3-D-9', '3.3-D-10', '3.3-D-11', '3.3-D-12'],
-  summary: 'Sensory supports include quiet rooms, sensory kits (ear defenders, fidget tools, sunglasses), relaxed sessions, sensory guides, and sensory-friendly signage. Together, they enable people with autism, anxiety, PTSD, dementia, migraines, and other conditions to participate comfortably in your venue.',
+  summary: 'Sensory supports include quiet rooms, sensory kits (ear defenders, fidget tools, sunglasses), relaxed sessions, sensory guides and sensory-friendly signage. Together, they enable people with autism, anxiety, PTSD, dementia, migraines and other conditions to participate comfortably in your venue.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Sensory processing differences affect a wide range of people. Autism, anxiety, PTSD, dementia, migraines, chronic fatigue, and many other conditions can make standard environments overwhelming. Bright lights, loud sounds, strong smells, crowds, and unpredictable stimuli can trigger distress, pain, or the need to leave immediately. Sensory supports are not just about autism (though 1 in 70 Australians are autistic). They benefit a much broader population. A quiet room, a sensory kit, or a relaxed session can be the difference between someone participating in community life and staying home.',
+    text: 'Sensory processing differences affect a wide range of people. Autism, anxiety, PTSD, dementia, migraines, chronic fatigue and many other conditions can make standard environments overwhelming. Bright lights, loud sounds, strong smells, crowds and unpredictable stimuli can trigger distress, pain or the need to leave immediately. Sensory supports are not just about autism (though 1 in 70 Australians are autistic). They benefit a much broader population. A quiet room, a sensory kit or a relaxed session can be the difference between someone participating in community life and staying home.',
     statistic: {
       value: '1 in 70',
-      context: 'Australians are on the autism spectrum. But sensory sensitivities also affect people with anxiety (2.7 million), PTSD, dementia (nearly 500,000), migraines, and many other conditions.',
+      context: 'Australians are on the autism spectrum. But sensory sensitivities also affect people with anxiety (2.7 million), PTSD, dementia (nearly 500,000), migraines and many other conditions.',
       source: 'Autism Awareness Australia; ABS National Health Survey'
     },
     quote: {
-      text: 'My daughter is autistic. The only time she has been to the cinema was a relaxed screening. The lights stayed on a little, the sound was lower, and she could move around. She watched the whole film. She still talks about it.',
+      text: 'My daughter is autistic. The only time she has been to the cinema was a relaxed screening. The lights stayed on a little, the sound was lower and she could move around. She watched the whole film. She still talks about it.',
       attribution: 'Parent, Amaze Victoria feedback'
     }
   },
@@ -1937,19 +1937,19 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'DoorOpen',
       text: 'Designate a quiet room or calm space away from the main activity.',
-      detail: 'A quiet room does not need to be large or specially equipped. A small room with dim lighting, comfortable seating, minimal decoration, and no background noise is sufficient. It should be unlocked, clearly signed, and shown on your venue map. If a dedicated room is not available, a quiet corner with a partition can serve the purpose.',
+      detail: 'A quiet room does not need to be large or specially equipped. A small room with dim lighting, comfortable seating, minimal decoration and no background noise is sufficient. It should be unlocked, clearly signed and shown on your venue map. If a dedicated room is not available, a quiet corner with a partition can serve the purpose.',
       priority: 1
     },
     {
       icon: 'Headphones',
-      text: 'Create sensory kits with ear defenders, sunglasses, fidget tools, and communication cards.',
-      detail: 'A basic kit costs $15-40 per unit. Include noise-cancelling ear muffs (adult and child sizes), tinted sunglasses, two or three fidget items (stress ball, tangle, fidget cube), and a visual communication card ("I need a break", "Too loud", "Help please"). Store kits at reception for easy access. Clean between uses.',
+      text: 'Create sensory kits with ear defenders, sunglasses, fidget tools and communication cards.',
+      detail: 'A basic kit costs $15-40 per unit. Include noise-cancelling ear muffs (adult and child sizes), tinted sunglasses, two or three fidget items (stress ball, tangle, fidget cube) and a visual communication card ("I need a break", "Too loud", "Help please"). Store kits at reception for easy access. Clean between uses.',
       priority: 2
     },
     {
       icon: 'SunDim',
       text: 'Offer relaxed or sensory-friendly sessions with modified environmental conditions.',
-      detail: 'Relaxed sessions reduce sensory stimulation: lower music volume or silence, dimmed but safe lighting levels, reduced crowd numbers (50-70% capacity), freedom to move around and leave without judgment, and trained staff. Schedule them at quieter times such as early morning or mid-week.',
+      detail: 'Relaxed sessions reduce sensory stimulation: lower music volume or silence, dimmed but safe lighting levels, reduced crowd numbers (50-70% capacity), freedom to move around and leave without judgment and trained staff. Schedule them at quieter times such as early morning or mid-week.',
       priority: 3
     },
     {
@@ -1960,8 +1960,8 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'SignpostBig',
-      text: 'Use sensory-friendly signage: simple icons, low-contrast backgrounds, and minimal visual clutter.',
-      detail: 'Busy, high-contrast signage with many colours and fonts is itself a sensory stressor. In sensory-sensitive areas, use calm colours, simple icons, and minimal text. Display the sunflower lanyard symbol if your staff are trained to recognise it.',
+      text: 'Use sensory-friendly signage: simple icons, low-contrast backgrounds and minimal visual clutter.',
+      detail: 'Busy, high-contrast signage with many colours and fonts is itself a sensory stressor. In sensory-sensitive areas, use calm colours, simple icons and minimal text. Display the sunflower lanyard symbol if your staff are trained to recognise it.',
       priority: 5
     },
     {
@@ -1975,12 +1975,12 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing sensory supports at your venue',
     steps: [
-      { text: 'Check for a designated quiet room or calm space. Is it signed, unlocked during opening hours, and shown on the venue map?' },
-      { text: 'Check whether sensory kits are available. Are they stocked, clean, and accessible at reception? Do staff know to offer them?' },
+      { text: 'Check for a designated quiet room or calm space. Is it signed, unlocked during opening hours and shown on the venue map?' },
+      { text: 'Check whether sensory kits are available. Are they stocked, clean and accessible at reception? Do staff know to offer them?' },
       { text: 'Review whether you offer relaxed or sensory-friendly sessions. If yes, how often and how are they promoted? If not, identify a suitable time slot.' },
       { text: 'Check whether a sensory guide or social story exists for your venue. Is it available on your website in an easy-to-find location?' },
-      { text: 'Walk the venue and rate the sensory intensity of each area: note noise level, lighting brightness, scents (food, cleaning products), visual complexity, and crowd density.' },
-      { text: 'Check signage in sensory-sensitive areas. Is it simple, calm, and clear? Are there visual overload points (too many signs, colours, or moving displays)?' },
+      { text: 'Walk the venue and rate the sensory intensity of each area: note noise level, lighting brightness, scents (food, cleaning products), visual complexity and crowd density.' },
+      { text: 'Check signage in sensory-sensitive areas. Is it simple, calm and clear? Are there visual overload points (too many signs, colours or moving displays)?' },
       { text: 'Ask three front-line staff: "What would you do if a customer was becoming distressed due to sensory overload?" Assess their confidence and knowledge.' },
       { text: 'Check whether your website mentions sensory supports (quiet room, kits, relaxed sessions, sensory guide). Is the information easy to find?' },
       { text: 'Review feedback from the past 12 months for any sensory-related complaints or suggestions.' }
@@ -1999,32 +1999,32 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'AS1428.2', relevance: 'Section 13 addresses environmental design for people with sensory processing differences, including lighting and acoustic provisions.' },
       { code: 'WCAG2.2-AA', relevance: 'Guideline 2.3 requires content not to cause seizures or physical reactions. This principle extends to physical environments with flashing or rapidly changing stimuli.' }
     ],
-    plainEnglish: 'While no specific law requires sensory kits or quiet rooms, the DDA requires reasonable adjustments. Providing sensory supports is generally considered a reasonable and low-cost adjustment, and failing to do so for a venue where sensory overload is a known risk could attract a discrimination complaint.',
-    complianceNote: 'Sensory supports are an area of growing expectation. The Hidden Disabilities Sunflower scheme, autism-friendly certifications, and industry awards increasingly recognise venues that provide these supports.'
+    plainEnglish: 'While no specific law requires sensory kits or quiet rooms, the DDA requires reasonable adjustments. Providing sensory supports is generally considered a reasonable and low-cost adjustment and failing to do so for a venue where sensory overload is a known risk could attract a discrimination complaint.',
+    complianceNote: 'Sensory supports are an area of growing expectation. The Hidden Disabilities Sunflower scheme, autism-friendly certifications and industry awards increasingly recognise venues that provide these supports.'
   },
 
   solutions: [
     {
       title: 'Create sensory kits and identify a quiet space',
-      description: 'Assemble basic sensory kits, designate an existing room or area as a quiet space, and brief staff on sensory awareness.',
+      description: 'Assemble basic sensory kits, designate an existing room or area as a quiet space and brief staff on sensory awareness.',
       resourceLevel: 'low',
       costRange: '$50-300',
       timeRequired: '2-3 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Assemble 3-5 sensory kits, each containing: noise-cancelling ear muffs (one adult, one child), sunglasses, 2-3 fidget items, and a visual communication card. Use a neutral fabric bag.',
-        'Identify the quietest existing room or area in your venue. Clear it of clutter, dim the lighting, add one or two comfortable chairs, and sign it as "Quiet Room" or "Calm Space."',
+        'Assemble 3-5 sensory kits, each containing: noise-cancelling ear muffs (one adult, one child), sunglasses, 2-3 fidget items and a visual communication card. Use a neutral fabric bag.',
+        'Identify the quietest existing room or area in your venue. Clear it of clutter, dim the lighting, add one or two comfortable chairs and sign it as "Quiet Room" or "Calm Space."',
         'Create a simple hygiene protocol: wipe ear muffs and sunglasses with antibacterial wipes between uses. Replace fidget items when worn.',
-        'Brief all front-of-house staff: explain what a sensory kit is, who might use one, and how to offer one without judgment ("We have a sensory kit available if that would be helpful for you").',
+        'Brief all front-of-house staff: explain what a sensory kit is, who might use one and how to offer one without judgment ("We have a sensory kit available if that would be helpful for you").',
         'Add a note to your website: "Sensory kits and a quiet space are available. Ask at reception."',
         'Print a simple venue map showing the quiet room location and include it in the sensory kit bag.'
       ],
-      notes: 'Sensory kits are popular with many visitors, not just those with diagnosed conditions. Parents of young children, elderly visitors, and people having a stressful day all appreciate the option.'
+      notes: 'Sensory kits are popular with many visitors, not just those with diagnosed conditions. Parents of young children, elderly visitors and people having a stressful day all appreciate the option.'
     },
     {
       title: 'Launch relaxed sessions and create a sensory guide',
-      description: 'Introduce regular relaxed sessions with modified environmental conditions, and create a downloadable sensory guide or social story for your venue.',
+      description: 'Introduce regular relaxed sessions with modified environmental conditions and create a downloadable sensory guide or social story for your venue.',
       resourceLevel: 'medium',
       costRange: '$200-1,500',
       timeRequired: '1-2 weeks',
@@ -2032,34 +2032,34 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'moderate',
       steps: [
         'Choose a suitable time slot for relaxed sessions: a quieter period (e.g. first hour on a weekday) works best.',
-        'Define environmental modifications for the relaxed session: reduce music to silent or very low, dim lighting to a comfortable level (maintain safety minimum of 100 lux), cap capacity at 50-70%, and remove any loud or sudden stimuli.',
-        'Train staff for relaxed sessions: be patient, allow visitors to move around or leave and return, do not rush people, and be prepared to assist with sensory distress calmly.',
+        'Define environmental modifications for the relaxed session: reduce music to silent or very low, dim lighting to a comfortable level (maintain safety minimum of 100 lux), cap capacity at 50-70% and remove any loud or sudden stimuli.',
+        'Train staff for relaxed sessions: be patient, allow visitors to move around or leave and return, do not rush people and be prepared to assist with sensory distress calmly.',
         'Create a sensory guide for your venue: walk through each area and describe the sensory environment (noise level, lighting, smells, textures, crowd level). Use photos and simple language. Format as a downloadable PDF and print copies for reception.',
         'For family-focused venues, create a social story: a photo-based step-by-step guide to a visit ("First you arrive at the front door...", "Next you walk to the ticket desk...").',
-        'Promote relaxed sessions through local autism organisations (Amaze, Aspect, Autism SA, etc.), carer groups, and your social media.',
+        'Promote relaxed sessions through local autism organisations (Amaze, Aspect, Autism SA, etc.), carer groups and your social media.',
         'Gather feedback after the first three sessions and adjust based on what you learn.'
       ],
       notes: 'Relaxed sessions often attract new customers who would never have visited otherwise. They also provide a more comfortable experience for older visitors and anyone who prefers a calmer environment.'
     },
     {
       title: 'Establish a comprehensive sensory inclusion program',
-      description: 'Partner with a disability organisation to design, implement, and certify a venue-wide sensory inclusion program, including a purpose-built sensory room, staff certification, and ongoing co-design.',
+      description: 'Partner with a disability organisation to design, implement and certify a venue-wide sensory inclusion program, including a purpose-built sensory room, staff certification and ongoing co-design.',
       resourceLevel: 'high',
       costRange: '$2,000-15,000',
       timeRequired: '4-8 weeks',
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Partner with an autism or disability organisation (e.g. Amaze, Aspect, or a local disability service) to co-design your sensory inclusion program.',
+        'Partner with an autism or disability organisation (e.g. Amaze, Aspect or a local disability service) to co-design your sensory inclusion program.',
         'Conduct a sensory audit of the entire venue with input from autistic adults and carers.',
-        'Design and fit out a purpose-built sensory or quiet room: low lighting (adjustable), comfortable seating (including a bean bag or cocoon chair), neutral colours, no background noise, and a visual timer for managing breaks.',
+        'Design and fit out a purpose-built sensory or quiet room: low lighting (adjustable), comfortable seating (including a bean bag or cocoon chair), neutral colours, no background noise and a visual timer for managing breaks.',
         'Develop a comprehensive sensory guide with input from the community, including ratings for each area (noise, light, smell, crowd) and suggested routes for lower sensory exposure.',
         'Train all staff through an accredited sensory awareness program. Provide ongoing refresher training.',
         'Implement the Hidden Disabilities Sunflower scheme so staff can recognise visitors who have identified themselves as needing extra support.',
         'Schedule regular relaxed sessions (at least monthly) and promote them widely.',
         'Apply for autism-friendly or sensory-friendly certification through your partner organisation.'
       ],
-      notes: 'Certification programs provide external validation, marketing materials, and ongoing support. They also connect you with a community of visitors who actively seek certified venues.'
+      notes: 'Certification programs provide external validation, marketing materials and ongoing support. They also connect you with a community of visitors who actively seek certified venues.'
     }
   ],
 
@@ -2077,8 +2077,8 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'retail',
       businessTypeLabel: 'Supermarket',
       scenario: 'A supermarket received requests for a less overwhelming shopping experience from customers with autism and anxiety.',
-      solution: 'Introduced "Quiet Hour" on Tuesday mornings: no announcements, no radio, dimmed lighting, no trolley collection, staff avoid restocking busy aisles, and checkout scanners set to silent. Sensory guide available at the entrance showing a map of quieter aisles.',
-      outcome: 'Popular with autistic shoppers, elderly customers, and parents with babies. Positive media coverage brought new customers from outside the usual catchment.',
+      solution: 'Introduced "Quiet Hour" on Tuesday mornings: no announcements, no radio, dimmed lighting, no trolley collection, staff avoid restocking busy aisles and checkout scanners set to silent. Sensory guide available at the entrance showing a map of quieter aisles.',
+      outcome: 'Popular with autistic shoppers, elderly customers and parents with babies. Positive media coverage brought new customers from outside the usual catchment.',
       cost: '$0 (operational adjustment only)',
       timeframe: '1 week to plan and implement'
     },
@@ -2086,7 +2086,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Museum',
       scenario: 'A children\'s museum had very hands-on, busy exhibits that overwhelmed some children with autism and sensory processing differences.',
-      solution: 'Created "Comfort Backpacks" containing noise-cancelling headphones, a weighted lap pad, a visual timer, and a map showing the quiet room location. Fitted out a dedicated sensory room with dim lighting, a bubble tube, and beanbags. Published a detailed social story with photos on their website.',
+      solution: 'Created "Comfort Backpacks" containing noise-cancelling headphones, a weighted lap pad, a visual timer and a map showing the quiet room location. Fitted out a dedicated sensory room with dim lighting, a bubble tube and beanbags. Published a detailed social story with photos on their website.',
       outcome: 'Extended average visit length for neurodiverse families by 45 minutes. The sensory room became popular with all families during busy periods.',
       cost: '$5,000 (sensory room fit-out) + $80-100 per backpack kit',
       timeframe: '4 weeks'
@@ -2095,9 +2095,9 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Zoo',
       scenario: 'A zoo found their popular animal shows and busy exhibits were overwhelming for some visitors, leading to distressed children and families leaving early.',
-      solution: 'Created "Early Explorer" sessions: entry 30 minutes before general opening, keeper talks moved outdoors (better acoustics), quiet space available in education centre, sensory bags provided, and a sensory map rating each zone from "calm" to "busy."',
+      solution: 'Created "Early Explorer" sessions: entry 30 minutes before general opening, keeper talks moved outdoors (better acoustics), quiet space available in education centre, sensory bags provided and a sensory map rating each zone from "calm" to "busy."',
       outcome: 'Sessions sell out regularly. The zoo developed partnerships with disability schools for educational visits during quiet hours.',
-      cost: '$800 (kits, signage, and sensory map)',
+      cost: '$800 (kits, signage and sensory map)',
       timeframe: 'Once per month initially, now weekly in school holidays'
     }
   ],
@@ -2108,7 +2108,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.amaze.org.au/creating-connections/autism-friendly/',
       type: 'guide',
       source: 'Amaze Victoria',
-      description: 'Comprehensive toolkit for making your business autism-friendly, including sensory kits, quiet rooms, and relaxed sessions.',
+      description: 'Comprehensive toolkit for making your business autism-friendly, including sensory kits, quiet rooms and relaxed sessions.',
       isAustralian: true,
       isFree: true
     },
@@ -2162,14 +2162,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Sensory wayfinding and tactile elements',
   coveredQuestionIds: ['3.3-D-14'],
-  summary: 'Tactile ground surface indicators (TGSIs), contrasting edges, textured surfaces, and scent-based wayfinding help people with vision impairment navigate independently. These elements supplement visual signage with information that can be felt or sensed through other channels.',
+  summary: 'Tactile ground surface indicators (TGSIs), contrasting edges, textured surfaces and scent-based wayfinding help people with vision impairment navigate independently. These elements supplement visual signage with information that can be felt or sensed through other channels.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Visual signage only works for people who can see it. For the estimated 575,000 Australians with low vision and the 66,000 who are legally blind, wayfinding depends on other senses: touch (tactile indicators under foot or hand), sound (acoustic cues from materials and spaces), and smell (scent landmarks). Tactile ground surface indicators (TGSIs) are the primary navigational aid for people using white canes. Warning TGSIs (dots) alert to hazards like stairs and roads. Directional TGSIs (bars) guide along paths. Without them, a person with vision impairment relies entirely on memory or another person.',
+    text: 'Visual signage only works for people who can see it. For the estimated 575,000 Australians with low vision and the 66,000 who are legally blind, wayfinding depends on other senses: touch (tactile indicators under foot or hand), sound (acoustic cues from materials and spaces) and smell (scent landmarks). Tactile ground surface indicators (TGSIs) are the primary navigational aid for people using white canes. Warning TGSIs (dots) alert to hazards like stairs and roads. Directional TGSIs (bars) guide along paths. Without them, a person with vision impairment relies entirely on memory or another person.',
     statistic: {
       value: '66,000',
-      context: 'Australians are legally blind, and 575,000 have low vision that cannot be corrected with glasses. Tactile wayfinding is their primary navigation method.',
+      context: 'Australians are legally blind and 575,000 have low vision that cannot be corrected with glasses. Tactile wayfinding is their primary navigation method.',
       source: 'Vision Australia'
     },
     quote: {
@@ -2181,7 +2181,7 @@ export const duringVisitHelp: HelpContent[] = [
   tips: [
     {
       icon: 'Footprints',
-      text: 'Install warning TGSIs (dot pattern) at the top and bottom of stairs, escalators, and ramps.',
+      text: 'Install warning TGSIs (dot pattern) at the top and bottom of stairs, escalators and ramps.',
       detail: 'Warning TGSIs extend the full width of the hazard, at least 300mm deep, with the leading edge 300mm back from the stair nosing or ramp start. They must contrast with the surrounding surface by at least 30% luminance.',
       priority: 1
     },
@@ -2193,7 +2193,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'Contrast',
-      text: 'Mark edges of stairs, ramps, and level changes with contrasting strips.',
+      text: 'Mark edges of stairs, ramps and level changes with contrasting strips.',
       detail: 'A 50-75mm contrasting strip on the nosing (front edge) of each stair tread makes steps visible to people with low vision. Use a colour that contrasts with both the tread and the riser (e.g. yellow or white on dark stairs). Anti-slip strips with contrast serve a dual purpose.',
       priority: 3
     },
@@ -2212,7 +2212,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Wind',
       text: 'Consider scent and sound landmarks for multisensory wayfinding.',
-      detail: 'Distinctive but subtle scents (such as a herb garden near an entrance or coffee near a cafe) create olfactory landmarks. Water features, music from a specific zone, and changes in acoustic properties (open versus enclosed spaces) all provide navigation cues for people with vision impairment.',
+      detail: 'Distinctive but subtle scents (such as a herb garden near an entrance or coffee near a cafe) create olfactory landmarks. Water features, music from a specific zone and changes in acoustic properties (open versus enclosed spaces) all provide navigation cues for people with vision impairment.',
       priority: 6
     }
   ],
@@ -2220,7 +2220,7 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing tactile wayfinding elements',
     steps: [
-      { text: 'Identify every stairway, ramp, and escalator in customer areas. Check for warning TGSIs at the top and bottom of each one.' },
+      { text: 'Identify every stairway, ramp and escalator in customer areas. Check for warning TGSIs at the top and bottom of each one.' },
       {
         text: 'Measure the TGSI depth (distance from hazard edge to leading edge of TGSI).',
         measurement: { target: 'TGSI setback from hazard', acceptable: '300mm from stair nosing or ramp start', unit: 'mm' }
@@ -2234,9 +2234,9 @@ export const duringVisitHelp: HelpContent[] = [
         text: 'Check stair nosings for contrasting strips.',
         measurement: { target: 'Nosing strip width', acceptable: '50-75mm wide, contrasting with tread and riser', unit: 'mm' }
       },
-      { text: 'Walk the venue using a cane or with eyes closed (with a sighted guide for safety). Can you detect changes in floor surface, TGSI lines, and contrasting edges?' },
+      { text: 'Walk the venue using a cane or with eyes closed (with a sighted guide for safety). Can you detect changes in floor surface, TGSI lines and contrasting edges?' },
       { text: 'Check whether TGSIs are in good condition: not worn smooth, not covered by carpet or mats, not cracked or missing.' },
-      { text: 'Look for opportunities for sensory landmarks: scent (plants, coffee), sound (water feature, distinct acoustic zones), or texture (changes in flooring material).' }
+      { text: 'Look for opportunities for sensory landmarks: scent (plants, coffee), sound (water feature, distinct acoustic zones) or texture (changes in flooring material).' }
     ],
     tools: ['Tape measure', 'Luminance contrast meter or smartphone app', 'White cane (for testing)', 'Camera for documentation'],
     estimatedTime: '30-40 minutes'
@@ -2246,14 +2246,14 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.4.1',
       section: 'Sections 2-5',
-      requirement: 'Tactile ground surface indicators must be installed at stairways, ramps, escalators, and overhead obstacles. Warning TGSIs (dot pattern) must be 300mm deep, set back 300mm from the hazard, and have minimum 30% luminance contrast with surrounding surface.'
+      requirement: 'Tactile ground surface indicators must be installed at stairways, ramps, escalators and overhead obstacles. Warning TGSIs (dot pattern) must be 300mm deep, set back 300mm from the hazard and have minimum 30% luminance contrast with surrounding surface.'
     },
     related: [
       { code: 'AS1428.1', relevance: 'Section 11 requires luminance contrast on stair nosings (50-75mm strip on leading edge) and handrail extensions at stairways.' },
-      { code: 'Access-to-Premises', relevance: 'TGSIs are required at all stairs, ramps, and escalators on accessible paths of travel in buildings covered by the Premises Standards.' },
+      { code: 'Access-to-Premises', relevance: 'TGSIs are required at all stairs, ramps and escalators on accessible paths of travel in buildings covered by the Premises Standards.' },
       { code: 'NCC', relevance: 'Part D3.8 references TGSI requirements for new buildings and significant renovations.' }
     ],
-    plainEnglish: 'You must have tactile bumps (dots) at the top and bottom of stairs, ramps, and escalators to warn people with vision impairment. Directional bars guide people through open spaces. Stair edges need contrasting strips. All tactile elements must contrast visually with the floor.',
+    plainEnglish: 'You must have tactile bumps (dots) at the top and bottom of stairs, ramps and escalators to warn people with vision impairment. Directional bars guide people through open spaces. Stair edges need contrasting strips. All tactile elements must contrast visually with the floor.',
     complianceNote: 'TGSI requirements are mandatory for new buildings and significant renovations under the Premises Standards. For existing buildings, installing TGSIs is a reasonable adjustment under the DDA, especially at stairs and other fall-risk locations.'
   },
 
@@ -2267,7 +2267,7 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'contractor',
       impact: 'quick-win',
       steps: [
-        'Identify every stairway in customer areas, including external steps, internal stairs, and any single steps or level changes.',
+        'Identify every stairway in customer areas, including external steps, internal stairs and any single steps or level changes.',
         'Purchase adhesive warning TGSI tiles (available from safety supply stores, typically $15-30 per tile).',
         'Install TGSIs at the top and bottom of each stairway: full width of the stair, 300mm deep, with leading edge 300mm back from the nosing.',
         'Ensure TGSI colour contrasts with the floor by at least 30% luminance (e.g. yellow on dark grey concrete).',
@@ -2287,17 +2287,17 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Map the primary routes through your venue, identifying open areas where there are no walls or edges to follow.',
         'Engage a TGSI contractor to install directional indicators (bar pattern, 600mm wide) along primary routes in open spaces.',
-        'Ensure directional TGSIs lead from building entrance to key destinations: reception, lifts, toilets, and main activity areas.',
+        'Ensure directional TGSIs lead from building entrance to key destinations: reception, lifts, toilets and main activity areas.',
         'Introduce deliberate floor texture changes at zone boundaries (e.g. carpet in circulation areas, tile in service areas) to create sensory landmarks.',
         'Add tactile floor level indicators to handrails at stairways (raised numbers or Braille plates).',
         'Add a contrasting strip along the edge of corridors where the wall colour does not contrast with the floor.',
         'Test the system with a person who uses a white cane and adjust based on their feedback.'
       ],
-      notes: 'Directional TGSIs must comply with AS1428.4.1 for size, spacing, and luminance. Incorrect installation can misdirect rather than guide.'
+      notes: 'Directional TGSIs must comply with AS1428.4.1 for size, spacing and luminance. Incorrect installation can misdirect rather than guide.'
     },
     {
       title: 'Design a comprehensive multisensory wayfinding system',
-      description: 'Commission an access consultant and wayfinding specialist to design a fully integrated tactile, auditory, and olfactory wayfinding system.',
+      description: 'Commission an access consultant and wayfinding specialist to design a fully integrated tactile, auditory and olfactory wayfinding system.',
       resourceLevel: 'high',
       costRange: '$10,000-40,000',
       timeRequired: '4-8 weeks',
@@ -2306,7 +2306,7 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Engage an access consultant and wayfinding designer with experience in tactile navigation.',
         'Conduct a wayfinding audit with people with vision impairment to identify navigation barriers and opportunities.',
-        'Design a layered wayfinding system: TGSIs for primary navigation, contrasting edges for hazards, texture changes for zones, and sensory landmarks for orientation.',
+        'Design a layered wayfinding system: TGSIs for primary navigation, contrasting edges for hazards, texture changes for zones and sensory landmarks for orientation.',
         'Specify and install compliant TGSIs (warning and directional) throughout the venue.',
         'Introduce auditory wayfinding cues: subtle, consistent sounds at key decision points (e.g. a water feature at the main junction, music in the cafe zone).',
         'Incorporate scent landmarks where appropriate (herb planting near entrances, distinctive materials in key zones).',
@@ -2321,8 +2321,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'attraction',
       businessTypeLabel: 'Museum',
-      scenario: 'A museum had an open-plan ground floor with no walls, columns, or floor changes between the entrance and galleries. White cane users could not find their way without a sighted guide.',
-      solution: 'Installed directional TGSI trails from the entrance to reception, reception to each gallery, and from galleries to toilets and exits. Added a tactile floor plan at the entrance. Changed flooring material at gallery boundaries to create tactile zones.',
+      scenario: 'A museum had an open-plan ground floor with no walls, columns or floor changes between the entrance and galleries. White cane users could not find their way without a sighted guide.',
+      solution: 'Installed directional TGSI trails from the entrance to reception, reception to each gallery and from galleries to toilets and exits. Added a tactile floor plan at the entrance. Changed flooring material at gallery boundaries to create tactile zones.',
       outcome: 'White cane users could navigate independently for the first time. The museum hosted a "Touch Tour" program that attracted national media attention.',
       cost: '$12,000',
       timeframe: '3 weeks'
@@ -2331,7 +2331,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'local-government',
       businessTypeLabel: 'Council Building',
       scenario: 'A council building had stairs at three locations but no TGSIs. A resident with vision impairment fell down a flight of stairs and sustained injuries.',
-      solution: 'Installed warning TGSIs at all stairways, contrasting nosing strips on all treads, and directional TGSIs from the entrance to the lift and service counters. Added Braille floor numbers to handrails at each level.',
+      solution: 'Installed warning TGSIs at all stairways, contrasting nosing strips on all treads and directional TGSIs from the entrance to the lift and service counters. Added Braille floor numbers to handrails at each level.',
       outcome: 'No further falls reported. The council rolled out the same approach across all public buildings.',
       cost: '$4,500',
       timeframe: '1 week'
@@ -2339,8 +2339,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'accommodation',
       businessTypeLabel: 'Hotel',
-      scenario: 'A large hotel had a sprawling ground floor with conference rooms, restaurants, and a pool, all reached through identical beige corridors. Guests with vision impairment regularly got lost.',
-      solution: 'Introduced multisensory wayfinding: different carpet textures for each wing, a water feature at the central junction, herb planters outside the restaurant, and directional TGSIs from the lift lobby to key destinations.',
+      scenario: 'A large hotel had a sprawling ground floor with conference rooms, restaurants and a pool, all reached through identical beige corridors. Guests with vision impairment regularly got lost.',
+      solution: 'Introduced multisensory wayfinding: different carpet textures for each wing, a water feature at the central junction, herb planters outside the restaurant and directional TGSIs from the lift lobby to key destinations.',
       outcome: 'Guests with vision impairment reported being able to navigate independently for the first time. All guests commented on the improved sense of place and character in each wing.',
       cost: '$18,000',
       timeframe: '5 weeks'
@@ -2353,7 +2353,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-4-dot-1-colon-2009',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'The primary standard for tactile ground surface indicators, covering dimensions, patterns, luminance contrast, and placement requirements.',
+      description: 'The primary standard for tactile ground surface indicators, covering dimensions, patterns, luminance contrast and placement requirements.',
       isAustralian: true,
       isFree: false
     },
@@ -2380,7 +2380,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://humanrights.gov.au/our-work/disability-rights/publications',
       type: 'guide',
       source: 'Australian Human Rights Commission',
-      description: 'Guidance on tactile maps, raised-relief plans, and multisensory wayfinding in public buildings.',
+      description: 'Guidance on tactile maps, raised-relief plans and multisensory wayfinding in public buildings.',
       isAustralian: true,
       isFree: true
     }
@@ -2398,11 +2398,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Customer equipment and resources',
   coveredQuestionIds: ['3.4-F-2', '3.4-F-3', '3.4-F-4', '3.4-D-1', '3.4-D-3', '3.4-D-6', '3.4-D-7', '3.4-D-8', '3.4-D-9'],
-  summary: 'Providing accessibility equipment for customer use (wheelchairs, scooters, hearing loops, magnifiers) removes barriers and enables participation. Equipment should be well-maintained, stored accessibly, available in a range of sizes, and provided equitably without surcharges.',
+  summary: 'Providing accessibility equipment for customer use (wheelchairs, scooters, hearing loops, magnifiers) removes barriers and enables participation. Equipment should be well-maintained, stored accessibly, available in a range of sizes and provided equitably without surcharges.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Not everyone brings their own accessibility equipment everywhere they go. A person who can walk short distances may need a wheelchair for a large venue. A visitor with low vision may benefit from a magnifier to read exhibit labels. Providing this equipment shows genuine commitment to inclusion and opens your venue to people who would otherwise not be able to participate. Equipment must be well-maintained (charged, clean, in good repair), stored where staff can access it quickly, available in different sizes (adult, child, larger frames), and offered equitably. Charging extra for accessibility equipment while standard equipment is free creates an unfair barrier.',
+    text: 'Not everyone brings their own accessibility equipment everywhere they go. A person who can walk short distances may need a wheelchair for a large venue. A visitor with low vision may benefit from a magnifier to read exhibit labels. Providing this equipment shows genuine commitment to inclusion and opens your venue to people who would otherwise not be able to participate. Equipment must be well-maintained (charged, clean, in good repair), stored where staff can access it quickly, available in different sizes (adult, child, larger frames) and offered equitably. Charging extra for accessibility equipment while standard equipment is free creates an unfair barrier.',
     statistic: {
       value: '64%',
       context: 'of people with mobility disability say the availability of loan equipment at a venue significantly influences their decision to visit.',
@@ -2418,7 +2418,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Wheelchair',
       text: 'Keep at least one wheelchair and one scooter available for loan at larger venues.',
-      detail: 'For venues where visitors walk long distances (zoos, museums, shopping centres, airports), loan wheelchairs and scooters are essential. Maintain at least one standard adult wheelchair, one bariatric/wide wheelchair, and one mobility scooter (charged). Smaller venues may need only a wheelchair.',
+      detail: 'For venues where visitors walk long distances (zoos, museums, shopping centres, airports), loan wheelchairs and scooters are essential. Maintain at least one standard adult wheelchair, one bariatric/wide wheelchair and one mobility scooter (charged). Smaller venues may need only a wheelchair.',
       priority: 1
     },
     {
@@ -2442,13 +2442,13 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Scale',
       text: 'Do not charge extra for accessibility equipment when standard equipment is free.',
-      detail: 'If your venue provides free trolleys, baskets, or prams, charging for a wheelchair or scooter creates an equity issue. Where a deposit is needed for security, ensure it is refundable and the same as for other loaned items.',
+      detail: 'If your venue provides free trolleys, baskets or prams, charging for a wheelchair or scooter creates an equity issue. Where a deposit is needed for security, ensure it is refundable and the same as for other loaned items.',
       priority: 5
     },
     {
       icon: 'Globe',
       text: 'List available equipment on your website so visitors can plan ahead.',
-      detail: 'Include what equipment is available, how to reserve it, whether a deposit is required, and any limitations (e.g. weight capacity, battery range). This lets visitors plan their visit with confidence.',
+      detail: 'Include what equipment is available, how to reserve it, whether a deposit is required and any limitations (e.g. weight capacity, battery range). This lets visitors plan their visit with confidence.',
       priority: 6
     }
   ],
@@ -2457,7 +2457,7 @@ export const duringVisitHelp: HelpContent[] = [
     title: 'Auditing customer accessibility equipment',
     steps: [
       { text: 'List all accessibility equipment currently available for customer use: wheelchairs, scooters, hearing loops, magnifiers, portable ramps, shower chairs, etc.' },
-      { text: 'Check the condition of each item. Is it clean, charged (if applicable), and in good working order? Test brakes, tyres, batteries, and adjustable parts.' },
+      { text: 'Check the condition of each item. Is it clean, charged (if applicable) and in good working order? Test brakes, tyres, batteries and adjustable parts.' },
       {
         text: 'Check the range of sizes available.',
         measurement: { target: 'Wheelchair seat width range', acceptable: 'Standard (400-450mm) and wide (500mm+) options', unit: 'mm' }
@@ -2476,7 +2476,7 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'DDA',
       section: 'Part 2',
-      requirement: 'The DDA requires providers of goods, services, and facilities to make reasonable adjustments to ensure people with disability can access and use their services. Providing loan equipment is a common reasonable adjustment.'
+      requirement: 'The DDA requires providers of goods, services and facilities to make reasonable adjustments to ensure people with disability can access and use their services. Providing loan equipment is a common reasonable adjustment.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'While the Premises Standards focus on the built environment, the DDA obligation to provide reasonable adjustments extends to equipment and services within premises.' },
@@ -2489,7 +2489,7 @@ export const duringVisitHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Source and set up basic loan equipment',
-      description: 'Acquire a wheelchair and essential aids, establish a storage and issuing system, and list them on your website.',
+      description: 'Acquire a wheelchair and essential aids, establish a storage and issuing system and list them on your website.',
       resourceLevel: 'low',
       costRange: '$200-800',
       timeRequired: '1-2 days',
@@ -2497,11 +2497,11 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'quick-win',
       steps: [
         'Purchase or source a standard adult manual wheelchair. Refurbished models are available from wheelchair suppliers or disability organisations for $150-300.',
-        'If budget allows, add a portable magnifier ($20-50), a portable hearing loop ($300-500), and a portable ramp ($150-400).',
+        'If budget allows, add a portable magnifier ($20-50), a portable hearing loop ($300-500) and a portable ramp ($150-400).',
         'Designate a storage location near reception or the main entrance where equipment can be accessed within one minute.',
         'Create a simple sign-out register: visitor name, equipment issued, time out, time returned.',
-        'Brief all front-of-house staff on available equipment, storage location, and issuing procedure.',
-        'Add equipment availability to your website accessibility page: what is available, how to request it, and any booking requirements.'
+        'Brief all front-of-house staff on available equipment, storage location and issuing procedure.',
+        'Add equipment availability to your website accessibility page: what is available, how to request it and any booking requirements.'
       ],
       notes: 'Many disability organisations (e.g. Independent Living Centres) sell refurbished wheelchairs at a fraction of new price. Some local councils have equipment lending libraries.'
     },
@@ -2515,32 +2515,32 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'moderate',
       steps: [
         'Audit visitor feedback and staff reports to identify the most requested equipment types and sizes.',
-        'Expand inventory to include: standard wheelchair, wide/bariatric wheelchair (500mm+ seat), child wheelchair (if family-oriented), powered scooter (with charger), portable hearing loop, handheld magnifiers, and a portable ramp.',
+        'Expand inventory to include: standard wheelchair, wide/bariatric wheelchair (500mm+ seat), child wheelchair (if family-oriented), powered scooter (with charger), portable hearing loop, handheld magnifiers and a portable ramp.',
         'Purchase a storage unit or cabinet near the main entrance for secure, organised equipment storage.',
         'Create a weekly maintenance checklist: charge batteries, check brakes and tyres, clean seats and handles, test hearing loops, replace worn items.',
-        'Set up an advance booking system (phone, email, or web form) so visitors can reserve equipment before arrival.',
-        'Train staff on equipment operation, maintenance checks, and customer interaction (offer equipment discreetly, without requiring explanation of disability).',
+        'Set up an advance booking system (phone, email or web form) so visitors can reserve equipment before arrival.',
+        'Train staff on equipment operation, maintenance checks and customer interaction (offer equipment discreetly, without requiring explanation of disability).',
         'Review and update inventory quarterly based on usage data and visitor feedback.'
       ],
       notes: 'Powered scooters are the most expensive item but have the highest impact for large venues. Budget for battery replacement every 1-2 years.'
     },
     {
       title: 'Comprehensive equipment program with fleet management',
-      description: 'Establish a professional equipment lending program with fleet management, online booking, GPS tracking for large venues, and partnership with equipment suppliers.',
+      description: 'Establish a professional equipment lending program with fleet management, online booking, GPS tracking for large venues and partnership with equipment suppliers.',
       resourceLevel: 'high',
       costRange: '$10,000-40,000',
       timeRequired: '4-8 weeks',
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an accessible equipment supplier to conduct a needs assessment based on venue size, visitor numbers, and typical visit duration.',
-        'Specify a fleet covering all sizes and types: manual wheelchairs (standard and wide), powered scooters (multiple), portable hearing loops, assistive listening devices, magnifiers, and portable ramps.',
-        'Set up a fleet management system: asset register, maintenance schedule, battery health tracking, and usage reporting.',
+        'Engage an accessible equipment supplier to conduct a needs assessment based on venue size, visitor numbers and typical visit duration.',
+        'Specify a fleet covering all sizes and types: manual wheelchairs (standard and wide), powered scooters (multiple), portable hearing loops, assistive listening devices, magnifiers and portable ramps.',
+        'Set up a fleet management system: asset register, maintenance schedule, battery health tracking and usage reporting.',
         'Implement online booking through your website and confirmation system.',
         'For large venues (shopping centres, airports, theme parks), consider GPS tracking to manage scooter locations and availability.',
         'Negotiate a maintenance contract with the equipment supplier for regular servicing and emergency repairs.',
         'Train a designated "equipment champion" on each shift who is responsible for daily checks and issuing.',
-        'Promote the equipment program through your marketing, disability organisations, and tourism directories.'
+        'Promote the equipment program through your marketing, disability organisations and tourism directories.'
       ],
       notes: 'Some equipment suppliers offer lease arrangements that include maintenance, reducing upfront costs and ensuring equipment is always in good condition.'
     }
@@ -2551,7 +2551,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Zoo',
       scenario: 'A large zoo had two old wheelchairs in poor condition locked in a maintenance shed. Visitors had to wait up to 20 minutes for staff to retrieve and prepare one.',
-      solution: 'Purchased four new wheelchairs (two standard, one wide, one child), two powered scooters, and set up a loan counter at the main gate with a simple sign-out system. Added equipment booking to the website.',
+      solution: 'Purchased four new wheelchairs (two standard, one wide, one child), two powered scooters and set up a loan counter at the main gate with a simple sign-out system. Added equipment booking to the website.',
       outcome: 'Equipment loan requests increased from 5 per week to 30. Average visit length for equipment users was 3 hours (matching non-disabled visitors). Positive reviews specifically mentioned the loan equipment.',
       cost: '$6,500',
       timeframe: '2 weeks'
@@ -2561,15 +2561,15 @@ export const duringVisitHelp: HelpContent[] = [
       businessTypeLabel: 'Shopping Centre',
       scenario: 'A shopping centre charged $20/hour for scooter hire while providing trolleys and prams free. A disability advocate raised the equity issue publicly.',
       solution: 'Made all scooter and wheelchair loans free of charge with a refundable $20 deposit (same as trolleys). Added three more scooters to meet demand and installed a charging station near the customer service desk.',
-      outcome: 'Scooter usage tripled. The equity issue was resolved, and positive media coverage boosted the centre\'s reputation.',
+      outcome: 'Scooter usage tripled. The equity issue was resolved and positive media coverage boosted the centre\'s reputation.',
       cost: '$4,000 (three scooters and charging station)',
       timeframe: '1 week'
     },
     {
       businessType: 'accommodation',
       businessTypeLabel: 'Resort',
-      scenario: 'A coastal resort had no accessibility equipment. Guests with mobility conditions were confined to the accessible room and main restaurant, missing the pool, beach, and gardens.',
-      solution: 'Purchased a beach wheelchair, a pool hoist sling, two manual wheelchairs, and a portable shower chair. Stored all equipment in a purpose-built cupboard near reception. Listed everything on the website with photos.',
+      scenario: 'A coastal resort had no accessibility equipment. Guests with mobility conditions were confined to the accessible room and main restaurant, missing the pool, beach and gardens.',
+      solution: 'Purchased a beach wheelchair, a pool hoist sling, two manual wheelchairs and a portable shower chair. Stored all equipment in a purpose-built cupboard near reception. Listed everything on the website with photos.',
       outcome: 'Guests with disability could access the beach and pool for the first time. The resort was featured in an accessible travel blog and received a steady stream of bookings from the disability community.',
       cost: '$5,500',
       timeframe: '2 weeks'
@@ -2578,7 +2578,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Convention Centre',
       scenario: 'A convention centre hosted events for thousands but had no loan equipment. Attendees with mobility conditions who did not bring their own wheelchair or scooter could not navigate the large venue.',
-      solution: 'Partnered with a mobility equipment hire company to provide 10 scooters, 5 wheelchairs, and portable hearing loops for every major event. Equipment was included in the venue hire cost, not charged separately to attendees.',
+      solution: 'Partnered with a mobility equipment hire company to provide 10 scooters, 5 wheelchairs and portable hearing loops for every major event. Equipment was included in the venue hire cost, not charged separately to attendees.',
       outcome: 'Event organisers appreciated the seamless provision. Attendee accessibility satisfaction scores rose from 4.2/10 to 8.8/10.',
       cost: '$3,000 per major event (hire)',
       timeframe: 'Ongoing'
@@ -2627,14 +2627,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Sensory and communication supports',
   coveredQuestionIds: ['3.4-D-4', '3.4-D-5'],
-  summary: 'Communication supports such as picture boards, symbol cards, text-to-speech devices, tactile exhibits, and audio description guides enable people with speech, language, cognitive, or sensory needs to engage with your venue and interact with staff.',
+  summary: 'Communication supports such as picture boards, symbol cards, text-to-speech devices, tactile exhibits and audio description guides enable people with speech, language, cognitive or sensory needs to engage with your venue and interact with staff.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Communication is the foundation of every service interaction. When a customer cannot speak, read standard text, or process verbal instructions, they need alternative communication methods. Augmentative and alternative communication (AAC) includes picture boards, symbol cards, text-to-speech apps, and simple gestures. Providing these tools at your venue means a person with aphasia, autism, intellectual disability, or a speech impairment can order food, ask for help, or navigate your space. Audio descriptions and tactile exhibits extend this further, making visual content accessible to people with vision impairment.',
+    text: 'Communication is the foundation of every service interaction. When a customer cannot speak, read standard text or process verbal instructions, they need alternative communication methods. Augmentative and alternative communication (AAC) includes picture boards, symbol cards, text-to-speech apps and simple gestures. Providing these tools at your venue means a person with aphasia, autism, intellectual disability or a speech impairment can order food, ask for help or navigate your space. Audio descriptions and tactile exhibits extend this further, making visual content accessible to people with vision impairment.',
     statistic: {
       value: '1.2 million',
-      context: 'Australians have a communication disability. This includes people with speech impairment, aphasia, intellectual disability, autism, and acquired brain injury.',
+      context: 'Australians have a communication disability. This includes people with speech impairment, aphasia, intellectual disability, autism and acquired brain injury.',
       source: 'Speech Pathology Australia'
     },
     quote: {
@@ -2653,31 +2653,31 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'MessageCircle',
       text: 'Train staff to use multiple communication methods: gestures, writing, pointing, patience.',
-      detail: 'Staff do not need to be communication experts. They need to be patient, willing to try different approaches, and comfortable with silence. Offer a pen and paper, point to a communication board, use gestures, or ask yes/no questions. Never finish a person\'s sentence for them.',
+      detail: 'Staff do not need to be communication experts. They need to be patient, willing to try different approaches and comfortable with silence. Offer a pen and paper, point to a communication board, use gestures or ask yes/no questions. Never finish a person\'s sentence for them.',
       priority: 2
     },
     {
       icon: 'Volume2',
       text: 'Provide audio description guides for visual content.',
-      detail: 'For museums, galleries, and attractions with visual exhibits, an audio description guide narrates what can be seen, including spatial relationships, colours, and details that sighted visitors take in visually. These can be delivered via an app, a handheld device, or printed Braille/large-print descriptions.',
+      detail: 'For museums, galleries and attractions with visual exhibits, an audio description guide narrates what can be seen, including spatial relationships, colours and details that sighted visitors take in visually. These can be delivered via an app, a handheld device or printed Braille/large-print descriptions.',
       priority: 3
     },
     {
       icon: 'Hand',
       text: 'Offer tactile versions of key exhibits or products where possible.',
-      detail: 'Touchable scale models, tactile diagrams, or handling objects allow people with vision impairment to experience content that is otherwise visual-only. Even one or two tactile elements per exhibition make a significant difference.',
+      detail: 'Touchable scale models, tactile diagrams or handling objects allow people with vision impairment to experience content that is otherwise visual-only. Even one or two tactile elements per exhibition make a significant difference.',
       priority: 4
     },
     {
       icon: 'Smartphone',
       text: 'Point customers to free communication apps on their own devices.',
-      detail: 'Apps like Proloquo2Go, TouchChat, and the free NHS AAC app turn a smartphone or tablet into a communication device. Staff should know about these options and be ready to allow extra time for customers who use them.',
+      detail: 'Apps like Proloquo2Go, TouchChat and the free NHS AAC app turn a smartphone or tablet into a communication device. Staff should know about these options and be ready to allow extra time for customers who use them.',
       priority: 5
     },
     {
       icon: 'FileText',
-      text: 'Provide picture menus, visual schedules, and icon-based wayfinding.',
-      detail: 'A menu with photos of each dish, a visual schedule of the day\'s events, or directional signs with universal icons all support people with cognitive or language differences. They also help visitors who speak languages other than English.',
+      text: 'Provide picture menus, visual schedules and icon-based wayfinding.',
+      detail: 'A menu with photos of each dish, a visual schedule of the day\'s events or directional signs with universal icons all support people with cognitive or language differences. They also help visitors who speak languages other than English.',
       priority: 6
     }
   ],
@@ -2687,7 +2687,7 @@ export const duringVisitHelp: HelpContent[] = [
     steps: [
       { text: 'Check whether a communication board or picture card set is available at reception and service counters.' },
       { text: 'Review your menu or product information. Is a picture version available? Can customers point to items rather than speaking or reading?' },
-      { text: 'Check whether audio description is available for visual exhibits, performances, or tours. How is it delivered (app, device, live describer)?' },
+      { text: 'Check whether audio description is available for visual exhibits, performances or tours. How is it delivered (app, device, live describer)?' },
       { text: 'Identify any tactile or touchable elements available in your venue (scale models, handling objects, tactile diagrams).' },
       { text: 'Ask three staff members: "How would you communicate with a customer who cannot speak?" Assess their confidence and the strategies they suggest.' },
       { text: 'Check your wayfinding for icon use. Can a person who cannot read English navigate using pictures and symbols alone?' },
@@ -2706,9 +2706,9 @@ export const duringVisitHelp: HelpContent[] = [
     },
     related: [
       { code: 'WCAG2.2-AA', relevance: 'Digital communication supports (apps, audio descriptions) should meet WCAG AA standards for accessibility.' },
-      { code: 'AS1428.2', relevance: 'Section 16 addresses communication provisions in buildings, including signage, audio, and tactile elements.' }
+      { code: 'AS1428.2', relevance: 'Section 16 addresses communication provisions in buildings, including signage, audio and tactile elements.' }
     ],
-    plainEnglish: 'You should provide ways for people who cannot speak, read, or see standard content to communicate with your staff and engage with your venue. Communication boards, picture menus, audio description, and tactile elements are common solutions.',
+    plainEnglish: 'You should provide ways for people who cannot speak, read or see standard content to communicate with your staff and engage with your venue. Communication boards, picture menus, audio description and tactile elements are common solutions.',
     complianceNote: 'The level of communication support expected depends on your venue type and size. A museum is expected to offer audio description; a small cafe may only need a picture menu and a willingness to use pen and paper.'
   },
 
@@ -2722,11 +2722,11 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Download a free communication board template from Scope Australia, Communication Matters, or the AAC Institute.',
-        'Customise the board with symbols relevant to your venue: common items (food, drink, toilet), requests (help, quiet, slow down), responses (yes, no, more, stop), and navigation (exit, this way, wait).',
+        'Download a free communication board template from Scope Australia, Communication Matters or the AAC Institute.',
+        'Customise the board with symbols relevant to your venue: common items (food, drink, toilet), requests (help, quiet, slow down), responses (yes, no, more, stop) and navigation (exit, this way, wait).',
         'Print the board on A3 card stock and laminate it. Make at least two copies (reception and main service counter).',
         'Create a picture menu or information sheet with photos of each item/service alongside text labels.',
-        'Brief staff: show them the board, explain who might use it, and practice a mock interaction.',
+        'Brief staff: show them the board, explain who might use it and practice a mock interaction.',
         'Add a note to your accessibility page: "Communication boards available at reception."'
       ],
       notes: 'Scope Australia and Communication Matters provide free, downloadable communication board templates that can be customised for different business types.'
@@ -2740,10 +2740,10 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Identify the visual content that would most benefit from audio description: key exhibits, artworks, products, menus, or performance elements.',
-        'Write audio description scripts: describe what can be seen including spatial layout, colours, sizes, textures, and details. Use clear, concise language.',
+        'Identify the visual content that would most benefit from audio description: key exhibits, artworks, products, menus or performance elements.',
+        'Write audio description scripts: describe what can be seen including spatial layout, colours, sizes, textures and details. Use clear, concise language.',
         'Record the scripts as audio files and make them available via a free app (e.g. a QR code linking to audio files) or handheld devices loaned at reception.',
-        'Commission one or two tactile elements: a scale model of your venue, a tactile version of a key exhibit, or handling objects that represent visual content.',
+        'Commission one or two tactile elements: a scale model of your venue, a tactile version of a key exhibit or handling objects that represent visual content.',
         'Train staff to offer audio description and tactile resources proactively to visitors with vision impairment.',
         'Promote audio description and tactile resources on your website and at the entrance.',
         'Gather feedback from users and refine the content based on their experience.'
@@ -2752,7 +2752,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive communication accessibility program',
-      description: 'Implement a venue-wide communication accessibility program including multiple AAC options, professional audio description, tactile exhibits, and staff training certified by a speech pathologist.',
+      description: 'Implement a venue-wide communication accessibility program including multiple AAC options, professional audio description, tactile exhibits and staff training certified by a speech pathologist.',
       resourceLevel: 'high',
       costRange: '$5,000-25,000',
       timeRequired: '4-8 weeks',
@@ -2760,15 +2760,15 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a speech pathologist to audit your venue for communication accessibility and recommend a tailored program.',
-        'Develop a suite of AAC resources: communication boards (venue-specific), picture menus, visual schedules, symbol-based wayfinding, and digital AAC options.',
-        'Commission professional audio description for all major exhibits, performances, or tours, delivered via app and handheld devices.',
-        'Create a tactile exhibit program with scale models, handling objects, and raised-relief diagrams at key points.',
-        'Deliver certified communication accessibility training to all staff, covering AAC, patience strategies, and interaction with people with different communication needs.',
+        'Develop a suite of AAC resources: communication boards (venue-specific), picture menus, visual schedules, symbol-based wayfinding and digital AAC options.',
+        'Commission professional audio description for all major exhibits, performances or tours, delivered via app and handheld devices.',
+        'Create a tactile exhibit program with scale models, handling objects and raised-relief diagrams at key points.',
+        'Deliver certified communication accessibility training to all staff, covering AAC, patience strategies and interaction with people with different communication needs.',
         'Install Auslan (Australian Sign Language) video relay at reception for Deaf visitors.',
-        'Promote the full program through disability organisations, tourism channels, and your website.',
+        'Promote the full program through disability organisations, tourism channels and your website.',
         'Review and update all communication resources annually in consultation with people with communication disability.'
       ],
-      notes: 'A comprehensive program positions your venue as a communication-accessible leader. It also benefits tourists with limited English, young children, and anyone who processes information differently.'
+      notes: 'A comprehensive program positions your venue as a communication-accessible leader. It also benefits tourists with limited English, young children and anyone who processes information differently.'
     }
   ],
 
@@ -2776,7 +2776,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Cafe',
-      scenario: 'A cafe had a text-only chalkboard menu. Customers with intellectual disability, aphasia, or limited English could not order independently.',
+      scenario: 'A cafe had a text-only chalkboard menu. Customers with intellectual disability, aphasia or limited English could not order independently.',
       solution: 'Created a laminated picture menu with photos of every item, plus a communication board at the counter with common requests (water, toilet, bill, help). Trained staff to be patient and allow pointing.',
       outcome: 'Several regular customers with disability began ordering independently for the first time. Staff reported that the picture menu also helped international tourists.',
       cost: '$80 (printing and laminating)',
@@ -2795,7 +2795,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'local-government',
       businessTypeLabel: 'Council Customer Service',
       scenario: 'A council customer service centre had no communication supports. Residents with communication disability (aphasia, intellectual disability, autism) could not access services without a carer present.',
-      solution: 'Installed communication boards at every service window, trained all staff in basic AAC use, provided a tablet with a communication app at the information desk, and offered Auslan video relay via a dedicated screen.',
+      solution: 'Installed communication boards at every service window, trained all staff in basic AAC use, provided a tablet with a communication app at the information desk and offered Auslan video relay via a dedicated screen.',
       outcome: 'Residents with communication disability reported being able to access council services independently. Staff confidence in communicating with diverse customers increased significantly.',
       cost: '$3,500 (boards, tablet, training, video relay subscription)',
       timeframe: '4 weeks'
@@ -2835,7 +2835,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.communicationmatters.org.uk/',
       type: 'guide',
       source: 'Communication Matters UK',
-      description: 'Comprehensive guide to AAC types, selection, and implementation (UK-based but applicable).',
+      description: 'Comprehensive guide to AAC types, selection and implementation (UK-based but applicable).',
       isAustralian: false,
       isFree: true
     }
@@ -2853,11 +2853,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Aquatic access and pool equipment',
   coveredQuestionIds: ['3.4-D-11', '3.4-D-12', '3.4-D-13'],
-  summary: 'Accessible aquatic facilities include pool hoists or lifts, graduated (zero-depth) entry, beach wheelchairs, accessible change facilities, and water-safe mobility aids. These enable people with disability to enjoy swimming, hydrotherapy, and beach or waterpark activities.',
+  summary: 'Accessible aquatic facilities include pool hoists or lifts, graduated (zero-depth) entry, beach wheelchairs, accessible change facilities and water-safe mobility aids. These enable people with disability to enjoy swimming, hydrotherapy and beach or waterpark activities.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Water-based activities (swimming, hydrotherapy, beach visits) are among the most therapeutic and enjoyable experiences for people with disability. The buoyancy of water reduces pain, supports movement, and provides sensory regulation. Yet aquatic facilities are often the least accessible part of a venue. Steep pool ladders, raised spa edges, soft sand, and a lack of hoists or ramps mean many people simply cannot get into the water. Accessible change rooms with hoists, adult-sized change tables, and non-slip surfaces are equally important. Without them, the water may be accessible but the preparation process is not.',
+    text: 'Water-based activities (swimming, hydrotherapy, beach visits) are among the most therapeutic and enjoyable experiences for people with disability. The buoyancy of water reduces pain, supports movement and provides sensory regulation. Yet aquatic facilities are often the least accessible part of a venue. Steep pool ladders, raised spa edges, soft sand and a lack of hoists or ramps mean many people simply cannot get into the water. Accessible change rooms with hoists, adult-sized change tables and non-slip surfaces are equally important. Without them, the water may be accessible but the preparation process is not.',
     statistic: {
       value: '85%',
       context: 'of Australians live within 50km of the coast. Beach and pool access is central to Australian culture, yet most beaches and many pools lack accessible entry.',
@@ -2879,7 +2879,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'ArrowDown',
       text: 'Provide zero-depth (graduated/beach-style) entry to at least one pool.',
-      detail: 'A zero-depth entry slopes gradually from the pool deck into the water, allowing wheelchair users to roll in. This is the gold standard for pool access and benefits everyone: families with small children, elderly swimmers, and people recovering from injuries.',
+      detail: 'A zero-depth entry slopes gradually from the pool deck into the water, allowing wheelchair users to roll in. This is the gold standard for pool access and benefits everyone: families with small children, elderly swimmers and people recovering from injuries.',
       priority: 2
     },
     {
@@ -2891,7 +2891,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'DoorOpen',
       text: 'Provide accessible change facilities with a hoist and adult-sized change table.',
-      detail: 'Standard accessible toilets are often too small for aquatic facility change needs. A Changing Places facility (or equivalent) includes a ceiling hoist, adult-sized change table (1800mm x 700mm), adequate space for a carer, and a non-slip floor with floor drain.',
+      detail: 'Standard accessible toilets are often too small for aquatic facility change needs. A Changing Places facility (or equivalent) includes a ceiling hoist, adult-sized change table (1800mm x 700mm), adequate space for a carer and a non-slip floor with floor drain.',
       priority: 4
     },
     {
@@ -2903,7 +2903,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'ShieldCheck',
       text: 'Train lifeguards and pool staff in disability-specific water safety.',
-      detail: 'Staff should know how to operate the pool hoist, assist transfers safely, recognise signs of distress in swimmers with disability, and understand the specific risks (e.g. reduced sensation, fatigue, seizure risk). Royal Life Saving Australia offers disability-specific training.',
+      detail: 'Staff should know how to operate the pool hoist, assist transfers safely, recognise signs of distress in swimmers with disability and understand the specific risks (e.g. reduced sensation, fatigue, seizure risk). Royal Life Saving Australia offers disability-specific training.',
       priority: 6
     }
   ],
@@ -2919,13 +2919,13 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Check for zero-depth or graduated entry. Is there a sloped entry to any pool? If not, how do wheelchair users access the water?' },
       { text: 'Check for beach wheelchair availability (if beachfront venue). Where is it stored? How do visitors request it?' },
       {
-        text: 'Assess the accessible change facility. Does it have a hoist, adult change table, and adequate space?',
+        text: 'Assess the accessible change facility. Does it have a hoist, adult change table and adequate space?',
         measurement: { target: 'Change table dimensions', acceptable: 'Minimum 1800mm x 700mm, height-adjustable preferred', unit: 'mm' }
       },
-      { text: 'Check the path from the change facility to the pool edge. Is it non-slip, level, and free of obstacles?' },
+      { text: 'Check the path from the change facility to the pool edge. Is it non-slip, level and free of obstacles?' },
       { text: 'Check whether pool temperature is displayed and available on the website.' },
       { text: 'Ask lifeguard or pool staff: "How do you assist a wheelchair user into the pool? When was the hoist last tested?" Assess their confidence.' },
-      { text: 'Review your website and promotional materials. Is aquatic accessibility mentioned? Are hoist, beach wheelchair, and entry options described?' }
+      { text: 'Review your website and promotional materials. Is aquatic accessibility mentioned? Are hoist, beach wheelchair and entry options described?' }
     ],
     tools: ['Checklist', 'Tape measure', 'Camera for documentation', 'Hoist maintenance log'],
     estimatedTime: '20-30 minutes'
@@ -2935,14 +2935,14 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 16',
-      requirement: 'Where swimming pools are provided for public use, an accessible means of entry to the water must be provided. This includes a hoist, ramp, or graduated entry.'
+      requirement: 'Where swimming pools are provided for public use, an accessible means of entry to the water must be provided. This includes a hoist, ramp or graduated entry.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'The Premises Standards require accessible facilities wherever the public has access, including aquatic facilities.' },
       { code: 'NCC', relevance: 'Part D3.10 addresses accessible swimming pool provisions in new buildings.' },
       { code: 'DDA', relevance: 'Failing to provide accessible pool entry where it is a core service (e.g. aquatic centres, resorts) may constitute discrimination.' }
     ],
-    plainEnglish: 'If you have a pool or aquatic facility that the public uses, you need to provide a way for wheelchair users to get into the water. This is usually a hoist, a ramp, or a zero-depth entry.',
+    plainEnglish: 'If you have a pool or aquatic facility that the public uses, you need to provide a way for wheelchair users to get into the water. This is usually a hoist, a ramp or a zero-depth entry.',
     complianceNote: 'Pool hoists and graduated entries are required in new aquatic facilities. For existing facilities, installing a portable hoist is usually a reasonable adjustment under the DDA. Beach access is not specifically covered by building codes but is increasingly expected under DDA obligations.'
   },
 
@@ -2960,8 +2960,8 @@ export const duringVisitHelp: HelpContent[] = [
         'Ensure the pool deck is strong enough to support the hoist plus user weight (minimum 200kg combined).',
         'Install or position the hoist at the widest section of the pool edge, away from the deep end.',
         'Provide at least two sling sizes (standard and large) and store them hygienically.',
-        'Upgrade the nearest accessible change room: install grab rails near the shower, add a fold-down bench (if no adult change table), and apply non-slip floor coating.',
-        'Train all pool staff on hoist operation, sling fitting, and safe transfer techniques.',
+        'Upgrade the nearest accessible change room: install grab rails near the shower, add a fold-down bench (if no adult change table) and apply non-slip floor coating.',
+        'Train all pool staff on hoist operation, sling fitting and safe transfer techniques.',
         'Add pool hoist availability to your website and signage at the pool entrance.'
       ],
       notes: 'Portable hoists can be moved between pools if you have multiple facilities. They are also useful for spa access.'
@@ -2987,7 +2987,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive aquatic accessibility upgrade',
-      description: 'Design and implement a fully accessible aquatic facility including multiple entry options, Changing Places facility, beach access, and staff training program.',
+      description: 'Design and implement a fully accessible aquatic facility including multiple entry options, Changing Places facility, beach access and staff training program.',
       resourceLevel: 'high',
       costRange: '$30,000-150,000',
       timeRequired: '2-6 months',
@@ -2997,13 +2997,13 @@ export const duringVisitHelp: HelpContent[] = [
         'Engage an access consultant and pool designer to audit the entire aquatic facility.',
         'Design and install zero-depth entries on at least one pool and the spa.',
         'Install fixed-track ceiling hoists at the main pool and spa for transfer from wheelchair to water.',
-        'Build or upgrade to a Changing Places facility: ceiling hoist, adult change table (height-adjustable), privacy screen, shower with adjustable-height nozzle, and non-slip floor with drain.',
-        'Construct an accessible beach access system: boardwalk, matting, and a beach wheelchair fleet.',
+        'Build or upgrade to a Changing Places facility: ceiling hoist, adult change table (height-adjustable), privacy screen, shower with adjustable-height nozzle and non-slip floor with drain.',
+        'Construct an accessible beach access system: boardwalk, matting and a beach wheelchair fleet.',
         'Train all aquatic staff through Royal Life Saving Australia disability water safety program.',
         'Develop partnerships with local disability organisations for regular accessible swim sessions.',
         'Market the facility as a fully accessible aquatic destination through tourism and disability channels.'
       ],
-      notes: 'Accessible aquatic facilities attract significant visitation from people with disability, their families, and rehabilitation groups. The investment often generates a strong return through increased usage.'
+      notes: 'Accessible aquatic facilities attract significant visitation from people with disability, their families and rehabilitation groups. The investment often generates a strong return through increased usage.'
     }
   ],
 
@@ -3021,7 +3021,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'accommodation',
       businessTypeLabel: 'Beach Resort',
       scenario: 'A beachside resort had no way for guests with mobility disability to access the beach or the pool. The beach was 50m of soft sand and the pool had a ladder.',
-      solution: 'Purchased two beach wheelchairs, installed a boardwalk mat from the path to the waterline, and added a portable pool hoist. Created a "Beach Butler" service where staff assist with wheelchair transfers and positioning.',
+      solution: 'Purchased two beach wheelchairs, installed a boardwalk mat from the path to the waterline and added a portable pool hoist. Created a "Beach Butler" service where staff assist with wheelchair transfers and positioning.',
       outcome: 'The resort became known as a leading accessible beach destination. Bookings from the disability community increased 40% in the first year.',
       cost: '$8,000 (wheelchairs, matting, hoist)',
       timeframe: '3 weeks'
@@ -3029,8 +3029,8 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'local-government',
       businessTypeLabel: 'Municipal Pool',
-      scenario: 'A 30-year-old municipal pool had no accessible entry, no Changing Places facility, and lifeguards with no disability training.',
-      solution: 'Major renovation included a zero-depth entry on the 25m pool, a ceiling hoist at the deep end, a Changing Places room, and staff training through Royal Life Saving. Also added a weekly "Accessible Swim" session with extra staff.',
+      scenario: 'A 30-year-old municipal pool had no accessible entry, no Changing Places facility and lifeguards with no disability training.',
+      solution: 'Major renovation included a zero-depth entry on the 25m pool, a ceiling hoist at the deep end, a Changing Places room and staff training through Royal Life Saving. Also added a weekly "Accessible Swim" session with extra staff.',
       outcome: 'The pool became the most popular aquatic venue for disability groups in the region. School groups with students with disability booked regularly.',
       cost: '$120,000 (as part of a broader renovation)',
       timeframe: '4 months'
@@ -3061,7 +3061,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://accessiblebeaches.com/',
       type: 'website',
       source: 'Accessible Beaches Australia',
-      description: 'Directory of accessible beaches with information on beach wheelchairs, matting, and access features.',
+      description: 'Directory of accessible beaches with information on beach wheelchairs, matting and access features.',
       isAustralian: true,
       isFree: true
     }
@@ -3079,14 +3079,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Digital connectivity and device charging',
   coveredQuestionIds: ['3.4-D-15'],
-  summary: 'Many people with disability rely on smartphones, tablets, and apps as assistive technology. Free WiFi, accessible-height charging stations, and power outlets near accessible seating enable visitors to use speech-to-text, navigation, communication, and magnification apps throughout their visit.',
+  summary: 'Many people with disability rely on smartphones, tablets and apps as assistive technology. Free WiFi, accessible-height charging stations and power outlets near accessible seating enable visitors to use speech-to-text, navigation, communication and magnification apps throughout their visit.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'For many people with disability, their smartphone is their primary assistive device. It serves as a magnifier, hearing aid remote control, communication board, navigation tool, voice-to-text converter, and connection to emergency support. Without WiFi, data-intensive features like video relay interpreting, real-time captioning, and audio streaming may not function. Without power, a device dies mid-visit, leaving the person without their assistive tools. Charging stations that are mounted at standard height or hidden under counters may be unreachable from a wheelchair. Providing free WiFi, clearly signed, and charging stations at accessible heights is a straightforward way to support digital assistive technology.',
+    text: 'For many people with disability, their smartphone is their primary assistive device. It serves as a magnifier, hearing aid remote control, communication board, navigation tool, voice-to-text converter and connection to emergency support. Without WiFi, data-intensive features like video relay interpreting, real-time captioning and audio streaming may not function. Without power, a device dies mid-visit, leaving the person without their assistive tools. Charging stations that are mounted at standard height or hidden under counters may be unreachable from a wheelchair. Providing free WiFi, clearly signed and charging stations at accessible heights is a straightforward way to support digital assistive technology.',
     statistic: {
       value: '72%',
-      context: 'of people with disability use a smartphone as an assistive device, relying on apps for communication, magnification, hearing, and navigation.',
+      context: 'of people with disability use a smartphone as an assistive device, relying on apps for communication, magnification, hearing and navigation.',
       source: 'Australian Communications Consumer Action Network (ACCAN)'
     },
     quote: {
@@ -3099,7 +3099,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Wifi',
       text: 'Provide free WiFi with a simple login process.',
-      detail: 'Complex captive portals with small text, CAPTCHAs, and multiple steps are barriers for people with vision impairment, cognitive disability, or limited dexterity. Use a simple one-tap connection or open network. If a password is required, display it in large print at the entrance and on your website.',
+      detail: 'Complex captive portals with small text, CAPTCHAs and multiple steps are barriers for people with vision impairment, cognitive disability or limited dexterity. Use a simple one-tap connection or open network. If a password is required, display it in large print at the entrance and on your website.',
       priority: 1
     },
     {
@@ -3111,19 +3111,19 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Plug',
       text: 'Ensure at least one power outlet near every accessible seating area.',
-      detail: 'Powered wheelchairs, laptop-based AAC devices, and other assistive technology need mains power for extended visits. An outlet at 600-1100mm height near each accessible seating zone covers this need.',
+      detail: 'Powered wheelchairs, laptop-based AAC devices and other assistive technology need mains power for extended visits. An outlet at 600-1100mm height near each accessible seating zone covers this need.',
       priority: 3
     },
     {
       icon: 'SignpostBig',
       text: 'Sign WiFi availability and charging locations clearly.',
-      detail: 'Display the WiFi network name and password in large print (minimum 18pt) at the entrance, reception, and near charging stations. Use the universal WiFi symbol and a charging/power symbol. Include this information on your website accessibility page.',
+      detail: 'Display the WiFi network name and password in large print (minimum 18pt) at the entrance, reception and near charging stations. Use the universal WiFi symbol and a charging/power symbol. Include this information on your website accessibility page.',
       priority: 4
     },
     {
       icon: 'ShieldCheck',
       text: 'Ensure WiFi bandwidth supports assistive technology needs.',
-      detail: 'Video relay interpreting, real-time captioning, and audio streaming require reliable bandwidth. Test your WiFi connection with video calling to confirm it can handle these demands during peak periods.',
+      detail: 'Video relay interpreting, real-time captioning and audio streaming require reliable bandwidth. Test your WiFi connection with video calling to confirm it can handle these demands during peak periods.',
       priority: 5
     }
   ],
@@ -3143,7 +3143,7 @@ export const duringVisitHelp: HelpContent[] = [
       },
       { text: 'Check signage. Is the WiFi name and password displayed in large print at the entrance and near charging stations?' },
       { text: 'Attempt to connect to WiFi using VoiceOver (iOS) or TalkBack (Android) to test screen reader compatibility of the login process.' },
-      { text: 'Check that charging cables (if provided) include Lightning, USB-C, and micro-USB options to cover common devices.' }
+      { text: 'Check that charging cables (if provided) include Lightning, USB-C and micro-USB options to cover common devices.' }
     ],
     tools: ['Smartphone for WiFi testing', 'Speed test app', 'Tape measure', 'Screen reader (VoiceOver or TalkBack)'],
     estimatedTime: '15-20 minutes'
@@ -3166,7 +3166,7 @@ export const duringVisitHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Simplify WiFi access and add charging at accessible seating',
-      description: 'Remove WiFi barriers, display the password prominently, and add charging capability near accessible seating areas.',
+      description: 'Remove WiFi barriers, display the password prominently and add charging capability near accessible seating areas.',
       resourceLevel: 'low',
       costRange: '$50-300',
       timeRequired: '1-2 hours',
@@ -3174,7 +3174,7 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'quick-win',
       steps: [
         'Simplify the WiFi login: remove CAPTCHAs, reduce to a one-tap or one-password connection. If a captive portal is required, test it with VoiceOver/TalkBack.',
-        'Print the WiFi network name and password in large print (minimum 24pt) and laminate signs for the entrance, reception, and main seating areas.',
+        'Print the WiFi network name and password in large print (minimum 24pt) and laminate signs for the entrance, reception and main seating areas.',
         'Purchase a multi-port USB charging hub ($30-80) and mount it on or near an accessible table at approximately 800mm height.',
         'Provide a multi-tip charging cable (Lightning, USB-C, micro-USB) secured to the charging station.',
         'If no mains power is available near accessible seating, use a high-capacity portable power bank ($50-100) that can be loaned from reception.',
@@ -3193,7 +3193,7 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Identify all accessible seating areas and map the nearest power sources.',
         'Engage an electrician to install surface-mounted or furniture-integrated charging stations at each accessible area.',
-        'Specify stations with USB-A, USB-C, and one standard power outlet, mounted at 800mm height on a pedestal or table-edge unit.',
+        'Specify stations with USB-A, USB-C and one standard power outlet, mounted at 800mm height on a pedestal or table-edge unit.',
         'Install clear signage at each charging point with the charging symbol and the WiFi password.',
         'Upgrade WiFi bandwidth if necessary to support video relay and real-time captioning (minimum 10 Mbps per concurrent user).',
         'Test the setup with a wheelchair user to confirm all ports are reachable from a seated position.',
@@ -3203,7 +3203,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Deploy a comprehensive digital accessibility infrastructure',
-      description: 'Implement venue-wide accessible WiFi, integrated charging, digital wayfinding, and support for all major assistive technology platforms.',
+      description: 'Implement venue-wide accessible WiFi, integrated charging, digital wayfinding and support for all major assistive technology platforms.',
       resourceLevel: 'high',
       costRange: '$5,000-20,000',
       timeRequired: '2-4 weeks',
@@ -3212,7 +3212,7 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Engage a WiFi and network specialist to design a system that provides reliable coverage and bandwidth throughout the venue.',
         'Implement an accessible captive portal that meets WCAG 2.2 AA standards, tested with multiple screen readers.',
-        'Install charging stations at every accessible seating area, every service counter, and in waiting areas, all at 800mm height.',
+        'Install charging stations at every accessible seating area, every service counter and in waiting areas, all at 800mm height.',
         'Deploy a digital wayfinding system (app-based or beacon-based) that works with common assistive technology platforms.',
         'Provide charging lockers (with accessible-height locks) where visitors can leave devices charging while they explore.',
         'Install a dedicated WiFi network for assistive technology with prioritised bandwidth.',
@@ -3227,7 +3227,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'attraction',
       businessTypeLabel: 'Museum',
-      scenario: 'A museum had WiFi with a complex captive portal requiring an email, CAPTCHA, and terms checkbox. Screen reader users could not complete the login. There were no charging points in the galleries.',
+      scenario: 'A museum had WiFi with a complex captive portal requiring an email, CAPTCHA and terms checkbox. Screen reader users could not complete the login. There were no charging points in the galleries.',
       solution: 'Replaced the captive portal with a simple password connection. Displayed the password in large print at the entrance and on information cards. Installed USB charging ports at four accessible seating benches in the galleries.',
       outcome: 'Visitors using assistive technology apps (magnification, audio description) could stay connected throughout their visit. Complaints about WiFi access dropped to zero.',
       cost: '$1,200 (charging ports and signage)',
@@ -3294,14 +3294,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Captioned and Audio-Described Video Content',
   coveredQuestionIds: ['3.6-D-8', '3.6-D-5'],
-  summary: 'All video content displayed in your venue should include closed captions for people who are deaf or hard of hearing, and audio description tracks for people who are blind or have low vision. Transcripts should also be available on request.',
+  summary: 'All video content displayed in your venue should include closed captions for people who are deaf or hard of hearing and audio description tracks for people who are blind or have low vision. Transcripts should also be available on request.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Video is increasingly used in venues for wayfinding, safety briefings, promotional content, and interpretive displays. Without captions, people who are deaf or hard of hearing miss spoken dialogue and important sound cues. Without audio description, people who are blind or have low vision miss visual information that is not conveyed through dialogue alone. Providing both ensures your video content reaches the widest possible audience and meets your obligations under the DDA.',
+    text: 'Video is increasingly used in venues for wayfinding, safety briefings, promotional content and interpretive displays. Without captions, people who are deaf or hard of hearing miss spoken dialogue and important sound cues. Without audio description, people who are blind or have low vision miss visual information that is not conveyed through dialogue alone. Providing both ensures your video content reaches the widest possible audience and meets your obligations under the DDA.',
     statistic: {
       value: '3.6 million',
-      context: 'Australians have hearing loss, and over 575,000 are blind or have low vision. Captions and audio description are essential, not optional.',
+      context: 'Australians have hearing loss and over 575,000 are blind or have low vision. Captions and audio description are essential, not optional.',
       source: 'Hearing Australia and Vision Australia'
     }
   },
@@ -3310,31 +3310,31 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Subtitles',
       text: 'Add closed captions to every video, including sound effects and speaker identification.',
-      detail: 'Closed captions should include all spoken dialogue, identify who is speaking when multiple people are on screen, and describe important sounds (e.g., [alarm sounding], [applause]). Use a legible sans-serif font at minimum 22px on a semi-transparent dark background for readability.',
+      detail: 'Closed captions should include all spoken dialogue, identify who is speaking when multiple people are on screen and describe important sounds (e.g., [alarm sounding], [applause]). Use a legible sans-serif font at minimum 22px on a semi-transparent dark background for readability.',
       priority: 1
     },
     {
       icon: 'Eye',
       text: 'Include audio description tracks that narrate key visual information.',
-      detail: 'Audio description fills the gaps between dialogue, describing actions, settings, facial expressions, and on-screen text that a viewer with low vision would otherwise miss. It should be concise and timed to fit naturally into pauses in the soundtrack.',
+      detail: 'Audio description fills the gaps between dialogue, describing actions, settings, facial expressions and on-screen text that a viewer with low vision would otherwise miss. It should be concise and timed to fit naturally into pauses in the soundtrack.',
       priority: 2
     },
     {
       icon: 'FileText',
       text: 'Provide a full text transcript for every video, available on request or online.',
-      detail: 'Transcripts benefit people who are deafblind (using refreshable Braille displays), people in noisy environments, and anyone who prefers reading. Include speaker identification, dialogue, and descriptions of relevant visual and audio content.',
+      detail: 'Transcripts benefit people who are deafblind (using refreshable Braille displays), people in noisy environments and anyone who prefers reading. Include speaker identification, dialogue and descriptions of relevant visual and audio content.',
       priority: 3
     },
     {
       icon: 'Monitor',
       text: 'Use accessible video players with keyboard-navigable controls.',
-      detail: 'Ensure the video player supports keyboard navigation for play, pause, volume, captions toggle, and full screen. Avoid auto-playing videos with sound. Players like Able Player or configured YouTube embeds meet these requirements.',
+      detail: 'Ensure the video player supports keyboard navigation for play, pause, volume, captions toggle and full screen. Avoid auto-playing videos with sound. Players like Able Player or configured YouTube embeds meet these requirements.',
       priority: 4
     },
     {
       icon: 'Globe',
       text: 'Consider multilingual captions for venues with international visitors.',
-      detail: 'If your venue regularly welcomes visitors who speak languages other than English, adding subtitle tracks in common visitor languages improves access for both deaf and hearing visitors. At minimum, provide English captions and consider Simplified Chinese, Japanese, or other relevant languages based on your visitor demographics.',
+      detail: 'If your venue regularly welcomes visitors who speak languages other than English, adding subtitle tracks in common visitor languages improves access for both deaf and hearing visitors. At minimum, provide English captions and consider Simplified Chinese, Japanese or other relevant languages based on your visitor demographics.',
       priority: 5
     },
     {
@@ -3348,12 +3348,12 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing video accessibility in your venue',
     steps: [
-      { text: 'Create an inventory of all video content displayed in your venue, including promotional screens, safety briefings, interpretive displays, digital menus, and any content on your website or app.' },
-      { text: 'For each video, check whether closed captions are present. Play the video with sound muted and confirm that all dialogue, speaker identification, and important sounds are displayed as text.' },
+      { text: 'Create an inventory of all video content displayed in your venue, including promotional screens, safety briefings, interpretive displays, digital menus and any content on your website or app.' },
+      { text: 'For each video, check whether closed captions are present. Play the video with sound muted and confirm that all dialogue, speaker identification and important sounds are displayed as text.' },
       { text: 'Check caption quality: Are they accurately synchronised with speech? Are they free of errors? Do they use readable fonts on a contrasting background?' },
       { text: 'For each video, check whether an audio description track is available. Listen to the audio description version and confirm that key visual information (actions, scene changes, on-screen text) is described.' },
-      { text: 'Check whether a text transcript is available for each video. Verify it includes speaker identification, dialogue, and descriptions of visual and audio content.' },
-      { text: 'Test video players for keyboard accessibility: Can you play, pause, adjust volume, toggle captions, and enter full screen using only the Tab and Enter keys?' },
+      { text: 'Check whether a text transcript is available for each video. Verify it includes speaker identification, dialogue and descriptions of visual and audio content.' },
+      { text: 'Test video players for keyboard accessibility: Can you play, pause, adjust volume, toggle captions and enter full screen using only the Tab and Enter keys?' },
       { text: 'Check that videos do not auto-play with sound. Auto-playing audio can be disorienting for screen reader users and distressing for people with sensory sensitivities.' },
       { text: 'Verify that caption font size is legible from the typical viewing distance for each display.',
         measurement: { target: 'Caption font size', acceptable: 'Minimum 22px at 1m viewing distance, scale up proportionally for larger displays', unit: 'px' }
@@ -3367,7 +3367,7 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'WCAG2.1-AA',
       section: 'SC 1.2.2, 1.2.3, 1.2.5',
-      requirement: 'Pre-recorded video must have captions (1.2.2), audio description or media alternative (1.2.3), and audio description for pre-recorded video (1.2.5 at AA).'
+      requirement: 'Pre-recorded video must have captions (1.2.2), audio description or media alternative (1.2.3) and audio description for pre-recorded video (1.2.5 at AA).'
     },
     related: [
       { code: 'DDA', relevance: 'The DDA requires that information provided to the public is accessible to people with disability. Uncaptioned video content in venues may constitute indirect discrimination.' },
@@ -3388,8 +3388,8 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'quick-win',
       steps: [
         'List all videos currently displayed in your venue or published on your website.',
-        'Upload each video to a free auto-captioning service (YouTube Studio, Otter.ai, or Microsoft Stream) to generate draft captions.',
-        'Review and correct the auto-generated captions for accuracy, especially proper nouns, technical terms, and Australian place names.',
+        'Upload each video to a free auto-captioning service (YouTube Studio, Otter.ai or Microsoft Stream) to generate draft captions.',
+        'Review and correct the auto-generated captions for accuracy, especially proper nouns, technical terms and Australian place names.',
         'Add speaker identification labels where multiple people speak (e.g., [Tour guide], [Visitor]).',
         'Add descriptions of important non-speech sounds (e.g., [fire alarm], [waves crashing]).',
         'Export the corrected captions as SRT or VTT files and embed them in your video player.',
@@ -3407,9 +3407,9 @@ export const duringVisitHelp: HelpContent[] = [
       implementedBy: 'specialist',
       impact: 'moderate',
       steps: [
-        'Prioritise videos by audience reach: safety videos, main promotional content, and interpretive displays should be done first.',
-        'Request quotes from Australian captioning providers (e.g., Ai-Media, The Captioning Studio, or Red Bee Media).',
-        'Provide the captioning company with your video files, any scripts or speaker lists, and a glossary of venue-specific terms.',
+        'Prioritise videos by audience reach: safety videos, main promotional content and interpretive displays should be done first.',
+        'Request quotes from Australian captioning providers (e.g., Ai-Media, The Captioning Studio or Red Bee Media).',
+        'Provide the captioning company with your video files, any scripts or speaker lists and a glossary of venue-specific terms.',
         'Request both closed caption files (SRT/VTT) and open-captioned versions for in-venue displays where viewers cannot toggle captions.',
         'For audio description, provide the service with your video and any existing scripts. The describer will write a narration script and record it.',
         'Review the delivered captions and audio description for accuracy before publishing.',
@@ -3420,14 +3420,14 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Build accessibility into your video production workflow',
-      description: 'Establish a policy and workflow ensuring all new video content is produced with captions, audio description, and transcripts from the start.',
+      description: 'Establish a policy and workflow ensuring all new video content is produced with captions, audio description and transcripts from the start.',
       resourceLevel: 'high',
       costRange: '$2,000-8,000',
       timeRequired: '2-4 weeks to establish',
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Draft an accessible video policy stating that no video content will be published without captions, audio description, and a transcript.',
+        'Draft an accessible video policy stating that no video content will be published without captions, audio description and a transcript.',
         'Brief your video production team or agency on accessibility requirements, including caption standards (timing, accuracy, formatting) and audio description conventions.',
         'Include captioning and audio description line items in every video production budget and timeline.',
         'Script videos with audio description in mind: leave natural pauses for descriptions and avoid relying solely on visual information to convey key messages.',
@@ -3503,7 +3503,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.w3.org/WAI/media/av/',
       type: 'guide',
       source: 'W3C Web Accessibility Initiative',
-      description: 'Comprehensive guide to making media accessible, covering captions, audio description, transcripts, and sign language.',
+      description: 'Comprehensive guide to making media accessible, covering captions, audio description, transcripts and sign language.',
       isFree: true
     },
     {
@@ -3528,11 +3528,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'On-site Alternative Formats',
   coveredQuestionIds: ['3.7-DD-1a', '3.7-DD-1b', '3.7-PC-2', '3.7-DD-2a'],
-  summary: 'Providing information in multiple formats on-site (large print, Easy Read, Braille, digital alternatives, and accessible interactive displays) ensures all visitors can engage with your content regardless of their abilities.',
+  summary: 'Providing information in multiple formats on-site (large print, Easy Read, Braille, digital alternatives and accessible interactive displays) ensures all visitors can engage with your content regardless of their abilities.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'When visitors arrive at your venue, they need to navigate, understand what is on offer, and engage with your content. If information is only available in standard print, you exclude people with low vision, intellectual disability, literacy challenges, or those who learn better through digital or audio formats. Proactively offering alternative formats, rather than waiting for visitors to ask, sends a clear message that everyone is welcome and expected.',
+    text: 'When visitors arrive at your venue, they need to navigate, understand what is on offer and engage with your content. If information is only available in standard print, you exclude people with low vision, intellectual disability, literacy challenges or those who learn better through digital or audio formats. Proactively offering alternative formats, rather than waiting for visitors to ask, sends a clear message that everyone is welcome and expected.',
     statistic: {
       value: '44%',
       context: 'of Australian adults have literacy levels below what is needed for everyday tasks. Alternative formats help far more people than you might expect.',
@@ -3544,37 +3544,37 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'FileText',
       text: 'Keep large print versions of key documents ready at reception (minimum 18pt, sans-serif font).',
-      detail: 'Large print is the most commonly requested alternative format. Prepare your visitor guide, menu, safety information, and map in 18pt Arial or similar sans-serif font on matte (non-glossy) paper. Use high contrast (black text on white or cream background).',
+      detail: 'Large print is the most commonly requested alternative format. Prepare your visitor guide, menu, safety information and map in 18pt Arial or similar sans-serif font on matte (non-glossy) paper. Use high contrast (black text on white or cream background).',
       priority: 1
     },
     {
       icon: 'Smartphone',
       text: 'Offer digital alternatives via QR codes that link to accessible web pages.',
-      detail: 'QR codes allow visitors to access information on their own devices, where they can adjust text size, use screen readers, or translate content. Place QR codes at key points throughout your venue. Ensure the linked pages meet WCAG 2.1 AA standards.',
+      detail: 'QR codes allow visitors to access information on their own devices, where they can adjust text size, use screen readers or translate content. Place QR codes at key points throughout your venue. Ensure the linked pages meet WCAG 2.1 AA standards.',
       priority: 2
     },
     {
       icon: 'Image',
       text: 'Create Easy Read versions of essential information using simple words and supporting images.',
-      detail: 'Easy Read uses short sentences (maximum 15 words), everyday vocabulary, and a relevant image beside each key point. It benefits people with intellectual disability, acquired brain injury, low literacy, and visitors with limited English.',
+      detail: 'Easy Read uses short sentences (maximum 15 words), everyday vocabulary and a relevant image beside each key point. It benefits people with intellectual disability, acquired brain injury, low literacy and visitors with limited English.',
       priority: 3
     },
     {
       icon: 'Monitor',
       text: 'Ensure interactive exhibits and touchscreens are accessible to people with different disabilities.',
-      detail: 'Touchscreens should be mounted at a height reachable from a wheelchair (between 900mm and 1100mm to the centre). Provide audio output, adjustable text size, and high-contrast mode. Offer an alternative way to access the same content for people who cannot use a touchscreen.',
+      detail: 'Touchscreens should be mounted at a height reachable from a wheelchair (between 900mm and 1100mm to the centre). Provide audio output, adjustable text size and high-contrast mode. Offer an alternative way to access the same content for people who cannot use a touchscreen.',
       priority: 4
     },
     {
       icon: 'Users',
       text: 'Train staff to proactively offer alternative formats rather than waiting for requests.',
-      detail: 'Many visitors will not ask for alternative formats because they do not know they exist, they feel embarrassed, or they assume none are available. A brief mention at the point of welcome ("We have large print and Easy Read guides available, would you like one?") removes this barrier.',
+      detail: 'Many visitors will not ask for alternative formats because they do not know they exist, they feel embarrassed or they assume none are available. A brief mention at the point of welcome ("We have large print and Easy Read guides available, would you like one?") removes this barrier.',
       priority: 5
     },
     {
       icon: 'Braille',
       text: 'Provide Braille labels on key signage and consider Braille versions of important documents.',
-      detail: 'While not all people with vision impairment read Braille, those who do rely on it heavily. At minimum, add Braille labels to room numbers, lift buttons, and toilet signage. For frequently requested documents, a Braille version can be produced by organisations like Vision Australia.',
+      detail: 'While not all people with vision impairment read Braille, those who do rely on it heavily. At minimum, add Braille labels to room numbers, lift buttons and toilet signage. For frequently requested documents, a Braille version can be produced by organisations like Vision Australia.',
       priority: 6
     }
   ],
@@ -3582,17 +3582,17 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing on-site information formats',
     steps: [
-      { text: 'List all printed materials visitors encounter: visitor guides, maps, menus, safety information, interpretive panels, wayfinding signage, event programs, and feedback forms.' },
+      { text: 'List all printed materials visitors encounter: visitor guides, maps, menus, safety information, interpretive panels, wayfinding signage, event programs and feedback forms.' },
       { text: 'For each item, check whether a large print version exists. Verify it uses minimum 18pt sans-serif font on non-glossy paper with high contrast.',
         measurement: { target: 'Large print font size', acceptable: 'Minimum 18pt (ideally 24pt for key documents)', unit: 'pt' }
       },
       { text: 'Check whether an Easy Read version exists for your most important visitor documents (guide, safety info, map).' },
       { text: 'Check whether digital alternatives are available. Scan any QR codes and verify the linked pages are accessible (keyboard navigable, screen reader compatible, adequate contrast).' },
-      { text: 'Test any interactive exhibits or touchscreens. Check mounting height, screen readability, audio output, and whether alternative access methods are available.',
+      { text: 'Test any interactive exhibits or touchscreens. Check mounting height, screen readability, audio output and whether alternative access methods are available.',
         measurement: { target: 'Touchscreen centre height', acceptable: '900mm to 1100mm from floor', unit: 'mm' }
       },
       { text: 'Ask three front-line staff members whether they know what alternative formats are available and how to offer them. Note any gaps in awareness.' },
-      { text: 'Check whether Braille labels are present on room numbers, lift buttons, and key signage.' },
+      { text: 'Check whether Braille labels are present on room numbers, lift buttons and key signage.' },
       { text: 'Visit as a mystery shopper and note whether alternative formats are mentioned or offered without being requested.' }
     ],
     tools: ['Ruler or tape measure', 'Smartphone (for QR code testing)', 'Alternative format checklist'],
@@ -3605,10 +3605,10 @@ export const duringVisitHelp: HelpContent[] = [
       requirement: 'The Disability Discrimination Act requires that information provided to the public is accessible to people with disability. Providing information only in standard print may constitute indirect discrimination.'
     },
     related: [
-      { code: 'WCAG2.1-AA', relevance: 'Digital alternatives (QR code destinations, apps, websites) must meet WCAG 2.1 AA for text alternatives, contrast, and keyboard navigation.' },
+      { code: 'WCAG2.1-AA', relevance: 'Digital alternatives (QR code destinations, apps, websites) must meet WCAG 2.1 AA for text alternatives, contrast and keyboard navigation.' },
       { code: 'AS1428.1', relevance: 'Section 8 covers signage requirements including Braille and tactile characters on room identification signs.' }
     ],
-    plainEnglish: 'You should provide your information in more than one format so that people with different disabilities can access it. This includes large print, Easy Read, digital, Braille, and audio alternatives.',
+    plainEnglish: 'You should provide your information in more than one format so that people with different disabilities can access it. This includes large print, Easy Read, digital, Braille and audio alternatives.',
     complianceNote: 'There is no prescriptive list of required formats under the DDA. The test is whether a person with disability can access the same information as other visitors. Offering multiple formats demonstrates good faith compliance.'
   },
 
@@ -3625,7 +3625,7 @@ export const duringVisitHelp: HelpContent[] = [
         'Identify your top three most-used visitor documents (e.g., visitor guide, menu, safety information).',
         'For each document, create a large print version: reformat to 18pt minimum (24pt preferred) in Arial or Verdana, left-aligned, with generous line spacing (1.5x).',
         'Print on matte A4 or A3 paper (not glossy) using high-contrast black text on white or cream paper.',
-        'For Easy Read, rewrite each document using sentences of 15 words or fewer, everyday vocabulary, and one idea per sentence.',
+        'For Easy Read, rewrite each document using sentences of 15 words or fewer, everyday vocabulary and one idea per sentence.',
         'Add a relevant image or icon beside each key point in the Easy Read version. Use real photographs where possible.',
         'Print 5 to 10 copies of each format and store them at reception or your main service point.',
         'Brief reception staff on what is available and practise offering the formats as part of the welcome script.',
@@ -3647,7 +3647,7 @@ export const duringVisitHelp: HelpContent[] = [
         'Generate QR codes linking to each page. Use a reliable QR generator that creates high-resolution codes with good error correction.',
         'Design and print QR code signs with clear instructions: "Scan for accessible version" with the ISA symbol. Mount at heights accessible from a wheelchair (1000mm to 1200mm centre height).',
         'Test every QR code with multiple devices and screen readers (VoiceOver on iOS, TalkBack on Android).',
-        'Include text size controls, language options, and a "read aloud" function on the digital pages where feasible.',
+        'Include text size controls, language options and a "read aloud" function on the digital pages where feasible.',
         'Monitor QR code usage analytics to understand which formats and pages are most accessed.',
         'Update digital content immediately when venue information changes and retest QR codes monthly.'
       ],
@@ -3655,7 +3655,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Commission a comprehensive alternative formats program',
-      description: 'Engage accessibility specialists to produce a full suite of alternative formats including Braille, tactile maps, audio guides, and accessible interactive displays.',
+      description: 'Engage accessibility specialists to produce a full suite of alternative formats including Braille, tactile maps, audio guides and accessible interactive displays.',
       resourceLevel: 'high',
       costRange: '$3,000-15,000',
       timeRequired: '4-8 weeks',
@@ -3664,9 +3664,9 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Engage an accessibility consultant to audit all visitor-facing information and recommend priority formats for each piece of content.',
         'Commission Braille translations of key documents through Vision Australia or a Braille production house.',
-        'Develop a tactile map of your venue showing key landmarks, pathways, and facilities in raised relief.',
+        'Develop a tactile map of your venue showing key landmarks, pathways and facilities in raised relief.',
         'Produce audio guide content for self-guided tours, available via a dedicated device or a free app.',
-        'Upgrade interactive exhibits with accessibility features: audio output, adjustable font size, high-contrast mode, and switch access for people who cannot use a touchscreen.',
+        'Upgrade interactive exhibits with accessibility features: audio output, adjustable font size, high-contrast mode and switch access for people who cannot use a touchscreen.',
         'Engage a person with intellectual disability to review and test Easy Read materials before finalising.',
         'Install signage at every information point listing available formats with the relevant accessibility symbols.',
         'Develop a maintenance plan: assign responsibility for keeping all formats current when content changes.'
@@ -3680,7 +3680,7 @@ export const duringVisitHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Museum',
       scenario: 'A regional museum had interpretive panels in standard 12pt text with no alternative formats. Visitors with low vision or intellectual disability could not engage with exhibit content.',
-      solution: 'Created large print companion booklets for each gallery, Easy Read summaries of key exhibits with photos, QR codes linking to audio descriptions, and a tactile map at the entrance. Staff were trained to offer formats at the welcome desk.',
+      solution: 'Created large print companion booklets for each gallery, Easy Read summaries of key exhibits with photos, QR codes linking to audio descriptions and a tactile map at the entrance. Staff were trained to offer formats at the welcome desk.',
       outcome: 'Visitor feedback from disability groups improved significantly. The museum was featured in a Vision Australia newsletter as a recommended accessible destination.',
       cost: '$2,800 for initial production',
       timeframe: '5 weeks'
@@ -3706,7 +3706,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       businessType: 'accommodation',
       businessTypeLabel: 'Hotel',
-      scenario: 'A hotel chain had room information compendiums in each room but no accessible alternatives. Guests with vision impairment could not access in-room information about services, safety procedures, or local attractions.',
+      scenario: 'A hotel chain had room information compendiums in each room but no accessible alternatives. Guests with vision impairment could not access in-room information about services, safety procedures or local attractions.',
       solution: 'Produced large print and Braille versions of the room compendium for accessible rooms. Added a QR code on the compendium cover linking to an accessible web version. Installed a smart speaker in accessible rooms allowing guests to ask for information verbally.',
       outcome: 'Guest satisfaction scores for accessible rooms improved. The digital compendium reduced printing costs by 30% as all rooms eventually adopted the QR code option.',
       cost: '$1,200 for Braille production, $500 for digital version, $150 per smart speaker',
@@ -3720,7 +3720,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.scopeaust.org.au/service/communication-access/',
       type: 'guide',
       source: 'Scope Australia',
-      description: 'Tools, templates, and training for creating Easy Read documents. Includes a symbol library and style guide.',
+      description: 'Tools, templates and training for creating Easy Read documents. Includes a symbol library and style guide.',
       isAustralian: true,
       isFree: true
     },
@@ -3729,7 +3729,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.visionaustralia.org/',
       type: 'website',
       source: 'Vision Australia',
-      description: 'Braille transcription, tactile graphics, and alternative format production services for businesses.',
+      description: 'Braille transcription, tactile graphics and alternative format production services for businesses.',
       isAustralian: true,
       isFree: false
     },
@@ -3738,7 +3738,7 @@ export const duringVisitHelp: HelpContent[] = [
       url: 'https://www.w3.org/WAI/tutorials/',
       type: 'guide',
       source: 'W3C',
-      description: 'Step-by-step tutorials for creating accessible web content, including images, tables, and forms.',
+      description: 'Step-by-step tutorials for creating accessible web content, including images, tables and forms.',
       isFree: true
     },
     {
@@ -3765,14 +3765,14 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Clear and readable signage',
   coveredQuestionIds: ['3.5-1-2', '3.5-D-2', '3.5-D-5', '3.5-D-7'],
-  summary: 'Signage must use clear, sans-serif fonts at appropriate sizes, with high contrast between text and background. Non-reflective materials, consistent placement, and adequate lighting ensure people with low vision can read signs independently.',
+  summary: 'Signage must use clear, sans-serif fonts at appropriate sizes, with high contrast between text and background. Non-reflective materials, consistent placement and adequate lighting ensure people with low vision can read signs independently.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Clear signage is the foundation of independent navigation. When signs are too small, use decorative fonts, or have poor contrast, people with low vision cannot read them. This affects not only people with diagnosed vision impairment but also older adults experiencing age-related vision changes.',
+    text: 'Clear signage is the foundation of independent navigation. When signs are too small, use decorative fonts or have poor contrast, people with low vision cannot read them. This affects not only people with diagnosed vision impairment but also older adults experiencing age-related vision changes.',
     statistic: { value: '575,000+', context: 'Australians are blind or have low vision. Many more experience uncorrected or age-related vision changes that affect reading.', source: 'Vision Australia' }
   },
   tips: [
-    { icon: 'Type', text: 'Use sans-serif fonts (Arial, Helvetica, Verdana) for all signage.', detail: 'Decorative, serif, and italic fonts are significantly harder to read for people with low vision.', priority: 1 },
+    { icon: 'Type', text: 'Use sans-serif fonts (Arial, Helvetica, Verdana) for all signage.', detail: 'Decorative, serif and italic fonts are significantly harder to read for people with low vision.', priority: 1 },
     { icon: 'Maximize', text: 'Scale font size to viewing distance: 15mm minimum for door signs, larger for corridor signs.', detail: 'A general rule is 25mm of letter height per metre of expected reading distance.', priority: 2 },
     { icon: 'Contrast', text: 'Ensure at least 70% luminance contrast between text and background.', priority: 3 },
     { icon: 'Sun', text: 'Use matte, non-reflective materials to prevent glare.', priority: 4 },
@@ -3782,7 +3782,7 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing your signage',
     steps: [
-      { text: 'Walk through your venue and list all signs: room identification, directional, informational, safety, and emergency.' },
+      { text: 'Walk through your venue and list all signs: room identification, directional, informational, safety and emergency.' },
       { text: 'Measure the font size on key signs.', measurement: { target: 'Door sign letter height', acceptable: 'Minimum 15mm', unit: 'mm' } },
       { text: 'Check contrast between text and background using a contrast checker app.' },
       { text: 'Check for glare at different times of day.' },
@@ -3795,22 +3795,22 @@ export const duringVisitHelp: HelpContent[] = [
     estimatedTime: '45-60 minutes'
   },
   standardsReference: {
-    primary: { code: 'AS1428.1', section: 'Section 8', requirement: 'Signs identifying rooms and facilities must have characters of adequate size, colour contrast, and finish. Tactile and Braille characters are required on room identification signs.' },
+    primary: { code: 'AS1428.1', section: 'Section 8', requirement: 'Signs identifying rooms and facilities must have characters of adequate size, colour contrast and finish. Tactile and Braille characters are required on room identification signs.' },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires signage to comply with AS 1428.1 in new buildings and significant renovations.' },
       { code: 'NCC', relevance: 'The National Construction Code references AS 1428.1 for signage in accessible buildings.' }
     ],
-    plainEnglish: 'Signs must be big enough, high-contrast, and placed consistently so people with low vision can read them. Room identification signs need raised text and Braille.',
+    plainEnglish: 'Signs must be big enough, high-contrast and placed consistently so people with low vision can read them. Room identification signs need raised text and Braille.',
     complianceNote: 'Even if your building predates current standards, improving signage is one of the most cost-effective accessibility improvements.'
   },
   solutions: [
     {
       title: 'Improve contrast and size of existing signs', description: 'Replace or overlay existing signs with high-contrast, larger-font versions.',
       resourceLevel: 'low', costRange: '$100-500', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Identify the 10 most critical signs.', 'Reprint using sans-serif font at minimum 15mm letter height.', 'Use high-contrast colour combinations: black on white, white on dark blue, or yellow on black.', 'Print on matte paper or vinyl.', 'Replace in existing frames or mount with adhesive.', 'Add large-print room numbers beside room identification signs.']
+      steps: ['Identify the 10 most critical signs.', 'Reprint using sans-serif font at minimum 15mm letter height.', 'Use high-contrast colour combinations: black on white, white on dark blue or yellow on black.', 'Print on matte paper or vinyl.', 'Replace in existing frames or mount with adhesive.', 'Add large-print room numbers beside room identification signs.']
     },
     {
-      title: 'Replace key signage with compliant signs', description: 'Commission signs meeting AS 1428.1 for contrast, font, and tactile elements.',
+      title: 'Replace key signage with compliant signs', description: 'Commission signs meeting AS 1428.1 for contrast, font and tactile elements.',
       resourceLevel: 'medium', costRange: '$1,000-5,000', timeRequired: '2-4 weeks', implementedBy: 'contractor', impact: 'moderate',
       steps: ['Engage a signage company experienced in accessible signage.', 'Provide a floor plan and list of all rooms requiring signs.', 'Specify: sans-serif font, minimum 70% luminance contrast, matte finish, tactile raised text and Braille.', 'Confirm mounting height: 1400mm to 1600mm centre, on the latch side of doors.', 'Install and verify each sign.', 'Brief cleaning staff not to obscure or remove signs.']
     },
@@ -3842,17 +3842,17 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Navigating your venue independently',
   coveredQuestionIds: ['3.5-1-3', '3.5-D-3', '3.5-D-4', '3.5-D-6'],
-  summary: 'Effective wayfinding combines directional signage at every decision point, accessible maps and floor plans, logical zoning or numbering, and clear approach signage from parking and transport.',
+  summary: 'Effective wayfinding combines directional signage at every decision point, accessible maps and floor plans, logical zoning or numbering and clear approach signage from parking and transport.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Independent navigation is fundamental to dignity. When wayfinding is poor, people with disabilities must repeatedly ask for help, which is tiring and can feel embarrassing. Good wayfinding benefits everyone but is essential for people with mobility, vision, or cognitive disabilities.',
+    text: 'Independent navigation is fundamental to dignity. When wayfinding is poor, people with disabilities must repeatedly ask for help, which is tiring and can feel embarrassing. Good wayfinding benefits everyone but is essential for people with mobility, vision or cognitive disabilities.',
     quote: { text: 'I rely on clear signage and maps. When a venue is well-signed, I can explore independently. When it is not, I have to keep asking for help and it takes the enjoyment out of the visit.', attribution: 'Wheelchair user, tourism feedback survey' }
   },
   tips: [
     { icon: 'Navigation', text: 'Place directional signs at every decision point (intersections, stairwells, lifts).', priority: 1 },
     { icon: 'Map', text: 'Provide an accessible venue map at the entrance in large print and tactile formats.', priority: 2 },
     { icon: 'Smartphone', text: 'Consider a digital wayfinding option via QR code or app with screen reader support.', priority: 3 },
-    { icon: 'Signpost', text: 'Install approach signage visible from the car park, bus stop, and drop-off area.', priority: 4 },
+    { icon: 'Signpost', text: 'Install approach signage visible from the car park, bus stop and drop-off area.', priority: 4 },
     { icon: 'Hash', text: 'Use logical, sequential numbering or colour-coded zones.', priority: 5 },
     { icon: 'Eye', text: 'Include landmarks and visual cues that help people orient themselves.', priority: 6 }
   ],
@@ -3865,7 +3865,7 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Check that directional signs are present at every corridor intersection and lift lobby.' },
       { text: 'Verify that numbering follows a logical sequence.' },
       { text: 'Test from a wheelchair: are signs visible at seated eye height (1000-1400mm)?' },
-      { text: 'Check whether an accessible map is available in large print, tactile, or digital format.' },
+      { text: 'Check whether an accessible map is available in large print, tactile or digital format.' },
       { text: 'Walk the accessible parking route to the entrance. Is it clearly signed?' }
     ],
     tools: ['Camera', 'Notepad'],
@@ -3875,12 +3875,12 @@ export const duringVisitHelp: HelpContent[] = [
     {
       title: 'Add directional signs at key decision points', description: 'Install directional arrows and destination labels at every intersection.',
       resourceLevel: 'low', costRange: '$200-800', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Map every corridor intersection, lift, and stairwell.', 'Design consistent directional signs with arrows and names.', 'Print on matte material with high contrast.', 'Mount at 1400-1600mm at each decision point.', 'Include accessible route indicators where paths differ.', 'Test with three visitors navigating by signs only.']
+      steps: ['Map every corridor intersection, lift and stairwell.', 'Design consistent directional signs with arrows and names.', 'Print on matte material with high contrast.', 'Mount at 1400-1600mm at each decision point.', 'Include accessible route indicators where paths differ.', 'Test with three visitors navigating by signs only.']
     },
     {
-      title: 'Develop accessible venue maps', description: 'Create maps in large print, tactile, and digital formats.',
+      title: 'Develop accessible venue maps', description: 'Create maps in large print, tactile and digital formats.',
       resourceLevel: 'medium', costRange: '$1,000-4,000', timeRequired: '2-4 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Commission a simplified floor plan highlighting accessible routes.', 'Produce large print version (A3, 18pt labels, high contrast).', 'Produce tactile version with raised pathways and Braille labels.', 'Create digital version via QR code, screen reader optimised.', 'Place at entrance, lifts, and each floor lobby.', 'Train staff to offer maps proactively.']
+      steps: ['Commission a simplified floor plan highlighting accessible routes.', 'Produce large print version (A3, 18pt labels, high contrast).', 'Produce tactile version with raised pathways and Braille labels.', 'Create digital version via QR code, screen reader optimised.', 'Place at entrance, lifts and each floor lobby.', 'Train staff to offer maps proactively.']
     },
     {
       title: 'Implement digital wayfinding', description: 'Deploy smartphone-accessible navigation with voice guidance and screen reader integration.',
@@ -3908,10 +3908,10 @@ export const duringVisitHelp: HelpContent[] = [
   moduleGroup: 'during-visit',
   diapCategory: 'information-communication-marketing',
   title: 'Tactile signage and Braille',
-  summary: 'Tactile signs use raised text and Braille to convey information to people who are blind or have low vision. AS 1428.1 requires tactile and Braille signs on room identification plates, stairway identification, and lift controls.',
+  summary: 'Tactile signs use raised text and Braille to convey information to people who are blind or have low vision. AS 1428.1 requires tactile and Braille signs on room identification plates, stairway identification and lift controls.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'People who are blind rely on touch to read signs. Tactile raised text can be traced with fingers, while Braille provides detailed information. Without tactile signs, blind visitors cannot independently identify rooms, floors, or facilities.',
+    text: 'People who are blind rely on touch to read signs. Tactile raised text can be traced with fingers, while Braille provides detailed information. Without tactile signs, blind visitors cannot independently identify rooms, floors or facilities.',
     statistic: { value: '35%', context: 'of Braille-literate Australians report difficulty finding tactile signs in public buildings.', source: 'Vision Australia survey' }
   },
   tips: [
@@ -3949,10 +3949,10 @@ export const duringVisitHelp: HelpContent[] = [
     {
       title: 'Replace room signs with tactile signs', description: 'Commission AS 1428.1 compliant tactile room signs.',
       resourceLevel: 'medium', costRange: '$1,000-4,000', timeRequired: '2-4 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['List all rooms requiring signs.', 'Engage a tactile signage supplier.', 'Choose materials: aluminium, acrylic, or thermoformed.', 'Confirm specifications (15-55mm letters, 1mm raised, Grade 2 Braille).', 'Install on latch side at 1200-1600mm height.', 'Verify with touch test.']
+      steps: ['List all rooms requiring signs.', 'Engage a tactile signage supplier.', 'Choose materials: aluminium, acrylic or thermoformed.', 'Confirm specifications (15-55mm letters, 1mm raised, Grade 2 Braille).', 'Install on latch side at 1200-1600mm height.', 'Verify with touch test.']
     },
     {
-      title: 'Comprehensive tactile wayfinding system', description: 'Full tactile system including signs, maps, and stairway identification.',
+      title: 'Comprehensive tactile wayfinding system', description: 'Full tactile system including signs, maps and stairway identification.',
       resourceLevel: 'high', costRange: '$5,000-15,000', timeRequired: '1-3 months', implementedBy: 'specialist', impact: 'significant',
       steps: ['Audit current tactile signage.', 'Develop specifications for all tactile sign types.', 'Commission tactile floor plans.', 'Install stairway identification.', 'Add tactile ground surface indicators per AS 1428.4.1.', 'Train staff on maintenance.']
     }
@@ -3960,7 +3960,7 @@ export const duringVisitHelp: HelpContent[] = [
   examples: [
     { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'No tactile signage on room doors. Blind guests could not find their rooms.', solution: 'Installed tactile room numbers with raised text and Braille on every door. Added Braille to lift controls and stairwell handrails.', outcome: 'Blind guests navigate independently. Positive reviews on accessibility platforms.', cost: '$3,500 for 120 rooms' },
     { businessType: 'local-government', businessTypeLabel: 'Library', scenario: 'Standard printed signs with no tactile elements.', solution: 'Replaced room signs with tactile versions. Added tactile floor plan at entrance and Braille shelf labels.', outcome: 'Blind members navigate independently for the first time.', cost: '$2,200' },
-    { businessType: 'attraction', businessTypeLabel: 'Zoo', scenario: 'Wanted to improve navigation for blind visitors.', solution: 'Installed tactile wayfinding strips along pathways, tactile enclosure signs with Braille, and tactile trail map at entrance.', outcome: 'Became a recommended accessible destination.', cost: '$8,000' }
+    { businessType: 'attraction', businessTypeLabel: 'Zoo', scenario: 'Wanted to improve navigation for blind visitors.', solution: 'Installed tactile wayfinding strips along pathways, tactile enclosure signs with Braille and tactile trail map at entrance.', outcome: 'Became a recommended accessible destination.', cost: '$8,000' }
   ],
   resources: [
     { title: 'Vision Australia Tactile Signage', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', isAustralian: true, isFree: true },
@@ -3979,15 +3979,15 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Large print and readable materials',
   coveredQuestionIds: ['3.6-1-2', '3.6-1-5', '3.6-D-9', '3.6-D-10', '3.6-D-11', '3.6-MA-1', '3.6-MA-2', '3.6-MA-3'],
-  summary: 'Printed materials should be available in large print (minimum 18pt) using sans-serif fonts with high contrast on matte paper. Keep alternative versions current when content changes, and ensure pricing is displayed accessibly.',
+  summary: 'Printed materials should be available in large print (minimum 18pt) using sans-serif fonts with high contrast on matte paper. Keep alternative versions current when content changes and ensure pricing is displayed accessibly.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Standard print (10-12pt) is too small for many people. Large print is the most commonly requested alternative format and benefits a wide audience: people with low vision, older adults, people with reading difficulties, and anyone in a low-light environment.',
+    text: 'Standard print (10-12pt) is too small for many people. Large print is the most commonly requested alternative format and benefits a wide audience: people with low vision, older adults, people with reading difficulties and anyone in a low-light environment.',
     statistic: { value: '44%', context: 'of Australian adults have literacy levels below what is needed for everyday tasks. Larger, clearer print helps far more people than those with diagnosed vision impairment.', source: 'Australian Bureau of Statistics' }
   },
   tips: [
     { icon: 'Type', text: 'Use minimum 18pt font (24pt preferred) for large print.', priority: 1 },
-    { icon: 'Eye', text: 'Choose sans-serif fonts: Arial, Verdana, or Calibri.', priority: 2 },
+    { icon: 'Eye', text: 'Choose sans-serif fonts: Arial, Verdana or Calibri.', priority: 2 },
     { icon: 'Contrast', text: 'Print black text on white or cream matte paper.', priority: 3 },
     { icon: 'AlignLeft', text: 'Use left-aligned text with 1.5 line spacing. Avoid justified text.', priority: 4 },
     { icon: 'RefreshCw', text: 'Update large print versions whenever the standard version changes.', priority: 5 },
@@ -4022,7 +4022,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       title: 'Accessible publications program', description: 'Policy and workflow ensuring all documents are accessible from creation.',
       resourceLevel: 'high', costRange: '$2,000-8,000', timeRequired: '1-2 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Draft accessible publishing policy.', 'Create templates for large print, Easy Read, and standard.', 'Train document-producing staff.', 'Build checks into approval process.', 'Engage professionals for Braille and audio.', 'Review annually.']
+      steps: ['Draft accessible publishing policy.', 'Create templates for large print, Easy Read and standard.', 'Train document-producing staff.', 'Build checks into approval process.', 'Engage professionals for Braille and audio.', 'Review annually.']
     }
   ],
   examples: [
@@ -4047,10 +4047,10 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Digital alternatives and QR codes',
   coveredQuestionIds: ['3.6-D-1', '3.6-D-2'],
-  summary: 'Digital versions of your documents let visitors access information on their own devices, where they can adjust text size, use screen readers, translate content, and save for later. QR codes provide a simple bridge from physical to digital.',
+  summary: 'Digital versions of your documents let visitors access information on their own devices, where they can adjust text size, use screen readers, translate content and save for later. QR codes provide a simple bridge from physical to digital.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Smartphones are powerful assistive technology. A person with low vision can zoom in, a screen reader user can have content read aloud, and someone with limited English can translate. But only if you provide a digital version that is properly structured and accessible.',
+    text: 'Smartphones are powerful assistive technology. A person with low vision can zoom in, a screen reader user can have content read aloud and someone with limited English can translate. But only if you provide a digital version that is properly structured and accessible.',
     quote: { text: 'When a venue has a QR code that links to an accessible page, I can read everything independently using my screen reader. It is the simplest thing a venue can do to include me.', attribution: 'Screen reader user, accessibility forum' }
   },
   tips: [
@@ -4113,7 +4113,7 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Alternative formats: Braille, audio, Easy Read',
   coveredQuestionIds: ['3.6-D-3', '3.6-D-4', '3.6-D-6'],
-  summary: 'Alternative formats go beyond large print to include Braille, audio guides, Easy Read (simple language with images), and plain English versions. These serve people with a range of disabilities including blindness, intellectual disability, and literacy challenges.',
+  summary: 'Alternative formats go beyond large print to include Braille, audio guides, Easy Read (simple language with images) and plain English versions. These serve people with a range of disabilities including blindness, intellectual disability and literacy challenges.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Not everyone can read standard documents regardless of print size. People who are blind need Braille or audio. People with intellectual disability need Easy Read with images. People with low literacy need plain English. Providing a range of formats ensures no one is excluded.',
@@ -4123,13 +4123,13 @@ export const duringVisitHelp: HelpContent[] = [
     { icon: 'FileText', text: 'Start with your most critical documents: safety info, menus, key policies, visitor guides.', priority: 1 },
     { icon: 'Image', text: 'For Easy Read, pair every key point with a supporting image or icon.', priority: 2 },
     { icon: 'Type', text: 'For plain English, use short sentences (max 15 words), active voice, common words.', priority: 3 },
-    { icon: 'Headphones', text: 'Offer audio versions via QR code, app, or device loan.', priority: 4 },
+    { icon: 'Headphones', text: 'Offer audio versions via QR code, app or device loan.', priority: 4 },
     { icon: 'Users', text: 'Test alternative formats with people from the target audience.', priority: 5 }
   ],
   howToCheck: {
     title: 'Auditing alternative formats',
     steps: [
-      { text: 'List top 5 visitor documents. Check for Braille, audio, and Easy Read versions.' },
+      { text: 'List top 5 visitor documents. Check for Braille, audio and Easy Read versions.' },
       { text: 'Review Easy Read: short sentences, common words, supporting images?' },
       { text: 'Have Braille documents verified by a Braille reader.' },
       { text: 'Listen to audio versions: clear, well-paced, free of background noise?' },
@@ -4147,7 +4147,7 @@ export const duringVisitHelp: HelpContent[] = [
       steps: ['Choose top 3 documents.', 'Rewrite in plain English: max 15 words per sentence.', 'For Easy Read: add image beside each point, 16pt minimum.', 'Use Scope Australia free templates.', 'Test with a person with intellectual disability.', 'Print and store at reception.']
     },
     {
-      title: 'Commission professional alternative formats', description: 'Engage specialists for Braille, audio, and validated Easy Read.',
+      title: 'Commission professional alternative formats', description: 'Engage specialists for Braille, audio and validated Easy Read.',
       resourceLevel: 'medium', costRange: '$1,000-5,000', timeRequired: '2-4 weeks', implementedBy: 'specialist', impact: 'moderate',
       steps: ['Commission Braille from Vision Australia.', 'Record audio using professional narrator.', 'Engage Easy Read conversion service.', 'Review by people with target disabilities.', 'Store at reception, make digital versions online.', 'Brief staff on available formats.']
     },
@@ -4180,24 +4180,24 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Tactile, audio and visual information',
   coveredQuestionIds: ['3.7-DD-5a', '3.7-PC-8', '3.7-DD-8a'],
-  summary: 'Multi-sensory information provision ensures visitors who cannot rely on vision alone can still access key content. Tactile models, audio descriptions, and visual displays working together create an inclusive information environment.',
+  summary: 'Multi-sensory information provision ensures visitors who cannot rely on vision alone can still access key content. Tactile models, audio descriptions and visual displays working together create an inclusive information environment.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Information presented in only one sensory mode excludes people who cannot access that mode. A person who is blind cannot read a wall panel. A person who is Deaf cannot hear an audio guide. Multi-sensory approaches ensure everyone can engage with your content regardless of their sensory abilities.',
-    statistic: { value: '575,000+', context: 'Australians are blind or have low vision, and 3.6 million have some hearing loss. Multi-sensory information serves both groups.', source: 'Vision Australia and Hearing Australia' }
+    statistic: { value: '575,000+', context: 'Australians are blind or have low vision and 3.6 million have some hearing loss. Multi-sensory information serves both groups.', source: 'Vision Australia and Hearing Australia' }
   },
   tips: [
-    { icon: 'Hand', text: 'Provide tactile models or 3D representations of key exhibits or features.', detail: 'Tactile models allow blind visitors to understand spatial layouts, artwork, or objects through touch.', priority: 1 },
-    { icon: 'Headphones', text: 'Offer audio descriptions via handsets, app, or QR-triggered audio.', detail: 'Audio descriptions should cover visual content that sighted visitors take in naturally: colours, spatial arrangements, facial expressions.', priority: 2 },
+    { icon: 'Hand', text: 'Provide tactile models or 3D representations of key exhibits or features.', detail: 'Tactile models allow blind visitors to understand spatial layouts, artwork or objects through touch.', priority: 1 },
+    { icon: 'Headphones', text: 'Offer audio descriptions via handsets, app or QR-triggered audio.', detail: 'Audio descriptions should cover visual content that sighted visitors take in naturally: colours, spatial arrangements, facial expressions.', priority: 2 },
     { icon: 'Monitor', text: 'Use visual displays with captions for any audio content.', detail: 'Digital screens showing captions ensure Deaf visitors access spoken information.', priority: 3 },
-    { icon: 'Layers', text: 'Combine text, images, tactile, and audio at key information points.', priority: 4 },
+    { icon: 'Layers', text: 'Combine text, images, tactile and audio at key information points.', priority: 4 },
     { icon: 'Volume2', text: 'Keep background noise below 35dB in areas with audio information.', priority: 5 }
   ],
   howToCheck: {
     title: 'Auditing multi-sensory information',
     steps: [
       { text: 'List all information points in your venue (panels, exhibits, displays, kiosks).' },
-      { text: 'For each, note which senses it uses: sight only, hearing only, touch, or multiple.' },
+      { text: 'For each, note which senses it uses: sight only, hearing only, touch or multiple.' },
       { text: 'Identify gaps: are any key information points single-sense only?' },
       { text: 'Check audio content for captions or transcripts.' },
       { text: 'Check visual content for audio description availability.' },
@@ -4225,26 +4225,26 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Multi-sensory information stations',
-      description: 'Install dedicated stations combining visual, audio, and tactile elements at key locations.',
+      description: 'Install dedicated stations combining visual, audio and tactile elements at key locations.',
       resourceLevel: 'medium', costRange: '$2,000-10,000', timeRequired: '4-8 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Design station layout with screen, speaker, and tactile surface.', 'Commission tactile models from a specialist supplier.', 'Record professional audio descriptions.', 'Install captioned video content on screens.', 'Add Braille labels to all tactile elements.', 'Test with blind, Deaf, and deafblind users.', 'Train staff on how the stations work.']
+      steps: ['Design station layout with screen, speaker and tactile surface.', 'Commission tactile models from a specialist supplier.', 'Record professional audio descriptions.', 'Install captioned video content on screens.', 'Add Braille labels to all tactile elements.', 'Test with blind, Deaf and deafblind users.', 'Train staff on how the stations work.']
     },
     {
       title: 'Comprehensive multi-sensory interpretation program',
       description: 'Engage an accessibility consultant to redesign your entire information delivery for multi-sensory access.',
       resourceLevel: 'high', costRange: '$15,000-50,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Commission an interpretation accessibility audit.', 'Develop a multi-sensory interpretation strategy.', 'Design tactile models for all key exhibits or features.', 'Create a full audio description tour.', 'Install captioned screens at all audio information points.', 'Develop a companion app with integrated audio, visual, and haptic feedback.', 'Test with diverse disability groups.', 'Train all staff.']
+      steps: ['Commission an interpretation accessibility audit.', 'Develop a multi-sensory interpretation strategy.', 'Design tactile models for all key exhibits or features.', 'Create a full audio description tour.', 'Install captioned screens at all audio information points.', 'Develop a companion app with integrated audio, visual and haptic feedback.', 'Test with diverse disability groups.', 'Train all staff.']
     }
   ],
   examples: [
-    { businessType: 'attraction', businessTypeLabel: 'Museum', scenario: 'Exhibition panels were text-only with no audio or tactile options.', solution: 'Added QR-triggered audio descriptions, tactile reproductions of 6 key artefacts, and captioned video summaries at each gallery entrance.', outcome: 'Blind and Deaf visitor numbers doubled. Won a national accessibility award.', cost: '$12,000', timeframe: '3 months' },
-    { businessType: 'attraction', businessTypeLabel: 'Botanic Gardens', scenario: 'Plant labels were small text only.', solution: 'Created tactile plant identification stations with textured leaf samples, Braille labels, and audio triggered by NFC tags.', outcome: 'Became a recommended destination for blind and low-vision visitors.', cost: '$5,500', timeframe: '6 weeks' },
-    { businessType: 'local-government', businessTypeLabel: 'Visitor Centre', scenario: 'Tourism information was visual brochures only.', solution: 'Added audio kiosk with regional highlights, tactile map of the area, and large-print brochures.', outcome: 'Positive feedback from vision-impaired visitors. Audio kiosk popular with all visitors.', cost: '$3,200', timeframe: '4 weeks' }
+    { businessType: 'attraction', businessTypeLabel: 'Museum', scenario: 'Exhibition panels were text-only with no audio or tactile options.', solution: 'Added QR-triggered audio descriptions, tactile reproductions of 6 key artefacts and captioned video summaries at each gallery entrance.', outcome: 'Blind and Deaf visitor numbers doubled. Won a national accessibility award.', cost: '$12,000', timeframe: '3 months' },
+    { businessType: 'attraction', businessTypeLabel: 'Botanic Gardens', scenario: 'Plant labels were small text only.', solution: 'Created tactile plant identification stations with textured leaf samples, Braille labels and audio triggered by NFC tags.', outcome: 'Became a recommended destination for blind and low-vision visitors.', cost: '$5,500', timeframe: '6 weeks' },
+    { businessType: 'local-government', businessTypeLabel: 'Visitor Centre', scenario: 'Tourism information was visual brochures only.', solution: 'Added audio kiosk with regional highlights, tactile map of the area and large-print brochures.', outcome: 'Positive feedback from vision-impaired visitors. Audio kiosk popular with all visitors.', cost: '$3,200', timeframe: '4 weeks' }
   ],
   resources: [
     { title: 'Museums and Galleries Accessibility Toolkit', url: 'https://www.museumsandgalleries.nsw.gov.au/', type: 'guide', source: 'Museums and Galleries NSW', description: 'Guidance on multi-sensory interpretation in cultural venues.', isAustralian: true, isFree: true },
     { title: 'Audio Description Guidelines', url: 'https://www.mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'How to create quality audio descriptions for exhibitions and venues.', isAustralian: true, isFree: true },
-    { title: 'Tactile Graphics Resources', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Creating tactile maps, models, and diagrams.', isAustralian: true, isFree: true }
+    { title: 'Tactile Graphics Resources', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Creating tactile maps, models and diagrams.', isAustralian: true, isFree: true }
   ],
   keywords: ['tactile', 'audio description', 'multi-sensory', 'captions', 'Braille', 'touch', 'visual display', '3D model']
 },
@@ -4258,15 +4258,15 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Hearing support and captioning on-site',
   coveredQuestionIds: ['3.7-DD-6a', '3.7-DD-6b', '3.7-PC-7', '3.7-DD-7a', '3.7-DD-7b'],
-  summary: 'On-site hearing support includes hearing loops at service counters and presentation areas, real-time captioning on screens, Auslan interpretation for tours and events, and assistive listening devices available for loan.',
+  summary: 'On-site hearing support includes hearing loops at service counters and presentation areas, real-time captioning on screens, Auslan interpretation for tours and events and assistive listening devices available for loan.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Hearing loss is one of the most common disabilities in Australia. Many people with hearing aids or cochlear implants rely on hearing loops to filter out background noise and receive clear audio. Without on-site hearing support, spoken information at counters, during tours, or in presentations is inaccessible.',
-    statistic: { value: '3.6 million', context: 'Australians have some degree of hearing loss, and this is projected to grow to 7.8 million by 2060.', source: 'Hearing Australia' },
+    text: 'Hearing loss is one of the most common disabilities in Australia. Many people with hearing aids or cochlear implants rely on hearing loops to filter out background noise and receive clear audio. Without on-site hearing support, spoken information at counters, during tours or in presentations is inaccessible.',
+    statistic: { value: '3.6 million', context: 'Australians have some degree of hearing loss and this is projected to grow to 7.8 million by 2060.', source: 'Hearing Australia' },
     quote: { text: 'When a venue has a hearing loop, the difference is like night and day. Without it, everything is just noise. With it, I can hear every word clearly.', attribution: 'Hearing aid user, accessibility survey' }
   },
   tips: [
-    { icon: 'Ear', text: 'Install hearing loops at reception, service counters, and main presentation areas.', detail: 'Counter loops cover a 1-2 metre area. Area loops cover an entire room. Both must meet AS 1428.5 for signal quality.', priority: 1 },
+    { icon: 'Ear', text: 'Install hearing loops at reception, service counters and main presentation areas.', detail: 'Counter loops cover a 1-2 metre area. Area loops cover an entire room. Both must meet AS 1428.5 for signal quality.', priority: 1 },
     { icon: 'Monitor', text: 'Display captions on screens for all spoken content in public areas.', priority: 2 },
     { icon: 'Users', text: 'Offer Auslan interpreters for scheduled tours and key events.', detail: 'Book through Auslan Services or your state Deaf society. Give 2 weeks notice minimum.', priority: 3 },
     { icon: 'Headphones', text: 'Keep assistive listening devices (ALDs) at reception for loan.', priority: 4 },
@@ -4291,10 +4291,10 @@ export const duringVisitHelp: HelpContent[] = [
   standardsReference: {
     primary: { code: 'AS1428.5', section: 'Hearing augmentation', requirement: 'Hearing augmentation systems must be provided in rooms where amplified speech is used. Induction loops must comply with AS 60118.4 for field strength and frequency response.' },
     related: [
-      { code: 'Access-to-Premises', relevance: 'Requires hearing augmentation in assembly areas, ticket counters, and information desks in new buildings.' },
+      { code: 'Access-to-Premises', relevance: 'Requires hearing augmentation in assembly areas, ticket counters and information desks in new buildings.' },
       { code: 'DDA', relevance: 'Failing to provide hearing support may constitute discrimination against people who are Deaf or hard of hearing.' }
     ],
-    plainEnglish: 'If you have service counters, presentation rooms, or public address systems, you need hearing loops or equivalent systems so people with hearing aids can hear clearly.',
+    plainEnglish: 'If you have service counters, presentation rooms or public address systems, you need hearing loops or equivalent systems so people with hearing aids can hear clearly.',
     complianceNote: 'Hearing loops require regular testing. A loop that is installed but not working provides no benefit and may give a false impression of accessibility.'
   },
   solutions: [
@@ -4312,15 +4312,15 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive hearing access program',
-      description: 'Full hearing access including loops, captioning, Auslan provision, and assistive device library.',
+      description: 'Full hearing access including loops, captioning, Auslan provision and assistive device library.',
       resourceLevel: 'high', costRange: '$20,000-50,000', timeRequired: '2-3 months', implementedBy: 'specialist', impact: 'significant',
       steps: ['Commission a hearing access audit.', 'Install hearing loops throughout the venue.', 'Deploy real-time captioning system (CART) for events.', 'Establish Auslan interpreter booking relationship.', 'Purchase a library of assistive listening devices for loan.', 'Install visual alert systems linked to fire and PA.', 'Create hearing access page on your website.', 'Train all staff on hearing access equipment and communication.']
     }
   ],
   examples: [
-    { businessType: 'attraction', businessTypeLabel: 'Theatre', scenario: 'No hearing support for performances.', solution: 'Installed area hearing loop in the auditorium, captioning screen for select performances, and partnered with a local Auslan interpreter.', outcome: 'Deaf and hard-of-hearing attendance tripled. Captioned performances sell out.', cost: '$18,000', timeframe: '6 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Theatre', scenario: 'No hearing support for performances.', solution: 'Installed area hearing loop in the auditorium, captioning screen for select performances and partnered with a local Auslan interpreter.', outcome: 'Deaf and hard-of-hearing attendance tripled. Captioned performances sell out.', cost: '$18,000', timeframe: '6 weeks' },
     { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Reception counter had no hearing loop.', solution: 'Installed portable counter loops at reception and in meeting rooms. Added the hearing loop symbol to signage.', outcome: 'Residents with hearing aids can now conduct business independently.', cost: '$600', timeframe: '2 days' },
-    { businessType: 'accommodation', businessTypeLabel: 'Convention Centre', scenario: 'Conference rooms lacked hearing augmentation.', solution: 'Installed permanent hearing loops in all conference rooms, provided portable receivers, and offered live captioning as a bookable service.', outcome: 'Became the preferred venue for conferences requiring hearing access.', cost: '$25,000', timeframe: '8 weeks' }
+    { businessType: 'accommodation', businessTypeLabel: 'Convention Centre', scenario: 'Conference rooms lacked hearing augmentation.', solution: 'Installed permanent hearing loops in all conference rooms, provided portable receivers and offered live captioning as a bookable service.', outcome: 'Became the preferred venue for conferences requiring hearing access.', cost: '$25,000', timeframe: '8 weeks' }
   ],
   resources: [
     { title: 'Hearing Loop Installers Guide', url: 'https://www.hearingaustralia.gov.au/', type: 'guide', source: 'Hearing Australia', description: 'Guidance on selecting and installing hearing loops to Australian standards.', isAustralian: true, isFree: true },
@@ -4340,10 +4340,10 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Communication supports and accessible updates',
   coveredQuestionIds: ['3.7-DD-9a', '3.7-DD-9b', '3.7-PC-10', '3.7-DD-10a', '3.7-DD-11a'],
-  summary: 'Communication supports include picture-based communication boards, plain language materials, AAC (augmentative and alternative communication) device awareness, and delivering real-time updates in accessible formats including visual, auditory, and digital channels.',
+  summary: 'Communication supports include picture-based communication boards, plain language materials, AAC (augmentative and alternative communication) device awareness and delivering real-time updates in accessible formats including visual, auditory and digital channels.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Not everyone communicates using speech. People with intellectual disability, autism, aphasia, or motor conditions may use picture boards, AAC devices, sign language, or gestures. Without communication supports, these visitors cannot ask questions, make requests, or understand updates. Real-time updates (schedule changes, safety alerts) must also reach people who cannot hear PA announcements or read small screens.',
+    text: 'Not everyone communicates using speech. People with intellectual disability, autism, aphasia or motor conditions may use picture boards, AAC devices, sign language or gestures. Without communication supports, these visitors cannot ask questions, make requests or understand updates. Real-time updates (schedule changes, safety alerts) must also reach people who cannot hear PA announcements or read small screens.',
     statistic: { value: '1.2 million', context: 'Australians have a communication disability. Many use alternative methods that require venues to adapt their communication approach.', source: 'Speech Pathology Australia' }
   },
   tips: [
@@ -4373,7 +4373,7 @@ export const duringVisitHelp: HelpContent[] = [
     related: [
       { code: 'UNCRPD', relevance: 'Article 21 requires States Parties to ensure people with disability can receive and impart information through all forms of communication of their choice.' }
     ],
-    plainEnglish: 'You must be willing and able to communicate with visitors who do not use speech. This means having visual aids, written options, and staff who know how to adapt.',
+    plainEnglish: 'You must be willing and able to communicate with visitors who do not use speech. This means having visual aids, written options and staff who know how to adapt.',
     complianceNote: 'Communication access is often overlooked but is a core requirement of the DDA. The Communication Access Symbol program recognises venues that meet this standard.'
   },
   solutions: [
@@ -4381,7 +4381,7 @@ export const duringVisitHelp: HelpContent[] = [
       title: 'Set up basic communication supports',
       description: 'Download and display free communication boards and train staff on basic alternative communication.',
       resourceLevel: 'low', costRange: '$0-200', timeRequired: '2-4 hours', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Download free communication boards from Scope Australia.', 'Laminate and display at reception, service counters, and information desks.', 'Place pen and notepad at every counter.', 'Brief staff: allow extra time, maintain eye contact, use gestures, and point to pictures.', 'Add visual display screens for PA announcements where possible.', 'Create a one-page staff guide on alternative communication.']
+      steps: ['Download free communication boards from Scope Australia.', 'Laminate and display at reception, service counters and information desks.', 'Place pen and notepad at every counter.', 'Brief staff: allow extra time, maintain eye contact, use gestures and point to pictures.', 'Add visual display screens for PA announcements where possible.', 'Create a one-page staff guide on alternative communication.']
     },
     {
       title: 'Communication access accreditation',
@@ -4391,13 +4391,13 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Integrated accessible communication system',
-      description: 'Deploy multi-channel communication including digital displays, app notifications, and staff trained in key signs.',
+      description: 'Deploy multi-channel communication including digital displays, app notifications and staff trained in key signs.',
       resourceLevel: 'high', costRange: '$5,000-20,000', timeRequired: '2-3 months', implementedBy: 'specialist', impact: 'significant',
       steps: ['Install digital display screens at key locations connected to your PA system.', 'Deploy a visitor notification system (app or SMS) for real-time updates.', 'Commission custom communication boards tailored to your venue.', 'Train all staff in basic Auslan signs and AAC awareness.', 'Implement plain language policy for all visitor communications.', 'Engage people with communication disability in testing.', 'Review and update quarterly.']
     }
   ],
   examples: [
-    { businessType: 'attraction', businessTypeLabel: 'Zoo', scenario: 'Visitors using AAC devices could not communicate with staff.', solution: 'Installed communication boards at entry, cafe, and gift shop. Trained all staff in basic communication strategies. Applied for Communication Access Symbol.', outcome: 'Became a Communication Access accredited venue. Support groups visit regularly.', cost: '$800', timeframe: '3 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Zoo', scenario: 'Visitors using AAC devices could not communicate with staff.', solution: 'Installed communication boards at entry, cafe and gift shop. Trained all staff in basic communication strategies. Applied for Communication Access Symbol.', outcome: 'Became a Communication Access accredited venue. Support groups visit regularly.', cost: '$800', timeframe: '3 weeks' },
     { businessType: 'event-venue', businessTypeLabel: 'Sports Stadium', scenario: 'PA announcements were the only way to communicate schedule changes.', solution: 'Added visual display screens at all gates showing real-time updates. Implemented push notifications via the venue app.', outcome: 'Deaf and hard-of-hearing fans no longer miss important updates.', cost: '$8,000', timeframe: '6 weeks' },
     { businessType: 'local-government', businessTypeLabel: 'Library', scenario: 'Staff unsure how to help non-verbal patrons.', solution: 'Displayed communication boards at all service points. Staff completed Scope communication access training. Pen and paper always available.', outcome: 'Non-verbal patrons visit independently. Staff confidence improved markedly.', cost: '$200', timeframe: '1 week' }
   ],
@@ -4418,17 +4418,17 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Inclusive activity design',
   coveredQuestionIds: ['3.8-1-3', '3.8-D-1', '3.8-D-2', '3.8-D-18'],
-  summary: 'Inclusive activity design means building accessibility into experiences from the start rather than retrofitting. This includes offering adaptive alternatives, flexible participation options, and ensuring people with disability can engage meaningfully alongside everyone else.',
+  summary: 'Inclusive activity design means building accessibility into experiences from the start rather than retrofitting. This includes offering adaptive alternatives, flexible participation options and ensuring people with disability can engage meaningfully alongside everyone else.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'When activities are designed without considering disability, people are excluded or offered inferior alternatives. Inclusive design creates experiences where everyone participates together. This benefits not only people with disability but also older adults, parents with prams, and anyone with temporary limitations.',
+    text: 'When activities are designed without considering disability, people are excluded or offered inferior alternatives. Inclusive design creates experiences where everyone participates together. This benefits not only people with disability but also older adults, parents with prams and anyone with temporary limitations.',
     statistic: { value: '4.4 million', context: 'Australians have a disability. Many want to participate in the same activities as everyone else, with appropriate support or adaptation.', source: 'ABS Survey of Disability, Ageing and Carers 2018' },
     quote: { text: 'I do not want a separate "accessible" version. I want to do the same thing as everyone else, just with the right support.', attribution: 'Wheelchair user, recreation survey' }
   },
   tips: [
     { icon: 'Accessibility', text: 'Design every activity with at least one adaptive participation option.', detail: 'For example, a walking tour could offer a seated version, a kayak tour could include a stable adaptive kayak.', priority: 1 },
     { icon: 'Users', text: 'Include people with disability in activity design and testing.', priority: 2 },
-    { icon: 'ClipboardList', text: 'Publish accessibility information for each activity before booking.', detail: 'Include physical requirements, sensory elements, available adaptations, and how to request support.', priority: 3 },
+    { icon: 'ClipboardList', text: 'Publish accessibility information for each activity before booking.', detail: 'Include physical requirements, sensory elements, available adaptations and how to request support.', priority: 3 },
     { icon: 'Heart', text: 'Allow companions and support workers to participate free or at reduced cost.', priority: 4 },
     { icon: 'AlertTriangle', text: 'Never assume someone cannot participate. Ask what support they need.', priority: 5 },
     { icon: 'BookOpen', text: 'Provide social stories or visual schedules for activities to support neurodivergent visitors.', priority: 6 }
@@ -4437,7 +4437,7 @@ export const duringVisitHelp: HelpContent[] = [
     title: 'Auditing activity inclusiveness',
     steps: [
       { text: 'List all activities and experiences you offer.' },
-      { text: 'For each, identify the physical, sensory, and cognitive demands.' },
+      { text: 'For each, identify the physical, sensory and cognitive demands.' },
       { text: 'Note what adaptive options currently exist for each activity.' },
       { text: 'Check your booking/information materials: is accessibility information published for each activity?' },
       { text: 'Review whether companions/support workers are accommodated in pricing.' },
@@ -4451,7 +4451,7 @@ export const duringVisitHelp: HelpContent[] = [
   standardsReference: {
     primary: { code: 'DDA', section: 'Section 24', requirement: 'Service providers must not discriminate in the way they provide goods and services, including recreational and leisure activities. Reasonable adjustments must be made.' },
     related: [
-      { code: 'UNCRPD', relevance: 'Article 30 recognises the right of people with disability to participate in cultural life, recreation, and sport on an equal basis.' }
+      { code: 'UNCRPD', relevance: 'Article 30 recognises the right of people with disability to participate in cultural life, recreation and sport on an equal basis.' }
     ],
     plainEnglish: 'You must make reasonable adjustments so people with disability can participate in your activities. You cannot refuse participation based on disability alone.',
     complianceNote: 'A blanket policy of "must be able-bodied to participate" is likely discriminatory. Individual risk assessments are acceptable; blanket exclusions are not.'
@@ -4461,7 +4461,7 @@ export const duringVisitHelp: HelpContent[] = [
       title: 'Create adaptive options for existing activities',
       description: 'Review each activity and develop at least one adaptive participation pathway.',
       resourceLevel: 'low', costRange: '$0-500', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['List all activities with their physical, sensory, and cognitive demands.', 'For each, brainstorm one adaptive option (seated version, guided version, sensory-modified version).', 'Document the adaptive options in your booking information.', 'Train activity leaders on offering and facilitating adaptations.', 'Create a feedback mechanism for participants with disability.', 'Review and update quarterly.']
+      steps: ['List all activities with their physical, sensory and cognitive demands.', 'For each, brainstorm one adaptive option (seated version, guided version, sensory-modified version).', 'Document the adaptive options in your booking information.', 'Train activity leaders on offering and facilitating adaptations.', 'Create a feedback mechanism for participants with disability.', 'Review and update quarterly.']
     },
     {
       title: 'Acquire adaptive equipment and train staff',
@@ -4477,7 +4477,7 @@ export const duringVisitHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'attraction', businessTypeLabel: 'Adventure Park', scenario: 'All activities required walking and standing. Wheelchair users had nothing to do.', solution: 'Introduced adaptive flying fox harness, all-terrain wheelchair for bush walk, and seated archery. Published accessibility info for each activity.', outcome: 'Wheelchair bookings went from zero to 15% of total. Featured in disability travel blog.', cost: '$8,500', timeframe: '6 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Adventure Park', scenario: 'All activities required walking and standing. Wheelchair users had nothing to do.', solution: 'Introduced adaptive flying fox harness, all-terrain wheelchair for bush walk and seated archery. Published accessibility info for each activity.', outcome: 'Wheelchair bookings went from zero to 15% of total. Featured in disability travel blog.', cost: '$8,500', timeframe: '6 weeks' },
     { businessType: 'attraction', businessTypeLabel: 'Art Gallery', scenario: 'Workshops assumed fine motor skills.', solution: 'Offered adaptive tools (large-grip brushes, mouth/foot painting options). Created sensory-friendly sessions with reduced noise and lighting.', outcome: 'Workshop participation by people with disability tripled.', cost: '$500', timeframe: '2 weeks' },
     { businessType: 'recreation', businessTypeLabel: 'Surf School', scenario: 'No option for people with physical disability.', solution: 'Partnered with Disabled Surfers Association. Acquired adaptive surfboards and trained instructors. Offered inclusive group sessions.', outcome: 'Regular inclusive surf days. Strong media coverage and community goodwill.', cost: '$3,000', timeframe: '4 weeks' }
   ],
@@ -4498,18 +4498,18 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Spectator seating and event spaces',
   coveredQuestionIds: ['3.8-D-4', '3.8-D-5', '3.8-D-6', '3.8-D-7', '3.8-D-8'],
-  summary: 'Accessible spectator areas require wheelchair spaces distributed throughout the venue with companion seating, maintained sightlines when others stand, elevated viewing options, and protection from weather while maintaining the same experience as other attendees.',
+  summary: 'Accessible spectator areas require wheelchair spaces distributed throughout the venue with companion seating, maintained sightlines when others stand, elevated viewing options and protection from weather while maintaining the same experience as other attendees.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Spectator events are a core social and cultural experience. When wheelchair users are grouped in one corner with poor views, or when sightlines are blocked by standing crowds, the event experience is fundamentally unequal. Good spectator access means equivalent choice, views, and social connection.',
+    text: 'Spectator events are a core social and cultural experience. When wheelchair users are grouped in one corner with poor views or when sightlines are blocked by standing crowds, the event experience is fundamentally unequal. Good spectator access means equivalent choice, views and social connection.',
     statistic: { value: '1 in 6', context: 'Australians have a disability. At a 5,000-person event, that means approximately 830 attendees may need some form of accessible seating or viewing.', source: 'ABS' }
   },
   tips: [
     { icon: 'Eye', text: 'Ensure accessible seating has equivalent sightlines maintained when others stand.', priority: 1 },
-    { icon: 'Accessibility', text: 'Distribute wheelchair spaces across multiple locations, not just one area.', detail: 'Provide options at front, middle, and rear of the venue.', priority: 2 },
+    { icon: 'Accessibility', text: 'Distribute wheelchair spaces across multiple locations, not just one area.', detail: 'Provide options at front, middle and rear of the venue.', priority: 2 },
     { icon: 'Users', text: 'Place companion seats immediately adjacent to every wheelchair space.', priority: 3 },
     { icon: 'Shield', text: 'Provide weather protection equivalent to covered general seating.', priority: 4 },
-    { icon: 'MapPin', text: 'Ensure accessible seating is on an accessible path from entrance, toilets, and concessions.', priority: 5 }
+    { icon: 'MapPin', text: 'Ensure accessible seating is on an accessible path from entrance, toilets and concessions.', priority: 5 }
   ],
   howToCheck: {
     title: 'Auditing spectator accessibility',
@@ -4518,7 +4518,7 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Check distribution: are accessible seats available in multiple price/view categories?' },
       { text: 'Sit in a wheelchair at each accessible position and check sightlines when surrounding seats are occupied.' },
       { text: 'Verify companion seats are adjacent, at the same level.' },
-      { text: 'Check accessible path from entrance to seating, toilets, and food.' },
+      { text: 'Check accessible path from entrance to seating, toilets and food.' },
       { text: 'Check weather protection at accessible seating locations.' },
       { text: 'Review booking system: can customers select accessible seating online?' }
     ],
@@ -4531,7 +4531,7 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'AS1428.1', relevance: 'Section 15 specifies wheelchair space dimensions (800mm x 1300mm) and surface requirements.' },
       { code: 'DDA', relevance: 'Providing inferior seating to people with disability constitutes discrimination.' }
     ],
-    plainEnglish: 'If you host events with seating, you must provide wheelchair spaces with good views, companion seats, and equivalent experience to general seating.',
+    plainEnglish: 'If you host events with seating, you must provide wheelchair spaces with good views, companion seats and equivalent experience to general seating.',
     complianceNote: 'Best practice significantly exceeds minimum ratios. Many venues now provide 2-3% accessible seating rather than the minimum.'
   },
   solutions: [
@@ -4557,7 +4557,7 @@ export const duringVisitHelp: HelpContent[] = [
   examples: [
     { businessType: 'event-venue', businessTypeLabel: 'Football Stadium', scenario: 'All wheelchair seating at rear with obstructed views.', solution: 'Added raised platforms at three locations with weather protection. Installed companion seating and hearing loops. Online booking shows view from each position.', outcome: 'Season ticket sales to wheelchair users increased 200%.', cost: '$45,000', timeframe: '8 weeks (off-season)' },
     { businessType: 'event-venue', businessTypeLabel: 'Outdoor Amphitheatre', scenario: 'Grass hill seating with no wheelchair provision.', solution: 'Created three paved viewing areas at different levels with companion bench seating. Added accessible path from parking.', outcome: 'Wheelchair users attend concerts regularly. Positive reviews online.', cost: '$12,000', timeframe: '4 weeks' },
-    { businessType: 'attraction', businessTypeLabel: 'Racecourse', scenario: 'Accessible seating hidden behind a barrier.', solution: 'Relocated wheelchair positions to trackside. Added companion seats, shade structure, and dedicated accessible viewing of the finish line.', outcome: 'Disability groups organised days at the races. Media coverage.', cost: '$18,000', timeframe: '6 weeks' }
+    { businessType: 'attraction', businessTypeLabel: 'Racecourse', scenario: 'Accessible seating hidden behind a barrier.', solution: 'Relocated wheelchair positions to trackside. Added companion seats, shade structure and dedicated accessible viewing of the finish line.', outcome: 'Disability groups organised days at the races. Media coverage.', cost: '$18,000', timeframe: '6 weeks' }
   ],
   resources: [
     { title: 'Live Performance Australia Accessibility', url: 'https://liveperformance.com.au/resources/', type: 'guide', source: 'Live Performance Australia', description: 'Industry guidance on accessible seating at performance venues.', isAustralian: true, isFree: true },
@@ -4575,10 +4575,10 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Accessible conferences and meeting rooms',
   coveredQuestionIds: ['3.8-D-10', '3.8-D-11', '3.8-D-12'],
-  summary: 'Accessible conference rooms need wheelchair-accessible table layouts, hearing augmentation, captioning capability, adjustable lighting, accessible presentation technology, and breakout rooms on accessible paths. Pre-event accessibility planning with organisers is essential.',
+  summary: 'Accessible conference rooms need wheelchair-accessible table layouts, hearing augmentation, captioning capability, adjustable lighting, accessible presentation technology and breakout rooms on accessible paths. Pre-event accessibility planning with organisers is essential.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Conferences and meetings are essential professional and community activities. When rooms are inaccessible, people with disability are excluded from professional development, networking, and decision-making. Accessible conferencing is not just about physical access but also about communication access.',
+    text: 'Conferences and meetings are essential professional and community activities. When rooms are inaccessible, people with disability are excluded from professional development, networking and decision-making. Accessible conferencing is not just about physical access but also about communication access.',
     quote: { text: 'I have missed promotions because I could not attend industry conferences. The venues did not have hearing loops and captioning was never provided.', attribution: 'Professional with hearing loss, employment survey' }
   },
   tips: [
@@ -4596,7 +4596,7 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Check for hearing loop or portable loop availability.' },
       { text: 'Test screen visibility from wheelchair seated position at various table locations.' },
       { text: 'Check lighting controls: can lights be adjusted for sign language interpreters?' },
-      { text: 'Verify accessible path from conference room to breakout rooms, toilets, and refreshments.' },
+      { text: 'Verify accessible path from conference room to breakout rooms, toilets and refreshments.' },
       { text: 'Check power access for assistive devices.' }
     ],
     tools: ['Tape measure', 'Hearing loop tester', 'Camera'],
@@ -4605,7 +4605,7 @@ export const duringVisitHelp: HelpContent[] = [
   standardsReference: {
     primary: { code: 'Access-to-Premises', section: 'Part D3', requirement: 'Accessible paths of travel to and within rooms used for assembly purposes. Hearing augmentation where amplified sound is provided.' },
     related: [
-      { code: 'AS1428.1', relevance: 'General requirements for accessible room layouts, door widths, and circulation space.' },
+      { code: 'AS1428.1', relevance: 'General requirements for accessible room layouts, door widths and circulation space.' },
       { code: 'DDA', relevance: 'Failure to provide accessible meeting facilities may constitute discrimination in employment or service delivery.' }
     ],
     plainEnglish: 'Meeting rooms must be physically accessible and have hearing support. People with disability must be able to participate equally in meetings and conferences.',
@@ -4614,13 +4614,13 @@ export const duringVisitHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Optimise existing rooms with portable solutions',
-      description: 'Use portable hearing loops, flexible seating, and presentation adjustments.',
+      description: 'Use portable hearing loops, flexible seating and presentation adjustments.',
       resourceLevel: 'low', costRange: '$300-1,000', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Rearrange seating to create wheelchair spaces at multiple table positions.', 'Purchase portable hearing loop for each meeting room.', 'Position screen so it is visible from wheelchair height.', 'Place power boards at wheelchair positions for device charging.', 'Create a conference accessibility checklist for event coordinators.', 'Brief AV staff on accessible presentation setup.']
     },
     {
       title: 'Upgrade room infrastructure for accessibility',
-      description: 'Install permanent hearing loops, adjustable lighting, and accessible AV in key rooms.',
+      description: 'Install permanent hearing loops, adjustable lighting and accessible AV in key rooms.',
       resourceLevel: 'medium', costRange: '$5,000-20,000', timeRequired: '2-4 weeks', implementedBy: 'contractor', impact: 'moderate',
       steps: ['Install permanent hearing loops in main conference rooms.', 'Add adjustable lighting with zones.', 'Install height-adjustable lectern or accessible alternative.', 'Add second screen for large rooms.', 'Install power and data at all table positions.', 'Ensure breakout rooms are on accessible paths.', 'Update room booking to include accessibility features.']
     },
@@ -4634,7 +4634,7 @@ export const duringVisitHelp: HelpContent[] = [
   examples: [
     { businessType: 'accommodation', businessTypeLabel: 'Convention Centre', scenario: 'Conference rooms had fixed theatre seating with no wheelchair spaces.', solution: 'Replaced fixed seating with modular furniture. Installed hearing loops and captioning screens. Created accessible speaker positions.', outcome: 'Became top choice for disability sector conferences. Bookings increased 30%.', cost: '$35,000', timeframe: '8 weeks' },
     { businessType: 'event-venue', businessTypeLabel: 'Hotel', scenario: 'Meeting rooms had no hearing augmentation.', solution: 'Purchased portable hearing loops for each room. Added adjustable lighting and accessible power points.', outcome: 'Corporate clients appreciate the accessibility. Positive TripAdvisor reviews.', cost: '$2,500', timeframe: '1 week' },
-    { businessType: 'local-government', businessTypeLabel: 'Council Chambers', scenario: 'Community members with disability could not participate in council meetings.', solution: 'Installed hearing loop, live captioning screen, and wheelchair spaces at the public gallery. Offered remote participation via accessible video platform.', outcome: 'Community participation from people with disability increased significantly.', cost: '$12,000', timeframe: '4 weeks' }
+    { businessType: 'local-government', businessTypeLabel: 'Council Chambers', scenario: 'Community members with disability could not participate in council meetings.', solution: 'Installed hearing loop, live captioning screen and wheelchair spaces at the public gallery. Offered remote participation via accessible video platform.', outcome: 'Community participation from people with disability increased significantly.', cost: '$12,000', timeframe: '4 weeks' }
   ],
   resources: [
     { title: 'Accessible Meetings Guide', url: 'https://humanrights.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidelines for running accessible meetings and conferences.', isAustralian: true, isFree: true },
@@ -4647,16 +4647,16 @@ export const duringVisitHelp: HelpContent[] = [
 // ─── Entry 29: Accessible routes and active experiences ───
 {
   questionId: '3.8-D-13',
-  questionText: 'Are your guided tours, recreation areas, and active experiences accessible?',
+  questionText: 'Are your guided tours, recreation areas and active experiences accessible?',
   moduleCode: '3.8',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
   title: 'Accessible routes and active experiences',
   coveredQuestionIds: ['3.8-D-14', '3.8-D-15', '3.8-D-16', '3.8-D-17', '3.8-D-19', '3.8-D-19a'],
-  summary: 'Guided tours, fitness facilities, recreation areas, and active experiences need accessible routes, adaptive equipment options, trained guides, and clear information about physical requirements so people with disability can make informed choices and participate safely.',
+  summary: 'Guided tours, fitness facilities, recreation areas and active experiences need accessible routes, adaptive equipment options, trained guides and clear information about physical requirements so people with disability can make informed choices and participate safely.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Active experiences are often the highlight of a visit. Excluding people from tours, fitness classes, or recreation because of inaccessible routes or lack of adaptive equipment denies them the core experience. With planning and the right equipment, most activities can accommodate a wide range of abilities.',
+    text: 'Active experiences are often the highlight of a visit. Excluding people from tours, fitness classes or recreation because of inaccessible routes or lack of adaptive equipment denies them the core experience. With planning and the right equipment, most activities can accommodate a wide range of abilities.',
     statistic: { value: '60%', context: 'of Australians with disability report wanting to be more physically active but face barriers including inaccessible facilities and lack of adaptive equipment.', source: 'Sport Australia' }
   },
   tips: [
@@ -4670,7 +4670,7 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing active experience accessibility',
     steps: [
-      { text: 'Walk/wheel each tour route or activity area noting surface type, gradient, and barriers.' },
+      { text: 'Walk/wheel each tour route or activity area noting surface type, gradient and barriers.' },
       { text: 'Measure path width on tour routes.', measurement: { target: 'Path width', acceptable: 'Minimum 1200mm, prefer 1800mm for passing', unit: 'mm' } },
       { text: 'Check gradients.', measurement: { target: 'Maximum gradient', acceptable: '1:14 for ramps, 1:20 preferred for paths', unit: 'ratio' } },
       { text: 'List adaptive equipment available.' },
@@ -4683,7 +4683,7 @@ export const duringVisitHelp: HelpContent[] = [
     estimatedTime: '45-90 minutes'
   },
   standardsReference: {
-    primary: { code: 'AS1428.1', section: 'Section 7', requirement: 'Accessible paths of travel must have minimum clear width of 1000mm (1200mm preferred), firm and slip-resistant surfaces, and ramps no steeper than 1:14.' },
+    primary: { code: 'AS1428.1', section: 'Section 7', requirement: 'Accessible paths of travel must have minimum clear width of 1000mm (1200mm preferred), firm and slip-resistant surfaces and ramps no steeper than 1:14.' },
     related: [
       { code: 'DDA', relevance: 'Excluding people from activities due to disability without individual assessment is discriminatory.' },
       { code: 'Access-to-Premises', relevance: 'Accessible paths of travel requirements apply to public recreation facilities.' }
@@ -4696,7 +4696,7 @@ export const duringVisitHelp: HelpContent[] = [
       title: 'Map and publish route accessibility information',
       description: 'Document accessibility features of all tours and activity routes.',
       resourceLevel: 'low', costRange: '$0-300', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Walk each route documenting surface, width, gradient, and barriers.', 'Note rest seating locations and toilet access.', 'Create accessibility information for each activity listing physical requirements.', 'Publish on website and at booking points.', 'Train staff to discuss accessibility honestly.', 'Mark accessible route options on maps.']
+      steps: ['Walk each route documenting surface, width, gradient and barriers.', 'Note rest seating locations and toilet access.', 'Create accessibility information for each activity listing physical requirements.', 'Publish on website and at booking points.', 'Train staff to discuss accessibility honestly.', 'Mark accessible route options on maps.']
     },
     {
       title: 'Acquire adaptive equipment and improve routes',
@@ -4713,8 +4713,8 @@ export const duringVisitHelp: HelpContent[] = [
   ],
   examples: [
     { businessType: 'attraction', businessTypeLabel: 'National Park', scenario: 'Walking trails were gravel with no accessible options.', solution: 'Upgraded main trail to compacted gravel with boardwalks at soft sections. Acquired two all-terrain wheelchairs. Published trail accessibility ratings.', outcome: 'Wheelchair visitors use the main trail daily. All-terrain chairs booked every weekend.', cost: '$25,000', timeframe: '3 months' },
-    { businessType: 'health-wellness', businessTypeLabel: 'Gym', scenario: 'No wheelchair-accessible exercise equipment.', solution: 'Purchased hand cycle, seated rowing machine, and wheelchair-accessible weight station. Trained staff in adaptive exercise.', outcome: 'Members with disability joined. Word of mouth brought more members.', cost: '$8,000', timeframe: '2 weeks' },
-    { businessType: 'attraction', businessTypeLabel: 'Winery', scenario: 'Vineyard tours on uneven ground excluded wheelchair users.', solution: 'Created accessible vineyard route with compacted path, rest stops, and tasting table at wheelchair height.', outcome: 'Tour operator tourism award. Positive disability travel reviews.', cost: '$6,000', timeframe: '4 weeks' }
+    { businessType: 'health-wellness', businessTypeLabel: 'Gym', scenario: 'No wheelchair-accessible exercise equipment.', solution: 'Purchased hand cycle, seated rowing machine and wheelchair-accessible weight station. Trained staff in adaptive exercise.', outcome: 'Members with disability joined. Word of mouth brought more members.', cost: '$8,000', timeframe: '2 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Winery', scenario: 'Vineyard tours on uneven ground excluded wheelchair users.', solution: 'Created accessible vineyard route with compacted path, rest stops and tasting table at wheelchair height.', outcome: 'Tour operator tourism award. Positive disability travel reviews.', cost: '$6,000', timeframe: '4 weeks' }
   ],
   resources: [
     { title: 'Sport Australia Inclusive Sport', url: 'https://www.sportaus.gov.au/', type: 'guide', source: 'Sport Australia', description: 'Resources for making sport and recreation inclusive.', isAustralian: true, isFree: true },
@@ -4727,16 +4727,16 @@ export const duringVisitHelp: HelpContent[] = [
 // ─── Entry 30: Health, wellness and treatment accessibility ───
 {
   questionId: '3.8-D-20',
-  questionText: 'Are your health, wellness, or treatment facilities accessible?',
+  questionText: 'Are your health, wellness or treatment facilities accessible?',
   moduleCode: '3.8',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
   title: 'Health, wellness and treatment accessibility',
   coveredQuestionIds: ['3.8-D-21'],
-  summary: 'Health and wellness facilities including treatment rooms, spa areas, and therapy spaces need height-adjustable treatment tables, ceiling or portable hoists, accessible change areas, and trained staff who can support people with disability through treatments.',
+  summary: 'Health and wellness facilities including treatment rooms, spa areas and therapy spaces need height-adjustable treatment tables, ceiling or portable hoists, accessible change areas and trained staff who can support people with disability through treatments.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Health and wellness services are important for everyone, but people with disability often face extra barriers. Standard treatment tables are too high to transfer onto, change areas are too small for wheelchair users, and staff may not know how to safely assist. These barriers exclude people who often need these services most.',
+    text: 'Health and wellness services are important for everyone, but people with disability often face extra barriers. Standard treatment tables are too high to transfer onto, change areas are too small for wheelchair users and staff may not know how to safely assist. These barriers exclude people who often need these services most.',
     statistic: { value: '1 in 5', context: 'Australians have a disability. Many have pain or mobility conditions that would benefit from wellness treatments but cannot access them.', source: 'ABS' }
   },
   tips: [
@@ -4777,20 +4777,20 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Install hoist and accessible facilities',
-      description: 'Add a ceiling hoist, accessible change area, and adjustable equipment.',
+      description: 'Add a ceiling hoist, accessible change area and adjustable equipment.',
       resourceLevel: 'medium', costRange: '$5,000-15,000', timeRequired: '2-4 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Install ceiling hoist track in accessible treatment room.', 'Create accessible change area with bench, grab rails, and privacy curtain.', 'Purchase adjustable treatment furniture.', 'Widen doorway if needed.', 'Train all therapists in hoist use and disability awareness.', 'Promote accessible services.', 'Collect feedback from clients with disability.']
+      steps: ['Install ceiling hoist track in accessible treatment room.', 'Create accessible change area with bench, grab rails and privacy curtain.', 'Purchase adjustable treatment furniture.', 'Widen doorway if needed.', 'Train all therapists in hoist use and disability awareness.', 'Promote accessible services.', 'Collect feedback from clients with disability.']
     },
     {
       title: 'Full accessible wellness facility design',
       description: 'Design or refit wellness area for comprehensive accessibility.',
       resourceLevel: 'high', costRange: '$20,000-60,000', timeRequired: '2-3 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Commission accessibility audit of wellness facilities.', 'Design accessible treatment rooms with hoists, adjustable tables, and turning space.', 'Create accessible spa/pool area with ramp or hoist entry.', 'Install accessible change and shower facilities.', 'Train all staff in disability awareness and manual handling.', 'Develop accessible wellness programs.', 'Market as an accessible wellness destination.', 'Partner with disability organisations for referrals.']
+      steps: ['Commission accessibility audit of wellness facilities.', 'Design accessible treatment rooms with hoists, adjustable tables and turning space.', 'Create accessible spa/pool area with ramp or hoist entry.', 'Install accessible change and shower facilities.', 'Train all staff in disability awareness and manual handling.', 'Develop accessible wellness programs.', 'Market as an accessible wellness destination.', 'Partner with disability organisations for referrals.']
     }
   ],
   examples: [
     { businessType: 'health-wellness', businessTypeLabel: 'Day Spa', scenario: 'No accessible treatment rooms. Wheelchair users turned away.', solution: 'Equipped largest room with height-adjustable table and portable hoist. Widened doorway. Trained therapists in safe transfers.', outcome: 'Now serves clients with physical disability. Referrals from OTs and physios.', cost: '$4,500', timeframe: '2 weeks' },
-    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Spa area had steps and narrow doorways.', solution: 'Added ramp to spa entrance, widened one treatment room door, installed ceiling hoist, and added pool hoist for spa pool.', outcome: 'Resort advertises accessible spa. Package deals for accessible stays with spa.', cost: '$18,000', timeframe: '6 weeks' },
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Spa area had steps and narrow doorways.', solution: 'Added ramp to spa entrance, widened one treatment room door, installed ceiling hoist and added pool hoist for spa pool.', outcome: 'Resort advertises accessible spa. Package deals for accessible stays with spa.', cost: '$18,000', timeframe: '6 weeks' },
     { businessType: 'health-wellness', businessTypeLabel: 'Physiotherapy Clinic', scenario: 'Standard tables too high for transfers.', solution: 'Replaced two tables with height-adjustable models. Created accessible consulting room with turning space.', outcome: 'Referrals from NDIS providers. Consistent client base.', cost: '$3,000', timeframe: '1 week' }
   ],
   resources: [
@@ -4803,16 +4803,16 @@ export const duringVisitHelp: HelpContent[] = [
 // ─── Entry 31: Performance accessibility and sensory sessions ───
 {
   questionId: '3.8-D-22',
-  questionText: 'Do you offer audio description, captioning, or Auslan interpretation at performances?',
+  questionText: 'Do you offer audio description, captioning or Auslan interpretation at performances?',
   moduleCode: '3.8',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
   title: 'Performance accessibility and sensory sessions',
   coveredQuestionIds: ['3.8-D-23', '3.8-D-24', '3.8-D-25'],
-  summary: 'Accessible performances include audio description for blind patrons, captioning for Deaf patrons, Auslan interpretation, hearing augmentation, and relaxed or sensory-friendly sessions with reduced stimuli for autistic and neurodivergent audiences.',
+  summary: 'Accessible performances include audio description for blind patrons, captioning for Deaf patrons, Auslan interpretation, hearing augmentation and relaxed or sensory-friendly sessions with reduced stimuli for autistic and neurodivergent audiences.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Live performance is a fundamental cultural experience. Without audio description, a blind person misses the visual storytelling. Without captioning, a Deaf person misses dialogue and song lyrics. Without relaxed performances, neurodivergent people may be overwhelmed by sudden lighting, loud sounds, or social expectations of silence. Accessible performances make culture available to everyone.',
+    text: 'Live performance is a fundamental cultural experience. Without audio description, a blind person misses the visual storytelling. Without captioning, a Deaf person misses dialogue and song lyrics. Without relaxed performances, neurodivergent people may be overwhelmed by sudden lighting, loud sounds or social expectations of silence. Accessible performances make culture available to everyone.',
     statistic: { value: '4.4 million', context: 'Australians have a disability. Many want to attend live performances but cannot access them without specific supports.', source: 'ABS' },
     quote: { text: 'My son is autistic. Relaxed performances are the only way he can experience live theatre. When a venue offers them, it tells us we belong.', attribution: 'Parent, autism community feedback' }
   },
@@ -4827,7 +4827,7 @@ export const duringVisitHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing performance accessibility',
     steps: [
-      { text: 'Review your performance schedule: how many are audio-described, captioned, Auslan-interpreted, or relaxed?' },
+      { text: 'Review your performance schedule: how many are audio-described, captioned, Auslan-interpreted or relaxed?' },
       { text: 'Check audio description equipment: headsets available, charged, working.' },
       { text: 'Test hearing loop during a performance.' },
       { text: 'Check captioning display: visible from Deaf seating area, correct timing.' },
@@ -4850,13 +4850,13 @@ export const duringVisitHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Schedule accessible performances for existing season',
-      description: 'Add one audio-described, one captioned, and one relaxed performance per production.',
+      description: 'Add one audio-described, one captioned and one relaxed performance per production.',
       resourceLevel: 'low', costRange: '$500-2,000 per production', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Identify one performance per production for each access type.', 'Book audio describer through Vision Australia or specialist provider.', 'Book captioning provider.', 'Develop relaxed performance protocol: adjust lighting, sound, audience rules.', 'Create sensory guides for each production.', 'Promote accessible performances through disability networks.']
     },
     {
       title: 'Build accessible performance infrastructure',
-      description: 'Install permanent captioning, audio description, and hearing augmentation systems.',
+      description: 'Install permanent captioning, audio description and hearing augmentation systems.',
       resourceLevel: 'medium', costRange: '$5,000-20,000', timeRequired: '4-8 weeks', implementedBy: 'contractor', impact: 'moderate',
       steps: ['Install permanent captioning screen or LED display.', 'Purchase audio description headset system.', 'Install or upgrade hearing loop in auditorium.', 'Create dedicated Auslan interpreter position with lighting.', 'Develop sensory guide template for all productions.', 'Train front-of-house staff on accessible performances.', 'Add accessible performance filter to online booking.']
     },
@@ -4868,9 +4868,9 @@ export const duringVisitHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'event-venue', businessTypeLabel: 'Theatre', scenario: 'No accessible performances offered.', solution: 'Scheduled one audio-described, one captioned, and one relaxed performance per production. Partnered with Vision Australia and AMAZE. Promoted through disability networks.', outcome: 'Accessible performances at 70% capacity within first year. Season ticket holders include regular AD and captioned patrons.', cost: '$8,000 per year', timeframe: '3 months to establish' },
+    { businessType: 'event-venue', businessTypeLabel: 'Theatre', scenario: 'No accessible performances offered.', solution: 'Scheduled one audio-described, one captioned and one relaxed performance per production. Partnered with Vision Australia and AMAZE. Promoted through disability networks.', outcome: 'Accessible performances at 70% capacity within first year. Season ticket holders include regular AD and captioned patrons.', cost: '$8,000 per year', timeframe: '3 months to establish' },
     { businessType: 'attraction', businessTypeLabel: 'Cinema', scenario: 'No captioned or audio-described sessions.', solution: 'Installed open captioning on selected sessions. Purchased audio description receivers. Scheduled one accessible session per new release.', outcome: 'Deaf and blind patrons return regularly. Positive social media coverage.', cost: '$4,000', timeframe: '4 weeks' },
-    { businessType: 'event-venue', businessTypeLabel: 'Concert Venue', scenario: 'Autistic attendees overwhelmed by standard concerts.', solution: 'Launched relaxed concert series with adjusted lighting and volume, chill-out room, and visual song guide. Partnered with Autism CRC.', outcome: 'Relaxed concerts sell out. Families report it is the only way their family members can attend live music.', cost: '$2,000 per event', timeframe: '2 weeks per event' }
+    { businessType: 'event-venue', businessTypeLabel: 'Concert Venue', scenario: 'Autistic attendees overwhelmed by standard concerts.', solution: 'Launched relaxed concert series with adjusted lighting and volume, chill-out room and visual song guide. Partnered with Autism CRC.', outcome: 'Relaxed concerts sell out. Families report it is the only way their family members can attend live music.', cost: '$2,000 per event', timeframe: '2 weeks per event' }
   ],
   resources: [
     { title: 'Vision Australia - Audio Description', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Specialist service provider for audio description at performances and events.', isAustralian: true, isFree: true },
@@ -4889,7 +4889,7 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Food accessibility and outdoor/nature access',
   coveredQuestionIds: ['3.8-D-27', '3.8-D-28', '3.8-D-29', '3.8-D-30', '3.8-D-31', '3.8-D-32', '3.8-D-33', '3.8-D-34'],
-  summary: 'Food accessibility includes menus in alternative formats, staff assistance with buffets, dietary modification for disability-related needs, and accessible dining furniture. Outdoor and nature access covers accessible trails, beach matting, playground equipment, camping facilities, lookouts, and trail information in accessible formats.',
+  summary: 'Food accessibility includes menus in alternative formats, staff assistance with buffets, dietary modification for disability-related needs and accessible dining furniture. Outdoor and nature access covers accessible trails, beach matting, playground equipment, camping facilities, lookouts and trail information in accessible formats.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Eating and outdoor experiences are core social activities. When a restaurant has no large print menu, a blind person cannot order independently. When a beach has no matting, a wheelchair user stops at the sand. When a playground has no accessible equipment, a child with disability watches from the sideline. These barriers affect not just the person with disability but their entire family and social group.',
@@ -4910,7 +4910,7 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Ask food service staff: how do you assist a blind person at a buffet?' },
       { text: 'Check dining furniture for wheelchair clearance.', measurement: { target: 'Table knee clearance', acceptable: 'Minimum 700mm', unit: 'mm' } },
       { text: 'Inspect outdoor paths for accessibility: surface, width, gradient.' },
-      { text: 'Check beach access: is there matting, a beach wheelchair, or boardwalk?' },
+      { text: 'Check beach access: is there matting, a beach wheelchair or boardwalk?' },
       { text: 'Inspect playground: is there accessible equipment?' },
       { text: 'Check camping facilities: is there an accessible campsite with firm ground and accessible amenities nearby?' },
       { text: 'Review lookout and viewing areas: can wheelchair users see over barriers?' },
@@ -4925,19 +4925,19 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'AS1428.1', relevance: 'Path of travel requirements apply to outdoor public spaces and dining areas.' },
       { code: 'Access-to-Premises', relevance: 'Dining areas in new buildings must be on accessible paths with accessible furniture.' }
     ],
-    plainEnglish: 'Food service and outdoor areas open to the public must be accessible. This means accessible paths, adaptable dining, and alternatives where full access is not possible.',
+    plainEnglish: 'Food service and outdoor areas open to the public must be accessible. This means accessible paths, adaptable dining and alternatives where full access is not possible.',
     complianceNote: 'Natural environments may have inherent access limitations, but providing accessible alternatives (beach matting, accessible trails, viewing platforms) demonstrates commitment to inclusion.'
   },
   solutions: [
     {
       title: 'Quick improvements to food and outdoor access',
-      description: 'Create accessible menus, train staff, and add basic outdoor access aids.',
+      description: 'Create accessible menus, train staff and add basic outdoor access aids.',
       resourceLevel: 'low', costRange: '$100-1,000', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Create large print menu and QR code digital menu.', 'Brief food staff on buffet assistance and dietary accommodation.', 'Ensure at least one table per dining area has wheelchair clearance.', 'Purchase temporary beach matting for sand crossings.', 'Add accessible trail information signs at trailheads.', 'Review playground for simple accessible additions (accessible swing, ground-level play).']
     },
     {
       title: 'Invest in accessible outdoor infrastructure',
-      description: 'Install permanent beach access, accessible playground equipment, and trail improvements.',
+      description: 'Install permanent beach access, accessible playground equipment and trail improvements.',
       resourceLevel: 'medium', costRange: '$5,000-30,000', timeRequired: '4-8 weeks', implementedBy: 'contractor', impact: 'moderate',
       steps: ['Install permanent beach access matting or boardwalk.', 'Purchase beach wheelchair for public loan.', 'Install accessible playground equipment (liberty swing, accessible roundabout).', 'Upgrade primary trail surfaces for wheelchair access.', 'Install accessible picnic tables at key locations.', 'Create accessible camping pad with firm surface and nearby accessible amenities.', 'Produce trail guides in large print and audio.']
     },
@@ -4949,9 +4949,9 @@ export const duringVisitHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'restaurant-cafe', businessTypeLabel: 'Beachside Cafe', scenario: 'Menu was handwritten on a chalkboard. No wheelchair path to beach.', solution: 'Created large print menu, QR digital menu, and trained staff on buffet assistance. Installed 20m beach access matting and purchased a beach wheelchair.', outcome: 'Became known as the accessible beachside cafe. Tourism award nomination.', cost: '$2,500', timeframe: '3 weeks' },
+    { businessType: 'restaurant-cafe', businessTypeLabel: 'Beachside Cafe', scenario: 'Menu was handwritten on a chalkboard. No wheelchair path to beach.', solution: 'Created large print menu, QR digital menu and trained staff on buffet assistance. Installed 20m beach access matting and purchased a beach wheelchair.', outcome: 'Became known as the accessible beachside cafe. Tourism award nomination.', cost: '$2,500', timeframe: '3 weeks' },
     { businessType: 'attraction', businessTypeLabel: 'National Park', scenario: 'No accessible trails or camping.', solution: 'Upgraded 2km trail to compacted surface with rest stops. Created accessible campsite with firm pad and accessible amenities. Audio trail guide via app.', outcome: 'Wheelchair visitors use trail daily. Accessible campsite booked most weekends.', cost: '$45,000', timeframe: '4 months' },
-    { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Playground had no accessible equipment.', solution: 'Installed liberty swing, wheelchair-accessible roundabout, and sensory play panel. Added accessible path through playground. Rubber softfall surface.', outcome: 'Children with disability play alongside peers. Park became a family destination.', cost: '$35,000', timeframe: '6 weeks' }
+    { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Playground had no accessible equipment.', solution: 'Installed liberty swing, wheelchair-accessible roundabout and sensory play panel. Added accessible path through playground. Rubber softfall surface.', outcome: 'Children with disability play alongside peers. Park became a family destination.', cost: '$35,000', timeframe: '6 weeks' }
   ],
   resources: [
     { title: 'Accessible Beach Guide', url: 'https://www.travability.travel/', type: 'guide', source: 'Travability', description: 'Guide to accessible beaches across Australia.', isAustralian: true, isFree: true },
@@ -4970,10 +4970,10 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Accessible room essentials',
   coveredQuestionIds: ['3.9-1-4', '3.9-1-5', '3.9-D-1', '3.9-D-2', '3.9-D-9', '3.9-D-10'],
-  summary: 'Accessible guest rooms need wide doorways (850mm+), adequate circulation space (1500mm turning circle), accessible bed height for transfers, reachable controls and switches, accessible lighting, and clear floor paths between furniture.',
+  summary: 'Accessible guest rooms need wide doorways (850mm+), adequate circulation space (1500mm turning circle), accessible bed height for transfers, reachable controls and switches, accessible lighting and clear floor paths between furniture.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'An accessible room that cannot actually be used by a wheelchair user is worse than having none, because it creates false expectations. Room essentials like doorway width, bed transfer space, switch height, and circulation space determine whether someone can independently use the room or needs constant assistance for basic tasks.',
+    text: 'An accessible room that cannot actually be used by a wheelchair user is worse than having none, because it creates false expectations. Room essentials like doorway width, bed transfer space, switch height and circulation space determine whether someone can independently use the room or needs constant assistance for basic tasks.',
     statistic: { value: '1 in 6', context: 'Australians travelling domestically have a disability or care for someone who does. Accessible accommodation is the single biggest barrier reported by disability travellers.', source: 'Tourism Research Australia' },
     quote: { text: 'I booked an "accessible" room and could not even get my wheelchair through the bathroom door. The bed was too high to transfer. I ended up sleeping in my chair.', attribution: 'Wheelchair user, accommodation review' }
   },
@@ -4981,7 +4981,7 @@ export const duringVisitHelp: HelpContent[] = [
     { icon: 'DoorOpen', text: 'Ensure all doorways in accessible rooms are 850mm+ clear width with lever handles.', priority: 1 },
     { icon: 'Accessibility', text: 'Provide 1500mm turning circle on at least one side of the bed and at the room entry.', priority: 2 },
     { icon: 'Bed', text: 'Set bed height to 450-500mm (top of mattress) to match wheelchair seat for lateral transfers.', detail: 'Use bed risers or adjustable bases. The bed should be firm enough to support transfers.', priority: 3 },
-    { icon: 'Lightbulb', text: 'Place light switches, power points, and climate controls at 900-1100mm height.', priority: 4 },
+    { icon: 'Lightbulb', text: 'Place light switches, power points and climate controls at 900-1100mm height.', priority: 4 },
     { icon: 'Eye', text: 'Provide a bedside panel controlling lights and calling for assistance.', priority: 5 }
   ],
   howToCheck: {
@@ -5005,21 +5005,21 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'Access-to-Premises', relevance: 'Requires accessible rooms in new accommodation buildings with specified ratios.' },
       { code: 'NCC', relevance: 'Volume 1 Part D3.4 specifies accessible room requirements for Class 3 buildings.' }
     ],
-    plainEnglish: 'Accessible rooms must have wide enough doors, enough space to turn a wheelchair, a bed at the right height for transfers, and controls within reach from a seated position.',
-    complianceNote: 'Even if your building predates current standards, adjusting bed height, switch positions, and furniture layout can significantly improve room accessibility.'
+    plainEnglish: 'Accessible rooms must have wide enough doors, enough space to turn a wheelchair, a bed at the right height for transfers and controls within reach from a seated position.',
+    complianceNote: 'Even if your building predates current standards, adjusting bed height, switch positions and furniture layout can significantly improve room accessibility.'
   },
   solutions: [
     {
       title: 'Adjust existing room layout and furniture',
-      description: 'Rearrange furniture, adjust bed height, and lower controls in existing accessible rooms.',
+      description: 'Rearrange furniture, adjust bed height and lower controls in existing accessible rooms.',
       resourceLevel: 'low', costRange: '$200-1,000', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Remove unnecessary furniture to create turning space.', 'Adjust bed height to 450-500mm using risers or frame adjustment.', 'Move bedside table to create 1200mm clear transfer space.', 'Lower wardrobe rail to reachable height (1200mm max).', 'Install rocker-style light switches at 1000mm if needed.', 'Add extension cables to bring power points within reach.']
     },
     {
       title: 'Upgrade accessible room infrastructure',
-      description: 'Widen doorways, install accessible controls, and purchase adjustable furniture.',
+      description: 'Widen doorways, install accessible controls and purchase adjustable furniture.',
       resourceLevel: 'medium', costRange: '$3,000-10,000', timeRequired: '1-2 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Widen doorways to 850mm+ where needed.', 'Install lever door handles throughout.', 'Relocate switches and power points to 900-1100mm.', 'Purchase height-adjustable bed.', 'Install bedside control panel for lights, curtains, and assistance call.', 'Add emergency call cord reaching the floor.', 'Update room listing with accurate accessibility details.']
+      steps: ['Widen doorways to 850mm+ where needed.', 'Install lever door handles throughout.', 'Relocate switches and power points to 900-1100mm.', 'Purchase height-adjustable bed.', 'Install bedside control panel for lights, curtains and assistance call.', 'Add emergency call cord reaching the floor.', 'Update room listing with accurate accessibility details.']
     },
     {
       title: 'Purpose-built accessible room design',
@@ -5031,7 +5031,7 @@ export const duringVisitHelp: HelpContent[] = [
   examples: [
     { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Accessible room had furniture blocking wheelchair circulation.', solution: 'Removed armchair and second bedside table. Lowered bed to 480mm. Moved wardrobe items to reachable height. Added bedside light control.', outcome: 'Guest feedback improved immediately. Room gets positive reviews on accessibility platforms.', cost: '$350', timeframe: '1 day' },
     { businessType: 'accommodation', businessTypeLabel: 'Motel', scenario: 'Room doors too narrow for powered wheelchairs.', solution: 'Widened doorways to 900mm and installed lever handles. Adjusted bed height and added transfer board.', outcome: 'Can now accommodate powered wheelchair users. NDIS provider referrals.', cost: '$4,500', timeframe: '1 week' },
-    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Accessible room controls too high.', solution: 'Installed bedside control panel at 800mm for all lights, curtains, and AC. Added voice control option. Lowered wardrobe rail.', outcome: 'Guests with quadriplegia can control room independently. Outstanding reviews.', cost: '$8,000', timeframe: '2 weeks' }
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Accessible room controls too high.', solution: 'Installed bedside control panel at 800mm for all lights, curtains and AC. Added voice control option. Lowered wardrobe rail.', outcome: 'Guests with quadriplegia can control room independently. Outstanding reviews.', cost: '$8,000', timeframe: '2 weeks' }
   ],
   resources: [
     { title: 'Accessible Accommodation Guide', url: 'https://www.travability.travel/', type: 'guide', source: 'Travability', description: 'Detailed guide to accessible accommodation features and standards.', isAustralian: true, isFree: true },
@@ -5044,16 +5044,16 @@ export const duringVisitHelp: HelpContent[] = [
 // ─── Entry 34: Accessible bathroom and safety ───
 {
   questionId: '3.9-1-3',
-  questionText: 'Do accessible room bathrooms have roll-in showers, grab rails, and appropriate toilet height?',
+  questionText: 'Do accessible room bathrooms have roll-in showers, grab rails and appropriate toilet height?',
   moduleCode: '3.9',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
   title: 'Accessible bathroom and safety',
   coveredQuestionIds: ['3.9-D-4', '3.9-D-5', '3.9-D-15'],
-  summary: 'Accessible bathrooms in guest rooms require roll-in (hobless) showers with fold-down seats, grab rails at toilet and shower, toilet at correct height (460-480mm), non-slip surfaces, emergency pull cords reaching floor level, and adequate lighting.',
+  summary: 'Accessible bathrooms in guest rooms require roll-in (hobless) showers with fold-down seats, grab rails at toilet and shower, toilet at correct height (460-480mm), non-slip surfaces, emergency pull cords reaching floor level and adequate lighting.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'The bathroom is where accessibility is most critical and where injuries are most likely. A bathroom without grab rails, with a shower step, or with a toilet at the wrong height can mean a guest cannot use the room at all, or worse, falls and is injured. Bathroom accessibility is non-negotiable for genuine room accessibility.',
+    text: 'The bathroom is where accessibility is most critical and where injuries are most likely. A bathroom without grab rails, with a shower step or with a toilet at the wrong height can mean a guest cannot use the room at all or worse, falls and is injured. Bathroom accessibility is non-negotiable for genuine room accessibility.',
     statistic: { value: '30%', context: 'of falls among older Australians happen in the bathroom. Grab rails and non-slip surfaces prevent injuries for all guests, not just those with disability.', source: 'Australian Institute of Health and Welfare' }
   },
   tips: [
@@ -5079,24 +5079,24 @@ export const duringVisitHelp: HelpContent[] = [
     estimatedTime: '15-20 minutes per bathroom'
   },
   standardsReference: {
-    primary: { code: 'AS1428.1', section: 'Section 10 and 11', requirement: 'Accessible bathrooms require hobless showers, grab rails to specified dimensions, toilet at 460-480mm, and emergency call within reach of the floor.' },
+    primary: { code: 'AS1428.1', section: 'Section 10 and 11', requirement: 'Accessible bathrooms require hobless showers, grab rails to specified dimensions, toilet at 460-480mm and emergency call within reach of the floor.' },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires accessible sanitary facilities in accommodation buildings.' },
       { code: 'NCC', relevance: 'Part F2.4 specifies sanitary facility requirements for accessible rooms.' }
     ],
-    plainEnglish: 'Accessible bathrooms must have step-free showers, grab rails for support, toilets at the right height, and emergency cords you can reach from the floor in case of a fall.',
+    plainEnglish: 'Accessible bathrooms must have step-free showers, grab rails for support, toilets at the right height and emergency cords you can reach from the floor in case of a fall.',
     complianceNote: 'Many older properties have bathrooms that partially comply. Focus on the highest-impact improvements first: grab rails and shower accessibility.'
   },
   solutions: [
     {
       title: 'Add grab rails and safety features',
-      description: 'Retrofit grab rails, non-slip mats, and emergency cords to existing bathrooms.',
+      description: 'Retrofit grab rails, non-slip mats and emergency cords to existing bathrooms.',
       resourceLevel: 'low', costRange: '$300-1,000', timeRequired: '1-2 days', implementedBy: 'contractor', impact: 'quick-win',
       steps: ['Install grab rails at toilet (one horizontal, one vertical) per AS 1428.1.', 'Install grab rails in shower (L-shaped).', 'Add fold-down shower seat if not present.', 'Place non-slip mat in shower and on bathroom floor.', 'Install or extend emergency pull cord to floor level.', 'Add raised toilet seat if height is below 460mm.']
     },
     {
       title: 'Convert to hobless shower and accessible layout',
-      description: 'Remove shower hob, retile with non-slip surface, and reconfigure layout.',
+      description: 'Remove shower hob, retile with non-slip surface and reconfigure layout.',
       resourceLevel: 'medium', costRange: '$5,000-15,000', timeRequired: '1-2 weeks', implementedBy: 'contractor', impact: 'moderate',
       steps: ['Remove shower hob and retile floor for zero-step entry.', 'Install linear drain for water containment.', 'Tile with R10+ non-slip surface.', 'Install fixed and detachable shower heads.', 'Install fold-down shower seat at 460-480mm.', 'Add grab rails per AS 1428.1.', 'Install emergency pull cord.']
     },
@@ -5108,7 +5108,7 @@ export const duringVisitHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Accessible bathroom had a shower with 50mm step. No grab rails.', solution: 'Removed hob, retiled with non-slip, installed grab rails, fold-down seat, and emergency cord. Adjusted toilet height.', outcome: 'Room fully usable by wheelchair guests. Bookings for accessible room increased.', cost: '$8,000', timeframe: '10 days' },
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Accessible bathroom had a shower with 50mm step. No grab rails.', solution: 'Removed hob, retiled with non-slip, installed grab rails, fold-down seat and emergency cord. Adjusted toilet height.', outcome: 'Room fully usable by wheelchair guests. Bookings for accessible room increased.', cost: '$8,000', timeframe: '10 days' },
     { businessType: 'accommodation', businessTypeLabel: 'B&B', scenario: 'Ground-floor room bathroom had bathtub only.', solution: 'Replaced tub with hobless shower with seat. Added grab rails and non-slip flooring. Extended emergency cord to floor.', outcome: 'Room now genuinely accessible. Listed on Travability. Consistent bookings.', cost: '$12,000', timeframe: '2 weeks' }
   ],
   resources: [
@@ -5127,7 +5127,7 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Guest communication and alerting',
   coveredQuestionIds: ['3.9-D-11', '3.9-D-17'],
-  summary: 'Deaf and hard-of-hearing guests need visual fire alarms (strobe lights), vibrating pillow or bed shaker alerts, visual door knock indicators, and accessible communication methods including text-based contact with reception. Medication and medical equipment storage facilities support guests with chronic conditions.',
+  summary: 'Deaf and hard-of-hearing guests need visual fire alarms (strobe lights), vibrating pillow or bed shaker alerts, visual door knock indicators and accessible communication methods including text-based contact with reception. Medication and medical equipment storage facilities support guests with chronic conditions.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'A Deaf person sleeping cannot hear a fire alarm. Without a visual or vibrating alert, they may not evacuate in time. Similarly, if the only way to contact reception is by phone, Deaf guests cannot request help. Alerting and communication systems are life-safety features, not optional extras.',
@@ -5137,7 +5137,7 @@ export const duringVisitHelp: HelpContent[] = [
     { icon: 'Zap', text: 'Install visual fire alarm (strobe) in bedroom and bathroom of accessible rooms.', priority: 1 },
     { icon: 'Bed', text: 'Provide vibrating pillow alert or bed shaker connected to fire alarm and door knock.', priority: 2 },
     { icon: 'DoorOpen', text: 'Install visual door knock indicator (flashing light when someone knocks).', priority: 3 },
-    { icon: 'Smartphone', text: 'Offer text-based communication with reception (SMS, app, or messaging).', priority: 4 },
+    { icon: 'Smartphone', text: 'Offer text-based communication with reception (SMS, app or messaging).', priority: 4 },
     { icon: 'Thermometer', text: 'Provide a small fridge for medication storage.', priority: 5 }
   ],
   howToCheck: {
@@ -5172,20 +5172,20 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Integrated alerting system',
-      description: 'Install connected alerting system with visual, vibrating, and door notification.',
+      description: 'Install connected alerting system with visual, vibrating and door notification.',
       resourceLevel: 'medium', costRange: '$2,000-8,000', timeRequired: '1-2 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Install integrated alerting system connecting fire alarm, door knock, and phone to visual and vibrating alerts.', 'Install visual door knock indicator.', 'Provide bed shaker connected to all alert sources.', 'Install accessible telephone with amplification and TTY compatibility.', 'Set up guest app or tablet for text communication.', 'Provide in-room medication fridge.', 'Document all features in room accessibility guide.']
+      steps: ['Install integrated alerting system connecting fire alarm, door knock and phone to visual and vibrating alerts.', 'Install visual door knock indicator.', 'Provide bed shaker connected to all alert sources.', 'Install accessible telephone with amplification and TTY compatibility.', 'Set up guest app or tablet for text communication.', 'Provide in-room medication fridge.', 'Document all features in room accessibility guide.']
     },
     {
       title: 'Smart room alerting and communication',
       description: 'Deploy smart room technology for comprehensive alerting and guest independence.',
       resourceLevel: 'high', costRange: '$8,000-20,000', timeRequired: '2-4 weeks', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Install smart room hub connecting all alerts.', 'Deploy wearable alert device (vibrating wristband) for mobile alerting.', 'Install smart display showing all room information and alerts.', 'Connect to hotel PMS for text-based room service, housekeeping, and reception.', 'Add video doorbell with screen for visual identification.', 'Install medical-grade fridge for temperature-sensitive medication.', 'Create comprehensive accessible room technology guide.', 'Train all staff on system operation.']
+      steps: ['Install smart room hub connecting all alerts.', 'Deploy wearable alert device (vibrating wristband) for mobile alerting.', 'Install smart display showing all room information and alerts.', 'Connect to hotel PMS for text-based room service, housekeeping and reception.', 'Add video doorbell with screen for visual identification.', 'Install medical-grade fridge for temperature-sensitive medication.', 'Create comprehensive accessible room technology guide.', 'Train all staff on system operation.']
     }
   ],
   examples: [
     { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'No visual fire alarm in accessible room. Deaf guest was unaware of a drill.', solution: 'Installed visual strobes in bedroom and bathroom of all accessible rooms. Purchased vibrating pillow alerts. Set up SMS reception line.', outcome: 'Deaf guests feel safe. Positive reviews mentioning alerting systems.', cost: '$1,200 per room', timeframe: '3 days' },
-    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Only phone contact with reception.', solution: 'Deployed in-room tablets with text chat to reception, visual alerts, and door camera. Added medication fridge.', outcome: 'Deaf guests book independently. Resort featured in accessible travel guide.', cost: '$5,000 per room', timeframe: '2 weeks' }
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Only phone contact with reception.', solution: 'Deployed in-room tablets with text chat to reception, visual alerts and door camera. Added medication fridge.', outcome: 'Deaf guests book independently. Resort featured in accessible travel guide.', cost: '$5,000 per room', timeframe: '2 weeks' }
   ],
   resources: [
     { title: 'Hearing Australia Accommodation Guide', url: 'https://www.hearing.com.au/', type: 'guide', source: 'Hearing Australia', description: 'Guidance on alerting systems for accommodation providers.', isAustralian: true, isFree: true },
@@ -5203,15 +5203,15 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Kitchenette and in-room amenities',
   coveredQuestionIds: ['3.9-D-7', '3.9-D-8'],
-  summary: 'Accessible kitchenettes need lowered benchtops with knee clearance, front-operated appliances, reachable storage, and accessible tea and coffee facilities. In-room entertainment (TV, remote, information) must also be accessible.',
+  summary: 'Accessible kitchenettes need lowered benchtops with knee clearance, front-operated appliances, reachable storage and accessible tea and coffee facilities. In-room entertainment (TV, remote, information) must also be accessible.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Self-catering is important for guests who have dietary requirements related to disability, need to prepare medication, or simply want the independence of making their own meals. Standard kitchenettes with high benchtops and rear-controlled appliances are unusable from a wheelchair.',
+    text: 'Self-catering is important for guests who have dietary requirements related to disability, need to prepare medication or simply want the independence of making their own meals. Standard kitchenettes with high benchtops and rear-controlled appliances are unusable from a wheelchair.',
     quote: { text: 'I have coeliac disease and need to prepare my own food. When the kitchenette bench is too high and the microwave is above head height, I cannot use it at all.', attribution: 'Wheelchair user, accommodation review' }
   },
   tips: [
     { icon: 'Ruler', text: 'Lower at least a section of benchtop to 850mm with knee clearance underneath.', priority: 1 },
-    { icon: 'Lightbulb', text: 'Use front-operated controls on oven, microwave, and cooktop.', priority: 2 },
+    { icon: 'Lightbulb', text: 'Use front-operated controls on oven, microwave and cooktop.', priority: 2 },
     { icon: 'Package', text: 'Place frequently used items (kettle, cups, utensils) within reach: 400-1200mm height.', priority: 3 },
     { icon: 'Monitor', text: 'Ensure TV remote has large buttons and TV has audio description and caption settings enabled.', priority: 4 },
     { icon: 'BookOpen', text: 'Provide room compendium in large print and digital format.', priority: 5 }
@@ -5235,7 +5235,7 @@ export const duringVisitHelp: HelpContent[] = [
     related: [
       { code: 'DDA', relevance: 'In-room amenities that are inaccessible may constitute discrimination if accessible alternatives are not provided.' }
     ],
-    plainEnglish: 'If your accessible room has a kitchenette, at least part of the bench must be low enough to use from a wheelchair, and appliances must be reachable and operable.',
+    plainEnglish: 'If your accessible room has a kitchenette, at least part of the bench must be low enough to use from a wheelchair and appliances must be reachable and operable.',
     complianceNote: 'Even rooms without full kitchenettes should have accessible tea and coffee facilities.'
   },
   solutions: [
@@ -5243,7 +5243,7 @@ export const duringVisitHelp: HelpContent[] = [
       title: 'Rearrange amenities for reach',
       description: 'Move items to reachable heights and provide accessible alternatives.',
       resourceLevel: 'low', costRange: '$50-300', timeRequired: '1-2 hours', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Move kettle, cups, and tea/coffee to bench height.', 'Replace wall-mounted microwave with benchtop model.', 'Place frequently used items at 400-1200mm.', 'Provide a pour-assist kettle with tipping frame.', 'Add large-print room compendium.', 'Enable captions and audio description on TV.']
+      steps: ['Move kettle, cups and tea/coffee to bench height.', 'Replace wall-mounted microwave with benchtop model.', 'Place frequently used items at 400-1200mm.', 'Provide a pour-assist kettle with tipping frame.', 'Add large-print room compendium.', 'Enable captions and audio description on TV.']
     },
     {
       title: 'Modify kitchenette for wheelchair access',
@@ -5278,7 +5278,7 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Booking, inventory and shared facilities',
   coveredQuestionIds: ['3.9-D-13', '3.9-D-14', '3.9-D-16'],
-  summary: 'Accessible rooms must be bookable through standard online systems with clear descriptions and photos. Properties should track accessible room inventory, locate accessible rooms near lifts and shared facilities, and ensure pools, gyms, and dining areas are on accessible paths from accessible rooms.',
+  summary: 'Accessible rooms must be bookable through standard online systems with clear descriptions and photos. Properties should track accessible room inventory, locate accessible rooms near lifts and shared facilities and ensure pools, gyms and dining areas are on accessible paths from accessible rooms.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'If a guest cannot find or book an accessible room online, they may assume you do not have one. Many people with disability will not phone to ask. Proximity to shared facilities matters because long distances on inaccessible routes effectively cut off accessible room guests from the full property experience.',
@@ -5287,9 +5287,9 @@ export const duringVisitHelp: HelpContent[] = [
   tips: [
     { icon: 'Monitor', text: 'List accessible rooms as a filterable category on your booking system.', priority: 1 },
     { icon: 'Camera', text: 'Include photos of accessibility features: bathroom, doorways, bed, controls.', priority: 2 },
-    { icon: 'ClipboardList', text: 'Describe accessibility features in detail, not just "accessible room".', detail: 'List door widths, shower type, grab rails, bed height, alerting systems, and distance to lift.', priority: 3 },
+    { icon: 'ClipboardList', text: 'Describe accessibility features in detail, not just "accessible room".', detail: 'List door widths, shower type, grab rails, bed height, alerting systems and distance to lift.', priority: 3 },
     { icon: 'MapPin', text: 'Locate accessible rooms on ground floor or near lifts.', priority: 4 },
-    { icon: 'Building2', text: 'Ensure accessible paths connect accessible rooms to pool, gym, restaurant, and reception.', priority: 5 }
+    { icon: 'Building2', text: 'Ensure accessible paths connect accessible rooms to pool, gym, restaurant and reception.', priority: 5 }
   ],
   howToCheck: {
     title: 'Auditing booking and shared facility access',
@@ -5297,7 +5297,7 @@ export const duringVisitHelp: HelpContent[] = [
       { text: 'Search your own booking system as a guest: can you filter for or find accessible rooms?' },
       { text: 'Check room descriptions: do they list specific accessibility features?' },
       { text: 'Check room photos: do they show accessibility features?' },
-      { text: 'Walk the path from accessible room to pool, gym, restaurant, and reception. Note any barriers.' },
+      { text: 'Walk the path from accessible room to pool, gym, restaurant and reception. Note any barriers.' },
       { text: 'Check whether accessible rooms are near lifts.' },
       { text: 'Review your room inventory: how many accessible rooms do you have and what types?' },
       { text: 'Check third-party booking platforms: do they accurately list your accessible rooms?' }
@@ -5324,7 +5324,7 @@ export const duringVisitHelp: HelpContent[] = [
       title: 'Improve accessible room connectivity to facilities',
       description: 'Ensure accessible paths between rooms and shared amenities.',
       resourceLevel: 'medium', costRange: '$1,000-10,000', timeRequired: '1-4 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Map paths from each accessible room to pool, gym, restaurant, reception, and parking.', 'Identify and fix barriers on each path.', 'Install directional signage from accessible rooms to facilities.', 'Relocate accessible rooms closer to lifts or facilities if possible.', 'Add pool hoist or ramp if pool is on the accessible path.', 'Ensure gym has accessible entry and at least 2 accessible machines.', 'Document accessible routes in room information guide.']
+      steps: ['Map paths from each accessible room to pool, gym, restaurant, reception and parking.', 'Identify and fix barriers on each path.', 'Install directional signage from accessible rooms to facilities.', 'Relocate accessible rooms closer to lifts or facilities if possible.', 'Add pool hoist or ramp if pool is on the accessible path.', 'Ensure gym has accessible entry and at least 2 accessible machines.', 'Document accessible routes in room information guide.']
     },
     {
       title: 'Integrated accessible booking and facility planning',
@@ -5353,10 +5353,10 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Product access and shopping assistance',
   coveredQuestionIds: ['3.10-PC-2', '3.10-PC-3', '3.10-D-8', '3.10-D-9'],
-  summary: 'Product access means ensuring items on shelves are within reach from a wheelchair (400-1200mm), price tags are readable (large print, high contrast), shelf labels are clear, and trained staff are available to assist without being intrusive.',
+  summary: 'Product access means ensuring items on shelves are within reach from a wheelchair (400-1200mm), price tags are readable (large print, high contrast), shelf labels are clear and trained staff are available to assist without being intrusive.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Shopping is an everyday activity that most people take for granted. When products are displayed above reach height, price tags are tiny, or staff do not know how to assist, people with disability lose independence. Wheelchair users can typically reach items between 400mm and 1200mm. Anything higher requires assistance.',
+    text: 'Shopping is an everyday activity that most people take for granted. When products are displayed above reach height, price tags are tiny or staff do not know how to assist, people with disability lose independence. Wheelchair users can typically reach items between 400mm and 1200mm. Anything higher requires assistance.',
     statistic: { value: '$54 billion', context: 'is the annual spending power of Australians with disability. Retailers who are accessible capture more of this market.', source: 'Australian Government - Disability Economic Participation data' }
   },
   tips: [
@@ -5386,7 +5386,7 @@ export const duringVisitHelp: HelpContent[] = [
       { code: 'AS1428.1', relevance: 'Reach range for controls and items: 900-1100mm optimal, 400-1200mm acceptable from wheelchair.' }
     ],
     plainEnglish: 'Customers with disability must be able to browse and purchase products. Arrange key items within reach and offer assistance.',
-    complianceNote: 'Not every item needs to be at wheelchair height, but essential and popular items should be, and staff assistance must be readily available for higher items.'
+    complianceNote: 'Not every item needs to be at wheelchair height, but essential and popular items should be and staff assistance must be readily available for higher items.'
   },
   solutions: [
     {
@@ -5397,7 +5397,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Redesign store layout for accessibility',
-      description: 'Widen aisles, lower displays, and install digital product-finding aids.',
+      description: 'Widen aisles, lower displays and install digital product-finding aids.',
       resourceLevel: 'medium', costRange: '$2,000-10,000', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'moderate',
       steps: ['Widen main aisles to 1500mm minimum.', 'Lower gondola displays so all shelves are below 1200mm.', 'Install pull-out lower shelves for heavy items.', 'Add magnifying sheet holders near small print (prescriptions, ingredients).', 'Create digital product catalogue accessible via QR code.', 'Install accessible customer service counter.', 'Add way-finding signage with large print.']
     },
@@ -5429,7 +5429,7 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Accessible checkout and fitting rooms',
   coveredQuestionIds: ['3.10-D-1', '3.10-D-2', '3.10-D-3', '3.10-D-4', '3.10-D-5'],
-  summary: 'Accessible checkouts need a lowered counter section (850mm), accessible EFTPOS terminals within reach, and space for a wheelchair. Fitting rooms need wide doors (850mm+), 1500mm turning circle, grab rails, mirror at seated height, and a fold-down seat.',
+  summary: 'Accessible checkouts need a lowered counter section (850mm), accessible EFTPOS terminals within reach and space for a wheelchair. Fitting rooms need wide doors (850mm+), 1500mm turning circle, grab rails, mirror at seated height and a fold-down seat.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Checkout and fitting rooms are where many retail accessibility failures occur. A counter that is too high means a wheelchair user cannot see the cashier or reach the EFTPOS terminal. A fitting room that is too small means a wheelchair user cannot try on clothes. These barriers are easily avoidable with basic design considerations.',
@@ -5487,8 +5487,8 @@ export const duringVisitHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'retail', businessTypeLabel: 'Department Store', scenario: 'All counters at 1100mm. No accessible fitting room.', solution: 'Lowered one section of checkout to 850mm. Converted largest fitting room to accessible with grab rails, seat, and 1500mm space. EFTPOS on flexible arm.', outcome: 'Wheelchair customers served independently. Staff appreciate clear process.', cost: '$4,500', timeframe: '1 week' },
-    { businessType: 'retail', businessTypeLabel: 'Clothing Boutique', scenario: 'Fitting rooms too small for wheelchair.', solution: 'Combined two cubicles into one accessible space. Added grab rail, seat, and curtain (easier than door for wheelchair entry).', outcome: 'Wheelchair customers try clothes on for the first time. Loyal customer base.', cost: '$2,000', timeframe: '3 days' }
+    { businessType: 'retail', businessTypeLabel: 'Department Store', scenario: 'All counters at 1100mm. No accessible fitting room.', solution: 'Lowered one section of checkout to 850mm. Converted largest fitting room to accessible with grab rails, seat and 1500mm space. EFTPOS on flexible arm.', outcome: 'Wheelchair customers served independently. Staff appreciate clear process.', cost: '$4,500', timeframe: '1 week' },
+    { businessType: 'retail', businessTypeLabel: 'Clothing Boutique', scenario: 'Fitting rooms too small for wheelchair.', solution: 'Combined two cubicles into one accessible space. Added grab rail, seat and curtain (easier than door for wheelchair entry).', outcome: 'Wheelchair customers try clothes on for the first time. Loyal customer base.', cost: '$2,000', timeframe: '3 days' }
   ],
   resources: [
     { title: 'AS 1428.1 Service Counters', url: 'https://www.standards.org.au/', type: 'guide', source: 'Standards Australia', description: 'Requirements for accessible service counters and fitting rooms.', isAustralian: true, isFree: false },
@@ -5506,10 +5506,10 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Returns, delivery and alternative channels',
   coveredQuestionIds: ['3.10-D-7'],
-  summary: 'Alternative shopping channels ensure people who face barriers in-store can still access your products. This includes accessible online ordering, home delivery, click-and-collect with accessible pickup points, phone ordering, and accessible returns processes.',
+  summary: 'Alternative shopping channels ensure people who face barriers in-store can still access your products. This includes accessible online ordering, home delivery, click-and-collect with accessible pickup points, phone ordering and accessible returns processes.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Not every shopping trip can happen in store. Some people have conditions that make in-store shopping extremely difficult or impossible on certain days. Energy-limiting conditions, chronic pain, agoraphobia, and severe mobility restrictions all create barriers. Alternative channels provide equitable access to your products and services.',
+    text: 'Not every shopping trip can happen in store. Some people have conditions that make in-store shopping extremely difficult or impossible on certain days. Energy-limiting conditions, chronic pain, agoraphobia and severe mobility restrictions all create barriers. Alternative channels provide equitable access to your products and services.',
     statistic: { value: '87%', context: 'of Australians with disability shop online. Accessible e-commerce and delivery services are essential to reaching this market.', source: 'Australian Communications and Media Authority' }
   },
   tips: [
@@ -5517,7 +5517,7 @@ export const duringVisitHelp: HelpContent[] = [
     { icon: 'Package', text: 'Make click-and-collect pickup points wheelchair accessible with lowered counters.', priority: 2 },
     { icon: 'Globe', text: 'Ensure online store meets WCAG 2.1 AA for screen reader users.', priority: 3 },
     { icon: 'Phone', text: 'Offer phone ordering as an alternative for people who cannot use digital platforms.', priority: 4 },
-    { icon: 'Heart', text: 'Make returns easy: accept by post, in-store at accessible counter, or via home collection.', priority: 5 }
+    { icon: 'Heart', text: 'Make returns easy: accept by post, in-store at accessible counter or via home collection.', priority: 5 }
   ],
   howToCheck: {
     title: 'Auditing alternative shopping channels',
@@ -5537,13 +5537,13 @@ export const duringVisitHelp: HelpContent[] = [
     related: [
       { code: 'WCAG', relevance: 'Online stores must meet WCAG 2.1 AA for accessibility.' }
     ],
-    plainEnglish: 'If customers with disability face barriers shopping in store, you should offer accessible alternatives like delivery, online ordering, and phone ordering.',
+    plainEnglish: 'If customers with disability face barriers shopping in store, you should offer accessible alternatives like delivery, online ordering and phone ordering.',
     complianceNote: 'Alternative channels are not a substitute for in-store accessibility, but they complement it for customers who face specific barriers.'
   },
   solutions: [
     {
       title: 'Set up basic alternative channels',
-      description: 'Offer phone ordering, accessible returns, and delivery options.',
+      description: 'Offer phone ordering, accessible returns and delivery options.',
       resourceLevel: 'low', costRange: '$0-500', timeRequired: '1-2 days', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Establish a phone ordering process with trained staff.', 'Ensure returns can be posted with a prepaid label.', 'Set up flexible delivery windows.', 'Create accessible click-and-collect point at an accessible counter.', 'Publish all options on website and in-store signage.', 'Brief staff on assisting customers using alternative channels.']
     },
@@ -5576,20 +5576,20 @@ export const duringVisitHelp: HelpContent[] = [
 // ─── Entry: Outdoor paths and step-free access ───
 {
   questionId: '3.11-PC-1',
-  questionText: 'Are outdoor paths of travel firm, level, and slip-resistant?',
+  questionText: 'Are outdoor paths of travel firm, level and slip-resistant?',
   moduleCode: '3.11',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
   title: 'Outdoor paths and step-free access',
   coveredQuestionIds: ['3.11-PC-6', '3.11-D-1', '3.11-D-3', '3.11-D-6', '3.11-D-11'],
-  summary: 'Accessible outdoor paths with firm, level surfaces, adequate widths, tactile indicators, and step-free routes between zones ensure people with mobility impairments, vision impairments, and those using wheeled devices can navigate your grounds safely and independently.',
+  summary: 'Accessible outdoor paths with firm, level surfaces, adequate widths, tactile indicators and step-free routes between zones ensure people with mobility impairments, vision impairments and those using wheeled devices can navigate your grounds safely and independently.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'Outdoor areas are often the first point of failure for accessibility. Loose gravel, uneven paving, narrow garden paths, and steps between zones exclude wheelchair users, people with walking frames, parents with prams, and people with vision impairments. If a visitor cannot get from the car park to the beer garden, the picnic area, or the lookout, the rest of your accessibility work is wasted. Maintaining path surfaces is equally important: tree roots lifting pavers, moss on shaded paths, and seasonal leaf litter all create trip and fall hazards that disproportionately affect people with disability.',
+    text: 'Outdoor areas are often the first point of failure for accessibility. Loose gravel, uneven paving, narrow garden paths and steps between zones exclude wheelchair users, people with walking frames, parents with prams and people with vision impairments. If a visitor cannot get from the car park to the beer garden, the picnic area or the lookout, the rest of your accessibility work is wasted. Maintaining path surfaces is equally important: tree roots lifting pavers, moss on shaded paths and seasonal leaf litter all create trip and fall hazards that disproportionately affect people with disability.',
     statistic: {
       value: '2.1 million',
-      context: 'Australians use mobility aids including wheelchairs, scooters, walking frames, and canes. All require firm, level surfaces to travel safely outdoors.',
+      context: 'Australians use mobility aids including wheelchairs, scooters, walking frames and canes. All require firm, level surfaces to travel safely outdoors.',
       source: 'ABS Survey of Disability, Ageing and Carers 2018'
     },
     quote: {
@@ -5602,20 +5602,20 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Accessibility',
       text: 'Ensure all primary paths are at least 1200mm wide (1800mm preferred) with a firm, slip-resistant surface.',
-      detail: 'Acceptable surfaces include concrete, asphalt, compacted decomposed granite with binder, or resin-bound gravel. Loose gravel, sand, bark chips, and grass are not accessible. Where decorative surfaces are used for aesthetics, provide a parallel accessible path clearly marked.',
+      detail: 'Acceptable surfaces include concrete, asphalt, compacted decomposed granite with binder or resin-bound gravel. Loose gravel, sand, bark chips and grass are not accessible. Where decorative surfaces are used for aesthetics, provide a parallel accessible path clearly marked.',
       measurement: { target: '1200mm minimum width', acceptable: '1800mm for two-way traffic', unit: 'mm' },
       priority: 1
     },
     {
       icon: 'ArrowRight',
       text: 'Provide step-free connections between all outdoor zones.',
-      detail: 'Where level changes exist, install ramps with a maximum gradient of 1:14 (AS 1428.1 clause 10), handrails on both sides, and landings at top and bottom. Short ramps under 190mm rise may use 1:8 gradient. Every area visitors are expected to access must have a step-free route.',
+      detail: 'Where level changes exist, install ramps with a maximum gradient of 1:14 (AS 1428.1 clause 10), handrails on both sides and landings at top and bottom. Short ramps under 190mm rise may use 1:8 gradient. Every area visitors are expected to access must have a step-free route.',
       priority: 2
     },
     {
       icon: 'Eye',
-      text: 'Install tactile ground surface indicators (TGSIs) at path hazards, ramp approaches, and stair tops.',
-      detail: 'Warning TGSIs (truncated domes, 300mm deep) at the top and bottom of ramps and stairs, and at path edges where there is a drop. Directional TGSIs (elongated bars) to guide people along paths to key destinations. Colour contrast TGSIs against the surrounding surface with a minimum 30% luminance contrast.',
+      text: 'Install tactile ground surface indicators (TGSIs) at path hazards, ramp approaches and stair tops.',
+      detail: 'Warning TGSIs (truncated domes, 300mm deep) at the top and bottom of ramps and stairs and at path edges where there is a drop. Directional TGSIs (elongated bars) to guide people along paths to key destinations. Colour contrast TGSIs against the surrounding surface with a minimum 30% luminance contrast.',
       priority: 3
     },
     {
@@ -5626,8 +5626,8 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'ClipboardList',
-      text: 'Establish a maintenance schedule to inspect path surfaces, drainage, and vegetation clearance.',
-      detail: 'Check for cracked or lifted pavers, tree root damage, moss or algae growth, ponding water, and leaf litter buildup. After storms, inspect paths before opening to the public. Keep a log of inspections and repairs.',
+      text: 'Establish a maintenance schedule to inspect path surfaces, drainage and vegetation clearance.',
+      detail: 'Check for cracked or lifted pavers, tree root damage, moss or algae growth, ponding water and leaf litter buildup. After storms, inspect paths before opening to the public. Keep a log of inspections and repairs.',
       priority: 5
     },
     {
@@ -5659,9 +5659,9 @@ export const duringVisitHelp: HelpContent[] = [
       },
       { text: 'Identify every level change and check whether a step-free alternative (ramp or lift) exists. Note any zones that cannot be reached step-free.' },
       { text: 'Check ramp handrails: present on both sides, 865-1000mm height, extend 300mm beyond top and bottom landings, graspable circular profile 30-50mm diameter (AS 1428.1 clause 12).' },
-      { text: 'Inspect TGSIs at hazards: warning indicators at stair tops, ramp approaches, and drop-offs. Directional indicators along key routes. Check for damage, wear, or colour fading.' },
-      { text: 'Measure overhead clearance along all paths. Check for low-hanging branches, signs, or structures below 2000mm.' },
-      { text: 'Review maintenance records for path surface repairs, vegetation trimming, and drainage clearing over the last 12 months.' }
+      { text: 'Inspect TGSIs at hazards: warning indicators at stair tops, ramp approaches and drop-offs. Directional indicators along key routes. Check for damage, wear or colour fading.' },
+      { text: 'Measure overhead clearance along all paths. Check for low-hanging branches, signs or structures below 2000mm.' },
+      { text: 'Review maintenance records for path surface repairs, vegetation trimming and drainage clearing over the last 12 months.' }
     ],
     tools: ['Tape measure (5m)', 'Digital inclinometer or spirit level', 'Wheelchair or loaded pram for surface testing', 'Camera for documentation', 'Site map for marking routes'],
     estimatedTime: '45-90 minutes depending on site size'
@@ -5674,24 +5674,24 @@ export const duringVisitHelp: HelpContent[] = [
       requirement: 'Continuous accessible path of travel: minimum 1200mm wide, firm and slip-resistant surface, maximum gradient 1:14 for ramps with handrails both sides, landings at intervals not exceeding 9m, cross-fall maximum 1:40.'
     },
     related: [
-      { code: 'AS1428.4.1', relevance: 'Requirements for tactile ground surface indicators at hazards, stairs, ramps, and along pedestrian paths.' },
+      { code: 'AS1428.4.1', relevance: 'Requirements for tactile ground surface indicators at hazards, stairs, ramps and along pedestrian paths.' },
       { code: 'DDA', relevance: 'Section 23: Unlawful to discriminate in access to premises. Outdoor areas open to the public are covered.' }
     ],
-    plainEnglish: 'All paths visitors use outdoors must be wide enough for a wheelchair, have a firm non-slip surface, and connect all areas without steps. Where levels change, ramps with handrails are required. Tactile indicators warn people with vision impairments about hazards.',
-    complianceNote: 'AHRC Advisory Notes on streetscape and outdoor areas clarify that the DDA applies to outdoor spaces open to the public, not just buildings. Council parks, commercial beer gardens, hotel grounds, and tourist attractions are all covered.'
+    plainEnglish: 'All paths visitors use outdoors must be wide enough for a wheelchair, have a firm non-slip surface and connect all areas without steps. Where levels change, ramps with handrails are required. Tactile indicators warn people with vision impairments about hazards.',
+    complianceNote: 'AHRC Advisory Notes on streetscape and outdoor areas clarify that the DDA applies to outdoor spaces open to the public, not just buildings. Council parks, commercial beer gardens, hotel grounds and tourist attractions are all covered.'
   },
 
   solutions: [
     {
       title: 'Path audit and quick-fix signage',
-      description: 'Audit all outdoor paths for accessibility barriers, mark accessible routes, and address immediate hazards.',
+      description: 'Audit all outdoor paths for accessibility barriers, mark accessible routes and address immediate hazards.',
       resourceLevel: 'low',
       costRange: '$200-1,000',
       timeRequired: '1-2 days',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Walk all paths with a tape measure and inclinometer, noting width, surface, gradient, and hazards.',
+        'Walk all paths with a tape measure and inclinometer, noting width, surface, gradient and hazards.',
         'Trim vegetation encroaching on paths to restore 1200mm clear width and 2000mm overhead clearance.',
         'Mark accessible routes with directional signage using the International Symbol of Access.',
         'Place temporary warning signs at known hazards (uneven surfaces, steep grades) while planning permanent fixes.',
@@ -5700,8 +5700,8 @@ export const duringVisitHelp: HelpContent[] = [
       ]
     },
     {
-      title: 'Path widening, ramps, and TGSI installation',
-      description: 'Widen key paths to 1800mm, install ramps at level changes, and add tactile indicators at hazards.',
+      title: 'Path widening, ramps and TGSI installation',
+      description: 'Widen key paths to 1800mm, install ramps at level changes and add tactile indicators at hazards.',
       resourceLevel: 'medium',
       costRange: '$5,000-30,000',
       timeRequired: '2-6 weeks',
@@ -5711,7 +5711,7 @@ export const duringVisitHelp: HelpContent[] = [
         'Commission an access consultant to survey all outdoor paths and prioritise improvements.',
         'Widen primary paths to 1800mm and resurface with firm, slip-resistant material (concrete or resin-bound aggregate).',
         'Install ramps at level changes: maximum 1:14 gradient, handrails both sides, landings at top and bottom.',
-        'Install TGSIs at all stair approaches, ramp approaches, and path edges adjacent to drop-offs.',
+        'Install TGSIs at all stair approaches, ramp approaches and path edges adjacent to drop-offs.',
         'Improve drainage to prevent water pooling on accessible paths.',
         'Install wayfinding signage at all path junctions with distance and gradient information.',
         'Test completed paths with wheelchair users before reopening.'
@@ -5720,7 +5720,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Full outdoor access redesign',
-      description: 'Comprehensive redesign of all outdoor paths, zones, and connections to create a fully accessible landscape.',
+      description: 'Comprehensive redesign of all outdoor paths, zones and connections to create a fully accessible landscape.',
       resourceLevel: 'high',
       costRange: '$50,000-250,000+',
       timeRequired: '3-6 months',
@@ -5728,15 +5728,15 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a landscape architect with accessibility expertise and an access consultant.',
-        'Conduct a full site survey including topography, existing infrastructure, and desire lines.',
+        'Conduct a full site survey including topography, existing infrastructure and desire lines.',
         'Develop an accessible landscape masterplan with step-free routes to every public zone.',
-        'Specify accessible materials: exposed aggregate concrete, resin-bound gravel, or similar firm surfaces.',
-        'Design ramps, landings, and rest areas integrated into the landscape rather than as add-ons.',
-        'Install comprehensive wayfinding including tactile maps, Braille signage, and audio beacons at key locations.',
+        'Specify accessible materials: exposed aggregate concrete, resin-bound gravel or similar firm surfaces.',
+        'Design ramps, landings and rest areas integrated into the landscape rather than as add-ons.',
+        'Install comprehensive wayfinding including tactile maps, Braille signage and audio beacons at key locations.',
         'Include accessible features as standard: kerb ramps at all crossings, tactile indicators throughout, edge protection at drop-offs.',
         'Commission post-construction access audit and address any defects before opening.'
       ],
-      notes: 'Consider universal design from the outset. Paths designed for wheelchair access also benefit older adults, parents with prams, and delivery staff.'
+      notes: 'Consider universal design from the outset. Paths designed for wheelchair access also benefit older adults, parents with prams and delivery staff.'
     }
   ],
 
@@ -5744,33 +5744,33 @@ export const duringVisitHelp: HelpContent[] = [
     { businessType: 'restaurant-cafe', businessTypeLabel: 'Pub Beer Garden', scenario: 'Beer garden connected by a gravel path and three steps from the main building. Wheelchair users could not access the outdoor dining area.', solution: 'Replaced gravel path with compacted decomposed granite with resin binder (1500mm wide). Installed a 1:12 ramp with stainless steel handrails bypassing the steps. Added TGSI warning indicators at the ramp top and bottom.', outcome: 'Beer garden now fully accessible. Weekend outdoor dining revenue increased 15% with broader customer base.', cost: '$12,000', timeframe: '2 weeks' },
     { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Main park paths were 900mm wide with uneven brick paving. No accessible route to the lake lookout or playground.', solution: 'Widened main paths to 1800mm with exposed aggregate concrete. Installed ramps at three level changes. Added directional TGSIs along the main circuit and wayfinding signs at every junction.', outcome: 'Park usage by people with disability increased significantly. Won local government accessibility award.', cost: '$85,000', timeframe: '3 months' },
     { businessType: 'attraction', businessTypeLabel: 'Tourist Attraction', scenario: 'Heritage garden with 200-year-old paths. Cobblestones and steep grades made most areas inaccessible.', solution: 'Installed a parallel accessible path network using heritage-compatible resin-bound gravel. Built boardwalks over the steepest sections. Added tactile maps at the entrance showing accessible routes.', outcome: 'Accessibility complaints dropped to zero. Visitor numbers up 20%, partly from tour groups that previously bypassed the venue.', cost: '$120,000', timeframe: '4 months' },
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel Grounds', scenario: 'Accessible rooms available but no accessible path from the lobby to the pool, spa, or garden restaurant.', solution: 'Resurfaced garden paths with non-slip concrete pavers (1500mm wide). Installed gentle ramps at level changes and handrails along the steepest sections. Added solar-powered path lighting for evening access.', outcome: 'Guests with disability can now access all outdoor amenities. Positive reviews specifically mention garden accessibility.', cost: '$35,000', timeframe: '3 weeks' }
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel Grounds', scenario: 'Accessible rooms available but no accessible path from the lobby to the pool, spa or garden restaurant.', solution: 'Resurfaced garden paths with non-slip concrete pavers (1500mm wide). Installed gentle ramps at level changes and handrails along the steepest sections. Added solar-powered path lighting for evening access.', outcome: 'Guests with disability can now access all outdoor amenities. Positive reviews specifically mention garden accessibility.', cost: '$35,000', timeframe: '3 weeks' }
   ],
 
   keywords: ['outdoor paths', 'step-free access', 'ramps', 'TGSIs', 'tactile indicators', 'path surface', 'gravel', 'wheelchair access', 'handrails', 'gradient', 'wayfinding', 'landscaping', 'vegetation clearance', 'maintenance']
 },
 
-// ─── Entry: Outdoor seating, shade, and amenities ───
+// ─── Entry: Outdoor seating, shade and amenities ───
 {
   questionId: '3.11-PC-2',
   questionText: 'Is there accessible seating available in outdoor areas?',
   moduleCode: '3.11',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
-  title: 'Outdoor seating, shade, and amenities',
+  title: 'Outdoor seating, shade and amenities',
   coveredQuestionIds: ['3.11-PC-3', '3.11-PC-4', '3.11-PC-5', '3.11-D-2', '3.11-D-4', '3.11-D-5', '3.11-D-7', '3.11-D-8', '3.11-D-9', '3.11-D-12', '3.11-D-13'],
-  summary: 'Outdoor spaces need more than accessible paths. Visitors need seating they can use, shade to prevent overheating, lighting for safety, rest areas along longer routes, accessible drinking fountains, clear signage, sensory-considerate zones, accessible dining furniture, nearby toilets, usable BBQ and picnic facilities, and information in multiple formats.',
+  summary: 'Outdoor spaces need more than accessible paths. Visitors need seating they can use, shade to prevent overheating, lighting for safety, rest areas along longer routes, accessible drinking fountains, clear signage, sensory-considerate zones, accessible dining furniture, nearby toilets, usable BBQ and picnic facilities and information in multiple formats.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'Getting to an outdoor space is only half the equation. If a wheelchair user reaches the picnic area but every table has fixed bench seats, they cannot sit down. If there is no shade, people with heat sensitivity (common with multiple sclerosis, some medications, and many chronic conditions) cannot stay. If lighting is poor, people with low vision cannot navigate safely after dusk. If the nearest toilet is 500 metres away and not accessible, the visit is effectively time-limited. Every amenity that is not accessible becomes a reason to leave early or not come at all.',
+    text: 'Getting to an outdoor space is only half the equation. If a wheelchair user reaches the picnic area but every table has fixed bench seats, they cannot sit down. If there is no shade, people with heat sensitivity (common with multiple sclerosis, some medications and many chronic conditions) cannot stay. If lighting is poor, people with low vision cannot navigate safely after dusk. If the nearest toilet is 500 metres away and not accessible, the visit is effectively time-limited. Every amenity that is not accessible becomes a reason to leave early or not come at all.',
     statistic: {
       value: '1 in 3',
-      context: 'Australians over 65 have a disability. Outdoor amenities like shade, seating with back support, and nearby accessible toilets directly affect whether older Australians can enjoy public and commercial outdoor spaces.',
+      context: 'Australians over 65 have a disability. Outdoor amenities like shade, seating with back support and nearby accessible toilets directly affect whether older Australians can enjoy public and commercial outdoor spaces.',
       source: 'ABS Survey of Disability, Ageing and Carers 2018'
     },
     quote: {
-      text: 'The park was beautiful but there was nowhere to sit in the shade, no accessible toilet, and the picnic tables all had fixed benches my wheelchair could not get under. We left after 20 minutes.',
+      text: 'The park was beautiful but there was nowhere to sit in the shade, no accessible toilet and the picnic tables all had fixed benches my wheelchair could not get under. We left after 20 minutes.',
       attribution: 'Wheelchair user, disability advocacy forum'
     }
   },
@@ -5785,7 +5785,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Install shade structures over accessible seating areas and along primary paths.',
-      detail: 'Shade is a medical necessity for people with heat sensitivity, not just a comfort feature. Permanent structures (pergolas, shade sails) are more reliable than trees alone. Position shade over wheelchair-accessible tables, rest seats, and drinking fountains.',
+      detail: 'Shade is a medical necessity for people with heat sensitivity, not just a comfort feature. Permanent structures (pergolas, shade sails) are more reliable than trees alone. Position shade over wheelchair-accessible tables, rest seats and drinking fountains.',
       priority: 2
     },
     {
@@ -5797,7 +5797,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Provide rest seats with backs and armrests every 60 metres along longer paths.',
-      detail: 'People with chronic pain, fatigue conditions, or limited stamina need regular rest stops. Seats should have a firm seat at 450-500mm height, a backrest, and at least one armrest to assist standing up. Position them on a firm, level pad connected to the path.',
+      detail: 'People with chronic pain, fatigue conditions or limited stamina need regular rest stops. Seats should have a firm seat at 450-500mm height, a backrest and at least one armrest to assist standing up. Position them on a firm, level pad connected to the path.',
       measurement: { target: 'Seat spacing', acceptable: 'Maximum 60m apart on primary paths', unit: 'm' },
       priority: 4
     },
@@ -5809,14 +5809,14 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'FileText',
-      text: 'Provide outdoor information in multiple formats: large print, high contrast signage, tactile maps, and QR codes linking to audio or digital guides.',
+      text: 'Provide outdoor information in multiple formats: large print, high contrast signage, tactile maps and QR codes linking to audio or digital guides.',
       detail: 'Interpretive signs should have text in minimum 18pt sans-serif font with high contrast (light text on dark background or vice versa). QR codes linking to audio descriptions or Auslan video guides extend access to people with vision or cognitive impairments.',
       priority: 6
     }
   ],
 
   howToCheck: {
-    title: 'Auditing outdoor seating, shade, and amenities',
+    title: 'Auditing outdoor seating, shade and amenities',
     steps: [
       {
         text: 'Count outdoor dining and picnic settings. How many have wheelchair-accessible clear space (800mm wide x 1200mm deep, 750-850mm table height)?',
@@ -5833,12 +5833,12 @@ export const duringVisitHelp: HelpContent[] = [
         text: 'Measure the distance between rest seats along primary paths.',
         measurement: { target: 'Rest seat spacing', acceptable: 'Maximum 60m apart', unit: 'm' }
       },
-      { text: 'Test each rest seat: does it have a backrest, at least one armrest, and firm seat at 450-500mm height? Is it on a level, firm surface connected to the path?' },
-      { text: 'Check drinking fountains: wheelchair-height spout (750-800mm), lever or push control, firm level approach pad, and bottle filler.' },
-      { text: 'Locate the nearest accessible toilet from each main outdoor zone. Is it clearly signed, within 100m, and does it meet AS 1428.1 requirements?' },
-      { text: 'Check signage: large print (minimum 18pt), high contrast, positioned at 1000-1600mm height range, and available in alternative formats (tactile, QR code audio).' },
+      { text: 'Test each rest seat: does it have a backrest, at least one armrest and firm seat at 450-500mm height? Is it on a level, firm surface connected to the path?' },
+      { text: 'Check drinking fountains: wheelchair-height spout (750-800mm), lever or push control, firm level approach pad and bottle filler.' },
+      { text: 'Locate the nearest accessible toilet from each main outdoor zone. Is it clearly signed, within 100m and does it meet AS 1428.1 requirements?' },
+      { text: 'Check signage: large print (minimum 18pt), high contrast, positioned at 1000-1600mm height range and available in alternative formats (tactile, QR code audio).' },
       { text: 'Identify whether a quiet or low-sensory zone exists for visitors who experience sensory overload. Is it signed and accessible?' },
-      { text: 'Check BBQ and picnic facilities: can a wheelchair user operate the BBQ controls, reach the cooking surface, and sit at a nearby table?' }
+      { text: 'Check BBQ and picnic facilities: can a wheelchair user operate the BBQ controls, reach the cooking surface and sit at a nearby table?' }
     ],
     tools: ['Tape measure (5m)', 'Light meter app (smartphone)', 'Camera for documentation', 'Clipboard and site map'],
     estimatedTime: '45-60 minutes'
@@ -5848,19 +5848,19 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.2',
       section: 'Clauses 6-16',
-      requirement: 'Enhanced and additional provisions for access: requirements for outdoor furniture, drinking fountains, signage, lighting, and rest areas in public spaces. Seating with armrests and back support, clear floor space at tables and counters.'
+      requirement: 'Enhanced and additional provisions for access: requirements for outdoor furniture, drinking fountains, signage, lighting and rest areas in public spaces. Seating with armrests and back support, clear floor space at tables and counters.'
     },
     related: [
       { code: 'DDA', relevance: 'Section 23: Outdoor areas and grounds open to the public are covered. Amenities within outdoor spaces must be accessible.' }
     ],
-    plainEnglish: 'Outdoor amenities (seating, tables, fountains, BBQs, toilets, signage) must be usable by people with disability. This means wheelchair-accessible furniture, shade for heat-sensitive visitors, regular rest stops, and information in formats everyone can use.',
+    plainEnglish: 'Outdoor amenities (seating, tables, fountains, BBQs, toilets, signage) must be usable by people with disability. This means wheelchair-accessible furniture, shade for heat-sensitive visitors, regular rest stops and information in formats everyone can use.',
     complianceNote: 'AS 1428.2 is not mandatory under the Premises Standards but represents best practice and is often referenced in DDA complaints about outdoor facilities. Providing these features demonstrates reasonable adjustment.'
   },
 
   solutions: [
     {
       title: 'Add accessible seating and shade basics',
-      description: 'Install wheelchair-accessible tables, shade over accessible areas, and rest seats along paths.',
+      description: 'Install wheelchair-accessible tables, shade over accessible areas and rest seats along paths.',
       resourceLevel: 'low',
       costRange: '$500-3,000',
       timeRequired: '1-3 days',
@@ -5876,8 +5876,8 @@ export const duringVisitHelp: HelpContent[] = [
       ]
     },
     {
-      title: 'Accessible furniture, lighting, and amenity upgrade',
-      description: 'Upgrade outdoor furniture, install path lighting, add sensory-considerate zones, and improve signage.',
+      title: 'Accessible furniture, lighting and amenity upgrade',
+      description: 'Upgrade outdoor furniture, install path lighting, add sensory-considerate zones and improve signage.',
       resourceLevel: 'medium',
       costRange: '$5,000-25,000',
       timeRequired: '2-4 weeks',
@@ -5887,7 +5887,7 @@ export const duringVisitHelp: HelpContent[] = [
         'Replace 20% or more of outdoor settings with wheelchair-accessible designs (open-end tables, adjustable-height settings).',
         'Install permanent shade structures over all accessible seating and amenity areas.',
         'Install solar-powered bollard lighting along primary paths (minimum 40 lux) and brighter fixtures at amenity areas (80 lux).',
-        'Designate and sign a quiet zone with low-stimulation seating away from speakers, crowds, and strong smells.',
+        'Designate and sign a quiet zone with low-stimulation seating away from speakers, crowds and strong smells.',
         'Install accessible BBQ controls at 900-1100mm height with clear approach space.',
         'Upgrade signage to large print, high contrast, with QR codes linking to audio descriptions.',
         'Add tactile map at main entrance showing accessible facilities and routes.'
@@ -5895,7 +5895,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive outdoor amenity upgrade',
-      description: 'Full redesign of outdoor amenities for universal access, including accessible toilets, sensory gardens, and multi-format information.',
+      description: 'Full redesign of outdoor amenities for universal access, including accessible toilets, sensory gardens and multi-format information.',
       resourceLevel: 'high',
       costRange: '$30,000-150,000+',
       timeRequired: '2-4 months',
@@ -5904,9 +5904,9 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Engage a landscape architect and access consultant for a comprehensive amenity audit and design.',
         'Install accessible toilet facilities within 100m of all major outdoor zones.',
-        'Design and build a sensory garden with tactile plants, scent zones, and accessible raised garden beds.',
-        'Install universally designed furniture throughout: height-adjustable tables, accessible BBQs, and inclusive play equipment.',
-        'Implement multi-format information system: large print signs, tactile maps, Braille labels, audio guides via app, and Auslan video interpretation via QR codes.',
+        'Design and build a sensory garden with tactile plants, scent zones and accessible raised garden beds.',
+        'Install universally designed furniture throughout: height-adjustable tables, accessible BBQs and inclusive play equipment.',
+        'Implement multi-format information system: large print signs, tactile maps, Braille labels, audio guides via app and Auslan video interpretation via QR codes.',
         'Install accessible emergency call points throughout outdoor areas.',
         'Commission post-completion access audit and user testing with people with disability.'
       ],
@@ -5916,31 +5916,31 @@ export const duringVisitHelp: HelpContent[] = [
 
   examples: [
     { businessType: 'restaurant-cafe', businessTypeLabel: 'Outdoor Dining Venue', scenario: 'All outdoor tables had fixed bench seating. No shade over the accessible parking area. Menu only available on chalkboard.', solution: 'Replaced four tables with open-end accessible designs. Installed shade sails over accessible seating and the path from parking. Added large-print laminated menus and QR code for digital menu.', outcome: 'Bookings from customers with disability increased. Shade sails appreciated by all customers in summer.', cost: '$4,500', timeframe: '1 week' },
-    { businessType: 'attraction', businessTypeLabel: 'Botanic Garden', scenario: '2km walking trail with no rest seats, no shade structures, and interpretive signs in small print only.', solution: 'Installed rest seats with backs and armrests every 50m along the main trail. Added shade shelters at three key viewpoints. Upgraded interpretive signs to large print with QR codes linking to audio descriptions.', outcome: 'Visitor dwell time increased 40%. Older visitors and people with chronic fatigue can now complete the full trail.', cost: '$22,000', timeframe: '3 weeks' },
-    { businessType: 'recreation', businessTypeLabel: 'Sports Club', scenario: 'Outdoor spectator area had no accessible seating, no shade, and no accessible path to the canteen or toilets.', solution: 'Built a raised accessible viewing platform with shade and companion seating. Connected canteen and toilets with a paved accessible path. Installed accessible drinking fountain at the viewing area.', outcome: 'Members with disability can now watch matches comfortably. Club hired for accessible corporate events.', cost: '$18,000', timeframe: '2 weeks' },
-    { businessType: 'accommodation', businessTypeLabel: 'Caravan Park', scenario: 'Communal BBQ area had high-mounted controls, fixed bench seating, and no lighting after dark.', solution: 'Installed two accessible BBQs with controls at 1000mm height and clear approach space. Added three open-end picnic tables. Installed solar path lighting and a shade sail over the accessible BBQ area.', outcome: 'Guests with disability use BBQ facilities independently. Positive reviews on accessibility platforms.', cost: '$8,000', timeframe: '1 week' }
+    { businessType: 'attraction', businessTypeLabel: 'Botanic Garden', scenario: '2km walking trail with no rest seats, no shade structures and interpretive signs in small print only.', solution: 'Installed rest seats with backs and armrests every 50m along the main trail. Added shade shelters at three key viewpoints. Upgraded interpretive signs to large print with QR codes linking to audio descriptions.', outcome: 'Visitor dwell time increased 40%. Older visitors and people with chronic fatigue can now complete the full trail.', cost: '$22,000', timeframe: '3 weeks' },
+    { businessType: 'recreation', businessTypeLabel: 'Sports Club', scenario: 'Outdoor spectator area had no accessible seating, no shade and no accessible path to the canteen or toilets.', solution: 'Built a raised accessible viewing platform with shade and companion seating. Connected canteen and toilets with a paved accessible path. Installed accessible drinking fountain at the viewing area.', outcome: 'Members with disability can now watch matches comfortably. Club hired for accessible corporate events.', cost: '$18,000', timeframe: '2 weeks' },
+    { businessType: 'accommodation', businessTypeLabel: 'Caravan Park', scenario: 'Communal BBQ area had high-mounted controls, fixed bench seating and no lighting after dark.', solution: 'Installed two accessible BBQs with controls at 1000mm height and clear approach space. Added three open-end picnic tables. Installed solar path lighting and a shade sail over the accessible BBQ area.', outcome: 'Guests with disability use BBQ facilities independently. Positive reviews on accessibility platforms.', cost: '$8,000', timeframe: '1 week' }
   ],
 
   keywords: ['outdoor seating', 'shade', 'lighting', 'rest seats', 'drinking fountains', 'accessible tables', 'picnic', 'BBQ', 'sensory zone', 'signage', 'toilets', 'outdoor dining', 'information formats']
 },
 
-// ─── Entry: Outdoor safety, emergencies, and maintenance ───
+// ─── Entry: Outdoor safety, emergencies and maintenance ───
 {
   questionId: '3.11-D-10',
   questionText: 'Do emergency procedures cover outdoor areas, including evacuation routes that are accessible?',
   moduleCode: '3.11',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
-  title: 'Outdoor safety, emergencies, and maintenance',
+  title: 'Outdoor safety, emergencies and maintenance',
   coveredQuestionIds: ['3.11-D-14'],
-  summary: 'Outdoor accessibility features are only effective if they are maintained and supported by emergency procedures. Regular inspections, seasonal maintenance schedules, and inclusive emergency planning ensure outdoor areas remain safe and accessible year-round.',
+  summary: 'Outdoor accessibility features are only effective if they are maintained and supported by emergency procedures. Regular inspections, seasonal maintenance schedules and inclusive emergency planning ensure outdoor areas remain safe and accessible year-round.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'Outdoor accessibility is not a set-and-forget project. Surfaces deteriorate, vegetation grows, weather damages infrastructure, and seasonal changes create new hazards. A ramp with moss is more dangerous than no ramp at all. A path blocked by fallen branches traps someone who relied on it to reach an exit. Emergency procedures that do not account for people in outdoor areas, including those who cannot hear alarms or move quickly, put visitors with disability at serious risk. Maintenance and emergency planning are where accessibility lives or dies over time.',
+    text: 'Outdoor accessibility is not a set-and-forget project. Surfaces deteriorate, vegetation grows, weather damages infrastructure and seasonal changes create new hazards. A ramp with moss is more dangerous than no ramp at all. A path blocked by fallen branches traps someone who relied on it to reach an exit. Emergency procedures that do not account for people in outdoor areas, including those who cannot hear alarms or move quickly, put visitors with disability at serious risk. Maintenance and emergency planning are where accessibility lives or dies over time.',
     statistic: {
       value: '35%',
-      context: 'of accessibility complaints to the Australian Human Rights Commission involve maintenance failures rather than original design, such as broken ramps, missing TGSIs, or overgrown paths.',
+      context: 'of accessibility complaints to the Australian Human Rights Commission involve maintenance failures rather than original design, such as broken ramps, missing TGSIs or overgrown paths.',
       source: 'AHRC Annual Report data'
     },
     quote: {
@@ -5959,7 +5959,7 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Install emergency communication points in remote outdoor areas.',
-      detail: 'Visitors with disability may not be able to call for help on a mobile phone or walk to find assistance. Emergency call points, duress alarms, or two-way intercoms at key locations allow anyone to summon help. Ensure they are accessible (wheelchair-height button, visual and audible confirmation).',
+      detail: 'Visitors with disability may not be able to call for help on a mobile phone or walk to find assistance. Emergency call points, duress alarms or two-way intercoms at key locations allow anyone to summon help. Ensure they are accessible (wheelchair-height button, visual and audible confirmation).',
       priority: 2
     },
     {
@@ -5971,13 +5971,13 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Train outdoor staff and groundskeepers on accessibility maintenance priorities.',
-      detail: 'Groundskeepers need to understand which features are accessibility-critical: path widths, surface conditions, TGSI visibility, vegetation clearance heights, and drainage. A 30-minute briefing with a checklist ensures maintenance staff know what to look for.',
+      detail: 'Groundskeepers need to understand which features are accessibility-critical: path widths, surface conditions, TGSI visibility, vegetation clearance heights and drainage. A 30-minute briefing with a checklist ensures maintenance staff know what to look for.',
       priority: 4
     },
     {
       icon: 'Target',
       text: 'Conduct post-storm inspections of all outdoor accessible paths and features before reopening.',
-      detail: 'Storms can lift pavers, block paths with debris, damage ramp handrails, and create ponding. Inspect all accessible routes after severe weather events before allowing public access. A quick 15-minute walk-through can prevent injuries.',
+      detail: 'Storms can lift pavers, block paths with debris, damage ramp handrails and create ponding. Inspect all accessible routes after severe weather events before allowing public access. A quick 15-minute walk-through can prevent injuries.',
       priority: 5
     }
   ],
@@ -5987,10 +5987,10 @@ export const duringVisitHelp: HelpContent[] = [
     steps: [
       { text: 'Review your emergency evacuation plan. Does it include every outdoor area visitors access? Are accessible egress routes mapped for each zone?' },
       { text: 'Check whether emergency alarms or alerts are audible and visible from all outdoor areas. Can someone at the furthest outdoor point hear or see an evacuation alert?' },
-      { text: 'Locate emergency communication points. Are they within 100m of all outdoor zones, at wheelchair-accessible height (900-1100mm), and clearly signed?' },
-      { text: 'Review maintenance records for the past 12 months. Is there a documented schedule for path surface inspection, vegetation trimming, TGSI cleaning, and drainage clearing?' },
-      { text: 'Inspect all ramps and paths for moss, algae, leaf litter, cracked surfaces, or lifted pavers.' },
-      { text: 'Check that all TGSIs are intact, correctly coloured, and free of paint, dirt, or wear that reduces their detectability.' },
+      { text: 'Locate emergency communication points. Are they within 100m of all outdoor zones, at wheelchair-accessible height (900-1100mm) and clearly signed?' },
+      { text: 'Review maintenance records for the past 12 months. Is there a documented schedule for path surface inspection, vegetation trimming, TGSI cleaning and drainage clearing?' },
+      { text: 'Inspect all ramps and paths for moss, algae, leaf litter, cracked surfaces or lifted pavers.' },
+      { text: 'Check that all TGSIs are intact, correctly coloured and free of paint, dirt or wear that reduces their detectability.' },
       { text: 'Verify that staff with outdoor responsibilities have received accessibility maintenance training in the past 12 months.' },
       { text: 'Simulate an emergency evacuation from the furthest outdoor zone. Can a wheelchair user reach the assembly point via the mapped accessible route within a reasonable time?' }
     ],
@@ -6002,12 +6002,12 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'DDA',
       section: 'Section 23',
-      requirement: 'Premises open to the public must not discriminate. This includes maintaining accessibility features so they remain functional, and ensuring emergency procedures do not leave people with disability without a safe exit.'
+      requirement: 'Premises open to the public must not discriminate. This includes maintaining accessibility features so they remain functional and ensuring emergency procedures do not leave people with disability without a safe exit.'
     },
     related: [
       { code: 'AS1428.1', relevance: 'Clause 6 requires continuous accessible paths of travel. Maintenance failures that break path continuity (damaged surfaces, blocked routes) create non-compliance.' }
     ],
-    plainEnglish: 'You must keep outdoor accessible features working, not just build them. Emergency plans must include everyone in outdoor areas. If a ramp, path, or indicator breaks down, it needs prompt repair.',
+    plainEnglish: 'You must keep outdoor accessible features working, not just build them. Emergency plans must include everyone in outdoor areas. If a ramp, path or indicator breaks down, it needs prompt repair.',
     complianceNote: 'AHRC Advisory Notes emphasise that ongoing maintenance of accessibility features is an obligation under the DDA. A facility that was compliant at construction but has deteriorated may be found discriminatory.'
   },
 
@@ -6023,7 +6023,7 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Map accessible evacuation routes from each outdoor zone to the nearest assembly point.',
         'Install emergency exit signs with directional arrows in outdoor areas.',
-        'Create a printed seasonal maintenance checklist for grounds staff covering paths, ramps, TGSIs, vegetation, and drainage.',
+        'Create a printed seasonal maintenance checklist for grounds staff covering paths, ramps, TGSIs, vegetation and drainage.',
         'Schedule monthly path inspections and record findings in a log.',
         'Brief all outdoor staff on accessibility maintenance priorities (30-minute session).',
         'Add post-storm inspection to your severe weather response procedure.'
@@ -6031,7 +6031,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Staff training and scheduled inspections',
-      description: 'Implement formal maintenance schedules, staff training, and emergency communication in outdoor areas.',
+      description: 'Implement formal maintenance schedules, staff training and emergency communication in outdoor areas.',
       resourceLevel: 'medium',
       costRange: '$2,000-8,000',
       timeRequired: '1-2 weeks',
@@ -6040,7 +6040,7 @@ export const duringVisitHelp: HelpContent[] = [
       steps: [
         'Develop a formal outdoor accessibility maintenance plan with seasonal schedules.',
         'Install emergency communication points (intercoms or duress buttons) at key outdoor locations.',
-        'Extend the fire alarm or PA system to cover outdoor areas, or install visual alert beacons.',
+        'Extend the fire alarm or PA system to cover outdoor areas or install visual alert beacons.',
         'Train all grounds and outdoor staff on accessibility maintenance (2-hour session with practical walkthrough).',
         'Create a rapid-response procedure for accessibility feature damage (target: repair within 48 hours or provide alternative).',
         'Add outdoor areas to the quarterly accessibility audit checklist.',
@@ -6049,7 +6049,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Formal outdoor access management plan',
-      description: 'Comprehensive management system for outdoor accessibility including digital monitoring, contracted maintenance, and tested emergency procedures.',
+      description: 'Comprehensive management system for outdoor accessibility including digital monitoring, contracted maintenance and tested emergency procedures.',
       resourceLevel: 'high',
       costRange: '$10,000-30,000',
       timeRequired: '1-2 months',
@@ -6057,7 +6057,7 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage an access consultant to develop a formal Outdoor Access Management Plan.',
-        'Install IoT sensors on critical paths to monitor surface conditions, drainage, and lighting.',
+        'Install IoT sensors on critical paths to monitor surface conditions, drainage and lighting.',
         'Contract specialist maintenance for accessibility infrastructure (ramps, TGSIs, handrails) with defined response times.',
         'Conduct full emergency evacuation drill including outdoor areas with volunteer wheelchair users.',
         'Install refuge points with two-way communication in areas where accessible evacuation is complex.',
@@ -6089,11 +6089,11 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Getting to the playground',
   coveredQuestionIds: ['3.12-PC-2', '3.12-D-5', '3.12-D-6', '3.12-D-12'],
-  summary: 'Before a child can play, their family needs to get there. Accessible paths to the playground, step-free entry, accessible ground surfaces within the play space, impact-attenuating surfaces that support wheeled mobility, caregiver access to all equipment zones, and clear entry signage are fundamental to inclusive play.',
+  summary: 'Before a child can play, their family needs to get there. Accessible paths to the playground, step-free entry, accessible ground surfaces within the play space, impact-attenuating surfaces that support wheeled mobility, caregiver access to all equipment zones and clear entry signage are fundamental to inclusive play.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'A playground that cannot be reached is a playground that excludes. Children with disability often rely on caregivers who also have disability, or who are pushing heavy adaptive equipment. Loose bark mulch, sand, and rubber crumb that is too deep or too soft prevent wheelchair access within the play space itself. Impact-attenuating surfaces are essential for safety, but they must also support wheeled mobility. If a caregiver in a wheelchair cannot get to the swing to assist their child, or a child using a walker cannot cross the surfacing to reach the slide, the playground fails at the most basic level.',
+    text: 'A playground that cannot be reached is a playground that excludes. Children with disability often rely on caregivers who also have disability or who are pushing heavy adaptive equipment. Loose bark mulch, sand and rubber crumb that is too deep or too soft prevent wheelchair access within the play space itself. Impact-attenuating surfaces are essential for safety, but they must also support wheeled mobility. If a caregiver in a wheelchair cannot get to the swing to assist their child or a child using a walker cannot cross the surfacing to reach the slide, the playground fails at the most basic level.',
     statistic: {
       value: '1.3 million',
       context: 'people in NSW live with a disability. The Everyone Can Play guideline was created because most playgrounds in Australia still have significant barriers to entry and movement within the play space.',
@@ -6108,14 +6108,14 @@ export const duringVisitHelp: HelpContent[] = [
   tips: [
     {
       icon: 'Accessibility',
-      text: 'Connect the playground to car parks, paths, and entries with a continuous accessible path (minimum 1200mm wide, firm surface).',
-      detail: 'The accessible path from the nearest car park, bus stop, or pedestrian entry must be continuous, with no steps, lips, or loose surfaces. Gradient maximum 1:14 for ramps, 1:20 for general paths. The path should lead directly to the playground entry, not stop 20 metres away at the grass edge.',
+      text: 'Connect the playground to car parks, paths and entries with a continuous accessible path (minimum 1200mm wide, firm surface).',
+      detail: 'The accessible path from the nearest car park, bus stop or pedestrian entry must be continuous, with no steps, lips or loose surfaces. Gradient maximum 1:14 for ramps, 1:20 for general paths. The path should lead directly to the playground entry, not stop 20 metres away at the grass edge.',
       priority: 1
     },
     {
       icon: 'ArrowRight',
       text: 'Use impact-attenuating surfaces that also support wheeled access within the play space.',
-      detail: 'Poured-in-place rubber, rubber tiles, and synthetic turf over shock pads meet both impact attenuation (AS 4422) and accessibility requirements. Loose-fill bark, sand, and pea gravel do not support wheelchair or walker movement. Where loose-fill is used for play value (sandpits), provide a firm-surface path to and around the loose-fill area.',
+      detail: 'Poured-in-place rubber, rubber tiles and synthetic turf over shock pads meet both impact attenuation (AS 4422) and accessibility requirements. Loose-fill bark, sand and pea gravel do not support wheelchair or walker movement. Where loose-fill is used for play value (sandpits), provide a firm-surface path to and around the loose-fill area.',
       priority: 2
     },
     {
@@ -6126,7 +6126,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       icon: 'MapPin',
-      text: 'Install entry signage showing the playground layout, accessible features, and age-appropriate zones.',
+      text: 'Install entry signage showing the playground layout, accessible features and age-appropriate zones.',
       detail: 'A tactile or raised-relief map at the entrance helps families plan their visit. Include the International Symbol of Access on accessible equipment and routes. Use pictograms alongside text for people with cognitive disability or low English literacy.',
       priority: 4
     },
@@ -6142,7 +6142,7 @@ export const duringVisitHelp: HelpContent[] = [
     title: 'Auditing playground access and surfacing',
     steps: [
       {
-        text: 'Trace the route from the nearest accessible car park space to the playground entry. Is the path continuous, firm, and at least 1200mm wide?',
+        text: 'Trace the route from the nearest accessible car park space to the playground entry. Is the path continuous, firm and at least 1200mm wide?',
         measurement: { target: 'Path width', acceptable: 'Minimum 1200mm, 1800mm preferred', unit: 'mm' }
       },
       {
@@ -6153,7 +6153,7 @@ export const duringVisitHelp: HelpContent[] = [
         text: 'At the playground entry, measure the gate clear opening width and check the latch operation.',
         measurement: { target: 'Gate opening', acceptable: 'Minimum 1000mm clear', unit: 'mm' }
       },
-      { text: 'Test the play surface: push a wheelchair or pram across the surfacing to every equipment cluster. Note areas where wheels sink, stick, or cannot traverse.' },
+      { text: 'Test the play surface: push a wheelchair or pram across the surfacing to every equipment cluster. Note areas where wheels sink, stick or cannot traverse.' },
       {
         text: 'Check impact attenuation compliance: is the surfacing tested and certified to AS 4422 for the critical fall heights of adjacent equipment?',
         measurement: { target: 'Critical fall height coverage', acceptable: 'Surfacing rated to or above equipment critical fall height', unit: 'm' }
@@ -6219,7 +6219,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Full inclusive playground redevelopment',
-      description: 'Complete playground redesign following Everyone Can Play principles with accessible surfacing, paths, equipment, and amenities.',
+      description: 'Complete playground redesign following Everyone Can Play principles with accessible surfacing, paths, equipment and amenities.',
       resourceLevel: 'high',
       costRange: '$100,000-500,000+',
       timeRequired: '3-6 months',
@@ -6227,12 +6227,12 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a playground designer experienced in inclusive design and an access consultant.',
-        'Consult with families of children with disability, disability organisations, and occupational therapists.',
+        'Consult with families of children with disability, disability organisations and occupational therapists.',
         'Design to Everyone Can Play principles: Can I get there? Can I play? Can I stay?',
         'Specify poured-in-place rubber throughout, certified to AS 4422 for all critical fall heights.',
-        'Design continuous accessible path network connecting car park, entry, all equipment zones, amenities, and exits.',
-        'Include accessible entry with automatic or push-button gate, flush thresholds, and tactile map.',
-        'Select inclusive equipment (see Module 3.12 Entry 2) with transfer platforms, ramps, and sensory elements.',
+        'Design continuous accessible path network connecting car park, entry, all equipment zones, amenities and exits.',
+        'Include accessible entry with automatic or push-button gate, flush thresholds and tactile map.',
+        'Select inclusive equipment (see Module 3.12 Entry 2) with transfer platforms, ramps and sensory elements.',
         'Provide accessible amenities: toilets, seating, shade, water (see Module 3.12 Entry 3).',
         'Commission post-construction access audit and user testing before opening.'
       ],
@@ -6243,7 +6243,7 @@ export const duringVisitHelp: HelpContent[] = [
   examples: [
     { businessType: 'local-government', businessTypeLabel: 'Council Playground', scenario: 'Existing playground had bark mulch surfacing and no path from the car park. Families with wheelchair-using children could not enter the play area.', solution: 'Extended concrete path from car park to a new accessible entry gate. Replaced bark mulch with poured-in-place rubber across the main play zone. Built internal paths to three equipment clusters.', outcome: 'Families with disability visit regularly. Playground became a destination for inclusive play groups.', cost: '$45,000', timeframe: '3 weeks' },
     { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'School playground accessible only via steps. Sand surfacing prevented wheelchair access to equipment.', solution: 'Built a ramp bypass to the steps. Installed rubber tiles in the main equipment zone. Added a firm path loop connecting all play areas. Upgraded gate to lever-handle with slow closer.', outcome: 'Students with mobility impairments participate in outdoor play for the first time. Reduced lunch supervision issues.', cost: '$28,000', timeframe: '2 weeks' },
-    { businessType: 'attraction', businessTypeLabel: 'Tourist Attraction', scenario: 'Family-focused attraction with a playground that was an afterthought: small, fenced, with sand surfacing and no accessible features.', solution: 'Complete playground redevelopment using Everyone Can Play guidelines. Poured-in-place rubber surfacing, inclusive equipment, accessible entry, and internal path network. Added shade and accessible seating.', outcome: 'Playground became a key attraction feature. Families extend their visit by 1-2 hours. Positive media coverage.', cost: '$180,000', timeframe: '4 months' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourist Attraction', scenario: 'Family-focused attraction with a playground that was an afterthought: small, fenced, with sand surfacing and no accessible features.', solution: 'Complete playground redevelopment using Everyone Can Play guidelines. Poured-in-place rubber surfacing, inclusive equipment, accessible entry and internal path network. Added shade and accessible seating.', outcome: 'Playground became a key attraction feature. Families extend their visit by 1-2 hours. Positive media coverage.', cost: '$180,000', timeframe: '4 months' },
     { businessType: 'recreation', businessTypeLabel: 'Community Centre', scenario: 'Community centre playground shared by daycare and public. No accessible surfacing, gate latch too high for wheelchair users.', solution: 'Resurfaced main play area with synthetic turf over shock pad. Lowered gate latch and added lever handle. Built a concrete path from the centre entrance through the playground.', outcome: 'Daycare can include children with physical disability in outdoor play. Public use increased on weekends.', cost: '$22,000', timeframe: '2 weeks' }
   ],
 
@@ -6259,18 +6259,18 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Inclusive play experiences',
   coveredQuestionIds: ['3.12-PC-4', '3.12-D-1', '3.12-D-4', '3.12-D-7', '3.12-D-9', '3.12-D-10'],
-  summary: 'Inclusive play means every child can find something to do, regardless of ability. Equipment with transfer platforms, ramps, and ground-level entry points alongside sensory panels, musical instruments, water play, nature play, graduated challenge levels, and culturally connected design elements ensure the playground welcomes everyone.',
+  summary: 'Inclusive play means every child can find something to do, regardless of ability. Equipment with transfer platforms, ramps and ground-level entry points alongside sensory panels, musical instruments, water play, nature play, graduated challenge levels and culturally connected design elements ensure the playground welcomes everyone.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'A playground with only climbing frames and monkey bars excludes children who cannot grip, climb, or balance. Inclusive play is not about separate "accessible" equipment in a corner. It is about designing equipment clusters where children of all abilities play together. A child in a wheelchair should be able to use a ramp to reach the same platform as their friends, then choose between a slide, a sensory panel, or a speaking tube. A child with autism should find sensory-rich elements (music, water, texture) alongside quiet retreats. A child with vision impairment should encounter tactile wayfinding and high-contrast equipment. When play is inclusive, friendships form across ability, and every child develops confidence.',
+    text: 'A playground with only climbing frames and monkey bars excludes children who cannot grip, climb or balance. Inclusive play is not about separate "accessible" equipment in a corner. It is about designing equipment clusters where children of all abilities play together. A child in a wheelchair should be able to use a ramp to reach the same platform as their friends, then choose between a slide, a sensory panel or a speaking tube. A child with autism should find sensory-rich elements (music, water, texture) alongside quiet retreats. A child with vision impairment should encounter tactile wayfinding and high-contrast equipment. When play is inclusive, friendships form across ability and every child develops confidence.',
     statistic: {
       value: '7.7%',
       context: 'of Australian children aged 0-14 have a disability. In a typical school of 500 students, that is approximately 38 children who may face playground barriers.',
       source: 'ABS Survey of Disability, Ageing and Carers 2018'
     },
     quote: {
-      text: 'My son has cerebral palsy. At our local playground, he sits in his chair and watches. At the inclusive playground in the next suburb, he plays alongside other kids on the ramped fort, the ground-level spinner, and the musical panels. He is a different child there.',
+      text: 'My son has cerebral palsy. At our local playground, he sits in his chair and watches. At the inclusive playground in the next suburb, he plays alongside other kids on the ramped fort, the ground-level spinner and the musical panels. He is a different child there.',
       attribution: 'Parent, inclusive playground consultation'
     }
   },
@@ -6278,14 +6278,14 @@ export const duringVisitHelp: HelpContent[] = [
   tips: [
     {
       icon: 'Accessibility',
-      text: 'Include equipment with transfer platforms, ramps, and ground-level entry so children using wheelchairs can access elevated play.',
-      detail: 'Transfer platforms (minimum 350mm x 600mm) at the same height as wheelchair seats (450-500mm) allow children to transfer from their chair onto the equipment. Ramps to elevated platforms (maximum 1:8 gradient for short play ramps) allow children to wheel up. Ground-level spinners, rockers, and sensory panels require no transfer at all.',
+      text: 'Include equipment with transfer platforms, ramps and ground-level entry so children using wheelchairs can access elevated play.',
+      detail: 'Transfer platforms (minimum 350mm x 600mm) at the same height as wheelchair seats (450-500mm) allow children to transfer from their chair onto the equipment. Ramps to elevated platforms (maximum 1:8 gradient for short play ramps) allow children to wheel up. Ground-level spinners, rockers and sensory panels require no transfer at all.',
       priority: 1
     },
     {
       icon: 'Eye',
-      text: 'Provide sensory play elements: musical instruments, tactile panels, sand and water play, and scented gardens.',
-      detail: 'Sensory play benefits children with autism, vision impairment, intellectual disability, and those who process the world through touch, sound, and smell. Outdoor drums, chimes, and xylophones encourage social play. Tactile panels with different textures and moving parts develop fine motor skills. Sand and water play is universally engaging when accessible.',
+      text: 'Provide sensory play elements: musical instruments, tactile panels, sand and water play and scented gardens.',
+      detail: 'Sensory play benefits children with autism, vision impairment, intellectual disability and those who process the world through touch, sound and smell. Outdoor drums, chimes and xylophones encourage social play. Tactile panels with different textures and moving parts develop fine motor skills. Sand and water play is universally engaging when accessible.',
       priority: 2
     },
     {
@@ -6297,19 +6297,19 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Include ground-level equipment that requires no climbing or transfer.',
-      detail: 'Ground-level spinners (flush-mounted dish spinners, merry-go-rounds with wheelchair bays), spring rockers with back support and harness points, and interactive panels at 600-1000mm height ensure children who cannot climb or transfer can still play actively alongside peers.',
+      detail: 'Ground-level spinners (flush-mounted dish spinners, merry-go-rounds with wheelchair bays), spring rockers with back support and harness points and interactive panels at 600-1000mm height ensure children who cannot climb or transfer can still play actively alongside peers.',
       priority: 4
     },
     {
       icon: 'Shield',
       text: 'Incorporate nature play and loose-parts play alongside fixed equipment.',
-      detail: 'Nature play (logs, boulders, sand, plants, water channels) is inherently inclusive because there is no right or wrong way to play. Children of all abilities can dig, pour, feel, and explore. Provide accessible raised garden beds (700mm height, knee clearance underneath) and accessible sand tables.',
+      detail: 'Nature play (logs, boulders, sand, plants, water channels) is inherently inclusive because there is no right or wrong way to play. Children of all abilities can dig, pour, feel and explore. Provide accessible raised garden beds (700mm height, knee clearance underneath) and accessible sand tables.',
       priority: 5
     },
     {
       icon: 'MapPin',
       text: 'Include culturally connected design elements developed in consultation with local Aboriginal and Torres Strait Islander communities.',
-      detail: 'Play spaces that reflect local culture, Country, and stories are more meaningful for all children. Work with local Indigenous communities and artists to incorporate design elements, materials, and narratives. This is a requirement in the Everyone Can Play guideline for public playgrounds.',
+      detail: 'Play spaces that reflect local culture, Country and stories are more meaningful for all children. Work with local Indigenous communities and artists to incorporate design elements, materials and narratives. This is a requirement in the Everyone Can Play guideline for public playgrounds.',
       priority: 6
     }
   ],
@@ -6337,13 +6337,13 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'NCC',
       section: 'AS 4685 (Playground equipment safety)',
-      requirement: 'AS 4685 sets safety requirements for playground equipment. Everyone Can Play (NSW, 2019) provides the inclusive design framework: equipment should offer a range of experiences accessible to children of all abilities with sensory, physical, and social play opportunities.'
+      requirement: 'AS 4685 sets safety requirements for playground equipment. Everyone Can Play (NSW, 2019) provides the inclusive design framework: equipment should offer a range of experiences accessible to children of all abilities with sensory, physical and social play opportunities.'
     },
     related: [
       { code: 'DDA', relevance: 'Section 23: Public playgrounds must not discriminate. Equipment selection that excludes children with disability may breach the DDA.' }
     ],
-    plainEnglish: 'Playground equipment should offer something for everyone. Include transfer platforms and ramps for wheelchair users, sensory elements for children with autism or vision impairment, ground-level options for those who cannot climb, and graduated challenge so all children can progress.',
-    complianceNote: 'Everyone Can Play is the primary Australian guideline for inclusive playgrounds. While it originated in NSW, it is used nationally by councils, designers, and in DDA complaint assessments. The "Can I play?" principle requires equipment diversity, not just a single accessible item.'
+    plainEnglish: 'Playground equipment should offer something for everyone. Include transfer platforms and ramps for wheelchair users, sensory elements for children with autism or vision impairment, ground-level options for those who cannot climb and graduated challenge so all children can progress.',
+    complianceNote: 'Everyone Can Play is the primary Australian guideline for inclusive playgrounds. While it originated in NSW, it is used nationally by councils, designers and in DDA complaint assessments. The "Can I play?" principle requires equipment diversity, not just a single accessible item.'
   },
 
   solutions: [
@@ -6365,7 +6365,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Inclusive equipment additions',
-      description: 'Add inclusive play equipment with transfer platforms, ground-level options, and sensory experiences.',
+      description: 'Add inclusive play equipment with transfer platforms, ground-level options and sensory experiences.',
       resourceLevel: 'medium',
       costRange: '$15,000-50,000',
       timeRequired: '2-4 weeks',
@@ -6384,7 +6384,7 @@ export const duringVisitHelp: HelpContent[] = [
     },
     {
       title: 'Everyone Can Play-compliant playground redesign',
-      description: 'Full playground redesign to meet Everyone Can Play principles with comprehensive inclusive equipment, sensory zones, nature play, and cultural elements.',
+      description: 'Full playground redesign to meet Everyone Can Play principles with comprehensive inclusive equipment, sensory zones, nature play and cultural elements.',
       resourceLevel: 'high',
       costRange: '$150,000-500,000+',
       timeRequired: '4-8 months',
@@ -6392,13 +6392,13 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage an inclusive playground designer and access consultant.',
-        'Consult with disability organisations, occupational therapists, families, and local Aboriginal and Torres Strait Islander communities.',
+        'Consult with disability organisations, occupational therapists, families and local Aboriginal and Torres Strait Islander communities.',
         'Develop concept design addressing all Everyone Can Play principles: Can I get there? Can I play? Can I stay?',
         'Specify equipment mix: 50% or more accessible to children with limited mobility, sensory play in every zone, graduated challenge throughout.',
-        'Include transfer platforms, ramps, and ground-level entry on all major structures.',
-        'Design dedicated sensory zone with musical instruments, tactile walls, water play, and nature elements.',
+        'Include transfer platforms, ramps and ground-level entry on all major structures.',
+        'Design dedicated sensory zone with musical instruments, tactile walls, water play and nature elements.',
         'Incorporate cultural design elements developed with local Indigenous communities.',
-        'Specify inclusive swings: harness swing, wheelchair-platform swing, and standard swings in one bay.',
+        'Specify inclusive swings: harness swing, wheelchair-platform swing and standard swings in one bay.',
         'Commission post-construction inclusive play audit and user testing with children of varied abilities.'
       ],
       notes: 'Inclusive playground redevelopments are strong candidates for state and federal grant funding. Many councils have specific inclusive play budgets and strategies.'
@@ -6406,10 +6406,10 @@ export const duringVisitHelp: HelpContent[] = [
   ],
 
   examples: [
-    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Existing playground had only climbing frames and standard swings. No equipment usable by children with limited mobility.', solution: 'Added a flush-mounted dish spinner, a ramped fort with transfer platform and slide, three sensory panels, and an outdoor drum set. Installed accessible surfacing around new equipment.', outcome: 'Children with disability visit weekly. Playground listed on disability-friendly venue apps. Community pride in the upgrade.', cost: '$42,000', timeframe: '3 weeks' },
-    { businessType: 'attraction', businessTypeLabel: 'Tourism Venue', scenario: 'Family attraction with a basic playground. Families of children with disability left negative reviews.', solution: 'Redesigned playground with Everyone Can Play principles. Inclusive equipment, sensory garden, water play, and nature play. Cultural design elements developed with local Elders.', outcome: 'Playground featured in tourism accessibility guides. Family visit duration increased by 90 minutes on average. Award-winning design.', cost: '$280,000', timeframe: '5 months' },
-    { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'Students with disability excluded from playground during breaks. Limited to a bench near the classroom.', solution: 'Installed ground-level inclusive equipment: dish spinner, spring rockers with back support, sensory panels, and an accessible sand table. Created a quiet retreat corner with seating.', outcome: 'All students participate in outdoor play. Social integration improved. Reduced behavioural incidents during breaks.', cost: '$18,000', timeframe: '2 weeks' },
-    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Family resort with a playground that was not inclusive. Guests with children with disability complained.', solution: 'Added a wheelchair-accessible merry-go-round, a ramped play structure, water play table, and sensory musical instruments. All on poured-in-place rubber surfacing.', outcome: 'Resort markets inclusive playground as a differentiator. Bookings from families with children with disability increased. Repeat visitors cite the playground as a key draw.', cost: '$55,000', timeframe: '3 weeks' }
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Existing playground had only climbing frames and standard swings. No equipment usable by children with limited mobility.', solution: 'Added a flush-mounted dish spinner, a ramped fort with transfer platform and slide, three sensory panels and an outdoor drum set. Installed accessible surfacing around new equipment.', outcome: 'Children with disability visit weekly. Playground listed on disability-friendly venue apps. Community pride in the upgrade.', cost: '$42,000', timeframe: '3 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourism Venue', scenario: 'Family attraction with a basic playground. Families of children with disability left negative reviews.', solution: 'Redesigned playground with Everyone Can Play principles. Inclusive equipment, sensory garden, water play and nature play. Cultural design elements developed with local Elders.', outcome: 'Playground featured in tourism accessibility guides. Family visit duration increased by 90 minutes on average. Award-winning design.', cost: '$280,000', timeframe: '5 months' },
+    { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'Students with disability excluded from playground during breaks. Limited to a bench near the classroom.', solution: 'Installed ground-level inclusive equipment: dish spinner, spring rockers with back support, sensory panels and an accessible sand table. Created a quiet retreat corner with seating.', outcome: 'All students participate in outdoor play. Social integration improved. Reduced behavioural incidents during breaks.', cost: '$18,000', timeframe: '2 weeks' },
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Family resort with a playground that was not inclusive. Guests with children with disability complained.', solution: 'Added a wheelchair-accessible merry-go-round, a ramped play structure, water play table and sensory musical instruments. All on poured-in-place rubber surfacing.', outcome: 'Resort markets inclusive playground as a differentiator. Bookings from families with children with disability increased. Repeat visitors cite the playground as a key draw.', cost: '$55,000', timeframe: '3 weeks' }
   ],
 
   keywords: ['inclusive play', 'sensory play', 'transfer platform', 'ground-level play', 'nature play', 'musical instruments', 'water play', 'graduated challenge', 'Everyone Can Play', 'cultural design', 'autism', 'wheelchair play']
@@ -6424,7 +6424,7 @@ export const duringVisitHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Staying at the playground',
   coveredQuestionIds: ['3.12-PC-6', '3.12-PC-7', '3.12-D-2', '3.12-D-3', '3.12-D-8', '3.12-D-11'],
-  summary: 'Once families arrive and children start playing, they need reasons and support to stay. Secure fencing, comfortable caregiver seating with sightlines, shade, accessible toilets and water, quiet zones for sensory breaks, clear signage with universal symbols, well-maintained facilities, and bins all contribute to a play space where families can spend meaningful time.',
+  summary: 'Once families arrive and children start playing, they need reasons and support to stay. Secure fencing, comfortable caregiver seating with sightlines, shade, accessible toilets and water, quiet zones for sensory breaks, clear signage with universal symbols, well-maintained facilities and bins all contribute to a play space where families can spend meaningful time.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
@@ -6450,31 +6450,31 @@ export const duringVisitHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Provide caregiver seating with backs and armrests, positioned for clear sightlines across the play space.',
-      detail: 'At least one accessible seat (with back support, armrests, and adjacent wheelchair space) at every major equipment zone. Position seats so caregivers can see children at play. Include a mix of seating types: bench seats, individual chairs, and wheelchair companion spaces. Seat height 450-500mm with armrests to assist standing.',
+      detail: 'At least one accessible seat (with back support, armrests and adjacent wheelchair space) at every major equipment zone. Position seats so caregivers can see children at play. Include a mix of seating types: bench seats, individual chairs and wheelchair companion spaces. Seat height 450-500mm with armrests to assist standing.',
       priority: 2
     },
     {
       icon: 'Target',
       text: 'Install shade over at least 50% of the play area and all caregiver seating.',
-      detail: 'Shade sails, pergolas, or dense tree canopy protect against UV and reduce heat. Children with some conditions (epilepsy, multiple sclerosis) and those on certain medications are more heat-sensitive. Shade over equipment also extends the life of rubber surfacing and reduces surface temperatures that can cause burns.',
+      detail: 'Shade sails, pergolas or dense tree canopy protect against UV and reduce heat. Children with some conditions (epilepsy, multiple sclerosis) and those on certain medications are more heat-sensitive. Shade over equipment also extends the life of rubber surfacing and reduces surface temperatures that can cause burns.',
       priority: 3
     },
     {
       icon: 'Accessibility',
-      text: 'Ensure accessible toilets, drinking water, and bins are within 100m of the playground.',
+      text: 'Ensure accessible toilets, drinking water and bins are within 100m of the playground.',
       detail: 'An accessible toilet with an adult change facility is the gold standard for inclusive playgrounds. At minimum, an accessible toilet meeting AS 1428.1 should be within 100m. A drinking fountain with wheelchair-height spout (750-800mm) and bottle filler within the fenced area extends visit duration significantly.',
       priority: 4
     },
     {
       icon: 'Eye',
       text: 'Create a quiet zone or sensory retreat within or adjacent to the playground.',
-      detail: 'A small fenced area with low-stimulation seating, shade, and a visual barrier from the main play area gives children experiencing sensory overload a place to calm down without leaving the playground. Include soft seating or a hammock swing, muted colours, and no speakers or flashing elements.',
+      detail: 'A small fenced area with low-stimulation seating, shade and a visual barrier from the main play area gives children experiencing sensory overload a place to calm down without leaving the playground. Include soft seating or a hammock swing, muted colours and no speakers or flashing elements.',
       priority: 5
     },
     {
       icon: 'MapPin',
-      text: 'Use clear signage with universal symbols, pictograms, and Braille at all entry points and facility areas.',
-      detail: 'Pictogram-based signage supports people with cognitive disability, low literacy, and those from non-English-speaking backgrounds. Include the International Symbol of Access, toilet symbols, drinking water symbols, and playground rules in both text and pictograms. Braille on key signs supports people with vision impairment.',
+      text: 'Use clear signage with universal symbols, pictograms and Braille at all entry points and facility areas.',
+      detail: 'Pictogram-based signage supports people with cognitive disability, low literacy and those from non-English-speaking backgrounds. Include the International Symbol of Access, toilet symbols, drinking water symbols and playground rules in both text and pictograms. Braille on key signs supports people with vision impairment.',
       priority: 6
     }
   ],
@@ -6483,12 +6483,12 @@ export const duringVisitHelp: HelpContent[] = [
     title: 'Auditing playground stay amenities',
     steps: [
       {
-        text: 'Walk the full fence perimeter. Check height, condition, and absence of footholds.',
+        text: 'Walk the full fence perimeter. Check height, condition and absence of footholds.',
         measurement: { target: 'Fence height', acceptable: 'Minimum 1200mm (1200mm with 1500mm non-climbable zone if water over 300mm deep)', unit: 'mm' }
       },
-      { text: 'Test every gate: does it self-close, self-latch, and is the latch child-resistant but operable by an adult with limited hand function?' },
+      { text: 'Test every gate: does it self-close, self-latch and is the latch child-resistant but operable by an adult with limited hand function?' },
       {
-        text: 'Count caregiver seats and check each for back support, armrests, and adjacent wheelchair space. Can a caregiver seated at each location see the main play areas?',
+        text: 'Count caregiver seats and check each for back support, armrests and adjacent wheelchair space. Can a caregiver seated at each location see the main play areas?',
         measurement: { target: 'Seat height', acceptable: '450-500mm with back support and armrests', unit: 'mm' }
       },
       { text: 'Estimate shade coverage over the play area. Is at least 50% of the play space shaded during peak use hours (10am-2pm)?' },
@@ -6497,10 +6497,10 @@ export const duringVisitHelp: HelpContent[] = [
         measurement: { target: 'Toilet distance', acceptable: 'Within 100m of playground', unit: 'm' }
       },
       { text: 'Check for drinking water within or immediately adjacent to the fenced area. Is it wheelchair-accessible (750-800mm spout height)?' },
-      { text: 'Look for a quiet zone or sensory retreat. Is it within or adjacent to the fenced area, with shade, comfortable seating, and low stimulation?' },
+      { text: 'Look for a quiet zone or sensory retreat. Is it within or adjacent to the fenced area, with shade, comfortable seating and low stimulation?' },
       { text: 'Check signage at entry and facilities: are pictograms used alongside text? Is Braille present on key signs? Are playground rules displayed in plain language?' },
       { text: 'Check for bins within the fenced area (general waste and recycling). Are they at accessible height (opening at 900-1100mm)?' },
-      { text: 'Review the maintenance schedule. Are play surfaces, equipment, fencing, and amenities inspected at least monthly?' }
+      { text: 'Review the maintenance schedule. Are play surfaces, equipment, fencing and amenities inspected at least monthly?' }
     ],
     tools: ['Tape measure (5m)', 'Camera for documentation', 'Everyone Can Play guideline', 'Compass or sun position app for shade assessment'],
     estimatedTime: '30-45 minutes'
@@ -6510,13 +6510,13 @@ export const duringVisitHelp: HelpContent[] = [
     primary: {
       code: 'NCC',
       section: 'Everyone Can Play (NSW, 2019), AS 1926.1 (pool fencing)',
-      requirement: 'Everyone Can Play "Can I stay?" principle requires shade, seating, toilets, water, quiet spaces, and fencing. AS 1926.1 applies to fencing around water features deeper than 300mm: 1200mm high barrier with non-climbable zone.'
+      requirement: 'Everyone Can Play "Can I stay?" principle requires shade, seating, toilets, water, quiet spaces and fencing. AS 1926.1 applies to fencing around water features deeper than 300mm: 1200mm high barrier with non-climbable zone.'
     },
     related: [
       { code: 'DDA', relevance: 'Section 23: Facilities associated with public playgrounds (toilets, seating, shade) must be accessible.' },
       { code: 'AS1428.1', relevance: 'Accessible toilet requirements (clause 16), accessible path to facilities, accessible drinking fountains.' }
     ],
-    plainEnglish: 'An inclusive playground needs more than equipment. Fencing keeps children safe. Shade, seating, toilets, water, and quiet areas let families stay. Signage with pictures and Braille ensures everyone understands the space. Maintenance keeps it all working.',
+    plainEnglish: 'An inclusive playground needs more than equipment. Fencing keeps children safe. Shade, seating, toilets, water and quiet areas let families stay. Signage with pictures and Braille ensures everyone understands the space. Maintenance keeps it all working.',
     complianceNote: 'Pool fencing requirements under AS 1926.1 are legally mandated where water features exceed 300mm depth. Everyone Can Play "Can I stay?" provisions are best practice and increasingly referenced in council planning requirements and DDA assessments.'
   },
 
@@ -6539,8 +6539,8 @@ export const duringVisitHelp: HelpContent[] = [
       ]
     },
     {
-      title: 'Shade, accessible facilities, and quiet zone',
-      description: 'Install comprehensive shade, accessible toilet access, drinking water, and a quiet retreat area.',
+      title: 'Shade, accessible facilities and quiet zone',
+      description: 'Install comprehensive shade, accessible toilet access, drinking water and a quiet retreat area.',
       resourceLevel: 'medium',
       costRange: '$15,000-50,000',
       timeRequired: '2-4 weeks',
@@ -6550,16 +6550,16 @@ export const duringVisitHelp: HelpContent[] = [
         'Install shade structures (sails or pergolas) covering at least 50% of the play area and all seating.',
         'Build or upgrade the nearest toilet to accessible standard (AS 1428.1), including adult change facility if space permits.',
         'Install a drinking fountain with wheelchair-height spout and bottle filler inside the fenced area.',
-        'Create a quiet zone: small fenced alcove with shade, comfortable seating, hammock swing, and visual screen from the main play area.',
-        'Install pictogram-based signage at all entry points, toilets, water, and the quiet zone.',
+        'Create a quiet zone: small fenced alcove with shade, comfortable seating, hammock swing and visual screen from the main play area.',
+        'Install pictogram-based signage at all entry points, toilets, water and the quiet zone.',
         'Add Braille labels to key signs.',
         'Upgrade path connections from playground to toilet and car park.'
       ],
-      notes: 'An adult change facility (height-adjustable change table, hoist, and privacy) transforms playground accessibility for families of older children with disability.'
+      notes: 'An adult change facility (height-adjustable change table, hoist and privacy) transforms playground accessibility for families of older children with disability.'
     },
     {
       title: 'Comprehensive stay infrastructure',
-      description: 'Full amenity package meeting Everyone Can Play "Can I stay?" principles with accessible facilities, shade, quiet zones, and inclusive design throughout.',
+      description: 'Full amenity package meeting Everyone Can Play "Can I stay?" principles with accessible facilities, shade, quiet zones and inclusive design throughout.',
       resourceLevel: 'high',
       costRange: '$50,000-200,000+',
       timeRequired: '2-4 months',
@@ -6567,11 +6567,11 @@ export const duringVisitHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a playground designer and access consultant to develop a comprehensive amenity plan.',
-        'Install premium shade structures covering 60% or more of the play area, all seating, and paths.',
+        'Install premium shade structures covering 60% or more of the play area, all seating and paths.',
         'Build a dedicated accessible toilet and adult change facility within 50m of the playground.',
-        'Install an accessible drinking fountain, bottle filler, and dog bowl inside the fenced area.',
-        'Design a dedicated quiet zone with shade shelter, soft ground cover, hammock swing, sensory retreat elements, and visual/acoustic separation.',
-        'Implement comprehensive signage system: pictograms, large print, Braille, and QR codes linking to audio guide.',
+        'Install an accessible drinking fountain, bottle filler and dog bowl inside the fenced area.',
+        'Design a dedicated quiet zone with shade shelter, soft ground cover, hammock swing, sensory retreat elements and visual/acoustic separation.',
+        'Implement comprehensive signage system: pictograms, large print, Braille and QR codes linking to audio guide.',
         'Install accessible picnic settings for families to eat and socialise.',
         'Include a covered area (shelter or pavilion) for use during light rain.',
         'Commission user testing with families of children with disability before finalising.'
@@ -6582,9 +6582,9 @@ export const duringVisitHelp: HelpContent[] = [
 
   examples: [
     { businessType: 'local-government', businessTypeLabel: 'Council Park', scenario: 'Unfenced playground adjacent to a busy road. No shade, no accessible toilet within 500m. Average family visit: 20 minutes.', solution: 'Installed full perimeter fencing with accessible gates. Built a shade pavilion over seating and the main play zone. Installed accessible toilet block and drinking fountain. Created a quiet zone with hammock swing.', outcome: 'Average family visit now 75 minutes. Playground listed as a top inclusive play destination in the region.', cost: '$95,000', timeframe: '6 weeks' },
-    { businessType: 'attraction', businessTypeLabel: 'Family Venue', scenario: 'Playground had fencing but no shade, no accessible toilet, and no quiet area. Families of children with autism reported leaving after sensory overload.', solution: 'Added shade sails over 60% of the play area. Built a quiet retreat room with dimmed lighting and soft furnishings. Upgraded nearest toilet to accessible with adult change table. Added pictogram signage throughout.', outcome: 'Families stay longer. Parents of children with autism report the quiet room is invaluable. Positive word-of-mouth in disability community.', cost: '$38,000', timeframe: '3 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Family Venue', scenario: 'Playground had fencing but no shade, no accessible toilet and no quiet area. Families of children with autism reported leaving after sensory overload.', solution: 'Added shade sails over 60% of the play area. Built a quiet retreat room with dimmed lighting and soft furnishings. Upgraded nearest toilet to accessible with adult change table. Added pictogram signage throughout.', outcome: 'Families stay longer. Parents of children with autism report the quiet room is invaluable. Positive word-of-mouth in disability community.', cost: '$38,000', timeframe: '3 weeks' },
     { businessType: 'attraction', businessTypeLabel: 'School', scenario: 'Playground unfenced. Children with autism regularly bolted toward the road. Staff constantly on high alert.', solution: 'Installed 1200mm tubular steel fencing with two self-closing gates. Added caregiver bench seats and a small quiet corner with a shade tree and bean bags.', outcome: 'All children play safely. Staff can supervise rather than chase. Fewer stressful incidents for children and staff.', cost: '$12,000', timeframe: '1 week' },
-    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Family resort playground had no shade (in tropical QLD), no drinking water, and fixed picnic tables that excluded wheelchair users.', solution: 'Installed large shade sails over the entire play area. Added a drinking fountain with wheelchair-height spout. Replaced two picnic settings with open-end accessible designs. Added bins and signage.', outcome: 'Playground usable all day, not just mornings and evenings. Guest satisfaction scores for family facilities improved by 25%.', cost: '$15,000', timeframe: '1 week' }
+    { businessType: 'accommodation', businessTypeLabel: 'Resort', scenario: 'Family resort playground had no shade (in tropical QLD), no drinking water and fixed picnic tables that excluded wheelchair users.', solution: 'Installed large shade sails over the entire play area. Added a drinking fountain with wheelchair-height spout. Replaced two picnic settings with open-end accessible designs. Added bins and signage.', outcome: 'Playground usable all day, not just mornings and evenings. Guest satisfaction scores for family facilities improved by 25%.', cost: '$15,000', timeframe: '1 week' }
   ],
 
   keywords: ['fencing', 'shade', 'caregiver seating', 'accessible toilet', 'quiet zone', 'sensory retreat', 'drinking water', 'signage', 'pictograms', 'maintenance', 'Everyone Can Play', 'Can I stay']

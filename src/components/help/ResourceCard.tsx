@@ -2,7 +2,7 @@
  * Resource Card Component
  *
  * Displays a resource as a card in the browse view.
- * Shows title, summary, category, and key metadata.
+ * Shows title, summary, category and key metadata.
  */
 
 import {

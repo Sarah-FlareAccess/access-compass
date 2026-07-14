@@ -1,7 +1,7 @@
 /**
  * HelpPanel Component
  *
- * A slide-out panel for rich help content including images, videos, and tips.
+ * A slide-out panel for rich help content including images, videos and tips.
  * - Desktop: Slides in from the right side
  * - Mobile: Bottom sheet that slides up
  */

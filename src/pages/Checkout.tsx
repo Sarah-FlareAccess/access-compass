@@ -88,7 +88,7 @@ export default function Checkout() {
       });
 
       if (checkoutError || !checkoutUrl) {
-        setError(checkoutError || 'Unable to start checkout. Please try again, or contact support@accesscompass.com.au for help.');
+        setError(checkoutError || 'Unable to start checkout. Please try again or contact support@accesscompass.com.au for help.');
         setIsProcessing(false);
         return;
       }
@@ -97,7 +97,7 @@ export default function Checkout() {
       window.location.href = checkoutUrl;
     } catch (err) {
       console.error('Checkout error:', err);
-      setError('An unexpected error occurred. Please try again, or contact support@accesscompass.com.au for help.');
+      setError('An unexpected error occurred. Please try again or contact support@accesscompass.com.au for help.');
       setIsProcessing(false);
     }
   };

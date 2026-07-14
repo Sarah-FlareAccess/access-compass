@@ -65,7 +65,7 @@ export function SyncErrorBanner() {
       </span>
       <p style={{ margin: 0, flex: 1 }}>
         Some changes couldn't be saved to the cloud. They're safe on this device
-        for now. Please try again shortly, and if it keeps happening let your
+        for now. Please try again shortly and if it keeps happening let your
         administrator know.
       </p>
       <button

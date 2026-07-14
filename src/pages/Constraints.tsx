@@ -85,11 +85,11 @@ export default function Constraints() {
         cost_band: '$0-500' as const,
         how_to_steps: [
           'Create a dedicated "Accessibility" page on your website',
-          'Include information about parking, entrance access, and facilities',
+          'Include information about parking, entrance access and facilities',
           'Add photos showing accessible features',
         ],
         example:
-          'Include details like: "We have level access via our side entrance, accessible parking 20m from door, and wheelchair-accessible bathroom."',
+          'Include details like: "We have level access via our side entrance, accessible parking 20m from door and wheelchair-accessible bathroom."',
         status: 'not_started' as const,
         created_at: new Date().toISOString(),
       },

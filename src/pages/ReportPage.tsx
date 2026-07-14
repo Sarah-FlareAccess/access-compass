@@ -27,7 +27,7 @@ import './ReportPage.css';
 
 const REPORT_FEATURES: GuideFeature[] = [
   { icon: Download, title: 'Download PDF', description: 'Export your full accessibility report as a formatted PDF document.' },
-  { icon: Settings, title: 'Report options', description: 'Switch between pulse check and full review, or filter by module.' },
+  { icon: Settings, title: 'Report options', description: 'Switch between pulse check and full review or filter by module.' },
   { icon: ChevronDown, title: 'Expand and collapse', description: 'Click module headers to expand or collapse individual findings.' },
   { icon: Eye, title: 'Show strengths', description: 'Toggle positive findings on or off alongside priority actions.' },
   { icon: UsersIcon, title: 'Professional support', description: 'See recommended specialist areas grouped by expertise type.' },
@@ -637,7 +637,7 @@ export default function ReportPage() {
           <div className="rp-empty-state">
             <BarChart3 size={48} />
             <h2>No modules completed yet</h2>
-            <p>Complete at least one module to view your accessibility report{sites.length > 0 ? ', or switch venue above' : ''}.</p>
+            <p>Complete at least one module to view your accessibility report{sites.length > 0 ? ' or switch venue above' : ''}.</p>
             <Link to="/dashboard" className="btn btn-primary">Go to Dashboard</Link>
           </div>
         </div>
@@ -1148,7 +1148,7 @@ export default function ReportPage() {
           <h2>Important disclaimer</h2>
           <p>
             This guidance is for information only. It is not legal advice, a compliance
-            certificate, or a substitute for professional accessibility auditing. Actions are
+            certificate or a substitute for professional accessibility auditing. Actions are
             suggestions based on your responses.
           </p>
           <p>

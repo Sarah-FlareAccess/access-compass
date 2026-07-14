@@ -2,7 +2,7 @@
 // ACCESS COMPASS - ORG ADMIN PANEL
 // ============================================
 // Admin panel for managing organisation members,
-// invites, security settings, and audit logs
+// invites, security settings and audit logs
 // ============================================
 
 import { useState, useEffect, useCallback, useRef } from 'react';
@@ -337,7 +337,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
     if (!orgId || !newEmailsText.trim()) return;
     setActionLoading('add-emails');
 
-    // Parse emails from text (comma, semicolon, newline, or space separated)
+    // Parse emails from text (comma, semicolon, newline or space separated)
     const emailsArray = newEmailsText
       .split(/[,;\n\s]+/)
       .map(e => e.trim().toLowerCase())
@@ -617,7 +617,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
               )}
 
               <p className="admin-overview-hint">
-                Use the tabs above to manage members, invites, and security settings.
+                Use the tabs above to manage members, invites and security settings.
               </p>
             </div>
           )}
@@ -1094,7 +1094,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
                   <div className="create-invite-form">
                     <h4>Add Pre-registered Emails</h4>
                     <p className="form-help">
-                      Enter email addresses separated by commas, semicolons, or new lines.
+                      Enter email addresses separated by commas, semicolons or new lines.
                     </p>
                     <div className="form-row">
                       <label htmlFor="bulk-emails">Email addresses</label>
@@ -1422,7 +1422,7 @@ export function OrgAdminPanel({ isOpen, onClose, initialTab = 'overview' }: OrgA
               <div className="data-action">
                 <div className="setting-info">
                   <h4>Export Your Data</h4>
-                  <p>Download a JSON archive of your organisation's data: membership, sessions, audit log, sites, module progress, module responses, DIAP items + documents, and evidence file metadata. Evidence file binaries are not in the JSON — download them individually from the Evidence Library.</p>
+                  <p>Download a JSON archive of your organisation's data: membership, sessions, audit log, sites, module progress, module responses, DIAP items + documents and evidence file metadata. Evidence file binaries are not in the JSON — download them individually from the Evidence Library.</p>
                 </div>
                 <button
                   className="btn-export"

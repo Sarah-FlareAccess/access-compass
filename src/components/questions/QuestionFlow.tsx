@@ -2,7 +2,7 @@
  * QuestionFlow Component
  *
  * Manages the flow through questions in a module with branching logic.
- * Handles navigation, progress tracking, and summary generation.
+ * Handles navigation, progress tracking and summary generation.
  */
 
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
@@ -429,7 +429,7 @@ export function generateActionText(questionText: string): string {
       return 'Include accessibility training in the standard new staff onboarding process';
     }
     if (lowerQuestion.includes('disability awareness') && (lowerQuestion.includes('contractor') || lowerQuestion.includes('casual') || lowerQuestion.includes('agency'))) {
-      return 'Extend disability awareness training to contractors, casuals, and agency staff';
+      return 'Extend disability awareness training to contractors, casuals and agency staff';
     }
     if (lowerQuestion.includes('disability awareness') && (lowerQuestion.includes('volunteer'))) {
       return 'Provide disability awareness training to all event staff and volunteers';
@@ -500,7 +500,7 @@ export function generateActionText(questionText: string): string {
       return 'Train staff to direct customers to accessible parking and entry points';
     }
     if (lowerQuestion.includes('document') || lowerQuestion.includes('heading') || lowerQuestion.includes('alt text')) {
-      return 'Train document-creating staff on using heading styles, alt text, and accessible structure';
+      return 'Train document-creating staff on using heading styles, alt text and accessible structure';
     }
     if (lowerQuestion.includes('equipment') || lowerQuestion.includes('feature')) {
       return 'Train staff on operating all on-site accessibility features and equipment';
@@ -523,7 +523,7 @@ export function generateActionText(questionText: string): string {
 
   // Feedback questions (check self-checkout before broad feedback match)
   if (lowerQuestion.includes('self-checkout') || lowerQuestion.includes('self checkout')) {
-    return 'Ensure self-checkout machines are accessible: appropriate screen height, audio output, and wheelchair-compatible layout';
+    return 'Ensure self-checkout machines are accessible: appropriate screen height, audio output and wheelchair-compatible layout';
   }
   if (lowerQuestion.includes('feedback') && lowerQuestion.includes('accuracy')) {
     return 'Create a simple process for customers to provide feedback on accessibility information';
@@ -571,10 +571,10 @@ export function generateActionText(questionText: string): string {
     return 'Provide multiple contact options for accessibility enquiries (phone, email, online form)';
   }
   if (lowerQuestion.includes('contact') && lowerQuestion.includes('without calling')) {
-    return 'Offer non-phone contact options such as email, online chat, or contact forms';
+    return 'Offer non-phone contact options such as email, online chat or contact forms';
   }
   if (lowerQuestion.includes('contact') && lowerQuestion.includes('page') && lowerQuestion.includes('accessible')) {
-    return 'Make your contact page keyboard navigable, screen reader compatible, and CAPTCHA-free';
+    return 'Make your contact page keyboard navigable, screen reader compatible and CAPTCHA-free';
   }
   if (lowerQuestion.includes('proactively invite') && lowerQuestion.includes('question')) {
     return 'Add prompts inviting accessibility questions on your website and booking confirmations';
@@ -614,10 +614,10 @@ export function generateActionText(questionText: string): string {
 
   // Physical access questions
   if (lowerQuestion.includes('physical access') && lowerQuestion.includes('details')) {
-    return 'Add specific physical access details including measurements, photos, and route descriptions';
+    return 'Add specific physical access details including measurements, photos and route descriptions';
   }
   if (lowerQuestion.includes('what to expect') && lowerQuestion.includes('sensory')) {
-    return 'Describe the sensory environment including noise levels, lighting, and crowd expectations';
+    return 'Describe the sensory environment including noise levels, lighting and crowd expectations';
   }
 
   // Parking questions
@@ -626,7 +626,7 @@ export function generateActionText(questionText: string): string {
       return 'Relocate accessible parking spaces closer to the main entrance';
     }
     if (lowerQuestion.includes('path') || lowerQuestion.includes('smooth') || lowerQuestion.includes('level')) {
-      return 'Ensure the path from accessible parking to the entrance is smooth, level, and obstacle-free';
+      return 'Ensure the path from accessible parking to the entrance is smooth, level and obstacle-free';
     }
     if (lowerQuestion.includes('directional') || lowerQuestion.includes('signage')) {
       return 'Install directional signage guiding visitors to accessible parking';
@@ -635,7 +635,7 @@ export function generateActionText(questionText: string): string {
       return 'Implement procedures to keep accessible parking available during busy periods';
     }
     if (lowerQuestion.includes('surface') || lowerQuestion.includes('slip')) {
-      return 'Ensure accessible parking surfaces are firm, level, and slip-resistant';
+      return 'Ensure accessible parking surfaces are firm, level and slip-resistant';
     }
     if (lowerQuestion.includes('marked') || lowerQuestion.includes('marking')) {
       return 'Mark accessible parking with both ground markings and vertical signage to Australian Standards';
@@ -714,7 +714,7 @@ export function generateActionText(questionText: string): string {
     return 'Provide detailed accessible transport information including the approach to your venue';
   }
   if (lowerQuestion.includes('last 50 metres') || lowerQuestion.includes('final approach')) {
-    return 'Document the final approach to your venue including surfaces, distances, and any obstacles';
+    return 'Document the final approach to your venue including surfaces, distances and any obstacles';
   }
 
   // Equipment and resources questions
@@ -748,13 +748,13 @@ export function generateActionText(questionText: string): string {
     return 'Designate a quiet space where customers can take a break from sensory stimulation';
   }
   if (lowerQuestion.includes('sensory kit') || lowerQuestion.includes('sensory support')) {
-    return 'Provide sensory support items such as ear plugs, fidget tools, or sunglasses';
+    return 'Provide sensory support items such as ear plugs, fidget tools or sunglasses';
   }
 
   // Signage questions
   if (lowerQuestion.includes('signage') && lowerQuestion.includes('clear')) {
     if (lowerQuestion.includes('wayfinding') && lowerQuestion.includes('destination')) {
-      return 'Install clear wayfinding signage to toilets, lifts, service areas, and other key destinations';
+      return 'Install clear wayfinding signage to toilets, lifts, service areas and other key destinations';
     }
     if (lowerQuestion.includes('toilet') || lowerQuestion.includes('tactile') || lowerQuestion.includes('braille')) {
       return 'Ensure toilet signage is clear with tactile and Braille elements as required by Australian Standards';
@@ -765,7 +765,7 @@ export function generateActionText(questionText: string): string {
     if (lowerQuestion.includes('event')) {
       return 'Provide clear, accessible wayfinding signage at all event locations';
     }
-    return 'Improve signage with high contrast, clear fonts, and consistent placement';
+    return 'Improve signage with high contrast, clear fonts and consistent placement';
   }
 
   // Emergency questions
@@ -810,7 +810,7 @@ export function generateActionText(questionText: string): string {
       return 'Ensure all interactive elements show a visible focus indicator when navigating by keyboard';
     }
     if (lowerQuestion.includes('contact page')) {
-      return 'Make your contact page keyboard navigable, screen reader compatible, and CAPTCHA-free';
+      return 'Make your contact page keyboard navigable, screen reader compatible and CAPTCHA-free';
     }
     if (lowerQuestion.includes('booking')) {
       return 'Ensure the entire booking process can be completed using only a keyboard';
@@ -844,7 +844,7 @@ export function generateActionText(questionText: string): string {
       return 'Ensure all published visual content has alt text on photos and captions on videos';
     }
     if (lowerQuestion.includes('pdf') || lowerQuestion.includes('document') || lowerQuestion.includes('tagged')) {
-      return 'Create accessible PDFs with proper tagging, heading structure, and alt text';
+      return 'Create accessible PDFs with proper tagging, heading structure and alt text';
     }
     return 'Add meaningful alt text or descriptions to all images on your website';
   }
@@ -861,7 +861,7 @@ export function generateActionText(questionText: string): string {
       return 'Improve caption synchronisation timing to match audio accurately';
     }
     if (lowerQuestion.includes('easy to read') || (lowerQuestion.includes('caption') && lowerQuestion.includes('contrast') && lowerQuestion.includes('size'))) {
-      return 'Ensure captions use high-contrast text, appropriate size, and a clear readable font';
+      return 'Ensure captions use high-contrast text, appropriate size and a clear readable font';
     }
     if (lowerQuestion.includes('cart') && lowerQuestion.includes('provider')) {
       return 'Establish a relationship with a CART or captioning service provider';
@@ -870,7 +870,7 @@ export function generateActionText(questionText: string): string {
       return 'Add a captioning needs question to event registration and tour booking forms';
     }
     if (lowerQuestion.includes('real-time') || lowerQuestion.includes('live presentation') || lowerQuestion.includes('tour')) {
-      return 'Arrange real-time CART captioning for live presentations, tours, and events';
+      return 'Arrange real-time CART captioning for live presentations, tours and events';
     }
     if (lowerQuestion.includes('meeting space') || lowerQuestion.includes('auslan')) {
       return 'Ensure meeting spaces can support Auslan interpreters and captioning services';
@@ -932,7 +932,7 @@ export function generateActionText(questionText: string): string {
       return 'Upload your large print materials for review and verification';
     }
     if (lowerQuestion.includes('request') && lowerQuestion.includes('product')) {
-      return 'Enable customers to request product information in large print, verbal, or digital formats';
+      return 'Enable customers to request product information in large print, verbal or digital formats';
     }
     if (lowerQuestion.includes('automatically') || lowerQuestion.includes('preference')) {
       return 'Configure systems to automatically apply customer format preferences';
@@ -955,7 +955,7 @@ export function generateActionText(questionText: string): string {
       return 'Establish a clear, advertised process for customers to request alternative formats';
     }
     if (lowerQuestion.includes('pictures') || lowerQuestion.includes('symbols') || lowerQuestion.includes('sign')) {
-      return 'Add pictures, symbols, or Easy Read formats to key on-site signs';
+      return 'Add pictures, symbols or Easy Read formats to key on-site signs';
     }
     if (lowerQuestion.includes('up to date') || lowerQuestion.includes('change')) {
       return 'Establish a process to update alternative format materials whenever standard versions change';

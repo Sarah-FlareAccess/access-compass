@@ -4,7 +4,7 @@
  * Topic content is selected by the question's MODULE domain first, then by a
  * keyword match within that domain. Keying to the module stops digital and
  * physical questions from borrowing each other's guidance (e.g. "keyboard
- * navigation" no longer matches physical signage), and every domain has a
+ * navigation" no longer matches physical signage) and every domain has a
  * tailored default so questions that match no sub-topic still get relevant
  * steps instead of bland boilerplate.
  */
@@ -251,7 +251,7 @@ const TOPICS: DiapTopic[] = [
     ] },
   { key: 'changing-places', domains: ['physical'], pattern: /\bchanging places|\badult change|\bhoist\b/i,
     steps: [
-      'Confirm whether a Changing Places facility exists on site and its condition, or identify the nearest one',
+      'Confirm whether a Changing Places facility exists on site and its condition or identify the nearest one',
       'If a facility exists, register it on the National map and set a servicing schedule',
     ],
     indicators: [
@@ -437,7 +437,7 @@ const DOMAIN_DEFAULT: Record<Domain, { steps: [string, string]; indicators: stri
   physical: {
     steps: [
       'Identify the specific physical barriers in this area and note their location and severity',
-      'Prioritise fixes by impact and feasibility, and flag major works for future capital budgets',
+      'Prioritise fixes by impact and feasibility and flag major works for future capital budgets',
     ],
     indicators: [
       '• Priority physical barriers in this area addressed or scheduled within 12 months',

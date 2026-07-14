@@ -3,7 +3,7 @@
  *
  * CRUD over the `sites` table introduced in migration 023. Sites are
  * first-class multi-location entities for Multi-Site Pulse/Deep/Plus,
- * Premier/Major Venue, and Authority customers. Single-site orgs simply
+ * Premier/Major Venue and Authority customers. Single-site orgs simply
  * have zero sites; the UI hides the picker until at least one exists.
  */
 

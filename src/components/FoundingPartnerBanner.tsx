@@ -11,7 +11,7 @@ const BENEFITS = [
   {
     icon: '🏅',
     title: 'Founding Partner badge',
-    body: 'Opt-in featured logo on accesscompass.com.au, badge for your accessibility statement, and named in case studies. Visible recognition as a leader.',
+    body: 'Opt-in featured logo on accesscompass.com.au, badge for your accessibility statement and named in case studies. Visible recognition as a leader.',
   },
   {
     icon: '✨',
@@ -21,7 +21,7 @@ const BENEFITS = [
   {
     icon: '📅',
     title: 'Annual accessibility check-in',
-    body: 'A 60-minute review each year with our team. Talk through what\'s working, where you\'re stuck, and where to focus next year. Included in your subscription.',
+    body: 'A 60-minute review each year with our team. Talk through what\'s working, where you\'re stuck and where to focus next year. Included in your subscription.',
   },
 ] as const;
 

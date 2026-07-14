@@ -54,7 +54,7 @@ const CATEGORY_PHRASES: Record<string, string> = {
 // explains why the area matters, not just what to do. Intentionally free of
 // figures, benchmarks or org-specific claims (nothing that could be fabricated).
 const CATEGORY_WHY: Record<string, string> = {
-  'physical-access': 'The physical environment decides who can enter, move through and use a space independently. Barriers here often carry the greatest legal exposure under the Premises Standards and the National Construction Code, and are usually the most visible to visitors.',
+  'physical-access': 'The physical environment decides who can enter, move through and use a space independently. Barriers here often carry the greatest legal exposure under the Premises Standards and the National Construction Code and are usually the most visible to visitors.',
   'information-communication-marketing': 'People can only use a service they can find, understand and act on. Accessible information, communication and marketing let everyone plan a visit, complete a booking and know what to expect before they arrive.',
   'customer-service': 'Confident, well-prepared staff turn accessible facilities into a genuinely welcoming experience. Service and support actions close the gap between what a space offers and how included a visitor actually feels.',
   'operations-policy-procedure': 'Policies and procedures set a standard that outlasts any single staff member. Embedding accessibility into how the organisation runs keeps improvements consistent and makes them easier to sustain and report on.',
@@ -119,7 +119,7 @@ interface DIAPPdfOptions {
   // Optional grouping override for the action-items body. When absent, actions
   // are grouped by category (the default). When present, the caller supplies the
   // top-level groups already computed (e.g. by statutory outcome domain, custom
-  // section or site), and the generator renders them in order. dimensionLabel
+  // section or site) and the generator renders them in order. dimensionLabel
   // names the grouping for the TOC and a caption; itemFootnotes carries an
   // optional per-item line (e.g. "Also contributes to: ...") for actions that
   // span more than one group.
@@ -174,7 +174,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     : [];
 
   // Concise scope label for the cover: an explicit site name, a single covered
-  // site, or a count when the plan spans several (the full list sits by the intro).
+  // site or a count when the plan spans several (the full list sits by the intro).
   const coverScope = siteName
     ? siteName
     : coveredSiteNames.length === 1 ? coveredSiteNames[0]
@@ -200,7 +200,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   let currentPage = 1;
   let yPos = PAGE.marginY;
 
-  // Contents-page support: record the page each section lands on, and where each
+  // Contents-page support: record the page each section lands on and where each
   // contents line was drawn, so a second pass can stamp accurate page numbers
   // (the pages are not known when the contents page is first drawn).
   const sectionPages = new Map<string, number>();
@@ -723,7 +723,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       .filter(c => c.count > 0)
       .sort((a, b) => b.count - a.count);
 
-    // Analysis line matching the web plan: completion %, the strongest areas, and
+    // Analysis line matching the web plan: completion %, the strongest areas and
     // a progress note — so the PDF reads as analysis, not just a count.
     const topAch = achievedByCat.slice(0, 2).map(c => c.label).join(' and ');
     const progressNote = completionRate >= 50
@@ -769,7 +769,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     const gapD = doms.filter(d => d.items.length === 0);
     const strongestD = [...doms].sort((a, b) => b.items.length - a.items.length)[0];
     const gapNote = gapD.length > 0
-      ? ` No actions are mapped yet to ${gapD.map(d => d.name).join(', ')} — review whether ${gapD.length === 1 ? 'that domain applies' : 'those domains apply'} to this plan, or add coverage.`
+      ? ` No actions are mapped yet to ${gapD.map(d => d.name).join(', ')} — review whether ${gapD.length === 1 ? 'that domain applies' : 'those domains apply'} to this plan or add coverage.`
       : ' Every outcome domain has at least one action.';
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
@@ -859,7 +859,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
   const legendItems = [
     { label: 'High', color: COLORS.statusHigh, desc: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. Highest legal and safety risk.' },
-    { label: 'Medium', color: COLORS.statusMedium, desc: 'High-impact improvements that significantly affect the experience of people with disability, and items needing further investigation.' },
+    { label: 'Medium', color: COLORS.statusMedium, desc: 'High-impact improvements that significantly affect the experience of people with disability and items needing further investigation.' },
     { label: 'Low', color: COLORS.statusLow, desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower legal risk.' },
   ];
   for (const item of legendItems) {
@@ -1166,7 +1166,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   };
 
   // Render one top-level group as a page: purple band header, an optional intro
-  // (category "why this matters", or a domain's outcome statement), then the
+  // (category "why this matters" or a domain's outcome statement), then the
   // actions grouped by objective (each objective heads its distinct actions
   // once, rather than repeating inside every card).
   // The first group flows on from the priority-legend page rather than forcing a
@@ -1187,7 +1187,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     // mini-dashboard stay together rather than orphaning at a page foot.
     addSectionHeader(`${heading} (${groupItems.length})`, 'band', 34);
 
-    // Optional intro: category context, or the outcome domain's statement.
+    // Optional intro: category context or the outcome domain's statement.
     if (subtitle) {
       doc.setFontSize(8.5);
       doc.setFont('helvetica', 'italic');
@@ -1198,7 +1198,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     }
 
     // Mini-dashboard: a quick read on the group before the actions - total,
-    // priority split, completion, and the modules it draws on most.
+    // priority split, completion and the modules it draws on most.
     {
       const total = groupItems.length;
       const hi = groupItems.filter(i => i.priority === 'high').length;

@@ -162,7 +162,7 @@ export function ReportProblem({ isOpen, onClose }: ReportProblemProps) {
           <>
             <div className="report-header">
               <h2 id="report-problem-title">Report a Problem</h2>
-              <p>Help us improve by reporting bugs, suggesting features, or asking questions.</p>
+              <p>Help us improve by reporting bugs, suggesting features or asking questions.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="report-form">

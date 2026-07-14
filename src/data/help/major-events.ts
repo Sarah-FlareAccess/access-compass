@@ -16,18 +16,18 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Governance, ownership and venue standards for multi-venue events',
   coveredQuestionIds: ['7.1-PC-2', '7.1-PC-4', '7.1-DD-1', '7.1-DD-5'],
-  summary: 'Major events span many venues, days, and audience cohorts. The accessibility difference between a single venue with strong access and a precinct with consistently strong access is precinct-wide coordination: a documented plan, a senior named owner, a live information register, a minimum venue standard, consistent wayfinding, and a real-time issue propagation process.',
+  summary: 'Major events span many venues, days and audience cohorts. The accessibility difference between a single venue with strong access and a precinct with consistently strong access is precinct-wide coordination: a documented plan, a senior named owner, a live information register, a minimum venue standard, consistent wayfinding and a real-time issue propagation process.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'A festival like Fringe runs across 100+ venues; Melbourne Fashion Week activates a precinct of stages and pop-ups; Vivid lights up multiple districts. Without coordination, the audience experience varies wildly by which venue they walk into, and the accessibility commitment becomes a slogan. Precinct-wide coordination is what turns "we care about access" into "any audience member can plan a multi-venue day with confidence".',
+    text: 'A festival like Fringe runs across 100+ venues; Melbourne Fashion Week activates a precinct of stages and pop-ups; Vivid lights up multiple districts. Without coordination, the audience experience varies wildly by which venue they walk into and the accessibility commitment becomes a slogan. Precinct-wide coordination is what turns "we care about access" into "any audience member can plan a multi-venue day with confidence".',
     statistic: { value: '#1', context: 'cause of accessibility complaints at multi-venue major events is inconsistent or stale information across venues, not the venues themselves. A central register and 24-hour propagation process resolves the majority.', source: 'Practitioner observation across major Australian festivals' },
   },
   tips: [
-    { icon: 'FileText', text: 'Document a multi-venue coordination plan covering minimum standard, owners, escalation, and review.', priority: 1 },
+    { icon: 'FileText', text: 'Document a multi-venue coordination plan covering minimum standard, owners, escalation and review.', priority: 1 },
     { icon: 'UserCheck', text: 'Name a senior precinct-wide accessibility owner with cross-venue authority and budget.', priority: 2 },
     { icon: 'Database', text: 'Maintain a live central register of accessibility info across all venues with 24-hour SLA on changes.', priority: 3 },
     { icon: 'ShieldCheck', text: 'Set a documented minimum venue accessibility standard and make it a contract requirement.', priority: 4 },
-    { icon: 'MapPin', text: 'Standardise accessible wayfinding from HUB to satellite venues across visual, tactile, and digital formats.', priority: 5 },
+    { icon: 'MapPin', text: 'Standardise accessible wayfinding from HUB to satellite venues across visual, tactile and digital formats.', priority: 5 },
     { icon: 'Map', text: 'Publish a multi-format accessible event map (digital WCAG AA, print high-contrast, tactile and Easy Read for major events).', priority: 6 },
   ],
   howToCheck: {
@@ -35,7 +35,7 @@ export const majorEventsHelp: HelpContent[] = [
     steps: [
       { text: 'Locate your multi-venue coordination plan. Is it documented? When was it last updated?' },
       { text: 'Ask three random venue managers: "Who do you contact about an access issue precinct-wide?" Is the answer consistent?' },
-      { text: 'Pick a random venue from your program and check its access info on the website, in the program, and at the venue. Do they match?' },
+      { text: 'Pick a random venue from your program and check its access info on the website, in the program and at the venue. Do they match?' },
       { text: 'Pull your minimum venue standard. Has every contracted venue been audited against it?' },
       { text: 'Walk a route from HUB to a satellite venue. Is wayfinding consistent? Could a wheelchair user follow it? A Blind user?' },
       { text: 'Try the event map in WCAG checker (WAVE, axe). Does it pass AA? Are tactile and Easy Read versions available on request?' },
@@ -48,7 +48,7 @@ export const majorEventsHelp: HelpContent[] = [
       description: 'Stand up the foundation: documented plan and a senior named owner with cross-venue authority.',
       resourceLevel: 'low', costRange: '$2,000-8,000', timeRequired: '1-2 months', implementedBy: 'staff', impact: 'quick-win',
       steps: [
-        'Draft a one-page multi-venue accessibility plan covering minimum standard, owners, escalation, and review.',
+        'Draft a one-page multi-venue accessibility plan covering minimum standard, owners, escalation and review.',
         'Name a senior role (Director / Head of Operations) as precinct-wide accessibility owner.',
         'Document their authority in writing — budget, escalation, contract enforcement.',
         'Brief venue managers and event leadership on the plan and owner.',
@@ -61,7 +61,7 @@ export const majorEventsHelp: HelpContent[] = [
       resourceLevel: 'medium', costRange: '$5,000-15,000', timeRequired: '2-4 months', implementedBy: 'staff', impact: 'significant',
       steps: [
         'List every venue and the accessibility info that applies (entry, toilets, hearing aug, viewing, parking).',
-        'Choose a central data source (shared document, intranet page, or simple database).',
+        'Choose a central data source (shared document, intranet page or simple database).',
         'Map every customer-facing channel that publishes venue accessibility info (website, program, app, social, on-site signage).',
         'Set a 24-hour propagation SLA for any access change during the event.',
         'Run a "lift outage" drill before opening to test propagation across all channels.',
@@ -89,7 +89,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Apply standard at HUB and all satellite venues.',
         'Produce digital map (WCAG 2.2 AA, interactive) and print map (high contrast, large type, plain language).',
         'For major events, add tactile maps at HUB and major venues plus Easy Read version.',
-        'Test wayfinding with wheelchair user, Deaf user, and Blind user before opening (paid walk-through).',
+        'Test wayfinding with wheelchair user, Deaf user and Blind user before opening (paid walk-through).',
         'Include accessible alternatives in event app: audio descriptions of routes, captioned wayfinding videos.',
       ],
     },
@@ -99,7 +99,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Major Festival',
       scenario: 'Festival across 80 venues. Disabled audience members reported wildly inconsistent experiences year over year. Some venues excellent, others booked despite step-only access. Box office staff couldn\'t reliably answer which venues had hearing loops.',
-      solution: 'Established a Festival Access Director role (senior, cross-venue authority). Built a central accessibility register feeding the website, app, and box office staff briefings. Set a documented minimum venue standard and pre-audited every venue before contracting.',
+      solution: 'Established a Festival Access Director role (senior, cross-venue authority). Built a central accessibility register feeding the website, app and box office staff briefings. Set a documented minimum venue standard and pre-audited every venue before contracting.',
       outcome: 'Disabled audience disclosure at booking up 40%. Complaint volume halved. Festival cited by Australian Disability Network as model for major event coordination.',
       cost: '$45,000 (Director time + register + audits)',
       timeframe: '12 months to bed in',
@@ -116,7 +116,7 @@ export const majorEventsHelp: HelpContent[] = [
     {
       businessType: 'event-venue',
       businessTypeLabel: 'Fashion Week',
-      scenario: 'Fashion week ran shows at 15 pop-up venues and 5 permanent ones. Each venue had its own front-of-house team, wayfinding, and access info. No central coordination.',
+      scenario: 'Fashion week ran shows at 15 pop-up venues and 5 permanent ones. Each venue had its own front-of-house team, wayfinding and access info. No central coordination.',
       solution: 'Hired a precinct accessibility coordinator for the 8-week peak season. Established daily access huddles during show week. Pre-event audit of all pop-ups (cheaper than ramp hire on the day). Common branded wayfinding kit shipped to every venue.',
       outcome: 'Disabled fashion press attended in significantly higher numbers. International coverage of accessibility commitments. Coordinator role retained year-round at 0.4 FTE.',
       cost: '$28,000 (coordinator + audits + kit)',
@@ -136,7 +136,7 @@ export const majorEventsHelp: HelpContent[] = [
     { title: 'IncludeAbility - Accessible Events Toolkit', url: 'https://includeability.gov.au/', type: 'website', source: 'Australian Human Rights Commission', description: 'Free practical guidance on accessible event planning at scale.', isAustralian: true, isFree: true },
     { title: 'Safe Work Australia - Emergency Plans', url: 'https://www.safeworkaustralia.gov.au/safety-topic/managing-health-and-safety/emergency-plan', type: 'guide', source: 'Safe Work Australia', description: 'WHS guidance for emergency planning including disability-access scenarios.', isAustralian: true, isFree: true },
     { title: 'AHRC - Accessible Communications', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on consistent and accessible communication of access information.', isAustralian: true, isFree: true },
-    { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'tool', source: 'W3C', description: 'Standard for digital event maps, websites, and apps publishing accessibility info.', isAustralian: false, isFree: true },
+    { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'tool', source: 'W3C', description: 'Standard for digital event maps, websites and apps publishing accessibility info.', isAustralian: false, isFree: true },
     { title: 'Vision Australia - Accessible Wayfinding', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Tactile mapping and accessible wayfinding consultancy.', isAustralian: true, isFree: false },
   ],
   keywords: ['precinct', 'multi-venue', 'festival', 'major event', 'coordination', 'governance', 'minimum venue standard', 'pre-audit', 'venue manager briefing', 'access owner'],
@@ -151,10 +151,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Information register, wayfinding and accessible maps across the precinct',
   coveredQuestionIds: ['7.1-PC-5', '7.1-PC-6', '7.1-DD-2', '7.1-DD-8'],
-  summary: 'For a multi-venue event, the audience\'s navigation and confidence depends on three connected layers: a live central register that holds the source-of-truth accessibility info per venue, consistent accessible wayfinding from HUB to satellite venues, and a multi-format event map. Real-time updates push changes to every customer-facing channel within 24 hours (often within minutes during the event itself).',
+  summary: 'For a multi-venue event, the audience\'s navigation and confidence depends on three connected layers: a live central register that holds the source-of-truth accessibility info per venue, consistent accessible wayfinding from HUB to satellite venues and a multi-format event map. Real-time updates push changes to every customer-facing channel within 24 hours (often within minutes during the event itself).',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Audience members with disability plan their day before they arrive: which venues to visit, what time, which route between, what to expect at each stop. Outdated, inconsistent, or unfindable information at any layer breaks the plan. The most common day-of complaint at major events is not "the venue had bad access" but "the information about the venue was wrong".',
+    text: 'Audience members with disability plan their day before they arrive: which venues to visit, what time, which route between, what to expect at each stop. Outdated, inconsistent or unfindable information at any layer breaks the plan. The most common day-of complaint at major events is not "the venue had bad access" but "the information about the venue was wrong".',
     quote: { text: 'I planned my festival day around the lift at venue C. When I arrived it had been broken for two days. The website still said it worked. The box office didn\'t know either. That was the end of my festival.', attribution: 'Wheelchair-using attendee, multi-day festival' },
   },
   tips: [
@@ -168,11 +168,11 @@ export const majorEventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing your event-wide accessibility information layer',
     steps: [
-      { text: 'Pick a random venue. Compare its access info on the website, in the program, and at the box office. Do all three match?' },
+      { text: 'Pick a random venue. Compare its access info on the website, in the program and at the box office. Do all three match?' },
       { text: 'Locate the central register. Who owns it? When was it last updated? What channels reference it?' },
       { text: 'Walk a route from HUB to a satellite venue. Could a wheelchair user follow the wayfinding? A Blind user via app or tactile maps?' },
       { text: 'Pull the event map. Does it pass automated WCAG checks? Is a print version available? A tactile version on request?' },
-      { text: 'Stage a fictional "lift outage" mid-event drill. How long until website, app, signage, social, and box office staff all know?' },
+      { text: 'Stage a fictional "lift outage" mid-event drill. How long until website, app, signage, social and box office staff all know?' },
     ],
     estimatedTime: '3-4 hours',
   },
@@ -182,7 +182,7 @@ export const majorEventsHelp: HelpContent[] = [
       description: 'Stand up a single accessibility register for all venues with a documented 24-hour SLA on any change.',
       resourceLevel: 'medium', costRange: '$5,000-15,000', timeRequired: '2-4 months', implementedBy: 'staff', impact: 'significant',
       steps: [
-        'Choose a register format: shared document, intranet page, or simple database.',
+        'Choose a register format: shared document, intranet page or simple database.',
         'Document accessibility per venue: entry, toilets, hearing augmentation, viewing options, parking.',
         'Map every customer-facing channel that publishes venue access info.',
         'Designate the trigger: any access change must be reported to the central access lead within 15 minutes during the event.',
@@ -198,7 +198,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Develop wayfinding standard: WCAG-compliant 4.5:1 contrast, sans-serif min 24pt, mounted 1400-1600mm centre.',
         'Apply standard at HUB and all satellite venues.',
         'Provide accessible alternatives: tactile maps at HUB and major venues, audio-describable directions in event app, captioned digital signage for audio announcements.',
-        'Test wayfinding before opening with a wheelchair user, a Deaf user, and a Blind user (paid walk-through).',
+        'Test wayfinding before opening with a wheelchair user, a Deaf user and a Blind user (paid walk-through).',
         'Brief venue staff so verbal directions match signage.',
       ],
     },
@@ -232,7 +232,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Major Festival',
       scenario: 'Festival across 80 venues with a separate website per venue. Audience members reported having to research each venue independently and finding inconsistent or stale access info.',
-      solution: 'Built central register feeding the festival website, app, and box office staff briefings. Per-venue access summaries published with consistent template. Real-time updates pushed during the event.',
+      solution: 'Built central register feeding the festival website, app and box office staff briefings. Per-venue access summaries published with consistent template. Real-time updates pushed during the event.',
       outcome: 'Audience disclosure at booking up 40%. "I couldn\'t find access info" complaints dropped to near zero. Festival cited as model for multi-venue access communication.',
       cost: '$22,000',
       timeframe: '6 months',
@@ -267,9 +267,9 @@ export const majorEventsHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'AHRC - Accessible Communications', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'Australian Human Rights Commission', description: 'Free guidance on consistent and accessible communication of access information.', isAustralian: true, isFree: true },
-    { title: 'Inclusion Australia - Easy Read', url: 'https://www.inclusionaustralia.org.au/easy-read/', type: 'guide', source: 'Inclusion Australia', description: 'Easy Read principles, examples, and provider listing.', isAustralian: true, isFree: true },
+    { title: 'Inclusion Australia - Easy Read', url: 'https://www.inclusionaustralia.org.au/easy-read/', type: 'guide', source: 'Inclusion Australia', description: 'Easy Read principles, examples and provider listing.', isAustralian: true, isFree: true },
     { title: 'Vision Australia - Accessible Wayfinding', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Tactile mapping and accessible wayfinding consultancy.', isAustralian: true, isFree: false },
-    { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'tool', source: 'W3C', description: 'Standard for digital event maps, websites, and apps publishing accessibility info.', isAustralian: false, isFree: true },
+    { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'tool', source: 'W3C', description: 'Standard for digital event maps, websites and apps publishing accessibility info.', isAustralian: false, isFree: true },
     { title: 'WAVE Web Accessibility Tool', url: 'https://wave.webaim.org/', type: 'tool', source: 'WebAIM', description: 'Free WCAG checker for digital event maps and websites.', isAustralian: false, isFree: true },
   ],
   keywords: ['central register', 'wayfinding', 'event map', 'tactile map', 'Easy Read', 'real-time updates', 'propagation', 'per-venue access summary', 'WCAG 2.2'],
@@ -284,7 +284,7 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Day-of operations and post-event review for multi-venue events',
   coveredQuestionIds: ['7.1-DD-4', '7.1-DD-6', '7.1-DD-7', '7.1-DD-9', '7.1-DD-10'],
-  summary: 'Coordination plans matter only if day-of operations and post-event review hold up. Inter-venue transport must work for mobility-aid users, parking must be mapped at every venue, evacuation must be drilled with disability-access scenarios, complaints must funnel to one channel with authority to act, venue-level metrics must be captured, and aggregate review must feed next year and the DIAP.',
+  summary: 'Coordination plans matter only if day-of operations and post-event review hold up. Inter-venue transport must work for mobility-aid users, parking must be mapped at every venue, evacuation must be drilled with disability-access scenarios, complaints must funnel to one channel with authority to act, venue-level metrics must be captured and aggregate review must feed next year and the DIAP.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'A great coordination plan is invisible during a smoothly-run event. Its real test is the unexpected: a fire alarm during peak attendance, an accessible toilet flooding, a wheelchair user stranded mid-precinct because shuttles aren\'t actually accessible. These moments either reinforce or destroy years of audience trust. Aggregate post-event review is the only way the next event learns from this one.',
@@ -292,7 +292,7 @@ export const majorEventsHelp: HelpContent[] = [
   },
   tips: [
     { icon: 'Bus', text: 'Provide accessible inter-venue transport (event shuttles, accessible taxi partners, documented public transport).', priority: 1 },
-    { icon: 'ParkingSquare', text: 'Map accessible parking and drop-off at every venue with number of bays, distance, and surface type.', priority: 2 },
+    { icon: 'ParkingSquare', text: 'Map accessible parking and drop-off at every venue with number of bays, distance and surface type.', priority: 2 },
     { icon: 'Siren', text: 'Develop precinct-wide evacuation strategy with disability-access scenarios. Drill before opening.', priority: 3 },
     { icon: 'AlertCircle', text: 'Establish a single complaint channel with named owner who has authority to act.', priority: 4 },
     { icon: 'BarChart3', text: 'Capture venue-level accessibility metrics, compare year-over-year, share with venue managers.', priority: 5 },
@@ -302,8 +302,8 @@ export const majorEventsHelp: HelpContent[] = [
     title: 'Auditing your day-of and post-event accessibility',
     steps: [
       { text: 'Plan a journey from venue A to venue C as a wheelchair user using only your event\'s documented options. Does it work?' },
-      { text: 'Pull your accessible parking map for every venue. Is bay count, distance, and surface documented?' },
-      { text: 'Check the date of your last evacuation drill including disability-access scenarios. More than 12 months ago, or never?' },
+      { text: 'Pull your accessible parking map for every venue. Is bay count, distance and surface documented?' },
+      { text: 'Check the date of your last evacuation drill including disability-access scenarios. More than 12 months ago or never?' },
       { text: 'Find your accessibility complaint channel. Is it published prominently? Who owns it? Are response timeframes documented?' },
       { text: 'Pull your last event\'s accessibility metrics. Are they broken down by venue? Did you compare year-over-year?' },
       { text: 'Locate the post-event review document from your last event. Are the actions visible in this year\'s plan?' },
@@ -357,7 +357,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Define venue-level metrics: complaint count, audit score, satisfaction from disabled attendees, accessible service uptake.',
         'Capture during and after the event.',
         'Compare year-over-year for recurring events.',
-        'Run aggregate post-event review combining venue data, manager feedback, and a paid focus group with disabled attendees.',
+        'Run aggregate post-event review combining venue data, manager feedback and a paid focus group with disabled attendees.',
         'Output: precinct-wide report with venue scorecard and 3-5 priority actions for next year.',
         'Feed findings into DIAP and next year\'s minimum venue standard.',
         'Share findings publicly where appropriate.',
@@ -368,7 +368,7 @@ export const majorEventsHelp: HelpContent[] = [
     {
       businessType: 'event-venue',
       businessTypeLabel: 'Multi-day Major Festival',
-      scenario: 'Festival assumed audience would walk between venues. Wheelchair user, Blind users with guide dogs, and people with chronic fatigue all stranded mid-precinct on day one.',
+      scenario: 'Festival assumed audience would walk between venues. Wheelchair user, Blind users with guide dogs and people with chronic fatigue all stranded mid-precinct on day one.',
       solution: 'Hired an accessible shuttle service (8-seater wheelchair-equipped vehicles) running a fixed loop every 20 minutes. Partnered with local accessible taxi service. Documented routes in app and at HUB.',
       outcome: 'Full multi-venue program now usable by mobility-aid attendees. Shuttle uptake confirmed real demand. Retained for following years.',
       cost: '$24,000/festival',
@@ -421,10 +421,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Curating an accessibility programming track for major events',
   coveredQuestionIds: ['7.2-PC-3', '7.2-PC-4', '7.2-PC-5', '7.2-DD-7'],
-  summary: 'A curated accessibility programming track turns inclusion from compliance into a curatorial signature. Relaxed performances, audio-described shows, captioned and Auslan-interpreted programming sit alongside disability-led work and are marketed, budgeted, and evaluated together. Year-on-year tracking shows whether the offer is genuinely deepening.',
+  summary: 'A curated accessibility programming track turns inclusion from compliance into a curatorial signature. Relaxed performances, audio-described shows, captioned and Auslan-interpreted programming sit alongside disability-led work and are marketed, budgeted and evaluated together. Year-on-year tracking shows whether the offer is genuinely deepening.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Major events that treat accessibility programming as a curated track build audience trust, programming credibility, and partnership opportunities with disability-led companies. Events that treat it as one-off compliance produce the opposite signal: a single Auslan-interpreted show on a Tuesday matinee tells the disability community everything it needs to know about how it\'s valued.',
+    text: 'Major events that treat accessibility programming as a curated track build audience trust, programming credibility and partnership opportunities with disability-led companies. Events that treat it as one-off compliance produce the opposite signal: a single Auslan-interpreted show on a Tuesday matinee tells the disability community everything it needs to know about how it\'s valued.',
     statistic: { value: '3-5x', context: 'increase in disclosed-disability audience attendance reported by major Australian festivals after introducing a curated accessibility programming track (vs. one-off compliance shows).', source: 'Practitioner observation, major festivals 2023-2025' },
   },
   tips: [
@@ -440,7 +440,7 @@ export const majorEventsHelp: HelpContent[] = [
     steps: [
       { text: 'Count accessibility-formatted shows in your last event. How many of each format (relaxed, AD, captioned, Auslan)?' },
       { text: 'Pull the marketing of your last access-programmed show. Was it in the main program at the same prominence? In trailer videos? In email campaigns?' },
-      { text: 'Find your accessibility programming budget. Is it a named line, allocated, or absorbed into contingency?' },
+      { text: 'Find your accessibility programming budget. Is it a named line, allocated or absorbed into contingency?' },
       { text: 'List your current paid partnerships with disability-led arts organisations.' },
       { text: 'Compare programming numbers year over year. Is the track growing?' },
       { text: 'Check scheduling: what proportion of access-formatted shows fall at peak times vs off-peak?' },
@@ -492,8 +492,8 @@ export const majorEventsHelp: HelpContent[] = [
         'Define metrics: number of access-formatted shows per format, attendance at access-formatted events, partnerships with disability-led arts, accessibility-segmented audience satisfaction.',
         'Set 3-year growth targets.',
         'Report annually to leadership and in DIAP.',
-        'Share trends with funders, sponsors, and partner venues — they respond to demonstrable growth.',
-        'Adjust targets based on results, sector context, and funding availability.',
+        'Share trends with funders, sponsors and partner venues — they respond to demonstrable growth.',
+        'Adjust targets based on results, sector context and funding availability.',
       ],
     },
   ],
@@ -554,14 +554,14 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Communicating accessibility to artists and supporting inclusive performance design',
   coveredQuestionIds: ['7.2-DD-1', '7.2-DD-2', '7.2-DD-5', '7.2-DD-6', '7.2-DD-8'],
-  summary: 'Artists program inclusive performances when they understand what\'s expected and supported. A formal artist brief, written guidelines for inclusive design, programming briefs that include accessibility as standard, contractual commitments, paid consultancy for disabled artists, and PD opportunities together build sector capacity beyond a single event.',
+  summary: 'Artists program inclusive performances when they understand what\'s expected and supported. A formal artist brief, written guidelines for inclusive design, programming briefs that include accessibility as standard, contractual commitments, paid consultancy for disabled artists and PD opportunities together build sector capacity beyond a single event.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Most artists want to design inclusively but don\'t know how. They\'ve learned from rehearsal rooms that prioritised speed and convention over inclusion. Major events have unique leverage to shift this: every artist contract is an opportunity to brief, every programming brief sets expectations, every commission is a chance to embed inclusive thinking from concept stage. Done well, this builds long-term sector capacity beyond your event.',
     quote: { text: 'I had directed for fifteen years before any festival ever briefed me on accessibility. The first time it happened, the brief was a checklist on the last page of a contract. The second time, the festival sat me down with their access lead and a Deaf actor for an hour. That conversation changed how I work.', attribution: 'Director, mid-career theatre maker' },
   },
   tips: [
-    { icon: 'FileText', text: 'Send every artist a formal accessibility brief covering supported formats, expected commitments, and budget.', priority: 1 },
+    { icon: 'FileText', text: 'Send every artist a formal accessibility brief covering supported formats, expected commitments and budget.', priority: 1 },
     { icon: 'BookOpen', text: 'Develop written guidelines for inclusive performance design covering multiple disability perspectives.', priority: 2 },
     { icon: 'CheckSquare', text: 'Include accessibility as a standard line in every programming brief, not an "if applicable" addendum.', priority: 3 },
     { icon: 'PenSquare', text: 'Make accessibility commitments contractual, not verbal. Cover what each party provides and commits to.', priority: 4 },
@@ -571,7 +571,7 @@ export const majorEventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing artist communication and inclusive design support',
     steps: [
-      { text: 'Pull your last artist brief. Does it cover accessibility supports, expectations, content warnings, and budget?' },
+      { text: 'Pull your last artist brief. Does it cover accessibility supports, expectations, content warnings and budget?' },
       { text: 'Find your written guidelines for inclusive performance design. Are they comprehensive (sensory, cognitive, physical, mental health perspectives)? Co-designed with disability-led arts?' },
       { text: 'Review your last 5 programming briefs. Is accessibility a standard line in every one?' },
       { text: 'Pull 3 artist contracts at random. Are accessibility commitments specific and contractual?' },
@@ -635,7 +635,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Mid-scale Festival',
       scenario: 'Festival had no artist brief on accessibility. Each artist had to ask if they were curious; most weren\'t. Access provisions were inconsistent across the program.',
-      solution: 'Developed 4-page artist brief covering supported formats, contractual expectations, content warnings, and budget. Brief sent in every contract pack. First-time artists offered 30-min Q&A.',
+      solution: 'Developed 4-page artist brief covering supported formats, contractual expectations, content warnings and budget. Brief sent in every contract pack. First-time artists offered 30-min Q&A.',
       outcome: 'Number of artists proactively requesting Auslan or captioning tripled in year 1. Brief retained and refined annually.',
       cost: '$3,500',
       timeframe: '2 months',
@@ -669,11 +669,11 @@ export const majorEventsHelp: HelpContent[] = [
     },
   ],
   resources: [
-    { title: 'Arts Access Australia', url: 'https://artsaccessaustralia.org/', type: 'website', source: 'Arts Access Australia', description: 'Peak body for arts and disability. Sector resources, policy, and partnerships.', isAustralian: true, isFree: true },
+    { title: 'Arts Access Australia', url: 'https://artsaccessaustralia.org/', type: 'website', source: 'Arts Access Australia', description: 'Peak body for arts and disability. Sector resources, policy and partnerships.', isAustralian: true, isFree: true },
     { title: 'Australian Theatre of the Deaf', url: 'https://www.atod.org.au/', type: 'website', source: 'ATOD', description: 'Australian Deaf-led theatre company. Programming partnerships and Auslan-fluent expertise.', isAustralian: true, isFree: true },
     { title: 'Audio Description Australia', url: 'https://audiodescription.com.au/', type: 'website', source: 'Audio Description Australia', description: 'Audio description providers and training for theatrical work.', isAustralian: true, isFree: false },
     { title: 'Creative Australia - Inclusion Practice', url: 'https://creative.gov.au/', type: 'guide', source: 'Creative Australia', description: 'Sector guidance on inclusive practice in commissioning and programming.', isAustralian: true, isFree: true },
-    { title: 'Indelability Arts', url: 'https://indelabilityarts.com.au/', type: 'website', source: 'Indelability Arts', description: 'Australian disability-led arts company. Programming, mentoring, and consultancy.', isAustralian: true, isFree: false },
+    { title: 'Indelability Arts', url: 'https://indelabilityarts.com.au/', type: 'website', source: 'Indelability Arts', description: 'Australian disability-led arts company. Programming, mentoring and consultancy.', isAustralian: true, isFree: false },
   ],
   keywords: ['artist brief', 'inclusive performance design', 'programming brief', 'artist contract', 'paid consultancy', 'disabled artists', 'professional development', 'sector capacity'],
 },
@@ -687,10 +687,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Sensory programming, content warnings and partner venue accessibility',
   coveredQuestionIds: ['7.2-DD-3', '7.2-DD-4', '7.2-DD-9', '7.2-DD-10', '7.2-DD-11', '7.2-DD-12'],
-  summary: 'Sensory-aware programming combines well-designed relaxed performances, certified AD and captioning providers, detailed sensory information per show, peak-time scheduling for accessibility-formatted events, formal partner venue accessibility programming agreements, and outcome measurement. Together these turn good intentions into reliable practice.',
+  summary: 'Sensory-aware programming combines well-designed relaxed performances, certified AD and captioning providers, detailed sensory information per show, peak-time scheduling for accessibility-formatted events, formal partner venue accessibility programming agreements and outcome measurement. Together these turn good intentions into reliable practice.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'A relaxed performance designed without input from autistic audiences may use the right vocabulary but miss the things that matter (lighting transitions, vocal timing, exit availability). An AD generated by software is unintelligible. Sensory information that says only "contains strobe" doesn\'t help the audience member who needs to know how often, how long, and when. Partner venues left to interpret your access expectations will under-deliver. The detail work is the practice.',
+    text: 'A relaxed performance designed without input from autistic audiences may use the right vocabulary but miss the things that matter (lighting transitions, vocal timing, exit availability). An AD generated by software is unintelligible. Sensory information that says only "contains strobe" doesn\'t help the audience member who needs to know how often, how long and when. Partner venues left to interpret your access expectations will under-deliver. The detail work is the practice.',
     statistic: { value: '78%', context: 'of autistic adults surveyed about live performance attendance said published sensory information determined whether they would attend, with detail level being the most-cited factor.', source: 'Practitioner research with autistic adult audiences, Australian theatre 2024' },
   },
   tips: [
@@ -702,10 +702,10 @@ export const majorEventsHelp: HelpContent[] = [
     { icon: 'BarChart3', text: 'Measure attendance and satisfaction at access-programmed events; track year-over-year.', priority: 6 },
   ],
   howToCheck: {
-    title: 'Auditing sensory programming, content warnings, and partner venue practice',
+    title: 'Auditing sensory programming, content warnings and partner venue practice',
     steps: [
       { text: 'Pull your last relaxed performance design notes. Was input sourced from paid autistic or sensory-sensitive consultants?' },
-      { text: 'Check your last AD and captioning providers. Were they certified theatrical providers, volunteers, or auto-generated?' },
+      { text: 'Check your last AD and captioning providers. Were they certified theatrical providers, volunteers or auto-generated?' },
       { text: 'Pick a random show in your program. How detailed is the sensory information published? Could a sensory-sensitive audience member make an informed decision?' },
       { text: 'Audit scheduling: what proportion of access-formatted shows are at peak times vs off-peak (Tuesday matinee or last show of the run)?' },
       { text: 'Pull a partner venue agreement. Does it cover accessibility programming explicitly?' },
@@ -731,7 +731,7 @@ export const majorEventsHelp: HelpContent[] = [
       description: 'Engage certified theatrical providers for audio description and captioning.',
       resourceLevel: 'medium', costRange: '$2,000-8,000/show', timeRequired: '1-3 months per show', implementedBy: 'specialist', impact: 'significant',
       steps: [
-        'Engage Audio Description Australia, Vision Australia, The Captioning Studio, or Red Bee Media.',
+        'Engage Audio Description Australia, Vision Australia, The Captioning Studio or Red Bee Media.',
         'Budget benchmarks: AD writing $1,500-3,500/show; live AD performance $400-800; live captioning $800-2,000/show.',
         'For touring, AD scripts can be reused — invest once, deliver multiple times.',
         'Always have human review of any auto-generated content before public release.',
@@ -806,7 +806,7 @@ export const majorEventsHelp: HelpContent[] = [
     { title: 'Audio Description Australia', url: 'https://audiodescription.com.au/', type: 'website', source: 'Audio Description Australia', description: 'Theatrical audio description providers.', isAustralian: true, isFree: false },
     { title: 'The Captioning Studio', url: 'https://www.thecaptioningstudio.com/', type: 'website', source: 'The Captioning Studio', description: 'Live and pre-recorded captioning for live events and broadcast.', isAustralian: true, isFree: false },
     { title: 'Vision Australia - Audio Description', url: 'https://www.visionaustralia.org/', type: 'website', source: 'Vision Australia', description: 'Audio description services and training.', isAustralian: true, isFree: false },
-    { title: 'Autism Spectrum Australia (Aspect)', url: 'https://www.autismspectrum.org.au/', type: 'website', source: 'Aspect', description: 'Autism organisation with consultancy, training, and accessibility advisory.', isAustralian: true, isFree: false },
+    { title: 'Autism Spectrum Australia (Aspect)', url: 'https://www.autismspectrum.org.au/', type: 'website', source: 'Aspect', description: 'Autism organisation with consultancy, training and accessibility advisory.', isAustralian: true, isFree: false },
   ],
   keywords: ['relaxed performance', 'sensory programming', 'audio description', 'captioning', 'content warnings', 'sensory information', 'partner venue', 'capability uplift'],
 },
@@ -820,10 +820,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible online booking and ticketing flow',
   coveredQuestionIds: ['7.3-PC-1', '7.3-PC-3', '7.3-DD-1', '7.3-DD-3', '7.3-DD-4'],
-  summary: 'The online booking flow is one of the highest-stakes digital touchpoints. WCAG 2.2 AA compliance end-to-end, single-transaction multi-show companion ticketing, voluntary disclosure with privacy assurance, multiple accessible delivery formats, accessibility-aware refund policy, and vendor accessibility audit availability together turn ticketing into an inclusive system rather than a barrier.',
+  summary: 'The online booking flow is one of the highest-stakes digital touchpoints. WCAG 2.2 AA compliance end-to-end, single-transaction multi-show companion ticketing, voluntary disclosure with privacy assurance, multiple accessible delivery formats, accessibility-aware refund policy and vendor accessibility audit availability together turn ticketing into an inclusive system rather than a barrier.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'A booking flow that fails for screen reader users, keyboard-only users, or users with cognitive differences silently excludes large audiences. Failure at any single step (seat selector, payment, confirmation) blocks the entire transaction. Major events with multiple shows compound the cost: an accessible single-transaction multi-show companion booking can be the difference between attending three shows and attending none.',
+    text: 'A booking flow that fails for screen reader users, keyboard-only users or users with cognitive differences silently excludes large audiences. Failure at any single step (seat selector, payment, confirmation) blocks the entire transaction. Major events with multiple shows compound the cost: an accessible single-transaction multi-show companion booking can be the difference between attending three shows and attending none.',
     statistic: { value: '71%', context: 'of disabled audience members surveyed reported abandoning a ticket purchase at least once due to inaccessibility, with seat selection and payment the most common failure points.', source: 'WebAIM Australia accessibility research, 2024' },
   },
   tips: [
@@ -953,16 +953,16 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Box office staff training and physical accessibility',
   coveredQuestionIds: ['7.3-DD-5', '7.3-DD-6', '7.3-DD-8'],
-  summary: 'Box office is the front door of every event. Trained staff, physically accessible counters with hearing loops and accessible queues, accessible payment methods, and a documented in-person booking process for accessibility needs together turn box office from a barrier into a welcoming entry point.',
+  summary: 'Box office is the front door of every event. Trained staff, physically accessible counters with hearing loops and accessible queues, accessible payment methods and a documented in-person booking process for accessibility needs together turn box office from a barrier into a welcoming entry point.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Box office staff handle the first conversation many disabled audience members have with your event. Untrained staff often default to assumption, refusal, or deflection ("I\'ll need to check with my manager"). Trained staff handle access requests as routine. The same applies to physical access: a counter you can\'t reach over the top of, a hearing loop that doesn\'t work, a queue you can\'t fit a wheelchair through. These are practical barriers with practical fixes.',
+    text: 'Box office staff handle the first conversation many disabled audience members have with your event. Untrained staff often default to assumption, refusal or deflection ("I\'ll need to check with my manager"). Trained staff handle access requests as routine. The same applies to physical access: a counter you can\'t reach over the top of, a hearing loop that doesn\'t work, a queue you can\'t fit a wheelchair through. These are practical barriers with practical fixes.',
     quote: { text: 'I had to ask three staff members and a manager just to use my Companion Card. By the time my support worker and I got tickets we\'d missed the show we wanted. We don\'t bother going to that festival anymore.', attribution: 'Companion Card holder, regional Australia' },
   },
   tips: [
     { icon: 'GraduationCap', text: 'Train box office staff before each event, not just at onboarding.', priority: 1 },
     { icon: 'CreditCard', text: 'Specify EFTPOS terminals with tactile keypad and contactless payment.', priority: 2 },
-    { icon: 'Volume2', text: 'Ensure hearing loop is signed, regularly tested, and staff trained on use.', priority: 3 },
+    { icon: 'Volume2', text: 'Ensure hearing loop is signed, regularly tested and staff trained on use.', priority: 3 },
     { icon: 'FileText', text: 'Document the in-person booking process for accessibility needs; make it available at every workstation.', priority: 4 },
     { icon: 'Layout', text: 'Provide a lowered counter section (max 870mm) with knee clearance.', priority: 5 },
     { icon: 'Map', text: 'Ensure the queue is 1000mm minimum width and the path from entrance is step-free.', priority: 6 },
@@ -1076,7 +1076,7 @@ export const majorEventsHelp: HelpContent[] = [
   keywords: ['box office training', 'disability-confident customer service', 'counter accessibility', 'hearing loop', 'EFTPOS', 'accessible payment', 'in-person booking process'],
 },
 
-// ─── Entry 9: Pricing, allocations, and post-purchase communication ───
+// ─── Entry 9: Pricing, allocations and post-purchase communication ───
 {
   questionId: '7.3-PC-5',
   questionText: 'Accessible pricing options and post-purchase communication',
@@ -1085,11 +1085,11 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible pricing, seat allocation and post-purchase communication',
   coveredQuestionIds: ['7.3-PC-6', '7.3-DD-2', '7.3-DD-7', '7.3-DD-9', '7.3-DD-10'],
-  summary: 'Accessibility doesn\'t end at "they bought a ticket". Visible accessible pricing, accessible info at point of purchase, always-available phone booking, group support-worker booking, post-purchase access communication, and protected accessible seat allocations together complete the ticketing experience.',
+  summary: 'Accessibility doesn\'t end at "they bought a ticket". Visible accessible pricing, accessible info at point of purchase, always-available phone booking, group support-worker booking, post-purchase access communication and protected accessible seat allocations together complete the ticketing experience.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Audiences with disability often face additional financial barriers (transport, support workers, equipment). Pricing options that exist but are buried, support-worker booking that requires a phone call, accessible seats released to general sale a week before the show, and confirmation emails that don\'t cover access info: each is a small failure that compounds. Post-purchase communication especially is what closes the loop between booking and arrival.',
-    statistic: { value: '$3,500-6,500', context: 'estimated annual additional costs faced by an Australian adult with disability attending live events compared to a non-disabled attendee, including transport, support, equipment, and absorbing accessible-pricing gaps.', source: 'Practitioner research, Australian disability arts sector' },
+    text: 'Audiences with disability often face additional financial barriers (transport, support workers, equipment). Pricing options that exist but are buried, support-worker booking that requires a phone call, accessible seats released to general sale a week before the show and confirmation emails that don\'t cover access info: each is a small failure that compounds. Post-purchase communication especially is what closes the loop between booking and arrival.',
+    statistic: { value: '$3,500-6,500', context: 'estimated annual additional costs faced by an Australian adult with disability attending live events compared to a non-disabled attendee, including transport, support, equipment and absorbing accessible-pricing gaps.', source: 'Practitioner research, Australian disability arts sector' },
   },
   tips: [
     { icon: 'Eye', text: 'Surface accessible pricing options at point of selection, not buried in FAQs.', priority: 1 },
@@ -1176,7 +1176,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Major Festival',
       scenario: 'Accessible pricing existed but only listed in T&Cs. Disabled audiences phoning to ask if there were concessions; many missed the offer.',
-      solution: 'Surfaced concession, Companion Card-free, and support worker discount options at point of seat selection. Equal visual prominence to standard pricing.',
+      solution: 'Surfaced concession, Companion Card-free and support worker discount options at point of seat selection. Equal visual prominence to standard pricing.',
       outcome: 'Concession ticket sales doubled in year 1. Companion Card usage tripled. Phone enquiries about pricing dropped.',
       cost: '$3,500',
       timeframe: '2 months',
@@ -1193,7 +1193,7 @@ export const majorEventsHelp: HelpContent[] = [
     {
       businessType: 'event-venue',
       businessTypeLabel: 'Multi-day Festival',
-      scenario: 'Booking confirmation email contained ticket only. Audiences arrived not knowing about accessible parking, hearing loop in their seat row, or accessible toilet locations.',
+      scenario: 'Booking confirmation email contained ticket only. Audiences arrived not knowing about accessible parking, hearing loop in their seat row or accessible toilet locations.',
       solution: 'Built automated access communication email triggered 1 week before event, personalised to seat. Tested with assistive tech.',
       outcome: 'Day-of access enquiries to box office reduced 60%. Audience feedback identified as a top improvement.',
       cost: '$6,500',
@@ -1211,7 +1211,7 @@ export const majorEventsHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'Companion Card National', url: 'https://www.companioncard.gov.au/', type: 'website', source: 'Companion Card', description: 'National scheme; links to state programs for affiliate registration and concession integration.', isAustralian: true, isFree: true },
-    { title: 'National Relay Service', url: 'https://www.accesshub.gov.au/about-the-nrs', type: 'guide', source: 'Australian Government', description: 'Free relay service for Deaf, hard-of-hearing, and speech-impaired callers. Box office should accept.', isAustralian: true, isFree: true },
+    { title: 'National Relay Service', url: 'https://www.accesshub.gov.au/about-the-nrs', type: 'guide', source: 'Australian Government', description: 'Free relay service for Deaf, hard-of-hearing and speech-impaired callers. Box office should accept.', isAustralian: true, isFree: true },
     { title: 'AHRC - Accessible Communications', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'AHRC', description: 'Guidance on accessible post-purchase communication.', isAustralian: true, isFree: true },
     { title: 'NDIS Quality and Safeguards Commission', url: 'https://www.ndiscommission.gov.au/', type: 'website', source: 'NDIS Commission', description: 'Reference framework for accessible service delivery and complaint mechanisms.', isAustralian: true, isFree: true },
   ],
@@ -1227,10 +1227,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Volunteer system at scale: briefings, identification, kits and champion network',
   coveredQuestionIds: ['7.5-PC-2', '7.5-DD-1', '7.5-DD-2', '7.5-DD-3', '7.5-DD-4', '7.5-DD-5', '7.5-DD-6'],
-  summary: 'Major events run on hundreds of volunteers. Universal accessibility briefing, distinct identifying clothing for general staff and Access team, comprehensive volunteer kits, a distributed access champion network, paid-disabled-trainer-led training, daily access updates at briefings, volunteer welfare provisions, and active recruitment of disabled volunteers together turn volunteer operations into the human layer of accessibility.',
+  summary: 'Major events run on hundreds of volunteers. Universal accessibility briefing, distinct identifying clothing for general staff and Access team, comprehensive volunteer kits, a distributed access champion network, paid-disabled-trainer-led training, daily access updates at briefings, volunteer welfare provisions and active recruitment of disabled volunteers together turn volunteer operations into the human layer of accessibility.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Every volunteer at a major event is a customer-facing point of contact. Untrained volunteers default to assumption, refusal, or deflection ("I\'ll have to check"). Trained volunteers handle access as routine. The same principle scales to identification: an attendee in distress shouldn\'t have to identify the right staff member from a sea of indistinguishable lanyards. The access champion network distributes expertise so complex situations don\'t bottleneck through a single coordinator. And recruiting volunteers with disability brings authentic perspective into operations themselves.',
+    text: 'Every volunteer at a major event is a customer-facing point of contact. Untrained volunteers default to assumption, refusal or deflection ("I\'ll have to check"). Trained volunteers handle access as routine. The same principle scales to identification: an attendee in distress shouldn\'t have to identify the right staff member from a sea of indistinguishable lanyards. The access champion network distributes expertise so complex situations don\'t bottleneck through a single coordinator. And recruiting volunteers with disability brings authentic perspective into operations themselves.',
     statistic: { value: '83%', context: 'of disabled attendees surveyed at major Australian festivals reported encountering at least one untrained volunteer who couldn\'t answer an access question. Universal briefing was the most-requested operational improvement.', source: 'Practitioner research, Australian festivals 2023-2025' },
   },
   tips: [
@@ -1345,7 +1345,7 @@ export const majorEventsHelp: HelpContent[] = [
   resources: [
     { title: 'JobAccess - Customer Service Training', url: 'https://www.jobaccess.gov.au/employers', type: 'guide', source: 'Australian Government', description: 'Free training resources on disability-confident customer service.', isAustralian: true, isFree: true },
     { title: 'PWDA (People with Disability Australia)', url: 'https://pwd.org.au/', type: 'website', source: 'PWDA', description: 'National peak body. Disabled-led training delivery and consultancy.', isAustralian: true, isFree: false },
-    { title: 'Inclusion Australia', url: 'https://www.inclusionaustralia.org.au/', type: 'website', source: 'Inclusion Australia', description: 'Disabled-led organisation. Training, consultancy, and Easy Read services.', isAustralian: true, isFree: false },
+    { title: 'Inclusion Australia', url: 'https://www.inclusionaustralia.org.au/', type: 'website', source: 'Inclusion Australia', description: 'Disabled-led organisation. Training, consultancy and Easy Read services.', isAustralian: true, isFree: false },
     { title: 'JobAccess - Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'website', source: 'Australian Government', description: 'Free funding for workplace adjustments including for volunteer roles.', isAustralian: true, isFree: true },
     { title: 'Disability Employment Services (DES) Provider Locator', url: 'https://jobsearch.gov.au/serviceproviders', type: 'tool', source: 'Australian Government', description: 'Locate DES providers for active volunteer recruitment partnerships.', isAustralian: true, isFree: true },
   ],
@@ -1359,18 +1359,18 @@ export const majorEventsHelp: HelpContent[] = [
   moduleCode: '7.5',
   moduleGroup: 'major-events',
   diapCategory: 'operations-policy-procedure',
-  title: 'Inclusive evacuation, real-time access communications, and Auslan/caption rovers',
+  title: 'Inclusive evacuation, real-time access communications and Auslan/caption rovers',
   coveredQuestionIds: ['7.5-PC-4', '7.5-PC-6', '7.5-DD-11'],
   summary: 'Standard evacuation often fails for disabled attendees: PA-only alerts inaccessible to Deaf attendees, no accessible refuge, no team trained on disability-aware response. An inclusive evacuation process designed deliberately, drilled with disability-access scenarios before opening, supported by a real-time access communications channel and Auslan/caption rovers across the precinct, turns the most safety-critical operations into one of the most accessible.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'In an emergency, the most dangerous moment for any disabled attendee is the gap between alarm and assistance. Visual alerts paired with audible let Deaf attendees know what\'s happening. Accessible refuge points let mobility-aid users wait safely for trained assistance. Sensory-aware communication prevents panic spikes in already-overwhelmed attendees. None of these happen unless they\'re drilled before opening, and unless real-time access communications keep all relevant staff in coordination during the event itself.',
+    text: 'In an emergency, the most dangerous moment for any disabled attendee is the gap between alarm and assistance. Visual alerts paired with audible let Deaf attendees know what\'s happening. Accessible refuge points let mobility-aid users wait safely for trained assistance. Sensory-aware communication prevents panic spikes in already-overwhelmed attendees. None of these happen unless they\'re drilled before opening and unless real-time access communications keep all relevant staff in coordination during the event itself.',
     quote: { text: 'A fire alarm went off in venue C. Standard PA, no captions, no flashing strobes. I couldn\'t hear it; the crowd around me started moving and I followed. Halfway out a steward realised I needed help and brought me to a refuge point — but the refuge point wasn\'t briefed and we waited 18 minutes for evacuation assistance. That delay shouldn\'t happen.', attribution: 'Wheelchair-using attendee, multi-day major event' },
   },
   tips: [
     { icon: 'AlertTriangle', text: 'Pair every audible evacuation alert with a visual alert (flashing strobes, captioned digital signs).', priority: 1 },
     { icon: 'Shield', text: 'Designate accessible refuge points at every venue with trained response teams.', priority: 2 },
-    { icon: 'MessageCircle', text: 'Pre-script evacuation PA messages to be calm, clear, and predictable for sensory-overwhelmed attendees.', priority: 3 },
+    { icon: 'MessageCircle', text: 'Pre-script evacuation PA messages to be calm, clear and predictable for sensory-overwhelmed attendees.', priority: 3 },
     { icon: 'Users', text: 'Drill before opening with multiple disability-access scenarios.', priority: 4 },
     { icon: 'Smartphone', text: 'Establish a dedicated real-time access communications channel for venue leads and rovers.', priority: 5 },
     { icon: 'Hand', text: 'Deploy Auslan rovers and captioned screens at info points so emergency communication reaches Deaf attendees.', priority: 6 },
@@ -1379,7 +1379,7 @@ export const majorEventsHelp: HelpContent[] = [
     title: 'Auditing inclusive evacuation and emergency communications',
     steps: [
       { text: 'Pull your evacuation plan. Does it explicitly cover disability-access scenarios (wheelchair user upper level, Deaf attendee in audible-only venue, autistic attendee in sensory overload)?' },
-      { text: 'Date of last drill including disability-access scenarios? More than 12 months ago, or never?' },
+      { text: 'Date of last drill including disability-access scenarios? More than 12 months ago or never?' },
       { text: 'Walk to a refuge point at a random venue. Is it signed? Briefed staff present?' },
       { text: 'Find your real-time access communications channel. Who\'s in it? When was it last active?' },
       { text: 'Look for Auslan rovers at peak hours. Are they identifiable? Reachable via SMS?' },
@@ -1390,7 +1390,7 @@ export const majorEventsHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Inclusive evacuation processes designed and drilled',
-      description: 'Develop inclusive evacuation processes covering visual alerts, accessible refuge, sensory awareness, and trained support team. Drill before opening.',
+      description: 'Develop inclusive evacuation processes covering visual alerts, accessible refuge, sensory awareness and trained support team. Drill before opening.',
       resourceLevel: 'medium', costRange: '$10,000-30,000', timeRequired: '4-8 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'Visual alerts: install flashing strobes paired with audible alarms; captioned digital signs broadcast emergency messages.',
@@ -1495,10 +1495,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Special cohort planning: VIP, sponsor, press and accreditation accessibility',
   coveredQuestionIds: ['7.5-DD-7', '7.5-DD-8', '7.5-DD-9', '7.5-DD-10'],
-  summary: 'VIP, sponsor, press, and trade cohorts have distinct accessibility planning needs that standard audience access doesn\'t address. Sponsor activations require accessibility vetting before approval. Press areas need accessible camera positions and captioned releases. VIP hospitality needs accessible counter design. Accreditation/staff passes need large print and tactile elements. Each cohort has different work to do, and each opens or closes the event to disabled members.',
+  summary: 'VIP, sponsor, press and trade cohorts have distinct accessibility planning needs that standard audience access doesn\'t address. Sponsor activations require accessibility vetting before approval. Press areas need accessible camera positions and captioned releases. VIP hospitality needs accessible counter design. Accreditation/staff passes need large print and tactile elements. Each cohort has different work to do and each opens or closes the event to disabled members.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Major events plan VIP, sponsor, and press provisions in detail — but typically without accessibility planning. The result: disabled VIPs find hospitality designed only for standing patrons, disabled journalists can\'t cover the event, sponsor activations exclude wheelchair users, accreditation passes are unreadable for vision-impaired staff. Each gap forecloses a different aspect of event participation. Cohort accessibility planning treats each as the distinct work it is.',
+    text: 'Major events plan VIP, sponsor and press provisions in detail — but typically without accessibility planning. The result: disabled VIPs find hospitality designed only for standing patrons, disabled journalists can\'t cover the event, sponsor activations exclude wheelchair users, accreditation passes are unreadable for vision-impaired staff. Each gap forecloses a different aspect of event participation. Cohort accessibility planning treats each as the distinct work it is.',
     statistic: { value: '<5%', context: 'of major Australian events have specific accessibility provisions for press cohort according to recent practitioner audits, despite the existence of disabled journalists at every major Australian outlet.', source: 'Practitioner observation, 2024' },
   },
   tips: [
@@ -1628,7 +1628,7 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Sensory regulation infrastructure: rooms, kits, haptic devices and multisensory zones',
   coveredQuestionIds: ['7.6-PC-6', '7.6-DD-12', '7.6-DD-13', '7.6-DD-14', '7.6-DD-16'],
-  summary: 'Sensory accessibility at major events extends well beyond a "quiet room". A genuine offer combines: distributed quiet AND stimulating sensory regulation rooms, sensory-friendly attendance windows for the whole precinct, sensory kits for portable regulation, communication boards/AAC support, haptic devices for Deaf and immersive experience access, and multisensory zones as part of the artistic programming. Together these support diverse sensory needs across the event experience, not just at one location.',
+  summary: 'Sensory accessibility at major events extends well beyond a "quiet room". A genuine offer combines: distributed quiet AND stimulating sensory regulation rooms, sensory-friendly attendance windows for the whole precinct, sensory kits for portable regulation, communication boards/AAC support, haptic devices for Deaf and immersive experience access and multisensory zones as part of the artistic programming. Together these support diverse sensory needs across the event experience, not just at one location.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Sensory needs vary widely across attendees: some need to retreat from over-stimulation (autistic adults in crowded venues, PTSD around loud sound), some need stimulating sensory regulation (deep-pressure cushions, sensory tools), some experience sound through their body via haptics rather than ears (Deaf attendees at music events), some seek rich multisensory engagement (Blind audiences at multimedia events). One-size-fits-all sensory provision misses most of these needs. Pioneered at Ability Fest and increasingly standard at major events worldwide, this layered approach treats sensory access as the rich, varied work it is.',
@@ -1673,7 +1673,7 @@ export const majorEventsHelp: HelpContent[] = [
       resourceLevel: 'low', costRange: '$3,000-10,000', timeRequired: '2-4 months', implementedBy: 'staff', impact: 'significant',
       steps: [
         'Schedule windows in lower-attendance periods (opening hours, weekday afternoons) to compound the calming effect.',
-        'Brief all venues, vendors, and roving entertainment in advance.',
+        'Brief all venues, vendors and roving entertainment in advance.',
         'Communicate clearly in marketing — sensory-friendly windows attract families with neurodivergent kids and adults.',
         'Pair with extended sensory regulation room hours during these windows.',
         'Capture feedback and grow the offer year over year.',
@@ -1696,9 +1696,9 @@ export const majorEventsHelp: HelpContent[] = [
       description: 'Pilot haptic devices for Deaf attendees and programme multisensory zones as artistic content.',
       resourceLevel: 'medium', costRange: '$15,000-40,000', timeRequired: '6-9 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
-        'Source haptic devices: Subpac vests (~$500), Woojer wristbands (~$200), or hire pools from accessibility tech specialists.',
+        'Source haptic devices: Subpac vests (~$500), Woojer wristbands (~$200) or hire pools from accessibility tech specialists.',
         'Pair with Auslan and captioning — haptics complement, don\'t replace.',
-        'Train staff on device handover, fit, and audio-source connection.',
+        'Train staff on device handover, fit and audio-source connection.',
         'Promote in pre-event communication to Deaf community.',
         'Multisensory zones: co-design with disabled artists who work in multisensory practice.',
         'Position multisensory zones as artistic programming, not just accessibility provision.',
@@ -1763,14 +1763,14 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Service operations: queue management, food access, lost-and-found, rovers and support workers',
   coveredQuestionIds: ['7.6-DD-1', '7.6-DD-2', '7.6-DD-3', '7.6-DD-4', '7.6-DD-10', '7.6-DD-11', '7.6-DD-17'],
-  summary: 'Day-of service operations either remove or compound the burden of attending. Pre-order/queue avoidance, service animal facilities at scale, distributed rest seating, accessible food and drink standards across all vendors, multi-format lost-and-found, identifiable rover support team, accessible re-entry policy, and on-site support worker provisions together turn the routine of attending into a service that works.',
+  summary: 'Day-of service operations either remove or compound the burden of attending. Pre-order/queue avoidance, service animal facilities at scale, distributed rest seating, accessible food and drink standards across all vendors, multi-format lost-and-found, identifiable rover support team, accessible re-entry policy and on-site support worker provisions together turn the routine of attending into a service that works.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Long queues are a barrier for many disabled attendees. Distance without rest is a barrier. Inaccessible food vendors are a barrier. Lost-and-found that relies on PA-only is a barrier. Re-entry penalties are a barrier. Each "small" friction compounds over a multi-hour day. Service operations done well make the whole event accessible at the routine layer — the bit attendees encounter most often.',
-    statistic: { value: '4.2 hours', context: 'average extra time disabled attendees report needing at major events compared to non-disabled attendees, due to slower navigation, queue burden, lack of accessible facilities, and need for rest. Service operations design can reclaim much of this.', source: 'Practitioner research, Australian disabled audiences 2024' },
+    statistic: { value: '4.2 hours', context: 'average extra time disabled attendees report needing at major events compared to non-disabled attendees, due to slower navigation, queue burden, lack of accessible facilities and need for rest. Service operations design can reclaim much of this.', source: 'Practitioner research, Australian disabled audiences 2024' },
   },
   tips: [
-    { icon: 'ShoppingBag', text: 'Offer pre-order, app-based ordering, or seat delivery to reduce queue burden.', priority: 1 },
+    { icon: 'ShoppingBag', text: 'Offer pre-order, app-based ordering or seat delivery to reduce queue burden.', priority: 1 },
     { icon: 'Dog', text: 'Provide service animal relief areas at scale with water and clear signage.', priority: 2 },
     { icon: 'Armchair', text: 'Distribute rest seating every 30-50m on major routes between venues.', priority: 3 },
     { icon: 'Utensils', text: 'Apply accessible food standards across all vendors: dietary range, accessible service, pre-prepared options.', priority: 4 },
@@ -1784,7 +1784,7 @@ export const majorEventsHelp: HelpContent[] = [
       { text: 'Look for service animal relief areas. Are they signed? How far between?' },
       { text: 'Walk a long route between venues. Is there rest seating every 30-50m?' },
       { text: 'Pick a random food vendor. Can you read allergen info? Is the counter accessible? Are there pre-prepared options?' },
-      { text: 'Find your lost-and-found process. Is it communicated via captioned screens and app, or only PA?' },
+      { text: 'Find your lost-and-found process. Is it communicated via captioned screens and app or only PA?' },
       { text: 'Look for the rover team. Can you spot one within 5 minutes? How do you contact them?' },
     ],
     estimatedTime: '3-4 hours',
@@ -1792,7 +1792,7 @@ export const majorEventsHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Queue avoidance: pre-order, app, delivery',
-      description: 'Introduce queue-avoidance options across food, merchandise, and service points.',
+      description: 'Introduce queue-avoidance options across food, merchandise and service points.',
       resourceLevel: 'medium', costRange: '$8,000-30,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'App-based ordering with venue or seat collection works for most major events.',
@@ -1845,7 +1845,7 @@ export const majorEventsHelp: HelpContent[] = [
     {
       businessType: 'event-venue',
       businessTypeLabel: 'Multi-day Major Festival',
-      scenario: 'Food queues 30+ minutes at peak. Attendees with chronic fatigue, mobility limits, or sensory overwhelm gave up on food on long days.',
+      scenario: 'Food queues 30+ minutes at peak. Attendees with chronic fatigue, mobility limits or sensory overwhelm gave up on food on long days.',
       solution: 'Introduced festival app with venue-collection ordering. 12 vendors participated. Marketed as queue-avoidance for everyone, particularly accessible attendees.',
       outcome: 'App ordering popular across all attendees. Accessible attendees reported eating regularly throughout multi-day event for first time.',
       cost: '$28,000 (app integration + vendor onboarding)',
@@ -1897,7 +1897,7 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Wayfinding, information, familiarisation and accessible viewing across the precinct',
   coveredQuestionIds: ['7.6-PC-4', '7.6-PC-5', '7.6-DD-5', '7.6-DD-6', '7.6-DD-7', '7.6-DD-8', '7.6-DD-9', '7.6-DD-15'],
-  summary: 'Wayfinding and information operations span the layers attendees navigate: pre-event (familiarisation tours, social stories, sensory maps), entering and finding venues (coloured zoning, signed maps, hearing augmentation map), in-the-moment (QR-code info network, visual schedules, captioned screens), and accessing the show itself (accessible viewing platforms with line of sight and companion seating). Done well, attendees plan, navigate, and engage with confidence.',
+  summary: 'Wayfinding and information operations span the layers attendees navigate: pre-event (familiarisation tours, social stories, sensory maps), entering and finding venues (coloured zoning, signed maps, hearing augmentation map), in-the-moment (QR-code info network, visual schedules, captioned screens) and accessing the show itself (accessible viewing platforms with line of sight and companion seating). Done well, attendees plan, navigate and engage with confidence.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'For many disabled attendees, the gap between buying a ticket and arriving at the venue is filled with anxiety: what does the venue look like, can I navigate, what happens if my needs change. Familiarisation opportunities fill that gap. Wayfinding then needs to work in the moment: coloured zones for cognitive accessibility, QR codes for live info, hearing augmentation maps so hearing-aid users can plan venue choice. And when audiences arrive at the show, accessible viewing platforms with clear line of sight and companion seating let them experience it equivalently.',
@@ -1926,7 +1926,7 @@ export const majorEventsHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Multi-format familiarisation opportunities',
-      description: 'Offer in-person sensory previews, virtual tours, and per-venue social stories.',
+      description: 'Offer in-person sensory previews, virtual tours and per-venue social stories.',
       resourceLevel: 'medium', costRange: '$8,000-25,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'In-person sensory previews: schedule 1-2 days before event opens in low-stimulation conditions. Trained access staff guide.',
@@ -2032,14 +2032,14 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Performer-side built environment: stages, dressing rooms, green rooms and backstage kit',
   coveredQuestionIds: ['7.4-PC-2', '7.4-PC-3', '7.4-DD-3', '7.4-DD-10'],
-  summary: 'A festival can sell accessible audience experiences and still be inaccessible behind the curtain. Stages with steps-only access, dressing rooms a wheelchair user cannot enter, green rooms without quiet space, and standardised mic stands that exclude shorter or seated performers all gatekeep who can perform. Performer-side built environment is the foundation of disabled artist participation.',
+  summary: 'A festival can sell accessible audience experiences and still be inaccessible behind the curtain. Stages with steps-only access, dressing rooms a wheelchair user cannot enter, green rooms without quiet space and standardised mic stands that exclude shorter or seated performers all gatekeep who can perform. Performer-side built environment is the foundation of disabled artist participation.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'When stages are level-access, dressing rooms accessible, green rooms have rest and sensory regulation space, and equipment is adjustable by default, the pool of artists you can book widens immediately. The conversation shifts from "can we make this work for this artist?" to "any artist can take this stage". Major festivals lose disabled headliners every year because the offer reaches the agent and the rider gets quietly redirected.',
+    text: 'When stages are level-access, dressing rooms accessible, green rooms have rest and sensory regulation space and equipment is adjustable by default, the pool of artists you can book widens immediately. The conversation shifts from "can we make this work for this artist?" to "any artist can take this stage". Major festivals lose disabled headliners every year because the offer reaches the agent and the rider gets quietly redirected.',
     statistic: { value: '20%', context: 'of working professional musicians and performers identify as having a disability or chronic health condition. Most performance venues exclude a meaningful share of them by built environment alone.', source: 'Attitude is Everything UK State of Access reports' },
   },
   tips: [
-    { icon: 'Accessibility', text: 'Provide level access from green room to stage. Lifts, ramps, and accessible riser entry are non-negotiable for headline stages.', priority: 1 },
+    { icon: 'Accessibility', text: 'Provide level access from green room to stage. Lifts, ramps and accessible riser entry are non-negotiable for headline stages.', priority: 1 },
     { icon: 'Home', text: 'At least one dressing room per cluster meets accessibility standards: wide door, accessible toilet, lower counter, fitting space.', priority: 2 },
     { icon: 'Coffee', text: 'Green room includes a quiet/sensory regulation space separate from the social area, plus accessible refreshments at varied heights.', priority: 3 },
     { icon: 'Mic', text: 'Mic stands, monitors and instrument risers are adjustable by default. Standardise on flexibility, not on average height.', priority: 4 },
@@ -2049,7 +2049,7 @@ export const majorEventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing performer-side built environment',
     steps: [
-      { text: 'Walk the route a performer takes from car drop-off to stage. Note every step, narrow door, heavy door, or steep ramp.' },
+      { text: 'Walk the route a performer takes from car drop-off to stage. Note every step, narrow door, heavy door or steep ramp.' },
       { text: 'Open every dressing room. How many are wheelchair-accessible? Is there an accessible toilet within easy reach?' },
       { text: 'Sit in the green room. Where would a sensory-overloaded performer go to regulate? Is it private?' },
       { text: 'Check the mic stand and monitor wedge defaults. Can a seated or shorter performer use them without a stagehand intervention?' },
@@ -2067,7 +2067,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Engage an accessibility consultant to walk the performer route end-to-end.',
         'Identify and price every barrier: steps, narrow doors, heavy doors, steep ramps, riser access.',
         'Prioritise the headline stage and the stages with the highest ticketed audiences.',
-        'Procure portable ramps, modular accessible riser systems, and accessible flooring sleeves where permanent retrofit is not possible.',
+        'Procure portable ramps, modular accessible riser systems and accessible flooring sleeves where permanent retrofit is not possible.',
         'Document the new performer access arrangement and brief stage management.',
       ],
     },
@@ -2080,7 +2080,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Widen doors, lower counter and mirror, install grab rails, add adjustable fitting space.',
         'Confirm an accessible toilet sits within 30m of the room.',
         'Carve a quiet zone out of the green room (curtained corner, adjacent room, soft lighting).',
-        'Stock the quiet zone with low-stim seating, ear defenders, and dimmable lighting.',
+        'Stock the quiet zone with low-stim seating, ear defenders and dimmable lighting.',
       ],
     },
     {
@@ -2131,7 +2131,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Comedy Festival',
       scenario: 'Comedians used a shared green room. Autistic performers reported sensory overload before sets, affecting their performance. Some declined return bookings.',
-      solution: 'Curtained quiet corner with low lighting, ear defenders, and a "do not disturb" sign protocol. Briefed artist liaison on the system.',
+      solution: 'Curtained quiet corner with low lighting, ear defenders and a "do not disturb" sign protocol. Briefed artist liaison on the system.',
       outcome: 'Repeat bookings from autistic comedians up. Several mentioned the quiet zone publicly as a reason they returned.',
       cost: '$1,800',
       timeframe: '6 weeks',
@@ -2148,7 +2148,7 @@ export const majorEventsHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'Arts Access Australia', url: 'https://artsaccessaustralia.org/', type: 'website', source: 'Arts Access Australia', description: 'National peak body for arts and disability with practitioner guidance.', isAustralian: true, isFree: true },
-    { title: 'Attitude is Everything (UK) - Accessible Touring Charter', url: 'https://attitudeiseverything.org.uk/', type: 'guide', source: 'Attitude is Everything', description: 'Sector benchmark for accessible touring, dressing rooms, and stage access. Highly transferable to AU.', isAustralian: false, isFree: true },
+    { title: 'Attitude is Everything (UK) - Accessible Touring Charter', url: 'https://attitudeiseverything.org.uk/', type: 'guide', source: 'Attitude is Everything', description: 'Sector benchmark for accessible touring, dressing rooms and stage access. Highly transferable to AU.', isAustralian: false, isFree: true },
     { title: 'Accessible Arts NSW', url: 'https://www.aarts.net.au/', type: 'website', source: 'Accessible Arts', description: 'Resources on disabled artist mentoring and inclusive production.', isAustralian: true, isFree: true },
     { title: 'AS 1428.1 - Design for Access and Mobility', url: 'https://store.standards.org.au/', type: 'guide', source: 'Standards Australia', description: 'Standard for built environment access. Applies to backstage as well as front-of-house.', isAustralian: true, isFree: false },
     { title: 'IncludeAbility - Reasonable Adjustments', url: 'https://includeability.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on reasonable adjustments for performers and workers.', isAustralian: true, isFree: true },
@@ -2165,10 +2165,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Performer briefings, riders, paid consultancy and reasonable adjustments',
   coveredQuestionIds: ['7.4-PC-5', '7.4-PC-6', '7.4-DD-6', '7.4-DD-7', '7.4-DD-8'],
-  summary: 'A booking conversation that includes accessibility provisions before the contract signs is what makes disabled-artist participation routine instead of exceptional. Performer briefings, accessibility provisions baked into rider templates by default, paid consultancy from disabled performers, and a documented reasonable adjustments process turn a series of ad-hoc favours into a system disabled artists can rely on.',
+  summary: 'A booking conversation that includes accessibility provisions before the contract signs is what makes disabled-artist participation routine instead of exceptional. Performer briefings, accessibility provisions baked into rider templates by default, paid consultancy from disabled performers and a documented reasonable adjustments process turn a series of ad-hoc favours into a system disabled artists can rely on.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Disabled artists routinely report deciding whether to accept a gig based on whether the booker mentions access proactively. When access is in the offer letter, the venue has signalled they have done the work. When it is missing, the artist has to do unpaid emotional labour to find out whether the gig is viable, and many decline rather than expose themselves to the risk. Major events that book disabled artists at scale have one thing in common: they made access part of the booking conversation, not a separate negotiation.',
+    text: 'Disabled artists routinely report deciding whether to accept a gig based on whether the booker mentions access proactively. When access is in the offer letter, the venue has signalled they have done the work. When it is missing, the artist has to do unpaid emotional labour to find out whether the gig is viable and many decline rather than expose themselves to the risk. Major events that book disabled artists at scale have one thing in common: they made access part of the booking conversation, not a separate negotiation.',
     quote: { text: 'When access is in the rider template, I do not have to be the one bringing it up. That changes everything.', attribution: 'Wheelchair-using touring musician' },
   },
   tips: [
@@ -2183,7 +2183,7 @@ export const majorEventsHelp: HelpContent[] = [
     title: 'Auditing performer briefings, riders and adjustments',
     steps: [
       { text: 'Pull your standard performer offer email. Does it mention accessibility provisions? Is there a contact for access questions?' },
-      { text: 'Pull your rider template. Does it list dressing room, stage, monitor, and sensory regulation provisions by default?' },
+      { text: 'Pull your rider template. Does it list dressing room, stage, monitor and sensory regulation provisions by default?' },
       { text: 'Ask your booker: how do you find out if a performer needs reasonable adjustments? Is the answer "they have to bring it up"?' },
       { text: 'Did you pay a disabled performer consultant on this season\'s production decisions? At what rate?' },
       { text: 'Review reasonable adjustments granted last season. Were any declined? On what basis? Was the basis defensible?' },
@@ -2210,7 +2210,7 @@ export const majorEventsHelp: HelpContent[] = [
       resourceLevel: 'medium', costRange: '$3,000-15,000', timeRequired: '2-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'Identify the production decisions where a disabled performer\'s perspective is decisive (stage layout, scheduling, lighting, sound).',
-        'Source a paid consultant via Arts Access Australia, Accessible Arts, or peer recommendation.',
+        'Source a paid consultant via Arts Access Australia, Accessible Arts or peer recommendation.',
         'Confirm industry-rate fee. Do not ask for unpaid input.',
         'Bring the consultant in early enough to influence decisions, not just to validate them.',
         'Credit the consultant publicly. Disabled-led consulting is a credentialled discipline.',
@@ -2255,7 +2255,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'International Arts Festival',
       scenario: 'Festival programmed mostly non-disabled artists. When asked about access in production decisions, leadership cited a lack of disabled performer voices on staff.',
-      solution: 'Engaged a paid disabled performer consultant for the headline season. Industry rate. Influenced stage layout, scheduling, and lighting design.',
+      solution: 'Engaged a paid disabled performer consultant for the headline season. Industry rate. Influenced stage layout, scheduling and lighting design.',
       outcome: 'Three disabled headliners booked in the following season as a direct result of the production design changes.',
       cost: '$12,500',
       timeframe: '6 months',
@@ -2280,7 +2280,7 @@ export const majorEventsHelp: HelpContent[] = [
     },
   ],
   resources: [
-    { title: 'Arts Access Australia', url: 'https://artsaccessaustralia.org/', type: 'website', source: 'Arts Access Australia', description: 'Peak body for arts and disability. Consultants, mentoring, and policy.', isAustralian: true, isFree: true },
+    { title: 'Arts Access Australia', url: 'https://artsaccessaustralia.org/', type: 'website', source: 'Arts Access Australia', description: 'Peak body for arts and disability. Consultants, mentoring and policy.', isAustralian: true, isFree: true },
     { title: 'Accessible Arts NSW', url: 'https://www.aarts.net.au/', type: 'website', source: 'Accessible Arts', description: 'Disabled-artist mentoring and consulting in NSW.', isAustralian: true, isFree: true },
     { title: 'IncludeAbility - Reasonable Adjustments', url: 'https://includeability.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Practical guide to reasonable adjustments for workers and performers.', isAustralian: true, isFree: true },
     { title: 'JobAccess - Workplace Adjustments', url: 'https://www.jobaccess.gov.au/', type: 'website', source: 'Australian Government', description: 'National hub for workplace adjustment guidance and funding.', isAustralian: true, isFree: true },
@@ -2298,7 +2298,7 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Operational performer access during the show: transport, lighting, stage management, interviews, evacuation',
   coveredQuestionIds: ['7.4-DD-2', '7.4-DD-4', '7.4-DD-5', '7.4-DD-9', '7.4-DD-11'],
-  summary: 'The booking, the rider, and the dressing room only matter if the operational machine on the day delivers. Pre-show access checks, accessible talent transport across the full schedule, lighting design that does not exclude photosensitive performers, stage managers briefed on access needs, accessible press and interview spaces, and rehearsed performer evacuation processes are the operational layer that determines whether disabled artists actually get to perform safely.',
+  summary: 'The booking, the rider and the dressing room only matter if the operational machine on the day delivers. Pre-show access checks, accessible talent transport across the full schedule, lighting design that does not exclude photosensitive performers, stage managers briefed on access needs, accessible press and interview spaces and rehearsed performer evacuation processes are the operational layer that determines whether disabled artists actually get to perform safely.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Disabled performers consistently report that the gap between booking-stage promises and show-day reality is where access falls apart. The dressing room is accessible but the lift to it is broken at 4pm. The transport to the venue is accessible but the airport pickup is a sedan. The stage manager has not been told the artist is photosensitive. The evacuation drill omitted backstage. Operational performer access is the difference between an event that says it is inclusive and one that demonstrably is.',
@@ -2327,7 +2327,7 @@ export const majorEventsHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Performer-side pre-show access check',
-      description: 'Extend the pre-show access check to cover performer routes, dressing rooms, green rooms, and stage access.',
+      description: 'Extend the pre-show access check to cover performer routes, dressing rooms, green rooms and stage access.',
       resourceLevel: 'low', costRange: '$1,500-5,000', timeRequired: '4-8 weeks', implementedBy: 'staff', impact: 'quick-win',
       steps: [
         'Extend the existing pre-show access check template to add performer-side sections.',
@@ -2366,9 +2366,9 @@ export const majorEventsHelp: HelpContent[] = [
       description: 'Provision an accessible press and interview space; document and drill performer evacuation processes including backstage.',
       resourceLevel: 'medium', costRange: '$5,000-18,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
-        'Audit press and interview spaces for level entry, accessible seating, hearing augmentation, and lipreading-friendly lighting.',
+        'Audit press and interview spaces for level entry, accessible seating, hearing augmentation and lipreading-friendly lighting.',
         'Retrofit or relocate as needed.',
-        'Document a performer evacuation plan covering dressing rooms, green rooms, stage, and backstage transit.',
+        'Document a performer evacuation plan covering dressing rooms, green rooms, stage and backstage transit.',
         'Include scenarios: wheelchair user mid-show, performer in dressing room mid-prep, lift outage during the show.',
         'Drill annually. Brief stage managers on every drill outcome.',
       ],
@@ -2397,7 +2397,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Performing Arts Centre',
       scenario: 'Press interview room was up a flight of stairs. Wheelchair-using artist did all interviews in the bar. Photographers complained about lighting; outlets dropped the interview.',
-      solution: 'Press space relocated to ground floor with accessible entry, accessible seating, hearing augmentation, and lighting suitable for lipreading.',
+      solution: 'Press space relocated to ground floor with accessible entry, accessible seating, hearing augmentation and lighting suitable for lipreading.',
       outcome: 'Interview coverage retained for following season. Press team reported the new space was preferred by all artists, not just disabled ones.',
       cost: '$11,000 (relocation + retrofit)',
       timeframe: '5 months',
@@ -2406,7 +2406,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Major Festival',
       scenario: 'Evacuation drills covered front-of-house. Backstage was assumed to "follow staff". Wheelchair-using performer in a third-floor dressing room was unaccounted for in a small fire incident.',
-      solution: 'Evacuation plan rewritten to explicitly cover dressing rooms, green rooms, and stage. Performer-side PEEPs introduced. Drilled twice per season.',
+      solution: 'Evacuation plan rewritten to explicitly cover dressing rooms, green rooms and stage. Performer-side PEEPs introduced. Drilled twice per season.',
       outcome: 'Drill identified two refuge points needed retrofit; resolved before opening. No further uncovered scenarios.',
       cost: '$9,500',
       timeframe: '4 months',
@@ -2431,10 +2431,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Accessible camping pitches, amenities at scale, sleeping arrangements and night lighting',
   coveredQuestionIds: ['7.7-PC-2', '7.7-PC-5', '7.7-DD-1', '7.7-DD-2', '7.7-DD-10'],
-  summary: 'Multi-day events with on-site camping fail or succeed at access on three concrete factors: are the pitches genuinely accessible (level ground, stable surface, electricity nearby), are the amenities (showers, toilets) provisioned at scale to match demographic demand, and can a disabled camper sleep, move at night, and be supported by a paid carer in a way that does not feel like an afterthought? Ability Camping turns multi-day festivals into events disabled audiences can actually attend.',
+  summary: 'Multi-day events with on-site camping fail or succeed at access on three concrete factors: are the pitches genuinely accessible (level ground, stable surface, electricity nearby), are the amenities (showers, toilets) provisioned at scale to match demographic demand and can a disabled camper sleep, move at night and be supported by a paid carer in a way that does not feel like an afterthought? Ability Camping turns multi-day festivals into events disabled audiences can actually attend.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'A festival with strong daytime accessibility loses disabled audiences entirely if the camping is unworkable. Pitches on uneven ground exclude wheelchair users and people with chronic pain. A single accessible toilet for 200+ pitches creates queues, exposure, and indignity. No support worker provision means disabled campers either travel with a carer at unaffordable cost or stay home. Ability Fest demonstrated that a camping festival can be designed for disabled audiences from the start; most festivals retrofit poorly.',
+    text: 'A festival with strong daytime accessibility loses disabled audiences entirely if the camping is unworkable. Pitches on uneven ground exclude wheelchair users and people with chronic pain. A single accessible toilet for 200+ pitches creates queues, exposure and indignity. No support worker provision means disabled campers either travel with a carer at unaffordable cost or stay home. Ability Fest demonstrated that a camping festival can be designed for disabled audiences from the start; most festivals retrofit poorly.',
     quote: { text: 'I love the music. I cannot do four nights on grass with one accessible shower and no power for my CPAP. So I just stop going to camping festivals.', attribution: 'Disabled music fan, online sector survey' },
   },
   tips: [
@@ -2489,7 +2489,7 @@ export const majorEventsHelp: HelpContent[] = [
       resourceLevel: 'low', costRange: '$2,000-8,000', timeRequired: '1-3 months', implementedBy: 'staff', impact: 'significant',
       steps: [
         'Set policy: carer / support worker pitch is free or subsidised when accompanying a disabled camper.',
-        'Document evidence requirements (Companion Card, NDIS plan extract, GP letter, or self-declaration depending on tier).',
+        'Document evidence requirements (Companion Card, NDIS plan extract, GP letter or self-declaration depending on tier).',
         'Publish policy in pre-event communications and ticketed access info.',
         'Brief box office and access team on the process.',
         'Track uptake. Patterns inform scale-up.',
@@ -2497,7 +2497,7 @@ export const majorEventsHelp: HelpContent[] = [
     },
     {
       title: 'Equipment hire + night lighting',
-      description: 'Stock accessible camping equipment for hire, and light night routes from pitches to amenities.',
+      description: 'Stock accessible camping equipment for hire and light night routes from pitches to amenities.',
       resourceLevel: 'medium', costRange: '$8,000-25,000', timeRequired: '2-4 months', implementedBy: 'staff', impact: 'significant',
       steps: [
         'Source accessible camping equipment for hire: height-adjustable beds, accessible camping cots, accessible chairs, weather shelters.',
@@ -2565,10 +2565,10 @@ export const majorEventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Camping connectivity, transport, supplies and pre-event communications',
   coveredQuestionIds: ['7.7-PC-4', '7.7-DD-5', '7.7-DD-8'],
-  summary: 'Accessible camping is only useful if disabled campers can move between camping, venues, and supplies. Accessible camp-to-venue transport (golf carts, accessible buses, on-call assistance), an accessible camp shop or supply route, accessible wayfinding inside the camping zone, and pre-event communications that publish provisions in detail are the connective layer that turns accessible pitches into accessible attendance.',
+  summary: 'Accessible camping is only useful if disabled campers can move between camping, venues and supplies. Accessible camp-to-venue transport (golf carts, accessible buses, on-call assistance), an accessible camp shop or supply route, accessible wayfinding inside the camping zone and pre-event communications that publish provisions in detail are the connective layer that turns accessible pitches into accessible attendance.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Disabled campers consistently report that the camp-to-venue distance is the single most-underrated barrier at multi-day festivals. A 600-metre walk on grass is functionally inaccessible to a power chair user, a chronic pain user, and a Blind user without wayfinding. A camp shop they cannot reach effectively traps them at their pitch. Pre-event communications that mention "accessibility provisions available" without listing them give disabled campers no basis to plan.',
+    text: 'Disabled campers consistently report that the camp-to-venue distance is the single most-underrated barrier at multi-day festivals. A 600-metre walk on grass is functionally inaccessible to a power chair user, a chronic pain user and a Blind user without wayfinding. A camp shop they cannot reach effectively traps them at their pitch. Pre-event communications that mention "accessibility provisions available" without listing them give disabled campers no basis to plan.',
     statistic: { value: '60%', context: 'of disabled festivalgoers in sector surveys cite camp-to-venue transport and supply access as a top-three barrier to multi-day camping attendance, ahead of pitch surface or amenity provisions.', source: 'Sector practitioner reports' },
   },
   tips: [
@@ -2582,7 +2582,7 @@ export const majorEventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing camping connectivity, transport and supplies',
     steps: [
-      { text: 'Map the route from accessible pitches to each venue. Time it for a power chair, a manual chair, and a chronic pain user.' },
+      { text: 'Map the route from accessible pitches to each venue. Time it for a power chair, a manual chair and a chronic pain user.' },
       { text: 'Pull the camp-to-venue transport schedule. Does it cover all event hours? Is it actually accessible (vehicle and route)?' },
       { text: 'Walk to the camp shop from accessible pitches. Could a wheelchair user reach it? Could a Blind camper find it?' },
       { text: 'Walk the camping wayfinding at night. Is signage visible? Are key junctions audible?' },
@@ -2598,8 +2598,8 @@ export const majorEventsHelp: HelpContent[] = [
       resourceLevel: 'medium', costRange: '$15,000-50,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'Forecast transport demand based on accessible-camping bookings.',
-        'Procure accessible vehicles: accessible buses, golf cart shuttles, or on-call assistance vans.',
-        'Set a route covering camping, every venue, and accessible amenity hubs.',
+        'Procure accessible vehicles: accessible buses, golf cart shuttles or on-call assistance vans.',
+        'Set a route covering camping, every venue and accessible amenity hubs.',
         'Run across all event hours including post-show return.',
         'Brief drivers on disability-confident assistance.',
         'Publish schedule in pre-event materials and via on-site QR.',
@@ -2607,7 +2607,7 @@ export const majorEventsHelp: HelpContent[] = [
     },
     {
       title: 'Accessible camp shop + delivery',
-      description: 'Stand up an accessible camp shop with pre-order, delivery to accessible pitches, and accessible payment options.',
+      description: 'Stand up an accessible camp shop with pre-order, delivery to accessible pitches and accessible payment options.',
       resourceLevel: 'medium', costRange: '$8,000-25,000', timeRequired: '2-5 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'Site the camp shop on a level-access route from accessible pitches.',
@@ -2619,7 +2619,7 @@ export const majorEventsHelp: HelpContent[] = [
     },
     {
       title: 'Wayfinding inside the camping zone',
-      description: 'Install accessible wayfinding inside the camping zone covering visual, tactile, and audio cues.',
+      description: 'Install accessible wayfinding inside the camping zone covering visual, tactile and audio cues.',
       resourceLevel: 'medium', costRange: '$5,000-20,000', timeRequired: '2-4 months', implementedBy: 'specialist', impact: 'significant',
       steps: [
         'Map key routes inside camping: pitch-to-amenity, pitch-to-shop, pitch-to-transport, pitch-to-medical.',
@@ -2627,7 +2627,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Add tactile markers at key decision points.',
         'Add audio cues (low-level beacons or QR-triggered audio) at major junctions.',
         'Light all routes after dark.',
-        'Test with Blind, low vision, and wheelchair-using campers pre-event.',
+        'Test with Blind, low vision and wheelchair-using campers pre-event.',
       ],
     },
     {
@@ -2639,7 +2639,7 @@ export const majorEventsHelp: HelpContent[] = [
         'Rewrite with specific provisions: pitch surface, amenity ratio, transport schedule, equipment hire, carer policy.',
         'Stand up a single accessible-camping contact number and email.',
         'Brief the contact owner on accessible-camping policies and provisions.',
-        'Publish in pre-event email, on the website, and in the ticketed access info pack.',
+        'Publish in pre-event email, on the website and in the ticketed access info pack.',
       ],
     },
   ],
@@ -2683,7 +2683,7 @@ export const majorEventsHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'IncludeAbility - Accessible Events Toolkit', url: 'https://includeability.gov.au/', type: 'guide', source: 'Australian Human Rights Commission', description: 'Practical guidance on accessible events and pre-event communications.', isAustralian: true, isFree: true },
-    { title: 'Vision Australia - Wayfinding', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Tactile, audio, and visual wayfinding design.', isAustralian: true, isFree: false },
+    { title: 'Vision Australia - Wayfinding', url: 'https://www.visionaustralia.org/', type: 'guide', source: 'Vision Australia', description: 'Tactile, audio and visual wayfinding design.', isAustralian: true, isFree: false },
     { title: 'AS 1428.4.1 - Tactile Wayfinding', url: 'https://store.standards.org.au/', type: 'guide', source: 'Standards Australia', description: 'Mandatory standard for tactile wayfinding indicators.', isAustralian: true, isFree: false },
     { title: 'Inclusion Australia - Easy Read', url: 'https://www.inclusionaustralia.org.au/easy-read/', type: 'guide', source: 'Inclusion Australia', description: 'Easy Read principles for cognitive accessibility in pre-event materials.', isAustralian: true, isFree: true },
     { title: 'Companion Card Australia', url: 'https://www.companioncard.org.au/', type: 'website', source: 'Companion Card Australia', description: 'National scheme for companion-entry policies.', isAustralian: true, isFree: true },
@@ -2712,7 +2712,7 @@ export const majorEventsHelp: HelpContent[] = [
     { icon: 'Moon', text: 'Designate a quiet camping zone away from main stages and amenity high-traffic. Sensory-considered lighting and noise.', priority: 3 },
     { icon: 'Utensils', text: 'Accessible cooking facilities: lower benches, stable surfaces, accessible safety equipment.', priority: 4 },
     { icon: 'Heart', text: 'Buddy / check-in system for solo disabled campers. Daily wellness check, named contact, opt-in escalation.', priority: 5 },
-    { icon: 'AlertTriangle', text: 'Camping-specific evacuation process documented and drilled. Cover night-time, mobility-impaired, and sensory-sensitive scenarios.', priority: 6 },
+    { icon: 'AlertTriangle', text: 'Camping-specific evacuation process documented and drilled. Cover night-time, mobility-impaired and sensory-sensitive scenarios.', priority: 6 },
   ],
   howToCheck: {
     title: 'Auditing medical, sensory and welfare provisions',
@@ -2741,7 +2741,7 @@ export const majorEventsHelp: HelpContent[] = [
     },
     {
       title: 'Quiet camping zone + accessible cooking',
-      description: 'Designate a sensory-considered quiet camping zone, and provide accessible cooking facilities.',
+      description: 'Designate a sensory-considered quiet camping zone and provide accessible cooking facilities.',
       resourceLevel: 'medium', costRange: '$8,000-25,000', timeRequired: '2-5 months', implementedBy: 'staff', impact: 'significant',
       steps: [
         'Map sound and light pollution from main stages and amenity hubs.',
@@ -2811,7 +2811,7 @@ export const majorEventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Major Outdoor Event',
       scenario: 'Solo wheelchair-using camper had a medical incident in their tent overnight. Discovered next morning by a friend. No system would have caught it.',
-      solution: 'Stood up opt-in buddy / check-in system with daily wellness check, named contact, and escalation triggers. Drilled in pre-event training.',
+      solution: 'Stood up opt-in buddy / check-in system with daily wellness check, named contact and escalation triggers. Drilled in pre-event training.',
       outcome: 'Two missed check-ins in following season triggered escalation; both resolved before becoming serious. System now standard.',
       cost: '$5,500',
       timeframe: '3 months',

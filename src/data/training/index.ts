@@ -29,7 +29,7 @@ export const TRAINING_CATEGORIES: TrainingCategoryConfig[] = [
   {
     id: 'accessible-communications',
     label: 'Accessible Communications',
-    description: 'Create accessible documents, signage, and communications',
+    description: 'Create accessible documents, signage and communications',
     icon: 'message-circle',
     color: '#1d4ed8',
   },
@@ -43,7 +43,7 @@ export const TRAINING_CATEGORIES: TrainingCategoryConfig[] = [
   {
     id: 'digital-accessibility',
     label: 'Digital Accessibility',
-    description: 'Web, app, and digital content accessibility',
+    description: 'Web, app and digital content accessibility',
     icon: 'monitor',
     color: '#b45309',
   },

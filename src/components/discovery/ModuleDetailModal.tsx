@@ -2,7 +2,7 @@
  * Module Detail Modal
  *
  * Displays detailed information about a module to help users understand
- * what's covered, why it matters, and who benefits.
+ * what's covered, why it matters and who benefits.
  *
  * Accessibility features:
  * - Escape key to close
@@ -46,7 +46,7 @@ export function ModuleDetailModal({
   // Handle close - manages history state
   const handleClose = useCallback(() => {
     if (!closingFromPopstate.current && !historyHandled.current) {
-      // User closed via X button, Escape, or overlay click - go back in history
+      // User closed via X button, Escape or overlay click - go back in history
       historyHandled.current = true;
       window.history.back();
     }

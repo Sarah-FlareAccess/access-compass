@@ -3,7 +3,7 @@
  *
  * Cohort-level reporting for an Authority program. Loads existing snapshots
  * from program_reports, generates new ones by calling the SECURITY DEFINER
- * RPCs added in migration 029, and aggregates priorities/strengths in JS
+ * RPCs added in migration 029 and aggregates priorities/strengths in JS
  * from the per-business module summaries.
  *
  * Privacy contract (see migration 015 + 029):
@@ -61,7 +61,7 @@ interface ModuleSummaryJson {
 
 // A DIAP-category theme derived from an aggregate's source modules, so actions
 // and strengths can be grouped by area (e.g. "Information & Communication").
-// Optional: absent on snapshots generated before theming, and treated as
+// Optional: absent on snapshots generated before theming and treated as
 // "Other" by the report.
 export interface AggregateTheme {
   key: string;
@@ -137,7 +137,7 @@ export interface ProgramReportPayload {
   topAreasToExplore: AreaToExploreAggregate[];
   methodology: string;
   /** Statutory framework domain roll-up. Absent on snapshots generated before
-   *  the Statutory Plan Alignment feature, or when jurisdiction has no mappings. */
+   *  the Statutory Plan Alignment feature or when jurisdiction has no mappings. */
   outcomes?: OutcomesSnapshot;
   /** Before/after readiness improvement for the re-assessed subset. Absent when
    *  migration 037 is not applied or no business has re-assessed. */
@@ -165,7 +165,7 @@ export interface ProgramReportRow {
 const METHODOLOGY_NOTE =
   'Program reports aggregate completion and confidence bands across enrolled businesses. ' +
   'Priority actions and strengths are generated narrative from each business assessment, not raw question responses. ' +
-  'Individual responses, evidence files, and DIAP details remain private to each business.';
+  'Individual responses, evidence files and DIAP details remain private to each business.';
 
 // =====================================================
 // Hook

@@ -192,7 +192,7 @@ export default function AuthorityProgramReport() {
         <div className="authority-empty">
           <h2>No reports yet</h2>
           <p>
-            Generate a report to capture a snapshot of cohort progress, top priority actions, and
+            Generate a report to capture a snapshot of cohort progress, top priority actions and
             strengths across the businesses enrolled in this program. Snapshots are saved so you can
             compare quarter-on-quarter.
           </p>
@@ -219,7 +219,7 @@ export default function AuthorityProgramReport() {
 function describeCohortMaturity(strongPct: number): string {
   if (strongPct >= 60) return 'a strong cohort overall, with most modules assessed at high confidence. Use the strength patterns below as case studies for the rest of the cohort.';
   if (strongPct >= 40) return 'a developing cohort with good foundations and visible areas for improvement. Focus shared support on the modules with high needs-work proportions.';
-  if (strongPct >= 20) return 'an emerging cohort with significant collective opportunity. Sector-wide training, shared resources, and group programs will accelerate progress on the top priority actions below.';
+  if (strongPct >= 20) return 'an emerging cohort with significant collective opportunity. Sector-wide training, shared resources and group programs will accelerate progress on the top priority actions below.';
   return 'a cohort at the start of its journey. Capacity-building investment now will pay off in measurable progress within 6 to 12 months.';
 }
 
@@ -389,7 +389,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </div>
         <div className="report-maturity__body">
           <h2>Network Accessibility Maturity</h2>
-          <p>A single, trackable measure of the cohort&rsquo;s accessibility, drawn from all {confidence.total} assessment{confidence.total !== 1 ? 's' : ''} captured. Put it in board papers and annual reports, and watch it move as the network improves.</p>
+          <p>A single, trackable measure of the cohort&rsquo;s accessibility, drawn from all {confidence.total} assessment{confidence.total !== 1 ? 's' : ''} captured. Put it in board papers and annual reports and watch it move as the network improves.</p>
           <p className="report-maturity__method">
             <strong>How it&rsquo;s calculated:</strong> each assessment scores Strong = 100, Mixed = 50, Needs work = 0; the score is the cohort average. It measures accessibility maturity, not how many businesses have responded.
           </p>

@@ -173,7 +173,7 @@ export function ModuleSummaryCard({
               <BarChart3 size={20} aria-hidden="true" />
               <div>
                 <strong>View report</strong>
-                <span>See detailed findings, recommendations, and compliance references for this module.</span>
+                <span>See detailed findings, recommendations and compliance references for this module.</span>
               </div>
             </Link>
             <Link to="/diap" className="summary-next-card">

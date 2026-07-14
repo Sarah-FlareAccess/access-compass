@@ -2,7 +2,7 @@
  * RunComparisonView Component
  *
  * Displays a detailed comparison between two assessment runs,
- * showing improvements, regressions, and overall progress trends.
+ * showing improvements, regressions and overall progress trends.
  */
 
 import type { RunComparison } from '../hooks/useModuleProgress';

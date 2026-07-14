@@ -55,7 +55,7 @@ export const PRIORITY_LEGEND: { level: Priority; label: string; description: str
   {
     level: 'medium',
     label: 'Medium',
-    description: 'High-impact improvements that significantly affect the experience of people with disability, and items that need further investigation to determine their current state.',
+    description: 'High-impact improvements that significantly affect the experience of people with disability and items that need further investigation to determine their current state.',
   },
   {
     level: 'low',

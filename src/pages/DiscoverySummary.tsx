@@ -277,7 +277,7 @@ export default function DiscoverySummary() {
         {/* Header */}
         <div className="summary-header">
           <h1>Business profile</h1>
-          <p>Your business setup, customer journey, and accessibility focus areas</p>
+          <p>Your business setup, customer journey and accessibility focus areas</p>
         </div>
 
         {/* Snapshot card */}
@@ -400,7 +400,7 @@ export default function DiscoverySummary() {
                     />
                     <div className="assessment-card-content">
                       <span className="assessment-card-title">Ongoing business operations</span>
-                      <span className="assessment-card-desc">Your venue, services, website, and day-to-day customer experience</span>
+                      <span className="assessment-card-desc">Your venue, services, website and day-to-day customer experience</span>
                     </div>
                   </label>
                   <label className={`assessment-card ${businessContext.assessmentType === 'event' ? 'selected' : ''}`}>
@@ -412,7 +412,7 @@ export default function DiscoverySummary() {
                     />
                     <div className="assessment-card-content">
                       <span className="assessment-card-title">🎪 Standalone event assessment</span>
-                      <span className="assessment-card-desc">A specific event like a festival, conference, concert, market, or function</span>
+                      <span className="assessment-card-desc">A specific event like a festival, conference, concert, market or function</span>
                     </div>
                   </label>
                   <label className={`assessment-card ${businessContext.assessmentType === 'both' ? 'selected' : ''}`}>
@@ -424,7 +424,7 @@ export default function DiscoverySummary() {
                     />
                     <div className="assessment-card-content">
                       <span className="assessment-card-title">🏢 + 🎪 Business Operations & Event</span>
-                      <span className="assessment-card-desc">Assess both your ongoing operations AND a specific event. Choose this if your business also hosts or runs events like markets, festivals, conferences, or functions.</span>
+                      <span className="assessment-card-desc">Assess both your ongoing operations AND a specific event. Choose this if your business also hosts or runs events like markets, festivals, conferences or functions.</span>
                     </div>
                   </label>
                 </div>
@@ -442,7 +442,7 @@ export default function DiscoverySummary() {
 
               {/* Business Context Questions */}
               {[
-                { key: 'hasPhysicalVenue', label: 'Do customers attend physical locations with you? (your own venue, partner sites, public spaces, or tour meeting points)' },
+                { key: 'hasPhysicalVenue', label: 'Do customers attend physical locations with you? (your own venue, partner sites, public spaces or tour meeting points)' },
                 { key: 'hasOnlinePresence', label: 'Do you have an online presence?' },
                 { key: 'offersExperiences', label: 'Do you offer tours, classes, activities or guided experiences?' },
               ].map(({ key, label }) => (

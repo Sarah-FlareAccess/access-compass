@@ -161,8 +161,8 @@ const ISSUE_EXPLANATIONS: Record<string, {
   // Contrast errors
   'contrast': {
     plainLanguage: 'Text that is hard to read due to low contrast',
-    whyItMatters: 'Users with low vision, colour blindness, or reading in bright light cannot read the text.',
-    howToFix: 'Make text darker on light backgrounds, or lighter on dark backgrounds. Use a contrast checker tool.',
+    whyItMatters: 'Users with low vision, colour blindness or reading in bright light cannot read the text.',
+    howToFix: 'Make text darker on light backgrounds or lighter on dark backgrounds. Use a contrast checker tool.',
     example: 'Change light grey text (#999) on white to dark grey (#333) - this makes a big difference!'
   },
   'contrast_aa': {
@@ -194,13 +194,13 @@ const ISSUE_EXPLANATIONS: Record<string, {
   'title_redundant': {
     plainLanguage: 'Link title repeats the link text',
     whyItMatters: 'Screen reader users hear the same thing twice.',
-    howToFix: 'Remove the title attribute if it matches the link text, or add additional useful info.',
+    howToFix: 'Remove the title attribute if it matches the link text or add additional useful info.',
     example: 'Link text "Contact Us" does not need title="Contact Us"'
   },
   'noscript': {
     plainLanguage: 'Content may not work without JavaScript',
     whyItMatters: 'Some users browse with JavaScript disabled for security or performance.',
-    howToFix: 'Ensure essential content is available without JavaScript, or provide alternatives.',
+    howToFix: 'Ensure essential content is available without JavaScript or provide alternatives.',
     example: 'Show a message with your phone number if the booking widget requires JavaScript'
   },
   'heading_missing': {
@@ -218,7 +218,7 @@ const ISSUE_EXPLANATIONS: Record<string, {
   'link_redundant': {
     plainLanguage: 'Multiple links go to the same place',
     whyItMatters: 'Users hear the same link announced multiple times, which is confusing.',
-    howToFix: 'Combine adjacent links into a single link, or give each a distinct purpose.',
+    howToFix: 'Combine adjacent links into a single link or give each a distinct purpose.',
     example: 'Instead of separate image and text links to the same page, wrap both in one link'
   },
   'link_pdf': {
@@ -579,7 +579,7 @@ function generateMockWaveResult(url: string): WaveAnalysisResult {
   }
 
   if (contrastCount > 0) {
-    improvements.push(`Improve colour contrast in ${contrastCount} place(s) - make text darker on light backgrounds, or lighter on dark backgrounds.`);
+    improvements.push(`Improve colour contrast in ${contrastCount} place(s) - make text darker on light backgrounds or lighter on dark backgrounds.`);
   }
 
   if (structureCount <= 5) {

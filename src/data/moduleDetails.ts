@@ -2,7 +2,7 @@
  * Extended Module Details
  *
  * Provides additional context for each module to help users understand
- * what's covered, why it matters, and who benefits.
+ * what's covered, why it matters and who benefits.
  */
 
 export interface ModuleDetail {
@@ -27,7 +27,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Using photos and virtual tours',
       'Keeping information up to date',
     ],
-    whyMatters: 'Many people with disability research venues before visiting. Without clear information, they may assume your business isn\'t accessible and go elsewhere. Providing pre-visit information reduces anxiety, prevents wasted trips, and shows you welcome everyone.\n\nIn Australia, 1 in 5 people have a disability, and they influence the spending decisions of family and friends. When someone with disability finds clear accessibility information on your website, they don\'t just visit themselves. They recommend you to others. Conversely, a lack of information often means a lost customer who never even contacts you to ask.',
+    whyMatters: 'Many people with disability research venues before visiting. Without clear information, they may assume your business isn\'t accessible and go elsewhere. Providing pre-visit information reduces anxiety, prevents wasted trips and shows you welcome everyone.\n\nIn Australia, 1 in 5 people have a disability and they influence the spending decisions of family and friends. When someone with disability finds clear accessibility information on your website, they don\'t just visit themselves. They recommend you to others. Conversely, a lack of information often means a lost customer who never even contacts you to ask.',
     whoHelps: [
       'People who use wheelchairs or mobility aids',
       'People with chronic pain or fatigue who need to plan rest breaks',
@@ -38,7 +38,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '1.2': {
     id: '1.2',
-    overview: 'This module covers the fundamentals of making your website accessible to everyone, including people who use screen readers, keyboard navigation, or have visual impairments.',
+    overview: 'This module covers the fundamentals of making your website accessible to everyone, including people who use screen readers, keyboard navigation or have visual impairments.',
     topics: [
       'Text alternatives for images (alt text)',
       'Colour contrast and readability',
@@ -47,7 +47,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Mobile accessibility',
       'Testing your website with accessibility tools',
     ],
-    whyMatters: 'Your website is often the first interaction customers have with your business. If it\'s not accessible, you\'re excluding millions of Australians with disability from finding information, making bookings, or purchasing from you.\n\nWeb accessibility isn\'t just ethical. It\'s increasingly a legal requirement. The Disability Discrimination Act applies to websites, and complaints are rising. Beyond compliance, accessible websites often perform better in search rankings, work better on mobile devices, and provide a better experience for all users, including older people and those with temporary impairments.',
+    whyMatters: 'Your website is often the first interaction customers have with your business. If it\'s not accessible, you\'re excluding millions of Australians with disability from finding information, making bookings or purchasing from you.\n\nWeb accessibility isn\'t just ethical. It\'s increasingly a legal requirement. The Disability Discrimination Act applies to websites and complaints are rising. Beyond compliance, accessible websites often perform better in search rankings, work better on mobile devices and provide a better experience for all users, including older people and those with temporary impairments.',
     whoHelps: [
       'Blind and vision impaired people using screen readers',
       'People with low vision who need larger text or high contrast',
@@ -58,7 +58,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '1.3': {
     id: '1.3',
-    overview: 'This module helps you make online booking, ticketing, and forms accessible so everyone can complete transactions independently.',
+    overview: 'This module helps you make online booking, ticketing and forms accessible so everyone can complete transactions independently.',
     topics: [
       'Accessible form design',
       'Clear error messages and validation',
@@ -67,7 +67,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Capturing accessibility requirements',
       'Confirmation and receipt accessibility',
     ],
-    whyMatters: 'Complicated or inaccessible booking systems force people to call or email for help, creating extra work for everyone. Accessible booking means independence, dignity, and more completed transactions.\n\nEvery abandoned booking is lost revenue. When forms time out too quickly, error messages are unclear, or date pickers don\'t work with keyboards, customers give up. Studies show that accessible checkout processes have higher completion rates across all users, not just those with disabilities. Small improvements here directly impact your bottom line.',
+    whyMatters: 'Complicated or inaccessible booking systems force people to call or email for help, creating extra work for everyone. Accessible booking means independence, dignity and more completed transactions.\n\nEvery abandoned booking is lost revenue. When forms time out too quickly, error messages are unclear or date pickers don\'t work with keyboards, customers give up. Studies show that accessible checkout processes have higher completion rates across all users, not just those with disabilities. Small improvements here directly impact your bottom line.',
     whoHelps: [
       'Screen reader users completing forms',
       'People with cognitive disabilities who need clear instructions',
@@ -78,7 +78,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '1.4': {
     id: '1.4',
-    overview: 'This module covers making your video content, social media, and audio materials accessible to everyone.',
+    overview: 'This module covers making your video content, social media and audio materials accessible to everyone.',
     topics: [
       'Adding captions to videos',
       'Audio descriptions for visual content',
@@ -87,7 +87,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Podcast and audio accessibility',
       'Live streaming considerations',
     ],
-    whyMatters: 'Video and social media are powerful marketing tools, but without captions and descriptions, you\'re excluding deaf, blind, and hard of hearing audiences. Accessible content also helps people watching without sound and improves SEO.\n\nSocial media platforms increasingly reward accessible content with better algorithmic reach. Captions increase video engagement by up to 40% because most people scroll with sound off. Audio descriptions open your content to the 357,000+ Australians who are blind or have low vision. Making your content accessible isn\'t just inclusive. It\'s smart marketing.',
+    whyMatters: 'Video and social media are powerful marketing tools, but without captions and descriptions, you\'re excluding deaf, blind and hard of hearing audiences. Accessible content also helps people watching without sound and improves SEO.\n\nSocial media platforms increasingly reward accessible content with better algorithmic reach. Captions increase video engagement by up to 40% because most people scroll with sound off. Audio descriptions open your content to the 357,000+ Australians who are blind or have low vision. Making your content accessible isn\'t just inclusive. It\'s smart marketing.',
     whoHelps: [
       'Deaf and hard of hearing people (captions)',
       'Blind and vision impaired people (audio descriptions)',
@@ -98,7 +98,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '1.5': {
     id: '1.5',
-    overview: 'This module helps you communicate about accessibility before people visit, ensuring your language is clear, welcoming, and helps customers plan with confidence.',
+    overview: 'This module helps you communicate about accessibility before people visit, ensuring your language is clear, welcoming and helps customers plan with confidence.',
     topics: [
       'Plain language principles and readability',
       'Respectful, person-centred disability language',
@@ -109,7 +109,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Visual content (photos, videos, virtual tours)',
       'Content creator training and style guides',
     ],
-    whyMatters: 'How you communicate about accessibility shapes whether customers feel genuinely welcome. Complex language, buried information, or negative framing can deter visitors before they even contact you.\n\nNearly half of Australian adults have literacy levels that affect their daily lives. When you use plain language, you\'re not "dumbing down". You\'re communicating effectively. Clear, findable, and positively framed accessibility information helps customers decide if your venue works for them and plan their visit with confidence. The language you use also signals whether you see accessibility as a priority or an afterthought.',
+    whyMatters: 'How you communicate about accessibility shapes whether customers feel genuinely welcome. Complex language, buried information or negative framing can deter visitors before they even contact you.\n\nNearly half of Australian adults have literacy levels that affect their daily lives. When you use plain language, you\'re not "dumbing down". You\'re communicating effectively. Clear, findable and positively framed accessibility information helps customers decide if your venue works for them and plan their visit with confidence. The language you use also signals whether you see accessibility as a priority or an afterthought.',
     whoHelps: [
       'People with cognitive disabilities who benefit from plain language',
       'People with learning disabilities like dyslexia',
@@ -144,7 +144,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   '2.1': {
     id: '2.1',
-    overview: 'This module covers how customers arrive at your premises, including parking, drop-off zones, and the path from transport to your entrance.',
+    overview: 'This module covers how customers arrive at your premises, including parking, drop-off zones and the path from transport to your entrance.',
     topics: [
       'Accessible parking spaces and signage',
       'Drop-off and pick-up zones',
@@ -153,7 +153,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Lighting and visibility',
       'Connections to public transport',
     ],
-    whyMatters: 'The customer journey starts before your front door. If someone can\'t park nearby or navigate from the street to your entrance, they can\'t access your business at all.\n\nAccessible parking isn\'t just about having a space with a wheelchair symbol. It\'s about the entire arrival experience. Is the path from parking to your door step-free? Is it well-lit at night? Are there obstacles like sandwich boards or outdoor furniture? Many businesses lose customers who drive past, see no accessible parking, and don\'t return. First impressions matter, and arrival is your first impression.',
+    whyMatters: 'The customer journey starts before your front door. If someone can\'t park nearby or navigate from the street to your entrance, they can\'t access your business at all.\n\nAccessible parking isn\'t just about having a space with a wheelchair symbol. It\'s about the entire arrival experience. Is the path from parking to your door step-free? Is it well-lit at night? Are there obstacles like sandwich boards or outdoor furniture? Many businesses lose customers who drive past, see no accessible parking and don\'t return. First impressions matter and arrival is your first impression.',
     whoHelps: [
       'Wheelchair users and people with mobility aids',
       'People with chronic pain or limited walking distance',
@@ -164,16 +164,16 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '2.2': {
     id: '2.2',
-    overview: 'This module covers your entrance, including doors, steps, ramps, and how people know where to come in.',
+    overview: 'This module covers your entrance, including doors, steps, ramps and how people know where to come in.',
     topics: [
       'Step-free access and ramps',
-      'Door width, weight, and operation',
+      'Door width, weight and operation',
       'Automatic and accessible door options',
       'Entry signage and visibility',
       'Doorbells and intercom systems',
       'Managing temporary access barriers',
     ],
-    whyMatters: 'Heavy doors, steps, and narrow entrances are some of the most common physical barriers. Even a single step can completely block access for wheelchair users.\n\nYour entrance is a statement about who\'s welcome. When someone struggles with a heavy door or faces an unexpected step, they feel like an afterthought. Simple solutions often exist: automatic door buttons, portable ramps, or just propping a door open during business hours. The cost of these solutions is typically far less than the revenue lost from excluded customers.',
+    whyMatters: 'Heavy doors, steps and narrow entrances are some of the most common physical barriers. Even a single step can completely block access for wheelchair users.\n\nYour entrance is a statement about who\'s welcome. When someone struggles with a heavy door or faces an unexpected step, they feel like an afterthought. Simple solutions often exist: automatic door buttons, portable ramps or just propping a door open during business hours. The cost of these solutions is typically far less than the revenue lost from excluded customers.',
     whoHelps: [
       'Wheelchair users and people using walking frames',
       'People with limited upper body strength',
@@ -184,16 +184,16 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '2.3': {
     id: '2.3',
-    overview: 'This module covers internal navigation, including aisle widths, floor surfaces, obstacles, and how people move through your space.',
+    overview: 'This module covers internal navigation, including aisle widths, floor surfaces, obstacles and how people move through your space.',
     topics: [
       'Clear path widths and turning spaces',
       'Floor surfaces and trip hazards',
       'Obstacle management and clear sightlines',
-      'Stairs, ramps, and level changes',
+      'Stairs, ramps and level changes',
       'Lifts and escalators',
       'Staff assistance for navigation',
     ],
-    whyMatters: 'Getting in is only the first step. If customers can\'t move freely through your space, reach products, or access all areas, they\'re not getting the full experience.\n\nCluttered aisles and poor layouts affect everyone, but they\'re dealbreakers for wheelchair users who need 900mm clear width to pass and 1500mm to turn. Vision impaired people may not see that stack of boxes or that A-frame sign. Good spatial design improves flow, reduces accidents, and creates a more pleasant experience for all customers, not just those with disabilities.',
+    whyMatters: 'Getting in is only the first step. If customers can\'t move freely through your space, reach products or access all areas, they\'re not getting the full experience.\n\nCluttered aisles and poor layouts affect everyone, but they\'re dealbreakers for wheelchair users who need 900mm clear width to pass and 1500mm to turn. Vision impaired people may not see that stack of boxes or that A-frame sign. Good spatial design improves flow, reduces accidents and creates a more pleasant experience for all customers, not just those with disabilities.',
     whoHelps: [
       'Wheelchair users needing clear paths and turning space',
       'Vision impaired people navigating obstacles',
@@ -204,7 +204,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '2.4': {
     id: '2.4',
-    overview: 'This module covers managing queues, waiting areas, and busy periods to ensure everyone can wait comfortably and fairly.',
+    overview: 'This module covers managing queues, waiting areas and busy periods to ensure everyone can wait comfortably and fairly.',
     topics: [
       'Queue management systems',
       'Seating in waiting areas',
@@ -213,7 +213,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Managing peak periods',
       'Alternatives to standing queues',
     ],
-    whyMatters: 'Long queues and standing waits can be painful or impossible for many people. Without alternatives, you force some customers to choose between their health and your service.\n\nQueue anxiety affects more people than you might think. Someone with an invisible disability may look fine but be in significant pain. A person with anxiety may leave rather than wait in a crowded space. Offering alternatives (seating while waiting, text notifications, or priority service for those who need it) costs little but dramatically improves the experience for vulnerable customers.',
+    whyMatters: 'Long queues and standing waits can be painful or impossible for many people. Without alternatives, you force some customers to choose between their health and your service.\n\nQueue anxiety affects more people than you might think. Someone with an invisible disability may look fine but be in significant pain. A person with anxiety may leave rather than wait in a crowded space. Offering alternatives (seating while waiting, text notifications or priority service for those who need it) costs little but dramatically improves the experience for vulnerable customers.',
     whoHelps: [
       'People with chronic pain who cannot stand for long',
       'Pregnant women and elderly customers',
@@ -224,7 +224,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.1': {
     id: '3.1',
-    overview: 'This module covers seating arrangements, table heights, and furniture that works for customers with different needs.',
+    overview: 'This module covers seating arrangements, table heights and furniture that works for customers with different needs.',
     topics: [
       'Variety of seating options',
       'Table heights and clearance',
@@ -233,7 +233,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Space between furniture',
       'Seating in different areas',
     ],
-    whyMatters: 'Fixed seating, bar-height tables, and cramped layouts exclude wheelchair users and many others. Flexible furniture options mean everyone can be comfortable.\n\nConsider the wheelchair user who arrives for a business lunch only to find all tables are bar-height. Or the person with back pain faced with backless stools. They may manage once, but they won\'t return, and they\'ll tell others. Offering a variety of seating options at different heights, with different support levels, costs little more than uniform furniture but serves many more customers.',
+    whyMatters: 'Fixed seating, bar-height tables and cramped layouts exclude wheelchair users and many others. Flexible furniture options mean everyone can be comfortable.\n\nConsider the wheelchair user who arrives for a business lunch only to find all tables are bar-height. Or the person with back pain faced with backless stools. They may manage once, but they won\'t return and they\'ll tell others. Offering a variety of seating options at different heights, with different support levels, costs little more than uniform furniture but serves many more customers.',
     whoHelps: [
       'Wheelchair users needing table clearance',
       'People who need chairs with arms or back support',
@@ -244,7 +244,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.2': {
     id: '3.2',
-    overview: 'This module covers accessible toilets, baby change facilities, and amenities that meet diverse customer needs.',
+    overview: 'This module covers accessible toilets, baby change facilities and amenities that meet diverse customer needs.',
     topics: [
       'Accessible toilet facilities',
       'Grab rails and transfer space',
@@ -253,7 +253,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Sanitary disposal and sharps bins',
       'Signage and wayfinding to amenities',
     ],
-    whyMatters: 'Inaccessible toilets can prevent people from visiting at all or limit how long they can stay. This is one of the most critical accessibility features.\n\nToilet access is non-negotiable. Without it, visits are cut short or avoided entirely. Many "accessible" toilets fail because they\'re used for storage, lack grab rails, or don\'t have enough transfer space. For people with stomas, continence needs, or who require assistance, toilet facilities determine whether they can participate in public life at all. Getting this right shows genuine commitment to inclusion.',
+    whyMatters: 'Inaccessible toilets can prevent people from visiting at all or limit how long they can stay. This is one of the most critical accessibility features.\n\nToilet access is non-negotiable. Without it, visits are cut short or avoided entirely. Many "accessible" toilets fail because they\'re used for storage, lack grab rails or don\'t have enough transfer space. For people with stomas, continence needs or who require assistance, toilet facilities determine whether they can participate in public life at all. Getting this right shows genuine commitment to inclusion.',
     whoHelps: [
       'Wheelchair users needing transfer space',
       'People with stomas or continence needs',
@@ -264,7 +264,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.3': {
     id: '3.3',
-    overview: 'This module covers the sensory environment of your space, including lighting, sound levels, and creating comfortable conditions for everyone.',
+    overview: 'This module covers the sensory environment of your space, including lighting, sound levels and creating comfortable conditions for everyone.',
     topics: [
       'Lighting levels and control',
       'Acoustic environment and noise management',
@@ -273,7 +273,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Temperature and ventilation',
       'Managing overwhelming stimuli',
     ],
-    whyMatters: 'Bright lights, loud music, and busy environments can be physically painful or overwhelming for many people, including autistic people and those with sensory processing differences.\n\nSensory accessibility is increasingly recognised but still often overlooked. Around 1 in 70 Australians are autistic, and many more have sensory sensitivities due to anxiety, PTSD, migraines, or neurological conditions. Offering quiet hours, adjustable lighting, or simply being aware of sensory overload can transform an inaccessible space into a welcoming one. These changes often benefit everyone. Who doesn\'t prefer a less overwhelming environment?',
+    whyMatters: 'Bright lights, loud music and busy environments can be physically painful or overwhelming for many people, including autistic people and those with sensory processing differences.\n\nSensory accessibility is increasingly recognised but still often overlooked. Around 1 in 70 Australians are autistic and many more have sensory sensitivities due to anxiety, PTSD, migraines or neurological conditions. Offering quiet hours, adjustable lighting or simply being aware of sensory overload can transform an inaccessible space into a welcoming one. These changes often benefit everyone. Who doesn\'t prefer a less overwhelming environment?',
     whoHelps: [
       'Autistic people who may be sensory sensitive',
       'People with migraines or light sensitivity',
@@ -293,7 +293,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Assistance animal facilities',
       'Equipment for loan (wheelchairs, hearing loops)',
     ],
-    whyMatters: 'Touch screens, kiosks, and equipment designed for one type of user exclude many others. Accessible equipment means everyone can participate independently.\n\nSelf-service is everywhere now, but inaccessible kiosks and equipment create new barriers. A touch screen mounted too high for wheelchair users, a PIN pad without tactile markers, or ordering systems with no audio. These force people to ask for help or give up entirely. When you\'re investing in equipment, accessibility should be a purchasing criterion, not an afterthought.',
+    whyMatters: 'Touch screens, kiosks and equipment designed for one type of user exclude many others. Accessible equipment means everyone can participate independently.\n\nSelf-service is everywhere now, but inaccessible kiosks and equipment create new barriers. A touch screen mounted too high for wheelchair users, a PIN pad without tactile markers or ordering systems with no audio. These force people to ask for help or give up entirely. When you\'re investing in equipment, accessibility should be a purchasing criterion, not an afterthought.',
     whoHelps: [
       'Vision impaired people using equipment',
       'People with motor disabilities operating controls',
@@ -313,7 +313,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Refuge areas and communication',
       'First aid and medical emergency readiness',
     ],
-    whyMatters: 'In emergencies, people with disability may not hear alarms, move quickly, or know what to do. Without proper planning, their safety is at risk.\n\nEmergency planning for people with disability isn\'t optional. It\'s a workplace health and safety requirement and a moral imperative. When alarms only sound audibly, deaf customers don\'t know to evacuate. When evacuation plans only use stairs, wheelchair users are stranded. Taking time now to plan for different needs could save lives. It also demonstrates to all customers that you take their safety seriously.',
+    whyMatters: 'In emergencies, people with disability may not hear alarms, move quickly or know what to do. Without proper planning, their safety is at risk.\n\nEmergency planning for people with disability isn\'t optional. It\'s a workplace health and safety requirement and a moral imperative. When alarms only sound audibly, deaf customers don\'t know to evacuate. When evacuation plans only use stairs, wheelchair users are stranded. Taking time now to plan for different needs could save lives. It also demonstrates to all customers that you take their safety seriously.',
     whoHelps: [
       'Deaf people who may not hear alarms',
       'Wheelchair users and people with mobility limitations',
@@ -333,7 +333,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Digital wayfinding options',
       'Consistent and logical placement',
     ],
-    whyMatters: 'Good signage benefits everyone but is essential for people with vision impairments, cognitive disabilities, or anyone unfamiliar with your space. Poor signage creates confusion and dependence on staff.\n\nThink about how frustrating it is to wander around looking for a toilet or exit. Now imagine doing that with low vision or a cognitive disability that makes reading difficult. Clear, consistent signage with good contrast, readable fonts, and intuitive symbols allows people to navigate independently with dignity. It also reduces the burden on your staff who otherwise spend time giving directions.',
+    whyMatters: 'Good signage benefits everyone but is essential for people with vision impairments, cognitive disabilities or anyone unfamiliar with your space. Poor signage creates confusion and dependence on staff.\n\nThink about how frustrating it is to wander around looking for a toilet or exit. Now imagine doing that with low vision or a cognitive disability that makes reading difficult. Clear, consistent signage with good contrast, readable fonts and intuitive symbols allows people to navigate independently with dignity. It also reduces the burden on your staff who otherwise spend time giving directions.',
     whoHelps: [
       'Vision impaired people needing large print or tactile signs',
       'People with cognitive disabilities needing clear symbols',
@@ -344,7 +344,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.6': {
     id: '3.6',
-    overview: 'This module covers printed materials like menus, brochures, and price lists, ensuring they are readable and available in accessible formats.',
+    overview: 'This module covers printed materials like menus, brochures and price lists, ensuring they are readable and available in accessible formats.',
     topics: [
       'Font size and readability',
       'Colour contrast in print materials',
@@ -353,7 +353,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Menu accessibility in hospitality',
       'Plain language in written materials',
     ],
-    whyMatters: 'Small print, fancy fonts, and low contrast make materials unreadable for many people. Accessible print materials ensure everyone can access the information they need.\n\nThat stylish menu with pale grey text on white paper? Unreadable for the 13% of men and 1% of women with colour vision deficiency, plus anyone with low vision or in dim lighting. Simple fixes (larger fonts, better contrast, offering a digital version via QR code) cost almost nothing but make a huge difference. Accessible documents also help people who\'ve forgotten their glasses or are reading in bright sunlight.',
+    whyMatters: 'Small print, fancy fonts and low contrast make materials unreadable for many people. Accessible print materials ensure everyone can access the information they need.\n\nThat stylish menu with pale grey text on white paper? Unreadable for the 13% of men and 1% of women with colour vision deficiency, plus anyone with low vision or in dim lighting. Simple fixes (larger fonts, better contrast, offering a digital version via QR code) cost almost nothing but make a huge difference. Accessible documents also help people who\'ve forgotten their glasses or are reading in bright sunlight.',
     whoHelps: [
       'People with low vision or age-related vision changes',
       'People with dyslexia or reading difficulties',
@@ -364,7 +364,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.7': {
     id: '3.7',
-    overview: 'This module covers how customers access information during their visit through signage, printed materials, real-time communication, and on-site support.',
+    overview: 'This module covers how customers access information during their visit through signage, printed materials, real-time communication and on-site support.',
     topics: [
       'On-site alternative formats (large print, Easy Read, audio)',
       'Digital information access (QR codes, apps)',
@@ -376,7 +376,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Communication supports (boards, pen and paper)',
       'Communicating changes and disruptions',
     ],
-    whyMatters: 'Pre-visit information is only part of the picture. Once customers arrive, they need to navigate your space, understand what\'s available, and communicate with your team, all in real time.\n\nGood on-site information reduces anxiety and builds independence. Readable signage, clear wayfinding, and available alternative formats mean customers can find what they need without constantly asking for help. Communication supports ensure customers who communicate differently can interact with your staff effectively. When information is accessible during the visit, customers feel welcomed and respected throughout their experience.',
+    whyMatters: 'Pre-visit information is only part of the picture. Once customers arrive, they need to navigate your space, understand what\'s available and communicate with your team, all in real time.\n\nGood on-site information reduces anxiety and builds independence. Readable signage, clear wayfinding and available alternative formats mean customers can find what they need without constantly asking for help. Communication supports ensure customers who communicate differently can interact with your staff effectively. When information is accessible during the visit, customers feel welcomed and respected throughout their experience.',
     whoHelps: [
       'People with low vision who need large print or audio',
       'Deaf and hard of hearing people needing visual information and captioning',
@@ -392,7 +392,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   '4.1': {
     id: '4.1',
-    overview: 'This module covers how customers can contact you, the communication channels you offer, and how you accommodate different communication needs and preferences.',
+    overview: 'This module covers how customers can contact you, the communication channels you offer and how you accommodate different communication needs and preferences.',
     topics: [
       'Phone call alternatives (email, SMS, chat)',
       'National Relay Service (NRS) training',
@@ -405,7 +405,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Accessible feedback channels',
       'Flexible response formats',
     ],
-    whyMatters: 'Phone calls are inaccessible for many people: those who are deaf, have speech disabilities, experience phone anxiety, or simply prefer other channels. Offering only phone contact excludes a significant portion of potential customers.\n\nEqual service means equal access across all communication channels. If your email takes three days to respond but phone calls get immediate attention, you\'re disadvantaging customers who can\'t use the phone. Capturing and applying communication preferences shows customers you value them as individuals. Patient, skilled communication with customers who communicate differently ensures everyone receives the same quality service.',
+    whyMatters: 'Phone calls are inaccessible for many people: those who are deaf, have speech disabilities, experience phone anxiety or simply prefer other channels. Offering only phone contact excludes a significant portion of potential customers.\n\nEqual service means equal access across all communication channels. If your email takes three days to respond but phone calls get immediate attention, you\'re disadvantaging customers who can\'t use the phone. Capturing and applying communication preferences shows customers you value them as individuals. Patient, skilled communication with customers who communicate differently ensures everyone receives the same quality service.',
     whoHelps: [
       'Deaf and hard of hearing people who can\'t use voice calls',
       'People with speech disabilities who struggle with phone communication',
@@ -417,7 +417,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '4.2': {
     id: '4.2',
-    overview: 'This module builds staff confidence in serving customers with disability, covering communication, assistance, and creating welcoming interactions.',
+    overview: 'This module builds staff confidence in serving customers with disability, covering communication, assistance and creating welcoming interactions.',
     topics: [
       'Disability awareness fundamentals',
       'Communication tips for different disabilities',
@@ -426,7 +426,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Supporting assistance animals',
       'Handling difficult situations with grace',
     ],
-    whyMatters: 'Staff attitudes and confidence have the biggest impact on customer experience. Well-meaning but awkward interactions can be just as excluding as physical barriers.\n\nPeople with disability consistently report that staff behaviour matters more than physical accessibility. Being ignored, patronised, or treated as incompetent hurts. Conversely, confident, respectful service creates loyalty. Training doesn\'t need to be extensive. Basic awareness, communication tips, and permission to ask "How can I help?" goes a long way. Confident staff also feel better about their work.',
+    whyMatters: 'Staff attitudes and confidence have the biggest impact on customer experience. Well-meaning but awkward interactions can be just as excluding as physical barriers.\n\nPeople with disability consistently report that staff behaviour matters more than physical accessibility. Being ignored, patronised or treated as incompetent hurts. Conversely, confident, respectful service creates loyalty. Training doesn\'t need to be extensive. Basic awareness, communication tips and permission to ask "How can I help?" goes a long way. Confident staff also feel better about their work.',
     whoHelps: [
       'All customers with disability who interact with staff',
       'Staff who want to help but feel unsure',
@@ -436,7 +436,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '4.3': {
     id: '4.3',
-    overview: 'This module covers accessible booking, payment, and service delivery options that give customers flexibility and independence.',
+    overview: 'This module covers accessible booking, payment and service delivery options that give customers flexibility and independence.',
     topics: [
       'Flexible booking and cancellation policies',
       'Accessible payment options',
@@ -464,7 +464,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Using feedback to improve',
       'Closing the loop with customers',
     ],
-    whyMatters: 'If your feedback methods aren\'t accessible, you\'ll never hear from customers with disability about their experiences. Their insights are essential for improvement.\n\nSilence isn\'t satisfaction. When feedback forms are inaccessible, or complaints go nowhere, you lose valuable information. Customers with disability often have detailed knowledge of what works and what doesn\'t. They\'re experts in navigating barriers. Accessible feedback channels, prompt responses, and genuine follow-through turn critics into advocates and complaints into improvements.',
+    whyMatters: 'If your feedback methods aren\'t accessible, you\'ll never hear from customers with disability about their experiences. Their insights are essential for improvement.\n\nSilence isn\'t satisfaction. When feedback forms are inaccessible or complaints go nowhere, you lose valuable information. Customers with disability often have detailed knowledge of what works and what doesn\'t. They\'re experts in navigating barriers. Accessible feedback channels, prompt responses and genuine follow-through turn critics into advocates and complaints into improvements.',
     whoHelps: [
       'Customers with disability who want to share their experience',
       'People who prefer different communication methods',
@@ -474,7 +474,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '4.6': {
     id: '4.6',
-    overview: 'This module covers ongoing customer engagement, including newsletters, loyalty programs, and marketing communications that remain accessible.',
+    overview: 'This module covers ongoing customer engagement, including newsletters, loyalty programs and marketing communications that remain accessible.',
     topics: [
       'Accessible email newsletters',
       'Inclusive loyalty programs',
@@ -483,7 +483,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Unsubscribe and preference management',
       'Maintaining relationships accessibly',
     ],
-    whyMatters: 'Ongoing engagement keeps customers coming back. If your communications aren\'t accessible, customers with disability miss out on offers, updates, and feeling valued.\n\nEvery inaccessible email is a missed opportunity. Newsletters with images but no alt text, loyalty programs requiring inaccessible apps, promotional videos without captions. These exclude customers you\'ve already won. Retention is cheaper than acquisition. Making your ongoing communications accessible keeps valuable customers engaged and shows you care about them beyond the first transaction.',
+    whyMatters: 'Ongoing engagement keeps customers coming back. If your communications aren\'t accessible, customers with disability miss out on offers, updates and feeling valued.\n\nEvery inaccessible email is a missed opportunity. Newsletters with images but no alt text, loyalty programs requiring inaccessible apps, promotional videos without captions. These exclude customers you\'ve already won. Retention is cheaper than acquisition. Making your ongoing communications accessible keeps valuable customers engaged and shows you care about them beyond the first transaction.',
     whoHelps: [
       'Customers with disability who want to stay connected',
       'Screen reader users receiving emails',
@@ -493,7 +493,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '4.7': {
     id: '4.7',
-    overview: 'This module covers how you maintain accessible communication with customers over time through correspondence, documents, and ongoing engagement.',
+    overview: 'This module covers how you maintain accessible communication with customers over time through correspondence, documents and ongoing engagement.',
     topics: [
       'Accessible written correspondence (letters, emails, invoices)',
       'Accessible email design (images, headings, plain text)',
@@ -504,7 +504,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Remembering communication preferences',
       'Accessible subscription management',
     ],
-    whyMatters: 'Your website might be accessible, but what about the invoice you send? The booking confirmation email? The terms and conditions PDF? These ongoing communications are often overlooked, yet they contain important information customers need to understand.\n\nMany PDFs are completely inaccessible to screen reader users. Emails that rely on images with no alt text are meaningless when images are blocked. Complex formatting and small fonts in letters create barriers. Accessible ongoing communication ensures customers can understand important information about their bookings, accounts, and relationship with your business. Remembering their preferences shows you value them as individuals.',
+    whyMatters: 'Your website might be accessible, but what about the invoice you send? The booking confirmation email? The terms and conditions PDF? These ongoing communications are often overlooked, yet they contain important information customers need to understand.\n\nMany PDFs are completely inaccessible to screen reader users. Emails that rely on images with no alt text are meaningless when images are blocked. Complex formatting and small fonts in letters create barriers. Accessible ongoing communication ensures customers can understand important information about their bookings, accounts and relationship with your business. Remembering their preferences shows you value them as individuals.',
     whoHelps: [
       'Screen reader users who receive your emails and documents',
       'People with low vision who need larger text',
@@ -519,7 +519,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // ============================================
   '5.1': {
     id: '5.1',
-    overview: 'This module helps you create formal accessibility policies, commitments, and inclusion statements that guide your organisation.',
+    overview: 'This module helps you create formal accessibility policies, commitments and inclusion statements that guide your organisation.',
     topics: [
       'Writing an accessibility statement',
       'Accessibility policy development',
@@ -528,7 +528,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Integrating accessibility into strategy',
       'Measuring and reporting progress',
     ],
-    whyMatters: 'Without formal policies, accessibility depends on individual goodwill rather than organisational commitment. Policies create accountability and signal serious intent.\n\nPublished accessibility commitments do more than guide internal behaviour. They set expectations with customers and create accountability. When accessibility is a documented policy rather than informal goodwill, it survives staff changes, busy periods, and competing priorities. Many government contracts and corporate partnerships now require accessibility policies, making this increasingly a business necessity.',
+    whyMatters: 'Without formal policies, accessibility depends on individual goodwill rather than organisational commitment. Policies create accountability and signal serious intent.\n\nPublished accessibility commitments do more than guide internal behaviour. They set expectations with customers and create accountability. When accessibility is a documented policy rather than informal goodwill, it survives staff changes, busy periods and competing priorities. Many government contracts and corporate partnerships now require accessibility policies, making this increasingly a business necessity.',
     whoHelps: [
       'Staff who need guidance on expectations',
       'Customers who want to know your commitments',
@@ -547,7 +547,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Measuring training effectiveness',
       'Building a learning culture',
     ],
-    whyMatters: 'One-off training isn\'t enough. Ongoing learning builds genuine confidence and ensures accessibility becomes embedded in how your team operates.\n\nInitial awareness training is just the start. Real confidence comes from practice, role-specific skills, and reinforcement over time. When staff genuinely understand disability and feel equipped to help, they stop avoiding customers with disability and start engaging naturally. This shift benefits everyone: customers receive better service, staff feel more competent, and accessibility stops being "someone else\'s job."',
+    whyMatters: 'One-off training isn\'t enough. Ongoing learning builds genuine confidence and ensures accessibility becomes embedded in how your team operates.\n\nInitial awareness training is just the start. Real confidence comes from practice, role-specific skills and reinforcement over time. When staff genuinely understand disability and feel equipped to help, they stop avoiding customers with disability and start engaging naturally. This shift benefits everyone: customers receive better service, staff feel more competent and accessibility stops being "someone else\'s job."',
     whoHelps: [
       'Staff at all levels building confidence',
       'Customers receiving consistently good service',
@@ -557,7 +557,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '5.4': {
     id: '5.4',
-    overview: 'This module covers embedding accessibility requirements into procurement, supplier relationships, and partnerships.',
+    overview: 'This module covers embedding accessibility requirements into procurement, supplier relationships and partnerships.',
     topics: [
       'Accessibility requirements in tenders',
       'Supplier accessibility assessments',
@@ -566,7 +566,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Contractor and vendor management',
       'Social procurement and disability enterprises',
     ],
-    whyMatters: 'Your accessibility depends on your suppliers and partners. If you procure inaccessible products or services, you create barriers for customers and staff.\n\nEvery product you buy and service you engage affects your accessibility. An inaccessible point-of-sale system, a venue booking platform without keyboard navigation, or printed materials from a supplier who ignores contrast guidelines. These choices accumulate. Building accessibility into procurement ensures you don\'t accidentally create barriers. It also drives market change: when more buyers demand accessibility, more suppliers provide it.',
+    whyMatters: 'Your accessibility depends on your suppliers and partners. If you procure inaccessible products or services, you create barriers for customers and staff.\n\nEvery product you buy and service you engage affects your accessibility. An inaccessible point-of-sale system, a venue booking platform without keyboard navigation or printed materials from a supplier who ignores contrast guidelines. These choices accumulate. Building accessibility into procurement ensures you don\'t accidentally create barriers. It also drives market change: when more buyers demand accessibility, more suppliers provide it.',
     whoHelps: [
       'Customers using procured products or services',
       'Staff using workplace tools and systems',
@@ -576,7 +576,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '5.5': {
     id: '5.5',
-    overview: 'This module covers measuring, tracking, and reporting on accessibility progress over time.',
+    overview: 'This module covers measuring, tracking and reporting on accessibility progress over time.',
     topics: [
       'Setting accessibility goals and targets',
       'Accessibility audits and assessments',
@@ -585,7 +585,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Continuous improvement cycles',
       'Celebrating and communicating progress',
     ],
-    whyMatters: 'What gets measured gets managed. Without tracking, accessibility improvements are ad hoc rather than strategic. Reporting creates accountability and demonstrates progress.\n\nAccessibility is a journey, not a destination. Regular measurement shows where you\'ve improved and where gaps remain. Reporting to stakeholders (whether your board, customers, or the public) creates accountability that drives action. Celebrating progress motivates teams. And documented improvement provides evidence of due diligence if complaints or legal challenges arise.',
+    whyMatters: 'What gets measured gets managed. Without tracking, accessibility improvements are ad hoc rather than strategic. Reporting creates accountability and demonstrates progress.\n\nAccessibility is a journey, not a destination. Regular measurement shows where you\'ve improved and where gaps remain. Reporting to stakeholders (whether your board, customers or the public) creates accountability that drives action. Celebrating progress motivates teams. And documented improvement provides evidence of due diligence if complaints or legal challenges arise.',
     whoHelps: [
       'Leadership understanding progress',
       'Staff seeing the impact of their efforts',
@@ -595,9 +595,9 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.11': {
     id: '3.11',
-    overview: 'This module helps you assess and improve the accessibility of your outdoor spaces, including gardens, courtyards, outdoor dining areas, walking trails, and exterior grounds. It covers paths, seating, lighting, shade, hazard marking, and wayfinding so that everyone can enjoy your outdoor areas safely and comfortably.',
+    overview: 'This module helps you assess and improve the accessibility of your outdoor spaces, including gardens, courtyards, outdoor dining areas, walking trails and exterior grounds. It covers paths, seating, lighting, shade, hazard marking and wayfinding so that everyone can enjoy your outdoor areas safely and comfortably.',
     topics: [
-      'Outdoor path surfaces, widths, and gradients',
+      'Outdoor path surfaces, widths and gradients',
       'Seating variety and wheelchair-adjacent space',
       'Lighting for evening and low-light use',
       'Shade and weather protection',
@@ -606,7 +606,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Tactile indicators at transitions',
       'Outdoor signage and wayfinding',
     ],
-    whyMatters: 'Outdoor areas are often the first or most memorable part of a visit. A beautiful garden, courtyard, or outdoor dining space loses its appeal if someone cannot get to it, move through it safely, or stay comfortably. Under the DDA, outdoor areas of premises open to the public must be accessible. The Australian Human Rights Commission\'s Advisory Notes specifically identify parks, outdoor areas, and public spaces as premises covered by section 23. Common barriers include loose gravel paths, stepped-only access, lack of seating, poor lighting, and unmarked hazards. These affect wheelchair users, people with vision impairment, older people, and parents with prams. Improving outdoor accessibility often benefits everyone, including staff and delivery personnel.',
+    whyMatters: 'Outdoor areas are often the first or most memorable part of a visit. A beautiful garden, courtyard or outdoor dining space loses its appeal if someone cannot get to it, move through it safely or stay comfortably. Under the DDA, outdoor areas of premises open to the public must be accessible. The Australian Human Rights Commission\'s Advisory Notes specifically identify parks, outdoor areas and public spaces as premises covered by section 23. Common barriers include loose gravel paths, stepped-only access, lack of seating, poor lighting and unmarked hazards. These affect wheelchair users, people with vision impairment, older people and parents with prams. Improving outdoor accessibility often benefits everyone, including staff and delivery personnel.',
     whoHelps: [
       'People using wheelchairs or mobility aids who need firm, level paths',
       'People with vision impairment who rely on tactile cues and contrast',
@@ -617,7 +617,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.12': {
     id: '3.12',
-    overview: 'This module helps you assess and improve the inclusivity of your playground or play space. Based on the NSW Everyone Can Play guidelines, it covers three core principles: Can I get there (accessible paths and entry), Can I play (inclusive equipment and sensory play), and Can I stay (fencing, seating, shade, and amenities).',
+    overview: 'This module helps you assess and improve the inclusivity of your playground or play space. Based on the NSW Everyone Can Play guidelines, it covers three core principles: Can I get there (accessible paths and entry), Can I play (inclusive equipment and sensory play) and Can I stay (fencing, seating, shade and amenities).',
     topics: [
       'Accessible paths connecting playground to facilities',
       'Play surface accessibility for mobility aids',
@@ -629,7 +629,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Transfer platforms and ramps to elevated equipment',
       'Nature play and water play opportunities',
     ],
-    whyMatters: 'Playgrounds are where communities come together. They are essential for children\'s development: physical skills, social interaction, creativity, and confidence. But many playgrounds exclude children with disability and their families. A child who cannot get onto the equipment, a parent who cannot navigate the space in a wheelchair, or a family that leaves early because there is no fencing for a child who wanders. These are not edge cases. In NSW alone, 1.3 million people live with a disability. The Everyone Can Play guideline (NSW Department of Planning and Environment) provides a framework for inclusive playspaces that goes beyond accessibility standards to consider the full play experience. Inclusive playgrounds also benefit older people (grandparents), families with prams, and people recovering from injury.',
+    whyMatters: 'Playgrounds are where communities come together. They are essential for children\'s development: physical skills, social interaction, creativity and confidence. But many playgrounds exclude children with disability and their families. A child who cannot get onto the equipment, a parent who cannot navigate the space in a wheelchair or a family that leaves early because there is no fencing for a child who wanders. These are not edge cases. In NSW alone, 1.3 million people live with a disability. The Everyone Can Play guideline (NSW Department of Planning and Environment) provides a framework for inclusive playspaces that goes beyond accessibility standards to consider the full play experience. Inclusive playgrounds also benefit older people (grandparents), families with prams and people recovering from injury.',
     whoHelps: [
       'Children with physical disabilities who need accessible equipment and surfaces',
       'Children who are autistic or have sensory processing differences',
@@ -641,7 +641,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '5.6': {
     id: '5.6',
-    overview: 'This module helps you assess whether third-party services, platforms, and contractors maintain your accessibility standards. It covers supplier contracts, booking platforms, outsourced services, and franchise or brand templates to ensure customers receive a consistent, accessible experience regardless of who delivers the service.',
+    overview: 'This module helps you assess whether third-party services, platforms and contractors maintain your accessibility standards. It covers supplier contracts, booking platforms, outsourced services and franchise or brand templates to ensure customers receive a consistent, accessible experience regardless of who delivers the service.',
     topics: [
       'Accessibility clauses in supplier contracts',
       'Third-party booking and ticketing platform accessibility',
@@ -652,9 +652,9 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Digital platform WCAG compliance',
       'Contractor and vendor accessibility briefings',
     ],
-    whyMatters: 'Your customers do not care whether the person serving them is your employee or a contractor. If a catering company at your event ignores a customer\'s dietary needs related to their disability, or a third-party booking platform cannot be used with a screen reader, the customer blames you. Under the DDA, the obligation to provide accessible goods, services, and facilities extends to how you deliver those services, including through third parties. As businesses increasingly rely on external platforms (Eventbrite, OpenTable, Uber Eats, Airbnb), outsourced services (security, cleaning, event staffing), and franchise templates, the accessibility of these touchpoints becomes part of your customer experience. Addressing this gap is particularly important for multi-site operators, event organisers, and councils who manage many vendor relationships.',
+    whyMatters: 'Your customers do not care whether the person serving them is your employee or a contractor. If a catering company at your event ignores a customer\'s dietary needs related to their disability or a third-party booking platform cannot be used with a screen reader, the customer blames you. Under the DDA, the obligation to provide accessible goods, services and facilities extends to how you deliver those services, including through third parties. As businesses increasingly rely on external platforms (Eventbrite, OpenTable, Uber Eats, Airbnb), outsourced services (security, cleaning, event staffing) and franchise templates, the accessibility of these touchpoints becomes part of your customer experience. Addressing this gap is particularly important for multi-site operators, event organisers and councils who manage many vendor relationships.',
     whoHelps: [
-      'Customers who use third-party platforms to book, pay, or interact with your business',
+      'Customers who use third-party platforms to book, pay or interact with your business',
       'People with disability who encounter inconsistent service from outsourced staff',
       'Businesses that want to maintain accessibility standards across their supply chain',
       'Event organisers managing multiple vendors and service providers',
@@ -663,7 +663,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '5.7': {
     id: '5.7',
-    overview: 'This module covers how you design and advertise roles so people with disability can see themselves in the job, find it, and apply. It looks at job description clarity, ad language and pay transparency, accessible application channels, and the access statement that invites candidates to request adjustments.',
+    overview: 'This module covers how you design and advertise roles so people with disability can see themselves in the job, find it and apply. It looks at job description clarity, ad language and pay transparency, accessible application channels and the access statement that invites candidates to request adjustments.',
     topics: [
       'Separating inherent role requirements from preferred extras',
       'Plain-language job ads and salary disclosure',
@@ -673,7 +673,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Alternative-format job ads (Easy Read, Auslan, audio)',
       'Disability representation in employer branding',
     ],
-    whyMatters: 'A candidate with disability decides whether to apply within seconds of reading the ad. Jargon, undisclosed pay, missing access statements, and inaccessible application portals silently filter them out before anyone sees their CV. Australia has one of the lowest disability employment rates in the OECD, and most of that gap is driven by recruitment design, not skill. The DDA (section 15) makes discrimination in selection unlawful, including indirect discrimination through inaccessible processes. Beyond compliance, the candidates you reach with an accessible, transparent ad are the candidates competitors are missing.',
+    whyMatters: 'A candidate with disability decides whether to apply within seconds of reading the ad. Jargon, undisclosed pay, missing access statements and inaccessible application portals silently filter them out before anyone sees their CV. Australia has one of the lowest disability employment rates in the OECD and most of that gap is driven by recruitment design, not skill. The DDA (section 15) makes discrimination in selection unlawful, including indirect discrimination through inaccessible processes. Beyond compliance, the candidates you reach with an accessible, transparent ad are the candidates competitors are missing.',
     whoHelps: [
       'Blind and low-vision candidates using screen readers',
       'Deaf candidates and those who prefer written or signed information',
@@ -684,17 +684,17 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '5.8': {
     id: '5.8',
-    overview: 'This module covers the interview and selection stage: making interview formats and panels accessible, confirming venue access in advance, training panels on lawful and respectful questioning, and offering candidates the option to bring a support person, interpreter, or advocate.',
+    overview: 'This module covers the interview and selection stage: making interview formats and panels accessible, confirming venue access in advance, training panels on lawful and respectful questioning and offering candidates the option to bring a support person, interpreter or advocate.',
     topics: [
       'Offering and resourcing adjustments at interview',
       'Confirming interview venue accessibility before invitation',
       'Panel training on disability-confident interviewing',
       'Avoiding unlawful questions about diagnosis or prognosis',
       'Alternative interview formats (written, take-home task, async video)',
-      'Support person, interpreter, or advocate at interview',
+      'Support person, interpreter or advocate at interview',
       'Skill-based and structured scoring to reduce bias',
     ],
-    whyMatters: 'Interviews are where most disability candidates report being filtered out, even after a strong application. Inaccessible venues, untrained panels, and questions about diagnosis (rather than capability) are unlawful under DDA section 15(1)(a) but remain common. The reasonable-adjustment duty applies at interview as much as in the workplace: refusing an interpreter, a written take-home, or a remote interview without genuine business reason is direct discrimination. Beyond compliance, structured interviews with consistent scoring reduce hiring manager bias for every candidate, not only those who disclose.',
+    whyMatters: 'Interviews are where most disability candidates report being filtered out, even after a strong application. Inaccessible venues, untrained panels and questions about diagnosis (rather than capability) are unlawful under DDA section 15(1)(a) but remain common. The reasonable-adjustment duty applies at interview as much as in the workplace: refusing an interpreter, a written take-home or a remote interview without genuine business reason is direct discrimination. Beyond compliance, structured interviews with consistent scoring reduce hiring manager bias for every candidate, not only those who disclose.',
     whoHelps: [
       'Deaf candidates who need Auslan interpreters at interview',
       'Autistic and neurodivergent candidates who interview better in written or structured formats',
@@ -705,30 +705,30 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '5.9': {
     id: '5.9',
-    overview: 'This module covers the moment a new employee joins, and the workplace adjustments that follow. It looks at accessible onboarding content, manager confidence in supporting employees with disability, documented adjustment-request processes, Personal Emergency Evacuation Plans (PEEPs), and the probation and return-to-work touchpoints where adjustment gaps often cause people to fail.',
+    overview: 'This module covers the moment a new employee joins and the workplace adjustments that follow. It looks at accessible onboarding content, manager confidence in supporting employees with disability, documented adjustment-request processes, Personal Emergency Evacuation Plans (PEEPs) and the probation and return-to-work touchpoints where adjustment gaps often cause people to fail.',
     topics: [
-      'Accessible onboarding documents, videos, and induction sessions',
+      'Accessible onboarding documents, videos and induction sessions',
       'Manager training on disability-confident leadership',
       'Documented workplace adjustment request process with timeframes',
       'Awareness and use of JobAccess EAF funding for adjustments',
       'Personal Emergency Evacuation Plans (PEEPs) practiced in drills',
-      'Adjustment review at 30, 60, and 90-day check-ins',
+      'Adjustment review at 30, 60 and 90-day check-ins',
       'Assistive technology provisioning timeframes',
       'Return-to-work design after disability-related leave',
       'Probation decision audit for adjustment-related bias',
     ],
-    whyMatters: 'Onboarding and probation are where most disability hires are quietly lost. Inaccessible induction content, untrained managers, and ad-hoc adjustment processes mean capable people fail not on performance but on access. Reasonable adjustments are required under DDA section 15(1)(b) (terms and conditions of employment) and Australian WHS law makes PEEPs effectively non-negotiable for staff with mobility, hearing, or cognitive disability. The JobAccess Employment Assistance Fund covers most workplace adjustment costs, so the operational excuse of "we cannot afford it" usually does not survive scrutiny. The 30/60/90-day window is the inflection point: structured adjustment review at these check-ins is what separates orgs with high disability retention from those with high disability turnover.',
+    whyMatters: 'Onboarding and probation are where most disability hires are quietly lost. Inaccessible induction content, untrained managers and ad-hoc adjustment processes mean capable people fail not on performance but on access. Reasonable adjustments are required under DDA section 15(1)(b) (terms and conditions of employment) and Australian WHS law makes PEEPs effectively non-negotiable for staff with mobility, hearing or cognitive disability. The JobAccess Employment Assistance Fund covers most workplace adjustment costs, so the operational excuse of "we cannot afford it" usually does not survive scrutiny. The 30/60/90-day window is the inflection point: structured adjustment review at these check-ins is what separates orgs with high disability retention from those with high disability turnover.',
     whoHelps: [
       'New employees with disability navigating an unfamiliar workplace',
       'Employees whose disability emerges or changes during their tenure',
       'Employees returning to work after disability-related leave',
       'Managers who want clear, defensible processes for handling adjustment requests',
-      'Wheelchair users, Deaf staff, and others requiring practiced evacuation plans',
+      'Wheelchair users, Deaf staff and others requiring practiced evacuation plans',
     ],
   },
   '5.10': {
     id: '5.10',
-    overview: 'This module covers what happens after onboarding: keeping employees with disability, supporting them to progress, and building a culture where disability is visible and valued. It looks at promotion equity, employee resource groups (ERGs), pay equity audits, leadership accountability, and the cultural signals that determine whether someone stays.',
+    overview: 'This module covers what happens after onboarding: keeping employees with disability, supporting them to progress and building a culture where disability is visible and valued. It looks at promotion equity, employee resource groups (ERGs), pay equity audits, leadership accountability and the cultural signals that determine whether someone stays.',
     topics: [
       'Disabled-employee representation at senior levels',
       'Promotion and progression tracking by disclosure status',
@@ -739,7 +739,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Board or executive review of disability employment metrics',
       'Cultural signals: language, visibility, decision-making representation',
     ],
-    whyMatters: 'Recruitment without retention is a leaky bucket. Most organisations focus their disability inclusion effort at the front of the pipeline (job ads, interview adjustments) but lose people in the middle (no progression, no community, no representation at the top). DDA section 15(1)(c) covers access to promotion, transfer, and training, meaning systemic patterns of exclusion from advancement opportunities are unlawful, not just unfair. Without tracking promotion outcomes by disclosure, those patterns remain invisible and continue. Beyond compliance, visible disabled leadership is the single strongest signal that an organisation is genuinely inclusive, and the single strongest predictor of whether disabled staff disclose, ask for adjustments, and stay.',
+    whyMatters: 'Recruitment without retention is a leaky bucket. Most organisations focus their disability inclusion effort at the front of the pipeline (job ads, interview adjustments) but lose people in the middle (no progression, no community, no representation at the top). DDA section 15(1)(c) covers access to promotion, transfer and training, meaning systemic patterns of exclusion from advancement opportunities are unlawful, not just unfair. Without tracking promotion outcomes by disclosure, those patterns remain invisible and continue. Beyond compliance, visible disabled leadership is the single strongest signal that an organisation is genuinely inclusive and the single strongest predictor of whether disabled staff disclose, ask for adjustments and stay.',
     whoHelps: [
       'Long-tenure employees with disability seeking promotion',
       'Employees with newly acquired or fluctuating disability',
@@ -750,7 +750,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.8': {
     id: '3.8',
-    overview: 'This module covers whether the tours, activities, classes, demonstrations, and services your venue offers are designed so customers with disability can actually participate, not just be physically present.',
+    overview: 'This module covers whether the tours, activities, classes, demonstrations and services your venue offers are designed so customers with disability can actually participate, not just be physically present.',
     topics: [
       'Tour and activity accessibility (pacing, route, alternative paths)',
       'Equipment and adjustments for participation',
@@ -761,7 +761,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Cost parity for accessible options',
       'Advance booking and accommodation arrangements',
     ],
-    whyMatters: 'A venue that is accessible to enter but not to participate in is only half accessible. Customers can reach the entrance, then watch the experience pass them by. Tours that move too quickly for fatigue conditions, activities that assume mobility no participant has, and demonstrations without alternative formats all leave disabled customers as spectators rather than participants. Under the DDA service-provision obligation, the experience itself must be accessible, not just the building.',
+    whyMatters: 'A venue that is accessible to enter but not to participate in is only half accessible. Customers can reach the entrance, then watch the experience pass them by. Tours that move too quickly for fatigue conditions, activities that assume mobility no participant has and demonstrations without alternative formats all leave disabled customers as spectators rather than participants. Under the DDA service-provision obligation, the experience itself must be accessible, not just the building.',
     whoHelps: [
       'Wheelchair users joining walking tours',
       'Deaf customers participating in guided activities',
@@ -772,20 +772,20 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.9': {
     id: '3.9',
-    overview: 'This module covers the accessibility of guest rooms, in-room facilities, and the overnight accommodation experience. It applies to hotels, motels, B&Bs, holiday parks, retreats, and any venue offering overnight stay.',
+    overview: 'This module covers the accessibility of guest rooms, in-room facilities and the overnight accommodation experience. It applies to hotels, motels, B&Bs, holiday parks, retreats and any venue offering overnight stay.',
     topics: [
       'Accessible room design (clearances, transfer space, controls reach)',
       'Accessible bathroom features (grab rails, roll-in shower, seat)',
-      'In-room signage, wayfinding, and controls',
+      'In-room signage, wayfinding and controls',
       'Communication access (visual alarms, hearing loops, TTY)',
       'Emergency procedures for guests with disability',
       'Sensory accommodations (lighting, noise, scent)',
       'Service animal welcome and provisions',
-      'Allergen management in linen, cleaning, and amenities',
+      'Allergen management in linen, cleaning and amenities',
     ],
-    whyMatters: 'One inaccessible accessible room means a wasted trip for a disabled traveller. Many venues claim accessible rooms exist but cannot describe their actual features, leaving travellers to gamble on whether the room will work for them. Under the DDA and Premises Standards, accessible rooms are a legal obligation for accommodation providers above a size threshold, and the specifications are well-defined in AS 1428.1.',
+    whyMatters: 'One inaccessible accessible room means a wasted trip for a disabled traveller. Many venues claim accessible rooms exist but cannot describe their actual features, leaving travellers to gamble on whether the room will work for them. Under the DDA and Premises Standards, accessible rooms are a legal obligation for accommodation providers above a size threshold and the specifications are well-defined in AS 1428.1.',
     whoHelps: [
-      'Wheelchair users needing roll-in shower, transfer space, and reachable controls',
+      'Wheelchair users needing roll-in shower, transfer space and reachable controls',
       'Deaf travellers needing visual alarms and accessible communication',
       'Blind and low-vision travellers needing tactile and audio wayfinding',
       'Autistic travellers needing sensory and predictability accommodations',
@@ -794,7 +794,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '3.10': {
     id: '3.10',
-    overview: 'This module covers the accessibility of your retail environment, including aisle width, product reach, fitting rooms, checkouts, and the overall shopping experience.',
+    overview: 'This module covers the accessibility of your retail environment, including aisle width, product reach, fitting rooms, checkouts and the overall shopping experience.',
     topics: [
       'Aisle width and clear floor space',
       'Product reach and accessible shelving',
@@ -816,7 +816,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '6.1': {
     id: '6.1',
-    overview: 'This module covers planning and promoting events so accessibility is built in from the start, not bolted on at the end. It looks at the planning decisions, accessibility budget, promotion accessibility, and the registration flow.',
+    overview: 'This module covers planning and promoting events so accessibility is built in from the start, not bolted on at the end. It looks at the planning decisions, accessibility budget, promotion accessibility and the registration flow.',
     topics: [
       'Accessibility planning at event scoping stage',
       'Venue selection criteria including accessibility',
@@ -838,7 +838,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '6.2': {
     id: '6.2',
-    overview: 'This module covers the physical accessibility of event venues and grounds, from parking and entry through seating, viewing, sanitary facilities, signage, and emergency egress.',
+    overview: 'This module covers the physical accessibility of event venues and grounds, from parking and entry through seating, viewing, sanitary facilities, signage and emergency egress.',
     topics: [
       'Accessible parking and arrival',
       'Accessible seating allocation and booking',
@@ -849,7 +849,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Wheelchair storage and charging',
       'Weather contingency for accessible routes',
     ],
-    whyMatters: 'A venue inaccessible to wheelchair users is non-compliant under the Premises Standards and AS 1428.1, full stop. The physical-access basics for events are non-negotiable: accessible parking, level entry, accessible seating with clear sightlines, accessible toilets at scale, and safe egress. Beyond compliance, smaller details (rest seating, weather contingency, viewing platforms) determine whether attendees can actually stay through the event rather than leaving early.',
+    whyMatters: 'A venue inaccessible to wheelchair users is non-compliant under the Premises Standards and AS 1428.1, full stop. The physical-access basics for events are non-negotiable: accessible parking, level entry, accessible seating with clear sightlines, accessible toilets at scale and safe egress. Beyond compliance, smaller details (rest seating, weather contingency, viewing platforms) determine whether attendees can actually stay through the event rather than leaving early.',
     whoHelps: [
       'Wheelchair users and mobility-aid users',
       'Deaf and hard of hearing attendees needing hearing loops at key locations',
@@ -860,7 +860,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '6.3': {
     id: '6.3',
-    overview: 'This module covers accessible communication and wayfinding before, during, and after the event including signage, programs, announcements, Auslan and captioning, and accessible feedback channels.',
+    overview: 'This module covers accessible communication and wayfinding before, during and after the event including signage, programs, announcements, Auslan and captioning and accessible feedback channels.',
     topics: [
       'Accessible event signage (contrast, font size, height)',
       'Tactile wayfinding (TGSIs, tactile maps, braille)',
@@ -882,7 +882,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '6.4': {
     id: '6.4',
-    overview: 'This module covers the provision of hearing, vision, and sensory support at events including hearing loops, live captioning, audio description, assistive technology, and sensory regulation spaces.',
+    overview: 'This module covers the provision of hearing, vision and sensory support at events including hearing loops, live captioning, audio description, assistive technology and sensory regulation spaces.',
     topics: [
       'Hearing loops at performance and presentation areas',
       'Live captioning delivery and display',
@@ -893,7 +893,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Scent-free zones and chemical sensitivity provisions',
       'Assistive technology rental or loan',
     ],
-    whyMatters: 'Sensory accessibility is what determines whether neurodivergent and sensory-disabled attendees can stay through the event rather than leave early. Hearing loops, captioning, and audio description are also direct WCAG and DDA conformance items at events that include audio-visual content. Failing to provide them where they are needed is direct service-provision discrimination.',
+    whyMatters: 'Sensory accessibility is what determines whether neurodivergent and sensory-disabled attendees can stay through the event rather than leave early. Hearing loops, captioning and audio description are also direct WCAG and DDA conformance items at events that include audio-visual content. Failing to provide them where they are needed is direct service-provision discrimination.',
     whoHelps: [
       'Deaf and hard of hearing attendees',
       'Blind and low-vision attendees',
@@ -904,7 +904,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '6.5': {
     id: '6.5',
-    overview: 'This module covers services on the day of the event including staffing, queuing, food and beverage, security screening, emergency procedures, and the operational details that determine inclusion.',
+    overview: 'This module covers services on the day of the event including staffing, queuing, food and beverage, security screening, emergency procedures and the operational details that determine inclusion.',
     topics: [
       'Staff and volunteer disability training',
       'Queue management and accessible queuing',
@@ -915,7 +915,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Accessibility stewards and rovers on site',
       'Contingency for adverse weather',
     ],
-    whyMatters: 'All the planning in the world is undone by one untrained gate volunteer turning away a service animal, or one inaccessible queue, or one security screener demanding a wheelchair user prove their disability. On-the-day operations are where attendee experience is built or broken, and where compliance is tested in practice rather than on paper.',
+    whyMatters: 'All the planning in the world is undone by one untrained gate volunteer turning away a service animal or one inaccessible queue or one security screener demanding a wheelchair user prove their disability. On-the-day operations are where attendee experience is built or broken and where compliance is tested in practice rather than on paper.',
     whoHelps: [
       'Service animal handlers facing untrained gate staff',
       'Wheelchair users at security screening and queuing',
@@ -926,7 +926,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '7.1': {
     id: '7.1',
-    overview: 'This module covers coordinating accessibility across all venues, stages, zones, and satellite locations in a major event or festival so the experience is consistent for attendees who move between sites.',
+    overview: 'This module covers coordinating accessibility across all venues, stages, zones and satellite locations in a major event or festival so the experience is consistent for attendees who move between sites.',
     topics: [
       'Precinct-wide accessibility map',
       'Accessible inter-venue transport options',
@@ -948,7 +948,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '7.2': {
     id: '7.2',
-    overview: 'This module covers curating an accessibility-focused programming track including relaxed performances, audio-described and captioned shows, sensory-friendly sessions, and partnerships with disability-led arts.',
+    overview: 'This module covers curating an accessibility-focused programming track including relaxed performances, audio-described and captioned shows, sensory-friendly sessions and partnerships with disability-led arts.',
     topics: [
       'Relaxed performances scheduled within the main program',
       'Audio-described performances and tours',
@@ -959,7 +959,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Accessible cast and crew across the program',
       'Program-wide accessibility audit before publication',
     ],
-    whyMatters: 'A festival without a single relaxed, captioned, or audio-described performance has excluded entire audiences from its program. Programming curation is the moment where access is either built into the artistic vision or treated as an afterthought. Beyond compliance, paid partnership with disability-led arts is core ethical practice and changes what is curated, not just how it is presented.',
+    whyMatters: 'A festival without a single relaxed, captioned or audio-described performance has excluded entire audiences from its program. Programming curation is the moment where access is either built into the artistic vision or treated as an afterthought. Beyond compliance, paid partnership with disability-led arts is core ethical practice and changes what is curated, not just how it is presented.',
     whoHelps: [
       'Autistic and neurodivergent audiences attending relaxed performances',
       'Deaf and hard of hearing audiences attending captioned shows',
@@ -970,7 +970,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '7.3': {
     id: '7.3',
-    overview: 'This module covers the end-to-end ticketing flow including companion ticketing, accessible online booking, multiple-format ticket delivery, trained box office staff, and equitable pricing.',
+    overview: 'This module covers the end-to-end ticketing flow including companion ticketing, accessible online booking, multiple-format ticket delivery, trained box office staff and equitable pricing.',
     topics: [
       'Accessible online booking flow',
       'Companion Card recognition and companion ticketing',
@@ -992,7 +992,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '7.4': {
     id: '7.4',
-    overview: 'This module covers backstage and performer-side accessibility — the dressing rooms, green rooms, stage access, briefings, and welfare that allow disabled artists to perform with the same support as non-disabled artists.',
+    overview: 'This module covers backstage and performer-side accessibility — the dressing rooms, green rooms, stage access, briefings and welfare that allow disabled artists to perform with the same support as non-disabled artists.',
     topics: [
       'Accessible stages and stage access',
       'Accessible dressing rooms and green rooms',
@@ -1014,14 +1014,14 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '7.5': {
     id: '7.5',
-    overview: 'This module covers volunteer and staff systems at major-event scale including disability training, identification, access champion networks, inclusive evacuation, specialist rovers, and cohort planning for VIP, sponsor, and press accessibility.',
+    overview: 'This module covers volunteer and staff systems at major-event scale including disability training, identification, access champion networks, inclusive evacuation, specialist rovers and cohort planning for VIP, sponsor and press accessibility.',
     topics: [
       'Disability training for staff and volunteers',
-      'Identifying clothing, roles, and visibility of accessibility staff',
+      'Identifying clothing, roles and visibility of accessibility staff',
       'Access champion network across venues',
       'Auslan and audio-description rovers',
       'Inclusive evacuation training and roles',
-      'Cohort planning for VIP, sponsor, and press accessibility',
+      'Cohort planning for VIP, sponsor and press accessibility',
       'Escalation paths when accessibility issues arise',
       'WHS evacuation obligations for staff with disability',
     ],
@@ -1031,23 +1031,23 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Deaf attendees needing Auslan rovers and captioning support',
       'Blind and low-vision attendees needing audio description rovers',
       'Disabled staff and volunteers themselves',
-      'VIP, sponsor, and press cohorts with disability requiring tailored access',
+      'VIP, sponsor and press cohorts with disability requiring tailored access',
     ],
   },
   '7.6': {
     id: '7.6',
-    overview: 'This module covers day-of attendee-facing services that are specific to major-event scale: sensory regulation rooms, queue avoidance, coloured zoning, QR-code info networks, familiarisation visits, service animal welcome, rovers, and rest seating.',
+    overview: 'This module covers day-of attendee-facing services that are specific to major-event scale: sensory regulation rooms, queue avoidance, coloured zoning, QR-code info networks, familiarisation visits, service animal welcome, rovers and rest seating.',
     topics: [
       'Sensory regulation rooms with trained support',
       'Queue avoidance and priority entry pathways',
       'Coloured zoning systems for sensory and crowd management',
       'QR-code info network for real-time accessibility information',
       'Familiarisation visits before the event',
-      'Service animal welcome, water stations, and provisions',
+      'Service animal welcome, water stations and provisions',
       'Accessibility rovers and stewards throughout the precinct',
       'Rest seating along long paths and queues',
     ],
-    whyMatters: 'At major-event scale, dedicated attendee-experience operations are what differentiate a venue that is "accessible" on paper from one that is actually inclusive in practice. The infrastructure of dedicated sensory rooms, QR-code networks, and accessibility rovers exists because thousands of attendees need more than the legal minimum of compliance.',
+    whyMatters: 'At major-event scale, dedicated attendee-experience operations are what differentiate a venue that is "accessible" on paper from one that is actually inclusive in practice. The infrastructure of dedicated sensory rooms, QR-code networks and accessibility rovers exists because thousands of attendees need more than the legal minimum of compliance.',
     whoHelps: [
       'Autistic and neurodivergent attendees needing sensory regulation',
       'Attendees with sensory processing differences',
@@ -1061,7 +1061,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   // module first, then this entry will surface automatically.
   '7.7-hidden': {
     id: '7.7',
-    overview: 'This module covers overnight accommodation accessibility at camping festivals and multi-day events, including accessible pitches, amenities at scale, transport from camping to event, power and refrigeration for medical equipment, accessible cooking, and night lighting.',
+    overview: 'This module covers overnight accommodation accessibility at camping festivals and multi-day events, including accessible pitches, amenities at scale, transport from camping to event, power and refrigeration for medical equipment, accessible cooking and night lighting.',
     topics: [
       'Accessible camping pitches with level surfaces and clear access',
       'Accessible amenities at scale (toilets, showers, washing)',

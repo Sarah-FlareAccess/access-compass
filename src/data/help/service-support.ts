@@ -24,10 +24,10 @@ export const serviceSupportHelp: HelpContent[] = [
     summary: 'Offering multiple ways for customers to reach you (email, text, chat, in-person) ensures people who cannot use voice calls still have equal access to your services.',
 
     whyItMatters: {
-      text: 'Phone calls are impossible or very difficult for many people, including those who are Deaf, have speech disabilities, experience phone anxiety, or use communication devices. If your phone number is the only prominent contact option, you are excluding a significant portion of the community.',
+      text: 'Phone calls are impossible or very difficult for many people, including those who are Deaf, have speech disabilities, experience phone anxiety or use communication devices. If your phone number is the only prominent contact option, you are excluding a significant portion of the community.',
       statistic: {
         value: '1 in 6',
-        context: 'Australians have some form of hearing loss, and many cannot use standard voice calls.',
+        context: 'Australians have some form of hearing loss and many cannot use standard voice calls.',
         source: 'Hearing Australia'
       }
     },
@@ -35,7 +35,7 @@ export const serviceSupportHelp: HelpContent[] = [
     tips: [
       {
         icon: 'MessageSquare',
-        text: 'Offer at least three contact methods: phone, email, and one real-time option (chat or SMS)',
+        text: 'Offer at least three contact methods: phone, email and one real-time option (chat or SMS)',
         priority: 1
       },
       {
@@ -68,7 +68,7 @@ export const serviceSupportHelp: HelpContent[] = [
         { text: 'Check your website: Is the phone number larger or more prominent than other options?' },
         { text: 'Test each channel yourself. How long does a response take compared to a phone call?' },
         { text: 'Ask whether complaint and feedback processes accept all the same channels' },
-        { text: 'Check that all channels are staffed during the same hours, or clearly state availability' },
+        { text: 'Check that all channels are staffed during the same hours or clearly state availability' },
         { text: 'Review printed materials (brochures, signage) for contact diversity' }
       ],
       estimatedTime: '30-60 minutes'
@@ -78,7 +78,7 @@ export const serviceSupportHelp: HelpContent[] = [
       primary: {
         code: 'DDA',
         section: 'Part 2, Division 2',
-        requirement: 'It is unlawful to discriminate in the provision of goods, services, or facilities.'
+        requirement: 'It is unlawful to discriminate in the provision of goods, services or facilities.'
       },
       related: [
         {
@@ -94,7 +94,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'accommodation',
         businessTypeLabel: 'Hotel',
         scenario: 'A hotel received complaints that guests with hearing loss could not make reservations because the booking line was phone-only.',
-        solution: 'Added email booking, live chat on the website, and SMS enquiry option. All channels feed into the same booking system with equal priority.',
+        solution: 'Added email booking, live chat on the website and SMS enquiry option. All channels feed into the same booking system with equal priority.',
         outcome: 'Booking enquiries from people with hearing loss increased. Average response time for non-phone channels matched phone within two weeks.',
         cost: '$500-1,500 for chat integration; email is free'
       },
@@ -102,7 +102,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'local-government',
         businessTypeLabel: 'Council',
         scenario: 'A council\'s customer service centre only accepted enquiries by phone or in-person visit.',
-        solution: 'Implemented an online enquiry form (WCAG 2.2 compliant), email address, and SMS number. Trained staff to treat all channels equally in the queue.',
+        solution: 'Implemented an online enquiry form (WCAG 2.2 compliant), email address and SMS number. Trained staff to treat all channels equally in the queue.',
         outcome: 'Enquiries from residents with disabilities increased 40%. Satisfaction scores improved.',
         cost: '$2,000-5,000 for form and SMS setup'
       },
@@ -153,14 +153,14 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         title: 'Unified multi-channel enquiry system',
-        description: 'Implement a single system that routes phone, email, chat, and SMS into one queue with equal priority.',
+        description: 'Implement a single system that routes phone, email, chat and SMS into one queue with equal priority.',
         resourceLevel: 'high',
         costRange: '$3,000-10,000',
         timeRequired: '2-4 weeks',
         implementedBy: 'contractor',
         impact: 'significant',
         steps: [
-          'Select a customer service platform that supports phone, email, chat, SMS, and social media',
+          'Select a customer service platform that supports phone, email, chat, SMS and social media',
           'Configure routing so all channels enter the same priority queue',
           'Set up auto-responses confirming receipt on each channel',
           'Train all customer service staff on handling enquiries across channels',
@@ -226,7 +226,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'National Relay Service (NRS) Awareness',
-    summary: 'The National Relay Service lets people who are Deaf, hard of hearing, or have a speech disability make and receive phone calls through a relay officer. Staff need to know how to handle these calls.',
+    summary: 'The National Relay Service lets people who are Deaf, hard of hearing or have a speech disability make and receive phone calls through a relay officer. Staff need to know how to handle these calls.',
 
     whyItMatters: {
       text: 'NRS calls may start with a relay officer announcing the service, which can confuse untrained staff who may hang up thinking it is a telemarketer. Every disconnected NRS call is a customer with a disability who has been turned away.',
@@ -311,7 +311,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         title: 'Add NRS to formal procedures',
-        description: 'Embed NRS handling in phone procedures, onboarding, and customer service training.',
+        description: 'Embed NRS handling in phone procedures, onboarding and customer service training.',
         resourceLevel: 'low',
         costRange: 'Free',
         timeRequired: '1-2 hours',
@@ -444,7 +444,7 @@ export const serviceSupportHelp: HelpContent[] = [
     solutions: [
       {
         title: 'Add preferences to existing systems',
-        description: 'Add a communication preferences field to your CRM, booking system, or customer database.',
+        description: 'Add a communication preferences field to your CRM, booking system or customer database.',
         resourceLevel: 'low',
         costRange: 'Free-$500',
         timeRequired: '1-3 hours',
@@ -518,15 +518,15 @@ export const serviceSupportHelp: HelpContent[] = [
 
   {
     questionId: '4.1-PC-5',
-    questionText: 'Are staff trained to communicate patiently with people who have speech disabilities, strong accents, or use AAC devices?',
+    questionText: 'Are staff trained to communicate patiently with people who have speech disabilities, strong accents or use AAC devices?',
     moduleCode: '4.1',
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Supporting Speech Differences and AAC Users',
-    summary: 'People with speech disabilities, those who use AAC (Augmentative and Alternative Communication) devices, and non-native speakers deserve patient, respectful communication. Staff training makes the difference.',
+    summary: 'People with speech disabilities, those who use AAC (Augmentative and Alternative Communication) devices and non-native speakers deserve patient, respectful communication. Staff training makes the difference.',
 
     whyItMatters: {
-      text: 'Speech differences can be caused by cerebral palsy, stroke, autism, motor neurone disease, and many other conditions. AAC devices (tablets, speech-generating devices, communication boards) help people communicate but require patience and understanding from the listener. Rushing, interrupting, or pretending to understand creates exclusion.',
+      text: 'Speech differences can be caused by cerebral palsy, stroke, autism, motor neurone disease and many other conditions. AAC devices (tablets, speech-generating devices, communication boards) help people communicate but require patience and understanding from the listener. Rushing, interrupting or pretending to understand creates exclusion.',
       statistic: {
         value: '1.2 million',
         context: 'Australians have a communication disability that affects their daily life.',
@@ -548,7 +548,7 @@ export const serviceSupportHelp: HelpContent[] = [
       {
         icon: 'Tablet',
         text: 'Learn what AAC devices look like and how they work at a basic level',
-        detail: 'AAC includes speech-generating apps on tablets, picture boards, and eye-gaze technology.',
+        detail: 'AAC includes speech-generating apps on tablets, picture boards and eye-gaze technology.',
         priority: 3
       },
       {
@@ -558,7 +558,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         icon: 'Image',
-        text: 'Keep simple communication tools on hand: pen and paper, picture boards, or a tablet with a communication app',
+        text: 'Keep simple communication tools on hand: pen and paper, picture boards or a tablet with a communication app',
         priority: 5
       }
     ],
@@ -639,7 +639,7 @@ export const serviceSupportHelp: HelpContent[] = [
         url: 'https://www.scopeaust.org.au/services-for-organisations/communication-access/',
         type: 'website',
         source: 'Scope Australia',
-        description: 'Communication Access accreditation, training, and resources for businesses.',
+        description: 'Communication Access accreditation, training and resources for businesses.',
         isAustralian: true
       },
       {
@@ -690,7 +690,7 @@ export const serviceSupportHelp: HelpContent[] = [
     summary: 'Disability awareness training builds staff confidence to welcome and assist customers with disabilities naturally, without awkwardness or over-helping.',
 
     whyItMatters: {
-      text: 'Even the most physically accessible venue fails if staff do not know how to interact respectfully. Training reduces awkwardness, builds genuine confidence, and creates a culture where inclusion is normal rather than an afterthought.',
+      text: 'Even the most physically accessible venue fails if staff do not know how to interact respectfully. Training reduces awkwardness, builds genuine confidence and creates a culture where inclusion is normal rather than an afterthought.',
       quote: {
         text: 'The ramp was perfect, but the staff talked to my carer instead of me. That is what I remember.',
         attribution: 'Wheelchair user, customer feedback survey'
@@ -1017,10 +1017,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Service Animals and Assistance Animals',
-    summary: 'Under Australian law, assistance animals must be allowed in all public venues. Staff need to know the law, recognise assistance animals, and handle situations where other customers complain.',
+    summary: 'Under Australian law, assistance animals must be allowed in all public venues. Staff need to know the law, recognise assistance animals and handle situations where other customers complain.',
 
     whyItMatters: {
-      text: 'Assistance animals (guide dogs, hearing dogs, mobility dogs, psychiatric assistance dogs, and others) are legally protected under the Disability Discrimination Act. Refusing entry is unlawful. Yet many people with assistance animals report being turned away or challenged, often by well-meaning but uninformed staff.',
+      text: 'Assistance animals (guide dogs, hearing dogs, mobility dogs, psychiatric assistance dogs and others) are legally protected under the Disability Discrimination Act. Refusing entry is unlawful. Yet many people with assistance animals report being turned away or challenged, often by well-meaning but uninformed staff.',
       statistic: {
         value: '62%',
         context: 'of assistance animal handlers in Australia report having been refused access to a business at least once.',
@@ -1032,12 +1032,12 @@ export const serviceSupportHelp: HelpContent[] = [
       {
         icon: 'ShieldCheck',
         text: 'Under the DDA, assistance animals MUST be allowed in all areas open to the public',
-        detail: 'This includes restaurants, shops, hotels, transport, and medical facilities. No exceptions for "no pets" policies.',
+        detail: 'This includes restaurants, shops, hotels, transport and medical facilities. No exceptions for "no pets" policies.',
         priority: 1
       },
       {
         icon: 'Eye',
-        text: 'Do not pat, distract, or feed an assistance animal. It is working.',
+        text: 'Do not pat, distract or feed an assistance animal. It is working.',
         priority: 2
       },
       {
@@ -1070,7 +1070,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'restaurant-cafe',
         businessTypeLabel: 'Restaurant',
         scenario: 'A restaurant turned away a blind customer with a guide dog, citing hygiene regulations.',
-        solution: 'After a complaint to the Human Rights Commission, the restaurant updated its policy, trained all staff, and added "Assistance animals welcome" to its entrance signage and website.',
+        solution: 'After a complaint to the Human Rights Commission, the restaurant updated its policy, trained all staff and added "Assistance animals welcome" to its entrance signage and website.',
         outcome: 'No further incidents. The restaurant is now recommended in accessibility guides.',
         cost: 'Free (policy and training only)'
       },
@@ -1104,7 +1104,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         title: 'Staff awareness training',
-        description: 'Brief staff on legal requirements, etiquette, and common scenarios.',
+        description: 'Brief staff on legal requirements, etiquette and common scenarios.',
         resourceLevel: 'low',
         costRange: 'Free',
         timeRequired: '30 minutes',
@@ -1171,10 +1171,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Accessible Service Delivery and On-Site Assistance',
-    summary: 'Practical service adaptations (pre-arrival requests, equipment loans, priority queuing, alternative delivery, and staff knowledge of accessible facilities) ensure customers with disabilities receive equal service.',
+    summary: 'Practical service adaptations (pre-arrival requests, equipment loans, priority queuing, alternative delivery and staff knowledge of accessible facilities) ensure customers with disabilities receive equal service.',
 
     whyItMatters: {
-      text: 'Accessible infrastructure means little if the service around it is rigid. A customer who cannot stand in a queue, needs equipment brought to them, or requires a different service format deserves adaptations. These small adjustments often cost nothing but transform the experience.',
+      text: 'Accessible infrastructure means little if the service around it is rigid. A customer who cannot stand in a queue, needs equipment brought to them or requires a different service format deserves adaptations. These small adjustments often cost nothing but transform the experience.',
       quote: {
         text: 'I asked if I could skip the queue because I cannot stand. The staff member said "we treat everyone the same." That is not equality.',
         attribution: 'Customer with chronic pain condition'
@@ -1184,12 +1184,12 @@ export const serviceSupportHelp: HelpContent[] = [
     tips: [
       {
         icon: 'Phone',
-        text: 'Let customers request assistance before arriving via your website, email, or phone',
+        text: 'Let customers request assistance before arriving via your website, email or phone',
         priority: 1
       },
       {
         icon: 'MapPin',
-        text: 'Ensure all staff know the location of accessible toilets, lifts, quiet rooms, and hearing loops',
+        text: 'Ensure all staff know the location of accessible toilets, lifts, quiet rooms and hearing loops',
         priority: 2
       },
       {
@@ -1273,7 +1273,7 @@ export const serviceSupportHelp: HelpContent[] = [
           'List all available equipment: wheelchairs, portable ramps, magnifiers, assisted listening devices',
           'Note where each item is stored and how to operate it',
           'Create a one-page guide for each service point',
-          'Laminate and place at reception, concierge, and key service areas',
+          'Laminate and place at reception, concierge and key service areas',
           'Brief all staff in a 15-minute session',
           'Update whenever facilities change'
         ]
@@ -1320,8 +1320,8 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleCode: '4.2',
     moduleGroup: 'service-support',
     diapCategory: 'people-culture',
-    title: 'Welcoming Environment, Carers, and Intersectionality',
-    summary: 'A welcoming environment goes beyond physical access. It includes quiet spaces for sensory overload, proper accommodation of carers and support people, and understanding that disability intersects with culture, identity, and past experiences.',
+    title: 'Welcoming Environment, Carers and Intersectionality',
+    summary: 'A welcoming environment goes beyond physical access. It includes quiet spaces for sensory overload, proper accommodation of carers and support people and understanding that disability intersects with culture, identity and past experiences.',
 
     whyItMatters: {
       text: 'Customers with disabilities are not a single group. A First Nations person with a disability may face compounded barriers. A person from a culturally diverse background may have different expectations around help and independence. Someone who has experienced discrimination may be wary of seeking assistance. Recognising these layers creates genuinely inclusive service.',
@@ -1335,7 +1335,7 @@ export const serviceSupportHelp: HelpContent[] = [
       {
         icon: 'Volume',
         text: 'Designate a quiet space where overwhelmed customers can take a break',
-        detail: 'This is essential for autistic visitors, people with anxiety, and those experiencing sensory overload.',
+        detail: 'This is essential for autistic visitors, people with anxiety and those experiencing sensory overload.',
         priority: 1
       },
       {
@@ -1345,7 +1345,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         icon: 'Heart',
-        text: 'Recognise intersectionality: disability plus culture, gender, age, or sexuality creates unique needs',
+        text: 'Recognise intersectionality: disability plus culture, gender, age or sexuality creates unique needs',
         priority: 3
       },
       {
@@ -1372,7 +1372,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'retail',
         businessTypeLabel: 'Shopping Centre',
         scenario: 'Autistic visitors became overwhelmed during busy periods with no quiet retreat available.',
-        solution: 'Converted a small meeting room into a sensory space with dimmed lights, comfortable seating, and noise-reducing design. Promoted it on the website and with signage.',
+        solution: 'Converted a small meeting room into a sensory space with dimmed lights, comfortable seating and noise-reducing design. Promoted it on the website and with signage.',
         outcome: 'Families with autistic members visit during times they previously avoided. The space is also used by people with anxiety and migraine.',
         cost: '$500-2,000 for basic fit-out'
       },
@@ -1396,7 +1396,7 @@ export const serviceSupportHelp: HelpContent[] = [
         implementedBy: 'staff',
         impact: 'moderate',
         steps: [
-          'Identify a suitable room or area (can be a small meeting room, office, or screened corner)',
+          'Identify a suitable room or area (can be a small meeting room, office or screened corner)',
           'Reduce stimulation: dim lighting, no music, minimal visual clutter',
           'Add comfortable seating and, if possible, noise-cancelling headphones',
           'Place clear signage directing to the space',
@@ -1406,7 +1406,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         title: 'Intersectionality-aware service training',
-        description: 'Expand disability training to include cultural factors, intersectionality, and trauma awareness.',
+        description: 'Expand disability training to include cultural factors, intersectionality and trauma awareness.',
         resourceLevel: 'medium',
         costRange: '$500-2,000',
         timeRequired: '2-3 hours',
@@ -1415,7 +1415,7 @@ export const serviceSupportHelp: HelpContent[] = [
         steps: [
           'Partner with a training provider that covers both disability and cultural competency',
           'Include content on First Nations disability perspectives',
-          'Cover how cultural backgrounds affect attitudes to disability, help-seeking, and family roles',
+          'Cover how cultural backgrounds affect attitudes to disability, help-seeking and family roles',
           'Discuss trauma-informed approaches: patience, choice, control, transparency',
           'Practice scenarios involving multiple identity factors',
           'Review your feedback channels to ensure they are culturally safe'
@@ -1467,7 +1467,7 @@ export const serviceSupportHelp: HelpContent[] = [
     summary: 'A documented process for handling accessibility complaints, supported by a written customer service policy for people with disabilities, gives staff clear guidance and gives customers confidence.',
 
     whyItMatters: {
-      text: 'Without a clear process, accessibility complaints get lost in general feedback or handled inconsistently. A documented policy ensures every complaint is taken seriously, responded to promptly, and used as an opportunity to improve.',
+      text: 'Without a clear process, accessibility complaints get lost in general feedback or handled inconsistently. A documented policy ensures every complaint is taken seriously, responded to promptly and used as an opportunity to improve.',
       statistic: {
         value: '90%',
         context: 'of accessibility complaints never get made formally. People just stop coming back.',
@@ -1617,7 +1617,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Accessible Online Booking',
-    summary: 'Your online booking system should be fully usable with a keyboard, screen reader, and other assistive technologies. Customers should be able to specify accessibility needs and receive confirmations in accessible formats.',
+    summary: 'Your online booking system should be fully usable with a keyboard, screen reader and other assistive technologies. Customers should be able to specify accessibility needs and receive confirmations in accessible formats.',
 
     whyItMatters: {
       text: 'If customers with disabilities cannot complete a booking independently online, they must call (which not everyone can do) or rely on someone else. This removes autonomy and creates an unequal experience from the very first interaction.',
@@ -1675,7 +1675,7 @@ export const serviceSupportHelp: HelpContent[] = [
       primary: {
         code: 'WCAG2.2-AA',
         section: 'All applicable criteria',
-        requirement: 'Online booking systems must meet WCAG 2.2 Level AA for perceivability, operability, understandability, and robustness.'
+        requirement: 'Online booking systems must meet WCAG 2.2 Level AA for perceivability, operability, understandability and robustness.'
       },
       related: [
         {
@@ -1683,7 +1683,7 @@ export const serviceSupportHelp: HelpContent[] = [
           relevance: 'Online services are covered by the DDA. Inaccessible booking systems may constitute discrimination.'
         }
       ],
-      plainEnglish: 'Your online booking system must work for everyone, including people using screen readers, keyboard navigation, or voice control. This is both a legal requirement and good business practice.'
+      plainEnglish: 'Your online booking system must work for everyone, including people using screen readers, keyboard navigation or voice control. This is both a legal requirement and good business practice.'
     },
 
     examples: [
@@ -1699,7 +1699,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'event-venue',
         businessTypeLabel: 'Theatre',
         scenario: 'Wheelchair users could not select accessible seating through the online ticketing system.',
-        solution: 'Added an accessible seating category to the online seat map. Customers can filter for wheelchair spaces, companion seats, and hearing loop zones. An assistance request option was added to checkout.',
+        solution: 'Added an accessible seating category to the online seat map. Customers can filter for wheelchair spaces, companion seats and hearing loop zones. An assistance request option was added to checkout.',
         outcome: 'Wheelchair users and hearing loop users can self-serve online. Box office phone calls for accessible bookings reduced 70%.',
         cost: '$1,000-3,000 for ticketing system update'
       }
@@ -1782,11 +1782,11 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleCode: '4.3',
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
-    title: 'Pricing, Concessions, and Companion Card',
-    summary: 'Accessible pricing means recognising the Companion Card, offering concessions where appropriate, displaying pricing in accessible formats, and being flexible with cancellation policies for disability-related changes.',
+    title: 'Pricing, Concessions and Companion Card',
+    summary: 'Accessible pricing means recognising the Companion Card, offering concessions where appropriate, displaying pricing in accessible formats and being flexible with cancellation policies for disability-related changes.',
 
     whyItMatters: {
-      text: 'People with disabilities often face higher costs: paying for a carer\'s entry, needing to cancel last-minute due to health, or being unable to access discounts because they are only available online. Fair pricing removes financial barriers to participation.',
+      text: 'People with disabilities often face higher costs: paying for a carer\'s entry, needing to cancel last-minute due to health or being unable to access discounts because they are only available online. Fair pricing removes financial barriers to participation.',
       statistic: {
         value: '450,000+',
         context: 'Companion Cards have been issued across Australia, providing free entry for carers.',
@@ -1844,7 +1844,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'restaurant-cafe',
         businessTypeLabel: 'Restaurant',
         scenario: 'A restaurant\'s menu was only available as an image on social media, inaccessible to screen readers.',
-        solution: 'Created an accessible web version of the menu with proper headings, prices in text (not images), and clear allergen information. Added a large print version for in-venue use.',
+        solution: 'Created an accessible web version of the menu with proper headings, prices in text (not images) and clear allergen information. Added a large print version for in-venue use.',
         outcome: 'Customers with vision impairment can browse the menu independently before and during visits.',
         cost: '$100-300 for web menu; $20 for large print copies'
       }
@@ -1928,10 +1928,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Payment Accessibility',
-    summary: 'Payment terminals, methods, and receipts should all be accessible. This means terminals at reachable heights, portable options, diverse payment methods, and receipts in accessible formats.',
+    summary: 'Payment terminals, methods and receipts should all be accessible. This means terminals at reachable heights, portable options, diverse payment methods and receipts in accessible formats.',
 
     whyItMatters: {
-      text: 'Payment is often the final step in a customer interaction. If a wheelchair user cannot reach the EFTPOS terminal, a blind customer cannot read the screen, or a customer with dexterity issues cannot handle coins, the entire experience is undermined at the last moment.',
+      text: 'Payment is often the final step in a customer interaction. If a wheelchair user cannot reach the EFTPOS terminal, a blind customer cannot read the screen or a customer with dexterity issues cannot handle coins, the entire experience is undermined at the last moment.',
       quote: {
         text: 'The terminal was mounted on a high counter. I could not reach it or see the screen from my wheelchair. I had to hand my card to a stranger.',
         attribution: 'Wheelchair user, retail feedback'
@@ -2021,11 +2021,11 @@ export const serviceSupportHelp: HelpContent[] = [
         implementedBy: 'staff',
         impact: 'moderate',
         steps: [
-          'Audit all payment points for height, reach, and visibility',
+          'Audit all payment points for height, reach and visibility',
           'Ensure all payment methods (cash, card, digital) are available at every point',
           'Check that self-service kiosks (if any) are accessible at seated height',
           'Add tactile markers to PIN pads if not already present',
-          'Ensure receipts, invoices, and statements can be provided in accessible formats',
+          'Ensure receipts, invoices and statements can be provided in accessible formats',
           'Test the full payment experience from a wheelchair',
           'Document and train staff on bringing payment to the customer'
         ]
@@ -2064,10 +2064,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Dietary and Sensory Food Needs',
-    summary: 'Some customers need to bring their own food due to severe allergies, medical conditions, or sensory processing differences. Others may need food prepared in specific ways (textures, separation). Flexible food policies support inclusion.',
+    summary: 'Some customers need to bring their own food due to severe allergies, medical conditions or sensory processing differences. Others may need food prepared in specific ways (textures, separation). Flexible food policies support inclusion.',
 
     whyItMatters: {
-      text: 'For people with severe allergies, sensory processing differences (common in autism), or medical dietary requirements (such as thickened fluids for swallowing difficulties), food is not just a preference. It can be a safety and participation issue. Rigid "no outside food" policies may exclude these customers entirely.',
+      text: 'For people with severe allergies, sensory processing differences (common in autism) or medical dietary requirements (such as thickened fluids for swallowing difficulties), food is not just a preference. It can be a safety and participation issue. Rigid "no outside food" policies may exclude these customers entirely.',
       quote: {
         text: 'My son is autistic and only eats specific textures. If we cannot bring his food, we simply cannot visit.',
         attribution: 'Parent of autistic child'
@@ -2101,7 +2101,7 @@ export const serviceSupportHelp: HelpContent[] = [
       title: 'Reviewing your food flexibility',
       steps: [
         { text: 'Review your food policy: Does it allow outside food for medical/disability reasons?' },
-        { text: 'Ask kitchen staff: Can you modify textures, serve foods separately, or prepare plain versions?' },
+        { text: 'Ask kitchen staff: Can you modify textures, serve foods separately or prepare plain versions?' },
         { text: 'Check if divided plates are available (purchase from catering suppliers for $5-10 each)' },
         { text: 'Review allergen information: Is it available in accessible formats?' },
         { text: 'Ensure staff know to ask about dietary needs proactively, not just react to complaints' }
@@ -2196,7 +2196,7 @@ export const serviceSupportHelp: HelpContent[] = [
     summary: 'Emergency procedures must specifically include people with disabilities. Personal Emergency Evacuation Plans (PEEPs) provide individualised plans for people who need assistance during evacuation.',
 
     whyItMatters: {
-      text: 'Standard evacuation procedures assume everyone can hear alarms, see exit signs, and use stairs. For people who cannot, an emergency becomes life-threatening if there is no plan. PEEPs address individual needs before an emergency occurs.',
+      text: 'Standard evacuation procedures assume everyone can hear alarms, see exit signs and use stairs. For people who cannot, an emergency becomes life-threatening if there is no plan. PEEPs address individual needs before an emergency occurs.',
       statistic: {
         value: '15%',
         context: 'of the population has a disability that could affect their ability to evacuate independently.',
@@ -2212,7 +2212,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         icon: 'UserCheck',
-        text: 'Offer Personal Emergency Evacuation Plans (PEEPs) for regular visitors, staff, and tenants who need them',
+        text: 'Offer Personal Emergency Evacuation Plans (PEEPs) for regular visitors, staff and tenants who need them',
         priority: 2
       },
       {
@@ -2231,10 +2231,10 @@ export const serviceSupportHelp: HelpContent[] = [
       title: 'Reviewing your emergency planning',
       steps: [
         { text: 'Read your current emergency plan. Search for "disability", "wheelchair", "deaf", "blind".' },
-        { text: 'Check if PEEPs are offered to staff, tenants, and regular visitors with disabilities' },
+        { text: 'Check if PEEPs are offered to staff, tenants and regular visitors with disabilities' },
         { text: 'Review your last evacuation drill: Were disability scenarios included?' },
         { text: 'Ask wardens: What would you do if a wheelchair user was on the first floor during a fire?' },
-        { text: 'Check if your plan accounts for people who are Deaf (visual alerts), blind (verbal guidance), or have cognitive disabilities (simplified instructions)' },
+        { text: 'Check if your plan accounts for people who are Deaf (visual alerts), blind (verbal guidance) or have cognitive disabilities (simplified instructions)' },
         { text: 'Verify that the plan is reviewed and updated at least annually' }
       ],
       estimatedTime: '30-60 minutes for review'
@@ -2364,10 +2364,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Evacuation Access and Equipment',
-    summary: 'Emergency exits must be physically accessible, refuge areas should be available on upper floors, evacuation equipment (such as evacuation chairs) should be ready, and service animals must be included in evacuation plans.',
+    summary: 'Emergency exits must be physically accessible, refuge areas should be available on upper floors, evacuation equipment (such as evacuation chairs) should be ready and service animals must be included in evacuation plans.',
 
     whyItMatters: {
-      text: 'In an emergency, time is critical. A blocked or inaccessible exit, a missing evacuation chair, or confusion about where a wheelchair user should wait can have serious consequences. Preparation and equipment save lives.',
+      text: 'In an emergency, time is critical. A blocked or inaccessible exit, a missing evacuation chair or confusion about where a wheelchair user should wait can have serious consequences. Preparation and equipment save lives.',
       quote: {
         text: 'During the drill, the warden told me to "just wait" in the stairwell. No one came back for 20 minutes. In a real fire, I would be terrified.',
         attribution: 'Office worker who uses a wheelchair'
@@ -2403,11 +2403,11 @@ export const serviceSupportHelp: HelpContent[] = [
       steps: [
         { text: 'Walk each emergency exit route in a wheelchair or with a mobility aid. Note barriers.' },
         { text: 'Measure exit door widths: minimum 850mm clear opening required.' },
-        { text: 'Check for steps, lips, or raised thresholds in exit paths' },
+        { text: 'Check for steps, lips or raised thresholds in exit paths' },
         { text: 'Identify refuge areas on upper floors. Are they signed and do they have communication devices?' },
-        { text: 'Locate evacuation chairs: Are they accessible, charged (if powered), and signed?' },
+        { text: 'Locate evacuation chairs: Are they accessible, charged (if powered) and signed?' },
         { text: 'Check that service animals are included in evacuation procedures' },
-        { text: 'Verify that exit paths are kept clear of storage, furniture, and other obstructions' }
+        { text: 'Verify that exit paths are kept clear of storage, furniture and other obstructions' }
       ],
       estimatedTime: '30-60 minutes per floor'
     },
@@ -2442,7 +2442,7 @@ export const serviceSupportHelp: HelpContent[] = [
         impact: 'moderate',
         steps: [
           'Walk every emergency exit route from each area of the building',
-          'Note door widths, steps, thresholds, and obstructions',
+          'Note door widths, steps, thresholds and obstructions',
           'Fix quick wins: remove stored items, adjust door closers, add tactile floor markers',
           'Commission works for larger issues: ramps at exit doors, door widening',
           'Ensure exit signage includes international accessibility symbols where appropriate',
@@ -2509,7 +2509,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Emergency Communication and Support',
-    summary: 'Emergency alerts must reach everyone: audible alarms for sighted people, visual alarms (flashing lights) for Deaf people, and clear communication strategies for people with cognitive disabilities or anxiety.',
+    summary: 'Emergency alerts must reach everyone: audible alarms for sighted people, visual alarms (flashing lights) for Deaf people and clear communication strategies for people with cognitive disabilities or anxiety.',
 
     whyItMatters: {
       text: 'A sound-only alarm is invisible to someone who is Deaf. Flashing lights without sound will not alert someone who is blind. Shouted instructions will not help someone with an intellectual disability who needs calm, simple guidance. Multi-format emergency communication ensures no one is left behind.',
@@ -2527,7 +2527,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         icon: 'Eye',
-        text: 'Train wardens on communicating with Deaf people in emergencies: use gestures, written notes, or pre-agreed signals',
+        text: 'Train wardens on communicating with Deaf people in emergencies: use gestures, written notes or pre-agreed signals',
         priority: 2
       },
       {
@@ -2546,7 +2546,7 @@ export const serviceSupportHelp: HelpContent[] = [
       title: 'Checking emergency communication',
       steps: [
         { text: 'Walk your venue with earplugs: Would you know about an alarm? Look for visual alerts.' },
-        { text: 'Check all areas including toilets, lifts, and quiet rooms for visual alarm coverage' },
+        { text: 'Check all areas including toilets, lifts and quiet rooms for visual alarm coverage' },
         { text: 'Review emergency signage: Is it in plain language with pictorial guidance?' },
         { text: 'Ask wardens: How would you communicate with a Deaf person during evacuation?' },
         { text: 'Check if emergency information is available in alternative formats (large print, Easy Read)' },
@@ -2585,7 +2585,7 @@ export const serviceSupportHelp: HelpContent[] = [
         impact: 'significant',
         steps: [
           'Audit all areas for visual alarm coverage (flashing strobes)',
-          'Install visual alarms in areas without them, prioritising toilets, quiet rooms, and isolated spaces',
+          'Install visual alarms in areas without them, prioritising toilets, quiet rooms and isolated spaces',
           'Create pictorial/Easy Read emergency procedure signs',
           'Install emergency signage at seated height (1,200-1,400mm) and standing height',
           'Add Braille emergency information at key exit points',
@@ -2656,7 +2656,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Collecting Accessible Feedback',
-    summary: 'Customers need multiple accessible ways to tell you about their experience, including accessibility barriers. Feedback forms themselves must be accessible, and anonymous options should be available.',
+    summary: 'Customers need multiple accessible ways to tell you about their experience, including accessibility barriers. Feedback forms themselves must be accessible and anonymous options should be available.',
 
     whyItMatters: {
       text: 'Most people who encounter an accessibility barrier do not complain. They just leave and do not return. Making it easy to give feedback, through multiple accessible channels, helps you catch problems you would never otherwise know about.',
@@ -2670,7 +2670,7 @@ export const serviceSupportHelp: HelpContent[] = [
     tips: [
       {
         icon: 'MessageSquare',
-        text: 'Offer at least three feedback channels: in-person, email/phone, and an accessible online form',
+        text: 'Offer at least three feedback channels: in-person, email/phone and an accessible online form',
         priority: 1
       },
       {
@@ -2708,7 +2708,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'retail',
         businessTypeLabel: 'Shopping Centre',
         scenario: 'A shopping centre only collected feedback through a touchscreen kiosk, inaccessible to blind shoppers.',
-        solution: 'Added email, phone, and paper feedback options alongside the kiosk. Paper forms available at information desk. Added an accessibility question to all feedback channels. Anonymous option added.',
+        solution: 'Added email, phone and paper feedback options alongside the kiosk. Paper forms available at information desk. Added an accessibility question to all feedback channels. Anonymous option added.',
         outcome: 'Accessibility feedback increased 300%. Centre identified and fixed three barriers in the first month.',
         cost: '$200-500 for form updates'
       },
@@ -2716,7 +2716,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'health-wellness',
         businessTypeLabel: 'Hospital',
         scenario: 'A hospital\'s patient feedback survey was a PDF that could not be completed on screen.',
-        solution: 'Replaced with an accessible online form (WCAG 2.2 compliant). Added an accessibility section asking about physical access, communication, and staff interactions. Paper version available on request.',
+        solution: 'Replaced with an accessible online form (WCAG 2.2 compliant). Added an accessibility section asking about physical access, communication and staff interactions. Paper version available on request.',
         outcome: 'Response rate from patients with disabilities increased. Several systemic issues were identified and fixed.',
         cost: '$500-1,500 for form development'
       }
@@ -2837,7 +2837,7 @@ export const serviceSupportHelp: HelpContent[] = [
     howToCheck: {
       title: 'Reviewing your online presence',
       steps: [
-        { text: 'Search your business on Google, TripAdvisor, and Facebook for reviews mentioning accessibility' },
+        { text: 'Search your business on Google, TripAdvisor and Facebook for reviews mentioning accessibility' },
         { text: 'Check how many accessibility reviews have received a response from you' },
         { text: 'Look at your competitors: Do they respond to accessibility reviews?' },
         { text: 'Set up Google Alerts or review monitoring for accessibility keywords' },
@@ -2851,7 +2851,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'accommodation',
         businessTypeLabel: 'Hotel',
         scenario: 'A wheelchair user left a negative review about an inaccessible bathroom in the "accessible" room.',
-        solution: 'Management responded within 24 hours, apologised, and explained specific changes being made. After renovation, they updated the review response with photos of the improved room.',
+        solution: 'Management responded within 24 hours, apologised and explained specific changes being made. After renovation, they updated the review response with photos of the improved room.',
         outcome: 'The reviewer updated their rating. Other wheelchair users saw the response and booked with confidence.',
         cost: 'Free (response time only)'
       },
@@ -2859,7 +2859,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'restaurant-cafe',
         businessTypeLabel: 'Restaurant',
         scenario: 'A Deaf customer posted that staff were dismissive when they tried to communicate.',
-        solution: 'Owner responded publicly, apologised, and shared that staff were now trained in basic communication with Deaf customers. Invited the reviewer to return. Staff completed a 1-hour training session.',
+        solution: 'Owner responded publicly, apologised and shared that staff were now trained in basic communication with Deaf customers. Invited the reviewer to return. Staff completed a 1-hour training session.',
         outcome: 'The customer returned and posted a positive follow-up. Other Deaf customers tried the restaurant.',
         cost: 'Free'
       }
@@ -2876,7 +2876,7 @@ export const serviceSupportHelp: HelpContent[] = [
         impact: 'moderate',
         steps: [
           'Set up Google Alerts for your business name plus accessibility keywords',
-          'Claim your business on Google, TripAdvisor, and Facebook if not already done',
+          'Claim your business on Google, TripAdvisor and Facebook if not already done',
           'Designate a staff member to check reviews weekly',
           'Create response templates for common accessibility praise and complaints',
           'Set a 48-hour response target for all accessibility-related reviews',
@@ -2942,7 +2942,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'operations-policy-procedure',
     title: 'Acting on Accessibility Feedback',
-    summary: 'Collecting feedback only matters if you track it, identify patterns, respond promptly, and use it to drive real improvements. Systematic tracking and escalation processes turn complaints into progress.',
+    summary: 'Collecting feedback only matters if you track it, identify patterns, respond promptly and use it to drive real improvements. Systematic tracking and escalation processes turn complaints into progress.',
 
     whyItMatters: {
       text: 'Individual complaints often reveal systemic issues. If three people mention the same broken automatic door in different months, that is a pattern. Without tracking, each complaint is treated as isolated and nothing changes.',
@@ -3082,10 +3082,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'information-communication-marketing',
     title: 'Accessible Marketing and Social Media',
-    summary: 'Marketing emails, newsletters, social media posts, promotional offers, and other outbound communications should be accessible to people using screen readers, with alternative text on images and options like SMS and Auslan content.',
+    summary: 'Marketing emails, newsletters, social media posts, promotional offers and other outbound communications should be accessible to people using screen readers, with alternative text on images and options like SMS and Auslan content.',
 
     whyItMatters: {
-      text: 'If your marketing is not accessible, people with disabilities never learn about your offers, events, or improvements. They are excluded before they even decide to visit. Accessible marketing is both inclusive and commercially smart.',
+      text: 'If your marketing is not accessible, people with disabilities never learn about your offers, events or improvements. They are excluded before they even decide to visit. Accessible marketing is both inclusive and commercially smart.',
       statistic: {
         value: '$54 billion',
         context: 'is the annual spending power of Australians with disabilities. Accessible marketing reaches this market.',
@@ -3231,10 +3231,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'customer-service',
     title: 'Accessible Customer Programs',
-    summary: 'Loyalty programs, referral schemes, and live chat services should all be usable by people with disabilities. If these programs are not accessible, you are excluding loyal customers from benefits.',
+    summary: 'Loyalty programs, referral schemes and live chat services should all be usable by people with disabilities. If these programs are not accessible, you are excluding loyal customers from benefits.',
 
     whyItMatters: {
-      text: 'Loyalty programs reward repeat customers. If the program app is not screen-reader-compatible, the referral link requires a phone call, or live chat does not work with assistive technology, people with disabilities are cut off from the same benefits as everyone else.',
+      text: 'Loyalty programs reward repeat customers. If the program app is not screen-reader-compatible, the referral link requires a phone call or live chat does not work with assistive technology, people with disabilities are cut off from the same benefits as everyone else.',
       quote: {
         text: 'I have been a loyal customer for years, but I could not use the new app to earn points. They said "just use the app" but the app does not work with VoiceOver.',
         attribution: 'Blind customer, loyalty program user'
@@ -3316,7 +3316,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         title: 'Audit and fix digital program accessibility',
-        description: 'Test and fix your loyalty app, referral program, and live chat for WCAG compliance.',
+        description: 'Test and fix your loyalty app, referral program and live chat for WCAG compliance.',
         resourceLevel: 'medium',
         costRange: '$2,000-8,000',
         timeRequired: '2-4 weeks',
@@ -3324,7 +3324,7 @@ export const serviceSupportHelp: HelpContent[] = [
         impact: 'significant',
         steps: [
           'Conduct a WCAG 2.2 audit of your loyalty app or web portal',
-          'Test live chat with keyboard, screen reader, and voice control',
+          'Test live chat with keyboard, screen reader and voice control',
           'Prioritise fixes: critical (cannot sign up/redeem) then moderate (difficult to use)',
           'Work with your development team or vendor to implement fixes',
           'Re-test after fixes with real assistive technology users if possible',
@@ -3365,7 +3365,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'information-communication-marketing',
     title: 'Customer Preferences and Notifications',
-    summary: 'Customers should be able to set, update, and manage how you communicate with them. Storing accessibility preferences for future visits and notifying customers about improvements builds lasting relationships.',
+    summary: 'Customers should be able to set, update and manage how you communicate with them. Storing accessibility preferences for future visits and notifying customers about improvements builds lasting relationships.',
 
     whyItMatters: {
       text: 'A customer who needs large print should not have to ask every time. A customer who is Deaf should not receive phone call notifications. Storing and respecting preferences shows respect and reduces friction across every future interaction.',
@@ -3416,7 +3416,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'local-government',
         businessTypeLabel: 'Council',
         scenario: 'A council kept calling a Deaf resident despite being asked for email communication only.',
-        solution: 'Created a central preference register in the CRM. All departments access the same record. Residents can update preferences online, by email, or in-person. System alerts staff to preferred method before any outbound contact.',
+        solution: 'Created a central preference register in the CRM. All departments access the same record. Residents can update preferences online, by email or in-person. System alerts staff to preferred method before any outbound contact.',
         outcome: 'Deaf residents receive all communications by their preferred method. Complaints about unwanted phone calls dropped to zero.',
         cost: '$500-2,000 for CRM configuration'
       },
@@ -3517,10 +3517,10 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'information-communication-marketing',
     title: 'Accessible Written Communications and Templates',
-    summary: 'All written communications (letters, invoices, emails) should use clear language, logical structure, and accessible templates. Having accessible templates ensures consistency without relying on individual staff skills.',
+    summary: 'All written communications (letters, invoices, emails) should use clear language, logical structure and accessible templates. Having accessible templates ensures consistency without relying on individual staff skills.',
 
     whyItMatters: {
-      text: 'Every letter, email, and invoice is a touchpoint. If a customer cannot read your invoice, understand your letter, or navigate your email, you have created a barrier. Accessible templates solve this at scale because every document is accessible by default.',
+      text: 'Every letter, email and invoice is a touchpoint. If a customer cannot read your invoice, understand your letter or navigate your email, you have created a barrier. Accessible templates solve this at scale because every document is accessible by default.',
       statistic: {
         value: '44%',
         context: 'of adults in Australia have literacy levels below what is needed for everyday tasks. Clear, accessible writing helps everyone.',
@@ -3541,7 +3541,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         icon: 'FileText',
-        text: 'Create accessible templates in Word, InDesign, and your email platform so all staff produce accessible documents by default',
+        text: 'Create accessible templates in Word, InDesign and your email platform so all staff produce accessible documents by default',
         priority: 3
       },
       {
@@ -3555,7 +3555,7 @@ export const serviceSupportHelp: HelpContent[] = [
       title: 'Reviewing your written communications',
       steps: [
         { text: 'Collect your 5 most common documents (letter, invoice, confirmation, newsletter, form)' },
-        { text: 'Check font size (minimum 12pt), font type (sans-serif preferred), and line spacing (1.5x minimum)' },
+        { text: 'Check font size (minimum 12pt), font type (sans-serif preferred) and line spacing (1.5x minimum)' },
         { text: 'Check if heading styles are used (not just bold text)' },
         { text: 'Test readability: Could someone with a Year 8 reading level understand it?' },
         { text: 'Check if you have accessible templates for staff to use' },
@@ -3568,7 +3568,7 @@ export const serviceSupportHelp: HelpContent[] = [
       primary: {
         code: 'WCAG2.2-AA',
         section: '1.3.1, 1.4.3, 1.4.12',
-        requirement: 'Digital documents must have proper structure, sufficient contrast, and adequate text spacing.'
+        requirement: 'Digital documents must have proper structure, sufficient contrast and adequate text spacing.'
       },
       related: [
         {
@@ -3576,7 +3576,7 @@ export const serviceSupportHelp: HelpContent[] = [
           relevance: 'Inaccessible communications about services may constitute discrimination under the DDA.'
         }
       ],
-      plainEnglish: 'All documents you send to customers, whether digital or printed, should be structured, readable, and available in alternative formats on request.'
+      plainEnglish: 'All documents you send to customers, whether digital or printed, should be structured, readable and available in alternative formats on request.'
     },
 
     examples: [
@@ -3601,7 +3601,7 @@ export const serviceSupportHelp: HelpContent[] = [
     solutions: [
       {
         title: 'Create accessible document templates',
-        description: 'Develop Word, email, and print templates that are accessible by default.',
+        description: 'Develop Word, email and print templates that are accessible by default.',
         resourceLevel: 'low',
         costRange: '$200-1,000',
         timeRequired: '1-2 days',
@@ -3641,7 +3641,7 @@ export const serviceSupportHelp: HelpContent[] = [
         url: 'https://support.microsoft.com/en-us/office/improve-accessibility-with-the-accessibility-checker',
         type: 'tool',
         source: 'Microsoft',
-        description: 'Built-in tool for checking document accessibility in Word, PowerPoint, and Excel.',
+        description: 'Built-in tool for checking document accessibility in Word, PowerPoint and Excel.',
         isFree: true
       },
       {
@@ -3675,7 +3675,7 @@ export const serviceSupportHelp: HelpContent[] = [
     moduleGroup: 'service-support',
     diapCategory: 'information-communication-marketing',
     title: 'Accessible Emails and Digital Documents',
-    summary: 'Emails should work with images disabled and screen readers enabled. PDFs and attachments need proper tagging, headings, and alt text. Staff who create documents should know how to build in accessibility.',
+    summary: 'Emails should work with images disabled and screen readers enabled. PDFs and attachments need proper tagging, headings and alt text. Staff who create documents should know how to build in accessibility.',
 
     whyItMatters: {
       text: 'Many email clients block images by default. Screen readers cannot read text embedded in images. Untagged PDFs are completely inaccessible. These are common problems that are straightforward to fix but devastating when ignored.',
@@ -3704,7 +3704,7 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         icon: 'Users',
-        text: 'Train staff who create documents on heading styles, alt text, and list formatting',
+        text: 'Train staff who create documents on heading styles, alt text and list formatting',
         priority: 4
       }
     ],
@@ -3727,7 +3727,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'retail',
         businessTypeLabel: 'Online Retailer',
         scenario: 'A retailer\'s order confirmation was a PDF generated without tags, unreadable by screen readers.',
-        solution: 'Updated the PDF generation system to produce tagged PDFs with proper headings, alt text on product images, and reading order. Email confirmations also include all key details in the email body (not just the attachment).',
+        solution: 'Updated the PDF generation system to produce tagged PDFs with proper headings, alt text on product images and reading order. Email confirmations also include all key details in the email body (not just the attachment).',
         outcome: 'Blind customers can read their order confirmations independently.',
         cost: '$1,000-3,000 for PDF generation update'
       },
@@ -3761,14 +3761,14 @@ export const serviceSupportHelp: HelpContent[] = [
       },
       {
         title: 'Train all document creators',
-        description: 'Provide training to all staff who create documents, emails, or presentations.',
+        description: 'Provide training to all staff who create documents, emails or presentations.',
         resourceLevel: 'low',
         costRange: 'Free-$1,000',
         timeRequired: '1-2 hours',
         implementedBy: 'staff',
         impact: 'significant',
         steps: [
-          'Identify all staff who create outbound documents, emails, or presentations',
+          'Identify all staff who create outbound documents, emails or presentations',
           'Run a practical training session covering: heading styles, alt text, list formatting, tagged PDFs',
           'Demonstrate the Word Accessibility Checker',
           'Show correct vs incorrect examples using your own documents',
@@ -3793,7 +3793,7 @@ export const serviceSupportHelp: HelpContent[] = [
         url: 'https://support.microsoft.com/en-us/accessibility',
         type: 'guide',
         source: 'Microsoft',
-        description: 'Accessibility features and tools across Word, Outlook, and PowerPoint.',
+        description: 'Accessibility features and tools across Word, Outlook and PowerPoint.',
         isFree: true
       }
     ],
@@ -3884,7 +3884,7 @@ export const serviceSupportHelp: HelpContent[] = [
         businessType: 'health-wellness',
         businessTypeLabel: 'Hospital',
         scenario: 'Patients with intellectual disabilities could not understand consent forms or discharge instructions.',
-        solution: 'Commissioned Easy Read versions of the 10 most common documents. Each has short sentences, supporting images, and a clear structure. Staff offer the Easy Read version alongside the standard version.',
+        solution: 'Commissioned Easy Read versions of the 10 most common documents. Each has short sentences, supporting images and a clear structure. Staff offer the Easy Read version alongside the standard version.',
         outcome: 'Patients with intellectual disabilities can understand their care information. Informed consent is genuinely informed.',
         cost: '$300-500 per Easy Read document'
       }
@@ -3942,7 +3942,7 @@ export const serviceSupportHelp: HelpContent[] = [
         url: 'https://www.visionaustralia.org/',
         type: 'website',
         source: 'Vision Australia',
-        description: 'Services for producing Braille, audio, and large print documents.',
+        description: 'Services for producing Braille, audio and large print documents.',
         isAustralian: true
       },
       {

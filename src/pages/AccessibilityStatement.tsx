@@ -17,7 +17,7 @@ export default function AccessibilityStatement() {
           <h2>Our commitment</h2>
           <p>
             We are committed to ensuring Access Compass is accessible to the widest possible audience,
-            regardless of ability, disability, or technology. We actively work to meet or exceed
+            regardless of ability, disability or technology. We actively work to meet or exceed
             Web Content Accessibility Guidelines (WCAG) 2.2 Level AA conformance across all areas
             of our platform.
           </p>
@@ -41,7 +41,7 @@ export default function AccessibilityStatement() {
             <li>Semantic HTML with appropriate ARIA attributes (landmarks, dialog roles, tab / tablist / tabpanel, live regions for status updates)</li>
             <li>Colour contrast meeting WCAG AA ratios (minimum 4.5:1 for text, 3:1 for UI components and large text), with safety margin on muted and helper text colours</li>
             <li>Skip-to-content link for screen reader users, with visible landing-area focus indicator</li>
-            <li>Form inputs with visible labels, clear error messages, and descriptive hints</li>
+            <li>Form inputs with visible labels, clear error messages and descriptive hints</li>
             <li>Responsive design that works across devices and screen sizes</li>
             <li>No content that relies solely on colour to convey meaning. In-content links are underlined so colour-blind users can distinguish them from regular text</li>
             <li>Alt text on all meaningful images; decorative images marked as such</li>
@@ -111,7 +111,7 @@ export default function AccessibilityStatement() {
           <h2>Review</h2>
           <p>
             This statement was last reviewed on 16 June 2026, following a full WCAG 2.2 AA audit
-            and remediation pass. We review and update this statement at least every 12 months,
+            and remediation pass. We review and update this statement at least every 12 months
             or whenever significant changes are made to the platform.
           </p>
         </section>

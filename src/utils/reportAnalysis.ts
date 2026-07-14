@@ -3,7 +3,7 @@
  *
  * Turns the raw counts a report already holds into interpretation: what the
  * numbers mean, the patterns across recommendations, where the load sits, what
- * the strengths are, and a suggested order to work through it.
+ * the strengths are and a suggested order to work through it.
  *
  * Everything here is derived from the organisation's own data. There is no
  * benchmarking or peer comparison, because we hold no such dataset and must not
@@ -221,7 +221,7 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     ? `. The greatest opportunities for improvement relate to ${topDomain.label.toLowerCase()}${topDomainThemes.length ? `, particularly ${joinLower(topDomainThemes)}` : ''}.`
     : '.';
 
-  // --- Executive interpretation: tight, hedged, and supported by the data ---
+  // --- Executive interpretation: tight, hedged and supported by the data ---
   const interpretation: string[] = [];
   const article = /^[aeiou]/i.test(maturity.level) ? 'an' : 'a';
   interpretation.push(

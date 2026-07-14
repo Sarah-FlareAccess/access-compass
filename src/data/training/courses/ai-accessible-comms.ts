@@ -225,7 +225,7 @@ export const aiAccessibleCommsCourse: TrainingCourse = {
           heading: 'Step 2: Set up where to paste it in your tool (3 min)',
           body: `<p>The system prompt works best as <strong>saved instructions</strong> that apply to every conversation. Pasting it into one chat works too, but the AI can drift over a long session. Pick the path that matches your drafting tool:</p>
 <table>
-<caption class="sr-only">Where to paste system prompts by AI tool, and whether instructions persist across chats</caption>
+<caption class="sr-only">Where to paste system prompts by AI tool and whether instructions persist across chats</caption>
 <thead>
 <tr>
 <th scope="col">Your tool</th>
@@ -366,7 +366,7 @@ FORMATTING RULES
 - When producing Easy Read or Plain Language drafts, follow the published standards for each format
 - If you can generate a Word file or attachment directly (Artifacts, downloads, Python sandbox etc.), do so proactively without waiting for me to ask. APPLY all format-specific layout and typography settings to the file itself. ALSO provide the same content as text in chat so I can verify and edit. Never make me ask twice for a file when you can produce one.
 - If you cannot generate a file (no Artifacts, no sandbox, no attachment capability), return the content as text in chat AND append a numbered "application checklist" so I can apply each setting manually in Word or my design tool.
-- Either way, state in your reply which mode you used (file + text, or text + checklist) so I know what I am working with.
+- Either way, state in your reply which mode you used (file + text or text + checklist) so I know what I am working with.
 - Always finish any draft with: "This draft was AI-generated. Please review before publishing."
 
 BEHAVIOUR RULES
@@ -382,9 +382,9 @@ BEHAVIOUR RULES
 - When I answer the verification items, clarifying questions or assumption flags you raised, that is your signal to return the COMPLETE updated draft incorporating my answers. Do not ask further questions. Do not propose additional changes. Do not recommend new content (photos, extra sections, structural reordering, related documents). Stop after the updated draft.
 - Volunteered scope creep is not allowed. Do not suggest new sections, photo lists, structural reordering or additional information sources unless I explicitly ask. If you genuinely believe one suggestion is important, name it in ONE short sentence at the end of the draft and let me decide. Never block or delay the draft on it.
 - When my iteration request includes a numbered list of issues, after the full updated draft return a numbered confirmation list saying what you changed for each issue. For structural changes (moving content between sections, merging or splitting sections), name the section you moved. For wording changes, quote the before/after. If you could not action an issue, say so and explain why. Structural changes are easy to skip silently, so they must be called out explicitly.
-- Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions, and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
+- Never produce a draft directly after I answer your clarifying questions. After my answers, confirm what you now know, name any remaining gaps as specific questions and wait for an explicit drafting trigger from me (a build prompt with format rules, "Please draft this", "Proceed to drafting" or similar). Drafting requires BOTH my answers AND an explicit go-ahead. If an assumption you raised was not addressed in my answers, do not bake it into the draft as fact. Re-raise it as a question or leave a [TO CONFIRM] placeholder in the draft.
 - BRANDING: when my briefing includes BRANDING fields (voice, always-use words, never-use words, colours, background, fonts, logo and style notes), treat them as binding for every draft and revision in this conversation. Apply voice and word lists to every sentence. Apply colour, font, background and logo rules to every formatting checklist and any file you produce. For every brand colour I give you with a hex code, calculate WCAG 2.2 AA contrast against the background colour I specified (or white by default) and flag any failures with a suggested fix. Never silently change a brand colour. If any branding field is blank, apply accessible defaults for that aspect (sans-serif, black on white, no colour-only meaning) without prompting me.
-- INCLUSIVE LANGUAGE BASELINE (always-on, regardless of branding fields): never use ableist or deficit-framed language in any draft. Avoid "suffers from", "afflicted with", "wheelchair-bound", "confined to a wheelchair", "special needs", "differently abled", "handicapped", "able-bodied" (use "non-disabled" only where contrast is needed), "the disabled", "victim of", "normal" as the opposite of disabled, or any euphemism that distances disability. Use person-first or identity-first language per Australian Federation of Disability Organisations and People with Disability Australia guidance, defaulting to identity-first for the autistic and Deaf communities and person-first elsewhere unless the brief tells you otherwise. The user does not need to list these in BRAND WORDS AVOID — they are off by default.
+- INCLUSIVE LANGUAGE BASELINE (always-on, regardless of branding fields): never use ableist or deficit-framed language in any draft. Avoid "suffers from", "afflicted with", "wheelchair-bound", "confined to a wheelchair", "special needs", "differently abled", "handicapped", "able-bodied" (use "non-disabled" only where contrast is needed), "the disabled", "victim of", "normal" as the opposite of disabled or any euphemism that distances disability. Use person-first or identity-first language per Australian Federation of Disability Organisations and People with Disability Australia guidance, defaulting to identity-first for the autistic and Deaf communities and person-first elsewhere unless the brief tells you otherwise. The user does not need to list these in BRAND WORDS AVOID — they are off by default.
 
 ACCESSIBILITY STANDARDS REFERENCE
 - Easy Read: Inclusion Australia and CID guidelines for content (short sentences, common words, one idea per line, no metaphors). Australian Government Style Manual for layout (image LEFT and text RIGHT in a 2-column presentation table, never image above or below text, minimum 1.5 line spacing, wide margins, minimum 14pt body with larger headings, bold for headings and difficult words only).
@@ -398,7 +398,7 @@ INITIAL SETUP RESPONSE (this message)
 When I paste these instructions with no task attached, just acknowledge in 1 to 2 sentences ("Set up. Ready for your first task.") and wait. Do NOT preview questions about hypothetical future tasks, defaults or file-generation behaviour. Defaults are: Australian English, formats follow the standards reference above, file generation when the platform allows it. We will handle real choices when a real task arrives.
 
 WHAT TO DO ON A NEW TASK
-When I bring you actual content to work on (source material plus a format request, or a briefing prompt), your first reply on that task must include:
+When I bring you actual content to work on (source material plus a format request or a briefing prompt), your first reply on that task must include:
 1. A one or two sentence summary of what you understand the task to be
 2. 3 to 5 clarifying questions if needed to fill any gaps
 3. Any assumptions you would have to make if I cannot answer those questions`,
@@ -455,7 +455,7 @@ E. FORMAT FIDELITY
 - Do not reference other formats by name. Do not blend conventions across formats (Easy Read is not Social Story, Social Story is not Easy Read, Plain Language is not Accessibility Guide). Do not assume the draft is a different format from what the user declared.
 
 F. SOURCE COVERAGE
-- If the user pasted source material along with the draft, compare the two: list facts in the source that did not make it into the draft, and facts in the draft that do not appear in the source (likely AI invention).
+- If the user pasted source material along with the draft, compare the two: list facts in the source that did not make it into the draft and facts in the draft that do not appear in the source (likely AI invention).
 - If no source was provided, skip this check and say so.
 
 For each draft I paste, reply with these five sections, in this order, using these exact headings so I can scan them quickly:
@@ -476,7 +476,7 @@ Facts, names, links, numbers or claims you may be guessing at.
 1 or 2 questions that would strengthen another pass.
 
 6. SOURCE COVERAGE (for you to read)
-If the user provided source material with the draft, list any facts in the source that did not make it into the draft, and any facts in the draft that were not in the source. If no source was provided, write "No source provided for comparison" and stop.
+If the user provided source material with the draft, list any facts in the source that did not make it into the draft and any facts in the draft that were not in the source. If no source was provided, write "No source provided for comparison" and stop.
 
 LANGUAGE
 Write all your feedback in plain language. The user is a beginner. Avoid reviewer jargon like "demote", "gloss", "scaffolding", "elide" or "remit". Examples: instead of "demote unverified facts to scaffolding", say "Change facts you have not confirmed into 'Needs answer' notes". Instead of "gloss the term in plain words at first use", say "Explain what the word means the first time you use it". Aim for year 7 to 8 reading level in your own feedback, the same level the course teaches.
@@ -612,7 +612,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               { value: 'Accessible Word Document', label: 'Accessible Word Document' },
             ],
             audienceLabel: 'For audience',
-            audienceExample: 'parents of children visiting our museum, or first-time wheelchair users visiting our cafe, or staff onboarding into accessibility procedures',
+            audienceExample: 'parents of children visiting our museum or first-time wheelchair users visiting our cafe or staff onboarding into accessibility procedures',
             contextFields: [
               {
                 key: 'PURPOSE',
@@ -638,7 +638,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               {
                 key: 'BRAND WORDS AVOID',
                 label: 'Words we never use (optional)',
-                example: 'guest, customer, patron, or any internal jargon. You do not need to list ableist terms — the AI already avoids those.',
+                example: 'guest, customer, patron or any internal jargon. You do not need to list ableist terms — the AI already avoids those.',
               },
               {
                 key: 'BRAND COLOURS',
@@ -654,7 +654,7 @@ Be direct. If something is weak, say so. If something is excellent, say why.`,
               {
                 key: 'BRAND FONTS',
                 label: 'Brand fonts, heading and body (optional)',
-                example: 'Atkinson Hyperlegible for headings and body, or Calibri for both',
+                example: 'Atkinson Hyperlegible for headings and body or Calibri for both',
               },
               {
                 key: 'BRAND OTHER',
@@ -835,7 +835,7 @@ Walk me through every item under [FORMAT NAME] below. Do not skip any.
   7. Brand colours: list any brand colours used in the document — colour name and hex code if known (e.g. "Flare amethyst #490E67", "sunrise #FF9015"). I will flag any that fail WCAG AA contrast against the page background and suggest accessible alternatives where needed.
 
 ALWAYS ASK ABOUT PHOTOS (for Accessibility Guide, Social Story / Visual Narrative and Easy Read)
-After the section checklists, ask one final checklist about photos. List the photos this format typically needs based on what I told you. For each, ask whether I "Have it", "Need to take it", or "Not applicable". Examples for an Accessibility Guide: accessible parking, drop-off area, route from parking to entrance, main entrance door, entrance threshold (if present), internal pathways, each visitor area mentioned, accessible toilet exterior and interior, seating options, any signage. Tailor the list to what I described in the earlier sections.
+After the section checklists, ask one final checklist about photos. List the photos this format typically needs based on what I told you. For each, ask whether I "Have it", "Need to take it" or "Not applicable". Examples for an Accessibility Guide: accessible parking, drop-off area, route from parking to entrance, main entrance door, entrance threshold (if present), internal pathways, each visitor area mentioned, accessible toilet exterior and interior, seating options, any signage. Tailor the list to what I described in the earlier sections.
 
 NUMBER OF QUESTIONS
 - Accessibility Guide: 8 questions (7 section checklists + photos checklist).
@@ -900,7 +900,7 @@ BRANDING (any field left blank means no constraint, use accessible defaults)
 How you must use the branding fields
 - Apply voice and word lists to every sentence you draft.
 - Apply font, colour, background and logo rules to any formatting checklist or file you produce.
-- For every brand colour I gave you with a hex code, calculate WCAG 2.2 AA contrast against the background and flag any that fail (4.5:1 for body under 18pt, 3:1 for large text 18pt+ or 14pt bold). Suggest a darkened or lightened variant, or restrict the failing colour to large headings only. Never silently change a brand colour.
+- For every brand colour I gave you with a hex code, calculate WCAG 2.2 AA contrast against the background and flag any that fail (4.5:1 for body under 18pt, 3:1 for large text 18pt+ or 14pt bold). Suggest a darkened or lightened variant or restrict the failing colour to large headings only. Never silently change a brand colour.
 - If a branding field is blank, apply accessible defaults for that aspect (sans-serif, black on white, no colour-only meaning) without prompting me.
 
 Before drafting:
@@ -924,7 +924,7 @@ Before drafting:
 <ul>
 <li>Answer them honestly. It is fine to answer in fragments and bullet points.</li>
 <li>If you do not know an answer, say so. You can ask ChatGPT to suggest one based on your brief and source material, then accept, edit or reject its suggestion.</li>
-<li>After your answers, ChatGPT will confirm what it now knows and re-list any remaining gaps. Answer those, or reply <em>"I do not know, please flag this in the draft as needing a human to confirm"</em>.</li>
+<li>After your answers, ChatGPT will confirm what it now knows and re-list any remaining gaps. Answer those or reply <em>"I do not know, please flag this in the draft as needing a human to confirm"</em>.</li>
 <li>When ChatGPT is ready and waiting, you are done with Lesson 2. The build prompt in Lesson 3 is the explicit drafting trigger.</li>
 </ul>
 </div>`,
@@ -980,8 +980,8 @@ Before drafting:
             title: 'Build prompt: Easy Read',
             targetTool: 'drafting',
             formatKey: 'Easy Read',
-            instructions: 'For Easy Read content following Inclusion Australia and CID guidelines for content, and the Australian Government Style Manual for layout. Copy the prompt below and paste it into your ChatGPT conversation (which already has your business context from Lesson 2).',
-            promptTemplate: `Please draft this in Easy Read format following Inclusion Australia and CID guidelines for content, and the Australian Government Style Manual for layout.
+            instructions: 'For Easy Read content following Inclusion Australia and CID guidelines for content and the Australian Government Style Manual for layout. Copy the prompt below and paste it into your ChatGPT conversation (which already has your business context from Lesson 2).',
+            promptTemplate: `Please draft this in Easy Read format following Inclusion Australia and CID guidelines for content and the Australian Government Style Manual for layout.
 
 BRANDING
 Honour the BRANDING fields from my brief (voice, person, always-use words, never-use words, colours, fonts, background, logo rules). Apply voice and word lists to every sentence. Apply colour, font and background rules to the typography checklist at the end. Flag any brand colour that fails WCAG 2.2 AA contrast against the background. If the branding block was empty, note that no branding was provided and use accessible defaults.
@@ -1223,7 +1223,7 @@ Before publishing, test the draft with two or three people from your intended au
             targetTool: 'drafting',
             formatKey: 'Large Print',
             instructions: 'For reformatting short content for low-vision readers, following Vision Australia clear print guidance. Works for a menu page, a flyer, an announcement, a one-page summary. Best when you are open to copy adjustments that help readability at large type sizes (shorter sentences, clearer headings). If you have no source content yet, use Plain Language or Easy Read first, then come back to Large Print to reformat the result.',
-            promptTemplate: `I have content I want to provide in Large Print. Please confirm the content suits the format, suggest scannability improvements where they would help readers at large type sizes, and apply the Large Print typography to any Word file you generate as well as giving me the checklist.
+            promptTemplate: `I have content I want to provide in Large Print. Please confirm the content suits the format, suggest scannability improvements where they would help readers at large type sizes and apply the Large Print typography to any Word file you generate as well as giving me the checklist.
 
 LOCKED COPY OVERRIDE: if my copy is board-approved, legally signed off or otherwise unchangeable, I will tell you "flag suggestions only, do not rewrite" before I start. Otherwise treat your suggestions as opportunities I can choose to apply.
 
@@ -1233,8 +1233,8 @@ Honour the BRANDING fields from my brief (voice, person, always-use words, never
 Please:
 1. Confirm the content is appropriate for Large Print (short, high-priority information). If it is too long for Large Print as a format, say so — do not condense the copy yourself, but tell me what would need to come out and let me decide.
 2. Suggest scannability improvements where they help at large type sizes (shorter sentences for very long ones, clearer headings, removing decorative wording). Format each suggestion as: original line + suggested change + the label "SUGGESTED — apply if you want better scannability, skip if your copy is locked". Leave my original sentences in the draft; I will tell you which suggestions to apply.
-3. WHITE SPACE AND TYPOGRAPHY (for Large Print the typography IS the deliverable, so never compress it). If you generate a Word file, apply all of these IN the file itself, not just as a checklist, and always err on the side of more white space:
-- Body text at least 16pt (Vision Australia clear print), or 18pt if I asked for RNIB large print. Never below 16pt.
+3. WHITE SPACE AND TYPOGRAPHY (for Large Print the typography IS the deliverable, so never compress it). If you generate a Word file, apply all of these IN the file itself, not just as a checklist and always err on the side of more white space:
+- Body text at least 16pt (Vision Australia clear print) or 18pt if I asked for RNIB large print. Never below 16pt.
 - Headings at least 1.5 times the body size.
 - Sans-serif font only (Arial, Verdana, Calibri or APHont). No italics. No decorative fonts. No underlines except on links.
 - Line spacing at least 1.5 everywhere. Never tighter than 1.5.
@@ -1267,7 +1267,7 @@ Before publishing, test the draft with two or three people from your intended au
         {
           type: 'text',
           heading: 'Step 3: Iterate (28 min)',
-          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. The prompts below are <strong>examples</strong> for the most common requests, split into two groups. Pick one that fits, or write your own iteration prompt in plain words. Every prompt ends with "Show the full updated draft" so the AI returns the complete revised version, not a summary of what would change. If you write your own, finish it the same way. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
+          body: `<p>Run 2 iteration rounds. One change per round works better than asking for everything at once. The prompts below are <strong>examples</strong> for the most common requests, split into two groups. Pick one that fits or write your own iteration prompt in plain words. Every prompt ends with "Show the full updated draft" so the AI returns the complete revised version, not a summary of what would change. If you write your own, finish it the same way. (A 3rd round is rare when the first build prompt has done its job. Only run it if a real issue is unresolved.)</p>
 <h3>A. Copy iterations</h3>
 <p><strong>Use when:</strong> you are drafting new content from raw source (Easy Read, Plain Language, Social Story / Visual Narrative, Accessibility Guide). <strong>Skip if:</strong> your copy is already finalised.</p>
 <p><strong>Make it clearer:</strong></p>
@@ -1293,7 +1293,7 @@ Before publishing, test the draft with two or three people from your intended au
 <p><strong>Rewrite link text:</strong></p>
 <pre><code>The link text "[click here / read more / this page]" in section [X] is not descriptive out of context. Rewrite each instance so a screen reader reading the link in isolation knows where it goes. Show the full updated draft.</code></pre>
 <p><strong>Fix table structure:</strong></p>
-<pre><code>The table in section [X] has no caption and no header row marked. Add a one-sentence caption above describing what the table shows, mark the first row as the header, and flag any merged cells. Show the full updated draft.</code></pre>
+<pre><code>The table in section [X] has no caption and no header row marked. Add a one-sentence caption above describing what the table shows, mark the first row as the header and flag any merged cells. Show the full updated draft.</code></pre>
 <p><strong>Mark an image as decorative:</strong></p>
 <pre><code>The image at [location] is purely decorative — it adds visual interest but no information. Mark it as decorative with no alt text required. Show the full updated draft.</code></pre>
 <p><strong>Fix colour-only meaning:</strong></p>
@@ -1498,7 +1498,7 @@ Here is my reviewed draft:
               'For long source PDFs, paste the text content rather than uploading. Claude cannot see the visual layout of a PDF reliably from a file upload.',
               'If you finished in Word, run Word\'s built-in Accessibility Checker before exporting: Review > Check Accessibility. Fix any remaining errors. (For Large Print laid out in a design tool, the checker won\'t apply — work through the human review checklist instead.)',
               'If Claude\'s daily message limit hits before you finish, the same prompt works in ChatGPT, Copilot or Gemini. Output quality drops slightly but the structure is preserved.',
-              'AI file-generation capability is inconsistent across tools. You may get marked-up text, a downloadable file, or both. All three paths are valid. Whichever you get, run the Step 4 checklist below to verify accessibility. Never publish a file straight from the AI without that check. If the AI returns text only and you have to ask twice for a file, that is also normal: the file capability varies by account state and session, not just by tool.',
+              'AI file-generation capability is inconsistent across tools. You may get marked-up text, a downloadable file or both. All three paths are valid. Whichever you get, run the Step 4 checklist below to verify accessibility. Never publish a file straight from the AI without that check. If the AI returns text only and you have to ask twice for a file, that is also normal: the file capability varies by account state and session, not just by tool.',
             ],
           },
         },
@@ -1544,7 +1544,7 @@ Here is my reviewed draft:
               'Social Story / Visual Narrative': [
                 'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave).',
                 'For each inserted photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." The alt text should describe what the picture shows (e.g. "Wide view of the market interior with food stalls and shoppers"), NOT the social story narrative. Add via right-click image > View Alt Text. Verify before saving.',
-                'Insert a Word page break after each photo + text chunk (Insert > Page Break, or Ctrl+Enter on Windows / Cmd+Enter on Mac) so each photo and its 2 to 4 sentences sit on their own page. This matches the published Social Story booklet convention.',
+                'Insert a Word page break after each photo + text chunk (Insert > Page Break or Ctrl+Enter on Windows / Cmd+Enter on Mac) so each photo and its 2 to 4 sentences sit on their own page. This matches the published Social Story booklet convention.',
                 'Place each caption directly under its photo, not in a separate list at the end.',
                 'Remove any table of contents Claude may have added. A social story is linear, a TOC breaks the journey.',
                 'Confirm reading order is strictly chronological top to bottom.',
@@ -1599,7 +1599,7 @@ Here is my reviewed draft:
               google: {
                 'Easy Read': [
                   'Build each chunk as a row in a 2-column table (image on the LEFT, text on the RIGHT) via Insert > Table > 2x1.',
-                  'Google Docs cannot mark a layout table as decorative, so a screen reader announces it as a data table. Set the table border to 0pt (select the table > Format > Table > Table border > 0pt) so the layout is invisible to sighted readers, and keep every row to one image and its text. If screen reader users are a key audience for this piece, produce the final file in Word, which can mark layout tables as decorative.',
+                  'Google Docs cannot mark a layout table as decorative, so a screen reader announces it as a data table. Set the table border to 0pt (select the table > Format > Table > Table border > 0pt) so the layout is invisible to sighted readers and keep every row to one image and its text. If screen reader users are a key audience for this piece, produce the final file in Word, which can mark layout tables as decorative.',
                   'Set body text to 14pt minimum (16pt recommended) using the font size box in the toolbar.',
                   'Set line spacing to 1.5 on body text (Format > Line & paragraph spacing > 1.5).',
                   'Set page margins to at least 2.5cm on every side (File > Page setup > Margins).',
@@ -1624,7 +1624,7 @@ Here is my reviewed draft:
                 'Social Story / Visual Narrative': [
                   'Insert real photos in chronological order matching the build prompt sections (Before, When I get there, Inside, If I need help, When I leave) via Insert > Image > Upload from computer.',
                   'For each inserted photo, upload it to ChatGPT Plus, Claude, Microsoft Copilot or Google Gemini and ask "Suggest alt text for this image." The alt text should describe what the picture shows (e.g. "Wide view of the market interior with food stalls and shoppers"), NOT the social story narrative. Add via right-click image > Alt text. Verify before saving.',
-                  'Insert a page break after each photo + text chunk (Insert > Break > Page break, or Ctrl+Enter on Windows / Cmd+Enter on Mac) so each photo and its 2 to 4 sentences sit on their own page. This matches the published Social Story booklet convention.',
+                  'Insert a page break after each photo + text chunk (Insert > Break > Page break or Ctrl+Enter on Windows / Cmd+Enter on Mac) so each photo and its 2 to 4 sentences sit on their own page. This matches the published Social Story booklet convention.',
                   'Place each caption directly under its photo, not in a separate list at the end.',
                   'Remove any table of contents Claude may have added. A social story is linear, a TOC breaks the journey.',
                   'Confirm reading order is strictly chronological top to bottom.',
@@ -1687,7 +1687,7 @@ Here is my reviewed draft:
               'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
               'Have any photos or images been described accurately?',
               'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
               'Have you added the publishing date and a way for readers to give feedback?',
             ],
             byFormat: {
@@ -1697,14 +1697,14 @@ Here is my reviewed draft:
                 'Have you sourced an image for every text chunk?',
                 'Have the images been described accurately in the alt text?',
                 'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Plain Language': [
                 'Is everything factually correct about your business and venue?',
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
                 'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Social Story / Visual Narrative': [
@@ -1714,7 +1714,7 @@ Here is my reviewed draft:
                 'Have the photos been described accurately in the alt text?',
                 'Does the photo + text order follow the actual chronological journey?',
                 'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Accessibility Guide': [
@@ -1723,7 +1723,7 @@ Here is my reviewed draft:
                 'Has someone walked the route and verified the details (entrances, paths, toilets, sensory environment)?',
                 'Have any photos or images been described accurately?',
                 'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
               'Large Print': [
@@ -1733,7 +1733,7 @@ Here is my reviewed draft:
                 'Have you confirmed the body font size meets the audience\'s stated minimum (16pt Vision Australia clear print, 18pt RNIB)?',
                 'Have you checked contrast meets WCAG 2.2 AA (at minimum 4.5:1 for body text)? Black on white, cream or yellow works. Avoid grey-on-white.',
                 'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you offered an alternative format on request (electronic copy, audio, Braille via specialist provider)?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
@@ -1742,7 +1742,7 @@ Here is my reviewed draft:
                 'Have you tested it with at least one person from the target audience? (If not, plan to before publishing.)',
                 'Have any photos or images been described accurately in the alt text?',
                 'Have you removed any AI-added claims that you cannot verify?',
-                'Have you filled every [NEEDS ANSWER] placeholder, or confirmed those gaps will stay as "contact us for current info" in the published version?',
+                'Have you filled every [NEEDS ANSWER] placeholder or confirmed those gaps will stay as "contact us for current info" in the published version?',
                 'Have you added the publishing date and a way for readers to give feedback?',
               ],
             },

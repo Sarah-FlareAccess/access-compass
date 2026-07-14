@@ -216,7 +216,7 @@ export default function Export() {
                 <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                   {isPulseCheck
                     ? 'View your pulse check summary with findings grouped by module'
-                    : 'Explore your detailed report with findings, priorities, and resources by module'}
+                    : 'Explore your detailed report with findings, priorities and resources by module'}
                 </p>
                 <div style={{ marginBottom: '15px' }}>
                   <strong>Report Type:</strong> {isPulseCheck ? 'Pulse Check Summary' : 'Deep Dive Report'}
@@ -236,7 +236,7 @@ export default function Export() {
                 <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
                   {isPulseCheck
                     ? 'Download a 1-page PDF summary, perfect for team briefings and quick sharing'
-                    : 'Download a comprehensive PDF report with detailed findings, action steps, and resource links'}
+                    : 'Download a comprehensive PDF report with detailed findings, action steps and resource links'}
                 </p>
                 <div style={{ marginBottom: '15px' }}>
                   <strong>Format:</strong> PDF
@@ -384,7 +384,7 @@ export default function Export() {
                 <li>You've identified structural barriers that are hard to change</li>
                 <li>You're unsure how different access elements work together</li>
                 <li>You're planning significant changes or improvements</li>
-                <li>You need confidence explaining decisions to management, council, or stakeholders</li>
+                <li>You need confidence explaining decisions to management, council or stakeholders</li>
                 <li>You've received accessibility-related feedback or complaints</li>
               </ul>
               <p style={{ margin: '16px 0 0 0', lineHeight: '1.6', fontStyle: 'italic' }}>
@@ -409,7 +409,7 @@ export default function Export() {
                 <strong style={{ display: 'block', marginBottom: '10px' }}>Important disclaimer</strong>
                 <p style={{ margin: '0 0 10px 0' }}>
                   This guidance is for information only. It is not legal advice, a compliance
-                  certificate, or a substitute for professional accessibility auditing. Actions are
+                  certificate or a substitute for professional accessibility auditing. Actions are
                   suggestions based on your responses.
                 </p>
                 <p style={{ margin: 0 }}>

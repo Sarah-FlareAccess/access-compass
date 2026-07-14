@@ -1,7 +1,7 @@
 /**
  * Help Content Data
  *
- * Rich help content for questions including images, videos, and tips.
+ * Rich help content for questions including images, videos and tips.
  * Images should be placed in /public/help/ folder.
  *
  * To add a video: Use the Vimeo URL (e.g., 'https://vimeo.com/123456789')
@@ -19,7 +19,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '3.5-1-1': {
     title: 'Understanding accessible signage',
     summary:
-      'Good signage uses high contrast colours, clear fonts, and appropriate sizing to ensure everyone can read important information easily.',
+      'Good signage uses high contrast colours, clear fonts and appropriate sizing to ensure everyone can read important information easily.',
     examples: [
       {
         type: 'good',
@@ -48,7 +48,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
     ],
     tips: [
       'Aim for a contrast ratio of at least 4.5:1 between text and background',
-      'Use sans-serif fonts like Arial, Helvetica, or Verdana',
+      'Use sans-serif fonts like Arial, Helvetica or Verdana',
       'Main headings should be at least 18pt (24px)',
       'Avoid all-caps for long text - it reduces readability',
       'Ensure signs are well-lit and avoid glare from glass covers',
@@ -65,9 +65,9 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '2.2-F-1': {
     title: 'Understanding this question',
     summary:
-      'Step-free access is essential for people with mobility aids, prams, trolleys, and anyone who finds steps difficult. Tell us what your main entrance has so we can ask the right follow-up questions about stairs, ramps, and other features.',
+      'Step-free access is essential for people with mobility aids, prams, trolleys and anyone who finds steps difficult. Tell us what your main entrance has so we can ask the right follow-up questions about stairs, ramps and other features.',
     understanding: [
-      'Select "Level access" if the entrance is completely step-free with no threshold, step, or level change',
+      'Select "Level access" if the entrance is completely step-free with no threshold, step or level change',
       'Select "Permanent ramp" if a fixed ramp provides step-free access to the entrance',
       'Select "Stairs or steps" if there are one or more steps at the entrance',
       'Select "Portable ramp" if a ramp is available but needs staff to set it up when needed',
@@ -85,7 +85,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '2.3-1-1': {
     title: 'Wheelchair circulation space',
     summary:
-      'For someone using a wheelchair to move comfortably through your space, pathways need adequate width and turning room. This also benefits people with prams, trolleys, or walking frames.',
+      'For someone using a wheelchair to move comfortably through your space, pathways need adequate width and turning room. This also benefits people with prams, trolleys or walking frames.',
     examples: [
       {
         type: 'good',
@@ -109,7 +109,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
         type: 'info',
         imageUrl: '/help/pathway-obstruction.jpg',
         caption: 'Temporary obstructions',
-        details: 'A-frames, displays, and stock can block accessible routes.',
+        details: 'A-frames, displays and stock can block accessible routes.',
       },
     ],
     tips: [
@@ -220,21 +220,21 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
       'Signs should be perpendicular to the direction of travel for better visibility',
       'Use symbols alongside text where possible (e.g., toilet symbols)',
       'Avoid placing signs behind glass that creates glare',
-      'Check signs are not blocked by plants, furniture, or temporary displays',
+      'Check signs are not blocked by plants, furniture or temporary displays',
     ],
   },
 
   '2.2-F-8': {
     title: 'Understanding this question',
     summary:
-      'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel. Warning indicators (raised dots) alert to hazards like steps, ramps, or road crossings, while directional indicators (raised bars) guide people along a path.',
+      'Tactile Ground Surface Indicators (TGSIs) are standardised textured surfaces that help people who are blind or have low vision navigate and identify hazards by feel. Warning indicators (raised dots) alert to hazards like steps, ramps or road crossings, while directional indicators (raised bars) guide people along a path.',
     understanding: [
-      'Answer "Yes" if TGSIs are installed at key entry points including the top and bottom of steps/ramps, at doorways, and to guide people from parking or drop-off areas to the entrance',
-      'Answer "Partially" if TGSIs exist in some locations but not consistently (e.g., at steps but not at the entrance door), or if older TGSIs are present but may not meet current standards',
-      'Answer "No" if there are no TGSIs at the entrance area, or if they have been removed, worn away, or are so faded they cannot be felt',
+      'Answer "Yes" if TGSIs are installed at key entry points including the top and bottom of steps/ramps, at doorways and to guide people from parking or drop-off areas to the entrance',
+      'Answer "Partially" if TGSIs exist in some locations but not consistently (e.g., at steps but not at the entrance door) or if older TGSIs are present but may not meet current standards',
+      'Answer "No" if there are no TGSIs at the entrance area or if they have been removed, worn away or are so faded they cannot be felt',
     ],
     tips: [
-      'Consider installing warning TGSIs, which have raised dots, at the top and bottom of ramps, stairs, and escalators',
+      'Consider installing warning TGSIs, which have raised dots, at the top and bottom of ramps, stairs and escalators',
       'Directional TGSIs with raised bars can guide people from key points like accessible parking to the entrance',
       'TGSIs work best when they contrast visually with the surrounding surface, such as yellow on light surfaces or light colours on dark surfaces',
       'It helps to check TGSIs regularly, as worn or damaged indicators lose their effectiveness over time',
@@ -249,7 +249,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '3.3-1-1': {
     title: 'Lighting levels',
     summary:
-      'Adequate lighting helps everyone read, navigate, and feel safe. Different areas need different light levels, but consistency and avoiding glare are key.',
+      'Adequate lighting helps everyone read, navigate and feel safe. Different areas need different light levels, but consistency and avoiding glare are key.',
     examples: [
       {
         type: 'good',
@@ -282,7 +282,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '3.3-1-2': {
     title: 'Quiet spaces',
     summary:
-      'A quiet space provides a retreat for people who experience sensory overload, anxiety, or need a break from noise and crowds. It does not need to be large or fancy.',
+      'A quiet space provides a retreat for people who experience sensory overload, anxiety or need a break from noise and crowds. It does not need to be large or fancy.',
     examples: [
       {
         type: 'good',
@@ -319,7 +319,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '3.6-1-1': {
     title: 'Large print materials',
     summary:
-      'Large print materials help people with low vision access your information. This includes menus, brochures, and any customer-facing documents.',
+      'Large print materials help people with low vision access your information. This includes menus, brochures and any customer-facing documents.',
     examples: [
       {
         type: 'good',
@@ -356,7 +356,7 @@ export const HELP_CONTENT: Record<string, HelpContent> = {
   '4.2-F-1': {
     title: 'Disability awareness training',
     summary:
-      'Training helps staff feel confident supporting customers with different access needs. It covers practical tips, communication, and building an inclusive attitude.',
+      'Training helps staff feel confident supporting customers with different access needs. It covers practical tips, communication and building an inclusive attitude.',
     examples: [
       {
         type: 'info',

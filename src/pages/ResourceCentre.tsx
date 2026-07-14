@@ -2,7 +2,7 @@
  * Resource Centre Page
  *
  * A standalone, browsable library of accessibility resources, guides,
- * and best practices. Users can explore by category, search, or browse all.
+ * and best practices. Users can explore by category, search or browse all.
  * Report recommendations link directly to specific resources here.
  */
 
@@ -94,7 +94,7 @@ const RESOURCE_FEATURES: GuideFeature[] = [
   { icon: BookOpen, title: 'Browse by category', description: 'Explore resources organised by 6 accessibility topic categories.' },
   { icon: Lock, title: 'Unlock content', description: 'Complete modules to unlock detailed resource guides and checklists.' },
   { icon: Filter, title: 'DIAP category filter', description: 'Filter resources by DIAP category like physical access or customer service.' },
-  { icon: Scale, title: 'Standards and legislation', description: 'Access external links to Australian laws, codes, and guidelines.' },
+  { icon: Scale, title: 'Standards and legislation', description: 'Access external links to Australian laws, codes and guidelines.' },
 ];
 
 // Category configuration
@@ -110,7 +110,7 @@ const CATEGORIES: {
   {
     id: 'before-arrival',
     label: 'Before Arrival',
-    description: 'Pre-visit information, websites, booking, and transport',
+    description: 'Pre-visit information, websites, booking and transport',
     icon: <BookOpen size={20} />,
     color: '#4B2D8F',
     emoji: '🌐',
@@ -119,7 +119,7 @@ const CATEGORIES: {
   {
     id: 'getting-in',
     label: 'Getting In',
-    description: 'Parking, entrances, ramps, and pathways',
+    description: 'Parking, entrances, ramps and pathways',
     icon: <MapPin size={20} />,
     color: '#2ECC8E',
     emoji: '🚪',
@@ -128,7 +128,7 @@ const CATEGORIES: {
   {
     id: 'during-visit',
     label: 'During Visit',
-    description: 'Seating, toilets, sensory environment, and signage',
+    description: 'Seating, toilets, sensory environment and signage',
     icon: <Users size={20} />,
     color: '#F59E0B',
     emoji: '🏛️',
@@ -137,7 +137,7 @@ const CATEGORIES: {
   {
     id: 'service-support',
     label: 'Service & Support',
-    description: 'Staff training, customer service, policies, and procedures',
+    description: 'Staff training, customer service, policies and procedures',
     icon: <Settings size={20} />,
     color: '#EF4444',
     emoji: '🤝',
@@ -146,7 +146,7 @@ const CATEGORIES: {
   {
     id: 'organisational-commitment',
     label: 'Organisation',
-    description: 'Policies, employment, training, and inclusive culture',
+    description: 'Policies, employment, training and inclusive culture',
     icon: <Briefcase size={20} />,
     color: '#06B6D4',
     emoji: '🏢',
@@ -155,7 +155,7 @@ const CATEGORIES: {
   {
     id: 'events',
     label: 'Events',
-    description: 'Accessible events, conferences, and community activities',
+    description: 'Accessible events, conferences and community activities',
     icon: <Calendar size={20} />,
     color: '#8B5CF6',
     emoji: '🎪',
@@ -164,7 +164,7 @@ const CATEGORIES: {
   {
     id: 'standards',
     label: 'Key Standards & Legislation',
-    description: 'Australian laws, building codes, and international guidelines',
+    description: 'Australian laws, building codes and international guidelines',
     icon: <Scale size={20} />,
     color: '#374151',
     emoji: '⚖️',
@@ -184,7 +184,7 @@ const DIAP_LABELS: Record<DIAPCategory, string> = {
 const KEY_STANDARDS: { label: string; description: string; url: string }[] = [
   {
     label: 'Disability Discrimination Act 1992',
-    description: 'Core federal law prohibiting discrimination on the basis of disability in goods, services, and facilities.',
+    description: 'Core federal law prohibiting discrimination on the basis of disability in goods, services and facilities.',
     url: 'https://www.legislation.gov.au/C2004A04426/latest/text',
   },
   {
@@ -858,7 +858,7 @@ export function ResourceCentre() {
             <span className="hub-eyebrow">Resource Hub</span>
             <h1>Everything you need to <em>improve access</em></h1>
             <p className="hub-subtitle">
-              Guides, tips, and best practices for improving accessibility at your venue
+              Guides, tips and best practices for improving accessibility at your venue
             </p>
 
             <div className="hub-search-row">

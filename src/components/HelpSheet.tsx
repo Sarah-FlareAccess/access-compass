@@ -2,7 +2,7 @@
  * HelpSheet Component
  *
  * A bottom sheet that provides quick help during the discovery/onboarding process.
- * Shows top FAQs, contact support option, and link to full help page.
+ * Shows top FAQs, contact support option and link to full help page.
  *
  * Accessibility features:
  * - Escape key to close
@@ -33,11 +33,11 @@ const quickFAQs: FAQItem[] = [
   },
   {
     question: "How do I choose which touchpoints apply?",
-    answer: "Think about a typical customer visit from start to finish. If a touchpoint is part of their experience (like parking, entry, or payment), select it. If it doesn't apply to your business (like you don't have a car park), you can mark it as not applicable."
+    answer: "Think about a typical customer visit from start to finish. If a touchpoint is part of their experience (like parking, entry or payment), select it. If it doesn't apply to your business (like you don't have a car park), you can mark it as not applicable."
   },
   {
     question: "Can I change my answers later?",
-    answer: "Absolutely! Your responses are saved as you go, and you can revisit the discovery process anytime from your dashboard to update your selections or refine your answers."
+    answer: "Absolutely! Your responses are saved as you go and you can revisit the discovery process anytime from your dashboard to update your selections or refine your answers."
   },
   {
     question: "How long does this take?",
@@ -58,7 +58,7 @@ export function HelpSheet({ isOpen, onClose }: HelpSheetProps) {
   // Handle close - manages history state
   const handleClose = useCallback(() => {
     if (!closingFromPopstate.current && historyPushed.current && !historyHandled.current) {
-      // User closed via X button, Escape, or overlay click - go back in history
+      // User closed via X button, Escape or overlay click - go back in history
       historyHandled.current = true;
       window.history.back();
     }

@@ -173,7 +173,7 @@ function getLocalItems(): DIAPItem[] {
     localStorage.setItem('diap_status_migration_v1', 'done');
   }
 
-  // One-time migration: fix timeframes, priorities, categories, and complianceLevel
+  // One-time migration: fix timeframes, priorities, categories and complianceLevel
   if (!localStorage.getItem(DIAP_MIGRATION_KEY)) {
     let changed = false;
     for (const item of items) {
@@ -286,7 +286,7 @@ function getLocalItems(): DIAPItem[] {
     let v7Changed = false;
     for (const item of items) {
       // Auto-generated items only: importSource 'audit' or unset. Never touch
-      // manual, CSV or PDF imports, or items a user has edited.
+      // manual, CSV or PDF imports or items a user has edited.
       if (item.contentEdited) continue;
       if (!item.moduleSource) continue;
       if (item.importSource && item.importSource !== 'audit') continue;
@@ -2171,7 +2171,7 @@ function extractModuleCode(moduleSource: string): string | undefined {
 // A diagnostic/scoping question gathers context (identifying barriers, current
 // state, confidence) rather than describing an accessibility gap to fix. These
 // should not become DIAP action items - they read as questions on the plan and
-// aren't actionable. Detected by discovery-style lead-ins, or structurally as
+// aren't actionable. Detected by discovery-style lead-ins or structurally as
 // multi-selects whose options are all neutral and which carry no prescriptive
 // actionText.
 const DIAGNOSTIC_QUESTION_PATTERNS: RegExp[] = [
@@ -2206,17 +2206,17 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   '1.1': 'Welcome all visitors with clear pre-visit information to plan their journey',
   '1.2': 'Provide a website that all visitors can use with confidence',
   '1.3': 'Offer booking and ticketing systems that work for all customers',
-  '1.4': 'Create social media, video, and audio content everyone can enjoy',
-  '1.5': 'Communicate in clear, welcoming, and inclusive language',
+  '1.4': 'Create social media, video and audio content everyone can enjoy',
+  '1.5': 'Communicate in clear, welcoming and inclusive language',
   '1.6': 'Reflect and welcome diverse audiences in marketing materials',
   // 2.x Getting In
-  '2.1': 'Provide welcoming arrival, parking, and drop-off options for all visitors',
+  '2.1': 'Provide welcoming arrival, parking and drop-off options for all visitors',
   '2.2': 'Welcome all visitors through accessible, dignified entry points',
   '2.3': 'Provide paths and aisles that all visitors can use comfortably',
   '2.4': 'Create a comfortable queuing and arrival experience for all visitors',
   // 3.x During Visit
   '3.1': {
-    default: 'Provide comfortable seating, furniture, and layout for all visitors',
+    default: 'Provide comfortable seating, furniture and layout for all visitors',
     keywords: [
       { pattern: /seating|chair|bench|wheelchair.*space/i, objective: 'Offer seating options that welcome all visitors' },
       { pattern: /furniture|table|counter|height/i, objective: 'Provide furniture and surfaces that work for all visitors' },
@@ -2250,7 +2250,7 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
       { pattern: /bathroom|ensuite|shower/i, objective: 'Provide accommodation bathrooms all guests can use' },
     ],
   },
-  '3.10': 'Support all customers to browse, select, and purchase independently',
+  '3.10': 'Support all customers to browse, select and purchase independently',
   '3.11': 'Provide outdoor spaces and grounds that all visitors can access and enjoy',
   '3.12': 'Create inclusive playgrounds and play spaces where all children can play together',
   // 4.x Service & Support

@@ -611,11 +611,11 @@ export function QuestionCard({
             </div>
             {showNotesInfo && (
               <div className="notes-info-tooltip">
-                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
-                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+                <p>Use this for your own reference: observations, questions or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose or kept separate for your records only.</p>
               </div>
             )}
-            <span className="field-hint">Observations, questions, or notes for later...</span>
+            <span className="field-hint">Observations, questions or notes for later...</span>
             <textarea
               id="question-notes-yesno"
               value={notes}
@@ -635,7 +635,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
-            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
+            <p className="evidence-section-hint">e.g. screenshots, photos or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -752,11 +752,11 @@ export function QuestionCard({
             </div>
             {showNotesInfo && (
               <div className="notes-info-tooltip">
-                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
-                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+                <p>Use this for your own reference: observations, questions or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose or kept separate for your records only.</p>
               </div>
             )}
-            <span className="field-hint">Observations, questions, or notes for later...</span>
+            <span className="field-hint">Observations, questions or notes for later...</span>
             <textarea
               id="question-notes-measurement"
               value={notes}
@@ -776,7 +776,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
-            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
+            <p className="evidence-section-hint">e.g. screenshots, photos or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -843,11 +843,11 @@ export function QuestionCard({
             </div>
             {showNotesInfo && (
               <div className="notes-info-tooltip">
-                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
-                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+                <p>Use this for your own reference: observations, questions or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose or kept separate for your records only.</p>
               </div>
             )}
-            <span className="field-hint">Observations, questions, or notes for later...</span>
+            <span className="field-hint">Observations, questions or notes for later...</span>
             <textarea
               id="question-notes-multiselect"
               value={notes}
@@ -867,7 +867,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
-            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
+            <p className="evidence-section-hint">e.g. screenshots, photos or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -944,11 +944,11 @@ export function QuestionCard({
             </div>
             {showNotesInfo && (
               <div className="notes-info-tooltip">
-                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
-                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+                <p>Use this for your own reference: observations, questions or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose or kept separate for your records only.</p>
               </div>
             )}
-            <span className="field-hint">Observations, questions, or notes for later...</span>
+            <span className="field-hint">Observations, questions or notes for later...</span>
             <textarea
               id="question-notes-singleselect"
               value={notes}
@@ -968,7 +968,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
-            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
+            <p className="evidence-section-hint">e.g. screenshots, photos or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -1024,11 +1024,11 @@ export function QuestionCard({
             </div>
             {showNotesInfo && (
               <div className="notes-info-tooltip">
-                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
-                <p>Notes can be included in your DIAP and report if you choose, or kept separate for your records only.</p>
+                <p>Use this for your own reference: observations, questions or things to clarify later.</p>
+                <p>Notes can be included in your DIAP and report if you choose or kept separate for your records only.</p>
               </div>
             )}
-            <span className="field-hint">Observations, questions, or notes for later...</span>
+            <span className="field-hint">Observations, questions or notes for later...</span>
             <textarea
               id="question-notes-link"
               value={notes}
@@ -1048,7 +1048,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
-            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
+            <p className="evidence-section-hint">e.g. screenshots, photos or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}
@@ -1088,7 +1088,7 @@ export function QuestionCard({
             </div>
             {showNotesInfo && (
               <div className="notes-info-tooltip">
-                <p>Use this for your own reference: observations, questions, or things to clarify later.</p>
+                <p>Use this for your own reference: observations, questions or things to clarify later.</p>
                 <p>This response can be included in your DIAP and report if you choose.</p>
               </div>
             )}
@@ -1113,7 +1113,7 @@ export function QuestionCard({
               </span>
               <span className="evidence-section-optional-badge">Optional</span>
             </div>
-            <p className="evidence-section-hint">e.g. screenshots, photos, or documents</p>
+            <p className="evidence-section-hint">e.g. screenshots, photos or documents</p>
             <EvidenceUpload
               evidence={evidence}
               onEvidenceChange={handleEvidenceChange}

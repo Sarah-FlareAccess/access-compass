@@ -408,7 +408,7 @@ export default function AuthorityDashboard() {
       <div className="authority-quicklinks">
         <Link to="/authority/programs" className="authority-quicklink">
           <h3>Programs</h3>
-          <p>Create and manage assessment programs for permits, grants, and compliance.</p>
+          <p>Create and manage assessment programs for permits, grants and compliance.</p>
         </Link>
         <Link to="/authority/businesses" className="authority-quicklink">
           <h3>Businesses</h3>
@@ -455,7 +455,7 @@ function CohortSnapshot({ maturity, categoryHeatmap, recentActivity, hasReports,
         <p className="cohort-snapshot__empty-text">
           Generate a report for each active program to populate this section. Once you have
           reports saved, this snapshot surfaces cohort-wide maturity, the top priority actions
-          showing up across businesses, and the strengths worth celebrating.
+          showing up across businesses and the strengths worth celebrating.
         </p>
         <Link to="/authority/programs" className="btn btn-outline">Go to programs</Link>
       </section>
@@ -622,7 +622,7 @@ function CohortActionLists({ topPriorities, topStrengths, topAreasToExplore }: C
               <h3>Areas to explore</h3>
               <span className="cohort-card__subtitle">
                 Topics businesses flagged as "unable to check" or "unsure". Often signal the
-                cohort needs clearer guidance, training, or sector-wide support.
+                cohort needs clearer guidance, training or sector-wide support.
               </span>
             </div>
             <ol className="cohort-list cohort-list--explore">

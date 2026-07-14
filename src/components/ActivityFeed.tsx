@@ -160,7 +160,7 @@ export function ActivityFeed({ activities, maxInitial = 20, trimmedByRetention, 
   if (activities.length === 0) {
     return (
       <div className="activity-feed-empty">
-        <p>No activity yet. Actions like completing modules, creating DIAP items, and adding comments will appear here.</p>
+        <p>No activity yet. Actions like completing modules, creating DIAP items and adding comments will appear here.</p>
       </div>
     );
   }

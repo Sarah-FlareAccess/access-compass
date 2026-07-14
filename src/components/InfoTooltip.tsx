@@ -3,7 +3,7 @@
  *
  * Small accessible info bubble for explaining tricky UX (e.g. why a count reads
  * 0). Shows on hover AND keyboard focus; the trigger is a real button with an
- * aria-label, and the bubble is linked via aria-describedby. WCAG AA.
+ * aria-label and the bubble is linked via aria-describedby. WCAG AA.
  */
 
 import { useId } from 'react';

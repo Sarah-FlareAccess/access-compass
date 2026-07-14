@@ -28,14 +28,14 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     ],
     indicators: [
       'All primary circulation paths measured and sub-standard sections identified within 3 months',
-      'Paths widened to at least 1000mm clear width within 12 months, or interim clearance recovered where works are needed',
+      'Paths widened to at least 1000mm clear width within 12 months or interim clearance recovered where works are needed',
       'Path widths re-checked after any layout or fit-out change',
     ],
   },
   '2.3-1-2': {
     steps: [
       'Conduct a walk-through audit to identify obstacles, protruding objects and trip hazards on all circulation paths',
-      'Remove or relocate permanent obstructions, and set clear rules for temporary items (bins, signage, stock, deliveries)',
+      'Remove or relocate permanent obstructions and set clear rules for temporary items (bins, signage, stock, deliveries)',
       'Add a daily check of accessible routes to the opening or cleaning routine',
     ],
     indicators: [
@@ -47,7 +47,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.3-1-3': {
     steps: [
       'Document all internal level changes (stairs, ramps, lifts, escalators) and their locations',
-      'Assess each against AS 1428.1 for handrails, TGSIs and gradient, and record the gaps',
+      'Assess each against AS 1428.1 for handrails, TGSIs and gradient and record the gaps',
       'Prioritise remediation by risk and by how many people each level change affects',
     ],
     indicators: [
@@ -64,7 +64,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     ],
     indicators: [
       'Overhead clearance survey completed within 3 months',
-      'All accessible paths provide at least 2000mm clearance, or a detectable barrier is fitted, within 12 months',
+      'All accessible paths provide at least 2000mm clearance or a detectable barrier is fitted, within 12 months',
       'Overhead clearance re-checked after any signage or fit-out change',
     ],
   },
@@ -82,7 +82,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '2.3-D-22': {
     steps: [
-      'Check clear space each side of internal doors against AS 1428.1 Cl 13 (1200mm x 1200mm, and 600mm beside the latch on the pull side)',
+      'Check clear space each side of internal doors against AS 1428.1 Cl 13 (1200mm x 1200mm and 600mm beside the latch on the pull side)',
       'Remove furniture or obstacles that restrict the door approach space',
       'Keep the required manoeuvring space clear as a standing rule',
     ],
@@ -95,7 +95,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.3-D-23': {
     steps: [
       'Assess luminance contrast between floor surfaces, internal doors and adjacent walls',
-      'Increase door and frame contrast to at least 30% luminance against the wall, and add contrast at floor transitions',
+      'Increase door and frame contrast to at least 30% luminance against the wall and add contrast at floor transitions',
       'Avoid monochrome schemes when redecorating or refurbishing',
     ],
     indicators: [
@@ -131,7 +131,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.3-D-7': {
     steps: [
       'Produce an accessible floor plan or site map marking accessible routes, lifts, toilets and exits',
-      'Use clear labelling, high contrast and large text, and make it available at the entrance and on your website',
+      'Use clear labelling, high contrast and large text and make it available at the entrance and on your website',
       'Consider tactile or digital versions for visitors with vision impairment',
     ],
     indicators: [
@@ -155,7 +155,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.3-D-9': {
     steps: [
       'Identify key locations that need tactile or auditory wayfinding (accessible toilets, lifts, exits, main destinations)',
-      'Install tactile signs with Braille and raised lettering per AS 1428.1 Cl 8, and TGSIs per AS 1428.4.1 where needed',
+      'Install tactile signs with Braille and raised lettering per AS 1428.1 Cl 8 and TGSIs per AS 1428.4.1 where needed',
       'Consider auditory cues (talking signs, audio beacons) at main destinations',
     ],
     indicators: [
@@ -228,7 +228,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Test the operating force and hardware of internal doors on accessible routes',
       'Reduce operating force to a maximum of 20N and replace knobs with D-pull or lever handles per AS 1428.1 Cl 13',
-      'Consider hold-open devices (fire doors linked to the alarm), power-assist openers, or removing non-essential doors from the accessible path',
+      'Consider hold-open devices (fire doors linked to the alarm), power-assist openers or removing non-essential doors from the accessible path',
     ],
     indicators: [
       'Internal doors on accessible routes assessed for force and hardware within 6 months',
@@ -240,11 +240,11 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     steps: [
       'Measure the clear opening width of internal doors on accessible routes',
       'Widen sub-standard doors to at least 850mm clear opening per AS 1428.1 Cl 13',
-      'Where widening is not feasible, use offset hinges, a sliding door, or remove the door if not needed for fire or acoustic separation',
+      'Where widening is not feasible, use offset hinges, a sliding door or remove the door if not needed for fire or acoustic separation',
     ],
     indicators: [
       'Door clear widths measured within 3 months',
-      'Doors on accessible routes provide at least 850mm clear opening within 12 months, or an accessible alternative is provided',
+      'Doors on accessible routes provide at least 850mm clear opening within 12 months or an accessible alternative is provided',
       'Clear width preserved when any door is replaced',
     ],
   },
@@ -340,7 +340,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.3-D-17': {
     steps: [
       'Identify anything that prevents independent lift use (key locks, high controls, short door times)',
-      'Remove key-lock requirements, fit call and floor buttons at 900-1100mm, and set door hold-open to at least 8 seconds per AS 1735.12',
+      'Remove key-lock requirements, fit call and floor buttons at 900-1100mm and set door hold-open to at least 8 seconds per AS 1735.12',
       'Provide clear operating instructions in accessible formats',
     ],
     indicators: [
@@ -386,7 +386,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '2.3-1-4': {
     steps: [
-      'Walk the venue as if using a wheelchair or walking frame, and again with vision obscured, noting each point where independent navigation fails',
+      'Walk the venue as if using a wheelchair or walking frame and again with vision obscured, noting each point where independent navigation fails',
       'Record each failure point with its location and the barrier type',
       'Turn the findings into a prioritised improvement plan with owners and timeframes',
     ],
@@ -550,7 +550,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.1-D-9c': {
     steps: [
       'Review the parking payment method for accessibility barriers',
-      'Provide an accessible option: contactless tap-and-go, a screen-reader-compatible app, or a meter at 900-1100mm with large buttons and a high-contrast display',
+      'Provide an accessible option: contactless tap-and-go, a screen-reader-compatible app or a meter at 900-1100mm with large buttons and a high-contrast display',
       'Avoid touch-screen-only meters without an alternative',
     ],
     indicators: [
@@ -828,14 +828,14 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     ],
     indicators: [
       'Entrance lift dimensions checked within 3 months',
-      'Lift meets AS 1735.12 minimums, or replacement scheduled, within 24 months',
+      'Lift meets AS 1735.12 minimums or replacement scheduled, within 24 months',
       'Lift accessibility confirmed during routine servicing',
     ],
   },
   '2.2-D-32': {
     steps: [
       'Identify anything preventing independent use of the entrance lift',
-      'Install call buttons at 900-1100mm, set door hold-open to at least 8 seconds per AS 1735.12, and provide accessible operating instructions',
+      'Install call buttons at 900-1100mm, set door hold-open to at least 8 seconds per AS 1735.12 and provide accessible operating instructions',
     ],
     indicators: [
       'Barriers to independent lift use identified within 3 months',
@@ -894,7 +894,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     ],
     indicators: [
       'Entrance door width measured within 3 months',
-      'Door provides at least 850mm clear opening within 24 months, or an accessible alternative entrance is provided',
+      'Door provides at least 850mm clear opening within 24 months or an accessible alternative entrance is provided',
       'Clear width preserved when the door is replaced',
     ],
   },
@@ -978,7 +978,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.2-F-8': {
     steps: [
       'Identify entry points that need warning TGSIs (steps, ramps) or directional TGSIs (where the path is not otherwise detectable)',
-      'Install warning TGSIs at the top and bottom of steps and ramps, and directional TGSIs along the route, per AS 1428.4.1',
+      'Install warning TGSIs at the top and bottom of steps and ramps and directional TGSIs along the route, per AS 1428.4.1',
       'Confirm min 30% luminance contrast between the TGSIs and the surrounding surface',
     ],
     indicators: [
@@ -1066,7 +1066,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '2.2-D-22': {
     steps: [
-      'Add prominent name signage at accessible reading height, contrasting door or frame colours, or a canopy to distinguish your entrance from neighbouring businesses',
+      'Add prominent name signage at accessible reading height, contrasting door or frame colours or a canopy to distinguish your entrance from neighbouring businesses',
       'Confirm the entrance is identifiable from the street and main approach, including after dark',
     ],
     indicators: [
@@ -1147,7 +1147,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '2.4-D-6': {
     steps: [
-      'Introduce at least one alternative queue option (SMS or app notification, numbered tickets, call-ahead, or queue-from-seated)',
+      'Introduce at least one alternative queue option (SMS or app notification, numbered tickets, call-ahead or queue-from-seated)',
       'Advertise it with signage and on your website',
     ],
     indicators: [
@@ -1170,7 +1170,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.4-D-8': {
     steps: [
       'Develop a crowd-management plan that protects accessible pathways during peak periods',
-      'Assign staff to monitor key routes, use barriers that keep 1000mm clear width, and never block accessible paths, ramps or lifts with overflow',
+      'Assign staff to monitor key routes, use barriers that keep 1000mm clear width and never block accessible paths, ramps or lifts with overflow',
     ],
     indicators: [
       'Crowd-management plan protecting accessible routes in place within 3 months',
@@ -1214,7 +1214,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.4-D-12': {
     steps: [
       'Check queue-area floors are firm, level and slip-resistant',
-      'Repair uneven surfaces and cracks, apply anti-slip treatment where needed, and avoid matting with raised edges',
+      'Repair uneven surfaces and cracks, apply anti-slip treatment where needed and avoid matting with raised edges',
     ],
     indicators: [
       'Queue-area floors assessed within 3 months',
@@ -1247,7 +1247,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '2.4-D-15': {
     steps: [
       'Register as a Companion Card affiliate (or your state equivalent) and brief staff on accepting it',
-      'Display the Companion Card logo at the entrance and ticketing points, and consider other relevant access schemes',
+      'Display the Companion Card logo at the entrance and ticketing points and consider other relevant access schemes',
     ],
     indicators: [
       'Companion Card affiliation in place within 6 months',
@@ -1277,14 +1277,14 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
     ],
     indicators: [
       'Seating variety reviewed within 3 months',
-      'A mix of seat heights, and seats with and without arms, available within 12 months',
+      'A mix of seat heights and seats with and without arms, available within 12 months',
       'Seating mix maintained as furniture is replaced',
     ],
   },
   '3.1-D-1': {
     steps: [
       'Audit current seating provision',
-      'Introduce a variety of options: movable chairs, seats with armrests, and spaces for wheelchair users alongside companions',
+      'Introduce a variety of options: movable chairs, seats with armrests and spaces for wheelchair users alongside companions',
     ],
     indicators: [
       'Seating provision audited within 3 months',
@@ -1339,7 +1339,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.1-D-3': {
     steps: [
       'Review the service counter for a wheelchair-accessible section',
-      'Install a lowered counter section at max 830mm height with min 800mm knee clearance depth, or establish a clearly signed alternative service point, per AS 1428.1:2021',
+      'Install a lowered counter section at max 830mm height with min 800mm knee clearance depth or establish a clearly signed alternative service point, per AS 1428.1:2021',
     ],
     indicators: [
       'Counter accessibility reviewed within 3 months',
@@ -1474,7 +1474,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   // ============================================================
   '3.2-1-1': {
     steps: [
-      'Assess whether you have a compliant accessible toilet, or identify the nearest one',
+      'Assess whether you have a compliant accessible toilet or identify the nearest one',
       'Install or upgrade to meet AS 1428.1 Clause 15 (circulation space, grab rails, accessible fixtures)',
       'Sign the accessible toilet clearly and brief staff so they can direct customers to it',
     ],
@@ -1559,7 +1559,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.2-D-3': {
     steps: [
       'Confirm whether an ambulant accessible cubicle is needed and identify a suitable location',
-      'Install an ambulant accessible cubicle per AS 1428.1:2021 Cl 20: min 900mm width, side-wall grab rail, 540mm from the pan centreline to the near wall, and an outward-opening door',
+      'Install an ambulant accessible cubicle per AS 1428.1:2021 Cl 20: min 900mm width, side-wall grab rail, 540mm from the pan centreline to the near wall and an outward-opening door',
       'Sign the cubicle with the ambulant accessible symbol',
     ],
     indicators: [
@@ -1655,7 +1655,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.2-D-11': {
     steps: [
       'Check the reach to fittings from the toilet (flush, toilet paper, coat hook)',
-      'Reposition them to compliant, reachable locations: flush within 300mm of the cistern front on the transfer side, toilet paper 600-700mm from the floor within arm reach, and coat hook at 1200mm per AS 1428.1:2021',
+      'Reposition them to compliant, reachable locations: flush within 300mm of the cistern front on the transfer side, toilet paper 600-700mm from the floor within arm reach and coat hook at 1200mm per AS 1428.1:2021',
       'Confirm each fitting can be reached from the seated position on the toilet',
     ],
     indicators: [
@@ -1667,7 +1667,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.2-D-12': {
     steps: [
       'Check whether the mirror is usable from both standing and seated positions',
-      'Install a mirror with the bottom edge at 900mm or lower and the top edge at 1850mm or higher, or a tilted mirror, per AS 1428.1:2021',
+      'Install a mirror with the bottom edge at 900mm or lower and the top edge at 1850mm or higher or a tilted mirror, per AS 1428.1:2021',
       'Confirm the reflection is usable from a seated position',
     ],
     indicators: [
@@ -1819,7 +1819,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.3-D-3': {
     steps: [
       'Identify glare sources (reflective floors, glossy counters, windows, entrance transitions)',
-      'Address them with non-reflective floor surfaces, matte counter finishes, blinds or window film, and transitional lighting at entrances',
+      'Address them with non-reflective floor surfaces, matte counter finishes, blinds or window film and transitional lighting at entrances',
     ],
     indicators: [
       'Glare sources identified within 3 months',
@@ -1940,7 +1940,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.3-D-14': {
     steps: [
       'Identify key locations that would benefit from tactile elements (entries, room signage, decision points)',
-      'Incorporate TGSIs at key locations, raised lettering on room signage, and tactile maps or models at entry points per AS 1428.4.1',
+      'Incorporate TGSIs at key locations, raised lettering on room signage and tactile maps or models at entry points per AS 1428.4.1',
     ],
     indicators: [
       'Tactile wayfinding reviewed within 6 months',
@@ -2031,7 +2031,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.4-D-3': {
     steps: [
-      'Provide a range of manual wheelchairs (regular and bariatric), and consider motorised scooters for larger venues',
+      'Provide a range of manual wheelchairs (regular and bariatric) and consider motorised scooters for larger venues',
       'Store them near the entrance and train staff on safe operation and basic adjustments',
     ],
     indicators: [
@@ -2086,7 +2086,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.4-D-8': {
     steps: [
-      'Train customer-facing staff on the full inventory, storage, operation of each item, and how to offer it proactively and respectfully',
+      'Train customer-facing staff on the full inventory, storage, operation of each item and how to offer it proactively and respectfully',
       'Include this in onboarding',
     ],
     indicators: [
@@ -2108,7 +2108,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.4-D-10': {
     steps: [
-      'Install accessible pool entry per AS 1428.1:2021 (pool hoist min 136kg, zero-depth/beach entry, or submersible ramp)',
+      'Install accessible pool entry per AS 1428.1:2021 (pool hoist min 136kg, zero-depth/beach entry or submersible ramp)',
       'Provide at least one independent entry option',
     ],
     indicators: [
@@ -2403,7 +2403,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.6-D-5': {
     steps: [
       'Identify the most common languages spoken by your visitors',
-      'Produce translations of key materials, and consider Auslan video for Deaf visitors, prioritising safety and wayfinding information',
+      'Produce translations of key materials and consider Auslan video for Deaf visitors, prioritising safety and wayfinding information',
     ],
     indicators: [
       'Top community languages identified within 3 months',
@@ -2506,7 +2506,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.7-PC-5': {
     steps: [
       'Install tactile signage (raised lettering and Braille) per AS 1428.4.2 and provide tactile maps at entry points',
-      'Mount all tactile signs at 1250-1500mm height, and consider tactile models of key features',
+      'Mount all tactile signs at 1250-1500mm height and consider tactile models of key features',
     ],
     indicators: [
       'Tactile information reviewed within 6 months',
@@ -2549,7 +2549,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.7-PC-9': {
     steps: [
-      'Provide communication supports: picture communication boards (with venue-specific vocabulary), pen and paper, and a tablet with a communication app',
+      'Provide communication supports: picture communication boards (with venue-specific vocabulary), pen and paper and a tablet with a communication app',
       'Make them visible at reception and key service points',
     ],
     indicators: [
@@ -2605,7 +2605,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.7-DD-5a': {
     steps: [
       'Install TGSIs at stairs, ramps and escalators per AS 1428.4.1',
-      'Add tactile and Braille room signs per AS 1428.4.2, and consider tactile maps and models at main entry points',
+      'Add tactile and Braille room signs per AS 1428.4.2 and consider tactile maps and models at main entry points',
     ],
     indicators: [
       'Tactile elements reviewed within 6 months',
@@ -2961,7 +2961,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.8-D-19a': {
     steps: [
       'Review gym and fitness equipment for accessibility (adjustable machines, pathways, benches, heights)',
-      'Provide accessible gym equipment: adjustable machines usable from a wheelchair, min 900mm pathways, accessible weight benches, and at least one of each major type at accessible height',
+      'Provide accessible gym equipment: adjustable machines usable from a wheelchair, min 900mm pathways, accessible weight benches and at least one of each major type at accessible height',
     ],
     indicators: [
       'Gym equipment accessibility reviewed within 6 months',
@@ -2994,7 +2994,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.8-D-22': {
     steps: [
       'Engage professional audio describers for performances with significant visual content',
-      'Provide descriptions via a dedicated headset channel, offer a pre-show touch tour where possible, and advertise described performances',
+      'Provide descriptions via a dedicated headset channel, offer a pre-show touch tour where possible and advertise described performances',
     ],
     indicators: [
       'Audio description capability established within 12 months',
@@ -3038,7 +3038,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.8-D-26': {
     steps: [
       'Allow customers to bring their own food and drinks when they have specific dietary, allergy or medical needs',
-      'Communicate the policy on the website and at entry, and train staff to support it without challenge',
+      'Communicate the policy on the website and at entry and train staff to support it without challenge',
     ],
     indicators: [
       'Own-food policy in place within 3 months',
@@ -3082,7 +3082,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.8-D-30': {
     steps: [
       'Provide beach wheelchairs (floating and sand models) and install mobi-mats or accessible boardwalks to the water edge',
-      'Advertise availability online and at the beach entry, and train lifeguards on beach wheelchair use',
+      'Advertise availability online and at the beach entry and train lifeguards on beach wheelchair use',
     ],
     indicators: [
       'Beach access reviewed within 6 months',
@@ -3103,7 +3103,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '3.8-D-32': {
     steps: [
-      'Develop accessible camping or glamping options with firm level surfaces, accessible platforms or hard-floor cabins, and accessible paths to common areas',
+      'Develop accessible camping or glamping options with firm level surfaces, accessible platforms or hard-floor cabins and accessible paths to common areas',
       'Include at least one fully accessible option near accessible amenities',
     ],
     indicators: [
@@ -3252,7 +3252,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.9-D-6': {
     steps: [
       'Review kitchenette counters and appliance controls for accessible height',
-      'Lower countertops to max 830mm with 700mm knee clearance, position appliances on the accessible benchtop, and provide front-mounted controls operable with one hand',
+      'Lower countertops to max 830mm with 700mm knee clearance, position appliances on the accessible benchtop and provide front-mounted controls operable with one hand',
     ],
     indicators: [
       'Kitchenette accessibility reviewed within 6 months',
@@ -3399,7 +3399,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.10-PC-1': {
     steps: [
       'Train staff to offer assistance proactively when they notice someone browsing or struggling with products',
-      'Install call buttons or service bells at accessible height in aisles, and ensure staff can reach, carry and describe products',
+      'Install call buttons or service bells at accessible height in aisles and ensure staff can reach, carry and describe products',
     ],
     indicators: [
       'Staff trained to offer product assistance within 3 months',
@@ -3476,7 +3476,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.10-D-4': {
     steps: [
       'Review self-checkout machines for accessibility (screen height/angle, audio, timing, reach, weight tolerance)',
-      'Configure adjustable screen height, audio guidance, extended time, reachable scanner and bagging, and a weight tolerance that does not reject items on a wheelchair tray',
+      'Configure adjustable screen height, audio guidance, extended time, reachable scanner and bagging and a weight tolerance that does not reject items on a wheelchair tray',
     ],
     indicators: [
       'Self-checkout accessibility reviewed within 6 months',
@@ -3531,7 +3531,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '3.10-D-9': {
     steps: [
       'Rearrange displays and stock to maintain min 1000mm clear aisle width (1200mm preferred) throughout the store per AS 1428.1:2021',
-      'Avoid temporary displays, promotional bins or stock trolleys that reduce clearance, and audit after restocking',
+      'Avoid temporary displays, promotional bins or stock trolleys that reduce clearance and audit after restocking',
     ],
     indicators: [
       'Aisle widths measured within 3 months',
@@ -4305,7 +4305,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '4.2-D-9': {
     steps: [
-      'Train staff to offer assistance respectfully: ask "Can I help with anything?" rather than assuming, and speak directly to the customer',
+      'Train staff to offer assistance respectfully: ask "Can I help with anything?" rather than assuming and speak directly to the customer',
       'Have staff follow the customer\'s lead on what help they want',
     ],
     indicators: [
@@ -4339,7 +4339,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '4.2-D-12': {
     steps: [
       'Train staff to allow extra time for customers with cognitive, intellectual or psychosocial disabilities',
-      'Teach them to use plain language, break information into steps, offer to repeat or write things down, and avoid rushing',
+      'Teach them to use plain language, break information into steps, offer to repeat or write things down and avoid rushing',
     ],
     indicators: [
       'Extra-time communication training delivered within 6 months',
@@ -4459,7 +4459,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '4.2-D-22': {
     steps: [
-      'Train staff to respond to complaints about assistance animals by explaining the handler\'s legal right under the DDA 1992, and that the animal must not be removed',
+      'Train staff to respond to complaints about assistance animals by explaining the handler\'s legal right under the DDA 1992 and that the animal must not be removed',
       'Offer the complaining customer an alternative seat or area if possible',
     ],
     indicators: [
@@ -4629,7 +4629,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '4.3-D-3': {
     steps: [
       'Register as a Companion Card affiliate through your state or territory scheme',
-      'Train staff to recognise and accept the card, and apply the companion concession automatically',
+      'Train staff to recognise and accept the card and apply the companion concession automatically',
     ],
     indicators: [
       'Companion Card affiliation in place within 6 months',
@@ -5268,7 +5268,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '4.6-D-12': {
     steps: [
       'Create a dedicated accessibility page describing your accessible features, services, equipment and any known limitations',
-      'Link to it from your main navigation, footer and Google Business listing, and keep it updated',
+      'Link to it from your main navigation, footer and Google Business listing and keep it updated',
     ],
     indicators: [
       'Accessibility page published within 3 months',
@@ -6396,7 +6396,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '5.7-PC-3': {
     steps: [
       'Add a named-contact access statement to every ad template, inviting candidates to request adjustments',
-      'Offer multiple formats and contact methods, and make clear disclosure is not required',
+      'Offer multiple formats and contact methods and make clear disclosure is not required',
     ],
     indicators: [
       'Access statement on every ad template within 3 months',
@@ -6766,7 +6766,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '5.9-PC-6': {
     steps: [
-      'Draft a documented workplace adjustment process with timeframes and escalation, and publish it',
+      'Draft a documented workplace adjustment process with timeframes and escalation and publish it',
       'Train HR and managers on it',
     ],
     indicators: [
@@ -7057,7 +7057,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '5.10-DD-11': {
     steps: [
       'Create ways to include Disabled staff in relevant customer-facing decisions (product, service, venue) as a valued, resourced part of their role',
-      'Keep participation voluntary, never assume disclosure, and engage external experts (paid) where in-house expertise is limited',
+      'Keep participation voluntary, never assume disclosure and engage external experts (paid) where in-house expertise is limited',
     ],
     indicators: [
       'Ways to include Disabled staff in decisions created within 12 months',
@@ -7340,7 +7340,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '6.2-D-3': {
     steps: [
       'Check the Changing Places website for a facility near your venue',
-      'For large events, consider hiring a temporary Changing Places unit, and communicate the nearest facility in your accessibility information',
+      'For large events, consider hiring a temporary Changing Places unit and communicate the nearest facility in your accessibility information',
     ],
     indicators: [
       'Nearest Changing Places facility identified before the event',
@@ -7362,7 +7362,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '6.2-D-5': {
     steps: [
       'Assess all surfaces and terrain for firmness, level and slip-resistance',
-      'Provide temporary accessible pathways over grass, gravel or uneven ground, and address gradients and cross-falls',
+      'Provide temporary accessible pathways over grass, gravel or uneven ground and address gradients and cross-falls',
     ],
     indicators: [
       'Surfaces and terrain assessed before the event',
@@ -7428,7 +7428,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '6.2-D-11': {
     steps: [
       'Designate a secure, staffed area near the main event space for storing mobility aids and equipment',
-      'Make it accessible and clearly signed, and brief staff to handle equipment carefully',
+      'Make it accessible and clearly signed and brief staff to handle equipment carefully',
     ],
     indicators: [
       'Mobility aid storage provided at the event',
@@ -7585,7 +7585,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '6.3-D-2': {
     steps: [
-      'Provide tactile wayfinding: TGSIs at key decision points (per AS 1428.4.1), tactile signage with raised lettering and Braille at room entries, and tactile maps at information points',
+      'Provide tactile wayfinding: TGSIs at key decision points (per AS 1428.4.1), tactile signage with raised lettering and Braille at room entries and tactile maps at information points',
       'Maintain the elements through the event',
     ],
     indicators: [
@@ -7832,7 +7832,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '6.4-D-10': {
     steps: [
       'Implement a fragrance-free or scent-aware policy and communicate it to attendees, staff and vendors in advance',
-      'Avoid scented cleaning products, manage food odours, and provide a scent-free zone',
+      'Avoid scented cleaning products, manage food odours and provide a scent-free zone',
     ],
     indicators: [
       'Scent-aware policy in place for the event',
@@ -7924,7 +7924,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '6.5-D-1': {
     steps: [
       'Designate a named person responsible for accessibility on the day with authority to make decisions and allocate resources',
-      'Make them identifiable and reachable by radio, briefed on all pre-registered accommodations, and named in the run sheet',
+      'Make them identifiable and reachable by radio, briefed on all pre-registered accommodations and named in the run sheet',
     ],
     indicators: [
       'Accessibility lead designated for the day',
@@ -9476,7 +9476,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   '1.1-D-3a': {
     steps: [
       'Review your accessibility information now',
-      'Establish a regular review cycle at least every 6 months, or whenever physical changes occur',
+      'Establish a regular review cycle at least every 6 months or whenever physical changes occur',
     ],
     indicators: [
       'Accessibility information reviewed within 1 month',
@@ -9684,7 +9684,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '1.1-F-8': {
     steps: [
-      'Add accessible transport information: nearest accessible public transport stops, taxi and rideshare drop-off, and walking route details',
+      'Add accessible transport information: nearest accessible public transport stops, taxi and rideshare drop-off and walking route details',
       'Cover the route from transport stops to your entrance',
     ],
     indicators: [
@@ -10400,7 +10400,7 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
   },
   '1.4-DD-4b': {
     steps: [
-      'Disable video autoplay, or mute autoplaying video by default with easy pause/stop controls',
+      'Disable video autoplay or mute autoplaying video by default with easy pause/stop controls',
       'Meet WCAG 2.2 SC 1.4.2 and SC 2.2.2',
     ],
     indicators: [

@@ -8,7 +8,7 @@ export const standaloneResources: TrainingResource[] = [
     id: 'resource-accessible-events-checklist',
     slug: 'accessible-events-checklist',
     title: 'Accessible Events Planning Checklist',
-    description: 'A downloadable checklist covering venue selection, communications, catering, presentations, and emergency planning for accessible events.',
+    description: 'A downloadable checklist covering venue selection, communications, catering, presentations and emergency planning for accessible events.',
     category: 'disability-inclusion',
     contentType: 'checklist',
     accessTier: 'free',

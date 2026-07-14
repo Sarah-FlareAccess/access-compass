@@ -180,7 +180,7 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   },
   multiDiap: {
     title: 'Multi-DIAP Support',
-    description: 'Run more than one Disability Inclusion Action Plan side by side: one per directorate, one per year, or one per program. Compare prior and current DIAPs to evidence year-on-year progress for board and community reporting.',
+    description: 'Run more than one Disability Inclusion Action Plan side by side: one per directorate, one per year or one per program. Compare prior and current DIAPs to evidence year-on-year progress for board and community reporting.',
   },
   dataResidency: {
     title: 'Australian Data Residency',
@@ -188,7 +188,7 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   },
   procurement: {
     title: 'Procurement-Ready Pack',
-    description: 'Master Services Agreement, pre-filled security questionnaire, Privacy Act 1988 schedule, and current insurance certificates (public liability, professional indemnity, cyber liability) supplied with your contract, so council legal and IT can sign off in days, not months.',
+    description: 'Master Services Agreement, pre-filled security questionnaire, Privacy Act 1988 schedule and current insurance certificates (public liability, professional indemnity, cyber liability) supplied with your contract, so council legal and IT can sign off in days, not months.',
   },
 };
 
@@ -339,7 +339,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Committed': {
     title: 'Committed',
-    situation: 'You want accessibility to live in your business, not sit in a folder. You need an action plan you can publish, share with your board or grant funders, and renew year on year.',
+    situation: 'You want accessibility to live in your business, not sit in a folder. You need an action plan you can publish, share with your board or grant funders and renew year on year.',
     audience: 'Best for single-venue operators making accessibility part of how they run, with a full Deep Dive and a living action plan.',
     examples: [
       'A walking tour or boat dining experience formalising accessibility year on year',
@@ -400,7 +400,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Major Venue': {
     title: 'Major Venue',
-    situation: 'Your brand is on the line every day. You need governance-grade accessibility evidence, board-ready reporting, and a program that can survive a public-incident inquiry.',
+    situation: 'Your brand is on the line every day. You need governance-grade accessibility evidence, board-ready reporting and a program that can survive a public-incident inquiry.',
     audience: 'Best for flagship venues where one accessibility incident becomes news, with unlimited zones, department-level DIAP and named consultant support.',
     examples: [
       'A flagship national or state stadium',
@@ -414,7 +414,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   'Core': {
     title: 'Core',
     situation: 'Your DIAP currently lives in a Word document and a folder of evidence. You are responsible for delivering on it at a regional or smaller-authority scale, on a modest budget and without a big consultancy on retainer.',
-    audience: 'Best for regional councils and smaller authorities running a focused DIAP program. Import your existing DIAP, assign actions to your team, attach evidence, and produce a board-ready report without consultant fees on top.',
+    audience: 'Best for regional councils and smaller authorities running a focused DIAP program. Import your existing DIAP, assign actions to your team, attach evidence and produce a board-ready report without consultant fees on top.',
     examples: [
       'A regional or rural council',
       'A regional tourism board or destination authority',
@@ -425,7 +425,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Professional': {
     title: 'Professional',
-    situation: 'Your DIAP spans multiple teams and venues, and you also work with suppliers, tenants or grant recipients you want to bring along. You need DIAP coordination across departments and a way to run an accessibility program for the businesses you fund or contract with, in one place.',
+    situation: 'Your DIAP spans multiple teams and venues and you also work with suppliers, tenants or grant recipients you want to bring along. You need DIAP coordination across departments and a way to run an accessibility program for the businesses you fund or contract with, in one place.',
     audience: 'Best for mid-size metropolitan authorities coordinating accessibility across departments and sites, with department-level DIAP sections and a board-ready report.',
     examples: [
       'A mid-size metro council',
@@ -438,7 +438,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   'Enterprise': {
     title: 'Enterprise',
     situation: 'You manage accessibility at portfolio scale, across many sites, many teams and often multiple concurrent DIAPs. Your procurement team requires a security questionnaire and your legal team requires a real Master Services Agreement. You need this to work for a strategic policy roll-out, not a single team.',
-    audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale, with multi-DIAP support, custom integrations on request, and a procurement-ready contract.',
+    audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale, with multi-DIAP support, custom integrations on request and a procurement-ready contract.',
     examples: [
       'A large metropolitan council',
       'A state tourism body or major destination authority',
@@ -462,7 +462,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Standard': {
     title: 'Standard',
-    situation: 'You have tenants, suppliers or members who need to meet a shared accessibility standard, and you need a structured way to verify and track that with an audit trail.',
+    situation: 'You have tenants, suppliers or members who need to meet a shared accessibility standard and you need a structured way to verify and track that with an audit trail.',
     audience: 'Best for venue operators, property groups and councils running a structured supplier or tenant program with up to fifty businesses.',
     examples: [
       'A venue operator running an accessibility program for tenants',
@@ -1084,7 +1084,7 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Enterprise',
     price: 'from $15,000',
     period: '12 months',
-    description: 'Portfolio-scale accessibility with multi-DIAP support, custom integrations on request, and a procurement-ready contract.',
+    description: 'Portfolio-scale accessibility with multi-DIAP support, custom integrations on request and a procurement-ready contract.',
     whoFor: 'For large councils, state and federal departments, universities, health networks and school systems running accessibility at portfolio scale.',
     highlight: false,
     features: {

@@ -6,7 +6,7 @@ export const modules: Module[] = [
     title: 'Physical access',
     icon: '🚪',
     description:
-      'Entrances, doorways, bathrooms, parking, and moving through your space',
+      'Entrances, doorways, bathrooms, parking and moving through your space',
     recommended_if: (snapshot: BusinessSnapshot) => snapshot.has_physical_venue === true,
   },
   {
@@ -14,7 +14,7 @@ export const modules: Module[] = [
     title: 'Communication and information',
     icon: '💬',
     description:
-      'Menus, signs, brochures, audio announcements, and other ways you share information',
+      'Menus, signs, brochures, audio announcements and other ways you share information',
     recommended_if: () => true, // Always recommended
   },
   {
@@ -29,14 +29,14 @@ export const modules: Module[] = [
     id: 'online-bookings',
     title: 'Online and bookings',
     icon: '💻',
-    description: 'Website accessibility, booking systems, and digital information',
+    description: 'Website accessibility, booking systems and digital information',
     recommended_if: (snapshot: BusinessSnapshot) => snapshot.has_online_presence === true,
   },
   {
     id: 'wayfinding-signage',
     title: 'Wayfinding and signage',
     icon: '🗺️',
-    description: 'Signs, maps, directions, and helping people find their way around',
+    description: 'Signs, maps, directions and helping people find their way around',
     recommended_if: (snapshot: BusinessSnapshot) =>
       snapshot.has_physical_venue === true &&
       (snapshot.business_types?.includes('attractions') ||
@@ -47,14 +47,14 @@ export const modules: Module[] = [
     title: 'Sensory considerations',
     icon: '👂👃',
     description:
-      'Lighting, noise, sounds, smells, and creating comfortable environments',
+      'Lighting, noise, sounds, smells and creating comfortable environments',
     recommended_if: (snapshot: BusinessSnapshot) => snapshot.has_physical_venue === true,
   },
   {
     id: 'emergency-safety',
     title: 'Emergency and safety',
     icon: '🚨',
-    description: 'Evacuation plans, emergency communication, and safety procedures',
+    description: 'Evacuation plans, emergency communication and safety procedures',
     recommended_if: (snapshot: BusinessSnapshot) => snapshot.has_physical_venue === true,
   },
 ];

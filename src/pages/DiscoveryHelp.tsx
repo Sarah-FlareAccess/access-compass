@@ -2,7 +2,7 @@
  * DiscoveryHelp Page
  *
  * Full help page for the discovery/onboarding process.
- * Contains comprehensive FAQs, journey mapping guide, and contact options.
+ * Contains comprehensive FAQs, journey mapping guide and contact options.
  *
  * Tone: Encouraging, supportive, professional
  */
@@ -34,7 +34,7 @@ const faqSections: FAQSection[] = [
       },
       {
         question: "Who is this for?",
-        answer: "Access Compass is designed for any business that serves customers - whether you're a café, retail store, hotel, tourist attraction, or service provider. If people visit your premises or use your services, this tool can help you make their experience more accessible."
+        answer: "Access Compass is designed for any business that serves customers - whether you're a café, retail store, hotel, tourist attraction or service provider. If people visit your premises or use your services, this tool can help you make their experience more accessible."
       },
       {
         question: "How long does the discovery process take?",
@@ -42,7 +42,7 @@ const faqSections: FAQSection[] = [
       },
       {
         question: "Do I need to complete everything in one session?",
-        answer: "Not at all! Your progress is saved automatically as you go. Feel free to take breaks, consult with colleagues, or gather information. When you return, you'll pick up right where you left off."
+        answer: "Not at all! Your progress is saved automatically as you go. Feel free to take breaks, consult with colleagues or gather information. When you return, you'll pick up right where you left off."
       },
     ]
   },
@@ -52,7 +52,7 @@ const faqSections: FAQSection[] = [
     faqs: [
       {
         question: "What is journey mapping?",
-        answer: "Journey mapping is thinking through the complete experience a customer has with your business - from first finding out about you, to arriving, moving through your space, using your services, and leaving. By understanding this journey, we can identify where accessibility improvements would have the biggest impact."
+        answer: "Journey mapping is thinking through the complete experience a customer has with your business - from first finding out about you, to arriving, moving through your space, using your services and leaving. By understanding this journey, we can identify where accessibility improvements would have the biggest impact."
       },
       {
         question: "How do I choose which touchpoints apply to my business?",
@@ -60,7 +60,7 @@ const faqSections: FAQSection[] = [
       },
       {
         question: "What are the different journey phases?",
-        answer: "We break the customer journey into four phases: 'Before Arrival' (finding you, booking, planning), 'Getting In' (parking, approaching, entering), 'During Visit' (moving around, using facilities, experiencing your service), and 'Service & Support' (getting help, communication, feedback). This helps ensure nothing is overlooked."
+        answer: "We break the customer journey into four phases: 'Before Arrival' (finding you, booking, planning), 'Getting In' (parking, approaching, entering), 'During Visit' (moving around, using facilities, experiencing your service) and 'Service & Support' (getting help, communication, feedback). This helps ensure nothing is overlooked."
       },
       {
         question: "What if a touchpoint only partially applies?",
@@ -78,10 +78,10 @@ const faqSections: FAQSection[] = [
       },
       {
         question: "Can I change my answers later?",
-        answer: "Absolutely! You can revisit the discovery process anytime from your dashboard. Your business might change over time, or you might learn new information. We encourage you to keep your responses up to date."
+        answer: "Absolutely! You can revisit the discovery process anytime from your dashboard. Your business might change over time or you might learn new information. We encourage you to keep your responses up to date."
       },
       {
-        question: "Should I answer based on how things are now, or how I want them to be?",
+        question: "Should I answer based on how things are now or how I want them to be?",
         answer: "Please answer based on your current state. Being honest about where you are today helps us give you the most relevant and useful recommendations. The goal is improvement, not perfection."
       },
       {
@@ -96,7 +96,7 @@ const faqSections: FAQSection[] = [
     faqs: [
       {
         question: "What happens after I complete discovery?",
-        answer: "Based on your responses, we'll recommend specific accessibility modules for you to review. These modules contain questions about particular aspects of your business, and completing them will give you a clear picture of what you're doing well and where you can improve."
+        answer: "Based on your responses, we'll recommend specific accessibility modules for you to review. These modules contain questions about particular aspects of your business and completing them will give you a clear picture of what you're doing well and where you can improve."
       },
       {
         question: "What's the difference between Pulse Check and Deep Dive?",
@@ -104,7 +104,7 @@ const faqSections: FAQSection[] = [
       },
       {
         question: "Can I upgrade from Pulse Check to Deep Dive later?",
-        answer: "Yes! You can upgrade at any time. Your existing progress and responses will be preserved, and you'll gain access to the additional Deep Dive questions and DIAP features."
+        answer: "Yes! You can upgrade at any time. Your existing progress and responses will be preserved and you'll gain access to the additional Deep Dive questions and DIAP features."
       },
       {
         question: "Is my data secure?",
@@ -215,7 +215,7 @@ export default function DiscoveryHelp() {
         <section className="contact-section">
           <h2 className="contact-title">Still have questions?</h2>
           <p className="contact-text">
-            Our team is here to help. Whether you're stuck on a question, need clarification,
+            Our team is here to help. Whether you're stuck on a question, need clarification
             or just want to chat about accessibility, we'd love to hear from you.
           </p>
           <div className="contact-options">

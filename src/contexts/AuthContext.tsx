@@ -96,7 +96,7 @@ const ACCESS_STATE_CACHE_KEY = 'access_compass_access_state';
 const LAST_USER_KEY = 'access_compass_last_user_id';
 
 // Keys that survive every cleanup: device identity, the UI install-dismissed
-// flag, and the last-user marker we read to detect future user switches.
+// flag and the last-user marker we read to detect future user switches.
 const ALWAYS_PRESERVE_KEYS = new Set<string>([
   LAST_USER_KEY,
   'access_compass_device_id',
@@ -180,7 +180,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // alongside the real one). The REST query returns rows in no defined
       // order, so blindly taking [0] could resolve to a stale org and drop the
       // user into Discovery on a cold (uncached) login. Prefer an org the user
-      // actively belongs to, and among those the most recently joined; only
+      // actively belongs to and among those the most recently joined; only
       // fall back to the first row if nothing is active.
       const membershipList = Array.isArray(memberships) ? memberships : [];
       const membership =
@@ -466,7 +466,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Generate invite code
         const inviteCode = Math.random().toString(36).substring(2, 10).toUpperCase();
 
-        // Determine org type: use explicit param, or fall back to storage
+        // Determine org type: use explicit param or fall back to storage
         let orgType = data.orgType || 'standard';
         if (orgType === 'standard') {
           try {
@@ -510,7 +510,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           console.error('[createOrganisation] Org insert error:', orgError);
           const errorStr = typeof orgError === 'string' ? orgError : JSON.stringify(orgError);
           if (errorStr.includes('organisations_slug_key') || errorStr.includes('23505')) {
-            return { error: `An organisation named "${data.name}" has already been registered. Please choose a different name, or contact support if you believe this is an error.` };
+            return { error: `An organisation named "${data.name}" has already been registered. Please choose a different name or contact support if you believe this is an error.` };
           }
           return { error: 'Failed to create organisation. Please try again.' };
         }

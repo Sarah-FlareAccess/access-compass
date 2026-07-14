@@ -30,7 +30,7 @@ export function TabBlockedOverlay({ onForceOpen }: TabBlockedOverlayProps) {
 
         <p id="tab-blocked-desc" className="tab-blocked-desc">
           To prevent data conflicts, Access Compass can only be used in one browser tab at a time.
-          Please switch to the other tab, or close it first.
+          Please switch to the other tab or close it first.
         </p>
 
         <button

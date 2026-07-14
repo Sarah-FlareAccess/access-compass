@@ -17,11 +17,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Accessible Parking Spaces',
   coveredQuestionIds: ['2.1-F-2', '2.1-F-3', '2.1-F-3a', '2.1-D-9', '2.1-D-9a', '2.1-D-9c', '2.1-D-13'],
-  summary: 'Accessible parking spaces must be wider than standard spaces, located close to the accessible entrance, properly marked with the International Symbol of Access, and include drop-off zones for passengers who cannot use a parked vehicle.',
+  summary: 'Accessible parking spaces must be wider than standard spaces, located close to the accessible entrance, properly marked with the International Symbol of Access and include drop-off zones for passengers who cannot use a parked vehicle.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'For many people with disability, accessible parking is not a convenience. It is essential. The extra width allows space to deploy a wheelchair ramp or transfer from the car to a mobility device. Proximity to the entrance reduces fatigue, pain, and exposure to weather and traffic hazards. Drop-off zones serve those who travel as passengers and need to alight close to the door. During events or peak periods, access must be maintained so that temporary signage, barriers, or overflow parking do not block accessible spaces.',
+    text: 'For many people with disability, accessible parking is not a convenience. It is essential. The extra width allows space to deploy a wheelchair ramp or transfer from the car to a mobility device. Proximity to the entrance reduces fatigue, pain and exposure to weather and traffic hazards. Drop-off zones serve those who travel as passengers and need to alight close to the door. During events or peak periods, access must be maintained so that temporary signage, barriers or overflow parking do not block accessible spaces.',
     statistic: {
       value: '4.4 million',
       context: 'Australians have a disability. Many rely on accessible parking to participate in community life.',
@@ -32,7 +32,7 @@ export const gettingInHelp: HelpContent[] = [
   tips: [
     {
       icon: 'Maximize',
-      text: 'Spaces must be wider: 2400mm with a 2400mm shared zone, or 3200mm for a single space.',
+      text: 'Spaces must be wider: 2400mm with a 2400mm shared zone or 3200mm for a single space.',
       detail: 'The shared zone sits between two accessible spaces so both users can deploy ramps or open doors fully. A single 3200mm space works where only one accessible space is provided. Measure from wall or line centre to line centre.',
       priority: 1
     },
@@ -50,20 +50,20 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       icon: 'Shield',
-      text: 'Protect spaces from misuse with bollards, wheel stops, or regular monitoring.',
+      text: 'Protect spaces from misuse with bollards, wheel stops or regular monitoring.',
       detail: 'Misuse of accessible spaces is widespread. Physical deterrents such as bollards or raised kerbs prevent encroachment. If physical measures are not feasible, regular staff monitoring during peak periods helps.',
       priority: 4
     },
     {
       icon: 'ArrowRight',
       text: 'Provide a drop-off zone near the entrance for passengers who cannot park.',
-      detail: 'A drop-off zone should be at least 3200mm wide and connected to the entrance by a step-free path. It does not need to be a parking space, just a safe area to stop, deploy equipment, and move to the entrance.',
+      detail: 'A drop-off zone should be at least 3200mm wide and connected to the entrance by a step-free path. It does not need to be a parking space, just a safe area to stop, deploy equipment and move to the entrance.',
       priority: 5
     },
     {
       icon: 'CheckCircle',
-      text: 'Maintain access during events, construction, and peak periods.',
-      detail: 'Temporary signage, overflow parking cones, food trucks, or construction barriers must never block accessible spaces or the path from them. Include accessible parking in your event planning checklist.',
+      text: 'Maintain access during events, construction and peak periods.',
+      detail: 'Temporary signage, overflow parking cones, food trucks or construction barriers must never block accessible spaces or the path from them. Include accessible parking in your event planning checklist.',
       priority: 6
     }
   ],
@@ -73,17 +73,17 @@ export const gettingInHelp: HelpContent[] = [
     steps: [
       {
         text: 'Measure each accessible space width and shared zone.',
-        measurement: { target: 'Space width', acceptable: 'Minimum 2400mm with 2400mm shared zone, or 3200mm single', unit: 'mm' }
+        measurement: { target: 'Space width', acceptable: 'Minimum 2400mm with 2400mm shared zone or 3200mm single', unit: 'mm' }
       },
       {
         text: 'Measure the distance from the closest accessible space to the accessible entrance door.',
         measurement: { target: 'Distance to entrance', acceptable: 'Maximum 30m', unit: 'm' }
       },
       { text: 'Check signage: Is the ISA visible on a bollard sign at 1200mm height? Are ground markings clear and not faded?' },
-      { text: 'Walk the path from the space to the entrance. Is it step-free, smooth, well-lit, and free of obstacles?' },
+      { text: 'Walk the path from the space to the entrance. Is it step-free, smooth, well-lit and free of obstacles?' },
       { text: 'Check for a drop-off zone near the entrance with a step-free connection to the door.' },
       { text: 'Visit during an event or peak period and confirm accessible spaces are still available and unobstructed.' },
-      { text: 'Check whether bins, deliveries, or temporary structures ever block accessible spaces or the path to the entrance.' }
+      { text: 'Check whether bins, deliveries or temporary structures ever block accessible spaces or the path to the entrance.' }
     ],
     tools: ['Tape measure (at least 5m)', 'Camera for documentation', 'Lux meter or smartphone app'],
     estimatedTime: '20-30 minutes'
@@ -99,14 +99,14 @@ export const gettingInHelp: HelpContent[] = [
       { code: 'Access-to-Premises', relevance: 'Requires accessible parking where car parking is provided, with ratios based on total spaces (e.g. 1 accessible space for every 50 total spaces).' },
       { code: 'DDA', relevance: 'Prohibits discrimination in access to premises. Even older buildings not covered by building codes may be required to provide accessible parking under the DDA.' }
     ],
-    plainEnglish: 'If you provide parking, you must provide accessible parking spaces that are wider, closer to the entrance, and properly signed. The number depends on total capacity.',
+    plainEnglish: 'If you provide parking, you must provide accessible parking spaces that are wider, closer to the entrance and properly signed. The number depends on total capacity.',
     complianceNote: 'Even if your building predates current standards, providing accessible parking is good practice and may be required under the DDA as a reasonable adjustment.'
   },
 
   solutions: [
     {
       title: 'Relocate existing spaces closer to the entrance',
-      description: 'Move the designated accessible spaces to the positions nearest the accessible entrance. Repaint markings, install bollard signs, and improve lighting in the new location.',
+      description: 'Move the designated accessible spaces to the positions nearest the accessible entrance. Repaint markings, install bollard signs and improve lighting in the new location.',
       resourceLevel: 'low',
       costRange: '$300-800',
       timeRequired: '1-2 days',
@@ -117,7 +117,7 @@ export const gettingInHelp: HelpContent[] = [
         'Measure the candidate spaces to confirm they meet width requirements (2400mm + 2400mm shared zone or 3200mm single).',
         'Engage a line-marking contractor to repaint the old spaces as standard and mark the new spaces with ISA ground symbols.',
         'Install bollard-mounted ISA signs at 1200mm height at each new accessible space.',
-        'Check the path from the new spaces to the entrance for any obstacles, uneven surfaces, or steps.',
+        'Check the path from the new spaces to the entrance for any obstacles, uneven surfaces or steps.',
         'Update any wayfinding signage in the car park to direct drivers to the new locations.',
         'Improve lighting if the new area is dimmer than the previous location (minimum 40 lux).',
         'Notify regular customers of the change via signage and your website.'
@@ -135,7 +135,7 @@ export const gettingInHelp: HelpContent[] = [
       steps: [
         'Survey the car park to identify the best location: close to the entrance, level surface, good lighting, step-free path.',
         'Calculate the required number of accessible spaces based on total car park capacity (AS/NZS 2890.6 Table 1).',
-        'Engage a contractor to widen spaces (removing one standard space to create the shared zone), install kerb ramps if needed, and apply line markings.',
+        'Engage a contractor to widen spaces (removing one standard space to create the shared zone), install kerb ramps if needed and apply line markings.',
         'Install bollard signs with the ISA at 1200mm height.',
         'Designate a drop-off zone at least 3200mm wide adjacent to the entrance, with a painted border and signage reading "Accessible Drop-Off Only".',
         'Connect the drop-off zone to the entrance with a step-free path at least 1000mm wide.',
@@ -146,7 +146,7 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Install comprehensive parking management system',
-      description: 'For larger venues, implement a full accessible parking management system with sensors, real-time availability displays, and enforcement.',
+      description: 'For larger venues, implement a full accessible parking management system with sensors, real-time availability displays and enforcement.',
       resourceLevel: 'high',
       costRange: '$5,000-15,000',
       timeRequired: '2-4 weeks',
@@ -171,7 +171,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'retail',
       businessTypeLabel: 'Shopping Centre',
       scenario: 'A shopping centre had accessible parking spaces located 50m from the nearest entrance, past a row of trolley bays and a speed bump.',
-      solution: 'Relocated accessible spaces to the row directly outside the main entrance, removed the speed bump on the accessible path, and installed bollard signs and fresh markings.',
+      solution: 'Relocated accessible spaces to the row directly outside the main entrance, removed the speed bump on the accessible path and installed bollard signs and fresh markings.',
       outcome: 'Customer complaints about parking dropped to zero. Accessibility audit score improved from 3/10 to 9/10 for parking.',
       cost: '$2,400',
       timeframe: '3 days'
@@ -193,7 +193,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as-slash-nzs--2890-dot-6-colon-2009',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'The primary Australian standard for accessible parking design, dimensions, signage, and ratios.',
+      description: 'The primary Australian standard for accessible parking design, dimensions, signage and ratios.',
       isAustralian: true,
       isFree: false
     },
@@ -239,7 +239,7 @@ export const gettingInHelp: HelpContent[] = [
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Surface quality determines whether someone can safely travel from their car to your door. Every bump, crack, loose gravel section, or unexpected step is a potential barrier or fall risk. For wheelchair users, an uneven surface requires significantly more effort and can cause pain. For people with vision impairment, an unpredictable surface without tactile cues is disorienting and dangerous. Adequate lighting, rest points, and weather protection make the difference between a comfortable approach and an exhausting ordeal.',
+    text: 'Surface quality determines whether someone can safely travel from their car to your door. Every bump, crack, loose gravel section or unexpected step is a potential barrier or fall risk. For wheelchair users, an uneven surface requires significantly more effort and can cause pain. For people with vision impairment, an unpredictable surface without tactile cues is disorienting and dangerous. Adequate lighting, rest points and weather protection make the difference between a comfortable approach and an exhausting ordeal.',
     statistic: {
       value: '30%',
       context: 'of falls in public places occur on paths and walkways, with uneven surfaces being the most common cause.',
@@ -251,7 +251,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Layers',
       text: 'Use firm, slip-resistant surfaces such as concrete or sealed asphalt.',
-      detail: 'Loose gravel, cobblestones, and uneven pavers are barriers for wheelchair users and trip hazards for everyone. If you cannot replace the surface, consider a sealed strip at least 1200mm wide along the main route.',
+      detail: 'Loose gravel, cobblestones and uneven pavers are barriers for wheelchair users and trip hazards for everyone. If you cannot replace the surface, consider a sealed strip at least 1200mm wide along the main route.',
       priority: 1
     },
     {
@@ -269,19 +269,19 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Sun',
       text: 'Provide minimum 40 lux lighting along the entire path.',
-      detail: 'Good lighting helps everyone see obstacles, read signs, and feel safe. Solar bollard lights are an affordable option for paths without mains power.',
+      detail: 'Good lighting helps everyone see obstacles, read signs and feel safe. Solar bollard lights are an affordable option for paths without mains power.',
       priority: 4
     },
     {
       icon: 'Square',
       text: 'Install rest seating every 20m on longer paths.',
-      detail: 'For people with fatigue conditions, chronic pain, or respiratory conditions, a 30m walk without a rest option may be impossible. Seats should have armrests and backrests to assist standing up.',
+      detail: 'For people with fatigue conditions, chronic pain or respiratory conditions, a 30m walk without a rest option may be impossible. Seats should have armrests and backrests to assist standing up.',
       priority: 5
     },
     {
       icon: 'Footprints',
       text: 'Install TGSIs (tactile ground surface indicators) from parking to entrance for vision impairment.',
-      detail: 'Directional TGSIs guide people with vision impairment along the correct path. Warning TGSIs alert to hazards such as steps, ramps, or road crossings. Follow AS1428.4.1 for layout and dimensions.',
+      detail: 'Directional TGSIs guide people with vision impairment along the correct path. Warning TGSIs alert to hazards such as steps, ramps or road crossings. Follow AS1428.4.1 for layout and dimensions.',
       priority: 6
     }
   ],
@@ -289,7 +289,7 @@ export const gettingInHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing the path from parking to entrance',
     steps: [
-      { text: 'Walk the full path from the accessible parking space to the accessible entrance, noting any cracks, lips, loose material, or level changes.' },
+      { text: 'Walk the full path from the accessible parking space to the accessible entrance, noting any cracks, lips, loose material or level changes.' },
       {
         text: 'Measure the path width at the narrowest point.',
         measurement: { target: 'Path width', acceptable: 'Minimum 1000mm (1200mm preferred)', unit: 'mm' }
@@ -304,8 +304,8 @@ export const gettingInHelp: HelpContent[] = [
       },
       { text: 'Check for rest seating if the path is longer than 20m. Confirm seats have armrests and backrests.' },
       { text: 'Check for TGSIs along the path. Are directional indicators present? Are warning indicators at hazards?' },
-      { text: 'Test the path in wet conditions or after rain. Check for pooling water, slippery patches, or mud.' },
-      { text: 'Check whether the path is ever obstructed by bins, vehicles, sandwich boards, or outdoor furniture.' }
+      { text: 'Test the path in wet conditions or after rain. Check for pooling water, slippery patches or mud.' },
+      { text: 'Check whether the path is ever obstructed by bins, vehicles, sandwich boards or outdoor furniture.' }
     ],
     tools: ['Tape measure (at least 5m)', 'Spirit level or inclinometer', 'Lux meter or smartphone app', 'Camera'],
     estimatedTime: '20-30 minutes'
@@ -315,20 +315,20 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 7',
-      requirement: 'Continuous accessible paths of travel must have firm, slip-resistant surfaces, minimum 1000mm width, maximum 1:40 cross-fall, and be free of obstacles.'
+      requirement: 'Continuous accessible paths of travel must have firm, slip-resistant surfaces, minimum 1000mm width, maximum 1:40 cross-fall and be free of obstacles.'
     },
     related: [
-      { code: 'AS1428.4.1', relevance: 'Specifies requirements for tactile ground surface indicators (TGSIs) including size, layout, luminance contrast, and placement at hazards.' },
+      { code: 'AS1428.4.1', relevance: 'Specifies requirements for tactile ground surface indicators (TGSIs) including size, layout, luminance contrast and placement at hazards.' },
       { code: 'Access-to-Premises', relevance: 'Requires an accessible path of travel from the site boundary, including car parking, to the building entrance.' }
     ],
-    plainEnglish: 'The path from parking to your entrance must be smooth, wide enough for a wheelchair, gently sloped, well-lit, and have tactile indicators for people with vision impairment.',
+    plainEnglish: 'The path from parking to your entrance must be smooth, wide enough for a wheelchair, gently sloped, well-lit and have tactile indicators for people with vision impairment.',
     complianceNote: 'Path of travel requirements apply to new buildings and where existing buildings undergo significant renovation. However, maintaining a safe path is a general duty of care regardless of building age.'
   },
 
   solutions: [
     {
-      title: 'Patch, repair, and light the existing path',
-      description: 'Fix surface defects, remove trip hazards, and add lighting to make the current path safe and usable.',
+      title: 'Patch, repair and light the existing path',
+      description: 'Fix surface defects, remove trip hazards and add lighting to make the current path safe and usable.',
       resourceLevel: 'low',
       costRange: '$200-1,500',
       timeRequired: '1-3 days',
@@ -337,7 +337,7 @@ export const gettingInHelp: HelpContent[] = [
       steps: [
         'Walk the path and mark every defect: cracks wider than 5mm, lips higher than 5mm, loose material, pooling areas.',
         'Fill cracks and level lips with concrete patching compound or asphalt filler.',
-        'Remove or secure any loose gravel, pavers, or matting.',
+        'Remove or secure any loose gravel, pavers or matting.',
         'Install solar bollard lights or LED path lights every 3-5m where lighting is below 40 lux.',
         'Trim vegetation that encroaches on the path width.',
         'Add a non-slip coating to any section that is slippery when wet.',
@@ -346,8 +346,8 @@ export const gettingInHelp: HelpContent[] = [
       notes: 'Patching is a short-term solution. If the surface is extensively damaged, full resurfacing will be more cost-effective long term.'
     },
     {
-      title: 'Install lighting, rest points, and TGSIs',
-      description: 'Add the supporting infrastructure that makes a structurally sound path fully accessible: adequate lighting, rest seating, and tactile indicators.',
+      title: 'Install lighting, rest points and TGSIs',
+      description: 'Add the supporting infrastructure that makes a structurally sound path fully accessible: adequate lighting, rest seating and tactile indicators.',
       resourceLevel: 'medium',
       costRange: '$500-3,000',
       timeRequired: '2-5 days',
@@ -361,11 +361,11 @@ export const gettingInHelp: HelpContent[] = [
         'Ensure TGSI colour contrasts with the surrounding surface (minimum 30% luminance contrast).',
         'Test all new installations in day and night conditions.'
       ],
-      notes: 'TGSIs must comply with AS1428.4.1 for size, spacing, and luminance contrast. Incorrect TGSIs can be worse than none.'
+      notes: 'TGSIs must comply with AS1428.4.1 for size, spacing and luminance contrast. Incorrect TGSIs can be worse than none.'
     },
     {
       title: 'Resurface with fully compliant material',
-      description: 'Replace the entire path surface with compliant concrete or sealed asphalt, incorporating correct width, cross-fall, drainage, lighting, and TGSIs from the design stage.',
+      description: 'Replace the entire path surface with compliant concrete or sealed asphalt, incorporating correct width, cross-fall, drainage, lighting and TGSIs from the design stage.',
       resourceLevel: 'high',
       costRange: '$5,000-25,000',
       timeRequired: '1-3 weeks',
@@ -373,12 +373,12 @@ export const gettingInHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a civil engineer or access consultant to design the new path to AS1428.1 specifications.',
-        'Specify minimum 1200mm width, maximum 1:40 cross-fall, P4 slip rating for exposed areas, and integrated drainage.',
+        'Specify minimum 1200mm width, maximum 1:40 cross-fall, P4 slip rating for exposed areas and integrated drainage.',
         'Include TGSI installation in the design (directional along the path, warning at hazards and crossings).',
         'Include rest bays with seating at 20m intervals on paths longer than 30m.',
         'Integrate lighting (minimum 40 lux) into the path design using in-ground or bollard fixtures.',
         'Engage a licensed contractor to demolish the old surface and construct the new path.',
-        'Provide a temporary accessible route during construction (signed, lit, and step-free).',
+        'Provide a temporary accessible route during construction (signed, lit and step-free).',
         'Commission the new path with a final audit against AS1428.1 before opening.'
       ],
       notes: 'Full resurfacing is the most expensive option but provides the longest-lasting and most compliant result. It may be eligible for government accessibility grants.'
@@ -390,7 +390,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'accommodation',
       businessTypeLabel: 'Motel',
       scenario: 'A motel\'s path from the car park to reception was damaged by tree roots, creating lips up to 30mm high and cracked pavers that pooled water in rain.',
-      solution: 'Removed the damaged section, ground down tree roots (with arborist advice), and laid a new concrete path 1200mm wide with integrated LED strip lighting and a TGSI trail.',
+      solution: 'Removed the damaged section, ground down tree roots (with arborist advice) and laid a new concrete path 1200mm wide with integrated LED strip lighting and a TGSI trail.',
       outcome: 'Guest complaints about the path dropped from weekly to zero. The motel highlighted the new accessible path on their website.',
       cost: '$4,800',
       timeframe: '5 days'
@@ -398,7 +398,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Cafe',
-      scenario: 'A cafe had a 15m gravel path from the street to the entrance. Wheelchair users could not traverse it, and it became muddy in rain.',
+      scenario: 'A cafe had a 15m gravel path from the street to the entrance. Wheelchair users could not traverse it and it became muddy in rain.',
       solution: 'Laid a 1200mm-wide concrete path over the gravel with a gentle cross-fall for drainage and two solar bollard lights.',
       outcome: 'The cafe gained several regular wheelchair-using customers who had previously been unable to visit.',
       cost: '$2,200',
@@ -412,7 +412,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'The primary standard for accessible paths of travel, including surface, width, gradient, and cross-fall requirements.',
+      description: 'The primary standard for accessible paths of travel, including surface, width, gradient and cross-fall requirements.',
       isAustralian: true,
       isFree: false
     },
@@ -458,7 +458,7 @@ export const gettingInHelp: HelpContent[] = [
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Searching for accessible parking in an unfamiliar car park is stressful, especially when you are managing a wheelchair, mobility aid, or fatigue. Without clear directional signage, visitors may circle the car park repeatedly, arrive at the wrong entrance, or give up entirely. Pre-visit information on your website lets people plan their route before they leave home, reducing anxiety and wasted time.',
+    text: 'Searching for accessible parking in an unfamiliar car park is stressful, especially when you are managing a wheelchair, mobility aid or fatigue. Without clear directional signage, visitors may circle the car park repeatedly, arrive at the wrong entrance or give up entirely. Pre-visit information on your website lets people plan their route before they leave home, reducing anxiety and wasted time.',
     quote: {
       text: 'I drove around the car park three times looking for the accessible spaces. There were no signs at all. I ended up parking at the far end and it took me ten minutes to get to the door.',
       attribution: 'Wheelchair user, customer feedback survey'
@@ -481,19 +481,19 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'ArrowRight',
       text: 'Place signs at every decision point where a driver must choose a direction.',
-      detail: 'Decision points include car park entrances, level changes, intersections, and turns. A driver should never have to guess which way to go.',
+      detail: 'Decision points include car park entrances, level changes, intersections and turns. A driver should never have to guess which way to go.',
       priority: 3
     },
     {
       icon: 'Globe',
       text: 'Publish arrival information on your website including parking location and accessible entrance directions.',
-      detail: 'Include a map or photo showing where accessible parking is located relative to the entrance. Mention the number of spaces, whether an ACROD permit is required, and any height clearances for modified vehicles.',
+      detail: 'Include a map or photo showing where accessible parking is located relative to the entrance. Mention the number of spaces, whether an ACROD permit is required and any height clearances for modified vehicles.',
       priority: 4
     },
     {
       icon: 'CheckCircle',
       text: 'Inspect and maintain signs every 6 months.',
-      detail: 'Faded, damaged, or obscured signs are as bad as no signs. Check that vegetation has not grown over signs, that they are still securely mounted, and that the information is still accurate.',
+      detail: 'Faded, damaged or obscured signs are as bad as no signs. Check that vegetation has not grown over signs, that they are still securely mounted and that the information is still accurate.',
       priority: 5
     },
     {
@@ -514,7 +514,7 @@ export const gettingInHelp: HelpContent[] = [
         measurement: { target: 'Luminance contrast', acceptable: 'Minimum 70% (light on dark or dark on light)', unit: '%' }
       },
       { text: 'Check your website for arrival and parking information. Can a first-time visitor find your accessible parking from the information provided?' },
-      { text: 'Check sign condition: Are any faded, damaged, or obscured by vegetation?' },
+      { text: 'Check sign condition: Are any faded, damaged or obscured by vegetation?' },
       { text: 'Visit at night and check whether signs are readable in headlights or with ambient lighting.' },
       { text: 'Ask a first-time visitor (or delivery driver who does not know the site) to find the accessible parking using only the signage.' }
     ],
@@ -526,13 +526,13 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 8',
-      requirement: 'Signage on accessible paths of travel must include the International Symbol of Access, be located at decision points, and have adequate luminance contrast.'
+      requirement: 'Signage on accessible paths of travel must include the International Symbol of Access, be located at decision points and have adequate luminance contrast.'
     },
     related: [
       { code: 'DDA', relevance: 'Requires that information about services and premises be provided in accessible formats, including wayfinding.' },
       { code: 'Access-to-Premises', relevance: 'Requires identification of accessible entrances and paths of travel through signage.' }
     ],
-    plainEnglish: 'Signs must guide visitors to accessible parking and the accessible entrance, be high-contrast and easy to read, and appear at every point where someone needs to make a navigation decision.',
+    plainEnglish: 'Signs must guide visitors to accessible parking and the accessible entrance, be high-contrast and easy to read and appear at every point where someone needs to make a navigation decision.',
     complianceNote: 'Good wayfinding is one of the most cost-effective accessibility improvements. Even if your building is older, adding signs is almost always feasible.'
   },
 
@@ -557,16 +557,16 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Publish online arrival information',
-      description: 'Create a detailed arrival guide on your website with maps, photos, and step-by-step directions to accessible parking and the accessible entrance.',
+      description: 'Create a detailed arrival guide on your website with maps, photos and step-by-step directions to accessible parking and the accessible entrance.',
       resourceLevel: 'low',
       costRange: 'Free',
       timeRequired: '1-2 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Photograph the approach route, car park entrance, accessible spaces, and path to the entrance.',
+        'Photograph the approach route, car park entrance, accessible spaces and path to the entrance.',
         'Write step-by-step directions from the main road to the accessible parking (e.g. "Turn left at the car park entrance, accessible spaces are immediately on your right").',
-        'Include the number of accessible spaces, whether an ACROD permit is required, and any height clearance limits.',
+        'Include the number of accessible spaces, whether an ACROD permit is required and any height clearance limits.',
         'Add a simple map (hand-drawn or annotated photo) showing the route.',
         'Publish on your website\'s accessibility or "Getting Here" page.',
         'Add alt text to all images for screen reader users.'
@@ -575,14 +575,14 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Establish a signage maintenance program',
-      description: 'Create a scheduled maintenance program for all external signage, including regular inspections, cleaning, and replacement.',
+      description: 'Create a scheduled maintenance program for all external signage, including regular inspections, cleaning and replacement.',
       resourceLevel: 'low',
       costRange: '$0-200 per year',
       timeRequired: 'Ongoing (30 minutes every 6 months)',
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Create a sign register listing every external sign, its location, and its condition.',
+        'Create a sign register listing every external sign, its location and its condition.',
         'Photograph each sign as a baseline record.',
         'Schedule 6-monthly inspections (align with daylight saving changes as a reminder).',
         'During each inspection: check sign is present, securely mounted, not obscured by vegetation, text legible, reflective face intact.',
@@ -598,7 +598,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'retail',
       businessTypeLabel: 'Shopping Centre',
       scenario: 'A multi-level shopping centre car park had accessible spaces on Level 2 but no directional signs from the car park entrance or between levels.',
-      solution: 'Installed a 3-level wayfinding system: ISA signs at the car park entrance, directional signs at each level change and intersection, and confirmation signs at the accessible spaces. Also added arrival directions to the centre website.',
+      solution: 'Installed a 3-level wayfinding system: ISA signs at the car park entrance, directional signs at each level change and intersection and confirmation signs at the accessible spaces. Also added arrival directions to the centre website.',
       outcome: 'Customer feedback indicated a significant reduction in time spent searching for accessible parking. The centre received positive mentions on disability forums.',
       cost: '$2,800',
       timeframe: '1 week'
@@ -620,7 +620,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Requirements for signage on accessible paths of travel including ISA placement, contrast, and positioning.',
+      description: 'Requirements for signage on accessible paths of travel including ISA placement, contrast and positioning.',
       isAustralian: true,
       isFree: false
     },
@@ -666,7 +666,7 @@ export const gettingInHelp: HelpContent[] = [
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'When signage is unclear or a visitor is arriving for the first time, staff are the fallback. Untrained staff who give vague or incorrect directions can leave a customer stranded at a non-accessible entrance, circling the car park, or feeling unwelcome. Phone enquiries about parking and entry are common, and staff who cannot answer confidently may lose the customer before they even arrive.',
+    text: 'When signage is unclear or a visitor is arriving for the first time, staff are the fallback. Untrained staff who give vague or incorrect directions can leave a customer stranded at a non-accessible entrance, circling the car park or feeling unwelcome. Phone enquiries about parking and entry are common and staff who cannot answer confidently may lose the customer before they even arrive.',
     quote: {
       text: 'I called ahead to ask about accessible parking and the person on the phone said "I think there is some somewhere." I booked somewhere else.',
       attribution: 'Wheelchair user, customer feedback'
@@ -683,7 +683,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'FileText',
       text: 'Create a laminated reference card with directions and a simple map.',
-      detail: 'Place a card at reception, the phone, and any customer-facing counter. Include: location of accessible spaces, distance to entrance, which entrance is accessible, and any access codes or buzzers needed.',
+      detail: 'Place a card at reception, the phone and any customer-facing counter. Include: location of accessible spaces, distance to entrance, which entrance is accessible and any access codes or buzzers needed.',
       priority: 2
     },
     {
@@ -695,7 +695,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'CheckCircle',
       text: 'Update information whenever parking or entrance arrangements change.',
-      detail: 'Construction, events, seasonal changes, or new tenants can alter parking and entrance arrangements. Update reference cards and phone scripts immediately when changes occur.',
+      detail: 'Construction, events, seasonal changes or new tenants can alter parking and entrance arrangements. Update reference cards and phone scripts immediately when changes occur.',
       priority: 4
     },
     {
@@ -712,7 +712,7 @@ export const gettingInHelp: HelpContent[] = [
       { text: 'Ask three different front-line staff members (at different times) to direct you to accessible parking and the accessible entrance. Note accuracy and confidence.' },
       { text: 'Call your venue as a customer and ask about accessible parking. Assess the response.' },
       { text: 'Check whether induction materials include accessible parking and entrance information.' },
-      { text: 'Look for reference cards or maps at reception, phone, and customer service points.' },
+      { text: 'Look for reference cards or maps at reception, phone and customer service points.' },
       { text: 'Ask the most recent new hire whether they were shown the accessible route during induction.' }
     ],
     tools: ['Phone for test call', 'Notepad for recording responses'],
@@ -743,7 +743,7 @@ export const gettingInHelp: HelpContent[] = [
       steps: [
         'Walk the route from accessible parking to the accessible entrance and note every detail: space numbers, distances, surface type, which door, any codes or buzzers.',
         'Write the information on a single A5 card with a simple map or diagram.',
-        'Laminate copies and place at reception, beside the phone, and at any customer service point.',
+        'Laminate copies and place at reception, beside the phone and at any customer service point.',
         'Write a brief phone script covering the three most common questions (parking location, entrance location, path condition).',
         'Brief all staff at the next team meeting and ask each person to practice giving directions.',
         'Set a reminder to update the card whenever parking or entrance arrangements change.'
@@ -815,7 +815,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.tourism.australia.com/en/events-and-tools/industry-resources/building-an-accessible-tourism-business.html',
       type: 'guide',
       source: 'Tourism Australia',
-      description: 'Practical toolkit for tourism businesses covering staff training, customer service, and marketing to visitors with disability.',
+      description: 'Practical toolkit for tourism businesses covering staff training, customer service and marketing to visitors with disability.',
       isAustralian: true,
       isFree: true
     }
@@ -837,12 +837,12 @@ export const gettingInHelp: HelpContent[] = [
   moduleGroup: 'getting-in',
   diapCategory: 'physical-access',
   title: 'Accessible Entrance',
-  summary: 'An accessible entrance allows everyone to enter independently, including wheelchair users, people with prams, and those with mobility difficulties. It is the single most important physical access feature of any venue.',
+  summary: 'An accessible entrance allows everyone to enter independently, including wheelchair users, people with prams and those with mobility difficulties. It is the single most important physical access feature of any venue.',
   coveredQuestionIds: ['2.2-D-15a', '2.2-D-15b'],
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'The entrance is literally the gateway to your business. If someone cannot get through the door, nothing else matters. An accessible entrance means step-free access, adequate door width, manageable door hardware, and enough space to approach and pass through. For the 1.4 million Australians who use mobility aids, and many more with temporary injuries, prams, or heavy loads, an inaccessible entrance means exclusion.',
+    text: 'The entrance is literally the gateway to your business. If someone cannot get through the door, nothing else matters. An accessible entrance means step-free access, adequate door width, manageable door hardware and enough space to approach and pass through. For the 1.4 million Australians who use mobility aids and many more with temporary injuries, prams or heavy loads, an inaccessible entrance means exclusion.',
     quote: {
       text: 'I have turned around at more venues than I can count because of one step at the entrance. One step is all it takes to shut someone out.',
       attribution: 'Wheelchair user, disability advocacy forum'
@@ -865,7 +865,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Hand',
       text: 'Lever handles at 900-1100mm height.',
-      detail: 'Round knobs require a twisting grip that many people cannot manage. Lever handles can be operated with a closed fist, an elbow, or a wrist.',
+      detail: 'Round knobs require a twisting grip that many people cannot manage. Lever handles can be operated with a closed fist, an elbow or a wrist.',
       priority: 3
     },
     {
@@ -877,7 +877,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Signpost',
       text: 'If the main entrance is not accessible, clearly sign the alternative accessible entrance.',
-      detail: 'The sign at the main entrance should show the ISA symbol, the direction, and the distance to the accessible entrance. The alternative entrance must be open during all business hours.',
+      detail: 'The sign at the main entrance should show the ISA symbol, the direction and the distance to the accessible entrance. The alternative entrance must be open during all business hours.',
       priority: 5
     }
   ],
@@ -910,7 +910,7 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 13',
-      requirement: 'Doorways on accessible paths of travel must have minimum 850mm clear opening, lever-action or push/pull hardware, maximum 20N opening force, and compliant threshold.'
+      requirement: 'Doorways on accessible paths of travel must have minimum 850mm clear opening, lever-action or push/pull hardware, maximum 20N opening force and compliant threshold.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires at least one accessible entrance to all new buildings and to existing buildings undergoing significant renovation.' },
@@ -918,7 +918,7 @@ export const gettingInHelp: HelpContent[] = [
       { code: 'DDA', relevance: 'Requires reasonable adjustments to entrances even in older buildings not covered by the Premises Standards.' }
     ],
     plainEnglish: 'Your entrance must be step-free with a wide enough door that is easy to open. If the main entrance has steps, you must provide a clearly signed alternative accessible entrance.',
-    complianceNote: 'The Premises Standards apply to new buildings and significant renovations. However, the DDA applies to all buildings regardless of age, and a complaint about an inaccessible entrance is likely to succeed if a reasonable adjustment exists.'
+    complianceNote: 'The Premises Standards apply to new buildings and significant renovations. However, the DDA applies to all buildings regardless of age and a complaint about an inaccessible entrance is likely to succeed if a reasonable adjustment exists.'
   },
 
   solutions: [
@@ -942,7 +942,7 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Replace door hardware and add a portable ramp',
-      description: 'Replace round knobs with lever handles, adjust the door closer to reduce force, and provide a portable ramp to overcome a single step.',
+      description: 'Replace round knobs with lever handles, adjust the door closer to reduce force and provide a portable ramp to overcome a single step.',
       resourceLevel: 'medium',
       costRange: '$300-600',
       timeRequired: '1 day',
@@ -955,7 +955,7 @@ export const gettingInHelp: HelpContent[] = [
         'Store the ramp immediately inside the door where staff can deploy it quickly.',
         'Add a sign at the entrance: "Ramp available on request. Press bell or call [number]."',
         'Train all staff to deploy the ramp within 30 seconds of a request.',
-        'Inspect the ramp monthly for damage, loose parts, or worn non-slip surface.'
+        'Inspect the ramp monthly for damage, loose parts or worn non-slip surface.'
       ],
       notes: 'Portable ramps are not ideal because they require staff assistance and remove independence. Consider a permanent ramp if feasible.'
     },
@@ -988,7 +988,7 @@ export const gettingInHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage an access consultant or architect to assess the entrance and design a compliant solution.',
-        'For 1-3 steps, a permanent ramp is usually the most cost-effective solution. Specify maximum 1:14 gradient, handrails both sides, non-slip surface, and TGSIs.',
+        'For 1-3 steps, a permanent ramp is usually the most cost-effective solution. Specify maximum 1:14 gradient, handrails both sides, non-slip surface and TGSIs.',
         'For more than 3 steps or where space is limited, a vertical platform lift may be more appropriate.',
         'Obtain any required building permits and heritage approvals.',
         'Engage a licensed builder to construct the ramp or install the lift.',
@@ -1013,7 +1013,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       businessType: 'retail',
       businessTypeLabel: 'Shop',
-      scenario: 'A retail shop had a heavy manual door with a round knob that customers with arthritis, wheelchair users, and parents with prams struggled to open.',
+      scenario: 'A retail shop had a heavy manual door with a round knob that customers with arthritis, wheelchair users and parents with prams struggled to open.',
       solution: 'Installed a push-button automatic door opener with an ISA-marked button at 1000mm height. Replaced the round knob with a D-lever handle as a backup.',
       outcome: 'Customer flow improved for everyone, not just people with disability. The owner reported fewer instances of customers waiting outside for someone to hold the door.',
       cost: '$2,000-4,000',
@@ -1023,7 +1023,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'accommodation',
       businessTypeLabel: 'Bed and Breakfast',
       scenario: 'A B&B had an accessible side entrance but the main entrance (with steps) was the only one signed and lit.',
-      solution: 'Added ISA signage at the main entrance directing to the side entrance, improved lighting on the side path, and updated the website with photos of both entrances.',
+      solution: 'Added ISA signage at the main entrance directing to the side entrance, improved lighting on the side path and updated the website with photos of both entrances.',
       outcome: 'Guests with disability now use the side entrance independently. The B&B added "step-free entrance available" to their booking confirmation emails.',
       cost: '$200',
       timeframe: '2 hours'
@@ -1036,7 +1036,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.abcb.gov.au/resources/handbook-accessibility',
       type: 'guide',
       source: 'Australian Building Codes Board',
-      description: 'Summary of NCC and AS1428.1 requirements for accessible door design, including width, hardware, and thresholds.',
+      description: 'Summary of NCC and AS1428.1 requirements for accessible door design, including width, hardware and thresholds.',
       isAustralian: true,
       isFree: true
     },
@@ -1069,7 +1069,7 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Entrance Doors and Thresholds',
   coveredQuestionIds: ['2.2-F-3', '2.2-F-6', '2.2-F-7', '2.2-D-11', '2.2-D-12', '2.2-D-13', '2.2-D-14', '2.2-D-16', '2.2-D-17', '2.2-D-18', '2.2-D-18c', '2.2-D-18d'],
-  summary: 'Covers everything about the physical entrance door: width, handles, thresholds, lighting, landing space, glass markings, intercom height, automatic door timing, and mat safety.',
+  summary: 'Covers everything about the physical entrance door: width, handles, thresholds, lighting, landing space, glass markings, intercom height, automatic door timing and mat safety.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
@@ -1091,7 +1091,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Hand',
       text: 'Lever handles at 900-1100mm height. Replace round knobs.',
-      detail: 'Lever handles can be operated with a closed fist, an elbow, or a hook on a cane. D-type levers that spring back to horizontal are ideal. Handle height must be within reach of both standing and seated users.',
+      detail: 'Lever handles can be operated with a closed fist, an elbow or a hook on a cane. D-type levers that spring back to horizontal are ideal. Handle height must be within reach of both standing and seated users.',
       priority: 2
     },
     {
@@ -1103,7 +1103,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Sun',
       text: 'Lighting minimum 150 lux at the entrance.',
-      detail: 'Adequate lighting helps everyone see the door, handle, threshold, and any signage. It is especially important for people with low vision navigating an unfamiliar entrance.',
+      detail: 'Adequate lighting helps everyone see the door, handle, threshold and any signage. It is especially important for people with low vision navigating an unfamiliar entrance.',
       priority: 4
     },
     {
@@ -1115,7 +1115,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Footprints',
       text: 'Mats must be flush with the floor surface (maximum 3mm transition) and firm.',
-      detail: 'Thick, soft, or loose mats catch wheelchair casters and trip people with reduced foot lift. Recessed mat wells with firm rubber matting are the best solution. Avoid thick coir or bristle mats.',
+      detail: 'Thick, soft or loose mats catch wheelchair casters and trip people with reduced foot lift. Recessed mat wells with firm rubber matting are the best solution. Avoid thick coir or bristle mats.',
       priority: 6
     }
   ],
@@ -1156,28 +1156,28 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Sections 7 and 13',
-      requirement: 'Doorways on accessible paths must have minimum 850mm clear opening, lever hardware at 900-1100mm, maximum 5mm threshold, and adequate approach space.'
+      requirement: 'Doorways on accessible paths must have minimum 850mm clear opening, lever hardware at 900-1100mm, maximum 5mm threshold and adequate approach space.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires accessible entrance doors in new buildings and significant renovations.' },
       { code: 'NCC', relevance: 'References AS1428.1 for all public building entrance requirements.' },
       { code: 'DDA', relevance: 'Requires reasonable adjustments to entrance doors in all buildings, including older premises.' }
     ],
-    plainEnglish: 'Entrance doors must be wide enough for a wheelchair (850mm minimum), have lever handles at a reachable height, have a near-flat threshold, and be easy to open. Glass doors need contrast markings.',
+    plainEnglish: 'Entrance doors must be wide enough for a wheelchair (850mm minimum), have lever handles at a reachable height, have a near-flat threshold and be easy to open. Glass doors need contrast markings.',
     complianceNote: 'Simple door hardware changes (levers, closers, mats) are low-cost and almost always considered reasonable adjustments under the DDA.'
   },
 
   solutions: [
     {
       title: 'Remove obstructions and install offset hinges',
-      description: 'Gain extra door width by removing obstructions or fitting offset hinges, and fix immediate threshold and mat issues.',
+      description: 'Gain extra door width by removing obstructions or fitting offset hinges and fix immediate threshold and mat issues.',
       resourceLevel: 'low',
       costRange: '$0-2,000',
       timeRequired: '1-2 days',
       implementedBy: 'contractor',
       impact: 'quick-win',
       steps: [
-        'Check for and remove any obstructions reducing the clear opening: coat hooks, display stands, signage, or weather strips.',
+        'Check for and remove any obstructions reducing the clear opening: coat hooks, display stands, signage or weather strips.',
         'If the door opens to less than 90 degrees due to a wall or fixture, remove the obstruction or install a door stop at 90 degrees.',
         'Install offset (swing-clear) hinges to gain up to 50-60mm of additional clear width without replacing the door.',
         'Replace any thick coir or bristle mat with a flush, firm rubber mat (maximum 3mm transition).',
@@ -1188,14 +1188,14 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Replace mats and adjust door closer timing',
-      description: 'Address the most common entrance hazards: loose or thick mats, doors that close too fast, and inadequate glass markings.',
+      description: 'Address the most common entrance hazards: loose or thick mats, doors that close too fast and inadequate glass markings.',
       resourceLevel: 'low',
       costRange: '$50-400',
       timeRequired: '2-4 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Replace any loose, soft, or thick entrance mats with recessed mat wells or firm rubber mats with bevelled edges.',
+        'Replace any loose, soft or thick entrance mats with recessed mat wells or firm rubber mats with bevelled edges.',
         'Adjust the door closer to hold the door open for at least 5 seconds. Most closers have an adjustable valve screw.',
         'Reduce the closing force to 20N or less by adjusting the closer spring tension.',
         'Apply contrast marking strips to glass doors at two heights: 900-1000mm and 1400-1600mm. Use solid bands at least 75mm high.',
@@ -1219,7 +1219,7 @@ export const gettingInHelp: HelpContent[] = [
         'Integrate with your fire and security systems as required.',
         'Add safety sensors to prevent the door closing on someone in the doorway.',
         'Commission the installation with a test by a wheelchair user.',
-        'Schedule annual servicing of the motor, sensors, and track.'
+        'Schedule annual servicing of the motor, sensors and track.'
       ],
       notes: 'Automatic sliding doors benefit everyone and can increase foot traffic. Many businesses report a positive return on investment from increased customer flow.'
     }
@@ -1261,7 +1261,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.abcb.gov.au/resources/handbook-accessibility',
       type: 'guide',
       source: 'Australian Building Codes Board',
-      description: 'Comprehensive guide to door design for accessibility including width, hardware, thresholds, and automatic doors.',
+      description: 'Comprehensive guide to door design for accessibility including width, hardware, thresholds and automatic doors.',
       isAustralian: true,
       isFree: true
     },
@@ -1288,7 +1288,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.safeworkaustralia.gov.au/safety-topic/hazards/slips-trips-and-falls',
       type: 'guide',
       source: 'Safe Work Australia',
-      description: 'Guidance on floor surface safety including entrance mats, slip resistance, and transition strips.',
+      description: 'Guidance on floor surface safety including entrance mats, slip resistance and transition strips.',
       isAustralian: true,
       isFree: true
     }
@@ -1316,7 +1316,7 @@ export const gettingInHelp: HelpContent[] = [
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Finding the entrance is the first step in any visit. For people with cognitive disabilities, anxiety, or vision impairment, an unclear entrance can cause confusion, distress, or abandonment of the visit. When a venue has multiple entrances or an alternative accessible entrance, the absence of clear signage can send someone to a door they cannot use. Internal signs at the entry point orient visitors immediately and reduce the need to ask for help.',
+    text: 'Finding the entrance is the first step in any visit. For people with cognitive disabilities, anxiety or vision impairment, an unclear entrance can cause confusion, distress or abandonment of the visit. When a venue has multiple entrances or an alternative accessible entrance, the absence of clear signage can send someone to a door they cannot use. Internal signs at the entry point orient visitors immediately and reduce the need to ask for help.',
     statistic: {
       value: '45%',
       context: 'of people with disability report avoiding new venues due to uncertainty about finding the entrance and navigating inside.',
@@ -1327,26 +1327,26 @@ export const gettingInHelp: HelpContent[] = [
   tips: [
     {
       icon: 'Eye',
-      text: 'Make the entrance visible from all approach directions: street, car park, and public transport stops.',
+      text: 'Make the entrance visible from all approach directions: street, car park and public transport stops.',
       detail: 'Stand at each approach point and check whether you can clearly see which door is the entrance. If not, add visual cues.',
       priority: 1
     },
     {
       icon: 'Layers',
-      text: 'Use contrasting colours, a canopy, or distinctive treatment to highlight the entrance.',
-      detail: 'A brightly painted door frame, an awning, lighting, or a canopy draws the eye to the entrance. This is especially helpful when the building facade has multiple doors or a uniform appearance.',
+      text: 'Use contrasting colours, a canopy or distinctive treatment to highlight the entrance.',
+      detail: 'A brightly painted door frame, an awning, lighting or a canopy draws the eye to the entrance. This is especially helpful when the building facade has multiple doors or a uniform appearance.',
       priority: 2
     },
     {
       icon: 'Signpost',
       text: 'If the main entrance is not accessible, sign the alternative accessible entrance clearly with the ISA symbol.',
-      detail: 'Place a sign at the main entrance showing the ISA symbol, direction arrow, and distance to the accessible entrance. The alternative entrance must be open during all business hours.',
+      detail: 'Place a sign at the main entrance showing the ISA symbol, direction arrow and distance to the accessible entrance. The alternative entrance must be open during all business hours.',
       priority: 3
     },
     {
       icon: 'MapPin',
       text: 'Install internal directional signs at the entrance for key destinations.',
-      detail: 'As visitors enter, they should immediately see signs pointing to reception, toilets, lifts, and key areas. This reduces confusion and the need to ask for directions.',
+      detail: 'As visitors enter, they should immediately see signs pointing to reception, toilets, lifts and key areas. This reduces confusion and the need to ask for directions.',
       priority: 4
     },
     {
@@ -1360,9 +1360,9 @@ export const gettingInHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing entrance visibility and signage',
     steps: [
-      { text: 'Approach the venue from the street, car park, and nearest public transport stop. Can you identify the entrance from each direction?' },
-      { text: 'Check whether the entrance stands out visually: does it have a distinctive colour, canopy, lighting, or signage?' },
-      { text: 'If there is an alternative accessible entrance, check for signage at the main entrance directing people to it. Note the ISA symbol, direction, and distance.' },
+      { text: 'Approach the venue from the street, car park and nearest public transport stop. Can you identify the entrance from each direction?' },
+      { text: 'Check whether the entrance stands out visually: does it have a distinctive colour, canopy, lighting or signage?' },
+      { text: 'If there is an alternative accessible entrance, check for signage at the main entrance directing people to it. Note the ISA symbol, direction and distance.' },
       { text: 'Enter through the accessible entrance and check for internal directional signs pointing to key destinations (reception, toilets, lifts).' },
       { text: 'Check that your business name is clearly visible from the street and distinguishable from neighbouring businesses.' },
       { text: 'Ask a first-time visitor to find your entrance without assistance and note any hesitation or wrong turns.' }
@@ -1382,7 +1382,7 @@ export const gettingInHelp: HelpContent[] = [
       { code: 'DDA', relevance: 'Requires that services be accessible, which includes being able to find and reach the entrance.' }
     ],
     plainEnglish: 'Your entrance must be easy to find. If the main door is not accessible, you must sign the accessible entrance clearly. Internal signs should help visitors navigate from the moment they enter.',
-    complianceNote: 'Entrance visibility improvements such as paint, canopies, and signage are low-cost and almost always feasible, even in heritage buildings.'
+    complianceNote: 'Entrance visibility improvements such as paint, canopies and signage are low-cost and almost always feasible, even in heritage buildings.'
   },
 
   solutions: [
@@ -1397,9 +1397,9 @@ export const gettingInHelp: HelpContent[] = [
       steps: [
         'Paint the entrance door frame in a contrasting colour (e.g. bright blue or red against a light wall).',
         'Install a sign with your business name above the entrance, readable from at least 10m (minimum 100mm letter height).',
-        'If there is an alternative accessible entrance, install a sign at the main entrance: ISA symbol, arrow, and distance (e.g. "Accessible entrance 20m, left side of building").',
+        'If there is an alternative accessible entrance, install a sign at the main entrance: ISA symbol, arrow and distance (e.g. "Accessible entrance 20m, left side of building").',
         'Add an ISA sign at the accessible entrance itself to confirm visitors have found the right door.',
-        'Install internal directional signs just inside the entrance pointing to reception, toilets, and lifts.',
+        'Install internal directional signs just inside the entrance pointing to reception, toilets and lifts.',
         'Ensure all signs have minimum 70% luminance contrast.'
       ],
       notes: 'Simple paint and signage changes can dramatically improve entrance findability at minimal cost.'
@@ -1429,7 +1429,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Heritage Restaurant',
       scenario: 'A heritage restaurant in a row of shops had an entrance that blended into the facade. Visitors, especially those with vision impairment, frequently walked past it.',
-      solution: 'Painted the door frame in a bold colour, installed a larger business sign with a downlight, and added a small awning. The accessible side entrance received an ISA sign at the front.',
+      solution: 'Painted the door frame in a bold colour, installed a larger business sign with a downlight and added a small awning. The accessible side entrance received an ISA sign at the front.',
       outcome: 'Walk-past incidents reduced significantly. The restaurant also reported an increase in walk-in customers who had previously not noticed the entrance.',
       cost: '$400',
       timeframe: '1 day'
@@ -1438,7 +1438,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'retail',
       businessTypeLabel: 'Shop',
       scenario: 'A shop in a large building complex had its entrance behind a column, invisible from the main walkway.',
-      solution: 'Installed a distinctive awning projecting past the column, added a blade sign (perpendicular to the wall) with the business name, and placed a floor decal on the main walkway pointing to the entrance.',
+      solution: 'Installed a distinctive awning projecting past the column, added a blade sign (perpendicular to the wall) with the business name and placed a floor decal on the main walkway pointing to the entrance.',
       outcome: 'New customers reported finding the shop much more easily. The blade sign and floor decal cost less than $200 combined.',
       cost: '$1,200 total (awning $1,000, signs $200)',
       timeframe: '3 days'
@@ -1451,7 +1451,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.visionaustralia.org/business-consulting/digital-access/accessible-signage',
       type: 'guide',
       source: 'Vision Australia',
-      description: 'Specialist guide to wayfinding and signage design covering contrast, colour coding, and inclusive design.',
+      description: 'Specialist guide to wayfinding and signage design covering contrast, colour coding and inclusive design.',
       isAustralian: true,
       isFree: true
     },
@@ -1460,7 +1460,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.abcb.gov.au/resources/handbook-accessibility',
       type: 'guide',
       source: 'Australian Building Codes Board',
-      description: 'Requirements for accessible signage under the NCC, including ISA placement, contrast, and positioning.',
+      description: 'Requirements for accessible signage under the NCC, including ISA placement, contrast and positioning.',
       isAustralian: true,
       isFree: true
     }
@@ -1484,11 +1484,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Entrance Stairs',
   coveredQuestionIds: ['2.2-F-8', '2.2-D-24', '2.2-D-25', '2.2-D-26'],
-  summary: 'Entrance stairs need four safety features: handrails on both sides, contrasting nosing strips on every step, enclosed risers (no open gaps), and tactile ground surface indicators at top and bottom.',
+  summary: 'Entrance stairs need four safety features: handrails on both sides, contrasting nosing strips on every step, enclosed risers (no open gaps) and tactile ground surface indicators at top and bottom.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Stairs without handrails are a significant fall risk, especially for people with balance disorders, neurological conditions, or one-sided weakness. Without contrasting nosing strips, step edges are invisible to people with low vision, creating a trip hazard. Open risers (gaps between steps) catch cane tips and small wheelchair casters. Missing TGSIs leave people who are blind completely unaware of the stair hazard ahead. These four features together make stairs as safe as reasonably possible for all users.',
+    text: 'Stairs without handrails are a significant fall risk, especially for people with balance disorders, neurological conditions or one-sided weakness. Without contrasting nosing strips, step edges are invisible to people with low vision, creating a trip hazard. Open risers (gaps between steps) catch cane tips and small wheelchair casters. Missing TGSIs leave people who are blind completely unaware of the stair hazard ahead. These four features together make stairs as safe as reasonably possible for all users.',
     statistic: {
       value: '20%',
       context: 'of stair fall injuries in public buildings are directly attributed to absent or inadequate handrails.',
@@ -1512,7 +1512,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Enclosed risers with no open gaps.',
-      detail: 'Open-riser stairs have gaps between the tread and the step below. These gaps catch cane tips, small wheels, and shoe toes. Risers must be enclosed (solid) on all stairs used by the public.',
+      detail: 'Open-riser stairs have gaps between the tread and the step below. These gaps catch cane tips, small wheels and shoe toes. Risers must be enclosed (solid) on all stairs used by the public.',
       priority: 3
     },
     {
@@ -1524,13 +1524,13 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'ArrowRight',
       text: 'Handrails extend 300mm horizontally past the top and bottom steps.',
-      detail: 'Extensions give users a stable handhold while transitioning from stairs to level ground. The extension must be horizontal, not ramped, and end with a smooth return to the wall or post.',
+      detail: 'Extensions give users a stable handhold while transitioning from stairs to level ground. The extension must be horizontal, not ramped and end with a smooth return to the wall or post.',
       priority: 5
     },
     {
       icon: 'CheckCircle',
       text: 'Check and maintain all stair safety features regularly.',
-      detail: 'Loose handrails, worn nosing strips, and damaged TGSIs are dangerous. Include stair features in your monthly safety inspection.',
+      detail: 'Loose handrails, worn nosing strips and damaged TGSIs are dangerous. Include stair features in your monthly safety inspection.',
       priority: 6
     }
   ],
@@ -1551,7 +1551,7 @@ export const gettingInHelp: HelpContent[] = [
       { text: 'Check that all risers are enclosed (no gaps between treads).' },
       { text: 'Check for TGSIs at top and bottom of each staircase. Verify 300mm setback from the first nosing and 600mm depth.' },
       { text: 'Check that handrails extend at least 300mm horizontally past the top and bottom steps.' },
-      { text: 'Test TGSI condition: are any loose, worn smooth, or damaged?' }
+      { text: 'Test TGSI condition: are any loose, worn smooth or damaged?' }
     ],
     tools: ['Tape measure', 'Camera', 'Spirit level (optional for handrail height consistency)'],
     estimatedTime: '15-20 minutes per staircase'
@@ -1560,21 +1560,21 @@ export const gettingInHelp: HelpContent[] = [
   standardsReference: {
     primary: {
       code: 'AS1428.1',
-      section: 'Sections 9, 11, and 12',
-      requirement: 'Stairs on accessible paths of travel must have handrails on both sides (865-1000mm height), contrasting nosing strips, enclosed risers, and handrail extensions of at least 300mm.'
+      section: 'Sections 9, 11 and 12',
+      requirement: 'Stairs on accessible paths of travel must have handrails on both sides (865-1000mm height), contrasting nosing strips, enclosed risers and handrail extensions of at least 300mm.'
     },
     related: [
-      { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at stairs including size (300mm setback, 600mm deep), layout, and luminance contrast.' },
+      { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at stairs including size (300mm setback, 600mm deep), layout and luminance contrast.' },
       { code: 'NCC', relevance: 'References AS1428.1 stair requirements for all public buildings.' }
     ],
-    plainEnglish: 'Stairs at your entrance need handrails on both sides, contrasting strips on every step edge, no open gaps between steps, and textured warning indicators on the ground at the top and bottom.',
-    complianceNote: 'Even in existing buildings, adding handrails, nosing strips, and TGSIs is almost always feasible and is considered a reasonable adjustment under the DDA.'
+    plainEnglish: 'Stairs at your entrance need handrails on both sides, contrasting strips on every step edge, no open gaps between steps and textured warning indicators on the ground at the top and bottom.',
+    complianceNote: 'Even in existing buildings, adding handrails, nosing strips and TGSIs is almost always feasible and is considered a reasonable adjustment under the DDA.'
   },
 
   solutions: [
     {
       title: 'Install handrails on both sides',
-      description: 'Add continuous handrails to both sides of entrance stairs with correct height, profile, and extensions.',
+      description: 'Add continuous handrails to both sides of entrance stairs with correct height, profile and extensions.',
       resourceLevel: 'medium',
       costRange: '$800-3,000',
       timeRequired: '1-2 days',
@@ -1602,7 +1602,7 @@ export const gettingInHelp: HelpContent[] = [
         'Purchase aluminium or rubber nosing strips in a colour that contrasts with both the tread and riser (minimum 30% luminance contrast).',
         'Clean step edges thoroughly before applying.',
         'Adhere or screw-fix nosing strips to every step: 50mm on the tread surface, wrapping 30mm down the riser face.',
-        'If risers are open (gaps between treads), cut infill panels from plywood, metal, or composite and fix securely to close the gaps.',
+        'If risers are open (gaps between treads), cut infill panels from plywood, metal or composite and fix securely to close the gaps.',
         'Check all nosings and infills are secure and do not create new trip hazards.',
         'Inspect monthly and replace any that become loose or worn.'
       ],
@@ -1633,7 +1633,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Restaurant',
       scenario: 'A restaurant had a single handrail on only one side of five entrance steps. A customer with a left-side weakness could not grip it and fell.',
-      solution: 'Added a second handrail on the left side, applied nosing strips to all five steps, and installed TGSIs at top and bottom.',
+      solution: 'Added a second handrail on the left side, applied nosing strips to all five steps and installed TGSIs at top and bottom.',
       outcome: 'No further falls reported. The restaurant also avoided potential liability.',
       cost: '$1,200',
       timeframe: '1 day'
@@ -1642,7 +1642,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Gallery',
       scenario: 'A gallery had open-riser steps at the entrance with no nosings or TGSIs. A visitor with low vision missed a step edge and fell.',
-      solution: 'Enclosed all risers with metal infill panels, applied yellow nosing strips to every step, and installed stainless steel TGSI studs at top and bottom.',
+      solution: 'Enclosed all risers with metal infill panels, applied yellow nosing strips to every step and installed stainless steel TGSI studs at top and bottom.',
       outcome: 'The gallery passed its next accessibility audit with full marks for stairs. Insurance assessors also noted the improvement.',
       cost: '$450',
       timeframe: '1 day'
@@ -1655,7 +1655,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.abcb.gov.au/resources/handbook-accessibility',
       type: 'guide',
       source: 'Australian Building Codes Board',
-      description: 'NCC and AS1428.1 requirements for stair design including handrails, nosings, and risers.',
+      description: 'NCC and AS1428.1 requirements for stair design including handrails, nosings and risers.',
       isAustralian: true,
       isFree: true
     },
@@ -1664,7 +1664,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-4-dot-1-colon-2009',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'The standard for TGSI design, placement, and luminance contrast at stairs, ramps, and other hazards.',
+      description: 'The standard for TGSI design, placement and luminance contrast at stairs, ramps and other hazards.',
       isAustralian: true,
       isFree: false
     },
@@ -1697,11 +1697,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Entrance Ramps',
   coveredQuestionIds: ['2.2-D-28', '2.2-D-29', '2.2-D-30'],
-  summary: 'Entrance ramps must have handrails on both sides, a safe gradient, slip-resistant surface, and tactile indicators at top and bottom. A ramp that is too steep or lacks handrails can be more dangerous than stairs.',
+  summary: 'Entrance ramps must have handrails on both sides, a safe gradient, slip-resistant surface and tactile indicators at top and bottom. A ramp that is too steep or lacks handrails can be more dangerous than stairs.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'A ramp without handrails is dangerous for anyone with balance issues or limited upper body strength. If the gradient is too steep, wheelchair users can lose control descending or cannot ascend without assistance. Wet surfaces on ramps become treacherous without adequate slip resistance. A properly built ramp provides independence for wheelchair users, people with prams, and delivery workers. A poorly built ramp creates a false sense of security and real injury risk.',
+    text: 'A ramp without handrails is dangerous for anyone with balance issues or limited upper body strength. If the gradient is too steep, wheelchair users can lose control descending or cannot ascend without assistance. Wet surfaces on ramps become treacherous without adequate slip resistance. A properly built ramp provides independence for wheelchair users, people with prams and delivery workers. A poorly built ramp creates a false sense of security and real injury risk.',
     statistic: {
       value: '1:14',
       context: 'is the maximum gradient for new ramps. Steeper gradients require significantly more effort and increase the risk of tipping or losing control.',
@@ -1731,7 +1731,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Layers',
       text: 'Slip-resistant surface, especially when wet.',
-      detail: 'Ramp surfaces must have a P4 slip rating (wet areas) or equivalent. Exposed aggregate concrete, textured rubber, or anti-slip coatings are good options. Test by walking on the ramp in leather-soled shoes when wet.',
+      detail: 'Ramp surfaces must have a P4 slip rating (wet areas) or equivalent. Exposed aggregate concrete, textured rubber or anti-slip coatings are good options. Test by walking on the ramp in leather-soled shoes when wet.',
       priority: 4
     },
     {
@@ -1758,7 +1758,7 @@ export const gettingInHelp: HelpContent[] = [
         text: 'Measure the ramp width.',
         measurement: { target: 'Ramp width', acceptable: 'Minimum 1000mm (1200mm preferred)', unit: 'mm' }
       },
-      { text: 'Test surface slip resistance by walking on it in wet conditions. Check for wear, moss, or algae growth.' },
+      { text: 'Test surface slip resistance by walking on it in wet conditions. Check for wear, moss or algae growth.' },
       { text: 'Check for TGSIs at top and bottom of the ramp with correct setback (300mm) and depth (600mm).' },
       { text: 'Check for edge protection (kerb rail or upstand) on both sides if the ramp is elevated.' }
     ],
@@ -1770,13 +1770,13 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Sections 10-12',
-      requirement: 'Ramps on accessible paths of travel must have handrails on both sides (865-1000mm), maximum gradient 1:14 for new construction, slip-resistant surface, and edge protection.'
+      requirement: 'Ramps on accessible paths of travel must have handrails on both sides (865-1000mm), maximum gradient 1:14 for new construction, slip-resistant surface and edge protection.'
     },
     related: [
       { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at the top and bottom of ramps.' },
       { code: 'Access-to-Premises', relevance: 'Requires compliant ramps where level changes exist on accessible paths of travel.' }
     ],
-    plainEnglish: 'Ramps must have handrails on both sides, a gentle slope (not too steep), a non-slip surface, and textured warning strips at the top and bottom.',
+    plainEnglish: 'Ramps must have handrails on both sides, a gentle slope (not too steep), a non-slip surface and textured warning strips at the top and bottom.',
     complianceNote: 'An existing steep ramp may be tolerated for short distances but should be upgraded to 1:14 or gentler when any renovation occurs.'
   },
 
@@ -1808,7 +1808,7 @@ export const gettingInHelp: HelpContent[] = [
       implementedBy: 'contractor',
       impact: 'moderate',
       steps: [
-        'Clean the ramp surface thoroughly, removing moss, algae, and dirt.',
+        'Clean the ramp surface thoroughly, removing moss, algae and dirt.',
         'Apply an anti-slip coating suitable for the ramp material (concrete, metal, timber). Products are available in spray or roll-on application.',
         'For metal ramps, consider bonding non-slip rubber strips or fiberglass grating.',
         'Allow full curing time before reopening (typically 24 hours).',
@@ -1833,7 +1833,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Library',
       scenario: 'A public library had a 10-year-old ramp that had become slippery due to moss growth and worn surface.',
-      solution: 'Pressure-washed the surface, applied anti-slip coating, and installed new TGSIs to replace the worn originals.',
+      solution: 'Pressure-washed the surface, applied anti-slip coating and installed new TGSIs to replace the worn originals.',
       outcome: 'The ramp is now safe in wet conditions. The library added it to their quarterly maintenance schedule.',
       cost: '$400',
       timeframe: '1 day'
@@ -1846,7 +1846,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Full requirements for ramp design including gradient, width, handrails, landings, and edge protection.',
+      description: 'Full requirements for ramp design including gradient, width, handrails, landings and edge protection.',
       isAustralian: true,
       isFree: false
     },
@@ -1879,11 +1879,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Entrance Lifts and Escalators',
   coveredQuestionIds: ['2.2-D-32', '2.2-D-33'],
-  summary: 'Where the entrance involves a level change served by a lift or escalator, the lift must be large enough for wheelchairs, operable independently, and there must be an accessible alternative to any escalator.',
+  summary: 'Where the entrance involves a level change served by a lift or escalator, the lift must be large enough for wheelchairs, operable independently and there must be an accessible alternative to any escalator.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'For wheelchair users and many others, the lift is the only way to reach another level. If the lift is too small, has controls that cannot be reached from a wheelchair, or requires staff to operate, independence is lost. Escalators are not accessible to most people with disability, including wheelchair users, people with balance disorders, people with vision impairment, and many older people. Every escalator must have a nearby lift or ramp as an alternative.',
+    text: 'For wheelchair users and many others, the lift is the only way to reach another level. If the lift is too small, has controls that cannot be reached from a wheelchair or requires staff to operate, independence is lost. Escalators are not accessible to most people with disability, including wheelchair users, people with balance disorders, people with vision impairment and many older people. Every escalator must have a nearby lift or ramp as an alternative.',
     statistic: {
       value: '1.4 million',
       context: 'Australians use mobility aids. For them, a lift is not a convenience but the only option for changing levels.',
@@ -1913,7 +1913,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Lift must be operable independently without requiring staff assistance.',
-      detail: 'If the lift requires a key, a code, or staff to operate, independence is compromised. If a key is unavoidable (e.g. for security), provide an accessible intercom at the lift so users can request activation.',
+      detail: 'If the lift requires a key, a code or staff to operate, independence is compromised. If a key is unavoidable (e.g. for security), provide an accessible intercom at the lift so users can request activation.',
       priority: 4
     },
     {
@@ -1952,20 +1952,20 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 15',
-      requirement: 'Passenger lifts on accessible paths of travel must meet minimum car dimensions, door width, control height, Braille/tactile marking, and audible/visual indicator requirements.'
+      requirement: 'Passenger lifts on accessible paths of travel must meet minimum car dimensions, door width, control height, Braille/tactile marking and audible/visual indicator requirements.'
     },
     related: [
       { code: 'NCC', relevance: 'References AS1735.12 for lift installation requirements and AS1428.1 for accessible lift features.' },
       { code: 'DDA', relevance: 'Requires reasonable adjustments to lift access even in existing buildings.' }
     ],
-    plainEnglish: 'Lifts must be big enough for a wheelchair, have reachable controls with Braille, announce floors by voice and display, and work without needing staff help. Escalators must always have a lift or ramp alternative.',
-    complianceNote: 'Upgrading an existing lift with Braille panels, audio announcements, and a mirror is often much cheaper than replacing the entire lift.'
+    plainEnglish: 'Lifts must be big enough for a wheelchair, have reachable controls with Braille, announce floors by voice and display and work without needing staff help. Escalators must always have a lift or ramp alternative.',
+    complianceNote: 'Upgrading an existing lift with Braille panels, audio announcements and a mirror is often much cheaper than replacing the entire lift.'
   },
 
   solutions: [
     {
       title: 'Upgrade existing lift with accessible features',
-      description: 'Add Braille markers, tactile buttons, audio announcements, a lower control panel, and a rear-wall mirror to an existing lift.',
+      description: 'Add Braille markers, tactile buttons, audio announcements, a lower control panel and a rear-wall mirror to an existing lift.',
       resourceLevel: 'medium',
       costRange: '$1,000-4,000',
       timeRequired: '1-3 days',
@@ -2008,8 +2008,8 @@ export const gettingInHelp: HelpContent[] = [
     {
       businessType: 'retail',
       businessTypeLabel: 'Department Store',
-      scenario: 'A department store had a 1990s lift with high control buttons (1400mm), no Braille, no audio, and no mirror. Wheelchair users could not reach the top buttons and did not know which floor they had reached.',
-      solution: 'Installed a lower secondary panel at 1000mm, added Braille and tactile labels to all buttons, fitted an audio announcement module, and installed a rear-wall mirror.',
+      scenario: 'A department store had a 1990s lift with high control buttons (1400mm), no Braille, no audio and no mirror. Wheelchair users could not reach the top buttons and did not know which floor they had reached.',
+      solution: 'Installed a lower secondary panel at 1000mm, added Braille and tactile labels to all buttons, fitted an audio announcement module and installed a rear-wall mirror.',
       outcome: 'Wheelchair users can now operate the lift independently. The upgrades also helped parents with prams and people carrying heavy bags.',
       cost: '$3,200',
       timeframe: '2 days'
@@ -2018,7 +2018,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Venue',
       scenario: 'A heritage venue had a mezzanine level accessible only by escalator. Wheelchair users and many older patrons could not access the upper bar and viewing area.',
-      solution: 'Installed a vertical platform lift beside the escalator with push-button controls, Braille, and clear signage.',
+      solution: 'Installed a vertical platform lift beside the escalator with push-button controls, Braille and clear signage.',
       outcome: 'The mezzanine is now accessible to all patrons. The venue can host wheelchair-accessible functions on the upper level for the first time.',
       cost: '$18,000',
       timeframe: '3 weeks'
@@ -2031,7 +2031,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Requirements for accessible lift design including dimensions, controls, indicators, and emergency features.',
+      description: 'Requirements for accessible lift design including dimensions, controls, indicators and emergency features.',
       isAustralian: true,
       isFree: false
     },
@@ -2040,7 +2040,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Australian Standard for lift accessibility covering dimensions, controls, Braille, audio, and visual features.',
+      description: 'Australian Standard for lift accessibility covering dimensions, controls, Braille, audio and visual features.',
       isAustralian: true,
       isFree: true
     }
@@ -2063,14 +2063,14 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Internal Wayfinding and Signage',
   coveredQuestionIds: ['2.3-D-6', '2.3-D-7', '2.3-D-8', '2.3-D-9', '2.3-D-10'],
-  summary: 'Comprehensive internal wayfinding covering directional signs at decision points, sign height for seated users, floor plans for complex venues, high-contrast readable text, tactile and auditory options, and clear identification of accessible routes.',
+  summary: 'Comprehensive internal wayfinding covering directional signs at decision points, sign height for seated users, floor plans for complex venues, high-contrast readable text, tactile and auditory options and clear identification of accessible routes.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Visitors who cannot find their way become frustrated, anxious, or leave early. For wheelchair users, getting lost means wasted energy on a potentially long detour. For people with vision impairment, wayfinding relies on tactile markers, Braille, and auditory cues that are often absent. For people with cognitive disabilities, complex layouts without clear signage create confusion and distress. Good wayfinding helps everyone, including first-time visitors, tourists, and people in a hurry.',
+    text: 'Visitors who cannot find their way become frustrated, anxious or leave early. For wheelchair users, getting lost means wasted energy on a potentially long detour. For people with vision impairment, wayfinding relies on tactile markers, Braille and auditory cues that are often absent. For people with cognitive disabilities, complex layouts without clear signage create confusion and distress. Good wayfinding helps everyone, including first-time visitors, tourists and people in a hurry.',
     statistic: {
       value: '60%',
-      context: 'of first-time visitors to complex venues report difficulty finding key destinations such as toilets, lifts, and reception.',
+      context: 'of first-time visitors to complex venues report difficulty finding key destinations such as toilets, lifts and reception.',
       source: 'Centre for Inclusive Design'
     }
   },
@@ -2079,7 +2079,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Signpost',
       text: 'Install directional signs at every decision point with text and symbols.',
-      detail: 'A decision point is any location where a visitor must choose a direction: intersections, junctions, stairwell entries, and lift lobbies. Signs should show the destination name, an arrow, and any relevant symbol (ISA for accessible facilities).',
+      detail: 'A decision point is any location where a visitor must choose a direction: intersections, junctions, stairwell entries and lift lobbies. Signs should show the destination name, an arrow and any relevant symbol (ISA for accessible facilities).',
       priority: 1
     },
     {
@@ -2091,13 +2091,13 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'MapPin',
       text: 'Provide floor plans for complex venues with "You Are Here" markers and ISA symbols.',
-      detail: 'Floor plans should be displayed at each entrance and at major decision points. Mark the viewer\'s current location, accessible toilets, lifts, exits, and key destinations. Use high-contrast colours and minimum 12pt text.',
+      detail: 'Floor plans should be displayed at each entrance and at major decision points. Mark the viewer\'s current location, accessible toilets, lifts, exits and key destinations. Use high-contrast colours and minimum 12pt text.',
       priority: 3
     },
     {
       icon: 'Eye',
       text: 'Minimum 30% luminance contrast, sans-serif fonts, no italics.',
-      detail: 'High contrast means dark text on light background or vice versa. Sans-serif fonts (Arial, Helvetica, Verdana) are easier to read for people with dyslexia and low vision. Avoid italic, script, and decorative fonts.',
+      detail: 'High contrast means dark text on light background or vice versa. Sans-serif fonts (Arial, Helvetica, Verdana) are easier to read for people with dyslexia and low vision. Avoid italic, script and decorative fonts.',
       priority: 4
     },
     {
@@ -2109,7 +2109,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'ArrowRight',
       text: 'Mark accessible routes distinctly from non-accessible routes.',
-      detail: 'Where a venue has both stairs and lifts, or accessible and non-accessible paths, signs must clearly distinguish the accessible option with the ISA symbol.',
+      detail: 'Where a venue has both stairs and lifts or accessible and non-accessible paths, signs must clearly distinguish the accessible option with the ISA symbol.',
       priority: 6
     }
   ],
@@ -2136,20 +2136,20 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 8',
-      requirement: 'Signage on accessible paths of travel must include the ISA where relevant, have adequate luminance contrast, and be located at decision points.'
+      requirement: 'Signage on accessible paths of travel must include the ISA where relevant, have adequate luminance contrast and be located at decision points.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires identification of accessible facilities through signage in all new and significantly renovated buildings.' },
       { code: 'DDA', relevance: 'Requires that information be provided in accessible formats, which extends to wayfinding signage.' }
     ],
-    plainEnglish: 'Signs must appear at every place where visitors need to choose a direction. They must be high-contrast, at a readable height, and include tactile options for people with vision impairment. Accessible routes must be clearly identified.',
+    plainEnglish: 'Signs must appear at every place where visitors need to choose a direction. They must be high-contrast, at a readable height and include tactile options for people with vision impairment. Accessible routes must be clearly identified.',
     complianceNote: 'Signage improvements are among the most affordable accessibility upgrades and benefit all visitors. They are almost always considered a reasonable adjustment.'
   },
 
   solutions: [
     {
       title: 'Relocate and add directional signs',
-      description: 'Move signs that are too high or poorly positioned, and add new signs at unsigned decision points.',
+      description: 'Move signs that are too high or poorly positioned and add new signs at unsigned decision points.',
       resourceLevel: 'low',
       costRange: '$0-200',
       timeRequired: '2-4 hours',
@@ -2157,10 +2157,10 @@ export const gettingInHelp: HelpContent[] = [
       impact: 'quick-win',
       steps: [
         'Map your venue showing all decision points and current sign locations.',
-        'Identify gaps: decision points with no sign, or signs mounted above 1600mm.',
+        'Identify gaps: decision points with no sign or signs mounted above 1600mm.',
         'Lower high-mounted signs to 1200-1600mm range.',
-        'Create simple directional signs for unsigned decision points (printed, laminated, and mounted).',
-        'Use the ISA symbol on signs pointing to accessible toilets, lifts, and routes.',
+        'Create simple directional signs for unsigned decision points (printed, laminated and mounted).',
+        'Use the ISA symbol on signs pointing to accessible toilets, lifts and routes.',
         'Test the updated signage with a first-time visitor.'
       ],
       notes: 'Even printed and laminated signs are effective while you plan for professional signage.'
@@ -2174,8 +2174,8 @@ export const gettingInHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Create a simplified floor plan showing: walls, doors, corridors, lifts, stairs, toilets, exits, reception, and key destinations.',
-        'Mark all accessible features with the ISA symbol: accessible toilets, lifts, ramps, and accessible routes.',
+        'Create a simplified floor plan showing: walls, doors, corridors, lifts, stairs, toilets, exits, reception and key destinations.',
+        'Mark all accessible features with the ISA symbol: accessible toilets, lifts, ramps and accessible routes.',
         'Add "You Are Here" markers specific to each display location.',
         'Use high-contrast colours (dark lines on white background or white on dark blue).',
         'Print at A3 or larger size and frame or mount behind acrylic at 1200-1600mm height.',
@@ -2209,7 +2209,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'accommodation',
       businessTypeLabel: 'Hotel',
       scenario: 'A hotel with 200 rooms had room number signs mounted at 1800mm (above most people\'s eye level) with small serif font and no Braille. Guests with vision impairment could not find their rooms.',
-      solution: 'Replaced all room signs with tactile signs at 1500mm featuring raised numbers, Braille, and high-contrast sans-serif text. Added directional signs at each corridor intersection.',
+      solution: 'Replaced all room signs with tactile signs at 1500mm featuring raised numbers, Braille and high-contrast sans-serif text. Added directional signs at each corridor intersection.',
       outcome: 'Guest satisfaction scores for wayfinding improved from 3.2 to 4.6 out of 5. The hotel received positive reviews from vision-impaired guests.',
       cost: '$2,400',
       timeframe: '2 days installation'
@@ -2231,7 +2231,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Australian Standard for accessible sign design including contrast, font, tactile elements, and Braille.',
+      description: 'Australian Standard for accessible sign design including contrast, font, tactile elements and Braille.',
       isAustralian: true,
       isFree: true
     },
@@ -2273,14 +2273,14 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Floor Surfaces and Maintenance',
   coveredQuestionIds: ['2.3-D-15', '2.3-D-23', '2.3-D-24'],
-  summary: 'Covers floor surface safety: slip resistance (especially in wet areas), visual contrast at level changes, contrast between floors, doors, and walls for low vision, and ongoing maintenance to prevent trip hazards.',
+  summary: 'Covers floor surface safety: slip resistance (especially in wet areas), visual contrast at level changes, contrast between floors, doors and walls for low vision and ongoing maintenance to prevent trip hazards.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Falls are the leading cause of injury in public places. Slippery floors, hidden level changes, and poorly maintained surfaces create serious risks for everyone, but especially for people with mobility impairment, balance disorders, or vision impairment. For people with low vision, floors that blend into walls and doors that disappear into frames make navigation dangerous. Regular maintenance prevents minor defects from becoming major hazards.',
+    text: 'Falls are the leading cause of injury in public places. Slippery floors, hidden level changes and poorly maintained surfaces create serious risks for everyone, but especially for people with mobility impairment, balance disorders or vision impairment. For people with low vision, floors that blend into walls and doors that disappear into frames make navigation dangerous. Regular maintenance prevents minor defects from becoming major hazards.',
     statistic: {
       value: '36%',
-      context: 'of serious workplace injuries are caused by slips, trips, and falls. The rate is even higher in public venues where visitors are unfamiliar with the environment.',
+      context: 'of serious workplace injuries are caused by slips, trips and falls. The rate is even higher in public venues where visitors are unfamiliar with the environment.',
       source: 'Safe Work Australia'
     }
   },
@@ -2289,13 +2289,13 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Layers',
       text: 'P3 slip rating for dry areas, P4 for areas that may get wet.',
-      detail: 'The P rating system classifies floor surfaces by slip resistance. P3 is adequate for indoor dry areas. P4 or P5 is needed for entrance zones, kitchens, bathrooms, and any area that may get wet from rain, spills, or cleaning.',
+      detail: 'The P rating system classifies floor surfaces by slip resistance. P3 is adequate for indoor dry areas. P4 or P5 is needed for entrance zones, kitchens, bathrooms and any area that may get wet from rain, spills or cleaning.',
       priority: 1
     },
     {
       icon: 'Eye',
       text: 'Contrasting nosing strips at all level changes (minimum 30% luminance contrast).',
-      detail: 'Every step, ramp transition, or platform edge should have a visible strip that contrasts with the surrounding surface. This makes the level change visible to people with low vision.',
+      detail: 'Every step, ramp transition or platform edge should have a visible strip that contrasts with the surrounding surface. This makes the level change visible to people with low vision.',
       priority: 2
     },
     {
@@ -2307,13 +2307,13 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'CheckCircle',
       text: 'Conduct a monthly walk-through to identify and repair defects.',
-      detail: 'Cracks, lifted carpet edges, loose tiles, worn transitions, and pooling water should be identified and fixed before they cause an injury.',
+      detail: 'Cracks, lifted carpet edges, loose tiles, worn transitions and pooling water should be identified and fixed before they cause an injury.',
       priority: 4
     },
     {
       icon: 'Ruler',
       text: 'Repair any level change exceeding 5mm.',
-      detail: 'A 5mm lip between surfaces can catch a wheelchair caster or trip someone with reduced foot lift. Use transition strips, grinding, or patching to eliminate level changes.',
+      detail: 'A 5mm lip between surfaces can catch a wheelchair caster or trip someone with reduced foot lift. Use transition strips, grinding or patching to eliminate level changes.',
       priority: 5
     },
     {
@@ -2327,10 +2327,10 @@ export const gettingInHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing floor surfaces and maintenance',
     steps: [
-      { text: 'Walk every public area checking floor surfaces for slip resistance, especially in entrance zones, corridors, and areas near water sources.' },
-      { text: 'Check for nosing strips at all steps, ramp transitions, and platform edges. Photograph any level changes without contrast treatment.' },
+      { text: 'Walk every public area checking floor surfaces for slip resistance, especially in entrance zones, corridors and areas near water sources.' },
+      { text: 'Check for nosing strips at all steps, ramp transitions and platform edges. Photograph any level changes without contrast treatment.' },
       { text: 'Assess floor/wall contrast: can you clearly see where the floor ends and the wall begins? Check doors against their frames.' },
-      { text: 'Inspect for cracks, lifted carpet, loose tiles, worn transitions, and any defects that could cause a trip.' },
+      { text: 'Inspect for cracks, lifted carpet, loose tiles, worn transitions and any defects that could cause a trip.' },
       {
         text: 'Measure any level changes between adjacent surfaces.',
         measurement: { target: 'Surface transitions', acceptable: 'Maximum 5mm', unit: 'mm' }
@@ -2346,13 +2346,13 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Sections 7 and 9',
-      requirement: 'Floor surfaces on accessible paths of travel must be firm, slip-resistant, and free of trip hazards. Level changes must have contrasting nosing strips.'
+      requirement: 'Floor surfaces on accessible paths of travel must be firm, slip-resistant and free of trip hazards. Level changes must have contrasting nosing strips.'
     },
     related: [
       { code: 'NCC', relevance: 'References AS4586 for slip resistance classification of floor surfaces in public buildings.' },
       { code: 'DDA', relevance: 'Maintaining safe floor surfaces is a duty of care that applies to all premises regardless of age.' }
     ],
-    plainEnglish: 'Floors must not be slippery, especially when wet. Every step or level change needs a visible contrast strip. Floors should look different from walls, and doors should stand out from their frames. Keep everything in good repair.',
+    plainEnglish: 'Floors must not be slippery, especially when wet. Every step or level change needs a visible contrast strip. Floors should look different from walls and doors should stand out from their frames. Keep everything in good repair.',
     complianceNote: 'Floor maintenance is a general duty of care under workplace health and safety law as well as the DDA. Failure to maintain safe floors can result in both injury claims and discrimination complaints.'
   },
 
@@ -2366,7 +2366,7 @@ export const gettingInHelp: HelpContent[] = [
       implementedBy: 'contractor',
       impact: 'moderate',
       steps: [
-        'Identify all areas with smooth or potentially slippery floor surfaces, especially entrance zones, corridors near external doors, and areas near water.',
+        'Identify all areas with smooth or potentially slippery floor surfaces, especially entrance zones, corridors near external doors and areas near water.',
         'Engage a floor treatment contractor to apply anti-slip coating (chemical etch for tiles, polyurethane with grit for concrete, anti-slip strips for metal).',
         'Ensure the treatment achieves at least P3 (dry) or P4 (wet) slip resistance.',
         'Install recessed mat wells at entrances to capture water before it reaches the main floor.',
@@ -2377,14 +2377,14 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Apply nosing strips to all level changes',
-      description: 'Install contrasting nosing strips on every step, ramp transition, and platform edge throughout the venue.',
+      description: 'Install contrasting nosing strips on every step, ramp transition and platform edge throughout the venue.',
       resourceLevel: 'low',
       costRange: '$100-600',
       timeRequired: '2-4 hours',
       implementedBy: 'contractor',
       impact: 'moderate',
       steps: [
-        'Identify every level change in the venue: steps, ramp transitions, raised platforms, and sunken areas.',
+        'Identify every level change in the venue: steps, ramp transitions, raised platforms and sunken areas.',
         'Purchase nosing strips in a colour that contrasts with the floor surface (minimum 30% luminance contrast).',
         'Clean the surface and apply nosing strips: 50mm on the tread, wrapping 30mm down the riser face for steps.',
         'For ramp transitions and platform edges, apply a 50mm contrasting strip along the full edge.',
@@ -2402,7 +2402,7 @@ export const gettingInHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Create a floor inspection checklist covering: slip resistance, carpet edges, transition strips, cracks, level changes, nosing strips, and wet areas.',
+        'Create a floor inspection checklist covering: slip resistance, carpet edges, transition strips, cracks, level changes, nosing strips and wet areas.',
         'Assign a staff member to conduct a monthly walk-through using the checklist.',
         'Photograph and record any defects found.',
         'Prioritise repairs: immediate for trip hazards over 5mm, within one week for lifted carpet edges, within one month for worn nosing strips.',
@@ -2449,7 +2449,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.safeworkaustralia.gov.au/safety-topic/hazards/slips-trips-and-falls',
       type: 'guide',
       source: 'Safe Work Australia',
-      description: 'Comprehensive guide to preventing slips, trips, and falls in workplaces, including floor surface maintenance.',
+      description: 'Comprehensive guide to preventing slips, trips and falls in workplaces, including floor surface maintenance.',
       isAustralian: true,
       isFree: true
     },
@@ -2482,11 +2482,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Circulation Paths and Rest Points',
   coveredQuestionIds: ['2.3-D-13', '2.3-D-20', '2.3-D-21'],
-  summary: 'Internal circulation paths must be well-lit, wide enough for wheelchairs to pass, have adequate overhead clearance, and provide rest points along longer routes.',
+  summary: 'Internal circulation paths must be well-lit, wide enough for wheelchairs to pass, have adequate overhead clearance and provide rest points along longer routes.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Poor lighting makes obstacles invisible and creates anxiety, particularly for people with low vision. Narrow paths block wheelchair access entirely and prevent two people from passing. Low overhead objects are dangerous for people with vision impairment who cannot see obstructions above cane height. Lack of rest points along longer routes excludes people with fatigue conditions, chronic pain, respiratory conditions, and many older people. These four elements together determine whether someone can move through your venue safely and comfortably.',
+    text: 'Poor lighting makes obstacles invisible and creates anxiety, particularly for people with low vision. Narrow paths block wheelchair access entirely and prevent two people from passing. Low overhead objects are dangerous for people with vision impairment who cannot see obstructions above cane height. Lack of rest points along longer routes excludes people with fatigue conditions, chronic pain, respiratory conditions and many older people. These four elements together determine whether someone can move through your venue safely and comfortably.',
     statistic: {
       value: '80%',
       context: 'of the information we use for wayfinding is visual. Poor lighting reduces this to a fraction, making navigation difficult for everyone and dangerous for people with low vision.',
@@ -2498,7 +2498,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Sun',
       text: 'Minimum 160 lux in corridors, 240 lux in circulation and service areas.',
-      detail: 'Light levels should be measured at floor level. Common areas where people need to read signs, menus, or tickets should have higher levels (300+ lux). Avoid harsh bright-to-dark transitions which temporarily blind people moving between zones.',
+      detail: 'Light levels should be measured at floor level. Common areas where people need to read signs, menus or tickets should have higher levels (300+ lux). Avoid harsh bright-to-dark transitions which temporarily blind people moving between zones.',
       priority: 1
     },
     {
@@ -2510,7 +2510,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'ArrowUp',
       text: 'Maintain 2000mm overhead clearance throughout all paths.',
-      detail: 'Anything below 2000mm is a head-strike hazard for people with vision impairment who cannot detect overhanging objects with a cane. Under-stair areas, low signs, hanging displays, and open windows are common offenders.',
+      detail: 'Anything below 2000mm is a head-strike hazard for people with vision impairment who cannot detect overhanging objects with a cane. Under-stair areas, low signs, hanging displays and open windows are common offenders.',
       priority: 3
     },
     {
@@ -2560,13 +2560,13 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 7',
-      requirement: 'Continuous accessible paths of travel must have minimum 1000mm width, minimum 2000mm overhead clearance, and be free of obstructions.'
+      requirement: 'Continuous accessible paths of travel must have minimum 1000mm width, minimum 2000mm overhead clearance and be free of obstructions.'
     },
     related: [
       { code: 'NCC', relevance: 'References AS1680.1 for minimum illumination levels in public building circulation areas.' },
       { code: 'Access-to-Premises', relevance: 'Requires continuous accessible paths of travel within buildings with compliant dimensions and clearances.' }
     ],
-    plainEnglish: 'Paths through your venue must be wide enough for a wheelchair, well-lit so people can see obstacles and signs, clear of low-hanging objects, and have places to sit and rest on longer routes.',
+    plainEnglish: 'Paths through your venue must be wide enough for a wheelchair, well-lit so people can see obstacles and signs, clear of low-hanging objects and have places to sit and rest on longer routes.',
     complianceNote: 'Path width and lighting are both building code requirements and DDA obligations. Temporary obstructions (furniture, displays, stock) that reduce path width below 1000mm create an immediate barrier.'
   },
 
@@ -2583,7 +2583,7 @@ export const gettingInHelp: HelpContent[] = [
         'Measure light levels at floor level every 5m along all circulation paths using a lux meter.',
         'Identify areas below 160 lux (corridors) or 240 lux (circulation areas).',
         'Replace existing bulbs with higher-output LED equivalents where possible (often free if bulbs need replacing anyway).',
-        'Install additional fixtures in dark spots. LED panel lights, downlights, or wall washers are effective options.',
+        'Install additional fixtures in dark spots. LED panel lights, downlights or wall washers are effective options.',
         'Eliminate harsh bright-to-dark transitions by adding intermediate lighting in transition zones.',
         'Test the result with a lux meter to confirm minimum levels are achieved.'
       ],
@@ -2601,11 +2601,11 @@ export const gettingInHelp: HelpContent[] = [
         'Identify all routes longer than 20m and mark locations for rest seating at 20m intervals.',
         'Source bench seats with armrests and backrests. Commercial-grade indoor benches are available for $150-500 each.',
         'Position seats in alcoves or recessed areas where they do not narrow the path below 1000mm.',
-        'At narrow points (under 1500mm), check whether furniture, displays, or fixtures can be moved to widen the path.',
+        'At narrow points (under 1500mm), check whether furniture, displays or fixtures can be moved to widen the path.',
         'Where widening is not possible, create passing bays (1800mm x 2000mm) at intervals of no more than 20m.',
         'Mark passing bays with floor markings if they are not visually obvious.'
       ],
-      notes: 'Rest seating benefits far more people than just wheelchair users. Parents, older visitors, pregnant women, and people recovering from surgery all benefit.'
+      notes: 'Rest seating benefits far more people than just wheelchair users. Parents, older visitors, pregnant women and people recovering from surgery all benefit.'
     }
   ],
 
@@ -2669,11 +2669,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Internal Doors',
   coveredQuestionIds: ['2.3-D-19', '2.3-D-22'],
-  summary: 'Internal doors on the accessible path must have lever handles, be openable with minimal force, provide adequate clear width, and have enough approach space on both sides for wheelchair manoeuvring.',
+  summary: 'Internal doors on the accessible path must have lever handles, be openable with minimal force, provide adequate clear width and have enough approach space on both sides for wheelchair manoeuvring.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Round knobs require a twisting grip that is impossible for many people with arthritis, cerebral palsy, or limited hand function. Heavy doors powered by strong closers are a barrier for people with one arm, low upper-body strength, or balance disorders. Doors narrower than 850mm block wheelchairs. Inadequate approach clearance means wheelchair users cannot position themselves to reach the handle. Every internal door on the accessible path must be usable independently.',
+    text: 'Round knobs require a twisting grip that is impossible for many people with arthritis, cerebral palsy or limited hand function. Heavy doors powered by strong closers are a barrier for people with one arm, low upper-body strength or balance disorders. Doors narrower than 850mm block wheelchairs. Inadequate approach clearance means wheelchair users cannot position themselves to reach the handle. Every internal door on the accessible path must be usable independently.',
     statistic: {
       value: '3.3 million',
       context: 'Australians have arthritis or a musculoskeletal condition affecting hand function. Round door knobs are a barrier for many of them.',
@@ -2685,7 +2685,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Hand',
       text: 'Lever handles at 900-1100mm height on all doors.',
-      detail: 'Lever handles can be operated with a closed fist, an elbow, or by pressing down with a wrist. D-type levers that return to horizontal are the most accessible. Replace all round knobs.',
+      detail: 'Lever handles can be operated with a closed fist, an elbow or by pressing down with a wrist. D-type levers that return to horizontal are the most accessible. Replace all round knobs.',
       priority: 1
     },
     {
@@ -2697,7 +2697,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Maximize',
       text: 'Minimum 850mm clear width on all doors on the accessible path.',
-      detail: 'Measure the clear opening with the door open to 90 degrees. If a door is too narrow, consider offset hinges (gain 50-60mm), removing the door entirely, or replacing with a wider frame.',
+      detail: 'Measure the clear opening with the door open to 90 degrees. If a door is too narrow, consider offset hinges (gain 50-60mm), removing the door entirely or replacing with a wider frame.',
       priority: 3
     },
     {
@@ -2709,7 +2709,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'ArrowRight',
       text: 'Approach clearance of 1500mm on the pull side of doors.',
-      detail: 'A wheelchair user needs space to position themselves, reach the handle, and pull the door open while moving backwards. The pull side needs at least 1500mm clear depth from the door.',
+      detail: 'A wheelchair user needs space to position themselves, reach the handle and pull the door open while moving backwards. The pull side needs at least 1500mm clear depth from the door.',
       priority: 5
     }
   ],
@@ -2739,13 +2739,13 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 13',
-      requirement: 'Doors on accessible paths of travel must have lever or D-pull hardware at 900-1100mm, maximum 20N opening force, minimum 850mm clear width, and compliant approach clearances.'
+      requirement: 'Doors on accessible paths of travel must have lever or D-pull hardware at 900-1100mm, maximum 20N opening force, minimum 850mm clear width and compliant approach clearances.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires all doors on accessible paths to meet AS1428.1 requirements in new and significantly renovated buildings.' },
       { code: 'NCC', relevance: 'References AS1428.1 door requirements for all public building classes.' }
     ],
-    plainEnglish: 'Every door on the accessible path must have lever handles (not round knobs), be easy to push or pull open, be wide enough for a wheelchair, and have enough space to manoeuvre on both sides.',
+    plainEnglish: 'Every door on the accessible path must have lever handles (not round knobs), be easy to push or pull open, be wide enough for a wheelchair and have enough space to manoeuvre on both sides.',
     complianceNote: 'Replacing door hardware is one of the cheapest and most effective accessibility improvements. It is almost always a reasonable adjustment under the DDA.'
   },
 
@@ -2817,7 +2817,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Complete requirements for accessible door design including width, hardware, force, and approach clearances.',
+      description: 'Complete requirements for accessible door design including width, hardware, force and approach clearances.',
       isAustralian: true,
       isFree: false
     },
@@ -2826,7 +2826,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Australian Standard requirements for accessible door hardware, force, and clearance.',
+      description: 'Australian Standard requirements for accessible door hardware, force and clearance.',
       isAustralian: true,
       isFree: true
     }
@@ -2850,11 +2850,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Internal Stairs',
   coveredQuestionIds: ['2.3-D-26', '2.3-D-27', '2.3-D-28'],
-  summary: 'Internal stairs need the same four safety features as entrance stairs: handrails on both sides, contrasting nosing strips on every step, enclosed risers, and TGSIs at top and bottom.',
+  summary: 'Internal stairs need the same four safety features as entrance stairs: handrails on both sides, contrasting nosing strips on every step, enclosed risers and TGSIs at top and bottom.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Internal stairs are one of the most common locations for falls in public buildings. A single missing handrail, an invisible step edge, or an open riser can cause a serious injury. People with one-sided weakness, balance disorders, or vision impairment are at greatest risk, but anyone carrying items, wearing bifocals, or rushing can fall. The four safety features (handrails, nosings, enclosed risers, TGSIs) work together as a system. Removing any one element significantly increases risk.',
+    text: 'Internal stairs are one of the most common locations for falls in public buildings. A single missing handrail, an invisible step edge or an open riser can cause a serious injury. People with one-sided weakness, balance disorders or vision impairment are at greatest risk, but anyone carrying items, wearing bifocals or rushing can fall. The four safety features (handrails, nosings, enclosed risers, TGSIs) work together as a system. Removing any one element significantly increases risk.',
     statistic: {
       value: '20%',
       context: 'of stair fall injuries in public buildings occur because there is no handrail or only one handrail present.',
@@ -2884,7 +2884,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Enclosed risers with no open gaps.',
-      detail: 'Open risers catch cane tips, small wheels, and shoe toes. Even a 15mm gap can trap a cane tip. All risers on public stairs should be solid.',
+      detail: 'Open risers catch cane tips, small wheels and shoe toes. Even a 15mm gap can trap a cane tip. All risers on public stairs should be solid.',
       priority: 4
     },
     {
@@ -2922,21 +2922,21 @@ export const gettingInHelp: HelpContent[] = [
   standardsReference: {
     primary: {
       code: 'AS1428.1',
-      section: 'Sections 9, 11, and 12',
-      requirement: 'Internal stairs on accessible paths must have handrails on both sides (865-1000mm), contrasting nosing strips on every step, enclosed risers, and 300mm handrail extensions.'
+      section: 'Sections 9, 11 and 12',
+      requirement: 'Internal stairs on accessible paths must have handrails on both sides (865-1000mm), contrasting nosing strips on every step, enclosed risers and 300mm handrail extensions.'
     },
     related: [
-      { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at stairs including dimensions, layout, and luminance contrast.' },
+      { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at stairs including dimensions, layout and luminance contrast.' },
       { code: 'NCC', relevance: 'Requires stairs in all public building classes to comply with AS1428.1.' }
     ],
-    plainEnglish: 'Every internal staircase needs handrails on both sides, a visible contrast strip on every step edge, no open gaps between steps, and textured warning indicators at the top and bottom.',
-    complianceNote: 'Adding a second handrail, nosing strips, and TGSIs to existing stairs is almost always feasible and cost-effective. These are considered reasonable adjustments under the DDA.'
+    plainEnglish: 'Every internal staircase needs handrails on both sides, a visible contrast strip on every step edge, no open gaps between steps and textured warning indicators at the top and bottom.',
+    complianceNote: 'Adding a second handrail, nosing strips and TGSIs to existing stairs is almost always feasible and cost-effective. These are considered reasonable adjustments under the DDA.'
   },
 
   solutions: [
     {
       title: 'Install handrails on both sides',
-      description: 'Add a second handrail where only one exists, or install handrails on both sides of unrailed stairs.',
+      description: 'Add a second handrail where only one exists or install handrails on both sides of unrailed stairs.',
       resourceLevel: 'medium',
       costRange: '$600-3,000 per staircase',
       timeRequired: '1-2 days',
@@ -2995,7 +2995,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'attraction',
       businessTypeLabel: 'Gallery',
       scenario: 'A gallery had a single handrail on the right side of the main staircase between exhibition levels. Left-handed visitors and those with right-sided weakness had no support.',
-      solution: 'Installed a matching handrail on the left side with correct height, profile, and extensions. Added nosing strips to all 12 steps.',
+      solution: 'Installed a matching handrail on the left side with correct height, profile and extensions. Added nosing strips to all 12 steps.',
       outcome: 'Visitor confidence on the stairs visibly improved. The gallery received positive feedback from disability advocacy groups.',
       cost: '$1,400',
       timeframe: '1 day'
@@ -3050,11 +3050,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Internal Ramps',
   coveredQuestionIds: ['2.3-D-29', '2.3-D-30'],
-  summary: 'Internal ramps steeper than 1:20 must have handrails on both sides, comply with gradient limits, and have TGSIs at top and bottom.',
+  summary: 'Internal ramps steeper than 1:20 must have handrails on both sides, comply with gradient limits and have TGSIs at top and bottom.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'A ramp without handrails is hazardous for anyone with balance issues, reduced strength, or limited mobility. People with one-sided weakness need the handrail on their usable side, which means handrails must be on both sides. Wheelchair users may need to grab the handrail if they lose momentum going up or need to slow their descent. Internal ramps are often overlooked because they seem less dramatic than stairs, but they present real risks when gradient is too steep or handrails are absent.',
+    text: 'A ramp without handrails is hazardous for anyone with balance issues, reduced strength or limited mobility. People with one-sided weakness need the handrail on their usable side, which means handrails must be on both sides. Wheelchair users may need to grab the handrail if they lose momentum going up or need to slow their descent. Internal ramps are often overlooked because they seem less dramatic than stairs, but they present real risks when gradient is too steep or handrails are absent.',
     quote: {
       text: 'The ramp in the restaurant was so steep I could not push myself up. I had to ask a stranger for help. That is not independence.',
       attribution: 'Wheelchair user, disability advocacy forum'
@@ -3119,13 +3119,13 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Sections 10-12',
-      requirement: 'Ramps steeper than 1:20 on accessible paths of travel must have handrails on both sides (865-1000mm), maximum 1:14 gradient for new construction, and edge protection.'
+      requirement: 'Ramps steeper than 1:20 on accessible paths of travel must have handrails on both sides (865-1000mm), maximum 1:14 gradient for new construction and edge protection.'
     },
     related: [
       { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at the top and bottom of ramps.' },
       { code: 'NCC', relevance: 'References AS1428.1 ramp requirements for all public building classes.' }
     ],
-    plainEnglish: 'Any ramp with a noticeable slope (steeper than 1:20) needs handrails on both sides, must not be too steep, and must have textured warning indicators at the top and bottom.',
+    plainEnglish: 'Any ramp with a noticeable slope (steeper than 1:20) needs handrails on both sides, must not be too steep and must have textured warning indicators at the top and bottom.',
     complianceNote: 'Internal ramps are frequently non-compliant in older buildings. Adding handrails and TGSIs is usually feasible and cost-effective.'
   },
 
@@ -3186,7 +3186,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Complete requirements for ramp gradient, width, handrails, and edge protection on accessible paths.',
+      description: 'Complete requirements for ramp gradient, width, handrails and edge protection on accessible paths.',
       isAustralian: true,
       isFree: false
     },
@@ -3218,11 +3218,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Lifts and Escalators',
   coveredQuestionIds: ['2.3-D-17', '2.3-D-31', '2.3-D-32'],
-  summary: 'Internal lifts must have accessible dimensions, controls at wheelchair height with Braille, audible and visual floor indicators, and be operable independently. Escalators must always have an accessible alternative, with TGSIs at top and bottom.',
+  summary: 'Internal lifts must have accessible dimensions, controls at wheelchair height with Braille, audible and visual floor indicators and be operable independently. Escalators must always have an accessible alternative, with TGSIs at top and bottom.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'For wheelchair users and many others, the lift is the only way between levels. If the lift is too small, has unreachable buttons, or requires staff assistance, independence is compromised. People who are blind need Braille and audio announcements to know which button to press and which floor they have reached. People who are Deaf need visual displays. Escalators exclude most people with disability, so an accessible alternative must always be available and clearly signed.',
+    text: 'For wheelchair users and many others, the lift is the only way between levels. If the lift is too small, has unreachable buttons or requires staff assistance, independence is compromised. People who are blind need Braille and audio announcements to know which button to press and which floor they have reached. People who are Deaf need visual displays. Escalators exclude most people with disability, so an accessible alternative must always be available and clearly signed.',
     statistic: {
       value: '15%',
       context: 'of Australians aged 65 and over use a mobility aid. For them, a working, accessible lift is the difference between accessing all levels of your venue or being confined to one floor.',
@@ -3234,7 +3234,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Maximize',
       text: 'Lift car minimum 1100mm x 1400mm, door minimum 900mm.',
-      detail: 'These minimum dimensions accommodate a standard wheelchair. Larger lifts (1600mm x 1400mm) are better for powered wheelchairs, scooters, and users with assistance animals.',
+      detail: 'These minimum dimensions accommodate a standard wheelchair. Larger lifts (1600mm x 1400mm) are better for powered wheelchairs, scooters and users with assistance animals.',
       priority: 1
     },
     {
@@ -3298,20 +3298,20 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 15',
-      requirement: 'Passenger lifts on accessible paths must meet minimum dimensions, control height with Braille, audible/visual indicators, and mirror requirements.'
+      requirement: 'Passenger lifts on accessible paths must meet minimum dimensions, control height with Braille, audible/visual indicators and mirror requirements.'
     },
     related: [
       { code: 'AS1428.4.1', relevance: 'Specifies TGSI requirements at escalators.' },
       { code: 'NCC', relevance: 'References AS1428.1 and AS1735.12 for lift requirements in all public buildings.' }
     ],
-    plainEnglish: 'Lifts must be big enough for a wheelchair, have controls you can reach and read by touch, announce floors by voice, and have a mirror so wheelchair users can see behind them. Escalators must have a lift or ramp alternative with clear signs.',
-    complianceNote: 'Upgrading an existing lift with Braille, audio, a lower panel, and a mirror is significantly cheaper than replacing the lift entirely and is a reasonable adjustment under the DDA.'
+    plainEnglish: 'Lifts must be big enough for a wheelchair, have controls you can reach and read by touch, announce floors by voice and have a mirror so wheelchair users can see behind them. Escalators must have a lift or ramp alternative with clear signs.',
+    complianceNote: 'Upgrading an existing lift with Braille, audio, a lower panel and a mirror is significantly cheaper than replacing the lift entirely and is a reasonable adjustment under the DDA.'
   },
 
   solutions: [
     {
       title: 'Upgrade existing lift accessibility features',
-      description: 'Add Braille markers, a secondary lower control panel, audio announcements, and a rear-wall mirror to an existing lift.',
+      description: 'Add Braille markers, a secondary lower control panel, audio announcements and a rear-wall mirror to an existing lift.',
       resourceLevel: 'medium',
       costRange: '$1,000-4,000',
       timeRequired: '1-3 days',
@@ -3353,9 +3353,9 @@ export const gettingInHelp: HelpContent[] = [
     {
       businessType: 'retail',
       businessTypeLabel: 'Department Store',
-      scenario: 'A department store had a 1990s lift with buttons at 1400mm, no Braille, no audio, and no mirror. Wheelchair users could not reach the upper buttons independently.',
-      solution: 'Installed a lower control panel at 1000mm with Braille, added an audio announcement module, and fitted a rear-wall mirror.',
-      outcome: 'Wheelchair users can now operate the lift independently. The upgrades also benefited parents with prams, people carrying bags, and children.',
+      scenario: 'A department store had a 1990s lift with buttons at 1400mm, no Braille, no audio and no mirror. Wheelchair users could not reach the upper buttons independently.',
+      solution: 'Installed a lower control panel at 1000mm with Braille, added an audio announcement module and fitted a rear-wall mirror.',
+      outcome: 'Wheelchair users can now operate the lift independently. The upgrades also benefited parents with prams, people carrying bags and children.',
       cost: '$3,200',
       timeframe: '2 days'
     },
@@ -3385,7 +3385,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://humanrights.gov.au/our-work/disability-rights/premises-standards',
       type: 'guide',
       source: 'AHRC',
-      description: 'Federal guidance on lift access including dimensions, controls, Braille, and audio features.',
+      description: 'Federal guidance on lift access including dimensions, controls, Braille and audio features.',
       isAustralian: true,
       isFree: true
     }
@@ -3409,11 +3409,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Queue Layout and Physical Access',
   coveredQuestionIds: ['2.4-D-8', '2.4-D-10', '2.4-D-11', '2.4-D-12'],
-  summary: 'Covers the physical aspects of queuing: layout width for wheelchairs, maintaining clear paths during busy periods, providing seating, ensuring barriers are visible, and keeping queue area floor surfaces safe.',
+  summary: 'Covers the physical aspects of queuing: layout width for wheelchairs, maintaining clear paths during busy periods, providing seating, ensuring barriers are visible and keeping queue area floor surfaces safe.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'A queue that works for ambulant people can be a complete barrier for wheelchair users if stanchion spacing is too narrow, turns are too tight, or the floor is uneven. During busy periods, queues spill into pathways, blocking access to other parts of the venue. People with fatigue conditions, chronic pain, or balance disorders need seating while they wait. Barriers that blend into the floor are invisible to people with low vision.',
+    text: 'A queue that works for ambulant people can be a complete barrier for wheelchair users if stanchion spacing is too narrow, turns are too tight or the floor is uneven. During busy periods, queues spill into pathways, blocking access to other parts of the venue. People with fatigue conditions, chronic pain or balance disorders need seating while they wait. Barriers that blend into the floor are invisible to people with low vision.',
     statistic: {
       value: '60%',
       context: 'of accessibility complaints in retail and hospitality relate to temporary obstructions and queue layouts rather than permanent building features.',
@@ -3437,25 +3437,25 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Maintain pathway access during busy periods.',
-      detail: 'When queues grow, they must not block the main accessible path through your venue. Use queue management (stanchions, staff) to contain the queue without blocking doorways, corridors, or fire exits.',
+      detail: 'When queues grow, they must not block the main accessible path through your venue. Use queue management (stanchions, staff) to contain the queue without blocking doorways, corridors or fire exits.',
       priority: 3
     },
     {
       icon: 'Square',
       text: 'Provide seating with armrests in the queue area.',
-      detail: 'Standing for extended periods is painful or impossible for many people. Place seats at regular intervals along the queue, or provide a seated waiting area with a call-forward system.',
+      detail: 'Standing for extended periods is painful or impossible for many people. Place seats at regular intervals along the queue or provide a seated waiting area with a call-forward system.',
       priority: 4
     },
     {
       icon: 'Eye',
       text: 'Queue barriers must be visible for people with low vision.',
-      detail: 'Stanchions, ropes, and retractable belts should contrast with the floor and walls. Clear or grey ropes on grey carpet are invisible to people with low vision.',
+      detail: 'Stanchions, ropes and retractable belts should contrast with the floor and walls. Clear or grey ropes on grey carpet are invisible to people with low vision.',
       priority: 5
     },
     {
       icon: 'Layers',
-      text: 'Queue area floor must be firm, level, and slip-resistant.',
-      detail: 'Uneven floors, thick mats, and slippery surfaces in queue areas are hazardous, especially for people using canes, walkers, or wheelchairs.',
+      text: 'Queue area floor must be firm, level and slip-resistant.',
+      detail: 'Uneven floors, thick mats and slippery surfaces in queue areas are hazardous, especially for people using canes, walkers or wheelchairs.',
       priority: 6
     }
   ],
@@ -3468,10 +3468,10 @@ export const gettingInHelp: HelpContent[] = [
         measurement: { target: 'Queue width', acceptable: 'Minimum 1000mm (1500mm preferred)', unit: 'mm' }
       },
       { text: 'Check turning space at every direction change in the queue (minimum 1500mm diameter).' },
-      { text: 'Visit during a peak period and check whether the queue blocks accessible paths, doorways, or fire exits.' },
+      { text: 'Visit during a peak period and check whether the queue blocks accessible paths, doorways or fire exits.' },
       { text: 'Check for seating in or adjacent to the queue area.' },
       { text: 'Check barrier visibility: can you see stanchions and ropes clearly, especially from a low eye height (wheelchair level)?' },
-      { text: 'Check floor surface in the queue area for level changes, loose mats, or slippery patches.' }
+      { text: 'Check floor surface in the queue area for level changes, loose mats or slippery patches.' }
     ],
     tools: ['Tape measure', 'Camera', 'Notepad'],
     estimatedTime: '15-20 minutes'
@@ -3481,20 +3481,20 @@ export const gettingInHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 7',
-      requirement: 'Accessible paths of travel (including queuing areas) must have minimum 1000mm width, be free of obstructions, and have firm, slip-resistant surfaces.'
+      requirement: 'Accessible paths of travel (including queuing areas) must have minimum 1000mm width, be free of obstructions and have firm, slip-resistant surfaces.'
     },
     related: [
       { code: 'DDA', relevance: 'Requires that services be provided without discrimination. An inaccessible queue is a barrier to service.' },
       { code: 'Access-to-Premises', relevance: 'Queue areas within a building must maintain accessible path of travel requirements.' }
     ],
-    plainEnglish: 'Queue areas must be wide enough for wheelchairs, have turning space at corners, not block other pathways during busy times, have visible barriers, and keep floors safe.',
+    plainEnglish: 'Queue areas must be wide enough for wheelchairs, have turning space at corners, not block other pathways during busy times, have visible barriers and keep floors safe.',
     complianceNote: 'Queue layout is a service delivery issue under the DDA. Even if the building itself is compliant, a poorly designed queue can create discrimination.'
   },
 
   solutions: [
     {
       title: 'Widen stanchion spacing and simplify layout',
-      description: 'Reorganise queue stanchions to create wider lanes and simpler turning points, and add a bypass for wheelchair users.',
+      description: 'Reorganise queue stanchions to create wider lanes and simpler turning points and add a bypass for wheelchair users.',
       resourceLevel: 'low',
       costRange: '$0-100',
       timeRequired: '1-2 hours',
@@ -3505,7 +3505,7 @@ export const gettingInHelp: HelpContent[] = [
         'Move stanchions to achieve minimum 1000mm spacing (1500mm preferred) throughout the queue.',
         'Eliminate unnecessary turns. A simpler layout is faster for everyone and easier for wheelchair users.',
         'Ensure 1500mm turning space at every remaining direction change.',
-        'Replace low-contrast barriers (clear or grey ropes) with high-contrast alternatives (bright red, blue, or black).',
+        'Replace low-contrast barriers (clear or grey ropes) with high-contrast alternatives (bright red, blue or black).',
         'Test the new layout by pushing an office chair through it.'
       ],
       notes: 'This is often free since it only requires moving existing stanchions. Staff can do it during a quiet period.'
@@ -3526,7 +3526,7 @@ export const gettingInHelp: HelpContent[] = [
         'Train all staff to respond promptly to bypass requests without requiring proof of disability.',
         'During peak periods, assign a staff member to monitor the bypass.'
       ],
-      notes: 'The bypass benefits not only wheelchair users but also parents with prams, people with invisible disabilities, and older customers.'
+      notes: 'The bypass benefits not only wheelchair users but also parents with prams, people with invisible disabilities and older customers.'
     }
   ],
 
@@ -3599,7 +3599,7 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Queue Communication and Signage',
   coveredQuestionIds: ['2.4-D-7', '2.4-D-9', '2.4-D-13', '2.4-D-16'],
-  summary: 'Covers the communication side of queuing: signage offering assistance, communicating wait times visually and audibly, providing pre-visit queue information, and ensuring announcements reach people who are Deaf or hard of hearing.',
+  summary: 'Covers the communication side of queuing: signage offering assistance, communicating wait times visually and audibly, providing pre-visit queue information and ensuring announcements reach people who are Deaf or hard of hearing.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
@@ -3644,7 +3644,7 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'Users',
       text: 'Train staff to offer queue assistance proactively.',
-      detail: 'Staff should approach anyone who appears to be struggling in the queue and offer alternatives, rather than waiting to be asked. This includes people using mobility aids, parents with prams, and people who seem confused or distressed.',
+      detail: 'Staff should approach anyone who appears to be struggling in the queue and offer alternatives, rather than waiting to be asked. This includes people using mobility aids, parents with prams and people who seem confused or distressed.',
       priority: 6
     }
   ],
@@ -3652,7 +3652,7 @@ export const gettingInHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing queue communication',
     steps: [
-      { text: 'Check for assistance signage at all queue entry points. Is it visible, high-contrast, and at an accessible height (1200-1600mm)?' },
+      { text: 'Check for assistance signage at all queue entry points. Is it visible, high-contrast and at an accessible height (1200-1600mm)?' },
       { text: 'Check whether current wait times are displayed visually.' },
       { text: 'Check your website for queue and busy period information.' },
       { text: 'Stand at the back of the queue during a busy period. Can you hear verbal announcements? Can you see a visual display?' },
@@ -3670,9 +3670,9 @@ export const gettingInHelp: HelpContent[] = [
     },
     related: [
       { code: 'AS1428.5', relevance: 'Specifies requirements for communication for people who are Deaf or hard of hearing, including hearing loops and visual displays.' },
-      { code: 'AS1428.1', relevance: 'Section 8 covers signage requirements including contrast, positioning, and symbols.' }
+      { code: 'AS1428.1', relevance: 'Section 8 covers signage requirements including contrast, positioning and symbols.' }
     ],
-    plainEnglish: 'You must communicate queue information in ways that everyone can access: visual displays for people who cannot hear, audio for people who cannot see, and clear signage offering assistance.',
+    plainEnglish: 'You must communicate queue information in ways that everyone can access: visual displays for people who cannot hear, audio for people who cannot see and clear signage offering assistance.',
     complianceNote: 'Providing queue assistance signage is free. Adding a visual display can cost as little as $10 for a whiteboard. These are among the most affordable accessibility improvements.'
   },
 
@@ -3686,8 +3686,8 @@ export const gettingInHelp: HelpContent[] = [
       implementedBy: 'diy',
       impact: 'quick-win',
       steps: [
-        'Design a sign with: ISA symbol, high-contrast text (dark on light or light on dark), and text reading "If you need assistance with queuing, please ask a team member."',
-        'Print at A4 or A3 size and laminate, or order a permanent sign.',
+        'Design a sign with: ISA symbol, high-contrast text (dark on light or light on dark) and text reading "If you need assistance with queuing, please ask a team member."',
+        'Print at A4 or A3 size and laminate or order a permanent sign.',
         'Mount at every queue entry point at 1200-1500mm height.',
         'If a call button is available, include its location on the sign.',
         'Train all staff on the assistance procedure so they can respond promptly.',
@@ -3724,7 +3724,7 @@ export const gettingInHelp: HelpContent[] = [
       steps: [
         'Purchase a basic LED number display (available from $50-150 online) or a small TV/monitor.',
         'Mount the display at 1200-1600mm height, visible from the entire waiting area.',
-        'Connect to your queue management system, or manually update when calling each customer.',
+        'Connect to your queue management system or manually update when calling each customer.',
         'Ensure the display numbers are large enough to read from the back of the waiting area (minimum 75mm character height).',
         'Add a sign beside the display explaining the system: "Watch for your number on the screen."',
         'Test from the farthest point in the waiting area.'
@@ -3738,7 +3738,7 @@ export const gettingInHelp: HelpContent[] = [
       businessType: 'health-wellness',
       businessTypeLabel: 'Pharmacy',
       scenario: 'A pharmacy had no queue assistance signage and called customers by name. Customers with hearing loss frequently missed their turn.',
-      solution: 'Installed ISA queue assistance signs, a call button at the counter, and a small LED number display. Customers now take a numbered ticket and watch the screen.',
+      solution: 'Installed ISA queue assistance signs, a call button at the counter and a small LED number display. Customers now take a numbered ticket and watch the screen.',
       outcome: 'No more missed turns. Customer satisfaction improved across the board, not just for those with hearing loss.',
       cost: '$120 total',
       timeframe: '2 hours'
@@ -3769,7 +3769,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.visionaustralia.org/business-consulting/digital-access/accessible-signage',
       type: 'guide',
       source: 'Vision Australia',
-      description: 'Specialist guide to accessible signage design including contrast, symbols, and positioning.',
+      description: 'Specialist guide to accessible signage design including contrast, symbols and positioning.',
       isAustralian: true,
       isFree: true
     },
@@ -3787,7 +3787,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.hearing.com.au/hearing-health/hearing-aids/hearing-loops',
       type: 'guide',
       source: 'Hearing Australia',
-      description: 'Information about hearing loop technology, benefits, and installation for service counters.',
+      description: 'Information about hearing loop technology, benefits and installation for service counters.',
       isAustralian: true,
       isFree: true
     }
@@ -3811,11 +3811,11 @@ export const gettingInHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Priority Access and Companion Card',
   coveredQuestionIds: ['2.4-D-14', '2.4-D-15'],
-  summary: 'Covers alternative queue systems (numbered tickets, SMS notifications, virtual queues), documented priority access policies, and Companion Card recognition.',
+  summary: 'Covers alternative queue systems (numbered tickets, SMS notifications, virtual queues), documented priority access policies and Companion Card recognition.',
   lastUpdated: '2026-02-25',
 
   whyItMatters: {
-    text: 'Standing in a queue for extended periods can be painful, exhausting, or physically impossible for many people with disability. Conditions such as chronic pain, fatigue syndromes, cardiovascular disease, and joint disorders make prolonged standing a significant barrier. Alternative arrangements let people wait comfortably until their turn. The Companion Card program, active in all Australian states and territories, provides free or discounted entry for a companion or carer who is needed for participation. Without recognising Companion Card, venues impose a financial penalty on disability.',
+    text: 'Standing in a queue for extended periods can be painful, exhausting or physically impossible for many people with disability. Conditions such as chronic pain, fatigue syndromes, cardiovascular disease and joint disorders make prolonged standing a significant barrier. Alternative arrangements let people wait comfortably until their turn. The Companion Card program, active in all Australian states and territories, provides free or discounted entry for a companion or carer who is needed for participation. Without recognising Companion Card, venues impose a financial penalty on disability.',
     statistic: {
       value: '2.1 million',
       context: 'Australians have a physical condition restricting mobility. Many cannot stand in queues for more than a few minutes without pain or risk of falls.',
@@ -3839,13 +3839,13 @@ export const gettingInHelp: HelpContent[] = [
     {
       icon: 'FileText',
       text: 'Document your priority access system on your website and in booking confirmations.',
-      detail: 'Write a clear statement of your priority access policy. Publish it on your accessibility page, in booking confirmation emails, and on signage at the venue. Example: "We offer priority access for customers with disability. Please ask a team member or call ahead."',
+      detail: 'Write a clear statement of your priority access policy. Publish it on your accessibility page, in booking confirmation emails and on signage at the venue. Example: "We offer priority access for customers with disability. Please ask a team member or call ahead."',
       priority: 3
     },
     {
       icon: 'Shield',
       text: 'Do not require proof of disability for queue assistance.',
-      detail: 'Many disabilities are invisible. Requiring an ACROD permit, medical letter, or other proof creates an unnecessary barrier and can be humiliating. Trust customers who request assistance.',
+      detail: 'Many disabilities are invisible. Requiring an ACROD permit, medical letter or other proof creates an unnecessary barrier and can be humiliating. Trust customers who request assistance.',
       priority: 4
     },
     {
@@ -3865,7 +3865,7 @@ export const gettingInHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing priority access and Companion Card',
     steps: [
-      { text: 'Check for queue alternatives at every service point: take-a-number, SMS, virtual queue, or booking options.' },
+      { text: 'Check for queue alternatives at every service point: take-a-number, SMS, virtual queue or booking options.' },
       { text: 'Check your website for priority access information. Is it easy to find? Is it clear and specific?' },
       { text: 'Call your venue as a customer and ask about priority access for someone with a disability. Assess the response.' },
       { text: 'Check your Companion Card registration status. Is the logo displayed at the entrance and on your website?' },
@@ -3910,14 +3910,14 @@ export const gettingInHelp: HelpContent[] = [
     },
     {
       title: 'Document and publish your priority access procedure',
-      description: 'Create a clear written priority access policy and make it available on your website, in booking confirmations, and on signage at the venue.',
+      description: 'Create a clear written priority access policy and make it available on your website, in booking confirmations and on signage at the venue.',
       resourceLevel: 'low',
       costRange: 'Free',
       timeRequired: '1-2 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Write a clear priority access statement. Example: "We welcome customers with disability and offer priority access to reduce wait times. Please ask any team member, call ahead on [number], or press the assistance button at the queue entrance."',
+        'Write a clear priority access statement. Example: "We welcome customers with disability and offer priority access to reduce wait times. Please ask any team member, call ahead on [number] or press the assistance button at the queue entrance."',
         'Publish the statement on your website\'s accessibility page.',
         'Include it in booking confirmation emails.',
         'Print and display at the venue entrance and at queue entry points.',
@@ -3953,7 +3953,7 @@ export const gettingInHelp: HelpContent[] = [
       businessTypeLabel: 'Cafe',
       scenario: 'A popular brunch cafe had 30-minute weekend waits with no seating in the queue area. Customers with mobility conditions could not wait.',
       solution: 'Implemented a virtual queue using a free app (Waitwhile). Customers add their name via phone or at the host stand and receive an SMS when their table is ready.',
-      outcome: 'Customers can now wait in their car, on a nearby bench, or anywhere comfortable. Walk-away rate dropped 40% and overall customer satisfaction increased.',
+      outcome: 'Customers can now wait in their car, on a nearby bench or anywhere comfortable. Walk-away rate dropped 40% and overall customer satisfaction increased.',
       cost: 'Free (app is free for up to 100 customers/month)',
       timeframe: '1 hour to set up'
     },
@@ -3983,7 +3983,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.waitwhile.com/',
       type: 'tool',
       source: 'Waitwhile',
-      description: 'Free virtual queue and waitlist management platform for businesses. Customers join via phone, web, or in person and receive SMS notifications.',
+      description: 'Free virtual queue and waitlist management platform for businesses. Customers join via phone, web or in person and receive SMS notifications.',
       isAustralian: false,
       isFree: true
     },
@@ -4010,7 +4010,7 @@ export const gettingInHelp: HelpContent[] = [
       url: 'https://www.companioncard.gov.au/',
       type: 'website',
       source: 'Companion Card Australia',
-      description: 'National portal for Companion Card information, affiliate registration, and state/territory program links.',
+      description: 'National portal for Companion Card information, affiliate registration and state/territory program links.',
       isAustralian: true,
       isFree: true
     }

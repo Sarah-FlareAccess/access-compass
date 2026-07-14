@@ -17,11 +17,11 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Accessible Toilet Essentials',
   coveredQuestionIds: ['3.2-1-2', '3.2-1-4'],
-  summary: 'An accessible toilet is often the single biggest factor in whether someone can visit your venue. It is not simply a large toilet. It is a purpose-built facility with specific dimensions, grab rails, clear floor space for wheelchair transfer, and step-free entry. If you do not have one on-site, you must know where the nearest one is and be able to direct visitors to it.',
+  summary: 'An accessible toilet is often the single biggest factor in whether someone can visit your venue. It is not simply a large toilet. It is a purpose-built facility with specific dimensions, grab rails, clear floor space for wheelchair transfer and step-free entry. If you do not have one on-site, you must know where the nearest one is and be able to direct visitors to it.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Without an accessible toilet, many people with disability will limit their visit to under an hour, or not come at all. This includes wheelchair users, people with stomas, those who need carer assistance, and anyone with continence issues. Keeping the accessible toilet free of storage, cleaning equipment, or boxes is just as important as having one. A blocked or cluttered accessible toilet is effectively no accessible toilet at all.',
+    text: 'Without an accessible toilet, many people with disability will limit their visit to under an hour or not come at all. This includes wheelchair users, people with stomas, those who need carer assistance and anyone with continence issues. Keeping the accessible toilet free of storage, cleaning equipment or boxes is just as important as having one. A blocked or cluttered accessible toilet is effectively no accessible toilet at all.',
     statistic: {
       value: '4.4 million',
       context: 'Australians have a disability. Accessible toilets are a basic requirement for participation in community life.',
@@ -45,7 +45,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     {
       icon: 'CircleAlert',
       text: 'Never use the accessible toilet for storage.',
-      detail: 'Mops, high chairs, spare stock, and cleaning carts must be stored elsewhere. Do a weekly check.',
+      detail: 'Mops, high chairs, spare stock and cleaning carts must be stored elsewhere. Do a weekly check.',
       priority: 3
     },
     {
@@ -57,7 +57,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     {
       icon: 'Accessibility',
       text: 'The toilet must be on an accessible path of travel from your main areas.',
-      detail: 'A toilet behind a heavy fire door, up a step, or through a narrow corridor is not effectively accessible.',
+      detail: 'A toilet behind a heavy fire door, up a step or through a narrow corridor is not effectively accessible.',
       priority: 5
     }
   ],
@@ -73,8 +73,8 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
         text: 'Measure the internal floor space.',
         measurement: { target: 'Internal dimensions', acceptable: '1900mm x 2300mm (current); 1600mm x 2000mm (older)', unit: 'mm' }
       },
-      { text: 'Check the path from your main area to the toilet: is it step-free, wide enough (min 1000mm), and clearly signed?' },
-      { text: 'Open the door and look inside: is the floor space completely clear of stored items, bins, cleaning gear, or furniture?' },
+      { text: 'Check the path from your main area to the toilet: is it step-free, wide enough (min 1000mm) and clearly signed?' },
+      { text: 'Open the door and look inside: is the floor space completely clear of stored items, bins, cleaning gear or furniture?' },
       { text: 'Try the door handle and lock from inside, ideally from a seated position. Can it be operated with one hand?' },
       { text: 'Check if the toilet is listed on the National Public Toilet Map (toiletmap.gov.au) if it is available to the public.' }
     ],
@@ -86,20 +86,20 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 15',
-      requirement: 'Where sanitary facilities are provided, at least one accessible unisex toilet must be provided. It must meet specific dimensional, grab rail, and fixture requirements.'
+      requirement: 'Where sanitary facilities are provided, at least one accessible unisex toilet must be provided. It must meet specific dimensional, grab rail and fixture requirements.'
     },
     related: [
       { code: 'Access-to-Premises', relevance: 'Requires accessible sanitary facilities in all buildings to which the public has access, with specific ratios for larger buildings.' },
       { code: 'NCC', relevance: 'National Construction Code references AS 1428.1 for accessible toilet design requirements in new buildings and major renovations.' }
     ],
-    plainEnglish: 'If your venue has toilets for visitors, at least one must be fully accessible. It must be large enough for a wheelchair, have grab rails, and be on a step-free path.',
+    plainEnglish: 'If your venue has toilets for visitors, at least one must be fully accessible. It must be large enough for a wheelchair, have grab rails and be on a step-free path.',
     complianceNote: 'Even if your building predates the current standard, the DDA may require you to make reasonable adjustments to provide accessible toilet facilities.'
   },
 
   solutions: [
     {
       title: 'Clear and maintain the existing accessible toilet',
-      description: 'Remove all stored items, add a weekly check to your cleaning roster, and post a small notice on the door asking staff not to store items inside.',
+      description: 'Remove all stored items, add a weekly check to your cleaning roster and post a small notice on the door asking staff not to store items inside.',
       resourceLevel: 'low',
       costRange: 'Free',
       timeRequired: '30 minutes',
@@ -150,7 +150,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     {
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Cafe',
-      scenario: 'A popular cafe had an accessible toilet that was regularly filled with highchairs, mop buckets, and a spare fridge.',
+      scenario: 'A popular cafe had an accessible toilet that was regularly filled with highchairs, mop buckets and a spare fridge.',
       solution: 'Relocated storage to a small cupboard under the stairs. Added a laminated sign inside the door: "This is an accessible toilet. Please do not store items here." Added a weekly check to the cleaning roster.',
       outcome: 'Wheelchair-using customers could actually use the toilet for the first time. Staff awareness improved across the board.',
       cost: 'Free'
@@ -180,7 +180,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Australian Standard covering accessible toilet requirements including dimensions, fixtures, and grab rails.',
+      description: 'Australian Standard covering accessible toilet requirements including dimensions, fixtures and grab rails.',
       isAustralian: true,
       isFree: true
     }
@@ -213,11 +213,11 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Layout, Transfer Space and Grab Rails',
   coveredQuestionIds: ['3.2-D-9', '3.2-D-13'],
-  summary: 'Grab rails, adequate transfer space beside the toilet, and a backrest are the three elements that make a wheelchair-to-toilet transfer possible. Without them, the toilet is unusable for many wheelchair users regardless of how large the room is.',
+  summary: 'Grab rails, adequate transfer space beside the toilet and a backrest are the three elements that make a wheelchair-to-toilet transfer possible. Without them, the toilet is unusable for many wheelchair users regardless of how large the room is.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'A wheelchair user typically transfers sideways onto the toilet. This requires clear space beside the pan (at least 800mm from the centre of the pan to the nearest wall or fixture), a horizontal grab rail to push up from, and a vertical or angled rail to steady themselves during the transfer. A backrest provides trunk support for people who cannot sit unsupported. If any of these are missing, the person may not be able to use the toilet safely.',
+    text: 'A wheelchair user typically transfers sideways onto the toilet. This requires clear space beside the pan (at least 800mm from the centre of the pan to the nearest wall or fixture), a horizontal grab rail to push up from and a vertical or angled rail to steady themselves during the transfer. A backrest provides trunk support for people who cannot sit unsupported. If any of these are missing, the person may not be able to use the toilet safely.',
     quote: {
       text: 'The grab rails are not optional. They are what stops me falling. If one is missing or loose, I cannot use that toilet.',
       attribution: 'Wheelchair user, access audit feedback'
@@ -262,10 +262,10 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
         text: 'Check the fixed grab rail height on the wall side.',
         measurement: { target: 'Grab rail height', acceptable: '800-810mm above floor', unit: 'mm' }
       },
-      { text: 'Grip each rail firmly and try to move it. It should not flex, rotate, or pull away from the wall.' },
+      { text: 'Grip each rail firmly and try to move it. It should not flex, rotate or pull away from the wall.' },
       { text: 'If there is a drop-down rail, test that it locks securely in both the up and down positions.' },
       { text: 'Check for a backrest. If the cistern is flush against the wall, a separate backrest may be needed.' },
-      { text: 'Confirm nothing is stored in the transfer space (bins, cleaning supplies, or signage stands).' }
+      { text: 'Confirm nothing is stored in the transfer space (bins, cleaning supplies or signage stands).' }
     ],
     tools: ['Tape measure', 'Camera for documentation'],
     estimatedTime: '10 minutes'
@@ -309,7 +309,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       implementedBy: 'contractor',
       impact: 'significant',
       steps: [
-        'Confirm the transfer side wall can support the load (solid masonry, timber stud with blocking, or steel frame).',
+        'Confirm the transfer side wall can support the load (solid masonry, timber stud with blocking or steel frame).',
         'Purchase an AS 1428.1-compliant drop-down rail (brands: Bobrick, Gentec, Barben).',
         'Install at 800-810mm height, centred on the toilet pan.',
         'Test the locking mechanism in both positions.',
@@ -376,20 +376,20 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   keywords: ['grab rails', 'transfer space', 'backrest', 'wheelchair transfer', 'drop-down rail'],
 },
 
-// ─── Entry 3: Doors, Taps, and Fittings ───
+// ─── Entry 3: Doors, Taps and Fittings ───
 {
   questionId: '3.2-D-1',
   questionText: 'Are toilet doors easy to open and lock from inside?',
   moduleCode: '3.2',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
-  title: 'Doors, Taps, and Fittings',
+  title: 'Doors, Taps and Fittings',
   coveredQuestionIds: ['3.2-D-4', '3.2-D-5', '3.2-D-6', '3.2-D-10', '3.2-D-11', '3.2-D-12'],
-  summary: 'Every fixture inside an accessible toilet must be usable by someone with limited grip, reach, or fine motor control. This covers the door lock, taps, soap dispensers, hand dryers, bins, washbasin, toilet paper holder, flush button, coat hook, and mirror. If any one fixture is unusable, it undermines the whole facility.',
+  summary: 'Every fixture inside an accessible toilet must be usable by someone with limited grip, reach or fine motor control. This covers the door lock, taps, soap dispensers, hand dryers, bins, washbasin, toilet paper holder, flush button, coat hook and mirror. If any one fixture is unusable, it undermines the whole facility.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Many people with disability have reduced hand strength, limited reach, or use only one hand. A twist-lock they cannot operate means they cannot use the toilet privately. A sensor tap that does not detect their hand means they cannot wash. A toilet paper holder behind their shoulder means they cannot reach it. Every detail matters because the person is in a vulnerable position.',
+    text: 'Many people with disability have reduced hand strength, limited reach or use only one hand. A twist-lock they cannot operate means they cannot use the toilet privately. A sensor tap that does not detect their hand means they cannot wash. A toilet paper holder behind their shoulder means they cannot reach it. Every detail matters because the person is in a vulnerable position.',
     statistic: {
       value: '1.3 million',
       context: 'Australians have a physical condition affecting their upper limbs. Grip-free fixtures benefit all of them.',
@@ -406,7 +406,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     },
     {
       icon: 'Droplets',
-      text: 'Taps: lever, sensor, or push-type. No twist or cross-head taps.',
+      text: 'Taps: lever, sensor or push-type. No twist or cross-head taps.',
       detail: 'Sensor taps are ideal but must detect hands reliably (some struggle with dark skin tones or prosthetics). Lever taps are the most universally reliable.',
       priority: 2
     },
@@ -424,7 +424,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     },
     {
       icon: 'RotateCw',
-      text: 'Flush button, toilet paper, and coat hook must all be reachable from the toilet.',
+      text: 'Flush button, toilet paper and coat hook must all be reachable from the toilet.',
       detail: 'Mount these on the transfer side (not behind the user). Coat hook at 1200mm, toilet paper at 600-700mm height and within arm\'s reach.',
       priority: 5
     },
@@ -451,7 +451,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
         text: 'Check washbasin knee clearance.',
         measurement: { target: 'Knee clearance under basin', acceptable: 'Minimum 600mm from floor', unit: 'mm' }
       },
-      { text: 'From the toilet seat, reach for the flush button, toilet paper, and coat hook. All should be within arm\'s reach without leaning dangerously.' },
+      { text: 'From the toilet seat, reach for the flush button, toilet paper and coat hook. All should be within arm\'s reach without leaning dangerously.' },
       { text: 'Check the mirror: can you see your face from both standing and seated?' },
       { text: 'Open the sanitary bin: is it within reach and operable with one hand?' }
     ],
@@ -463,12 +463,12 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 15',
-      requirement: 'All fixtures in an accessible toilet must be operable with one hand without tight grasping, pinching, or twisting. Washbasins must provide knee and toe clearance. Fittings must be within prescribed reach ranges.'
+      requirement: 'All fixtures in an accessible toilet must be operable with one hand without tight grasping, pinching or twisting. Washbasins must provide knee and toe clearance. Fittings must be within prescribed reach ranges.'
     },
     related: [
       { code: 'AS1428.2', relevance: 'Enhanced provisions recommend additional features including automatic taps and hands-free soap dispensers.' }
     ],
-    plainEnglish: 'Everything in the accessible toilet must work for someone using one hand, from a seated position, without needing to grip or twist. Taps, locks, soap, flush, toilet paper, and hooks all count.',
+    plainEnglish: 'Everything in the accessible toilet must work for someone using one hand, from a seated position, without needing to grip or twist. Taps, locks, soap, flush, toilet paper and hooks all count.',
     complianceNote: 'Replacing non-compliant fixtures (e.g. twist taps, high-mounted soap) is often straightforward and inexpensive. It is one of the highest-impact upgrades you can make.'
   },
 
@@ -489,7 +489,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       ]
     },
     {
-      title: 'Reposition toilet paper, soap, and coat hook within reach',
+      title: 'Reposition toilet paper, soap and coat hook within reach',
       description: 'Move fixtures that are out of reach to positions compliant with AS 1428.1 reach ranges.',
       resourceLevel: 'low',
       costRange: '$50-200',
@@ -527,7 +527,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       businessType: 'restaurant-cafe',
       businessTypeLabel: 'Restaurant',
       scenario: 'A restaurant had an accessible toilet with twist taps and a soap dispenser mounted at 1400mm.',
-      solution: 'Replaced both taps with levers ($160 total), lowered the soap dispenser to 1000mm, and added a paper towel dispenser at 950mm to complement the wall-mounted air dryer that some customers found difficult to use.',
+      solution: 'Replaced both taps with levers ($160 total), lowered the soap dispenser to 1000mm and added a paper towel dispenser at 950mm to complement the wall-mounted air dryer that some customers found difficult to use.',
       outcome: 'Positive feedback from customers with arthritis and wheelchair users. Total spend under $250.',
       cost: '$250'
     },
@@ -535,7 +535,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       businessType: 'local-government',
       businessTypeLabel: 'Library',
       scenario: 'A library accessible toilet had the toilet paper holder behind the user and the mirror mounted at standing height only.',
-      solution: 'Moved the toilet paper holder to the side wall within reach, installed a tilted mirror lower on the wall, and replaced the pinch-type lock with a lever lock.',
+      solution: 'Moved the toilet paper holder to the side wall within reach, installed a tilted mirror lower on the wall and replaced the pinch-type lock with a lever lock.',
       outcome: 'All fixtures now reachable from the toilet. Reported as a model upgrade for other council buildings.',
       cost: '$300'
     }
@@ -565,20 +565,20 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   keywords: ['taps', 'lever', 'door lock', 'soap', 'washbasin', 'toilet paper', 'mirror', 'coat hook', 'flush', 'fittings'],
 },
 
-// ─── Entry 4: Signage, Contrast, and Emergency ───
+// ─── Entry 4: Signage, Contrast and Emergency ───
 {
   questionId: '3.2-1-3',
   questionText: 'Is toilet signage clear, with tactile and Braille elements where required?',
   moduleCode: '3.2',
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
-  title: 'Signage, Contrast, and Emergency Alarm',
+  title: 'Signage, Contrast and Emergency Alarm',
   coveredQuestionIds: ['3.2-1-5', '3.2-D-14'],
   summary: 'Clear signage helps everyone find the toilet. Tactile and Braille signage is essential for people who are blind or have low vision. Visual contrast on surfaces and fittings helps people with low vision use the facility independently. An emergency alarm allows someone who has fallen to call for help.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'People who are blind or have low vision rely on tactile signs (raised text and Braille) at a consistent location beside the door to identify the toilet. Inside, if the grab rails, seat, and flush are the same colour as the walls, a person with low vision cannot locate them. An emergency pull cord or button is a safety requirement: falls in toilets are common, and someone on the floor may not be able to reach a standard call button.',
+    text: 'People who are blind or have low vision rely on tactile signs (raised text and Braille) at a consistent location beside the door to identify the toilet. Inside, if the grab rails, seat and flush are the same colour as the walls, a person with low vision cannot locate them. An emergency pull cord or button is a safety requirement: falls in toilets are common and someone on the floor may not be able to reach a standard call button.',
     statistic: {
       value: '453,000',
       context: 'Australians are blind or have low vision. Contrast and tactile signage are essential for their independence.',
@@ -595,7 +595,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     },
     {
       icon: 'Contrast',
-      text: 'Grab rails, seat, and flush must visually contrast with surrounding surfaces.',
+      text: 'Grab rails, seat and flush must visually contrast with surrounding surfaces.',
       detail: 'A white grab rail on a white wall is invisible to someone with low vision. Use a minimum 30% luminance contrast ratio between the fitting and its background.',
       priority: 2
     },
@@ -608,20 +608,20 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     {
       icon: 'Eye',
       text: 'Door frame should contrast with the surrounding wall.',
-      detail: 'This helps people with low vision locate the entrance. A dark frame on a light wall, or vice versa.',
+      detail: 'This helps people with low vision locate the entrance. A dark frame on a light wall or vice versa.',
       priority: 4
     }
   ],
 
   howToCheck: {
-    title: 'Checking signage, contrast, and emergency features',
+    title: 'Checking signage, contrast and emergency features',
     steps: [
       { text: 'Check the toilet door: is there a tactile sign with raised text and Braille on the wall beside the latch side?' },
       {
         text: 'Check the sign mounting height.',
         measurement: { target: 'Tactile sign height', acceptable: '1200-1600mm above floor', unit: 'mm' }
       },
-      { text: 'Look at grab rails, toilet seat, and flush button: do they contrast with the wall and pan? Squint to simulate low vision. If they disappear, contrast is inadequate.' },
+      { text: 'Look at grab rails, toilet seat and flush button: do they contrast with the wall and pan? Squint to simulate low vision. If they disappear, contrast is inadequate.' },
       { text: 'Check for an emergency alarm cord or button. Does the cord reach within 100mm of the floor?' },
       { text: 'Test the alarm: does it produce an audible and/or visual alert in a staffed area?' },
       { text: 'Check the door frame: does it contrast with the surrounding wall colour?' }
@@ -646,22 +646,22 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Install tactile and Braille signage',
-      description: 'Add compliant tactile signs beside each toilet door with raised text, Braille, and the appropriate pictogram.',
+      description: 'Add compliant tactile signs beside each toilet door with raised text, Braille and the appropriate pictogram.',
       resourceLevel: 'low',
       costRange: '$40-80 per sign',
       timeRequired: '30 minutes per door',
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Order tactile toilet signs from a signage supplier (search "AS 1428.1 tactile toilet sign"). Ensure they include raised text, Grade 2 Braille, and the ISA or toilet pictogram.',
+        'Order tactile toilet signs from a signage supplier (search "AS 1428.1 tactile toilet sign"). Ensure they include raised text, Grade 2 Braille and the ISA or toilet pictogram.',
         'Install each sign on the wall beside the door on the latch side, at 1200-1600mm height.',
         'Do not mount on the door itself (it may be open when someone reaches for the sign).',
-        'Include signs for male, female, accessible, and ambulant toilets as applicable.'
+        'Include signs for male, female, accessible and ambulant toilets as applicable.'
       ]
     },
     {
       title: 'Improve visual contrast on fittings',
-      description: 'Replace or add contrast to grab rails, toilet seat, flush, and door furniture so they are visible to people with low vision.',
+      description: 'Replace or add contrast to grab rails, toilet seat, flush and door furniture so they are visible to people with low vision.',
       resourceLevel: 'low',
       costRange: '$50-300',
       timeRequired: '1-2 hours',
@@ -669,8 +669,8 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       impact: 'moderate',
       steps: [
         'Photograph the toilet interior and review: which fittings blend into the background?',
-        'Replace white grab rails on white walls with a contrasting colour (dark grey, blue, or red are common).',
-        'If the toilet seat matches the pan and wall colour, replace it with a contrasting seat (dark seat on white pan, or vice versa).',
+        'Replace white grab rails on white walls with a contrasting colour (dark grey, blue or red are common).',
+        'If the toilet seat matches the pan and wall colour, replace it with a contrasting seat (dark seat on white pan or vice versa).',
         'Ensure the flush button contrasts with the cistern or wall behind it.',
         'Check that the emergency cord is red and visible against the wall.'
       ]
@@ -697,8 +697,8 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     {
       businessType: 'attraction',
       businessTypeLabel: 'Gallery',
-      scenario: 'A gallery had a minimalist accessible toilet where everything was white: walls, grab rails, seat, and flush.',
-      solution: 'Replaced the toilet seat with a dark grey one, swapped white grab rails for charcoal, and added a red emergency pull cord. Total material cost under $200.',
+      scenario: 'A gallery had a minimalist accessible toilet where everything was white: walls, grab rails, seat and flush.',
+      solution: 'Replaced the toilet seat with a dark grey one, swapped white grab rails for charcoal and added a red emergency pull cord. Total material cost under $200.',
       outcome: 'Visitors with low vision could identify all fixtures immediately. Staff reported fewer questions about locating the flush.',
       cost: '$200'
     }
@@ -736,14 +736,14 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   moduleGroup: 'during-visit',
   diapCategory: 'physical-access',
   title: 'Ambulant Accessible Toilets',
-  summary: 'An ambulant accessible toilet serves people who can walk but need support: those with mobility aids, reduced balance, joint conditions, or who are recovering from surgery. It is a standard-sized cubicle with grab rails and a wider door, not a full wheelchair-accessible toilet.',
+  summary: 'An ambulant accessible toilet serves people who can walk but need support: those with mobility aids, reduced balance, joint conditions or who are recovering from surgery. It is a standard-sized cubicle with grab rails and a wider door, not a full wheelchair-accessible toilet.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Not everyone who needs toilet support uses a wheelchair. People with walking frames, crutches, prosthetic limbs, chronic pain, or balance disorders need a toilet with grab rails and a wider door, but do not need the full-sized wheelchair-accessible room. An ambulant toilet fills this gap and reduces pressure on the single accessible toilet, which is often the only option. When only one accessible toilet exists and is occupied, people with less visible mobility needs have no alternative.',
+    text: 'Not everyone who needs toilet support uses a wheelchair. People with walking frames, crutches, prosthetic limbs, chronic pain or balance disorders need a toilet with grab rails and a wider door, but do not need the full-sized wheelchair-accessible room. An ambulant toilet fills this gap and reduces pressure on the single accessible toilet, which is often the only option. When only one accessible toilet exists and is occupied, people with less visible mobility needs have no alternative.',
     statistic: {
       value: '2.1 million',
-      context: 'Australians use mobility aids other than wheelchairs, including walking sticks, frames, and crutches.',
+      context: 'Australians use mobility aids other than wheelchairs, including walking sticks, frames and crutches.',
       source: 'ABS Survey of Disability, Ageing and Carers'
     }
   },
@@ -799,7 +799,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 15.4',
-      requirement: 'Ambulant accessible toilet cubicles must be provided in addition to accessible unisex toilets where toilet facilities include multiple cubicles. They require outward-opening doors, grab rails, and wider dimensions.'
+      requirement: 'Ambulant accessible toilet cubicles must be provided in addition to accessible unisex toilets where toilet facilities include multiple cubicles. They require outward-opening doors, grab rails and wider dimensions.'
     },
     plainEnglish: 'If you have a bank of toilet cubicles, at least one should be an ambulant toilet with grab rails and a wider door for people who walk with aids.',
     complianceNote: 'An ambulant toilet does not replace the need for a full wheelchair-accessible toilet. They serve different users.'
@@ -808,7 +808,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Convert one existing cubicle to ambulant accessible',
-      description: 'Modify a standard cubicle by widening it slightly, reversing the door swing, and adding grab rails.',
+      description: 'Modify a standard cubicle by widening it slightly, reversing the door swing and adding grab rails.',
       resourceLevel: 'medium',
       costRange: '$500-2,000',
       timeRequired: '1-2 days',
@@ -889,7 +889,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'A parent in a wheelchair cannot safely use a wall-mounted baby change table that is too high or in a cubicle too narrow for their chair. And for the estimated 250,000 Australians who need full body-lifting assistance to use the toilet or change, a standard accessible toilet is not enough. They need a height-adjustable adult-sized change table, a ceiling hoist, and adequate space. Without these facilities, they cannot leave home for more than a few hours.',
+    text: 'A parent in a wheelchair cannot safely use a wall-mounted baby change table that is too high or in a cubicle too narrow for their chair. And for the estimated 250,000 Australians who need full body-lifting assistance to use the toilet or change, a standard accessible toilet is not enough. They need a height-adjustable adult-sized change table, a ceiling hoist and adequate space. Without these facilities, they cannot leave home for more than a few hours.',
     quote: {
       text: 'Without a Changing Places toilet, my daughter simply cannot go anywhere for more than two hours. It limits our entire family\'s life.',
       attribution: 'Parent of adult with disability, Changing Places Australia'
@@ -918,13 +918,13 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     {
       icon: 'ArrowUpFromLine',
       text: 'Adult change: a ceiling-mounted hoist covering the route from wheelchair to table to toilet.',
-      detail: 'The hoist track should allow the carer to lift the person from wheelchair, position over the table or toilet, and lower. This requires a tracked or gantry system, not a portable floor hoist.',
+      detail: 'The hoist track should allow the carer to lift the person from wheelchair, position over the table or toilet and lower. This requires a tracked or gantry system, not a portable floor hoist.',
       priority: 4
     },
     {
       icon: 'Accessibility',
       text: 'Adult change rooms need at least 3m x 4m of clear floor space.',
-      detail: 'This allows the wheelchair, carer, hoist, and table to all fit without collision. The space must include an accessible toilet within the same room.',
+      detail: 'This allows the wheelchair, carer, hoist and table to all fit without collision. The space must include an accessible toilet within the same room.',
       priority: 5
     }
   ],
@@ -956,7 +956,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       requirement: 'Where baby change facilities are provided, at least one must be accessible. Adult change facilities are not yet mandated by the standard but are increasingly required by local planning policies and strongly recommended.'
     },
     related: [
-      { code: 'NCC', relevance: 'NCC 2022 introduced requirements for adult change facilities in certain building classes, including large shopping centres, airports, and entertainment venues.' }
+      { code: 'NCC', relevance: 'NCC 2022 introduced requirements for adult change facilities in certain building classes, including large shopping centres, airports and entertainment venues.' }
     ],
     plainEnglish: 'If you provide baby change, make sure at least one is in a space a wheelchair user can access. For adult change, large venues should provide a Changing Places facility with a hoist and adjustable table.',
     complianceNote: 'Adult change facilities (Changing Places) are mandated by the NCC for Class 6 and 9b buildings over certain thresholds. Even if not required for your building, they dramatically expand who can visit.'
@@ -981,7 +981,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
     },
     {
       title: 'Install a Changing Places facility',
-      description: 'Provide a full adult change room with height-adjustable table, ceiling hoist, accessible toilet, and adequate space. This is a significant investment but transforms access for people with high support needs.',
+      description: 'Provide a full adult change room with height-adjustable table, ceiling hoist, accessible toilet and adequate space. This is a significant investment but transforms access for people with high support needs.',
       resourceLevel: 'high',
       costRange: '$50,000-120,000',
       timeRequired: '3-6 months (planning, approval, construction)',
@@ -991,7 +991,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
         'Review the Changing Places Design Specifications at changingplaces.org.au.',
         'Identify a suitable location: ground floor, close to main areas, with adequate plumbing and structural capacity for a ceiling hoist.',
         'Engage an access consultant and architect experienced in Changing Places design.',
-        'Include: height-adjustable adult change table, ceiling hoist with full room coverage, accessible toilet, washbasin, and privacy screen.',
+        'Include: height-adjustable adult change table, ceiling hoist with full room coverage, accessible toilet, washbasin and privacy screen.',
         'Apply for any available government grants (many states offer Changing Places grants).',
         'After completion, register on the Changing Places Australia map.'
       ],
@@ -1024,7 +1024,7 @@ export const toiletsAmenitiesHelp: HelpContent[] = [
       url: 'https://changingplaces.org.au/',
       type: 'website',
       source: 'Changing Places Australia',
-      description: 'Design specifications, facility map, and grant information for adult change facilities.',
+      description: 'Design specifications, facility map and grant information for adult change facilities.',
       isAustralian: true,
       isFree: true
     },

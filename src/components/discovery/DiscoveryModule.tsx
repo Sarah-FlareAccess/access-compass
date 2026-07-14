@@ -233,7 +233,7 @@ export function DiscoveryModule({
 
     // The during-visit phase is relevant whenever customers attend a physical
     // space, even one the business doesn't own. Tour operators, mobile
-    // services, and pop-ups that say no to "your own venue" still need to
+    // services and pop-ups that say no to "your own venue" still need to
     // think about the spaces they use, so treat offersExperiences as an
     // equivalent trigger.
     const customersAttendPhysical = !!hasPhysicalVenue || !!offersExperiences;
@@ -491,7 +491,7 @@ export function DiscoveryModule({
                       />
                       <div className="radio-card-content">
                         <span className="radio-card-title">Ongoing business operations</span>
-                        <span className="radio-card-description">Your venue, services, website, and day-to-day customer experience. Best for permanent locations, ongoing services, or general improvement.</span>
+                        <span className="radio-card-description">Your venue, services, website and day-to-day customer experience. Best for permanent locations, ongoing services or general improvement.</span>
                       </div>
                     </label>
                     <label className="radio-label radio-label-card">
@@ -503,7 +503,7 @@ export function DiscoveryModule({
                       />
                       <div className="radio-card-content">
                         <span className="radio-card-title">Standalone event</span>
-                        <span className="radio-card-description">A specific event like a festival, conference, concert, market, or function. Covers event planning, promotion, venue setup, and on-the-day operations.</span>
+                        <span className="radio-card-description">A specific event like a festival, conference, concert, market or function. Covers event planning, promotion, venue setup and on-the-day operations.</span>
                       </div>
                     </label>
                     <label className="radio-label radio-label-card">
@@ -515,7 +515,7 @@ export function DiscoveryModule({
                       />
                       <div className="radio-card-content">
                         <span className="radio-card-title">🏢 + 🎪 Business Operations & Event</span>
-                        <span className="radio-card-description">Assess both your ongoing operations AND a specific event. Choose this if your business also hosts or runs events like markets, festivals, conferences, or functions.</span>
+                        <span className="radio-card-description">Assess both your ongoing operations AND a specific event. Choose this if your business also hosts or runs events like markets, festivals, conferences or functions.</span>
                       </div>
                     </label>
                   </div>
@@ -525,7 +525,7 @@ export function DiscoveryModule({
                   <legend>
                     Do customers attend physical locations with you? <span className="required">*</span>
                   </legend>
-                  <p className="field-helper">your own venue, partner sites, public spaces, or tour meeting points</p>
+                  <p className="field-helper">your own venue, partner sites, public spaces or tour meeting points</p>
                   <div className="radio-group">
                     <label className="radio-label">
                       <input
@@ -550,7 +550,7 @@ export function DiscoveryModule({
                   </div>
                   <p className="field-tip">
                     <span className="tip-icon">💡</span>
-                    Say "Yes" even if you don't own the space. Pop-up stalls, market booths, shared offices, hired venues, partner sites, public parks, and tour meeting points all count. Accessibility of those spaces still affects your customers.
+                    Say "Yes" even if you don't own the space. Pop-up stalls, market booths, shared offices, hired venues, partner sites, public parks and tour meeting points all count. Accessibility of those spaces still affects your customers.
                   </p>
                 </fieldset>
 
@@ -588,7 +588,7 @@ export function DiscoveryModule({
                     Do you have an online presence?{' '}
                     <span className="required">*</span>
                   </legend>
-                  <p className="field-helper">e.g. website, app, social media, online booking, or digital services</p>
+                  <p className="field-helper">e.g. website, app, social media, online booking or digital services</p>
                   <div className="radio-group">
                     <label className="radio-label">
                       <input
@@ -613,7 +613,7 @@ export function DiscoveryModule({
                   </div>
                   <p className="field-tip">
                     <span className="tip-icon">💡</span>
-                    This includes a Facebook page, Google Business listing, or any way customers find information about you online.
+                    This includes a Facebook page, Google Business listing or any way customers find information about you online.
                   </p>
                 </fieldset>
               </div>

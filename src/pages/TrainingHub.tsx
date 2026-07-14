@@ -98,7 +98,7 @@ export default function TrainingHub() {
         <p className="training-hero-subtitle">
           {isTrainingHubOnly
             ? 'Use free AI tools to draft accessible content. Work through the lessons at your own pace.'
-            : 'Courses, webinars, and practical resources to grow confidence in disability inclusion.'}
+            : 'Courses, webinars and practical resources to grow confidence in disability inclusion.'}
         </p>
 
         {!isTrainingHubOnly && (

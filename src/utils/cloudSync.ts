@@ -148,7 +148,7 @@ export function getPendingCount(): number {
 // ============================================
 
 // Server rejections (missing column, RLS, constraint) are otherwise swallowed
-// into the retry queue, so a broken write is invisible. Log every failure, and
+// into the retry queue, so a broken write is invisible. Log every failure and
 // for server-side rejections (not transient network drops) raise a throttled
 // window event so a banner can tell the user a change did not reach the cloud.
 // See feature-surface-sync-errors.

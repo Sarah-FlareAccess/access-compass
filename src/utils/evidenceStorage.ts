@@ -17,7 +17,7 @@ const BUCKET_NAME = 'evidence-files';
 
 /**
  * Upload a base64 data URL to Supabase Storage.
- * Returns the storage path on success, or null on failure.
+ * Returns the storage path on success or null on failure.
  */
 export async function uploadEvidence(
   dataUrl: string,

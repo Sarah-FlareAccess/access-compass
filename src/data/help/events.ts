@@ -17,14 +17,14 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility in Event Planning',
   coveredQuestionIds: ['6.1-D-1', '6.1-D-2', '6.1-D-9', '6.1-D-11'],
-  summary: 'Accessibility must be embedded from the first planning meeting, not added as an afterthought. This means budgeting for access features, using an accessibility checklist, and ensuring representation in event programming.',
+  summary: 'Accessibility must be embedded from the first planning meeting, not added as an afterthought. This means budgeting for access features, using an accessibility checklist and ensuring representation in event programming.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'When accessibility is treated as an afterthought, it costs more to fix, delivers a poorer experience, and signals to people with disability that they were not considered. Embedding accessibility from the outset makes it part of the event DNA rather than a bolt-on accommodation. It also reduces the risk of last-minute access failures that damage your reputation and may breach the Disability Discrimination Act.',
+    text: 'When accessibility is treated as an afterthought, it costs more to fix, delivers a poorer experience and signals to people with disability that they were not considered. Embedding accessibility from the outset makes it part of the event DNA rather than a bolt-on accommodation. It also reduces the risk of last-minute access failures that damage your reputation and may breach the Disability Discrimination Act.',
     statistic: {
       value: '1 in 5',
-      context: 'Australians have a disability. Events that exclude this audience lose up to 20% of potential attendees, plus their companions, families, and colleagues.',
+      context: 'Australians have a disability. Events that exclude this audience lose up to 20% of potential attendees, plus their companions, families and colleagues.',
       source: 'ABS Survey of Disability, Ageing and Carers'
     }
   },
@@ -33,13 +33,13 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'ClipboardList',
       text: 'Use an accessibility checklist from the very first planning meeting.',
-      detail: 'Include items covering venue access, communication formats, staffing, emergency procedures, and feedback. Review the checklist at every planning milestone. The Australian Human Rights Commission provides free event accessibility checklists.',
+      detail: 'Include items covering venue access, communication formats, staffing, emergency procedures and feedback. Review the checklist at every planning milestone. The Australian Human Rights Commission provides free event accessibility checklists.',
       priority: 1
     },
     {
       icon: 'DollarSign',
       text: 'Allocate a specific budget line for accessibility (typically 5-10% of total event budget).',
-      detail: 'Common costs include Auslan interpreters, captioning, accessible portable toilets, hearing loop hire, large print materials, and additional staffing. Budgeting upfront prevents cost-cutting later.',
+      detail: 'Common costs include Auslan interpreters, captioning, accessible portable toilets, hearing loop hire, large print materials and additional staffing. Budgeting upfront prevents cost-cutting later.',
       priority: 2
     },
     {
@@ -51,7 +51,7 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Building',
       text: 'Choose venues with demonstrated accessibility, not just claimed compliance.',
-      detail: 'Visit the venue in person. Check entrances, toilets, stage access, and paths of travel. Ask for their accessibility audit report. Do not rely on "yes, we are accessible" without verification.',
+      detail: 'Visit the venue in person. Check entrances, toilets, stage access and paths of travel. Ask for their accessibility audit report. Do not rely on "yes, we are accessible" without verification.',
       priority: 4
     },
     {
@@ -72,7 +72,7 @@ export const eventsHelp: HelpContent[] = [
     title: 'Reviewing your event planning process',
     steps: [
       { text: 'Check your event planning template or project plan. Is accessibility listed as a standing agenda item at planning meetings?' },
-      { text: 'Review your budget. Is there a named line item for accessibility, or are access features funded ad hoc?' },
+      { text: 'Review your budget. Is there a named line item for accessibility or are access features funded ad hoc?' },
       { text: 'Look at your supplier briefing documents. Do they include specific accessibility requirements for each supplier?' },
       { text: 'Review your event timeline. Are accessibility milestones (interpreter booking, captioning confirmation, accessibility info distribution) included with lead times?' },
       { text: 'Check your speaker or performer lineup. Does it include people with disability? Is diversity of disability represented, not just one type?' },
@@ -90,7 +90,7 @@ export const eventsHelp: HelpContent[] = [
       requirement: 'The Disability Discrimination Act 1992 requires that events and services be accessible to people with disability. Organisers must make reasonable adjustments to ensure equal participation.'
     },
     related: [
-      { code: 'WCAG2.2-AA', relevance: 'Event websites, registration forms, and digital communications must meet WCAG 2.2 Level AA for web accessibility.' },
+      { code: 'WCAG2.2-AA', relevance: 'Event websites, registration forms and digital communications must meet WCAG 2.2 Level AA for web accessibility.' },
       { code: 'Access-to-Premises', relevance: 'Venue selection must consider physical access requirements under the Premises Standards.' }
     ],
     plainEnglish: 'Event organisers have a legal obligation to make events accessible. Planning for accessibility from the start is both the most effective and most cost-efficient approach.',
@@ -118,7 +118,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Develop a comprehensive accessibility plan with dedicated budget',
-      description: 'Create a detailed accessibility plan with specific deliverables, timelines, and a dedicated budget line. Train your planning team on accessibility requirements.',
+      description: 'Create a detailed accessibility plan with specific deliverables, timelines and a dedicated budget line. Train your planning team on accessibility requirements.',
       resourceLevel: 'medium',
       costRange: '$500-2,000',
       timeRequired: '1-2 weeks',
@@ -126,28 +126,28 @@ export const eventsHelp: HelpContent[] = [
       impact: 'moderate',
       steps: [
         'Conduct a gap analysis of your last three events, reviewing feedback and complaints related to accessibility.',
-        'Develop a written accessibility policy for your events that includes scope, responsibilities, and minimum standards.',
+        'Develop a written accessibility policy for your events that includes scope, responsibilities and minimum standards.',
         'Allocate 5-10% of your event budget to accessibility as a dedicated line item.',
         'Create an accessibility timeline with milestones: interpreter booking (6-8 weeks), captioning (4 weeks), attendee information (2 weeks), walkthrough (1 week).',
         'Brief all team members on the plan and their specific responsibilities.',
-        'Establish relationships with local Auslan interpreters, captioners, and accessible equipment hire companies so you can book quickly.',
+        'Establish relationships with local Auslan interpreters, captioners and accessible equipment hire companies so you can book quickly.',
         'Include accessibility KPIs in your post-event review process.'
       ],
       notes: 'A written plan can be reused and improved for each event, building institutional knowledge over time.'
     },
     {
       title: 'Engage an accessibility consultant for event planning',
-      description: 'Commission an accessibility consultant to audit your event planning process, train your team, co-design the accessibility plan, and attend the event to provide real-time support.',
+      description: 'Commission an accessibility consultant to audit your event planning process, train your team, co-design the accessibility plan and attend the event to provide real-time support.',
       resourceLevel: 'high',
       costRange: '$3,000-10,000',
       timeRequired: '4-8 weeks',
       implementedBy: 'specialist',
       impact: 'significant',
       steps: [
-        'Engage an accessibility consultant with event experience such as Flare Access, or check the Meetings & Events Australia specialist directory.',
-        'Brief the consultant on your event type, scale, venue, and audience.',
+        'Engage an accessibility consultant with event experience such as Flare Access or check the Meetings & Events Australia specialist directory.',
+        'Brief the consultant on your event type, scale, venue and audience.',
         'Have the consultant audit your current planning process and identify gaps.',
-        'Co-develop a comprehensive accessibility plan covering physical access, communication, sensory environment, staffing, and emergency procedures.',
+        'Co-develop a comprehensive accessibility plan covering physical access, communication, sensory environment, staffing and emergency procedures.',
         'Have the consultant deliver training to your full planning team and key volunteers.',
         'Include the consultant in the pre-event walkthrough and on-call on the day for troubleshooting.',
         'Conduct a post-event debrief with the consultant to document lessons learned.',
@@ -170,8 +170,8 @@ export const eventsHelp: HelpContent[] = [
     {
       businessType: 'local-government',
       businessTypeLabel: 'Local Council',
-      scenario: 'A regional council\'s annual community festival had no accessibility budget. Wheelchair users could not access the main stage area, and there was no Auslan interpretation for speeches.',
-      solution: 'Council allocated $5,000 (3% of event budget) to accessibility. Hired Auslan interpreters for main stage events, installed temporary accessible paths, and designated a quiet zone with seating.',
+      scenario: 'A regional council\'s annual community festival had no accessibility budget. Wheelchair users could not access the main stage area and there was no Auslan interpretation for speeches.',
+      solution: 'Council allocated $5,000 (3% of event budget) to accessibility. Hired Auslan interpreters for main stage events, installed temporary accessible paths and designated a quiet zone with seating.',
       outcome: 'Attendance by people with disability increased noticeably. Positive feedback in post-event survey led to the budget being doubled for the following year.',
       cost: '$5,000',
       timeframe: '6 weeks lead time'
@@ -179,8 +179,8 @@ export const eventsHelp: HelpContent[] = [
     {
       businessType: 'attraction',
       businessTypeLabel: 'Arts Festival',
-      scenario: 'A multi-day arts festival included performers with disability but had not considered audience accessibility. Ticketing was only available online with no phone option, and venue maps were only in standard print.',
-      solution: 'Added phone booking and TTY/NRS options. Created large print, Braille, and audio-described venue maps. Included an accessibility statement on all marketing materials with a named contact person.',
+      scenario: 'A multi-day arts festival included performers with disability but had not considered audience accessibility. Ticketing was only available online with no phone option and venue maps were only in standard print.',
+      solution: 'Added phone booking and TTY/NRS options. Created large print, Braille and audio-described venue maps. Included an accessibility statement on all marketing materials with a named contact person.',
       outcome: 'Ticket sales to people identifying as having a disability increased 35%. Two performers with disability became festival ambassadors.',
       cost: '$1,200',
       timeframe: '4 weeks'
@@ -220,7 +220,7 @@ export const eventsHelp: HelpContent[] = [
       url: 'https://www.companioncard.gov.au/',
       type: 'website',
       source: 'Companion Card Australia',
-      description: 'National portal for Companion Card information, affiliate registration, and state/territory program links.',
+      description: 'National portal for Companion Card information, affiliate registration and state/territory program links.',
       isAustralian: true,
       isFree: true
     }
@@ -238,11 +238,11 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible Event Promotion and Registration',
   coveredQuestionIds: ['6.1-PC-3', '6.1-PC-5', '6.1-D-3', '6.1-D-4', '6.1-D-5', '6.1-D-10', '6.1-D-12'],
-  summary: 'Event promotion must reach people with disability through accessible channels, and registration forms must allow attendees to indicate access requirements. Pre-event confirmation of accommodations builds trust and prevents day-of failures.',
+  summary: 'Event promotion must reach people with disability through accessible channels and registration forms must allow attendees to indicate access requirements. Pre-event confirmation of accommodations builds trust and prevents day-of failures.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'If people with disability cannot access your event information or complete registration, they are excluded before the event even begins. Inaccessible websites, PDF-only flyers, and registration forms without access needs questions create invisible barriers. Asking about access requirements during registration (not after) gives your team time to arrange accommodations properly.',
+    text: 'If people with disability cannot access your event information or complete registration, they are excluded before the event even begins. Inaccessible websites, PDF-only flyers and registration forms without access needs questions create invisible barriers. Asking about access requirements during registration (not after) gives your team time to arrange accommodations properly.',
     quote: {
       text: 'I registered for a conference and there was nowhere to say I needed Auslan. I emailed three times with no reply. I did not attend.',
       attribution: 'Deaf community member, Victorian event survey'
@@ -253,13 +253,13 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Globe',
       text: 'Ensure your event website meets WCAG 2.2 Level AA standards.',
-      detail: 'Use the WAVE browser extension to check for accessibility errors. Key issues include missing alt text on images, poor colour contrast, inaccessible navigation, and forms without labels. Test with a screen reader (NVDA is free for Windows).',
+      detail: 'Use the WAVE browser extension to check for accessibility errors. Key issues include missing alt text on images, poor colour contrast, inaccessible navigation and forms without labels. Test with a screen reader (NVDA is free for Windows).',
       priority: 1
     },
     {
       icon: 'FormInput',
       text: 'Include access needs questions in registration forms, not as a separate process.',
-      detail: 'Ask "Do you have any access requirements?" with common options (Auslan interpreter, captioning, wheelchair access, dietary needs, quiet space) plus a free-text field. Make the question optional, not mandatory, and use respectful language.',
+      detail: 'Ask "Do you have any access requirements?" with common options (Auslan interpreter, captioning, wheelchair access, dietary needs, quiet space) plus a free-text field. Make the question optional, not mandatory and use respectful language.',
       priority: 2
     },
     {
@@ -271,18 +271,18 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Megaphone',
       text: 'Promote through disability community channels, not just mainstream media.',
-      detail: 'Share event details with local disability organisations, supported employment services, and disability-specific social media groups. Ask disability organisations to share your event with their networks.',
+      detail: 'Share event details with local disability organisations, supported employment services and disability-specific social media groups. Ask disability organisations to share your event with their networks.',
       priority: 4
     },
     {
       icon: 'UserCircle',
       text: 'Name a specific accessibility contact person on all promotional materials.',
-      detail: 'Provide a direct phone number, email, and SMS option. Include National Relay Service (NRS) details. State expected response time (e.g. "within 2 business days"). A named person is more approachable than a generic inbox.',
+      detail: 'Provide a direct phone number, email and SMS option. Include National Relay Service (NRS) details. State expected response time (e.g. "within 2 business days"). A named person is more approachable than a generic inbox.',
       priority: 5
     },
     {
       icon: 'FileText',
-      text: 'Provide promotional materials in multiple formats: HTML, large print, Easy Read, and plain text.',
+      text: 'Provide promotional materials in multiple formats: HTML, large print, Easy Read and plain text.',
       detail: 'PDFs are often inaccessible to screen readers. Always provide an HTML or plain text alternative. For key documents, create an Easy Read version with simple language and images.',
       priority: 6
     }
@@ -295,9 +295,9 @@ export const eventsHelp: HelpContent[] = [
       { text: 'Test the registration form using only a keyboard (Tab to navigate, Enter to submit). Can you complete the entire form without a mouse?' },
       { text: 'Check the registration form for an access needs question. Is it included in the main form flow, not a separate page or email address?' },
       { text: 'Review promotional materials. Are they available in at least two formats (e.g. web page plus plain text email)?' },
-      { text: 'Check whether a named accessibility contact person is listed on the event page with phone, email, and NRS details.' },
+      { text: 'Check whether a named accessibility contact person is listed on the event page with phone, email and NRS details.' },
       { text: 'Test the registration confirmation email. Does it acknowledge any access requirements the registrant indicated?' },
-      { text: 'Review your process for following up on access requests. Is there a defined workflow, or does it depend on someone remembering?' },
+      { text: 'Review your process for following up on access requests. Is there a defined workflow or does it depend on someone remembering?' },
       { text: 'Check social media posts for image alt text and video captions.' }
     ],
     tools: ['WAVE browser extension', 'Screen reader (NVDA, free)', 'Keyboard (for keyboard-only testing)', 'Mobile phone (for mobile testing)'],
@@ -307,12 +307,12 @@ export const eventsHelp: HelpContent[] = [
   standardsReference: {
     primary: {
       code: 'WCAG2.2-AA',
-      requirement: 'All web content, including event websites and registration forms, must meet WCAG 2.2 Level AA. This includes perceivable content, operable navigation, understandable forms, and robust markup.'
+      requirement: 'All web content, including event websites and registration forms, must meet WCAG 2.2 Level AA. This includes perceivable content, operable navigation, understandable forms and robust markup.'
     },
     related: [
       { code: 'DDA', relevance: 'The DDA requires that event information and registration be accessible to people with disability as a reasonable adjustment.' }
     ],
-    plainEnglish: 'Your event website and registration must work for people using screen readers, keyboard navigation, and other assistive technology. Event information must be available in accessible formats.',
+    plainEnglish: 'Your event website and registration must work for people using screen readers, keyboard navigation and other assistive technology. Event information must be available in accessible formats.',
     complianceNote: 'The AHRC has confirmed that the DDA applies to websites and digital services. Inaccessible online registration may constitute unlawful discrimination.'
   },
 
@@ -337,7 +337,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Build an accessible registration system with accommodation workflow',
-      description: 'Implement a fully accessible registration platform with integrated access needs management, automated confirmation, and a tracking dashboard for your team.',
+      description: 'Implement a fully accessible registration platform with integrated access needs management, automated confirmation and a tracking dashboard for your team.',
       resourceLevel: 'medium',
       costRange: '$200-1,500',
       timeRequired: '3-5 days',
@@ -347,16 +347,16 @@ export const eventsHelp: HelpContent[] = [
         'Select a registration platform with demonstrated WCAG 2.2 AA compliance (e.g. Humanitix, which is Australian and accessibility-focused).',
         'Configure access needs questions as part of the standard registration flow with structured response options.',
         'Set up automated confirmations that acknowledge access requests and provide the accessibility contact\'s details.',
-        'Create a dashboard or spreadsheet for your team to track each access request, its status, and the assigned team member.',
+        'Create a dashboard or spreadsheet for your team to track each access request, its status and the assigned team member.',
         'Build an accommodation confirmation email template that is sent 7-10 days before the event.',
-        'Develop promotional materials in HTML, large print, and Easy Read versions.',
+        'Develop promotional materials in HTML, large print and Easy Read versions.',
         'Promote the event through at least three disability community channels (organisations, social media groups, newsletters).'
       ],
       notes: 'Humanitix is an Australian not-for-profit ticketing platform that prioritises accessibility. Its forms are screen-reader compatible and keyboard navigable.'
     },
     {
       title: 'Commission professional accessible communications package',
-      description: 'Engage a digital accessibility specialist to audit and remediate your event website, build accessible registration, create multi-format promotional materials, and establish a reusable communications framework.',
+      description: 'Engage a digital accessibility specialist to audit and remediate your event website, build accessible registration, create multi-format promotional materials and establish a reusable communications framework.',
       resourceLevel: 'high',
       costRange: '$3,000-8,000',
       timeRequired: '2-4 weeks',
@@ -366,7 +366,7 @@ export const eventsHelp: HelpContent[] = [
         'Engage a WCAG-certified digital accessibility consultant to audit your event website and registration system.',
         'Remediate all WCAG 2.2 AA failures identified in the audit.',
         'Build or configure a fully accessible registration system with integrated access needs management.',
-        'Create a multi-format communications package: accessible HTML email, large print PDF, Easy Read version, and plain text.',
+        'Create a multi-format communications package: accessible HTML email, large print PDF, Easy Read version and plain text.',
         'Develop an Auslan video summary of key event information for social media and the website.',
         'Establish a media partnership with at least one disability media outlet or organisation.',
         'User-test the registration process with 3-5 people with different disabilities before launch.',
@@ -380,7 +380,7 @@ export const eventsHelp: HelpContent[] = [
     {
       businessType: 'event-venue',
       businessTypeLabel: 'Convention Centre',
-      scenario: 'A convention centre\'s event registration was PDF-based and required printing, signing, and scanning back. The website had no accessibility statement and no way to indicate access needs.',
+      scenario: 'A convention centre\'s event registration was PDF-based and required printing, signing and scanning back. The website had no accessibility statement and no way to indicate access needs.',
       solution: 'Moved to Humanitix for online registration with built-in accessibility. Added access needs checkboxes and a free-text field. Published an accessibility statement with a named contact.',
       outcome: 'Registrations from people with disability increased 25%. The convention centre received positive feedback from disability organisations who began recommending the venue.',
       cost: 'Free (Humanitix is free for free events, small fee for paid events)',
@@ -389,7 +389,7 @@ export const eventsHelp: HelpContent[] = [
     {
       businessType: 'local-government',
       businessTypeLabel: 'Local Council',
-      scenario: 'A council\'s annual awards night promoted only via a PDF flyer emailed as an attachment. No alternative formats were offered, and the registration link was embedded in the PDF image.',
+      scenario: 'A council\'s annual awards night promoted only via a PDF flyer emailed as an attachment. No alternative formats were offered and the registration link was embedded in the PDF image.',
       solution: 'Created an accessible HTML email with the same content. Added an accessible online registration form with access needs questions. Shared the event through the council\'s disability advisory committee networks.',
       outcome: 'Three attendees requested Auslan interpreters through the new form, which the council arranged in time. Previously, these attendees had not attended.',
       cost: 'Free',
@@ -466,11 +466,11 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Ticketing and Attendance Equity',
   coveredQuestionIds: ['6.1-D-6', '6.1-D-7', '6.1-D-8'],
-  summary: 'Accessible ticketing means people with disability can purchase tickets independently, receive equitable pricing, use the Companion Card for a free companion ticket, and access wheelchair or accessible seating areas without paying a premium.',
+  summary: 'Accessible ticketing means people with disability can purchase tickets independently, receive equitable pricing, use the Companion Card for a free companion ticket and access wheelchair or accessible seating areas without paying a premium.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Inequitable ticketing is one of the most common complaints from people with disability attending events. Being charged more for accessible seating, unable to book wheelchair spaces online, or forced to call a special number to purchase tickets creates a two-tier system. The Companion Card program exists specifically to address the cost barrier of needing an attendant, yet many event organisers are not registered as affiliates.',
+    text: 'Inequitable ticketing is one of the most common complaints from people with disability attending events. Being charged more for accessible seating, unable to book wheelchair spaces online or forced to call a special number to purchase tickets creates a two-tier system. The Companion Card program exists specifically to address the cost barrier of needing an attendant, yet many event organisers are not registered as affiliates.',
     statistic: {
       value: '65%',
       context: 'of people with disability report that the cost of attending events (including companion tickets) is a significant barrier to participation.',
@@ -500,7 +500,7 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Armchair',
       text: 'Allocate wheelchair spaces at multiple price points, not only in the cheapest section.',
-      detail: 'People with disability should have the same choice of viewing experience as everyone else. Offer wheelchair spaces in front, mid, and rear sections at corresponding price points.',
+      detail: 'People with disability should have the same choice of viewing experience as everyone else. Offer wheelchair spaces in front, mid and rear sections at corresponding price points.',
       priority: 4
     },
     {
@@ -538,9 +538,9 @@ export const eventsHelp: HelpContent[] = [
       requirement: 'The Disability Discrimination Act prohibits charging people with disability more for equivalent goods and services. Accessible seating must be priced equitably.'
     },
     related: [
-      { code: 'WCAG2.2-AA', relevance: 'Online ticketing platforms must be accessible, including seat selection maps, payment forms, and confirmation pages.' }
+      { code: 'WCAG2.2-AA', relevance: 'Online ticketing platforms must be accessible, including seat selection maps, payment forms and confirmation pages.' }
     ],
-    plainEnglish: 'People with disability must be able to buy event tickets through the same channels, at the same price, and with the same choices as everyone else. Companion Card holders are entitled to a free companion ticket at affiliated venues.',
+    plainEnglish: 'People with disability must be able to buy event tickets through the same channels, at the same price and with the same choices as everyone else. Companion Card holders are entitled to a free companion ticket at affiliated venues.',
     complianceNote: 'Companion Card affiliation is voluntary but strongly recommended. Charging a premium for accessible seating may breach the DDA.'
   },
 
@@ -556,7 +556,7 @@ export const eventsHelp: HelpContent[] = [
       steps: [
         'Visit companioncard.gov.au and complete the online affiliate registration for your state or territory.',
         'Review your current accessible seating prices against equivalent standard seats. Adjust any that are priced higher.',
-        'Add the Companion Card logo to your ticketing page, venue signage, and promotional materials.',
+        'Add the Companion Card logo to your ticketing page, venue signage and promotional materials.',
         'Train box office and ticketing staff on Companion Card procedures.',
         'Add a Companion Card ticket option to your online booking system.',
         'Publish your Companion Card policy on your accessibility page.'
@@ -584,7 +584,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Implement a comprehensive accessible ticketing and pricing policy',
-      description: 'Develop a formal accessible ticketing policy, engage with disability organisations for feedback, and implement a best-practice ticketing system with priority access, flexible policies, and monitoring.',
+      description: 'Develop a formal accessible ticketing policy, engage with disability organisations for feedback and implement a best-practice ticketing system with priority access, flexible policies and monitoring.',
       resourceLevel: 'high',
       costRange: '$2,000-5,000',
       timeRequired: '3-6 weeks',
@@ -592,7 +592,7 @@ export const eventsHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a disability access consultant to review your ticketing system and pricing structure.',
-        'Develop a written accessible ticketing policy covering pricing equity, Companion Card, priority access, refund flexibility, and online accessibility.',
+        'Develop a written accessible ticketing policy covering pricing equity, Companion Card, priority access, refund flexibility and online accessibility.',
         'Consult with local disability organisations on the draft policy before finalising.',
         'Implement priority booking windows for people with disability (e.g. 24-hour early access for accessible seating).',
         'Commission accessibility testing of the online booking journey by users with different disabilities.',
@@ -609,7 +609,7 @@ export const eventsHelp: HelpContent[] = [
       businessType: 'event-venue',
       businessTypeLabel: 'Concert Venue',
       scenario: 'A concert venue only offered wheelchair spaces at the back of the general admission area. Wheelchair users had no option for premium or front-section seating and had to phone to book.',
-      solution: 'Added wheelchair platforms at three locations: front, mid, and rear. Made all accessible seats bookable online at the same price as adjacent standard seats. Registered as a Companion Card affiliate.',
+      solution: 'Added wheelchair platforms at three locations: front, mid and rear. Made all accessible seats bookable online at the same price as adjacent standard seats. Registered as a Companion Card affiliate.',
       outcome: 'Accessible ticket sales tripled. The venue received an accessibility award from the state arts council.',
       cost: '$3,500 (platform construction)',
       timeframe: '3 weeks'
@@ -626,7 +626,7 @@ export const eventsHelp: HelpContent[] = [
     {
       businessType: 'local-government',
       businessTypeLabel: 'Council Event',
-      scenario: 'A council\'s free community cinema screenings had no Companion Card recognition, no wheelchair viewing area, and registrations were only via a web form that was not keyboard-accessible.',
+      scenario: 'A council\'s free community cinema screenings had no Companion Card recognition, no wheelchair viewing area and registrations were only via a web form that was not keyboard-accessible.',
       solution: 'Added phone and email registration options. Designated a wheelchair viewing area at the front with companion seating. Registered as a Companion Card affiliate for all council events.',
       outcome: 'Attendance by families with members with disability increased. The council adopted the same approach for all events.',
       cost: 'Free',
@@ -676,11 +676,11 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Venue Physical Accessibility',
   coveredQuestionIds: ['6.2-D-1', '6.2-D-2', '6.2-D-5', '6.2-D-8', '6.2-D-10', '6.2-D-15'],
-  summary: 'An accessible event venue has step-free entry, wide pathways, accessible stages and presentation areas, firm ground surfaces for temporary structures, accessible food and beverage service points, and charging stations for mobility devices.',
+  summary: 'An accessible event venue has step-free entry, wide pathways, accessible stages and presentation areas, firm ground surfaces for temporary structures, accessible food and beverage service points and charging stations for mobility devices.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Physical access is the foundation of event inclusion. If an attendee cannot enter the venue, reach the stage area, navigate between activity zones, or access food service, no amount of accessible communication will make the event inclusive. Temporary event infrastructure (stages, marquees, stalls) often creates new barriers that do not exist in the permanent venue, so event-specific planning is essential.',
+    text: 'Physical access is the foundation of event inclusion. If an attendee cannot enter the venue, reach the stage area, navigate between activity zones or access food service, no amount of accessible communication will make the event inclusive. Temporary event infrastructure (stages, marquees, stalls) often creates new barriers that do not exist in the permanent venue, so event-specific planning is essential.',
     statistic: {
       value: '2.1 million',
       context: 'Australians use mobility aids. Outdoor and temporary event sites frequently fail to account for wheelchair and mobility scooter access.',
@@ -698,7 +698,7 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Move',
       text: 'Maintain 1200mm minimum pathway width throughout the event site.',
-      detail: 'Account for crowd flow, stall displays, and temporary signage that narrow pathways. Set up pathways at 1500mm to allow for encroachment. Mark accessible routes clearly with high-contrast ground markings or signage.',
+      detail: 'Account for crowd flow, stall displays and temporary signage that narrow pathways. Set up pathways at 1500mm to allow for encroachment. Mark accessible routes clearly with high-contrast ground markings or signage.',
       priority: 2
     },
     {
@@ -722,7 +722,7 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'HardHat',
       text: 'Check temporary structures (marquees, stages, stalls) for accessibility before the event opens.',
-      detail: 'Temporary structures often have lips, steps, guy ropes across paths, and uneven flooring. Walk the entire site in a wheelchair or with a mobility aid to identify barriers. Schedule this check at least 2 hours before doors open.',
+      detail: 'Temporary structures often have lips, steps, guy ropes across paths and uneven flooring. Walk the entire site in a wheelchair or with a mobility aid to identify barriers. Schedule this check at least 2 hours before doors open.',
       priority: 6
     }
   ],
@@ -735,10 +735,10 @@ export const eventsHelp: HelpContent[] = [
         measurement: { target: 'Door clear opening', acceptable: 'Minimum 850mm', unit: 'mm' }
       },
       {
-        text: 'Measure pathway widths at the narrowest points, particularly around stalls, stages, and seating areas.',
+        text: 'Measure pathway widths at the narrowest points, particularly around stalls, stages and seating areas.',
         measurement: { target: 'Pathway width', acceptable: 'Minimum 1200mm (1500mm preferred)', unit: 'mm' }
       },
-      { text: 'Check the ground surface along all pathways. Is it firm, level, and slip-resistant? Flag any grass, gravel, sand, or uneven sections.' },
+      { text: 'Check the ground surface along all pathways. Is it firm, level and slip-resistant? Flag any grass, gravel, sand or uneven sections.' },
       { text: 'Verify stage access. Is there a ramp or lift? Check the ramp gradient (maximum 1:14) and handrails.' },
       { text: 'Locate food and beverage service points. Is at least one counter at 870mm or lower? Can wheelchair users reach the service point independently?' },
       { text: 'Check for charging points. Are standard 240V outlets available at an accessible height (600-1000mm) near a rest area?' },
@@ -766,7 +766,7 @@ export const eventsHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Conduct a pre-event site walkthrough and fix immediate barriers',
-      description: 'Walk the event site with an accessibility lens and address quick fixes: cable covers, portable ramps, pathway widening, and signage.',
+      description: 'Walk the event site with an accessibility lens and address quick fixes: cable covers, portable ramps, pathway widening and signage.',
       resourceLevel: 'low',
       costRange: '$100-500',
       timeRequired: '2-4 hours',
@@ -776,7 +776,7 @@ export const eventsHelp: HelpContent[] = [
         'Walk the entire site from the accessible parking or drop-off to every event area, noting every barrier.',
         'Install cable covers over any cables crossing pathways (available from hardware stores, $20-50 each).',
         'Place portable ramps at any steps or lips (aluminium threshold ramps are $50-200 each).',
-        'Widen any pathway pinch points by moving stalls, signage, or furniture.',
+        'Widen any pathway pinch points by moving stalls, signage or furniture.',
         'Add "Accessible Route" signage at decision points along the path.',
         'Brief all stall holders and vendors on keeping their frontage clear of trip hazards and maintaining pathway widths.'
       ],
@@ -784,7 +784,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Install temporary accessible infrastructure',
-      description: 'Hire or install temporary accessible pathways, ramps, stages, and charging points designed for event use.',
+      description: 'Hire or install temporary accessible pathways, ramps, stages and charging points designed for event use.',
       resourceLevel: 'medium',
       costRange: '$1,000-5,000',
       timeRequired: '1-3 days',
@@ -802,7 +802,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Engage an access consultant for venue design and certification',
-      description: 'Commission an access consultant to review the venue and event layout, specify accessible infrastructure, oversee installation, and certify the site before opening.',
+      description: 'Commission an access consultant to review the venue and event layout, specify accessible infrastructure, oversee installation and certify the site before opening.',
       resourceLevel: 'high',
       costRange: '$5,000-15,000',
       timeRequired: '2-4 weeks',
@@ -858,7 +858,7 @@ export const eventsHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'The primary Australian standard for accessible design including paths of travel, ramps, doors, and ground surfaces.',
+      description: 'The primary Australian standard for accessible design including paths of travel, ramps, doors and ground surfaces.',
       isAustralian: true,
       isFree: false
     },
@@ -903,11 +903,11 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Event Parking, Transport and Drop-off',
   coveredQuestionIds: ['6.2-D-4', '6.2-D-16', '6.2-D-17', '6.2-D-19'],
-  summary: 'Accessible event transport includes designated accessible parking close to the entrance, a managed drop-off zone, links to accessible public transport, and shuttle services with wheelchair-accessible vehicles where the venue is remote from transport.',
+  summary: 'Accessible event transport includes designated accessible parking close to the entrance, a managed drop-off zone, links to accessible public transport and shuttle services with wheelchair-accessible vehicles where the venue is remote from transport.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Getting to the event is the first barrier many people with disability encounter. If accessible parking is full, too far away, or blocked by general traffic, the event may as well not exist. Drop-off zones are critical for people who travel as passengers and need to alight close to the entrance. For events not near public transport, accessible shuttle services bridge the gap.',
+    text: 'Getting to the event is the first barrier many people with disability encounter. If accessible parking is full, too far away or blocked by general traffic, the event may as well not exist. Drop-off zones are critical for people who travel as passengers and need to alight close to the entrance. For events not near public transport, accessible shuttle services bridge the gap.',
     quote: {
       text: 'We drove 90 minutes to a festival only to find the accessible parking was a muddy field 300 metres from the gate. We turned around and went home.',
       attribution: 'Parent of wheelchair user, regional event feedback'
@@ -924,13 +924,13 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'ArrowDownToLine',
       text: 'Create a managed drop-off zone immediately adjacent to the entrance.',
-      detail: 'The drop-off zone should be at least 3200mm wide, on firm level ground, and staffed during peak arrival times. Vehicles need space to deploy ramps. Allow at least 5 minutes per vehicle for assisted transfers.',
+      detail: 'The drop-off zone should be at least 3200mm wide, on firm level ground and staffed during peak arrival times. Vehicles need space to deploy ramps. Allow at least 5 minutes per vehicle for assisted transfers.',
       priority: 2
     },
     {
       icon: 'Bus',
       text: 'Publish accessible public transport options and walking routes from stops.',
-      detail: 'Include bus, train, and tram routes that have accessible vehicles. Note the distance from the stop to the venue entrance and describe the path (e.g. "150m, level footpath, no steps"). Publish this on your event website and in confirmation emails.',
+      detail: 'Include bus, train and tram routes that have accessible vehicles. Note the distance from the stop to the venue entrance and describe the path (e.g. "150m, level footpath, no steps"). Publish this on your event website and in confirmation emails.',
       priority: 3
     },
     {
@@ -942,12 +942,12 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Protect accessible parking and drop-off zones from encroachment by general traffic.',
-      detail: 'Use bollards, traffic marshals, or physical barriers to prevent non-permit vehicles from using accessible spaces. Brief traffic management staff on accessibility requirements. Monitor throughout the event.',
+      detail: 'Use bollards, traffic marshals or physical barriers to prevent non-permit vehicles from using accessible spaces. Brief traffic management staff on accessibility requirements. Monitor throughout the event.',
       priority: 5
     },
     {
       icon: 'Lightbulb',
-      text: 'Provide adequate lighting in parking, drop-off, and pathway areas.',
+      text: 'Provide adequate lighting in parking, drop-off and pathway areas.',
       detail: 'Minimum 40 lux along pathways and in parking areas. For evening events, add temporary lighting (solar bollards, LED floodlights) along the accessible route from parking and drop-off to the entrance.',
       priority: 6
     }
@@ -958,18 +958,18 @@ export const eventsHelp: HelpContent[] = [
     steps: [
       {
         text: 'Count accessible parking spaces and measure their width.',
-        measurement: { target: 'Space width', acceptable: 'Minimum 2400mm with shared zone, or 3200mm single', unit: 'mm' }
+        measurement: { target: 'Space width', acceptable: 'Minimum 2400mm with shared zone or 3200mm single', unit: 'mm' }
       },
       {
         text: 'Measure the distance from accessible parking to the event entrance.',
         measurement: { target: 'Distance to entrance', acceptable: 'Maximum 30m (shorter is better)', unit: 'm' }
       },
-      { text: 'Check the surface between parking and the entrance. Is it firm, level, and free of mud, gravel, or trip hazards?' },
-      { text: 'Locate the drop-off zone. Is it immediately adjacent to the entrance? Is it signed, managed, and wide enough for ramp deployment?' },
-      { text: 'Review published transport information. Does it include accessible routes, distances from stops, and path descriptions?' },
+      { text: 'Check the surface between parking and the entrance. Is it firm, level and free of mud, gravel or trip hazards?' },
+      { text: 'Locate the drop-off zone. Is it immediately adjacent to the entrance? Is it signed, managed and wide enough for ramp deployment?' },
+      { text: 'Review published transport information. Does it include accessible routes, distances from stops and path descriptions?' },
       { text: 'If a shuttle is provided, confirm at least one vehicle is wheelchair accessible and the schedule is frequent enough.' },
       {
-        text: 'Check lighting levels in parking, drop-off, and pathway areas.',
+        text: 'Check lighting levels in parking, drop-off and pathway areas.',
         measurement: { target: 'Lighting', acceptable: 'Minimum 40 lux', unit: 'lux' }
       },
       { text: 'Observe whether accessible spaces are protected from misuse during the event.' }
@@ -988,7 +988,7 @@ export const eventsHelp: HelpContent[] = [
       { code: 'Access-to-Premises', relevance: 'Requires accessible parking where car parking is provided, connected to the building entrance by an accessible path.' },
       { code: 'DDA', relevance: 'Requires reasonable adjustments to transport arrangements to ensure people with disability can access events.' }
     ],
-    plainEnglish: 'If your event has parking, some of it must be accessible, close to the entrance, and connected by a smooth path. You should also provide drop-off zones and transport information.',
+    plainEnglish: 'If your event has parking, some of it must be accessible, close to the entrance and connected by a smooth path. You should also provide drop-off zones and transport information.',
     complianceNote: 'For temporary event sites where building standards may not directly apply, the DDA general duty still requires reasonable transport accommodations.'
   },
 
@@ -1021,7 +1021,7 @@ export const eventsHelp: HelpContent[] = [
       impact: 'moderate',
       steps: [
         'Hire interlocking pathway panels for the route from accessible parking to the entrance.',
-        'Install panels the day before the event, ensuring they are level, stable, and at least 1200mm wide.',
+        'Install panels the day before the event, ensuring they are level, stable and at least 1200mm wide.',
         'Arrange an accessible shuttle (wheelchair ramp or lift equipped) to run every 15-20 minutes from the nearest accessible public transport stop.',
         'Publish shuttle timetable and pick-up/drop-off points on the event website.',
         'Install temporary lighting along the accessible route if the event extends into evening.',
@@ -1031,7 +1031,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Commission comprehensive accessible transport management',
-      description: 'Engage a traffic management company with accessibility expertise to design and implement the full parking, drop-off, shuttle, and wayfinding system.',
+      description: 'Engage a traffic management company with accessibility expertise to design and implement the full parking, drop-off, shuttle and wayfinding system.',
       resourceLevel: 'high',
       costRange: '$5,000-15,000',
       timeRequired: '2-4 weeks',
@@ -1039,10 +1039,10 @@ export const eventsHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage a traffic management company and brief them on accessibility requirements.',
-        'Have them design the parking layout with accessible spaces, drop-off zone, and accessible pathways.',
+        'Have them design the parking layout with accessible spaces, drop-off zone and accessible pathways.',
         'Include accessible shuttle routes and timetables in the transport management plan.',
         'Install real-time accessible parking availability signage at the venue entrance.',
-        'Provide trained marshals at accessible parking, drop-off, and shuttle stops throughout the event.',
+        'Provide trained marshals at accessible parking, drop-off and shuttle stops throughout the event.',
         'Set up a phone hotline for real-time transport assistance during the event.',
         'Conduct a post-event review of transport data (usage, complaints, wait times) to improve future events.',
         'Document the transport management plan as a reusable template.'
@@ -1087,7 +1087,7 @@ export const eventsHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as-slash-nzs--2890-dot-6-colon-2009',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Australian standard for accessible parking dimensions, signage, and ratios.',
+      description: 'Australian standard for accessible parking dimensions, signage and ratios.',
       isAustralian: true,
       isFree: false
     },
@@ -1123,11 +1123,11 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Event Seating and Viewing',
   coveredQuestionIds: ['6.2-D-6', '6.2-D-7', '6.2-D-14', '6.2-D-18'],
-  summary: 'Accessible seating at events means designated wheelchair spaces with companion seating, sightline protection so standing crowds do not block views, elevated viewing platforms where needed, and crowd barriers that allow wheelchair passage.',
+  summary: 'Accessible seating at events means designated wheelchair spaces with companion seating, sightline protection so standing crowds do not block views, elevated viewing platforms where needed and crowd barriers that allow wheelchair passage.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Wheelchair users at events routinely have their view blocked by standing audiences. Being placed in a back corner with no companion seating, or behind a crowd barrier with no pass-through, means paying for an experience you cannot actually enjoy. Sightline protection and dispersed accessible seating give people with disability the same range of viewing experiences available to everyone else.',
+    text: 'Wheelchair users at events routinely have their view blocked by standing audiences. Being placed in a back corner with no companion seating or behind a crowd barrier with no pass-through, means paying for an experience you cannot actually enjoy. Sightline protection and dispersed accessible seating give people with disability the same range of viewing experiences available to everyone else.',
     statistic: {
       value: '78%',
       context: 'of wheelchair users report having their view blocked at events where they had purchased accessible seating.',
@@ -1151,7 +1151,7 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'LayoutGrid',
       text: 'Disperse wheelchair spaces across multiple locations and price points.',
-      detail: 'Offer accessible seating in front, middle, and rear sections. People with disability should have the same choice of experience as everyone else. For general admission, designate accessible viewing areas at multiple points.',
+      detail: 'Offer accessible seating in front, middle and rear sections. People with disability should have the same choice of experience as everyone else. For general admission, designate accessible viewing areas at multiple points.',
       priority: 3
     },
     {
@@ -1163,13 +1163,13 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Armchair',
       text: 'Provide seating with armrests and backs for people who cannot stand for long periods.',
-      detail: 'Not all accessibility needs involve wheelchairs. People with chronic pain, fatigue, and balance conditions need seats with armrests and backrests throughout the venue, not only in the "accessible section".',
+      detail: 'Not all accessibility needs involve wheelchairs. People with chronic pain, fatigue and balance conditions need seats with armrests and backrests throughout the venue, not only in the "accessible section".',
       priority: 5
     },
     {
       icon: 'ArrowUpDown',
       text: 'Design raised viewing platforms with ramp access and edge protection.',
-      detail: 'Platforms should have a ramp no steeper than 1:14, edge protection to prevent wheelchairs rolling off, and a non-slip surface. Minimum platform depth of 2000mm allows comfortable positioning.',
+      detail: 'Platforms should have a ramp no steeper than 1:14, edge protection to prevent wheelchairs rolling off and a non-slip surface. Minimum platform depth of 2000mm allows comfortable positioning.',
       priority: 6
     }
   ],
@@ -1177,7 +1177,7 @@ export const eventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing event seating and viewing areas',
     steps: [
-      { text: 'Sit at wheelchair height (approximately 1200mm eye level) in each designated accessible viewing area. Can you see the stage, screen, or main activity clearly?' },
+      { text: 'Sit at wheelchair height (approximately 1200mm eye level) in each designated accessible viewing area. Can you see the stage, screen or main activity clearly?' },
       { text: 'Check whether the standing crowd would block the view from the accessible area. If so, the area needs elevation.' },
       {
         text: 'Measure wheelchair space dimensions.',
@@ -1231,7 +1231,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Install temporary elevated viewing platforms',
-      description: 'Hire or build temporary raised platforms at key viewing locations with ramp access, edge protection, and companion seating.',
+      description: 'Hire or build temporary raised platforms at key viewing locations with ramp access, edge protection and companion seating.',
       resourceLevel: 'medium',
       costRange: '$1,000-5,000',
       timeRequired: '1-2 days',
@@ -1250,7 +1250,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Design a comprehensive accessible seating plan',
-      description: 'Engage an access consultant to design the venue seating layout with dispersed accessible options, sightline-protected platforms, companion seating, and barrier pass-throughs.',
+      description: 'Engage an access consultant to design the venue seating layout with dispersed accessible options, sightline-protected platforms, companion seating and barrier pass-throughs.',
       resourceLevel: 'high',
       costRange: '$5,000-20,000',
       timeRequired: '2-4 weeks',
@@ -1258,11 +1258,11 @@ export const eventsHelp: HelpContent[] = [
       impact: 'significant',
       steps: [
         'Engage an access consultant to review the venue and event layout.',
-        'Map accessible seating at multiple locations: front, mid, rear, and at different price points.',
+        'Map accessible seating at multiple locations: front, mid, rear and at different price points.',
         'Design elevated platforms with integrated ramp access for locations where standing crowds block sightlines.',
         'Specify crowd barrier modifications including wheelchair pass-through gates every 20-30m.',
-        'Include companion seating, armrest seating for ambulant disabled people, and transfer seats at each accessible zone.',
-        'Commission construction or hire of platforms, barriers, and seating.',
+        'Include companion seating, armrest seating for ambulant disabled people and transfer seats at each accessible zone.',
+        'Commission construction or hire of platforms, barriers and seating.',
         'Test the complete layout with wheelchair users before the first event.',
         'Document the seating plan as a reusable template for the venue.'
       ],
@@ -1342,11 +1342,11 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'physical-access',
   title: 'Event Toilets, Amenities and Weather',
   coveredQuestionIds: ['6.2-D-3', '6.2-PC-5', '6.2-D-9', '6.2-D-11', '6.2-D-12', '6.2-D-13'],
-  summary: 'Accessible event amenities include properly specified accessible portable toilets (Changing Places units preferred), weather protection such as shade structures and rain cover, quiet rest areas with seating, accessible water stations, and device charging points.',
+  summary: 'Accessible event amenities include properly specified accessible portable toilets (Changing Places units preferred), weather protection such as shade structures and rain cover, quiet rest areas with seating, accessible water stations and device charging points.',
   lastUpdated: '2026-02-26',
 
   whyItMatters: {
-    text: 'Accessible toilets at events are one of the most frequently cited failures. Standard accessible portable toilets are often too small, placed on uneven ground, or missing grab rails. For people with high support needs, a Changing Places toilet (with hoist, adult change table, and space for two carers) is the only viable option. Weather protection, rest areas, and water access are equally important for people with fatigue, pain, and sensory conditions who cannot manage extended exposure to heat, cold, or crowds.',
+    text: 'Accessible toilets at events are one of the most frequently cited failures. Standard accessible portable toilets are often too small, placed on uneven ground or missing grab rails. For people with high support needs, a Changing Places toilet (with hoist, adult change table and space for two carers) is the only viable option. Weather protection, rest areas and water access are equally important for people with fatigue, pain and sensory conditions who cannot manage extended exposure to heat, cold or crowds.',
     statistic: {
       value: '41%',
       context: 'of people with disability avoid events due to inadequate or inaccessible toilet facilities.',
@@ -1358,7 +1358,7 @@ export const eventsHelp: HelpContent[] = [
     {
       icon: 'Bath',
       text: 'Hire at least one Changing Places portable unit for events over 500 attendees.',
-      detail: 'A standard accessible portable toilet is not sufficient for people who need hoisting or an adult change table. Changing Places units are available for hire and include a ceiling hoist, height-adjustable change table, peninsular toilet, and adequate space for two carers.',
+      detail: 'A standard accessible portable toilet is not sufficient for people who need hoisting or an adult change table. Changing Places units are available for hire and include a ceiling hoist, height-adjustable change table, peninsular toilet and adequate space for two carers.',
       priority: 1
     },
     {
@@ -1369,20 +1369,20 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       icon: 'Umbrella',
-      text: 'Provide shade and rain protection at key areas: entrance, viewing, dining, and rest zones.',
-      detail: 'People with certain conditions are highly sensitive to heat, UV, and cold rain. Shade structures, marquees, or covered areas should be available at the entrance, main viewing area, food service, and rest zones.',
+      text: 'Provide shade and rain protection at key areas: entrance, viewing, dining and rest zones.',
+      detail: 'People with certain conditions are highly sensitive to heat, UV and cold rain. Shade structures, marquees or covered areas should be available at the entrance, main viewing area, food service and rest zones.',
       priority: 3
     },
     {
       icon: 'Sofa',
-      text: 'Create designated quiet rest areas with seating, shade, and low stimulation.',
-      detail: 'Quiet rest areas serve people with sensory conditions, fatigue, chronic pain, and anxiety. Provide seating with armrests and backs, shade, and reduced noise. Locate rest areas away from stages and loudspeakers but within the event perimeter.',
+      text: 'Create designated quiet rest areas with seating, shade and low stimulation.',
+      detail: 'Quiet rest areas serve people with sensory conditions, fatigue, chronic pain and anxiety. Provide seating with armrests and backs, shade and reduced noise. Locate rest areas away from stages and loudspeakers but within the event perimeter.',
       priority: 4
     },
     {
       icon: 'Droplets',
       text: 'Ensure water stations are at an accessible height with cup dispensers.',
-      detail: 'Water bubblers should have a basin at 750-800mm height, or provide a tap and cups. Ensure the approach path is wheelchair accessible. Provide at least one accessible water station per activity zone.',
+      detail: 'Water bubblers should have a basin at 750-800mm height or provide a tap and cups. Ensure the approach path is wheelchair accessible. Provide at least one accessible water station per activity zone.',
       priority: 5
     },
     {
@@ -1396,15 +1396,15 @@ export const eventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing event amenities',
     steps: [
-      { text: 'Check accessible portable toilets: are they on firm level ground? Do they have grab rails, adequate turning space (1500mm diameter), and clear signage?' },
+      { text: 'Check accessible portable toilets: are they on firm level ground? Do they have grab rails, adequate turning space (1500mm diameter) and clear signage?' },
       {
         text: 'Measure the internal space of accessible portable toilets.',
         measurement: { target: 'Internal turning circle', acceptable: 'Minimum 1500mm diameter', unit: 'mm' }
       },
-      { text: 'If a Changing Places unit is provided, verify it has a ceiling hoist, adult change table, peninsular toilet, and space for two carers.' },
-      { text: 'Check the path from main activity areas to accessible toilets. Is it firm, level, and no more than 50m?' },
-      { text: 'Identify shade structures. Are they available at the entrance, main viewing area, food service, and rest zones?' },
-      { text: 'Locate quiet rest areas. Do they have seating with armrests, shade, and reduced noise?' },
+      { text: 'If a Changing Places unit is provided, verify it has a ceiling hoist, adult change table, peninsular toilet and space for two carers.' },
+      { text: 'Check the path from main activity areas to accessible toilets. Is it firm, level and no more than 50m?' },
+      { text: 'Identify shade structures. Are they available at the entrance, main viewing area, food service and rest zones?' },
+      { text: 'Locate quiet rest areas. Do they have seating with armrests, shade and reduced noise?' },
       { text: 'Check water stations for accessible height and approach path.' },
       { text: 'Verify charging points are available and signed on the event map.' }
     ],
@@ -1416,47 +1416,47 @@ export const eventsHelp: HelpContent[] = [
     primary: {
       code: 'AS1428.1',
       section: 'Section 15',
-      requirement: 'Accessible sanitary facilities must provide adequate space for wheelchair turning (1500mm), grab rails, and appropriate fixture heights. Where temporary facilities are provided, accessible units must be included.'
+      requirement: 'Accessible sanitary facilities must provide adequate space for wheelchair turning (1500mm), grab rails and appropriate fixture heights. Where temporary facilities are provided, accessible units must be included.'
     },
     related: [
       { code: 'NCC', relevance: 'The NCC specifies minimum numbers of accessible toilets based on building class and occupancy.' },
       { code: 'DDA', relevance: 'The DDA requires accessible amenities as a reasonable adjustment for events.' }
     ],
-    plainEnglish: 'Events must provide accessible toilets that are properly sized, equipped, and located. Additional amenities like shade, rest areas, and water must also be accessible.',
+    plainEnglish: 'Events must provide accessible toilets that are properly sized, equipped and located. Additional amenities like shade, rest areas and water must also be accessible.',
     complianceNote: 'Changing Places toilets go beyond minimum compliance but are increasingly expected at large events and may be considered a reasonable adjustment under the DDA.'
   },
 
   solutions: [
     {
       title: 'Improve placement and signage of existing accessible toilets',
-      description: 'Relocate accessible portable toilets to firm level ground near other toilets, add clear signage, and ensure the approach path is accessible.',
+      description: 'Relocate accessible portable toilets to firm level ground near other toilets, add clear signage and ensure the approach path is accessible.',
       resourceLevel: 'low',
       costRange: '$50-200',
       timeRequired: '1-2 hours',
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Check the current location of accessible portable toilets. If they are on grass, gravel, or a slope, arrange relocation to firm level ground.',
+        'Check the current location of accessible portable toilets. If they are on grass, gravel or a slope, arrange relocation to firm level ground.',
         'Place accessible toilets in the same area as general toilets, not isolated.',
         'Add ISA signage on the unit and directional signage from main pathways.',
         'Ensure the path from the nearest accessible route to the toilet door is firm and level.',
-        'Check that the unit has grab rails, adequate space, and a functioning lock.',
+        'Check that the unit has grab rails, adequate space and a functioning lock.',
         'Brief cleaning staff to prioritise accessible units and report any issues immediately.'
       ],
       notes: 'Simply moving the unit to firm ground and adding signage can transform the experience for users.'
     },
     {
       title: 'Hire Changing Places unit and add weather protection',
-      description: 'Hire a Changing Places portable toilet, add shade structures, and set up a quiet rest area with water and charging.',
+      description: 'Hire a Changing Places portable toilet, add shade structures and set up a quiet rest area with water and charging.',
       resourceLevel: 'medium',
       costRange: '$1,500-5,000',
       timeRequired: '1-2 days',
       implementedBy: 'contractor',
       impact: 'moderate',
       steps: [
-        'Hire a Changing Places portable unit from a specialist supplier. Confirm it includes ceiling hoist, adult change table, peninsular toilet, and carer space.',
+        'Hire a Changing Places portable unit from a specialist supplier. Confirm it includes ceiling hoist, adult change table, peninsular toilet and carer space.',
         'Position the unit on firm level ground near other toilet facilities with clear directional signage.',
-        'Hire shade structures (marquees or shade sails) for the entrance, main viewing area, and food service area.',
+        'Hire shade structures (marquees or shade sails) for the entrance, main viewing area and food service area.',
         'Set up a quiet rest area under cover with 6-8 chairs with armrests and backs, away from stage noise.',
         'Install an accessible water station near the rest area.',
         'Add a charging station (two 240V outlets at accessible height) in the rest area.'
@@ -1465,7 +1465,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Commission comprehensive accessible amenities plan',
-      description: 'Engage an access consultant to design the complete amenities layout including toilets, rest areas, weather protection, water, charging, and first aid.',
+      description: 'Engage an access consultant to design the complete amenities layout including toilets, rest areas, weather protection, water, charging and first aid.',
       resourceLevel: 'high',
       costRange: '$5,000-15,000',
       timeRequired: '2-4 weeks',
@@ -1499,7 +1499,7 @@ export const eventsHelp: HelpContent[] = [
       businessType: 'local-government',
       businessTypeLabel: 'Australia Day Event',
       scenario: 'A council\'s outdoor Australia Day event had no shade and no rest areas. Attendees with heat sensitivity and fatigue conditions left early or avoided the event entirely.',
-      solution: 'Installed three shade marquees at the viewing area, food zone, and a new quiet rest area. The rest area included seating with armrests, water, and a first aid volunteer.',
+      solution: 'Installed three shade marquees at the viewing area, food zone and a new quiet rest area. The rest area included seating with armrests, water and a first aid volunteer.',
       outcome: 'Event duration for attendees with disability increased on average. Several attendees thanked the council for the rest area.',
       cost: '$1,200 (marquee hire)',
       timeframe: '1 day to set up'
@@ -1507,7 +1507,7 @@ export const eventsHelp: HelpContent[] = [
     {
       businessType: 'attraction',
       businessTypeLabel: 'Agricultural Show',
-      scenario: 'A regional show had water bubblers mounted on posts too high for wheelchair users, and the only accessible toilet was at the far end of the site.',
+      scenario: 'A regional show had water bubblers mounted on posts too high for wheelchair users and the only accessible toilet was at the far end of the site.',
       solution: 'Installed a portable accessible water station at wheelchair height in the centre of the site. Moved the accessible toilet to the central facilities block. Added a second accessible unit near the grandstand.',
       outcome: 'Wheelchair users could hydrate and use toilets without crossing the entire site. Site planning was updated for all future shows.',
       cost: '$600',
@@ -1521,7 +1521,7 @@ export const eventsHelp: HelpContent[] = [
       url: 'https://changingplaces.org.au/',
       type: 'website',
       source: 'Changing Places Australia',
-      description: 'Information on Changing Places toilets, hire options for events, and the directory of permanent facilities.',
+      description: 'Information on Changing Places toilets, hire options for events and the directory of permanent facilities.',
       isAustralian: true,
       isFree: true
     },
@@ -1530,7 +1530,7 @@ export const eventsHelp: HelpContent[] = [
       url: 'https://www.standards.org.au/standards-catalogue/sa-snz/building/me-064/as--1428-dot-1-colon-2021',
       type: 'guide',
       source: 'Standards Australia',
-      description: 'Standards for accessible toilet design including dimensions, grab rails, and fixture heights.',
+      description: 'Standards for accessible toilet design including dimensions, grab rails and fixture heights.',
       isAustralian: true,
       isFree: false
     },
@@ -1539,7 +1539,7 @@ export const eventsHelp: HelpContent[] = [
       url: 'https://humanrights.gov.au/our-work/disability-rights/publications',
       type: 'guide',
       source: 'Australian Human Rights Commission',
-      description: 'Guidance on accessible temporary facilities at events including toilets, rest areas, and weather protection.',
+      description: 'Guidance on accessible temporary facilities at events including toilets, rest areas and weather protection.',
       isAustralian: true,
       isFree: true
     },
@@ -1566,10 +1566,10 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Accessible event wayfinding and signage',
   coveredQuestionIds: ['6.3-D-1', '6.3-D-2', '6.3-D-3', '6.3-D-8'],
-  summary: 'Event wayfinding needs large-print, high-contrast directional signage at every decision point, accessible maps at entrances, tactile elements for blind attendees, and information points staffed by trained volunteers.',
+  summary: 'Event wayfinding needs large-print, high-contrast directional signage at every decision point, accessible maps at entrances, tactile elements for blind attendees and information points staffed by trained volunteers.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Events are temporary environments where usual wayfinding cues are absent. Attendees with disability cannot rely on familiarity and need clear, consistent signage. Poor wayfinding at events causes anxiety, missed sessions, and safety risks.',
+    text: 'Events are temporary environments where usual wayfinding cues are absent. Attendees with disability cannot rely on familiarity and need clear, consistent signage. Poor wayfinding at events causes anxiety, missed sessions and safety risks.',
     statistic: { value: '4.4 million', context: 'Australians have a disability. At a 10,000-person festival, approximately 1,800 attendees may need accessible wayfinding.', source: 'ABS' }
   },
   tips: [
@@ -1583,10 +1583,10 @@ export const eventsHelp: HelpContent[] = [
     title: 'Auditing event wayfinding',
     steps: [
       { text: 'Walk the event site from each entry point. Can you navigate to all key areas using signage alone?' },
-      { text: 'Check sign size, font, and contrast.', measurement: { target: 'Letter height', acceptable: 'Minimum 30mm for directional signs', unit: 'mm' } },
+      { text: 'Check sign size, font and contrast.', measurement: { target: 'Letter height', acceptable: 'Minimum 30mm for directional signs', unit: 'mm' } },
       { text: 'Check for accessible event maps at each entrance.' },
       { text: 'Test digital wayfinding with a screen reader.' },
-      { text: 'Check signage for accessible toilets, first aid, quiet rooms, and exits.' },
+      { text: 'Check signage for accessible toilets, first aid, quiet rooms and exits.' },
       { text: 'Verify signage is illuminated for low-light conditions.' }
     ],
     tools: ['Tape measure', 'Camera', 'Screen reader'],
@@ -1595,7 +1595,7 @@ export const eventsHelp: HelpContent[] = [
   standardsReference: {
     primary: { code: 'DDA', section: 'Section 24', requirement: 'Event providers must ensure attendees with disability can navigate the event safely and independently.' },
     related: [{ code: 'AS1428.1', relevance: 'Section 8 provides signage standards applicable to event environments.' }],
-    plainEnglish: 'Your event signage must be large enough, clear enough, and consistent enough for people with vision impairment or cognitive disability to navigate independently.',
+    plainEnglish: 'Your event signage must be large enough, clear enough and consistent enough for people with vision impairment or cognitive disability to navigate independently.',
     complianceNote: 'Temporary events have the same DDA obligations as permanent venues. Wayfinding is a key compliance area.'
   },
   solutions: [
@@ -1603,13 +1603,13 @@ export const eventsHelp: HelpContent[] = [
       title: 'Create accessible event signage kit',
       description: 'Develop reusable signage for accessible events.',
       resourceLevel: 'low', costRange: '$200-800', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Design signage templates: 30mm+ letters, sans-serif, high contrast.', 'Create directional signs, area labels, and accessible facility indicators.', 'Print on weatherproof material.', 'Create large-print event map.', 'Brief wayfinding volunteers.', 'Place signs at every decision point during setup.']
+      steps: ['Design signage templates: 30mm+ letters, sans-serif, high contrast.', 'Create directional signs, area labels and accessible facility indicators.', 'Print on weatherproof material.', 'Create large-print event map.', 'Brief wayfinding volunteers.', 'Place signs at every decision point during setup.']
     },
     {
       title: 'Digital wayfinding and staffed information',
       description: 'App-based navigation with trained staff at key points.',
       resourceLevel: 'medium', costRange: '$2,000-8,000', timeRequired: '4-6 weeks', implementedBy: 'contractor', impact: 'moderate',
-      steps: ['Develop accessible event map for app or website.', 'Add screen reader support and zoom.', 'Create QR codes at key locations linking to map.', 'Recruit and train wayfinding volunteers.', 'Provide volunteer identifiers (vests, badges).', 'Station at entrances, intersections, and accessible features.', 'Test with people with vision impairment pre-event.']
+      steps: ['Develop accessible event map for app or website.', 'Add screen reader support and zoom.', 'Create QR codes at key locations linking to map.', 'Recruit and train wayfinding volunteers.', 'Provide volunteer identifiers (vests, badges).', 'Station at entrances, intersections and accessible features.', 'Test with people with vision impairment pre-event.']
     },
     {
       title: 'Comprehensive accessible event environment',
@@ -1638,16 +1638,16 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Event information and communication',
   coveredQuestionIds: ['6.3-PC-3', '6.3-D-4', '6.3-D-5', '6.3-D-6', '6.3-D-10', '6.3-D-11'],
-  summary: 'Event programs, schedules, and updates should be available in large print, digital, Easy Read, and audio formats. Real-time updates must reach attendees through visual displays, app notifications, and plain language announcements. Event apps must be accessibility tested.',
+  summary: 'Event programs, schedules and updates should be available in large print, digital, Easy Read and audio formats. Real-time updates must reach attendees through visual displays, app notifications and plain language announcements. Event apps must be accessibility tested.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Events are dynamic environments where information changes rapidly. If updates are only announced over PA, Deaf attendees miss them. If programs are only in standard print, people with low vision cannot read them. Multi-format information is essential.',
     quote: { text: 'I missed three schedule changes because they were only announced over the loudspeaker. I am Deaf. Nobody thought to put them on a screen.', attribution: 'Deaf attendee, conference feedback' }
   },
   tips: [
-    { icon: 'FileText', text: 'Produce event programs in large print (18pt+), digital, and standard formats.', priority: 1 },
+    { icon: 'FileText', text: 'Produce event programs in large print (18pt+), digital and standard formats.', priority: 1 },
     { icon: 'Monitor', text: 'Display all PA announcements on screens as text.', priority: 2 },
-    { icon: 'Smartphone', text: 'Push schedule changes via event app, SMS, and social media simultaneously.', priority: 3 },
+    { icon: 'Smartphone', text: 'Push schedule changes via event app, SMS and social media simultaneously.', priority: 3 },
     { icon: 'Type', text: 'Use plain language for all announcements: short sentences, clear instructions.', priority: 4 },
     { icon: 'Globe', text: 'Test event app with screen readers and keyboard navigation before launch.', priority: 5 }
   ],
@@ -1695,7 +1695,7 @@ export const eventsHelp: HelpContent[] = [
     { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'Event app not screen-reader compatible.', solution: 'Engaged developer to fix app accessibility. Added push notifications. Created accessible web alternative for those without app.', outcome: 'Screen reader users navigated festival schedule independently. 40% higher app satisfaction.', cost: '$5,000', timeframe: '3 weeks' }
   ],
   resources: [
-    { title: 'Media Access Australia', url: 'https://mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Specialist resources for accessible arts, event, and media communications.', isAustralian: true, isFree: true },
+    { title: 'Media Access Australia', url: 'https://mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Specialist resources for accessible arts, event and media communications.', isAustralian: true, isFree: true },
     { title: 'WCAG 2.2 Quick Reference', url: 'https://www.w3.org/WAI/WCAG22/quickref/', type: 'website', source: 'W3C', description: 'Standards for making event apps and websites accessible.', isFree: true }
   ],
   keywords: ['event program', 'large print', 'PA announcements', 'event app', 'schedule updates', 'plain language', 'multi-format']
@@ -1710,10 +1710,10 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Speaker and presenter accessibility',
   coveredQuestionIds: ['6.3-D-7', '6.3-D-9'],
-  summary: 'Speakers must be briefed on using microphones consistently, describing visual content verbally, pacing for interpreters and captioners, providing slides in advance, and ensuring their content is accessible.',
+  summary: 'Speakers must be briefed on using microphones consistently, describing visual content verbally, pacing for interpreters and captioners, providing slides in advance and ensuring their content is accessible.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Even with perfect hearing loops and captioning, a speaker who does not use the microphone, speaks too fast for captioners, or does not describe visual slides creates barriers. Speaker briefings are the cheapest and most impactful accessibility investment for events.',
+    text: 'Even with perfect hearing loops and captioning, a speaker who does not use the microphone, speaks too fast for captioners or does not describe visual slides creates barriers. Speaker briefings are the cheapest and most impactful accessibility investment for events.',
     quote: { text: 'The captioner was excellent but the speaker spoke so fast the captions were 30 seconds behind. A simple briefing would have fixed this.', attribution: 'Conference attendee, accessibility feedback' }
   },
   tips: [
@@ -1727,7 +1727,7 @@ export const eventsHelp: HelpContent[] = [
     title: 'Auditing speaker accessibility',
     steps: [
       { text: 'Is a speaker accessibility brief sent to all presenters?' },
-      { text: 'Does it cover microphone use, visual description, pacing, and slide format?' },
+      { text: 'Does it cover microphone use, visual description, pacing and slide format?' },
       { text: 'Are slides requested in advance for captioners/interpreters?' },
       { text: 'Is a face-to-face or video briefing offered for keynotes?' },
       { text: 'Are speakers reminded at the venue before their session?' }
@@ -1767,7 +1767,7 @@ export const eventsHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'W3C Accessible Slide Design', url: 'https://www.w3.org/WAI/teach-advocate/accessible-presentations/', type: 'guide', source: 'W3C', description: 'Guidelines for creating accessible presentation materials.', isFree: true },
-    { title: 'Media Access Australia', url: 'https://mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Specialist resources on accessible audio, video, and presentation content.', isAustralian: true, isFree: true }
+    { title: 'Media Access Australia', url: 'https://mediaaccess.org.au/', type: 'guide', source: 'Media Access Australia', description: 'Specialist resources on accessible audio, video and presentation content.', isAustralian: true, isFree: true }
   ],
   keywords: ['speaker', 'presenter', 'microphone', 'captioning', 'slides', 'visual description', 'pacing', 'briefing']
 },
@@ -1781,7 +1781,7 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Hearing access at events',
   coveredQuestionIds: ['6.4-D-1', '6.4-D-2', '6.4-D-3', '6.4-D-5', '6.4-D-6', '6.4-D-9'],
-  summary: 'Hearing access at events includes hearing loops or portable systems, live captioning (CART), Auslan interpreters for key sessions, assistive listening devices for loan, and clear audio quality management across the event.',
+  summary: 'Hearing access at events includes hearing loops or portable systems, live captioning (CART), Auslan interpreters for key sessions, assistive listening devices for loan and clear audio quality management across the event.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Events rely heavily on spoken content. Without hearing access, Deaf and hard-of-hearing attendees are excluded from the core experience. Live captioning and Auslan interpretation open up events to 3.6 million Australians with hearing loss.',
@@ -1797,7 +1797,7 @@ export const eventsHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing hearing access at events',
     steps: [
-      { text: 'Check hearing loops: installed, tested, working, and signed.' },
+      { text: 'Check hearing loops: installed, tested, working and signed.' },
       { text: 'Check captioning: visible from Deaf seating, synchronised with speaker.' },
       { text: 'Check Auslan provision: interpreter positioned in well-lit area visible from front rows.' },
       { text: 'Check assistive listening devices: available, charged, instructions provided.' },
@@ -1824,7 +1824,7 @@ export const eventsHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive hearing access program',
-      description: 'Full hearing access including loops, captioning, and Auslan.',
+      description: 'Full hearing access including loops, captioning and Auslan.',
       resourceLevel: 'medium', costRange: '$5,000-15,000', timeRequired: '4-6 weeks', implementedBy: 'contractor', impact: 'moderate',
       steps: ['Install or hire hearing loops for all session rooms.', 'Book live captioning for all main sessions.', 'Book Auslan interpreters for keynotes (in pairs for sessions over 30 minutes).', 'Set up captioning screens at front of each room.', 'Purchase assistive listening device fleet.', 'Create designated Deaf seating area with good sightlines.', 'Promote hearing access in event marketing.']
     },
@@ -1855,10 +1855,10 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Vision access at events',
   coveredQuestionIds: ['6.4-D-4', '6.4-D-11', '6.4-D-12'],
-  summary: 'Vision access includes audio description of visual content, large-print programs, guided orientation walks, touch tours, lighting management for low vision, and guide dog rest and relief areas.',
+  summary: 'Vision access includes audio description of visual content, large-print programs, guided orientation walks, touch tours, lighting management for low vision and guide dog rest and relief areas.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Events are highly visual. Stage shows, presentations, exhibitions, and signage all rely on sight. Without audio description, guided support, and tactile alternatives, blind and low-vision attendees miss the core content.',
+    text: 'Events are highly visual. Stage shows, presentations, exhibitions and signage all rely on sight. Without audio description, guided support and tactile alternatives, blind and low-vision attendees miss the core content.',
     statistic: { value: '575,000+', context: 'Australians are blind or have low vision. Many are active event attendees with the right support.', source: 'Vision Australia' }
   },
   tips: [
@@ -1890,7 +1890,7 @@ export const eventsHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Basic vision access provisions',
-      description: 'Large print, guide dog area, and staff guidance.',
+      description: 'Large print, guide dog area and staff guidance.',
       resourceLevel: 'low', costRange: '$100-500', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Print 50 copies of large-print program.', 'Designate guide dog relief area with water.', 'Train 3-5 staff in sighted guide technique.', 'Offer pre-event orientation walk for blind attendees.', 'Ensure all event materials are available digitally.', 'Brief front-of-house on proactive assistance.']
     },
@@ -1927,15 +1927,15 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'information-communication-marketing',
   title: 'Sensory safety and neurodivergent access',
   coveredQuestionIds: ['6.4-D-7', '6.4-D-8', '6.4-D-10'],
-  summary: 'Sensory safety for neurodivergent attendees includes quiet rooms, sensory maps warning of loud or bright areas, noise warnings before pyrotechnics, fragrance-free policies, and availability of earplugs and sunglasses.',
+  summary: 'Sensory safety for neurodivergent attendees includes quiet rooms, sensory maps warning of loud or bright areas, noise warnings before pyrotechnics, fragrance-free policies and availability of earplugs and sunglasses.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Events can be overwhelming for autistic people and others with sensory processing differences. Loud music, flashing lights, strong smells, and crowds can cause sensory overload, meltdowns, or shutdowns. Sensory safety measures make the difference between inclusion and exclusion.',
-    statistic: { value: '1 in 70', context: 'Australians are autistic. Many more have ADHD, sensory processing disorder, or anxiety that makes typical event environments challenging.', source: 'Autism CRC' }
+    text: 'Events can be overwhelming for autistic people and others with sensory processing differences. Loud music, flashing lights, strong smells and crowds can cause sensory overload, meltdowns or shutdowns. Sensory safety measures make the difference between inclusion and exclusion.',
+    statistic: { value: '1 in 70', context: 'Australians are autistic. Many more have ADHD, sensory processing disorder or anxiety that makes typical event environments challenging.', source: 'Autism CRC' }
   },
   tips: [
     { icon: 'Volume2', text: 'Create a quiet room: low lighting, minimal noise, comfortable seating, away from main areas.', priority: 1 },
-    { icon: 'Map', text: 'Publish a sensory map showing noise levels, lighting intensity, and quiet zones.', priority: 2 },
+    { icon: 'Map', text: 'Publish a sensory map showing noise levels, lighting intensity and quiet zones.', priority: 2 },
     { icon: 'AlertTriangle', text: 'Warn attendees before loud noises (pyrotechnics, sirens) with at least 30 seconds notice on screens.', priority: 3 },
     { icon: 'Shield', text: 'Implement a fragrance-free or fragrance-reduced policy for indoor events.', priority: 4 },
     { icon: 'Glasses', text: 'Provide free earplugs and tinted sunglasses at information desks.', priority: 5 }
@@ -1999,7 +1999,7 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Staff, volunteers and accessibility roles',
   coveredQuestionIds: ['6.5-D-1', '6.5-D-10', '6.5-D-14'],
-  summary: 'All event staff and volunteers need disability awareness training. Designated accessibility stewards should be identifiable, trained to assist with specific needs, and empowered to make decisions. Security and entry staff need particular focus.',
+  summary: 'All event staff and volunteers need disability awareness training. Designated accessibility stewards should be identifiable, trained to assist with specific needs and empowered to make decisions. Security and entry staff need particular focus.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Event staff and volunteers are the frontline of accessibility. Untrained staff create barriers: blocking wheelchair paths, refusing guide dogs, not knowing about accessible features. Trained staff transform the experience.',
@@ -2041,7 +2041,7 @@ export const eventsHelp: HelpContent[] = [
       title: 'Dedicated accessibility team',
       description: 'Recruit and train a dedicated accessibility team.',
       resourceLevel: 'medium', costRange: '$1,000-5,000', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Recruit accessibility volunteers with disability awareness.', 'Provide 2-hour training covering all disability types and event features.', 'Position at entry, information, and key decision points.', 'Equip with radio and accessibility information pack.', 'Create escalation pathway to accessibility coordinator.', 'Debrief team after event for improvements.', 'Recognise contributions.']
+      steps: ['Recruit accessibility volunteers with disability awareness.', 'Provide 2-hour training covering all disability types and event features.', 'Position at entry, information and key decision points.', 'Equip with radio and accessibility information pack.', 'Create escalation pathway to accessibility coordinator.', 'Debrief team after event for improvements.', 'Recognise contributions.']
     },
     {
       title: 'Professional event accessibility staffing',
@@ -2070,10 +2070,10 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Priority access, food and service animals',
   coveredQuestionIds: ['6.5-PC-3', '6.5-PC-4', '6.5-D-7', '6.5-D-8', '6.5-D-3', '6.5-D-12'],
-  summary: 'Priority access includes fast-track entry, Companion Card acceptance, accessible food service with dietary accommodation, and service animal provisions including relief areas and water.',
+  summary: 'Priority access includes fast-track entry, Companion Card acceptance, accessible food service with dietary accommodation and service animal provisions including relief areas and water.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Standing in long queues is not just uncomfortable for people with disability; for some, it is impossible. People with chronic pain, fatigue conditions, or mobility impairment may not be able to stand for extended periods. Priority access is a reasonable adjustment.',
+    text: 'Standing in long queues is not just uncomfortable for people with disability; for some, it is impossible. People with chronic pain, fatigue conditions or mobility impairment may not be able to stand for extended periods. Priority access is a reasonable adjustment.',
     quote: { text: 'I have a condition that means I cannot stand for more than 5 minutes. Without priority entry, I cannot attend events at all. It is not a luxury; it is a necessity.', attribution: 'Event attendee with chronic fatigue' }
   },
   tips: [
@@ -2099,7 +2099,7 @@ export const eventsHelp: HelpContent[] = [
   standardsReference: {
     primary: { code: 'DDA', section: 'Sections 9 and 24', requirement: 'Assistance animals must be permitted. Priority access is a reasonable adjustment for people who cannot queue.' },
     related: [{ code: 'DDA', relevance: 'Companion Card acceptance removes financial barriers to participation.' }],
-    plainEnglish: 'Offer priority entry, accept the Companion Card, accommodate dietary needs, and welcome assistance animals.',
+    plainEnglish: 'Offer priority entry, accept the Companion Card, accommodate dietary needs and welcome assistance animals.',
     complianceNote: 'Priority access systems should be discreet and dignified. Avoid requiring people to publicly disclose or prove their disability.'
   },
   solutions: [
@@ -2142,7 +2142,7 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Emergency plans and safety',
   coveredQuestionIds: ['6.5-D-13', '6.5-D-15', '6.5-D-16'],
-  summary: 'Accessible emergency plans must account for wheelchair evacuation, visual and audible alarms, assembly points on accessible routes, accessible security screening, and protocols for assisting distressed attendees including those experiencing sensory overload or mental health crises.',
+  summary: 'Accessible emergency plans must account for wheelchair evacuation, visual and audible alarms, assembly points on accessible routes, accessible security screening and protocols for assisting distressed attendees including those experiencing sensory overload or mental health crises.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'In an emergency, people with disability face the greatest risk. Wheelchair users cannot use stairs. Deaf people may not hear alarms. Blind people lose orientation in crowds. Autistic people may freeze. Your emergency plan must specifically address these scenarios.',
@@ -2218,7 +2218,7 @@ export const eventsHelp: HelpContent[] = [
   diapCategory: 'customer-service',
   title: 'Feedback, re-entry and accommodation follow-through',
   coveredQuestionIds: ['6.5-D-4', '6.5-D-5', '6.5-D-6', '6.5-D-9', '6.5-D-11', '6.5-D-17'],
-  summary: 'Collecting and acting on accessibility feedback, flexible re-entry policies for medical or sensory needs, clear lost property procedures, and following through on pre-event accommodation requests all contribute to a complete accessible event experience.',
+  summary: 'Collecting and acting on accessibility feedback, flexible re-entry policies for medical or sensory needs, clear lost property procedures and following through on pre-event accommodation requests all contribute to a complete accessible event experience.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'The event experience extends beyond the main program. If a person with sensory overload leaves for a break and cannot re-enter, they have paid for an event they cannot finish. If pre-event accommodation requests are not followed through, trust is broken. Feedback drives improvement.',
@@ -2226,7 +2226,7 @@ export const eventsHelp: HelpContent[] = [
   },
   tips: [
     { icon: 'MessageSquare', text: 'Collect accessibility feedback during and after the event via accessible survey.', priority: 1 },
-    { icon: 'DoorOpen', text: 'Allow re-entry for attendees who need medical, sensory, or assistance animal breaks.', priority: 2 },
+    { icon: 'DoorOpen', text: 'Allow re-entry for attendees who need medical, sensory or assistance animal breaks.', priority: 2 },
     { icon: 'ClipboardList', text: 'Track all pre-event accommodation requests and confirm delivery on the day.', priority: 3 },
     { icon: 'Package', text: 'Ensure lost property is accessible: lowered counter, clear signage, assistance available.', priority: 4 },
     { icon: 'TrendingUp', text: 'Publish an accessibility report after major events showing what worked and what will improve.', priority: 5 }
@@ -2235,7 +2235,7 @@ export const eventsHelp: HelpContent[] = [
     title: 'Auditing feedback and follow-through',
     steps: [
       { text: 'Is an accessible feedback mechanism available during and after the event?' },
-      { text: 'Is re-entry permitted for medical, sensory, or assistance animal needs?' },
+      { text: 'Is re-entry permitted for medical, sensory or assistance animal needs?' },
       { text: 'Are pre-event accommodation requests tracked and confirmed?' },
       { text: 'Is lost property accessible?' },
       { text: 'Is a post-event accessibility report produced?' },
@@ -2272,7 +2272,7 @@ export const eventsHelp: HelpContent[] = [
   ],
   examples: [
     { businessType: 'event-venue', businessTypeLabel: 'Conference', scenario: 'Pre-event accommodation requests not tracked. Several missed on the day.', solution: 'Created request tracking spreadsheet. Assigned coordinator to verify each on day. Follow-up call to each requestor.', outcome: 'All accommodations delivered. Attendee satisfaction with accessibility increased 40%.', cost: '$0', timeframe: '1 week' },
-    { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'No re-entry for sensory breaks.', solution: 'Implemented wristband re-entry for anyone needing a medical, sensory, or assistance animal break. Quiet exit and re-entry point.', outcome: 'Attendees with sensory needs stay for full event. Positive community feedback.', cost: '$50', timeframe: '1 day' }
+    { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'No re-entry for sensory breaks.', solution: 'Implemented wristband re-entry for anyone needing a medical, sensory or assistance animal break. Quiet exit and re-entry point.', outcome: 'Attendees with sensory needs stay for full event. Positive community feedback.', cost: '$50', timeframe: '1 day' }
   ],
   resources: [
     { title: 'AHRC Events Accessibility', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'AHRC', description: 'Rights and obligations for accessible event services including feedback handling.', isAustralian: true, isFree: true },

@@ -17,7 +17,7 @@ export interface BranchCondition {
   orConditions?: { questionId: string; answers: string[] }[];
 }
 
-// Help content for visual examples, videos, and educational materials
+// Help content for visual examples, videos and educational materials
 export interface HelpExample {
   type: 'good' | 'poor' | 'info';
   imageUrl?: string; // Path in /public folder, e.g., '/help/signage-good.jpg'
@@ -82,7 +82,7 @@ export interface BranchingQuestion {
   // Custom placeholder text for the "partially" description field
   partialPlaceholder?: string;
   // Compliance level: mandatory (required by law/standards), wcag-aa (WCAG AA standard),
-  // dda-compliant (meets DDA), or best-practice (recommended).
+  // dda-compliant (meets DDA) or best-practice (recommended).
   complianceLevel?: 'mandatory' | 'best-practice' | 'wcag-aa' | 'dda-compliant';
   // Reference to specific standard clause (e.g., "AS 1428.1 Cl. 4.1" or "APS D3.5")
   complianceRef?: string;

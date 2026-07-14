@@ -128,7 +128,7 @@ export default function Landing() {
                   <div className="step-number">2</div>
                   <div className="step-content">
                     <h3>Choose your depth</h3>
-                    <p>Take a Pulse Check for a quick baseline, or a Deep Dive for comprehensive coverage. Start light and go deeper when you are ready.</p>
+                    <p>Take a Pulse Check for a quick baseline or a Deep Dive for comprehensive coverage. Start light and go deeper when you are ready.</p>
                   </div>
                 </div>
                 <div className="step">

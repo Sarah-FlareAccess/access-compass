@@ -1,7 +1,7 @@
 /**
  * Help Content: Organisation (modules 5.1-5.10)
  * Covers organisational accessibility policy, employment framework, training, procurement, performance, supplier accessibility,
- * inclusive job design, accessible interviews, onboarding & workplace adjustments, and retention & culture.
+ * inclusive job design, accessible interviews, onboarding & workplace adjustments and retention & culture.
  */
 
 import type { HelpContent } from './types';
@@ -17,18 +17,18 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility policy and DIAP',
   coveredQuestionIds: ['5.1-F-3', '5.1-D-11', '5.1-D-14', '5.1-D-15', '5.1-D-19', '5.1-D-20'],
-  summary: 'A written accessibility policy or Disability Inclusion Action Plan (DIAP) establishes your organisation\'s commitment to accessibility with measurable goals, timelines, and accountability. It should cover physical access, digital accessibility, communications, customer service, employment, and procurement.',
+  summary: 'A written accessibility policy or Disability Inclusion Action Plan (DIAP) establishes your organisation\'s commitment to accessibility with measurable goals, timelines and accountability. It should cover physical access, digital accessibility, communications, customer service, employment and procurement.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Without a documented plan, accessibility improvements happen ad hoc and inconsistently. A DIAP provides a roadmap, assigns responsibility, and creates accountability. Organisations with DIAPs consistently outperform those without in accessibility outcomes.',
+    text: 'Without a documented plan, accessibility improvements happen ad hoc and inconsistently. A DIAP provides a roadmap, assigns responsibility and creates accountability. Organisations with DIAPs consistently outperform those without in accessibility outcomes.',
     statistic: { value: '77%', context: 'of Australian organisations with a DIAP report improved customer satisfaction from people with disability, compared to 23% without one.', source: 'Australia\'s Disability Strategy outcome reporting' },
-    quote: { text: 'Before our DIAP, accessibility was something we talked about but never acted on. The plan gave us deadlines, budgets, and someone responsible for each action.', attribution: 'Operations Manager, regional tourism operator' }
+    quote: { text: 'Before our DIAP, accessibility was something we talked about but never acted on. The plan gave us deadlines, budgets and someone responsible for each action.', attribution: 'Operations Manager, regional tourism operator' }
   },
   tips: [
     { icon: 'FileText', text: 'Start with a simple 1-2 page accessibility statement if a full DIAP feels overwhelming.', detail: 'An accessibility statement commits to key principles and can evolve into a full DIAP.', priority: 1 },
-    { icon: 'Target', text: 'Set SMART goals: specific, measurable, achievable, relevant, and time-bound.', priority: 2 },
+    { icon: 'Target', text: 'Set SMART goals: specific, measurable, achievable, relevant and time-bound.', priority: 2 },
     { icon: 'Users', text: 'Involve people with disability in developing the plan.', detail: 'Nothing about us without us. Consultation with people with lived experience ensures the plan addresses real barriers.', priority: 3 },
-    { icon: 'ClipboardList', text: 'Cover all areas: physical access, digital, communications, employment, procurement, and emergency planning.', priority: 4 },
+    { icon: 'ClipboardList', text: 'Cover all areas: physical access, digital, communications, employment, procurement and emergency planning.', priority: 4 },
     { icon: 'AlertTriangle', text: 'Include your digital products and services in the policy, not just physical premises.', priority: 5 },
     { icon: 'Shield', text: 'Add accessibility to your risk register and business continuity plan.', priority: 6 }
   ],
@@ -39,7 +39,7 @@ export const organisationHelp: HelpContent[] = [
       { text: 'When was it last reviewed or updated?' },
       { text: 'Does it have measurable goals with timelines?' },
       { text: 'Is someone specifically responsible for implementation?' },
-      { text: 'Does it cover physical access, digital access, communications, employment, and procurement?' },
+      { text: 'Does it cover physical access, digital access, communications, employment and procurement?' },
       { text: 'Were people with disability consulted in its development?' },
       { text: 'Is it published and available to staff and the public?' },
       { text: 'Is accessibility included in the risk register and business continuity plan?' }
@@ -53,20 +53,20 @@ export const organisationHelp: HelpContent[] = [
       { code: 'UNCRPD', relevance: 'Article 4 requires States Parties and organisations to adopt measures for the realisation of rights of persons with disabilities.' }
     ],
     plainEnglish: 'While a DIAP is not legally required for most private organisations, having one shows you are serious about accessibility and helps defend against discrimination claims.',
-    complianceNote: 'NSW, Victoria, and Queensland require some organisations to develop Disability Action Plans under state legislation.'
+    complianceNote: 'NSW, Victoria and Queensland require some organisations to develop Disability Action Plans under state legislation.'
   },
   solutions: [
     {
       title: 'Create an accessibility statement',
       description: 'Draft a simple accessibility commitment statement as a first step.',
       resourceLevel: 'low', costRange: '$0-200', timeRequired: '2-4 hours', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Review your current accessibility strengths and gaps.', 'Draft a 1-2 page statement covering commitment, key areas, and contact.', 'Include a feedback mechanism for people with disability.', 'Get senior leadership sign-off.', 'Publish on website and share with staff.', 'Set a date to review and expand into a full DIAP.']
+      steps: ['Review your current accessibility strengths and gaps.', 'Draft a 1-2 page statement covering commitment, key areas and contact.', 'Include a feedback mechanism for people with disability.', 'Get senior leadership sign-off.', 'Publish on website and share with staff.', 'Set a date to review and expand into a full DIAP.']
     },
     {
       title: 'Develop a Disability Inclusion Action Plan',
-      description: 'Create a comprehensive DIAP with goals, timelines, and accountability.',
+      description: 'Create a comprehensive DIAP with goals, timelines and accountability.',
       resourceLevel: 'medium', costRange: '$2,000-10,000', timeRequired: '2-3 months', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Establish a working group including people with disability.', 'Conduct an accessibility audit of your premises, services, and employment.', 'Identify priority areas and set SMART goals for each.', 'Assign responsibility and budget to each action.', 'Draft the DIAP using the AHRC template.', 'Consult with disability organisations.', 'Publish and communicate to all staff.', 'Set quarterly review checkpoints.']
+      steps: ['Establish a working group including people with disability.', 'Conduct an accessibility audit of your premises, services and employment.', 'Identify priority areas and set SMART goals for each.', 'Assign responsibility and budget to each action.', 'Draft the DIAP using the AHRC template.', 'Consult with disability organisations.', 'Publish and communicate to all staff.', 'Set quarterly review checkpoints.']
     },
     {
       title: 'Comprehensive DIAP with external facilitation',
@@ -76,13 +76,13 @@ export const organisationHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'No formal accessibility policy. Improvements were reactive.', solution: 'Developed a 3-year DIAP covering physical access, staff training, digital booking, and employment. Formed disability advisory panel.', outcome: 'Accessibility improvements on track. Won AND Disability Confident employer recognition.', cost: '$20,000', timeframe: '4 months' },
-    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Required to develop a DIAP under state legislation.', solution: 'Co-designed DIAP with local disability groups. Covered all council services, facilities, and employment.', outcome: 'Community satisfaction improved. Used as model by neighbouring councils.', cost: '$30,000', timeframe: '6 months' },
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'No formal accessibility policy. Improvements were reactive.', solution: 'Developed a 3-year DIAP covering physical access, staff training, digital booking and employment. Formed disability advisory panel.', outcome: 'Accessibility improvements on track. Won AND Disability Confident employer recognition.', cost: '$20,000', timeframe: '4 months' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Required to develop a DIAP under state legislation.', solution: 'Co-designed DIAP with local disability groups. Covered all council services, facilities and employment.', outcome: 'Community satisfaction improved. Used as model by neighbouring councils.', cost: '$30,000', timeframe: '6 months' },
     { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Customer complaints about inaccessible stores.', solution: 'Created simple accessibility statement first, then expanded to a full DIAP with store-by-store improvement plans.', outcome: 'Complaints reduced 60%. Staff know what to do. Clear improvement roadmap.', cost: '$5,000', timeframe: '2 months' }
   ],
   resources: [
     { title: 'AHRC DIAP Guide and Register', url: 'https://humanrights.gov.au/our-work/disability-rights/action-plans', type: 'guide', source: 'Australian Human Rights Commission', description: 'How to develop and register a Disability Action Plan.', isAustralian: true, isFree: true },
-    { title: 'Disability Gateway', url: 'https://www.disabilitygateway.gov.au/', type: 'website', source: 'Australian Government', description: 'National gateway with policy, planning, and information resources.', isAustralian: true, isFree: true },
+    { title: 'Disability Gateway', url: 'https://www.disabilitygateway.gov.au/', type: 'website', source: 'Australian Government', description: 'National gateway with policy, planning and information resources.', isAustralian: true, isFree: true },
     { title: 'NSW Disability Inclusion Act', url: 'https://legislation.nsw.gov.au/', type: 'guide', source: 'NSW Government', description: 'Legislative requirements for Disability Inclusion Action Plans in NSW.', isAustralian: true, isFree: true }
   ],
   keywords: ['DIAP', 'policy', 'action plan', 'disability inclusion', 'accessibility statement', 'risk register', 'digital policy']
@@ -97,10 +97,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility leadership and representation',
   coveredQuestionIds: ['5.1-D-10', '5.1-D-16', '5.1-D-7', '5.1-D-8'],
-  summary: 'Effective accessibility requires executive sponsorship, dedicated governance structures, and lived experience representation. A senior champion ensures accessibility has board-level visibility, budget allocation, and strategic priority. Advisory committees with people with disability provide authentic guidance.',
+  summary: 'Effective accessibility requires executive sponsorship, dedicated governance structures and lived experience representation. A senior champion ensures accessibility has board-level visibility, budget allocation and strategic priority. Advisory committees with people with disability provide authentic guidance.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Accessibility initiatives without senior leadership sponsorship stall. When accessibility is no one\'s specific responsibility, it becomes everyone\'s afterthought. Executive champions ensure accessibility is discussed at board level, receives budget, and is integrated into strategic planning.',
+    text: 'Accessibility initiatives without senior leadership sponsorship stall. When accessibility is no one\'s specific responsibility, it becomes everyone\'s afterthought. Executive champions ensure accessibility is discussed at board level, receives budget and is integrated into strategic planning.',
     statistic: { value: '90%', context: 'of organisations that appoint a senior accessibility champion report faster progress on their DIAP goals than those without one.', source: 'Industry benchmarking studies, Australia' }
   },
   tips: [
@@ -158,7 +158,7 @@ export const organisationHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'AHRC - Advisory Committees and Lived Experience', url: 'https://humanrights.gov.au/our-work/disability-rights', type: 'guide', source: 'Australian Human Rights Commission', description: 'Guidance on establishing disability advisory committees and engaging lived experience.', isAustralian: true, isFree: true },
-    { title: 'IncludeAbility - Governance and Leadership', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'National resources for governance, leadership, and co-designed decision-making.', isAustralian: true, isFree: true }
+    { title: 'IncludeAbility - Governance and Leadership', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'National resources for governance, leadership and co-designed decision-making.', isAustralian: true, isFree: true }
   ],
   keywords: ['champion', 'leadership', 'advisory committee', 'governance', 'board', 'lived experience', 'representation']
 },
@@ -172,10 +172,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessible communications and pricing',
   coveredQuestionIds: ['5.1-D-17', '5.1-D-18', '5.1-F-5', '5.1-D-12'],
-  summary: 'All public communications should be available in accessible formats: plain language, large print, Easy Read, and digital versions meeting WCAG 2.1 AA. Pricing and fees must be displayed clearly and accessibly. Marketing materials should include diverse representation.',
+  summary: 'All public communications should be available in accessible formats: plain language, large print, Easy Read and digital versions meeting WCAG 2.1 AA. Pricing and fees must be displayed clearly and accessibly. Marketing materials should include diverse representation.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'If people with disability cannot access your communications, they cannot become your customers. Inaccessible websites, brochures in small print, and complex language all create barriers. Accessible communications reach a broader audience and demonstrate genuine inclusion.',
+    text: 'If people with disability cannot access your communications, they cannot become your customers. Inaccessible websites, brochures in small print and complex language all create barriers. Accessible communications reach a broader audience and demonstrate genuine inclusion.',
     statistic: { value: '71%', context: 'of customers with disability will leave a website that is not accessible, taking their spending elsewhere.', source: 'Click-Away Pound Survey (adapted for Australian context)' }
   },
   tips: [
@@ -204,7 +204,7 @@ export const organisationHelp: HelpContent[] = [
     related: [
       { code: 'WCAG', relevance: 'Web Content Accessibility Guidelines 2.1 AA is the accepted standard for digital accessibility in Australia.' }
     ],
-    plainEnglish: 'Your communications, including website, brochures, and pricing, must be accessible to people with disability.',
+    plainEnglish: 'Your communications, including website, brochures and pricing, must be accessible to people with disability.',
     complianceNote: 'The Australian Government has endorsed WCAG 2.1 AA as the standard for web accessibility. Private sector compliance is expected under the DDA.'
   },
   solutions: [
@@ -224,7 +224,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Comprehensive accessible communications program',
       description: 'Transform all communications for accessibility with ongoing governance.',
       resourceLevel: 'high', costRange: '$15,000-50,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Engage accessibility communications consultant.', 'Audit all communication channels.', 'Develop accessible brand guidelines including fonts, colours, and imagery.', 'Redesign website for universal access.', 'Create Easy Read, large print, and audio versions of key materials.', 'Develop inclusive marketing strategy with disability representation.', 'Train all communications staff.', 'Establish accessibility review in content approval workflow.']
+      steps: ['Engage accessibility communications consultant.', 'Audit all communication channels.', 'Develop accessible brand guidelines including fonts, colours and imagery.', 'Redesign website for universal access.', 'Create Easy Read, large print and audio versions of key materials.', 'Develop inclusive marketing strategy with disability representation.', 'Train all communications staff.', 'Establish accessibility review in content approval workflow.']
     }
   ],
   examples: [
@@ -323,10 +323,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility information register and source of truth',
   coveredQuestionIds: ['5.1-D-21', '5.1-D-22'],
-  summary: 'A single, named accessibility information register is the internal source of truth that prevents the most common operational failure: drift between what your website, booking system, signage, and front-line staff say. Pair the register with a named owner, a documented update cadence, and a 24-hour change-propagation process across all customer-facing channels.',
+  summary: 'A single, named accessibility information register is the internal source of truth that prevents the most common operational failure: drift between what your website, booking system, signage and front-line staff say. Pair the register with a named owner, a documented update cadence and a 24-hour change-propagation process across all customer-facing channels.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'When the website says one thing, the brochure says another, and a customer arrives to find the third version, trust breaks. For multi-site organisations, councils, and venues with many channels, drift is the default unless an owned, audited register exists. A register is a low-cost, high-leverage governance instrument: it removes the work of remembering everywhere accessibility info is published and replaces it with a single update path.',
+    text: 'When the website says one thing, the brochure says another and a customer arrives to find the third version, trust breaks. For multi-site organisations, councils and venues with many channels, drift is the default unless an owned, audited register exists. A register is a low-cost, high-leverage governance instrument: it removes the work of remembering everywhere accessibility info is published and replaces it with a single update path.',
     statistic: { value: '#1', context: 'cause of accessibility complaints in operational reviews of councils and large venues is information drift between channels (lift status, accessible toilet availability, opening hours, accessibility services), not the underlying access itself.', source: 'Practitioner observation across council and venue audits' },
   },
   tips: [
@@ -341,11 +341,11 @@ export const organisationHelp: HelpContent[] = [
     title: 'Auditing your accessibility information governance',
     steps: [
       { text: 'Try to find your authoritative accessibility information register. Can you locate it in under 60 seconds? Is there a single document everyone agrees is the source?' },
-      { text: 'Compare your website, booking system, brochure, and any third-party listings against the register. Note every discrepancy.' },
+      { text: 'Compare your website, booking system, brochure and any third-party listings against the register. Note every discrepancy.' },
       { text: 'Identify the named owner of the register. Confirm it is a specific role, not a committee, with a backup nominated.' },
       { text: 'Check when the register was last reviewed and last fully audited.' },
       { text: 'Pull the change log: when access changed last, how long did it take for every channel to reflect the new state?' },
-      { text: 'Stage a "lift outage" drill: notify the owner of a fictional change at 9am and time how long until website, booking, signage, staff, and third-party listings all reflect it.' },
+      { text: 'Stage a "lift outage" drill: notify the owner of a fictional change at 9am and time how long until website, booking, signage, staff and third-party listings all reflect it.' },
     ],
     estimatedTime: '3-4 hours',
   },
@@ -355,7 +355,7 @@ export const organisationHelp: HelpContent[] = [
       description: 'Stand up a single accessibility information register as the named source of truth.',
       resourceLevel: 'low', costRange: '$0-2,000', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'quick-win',
       steps: [
-        'Choose a format: shared document, intranet page, or simple database.',
+        'Choose a format: shared document, intranet page or simple database.',
         'Document the scope: physical access, sensory access, communication options, support services, current exceptions.',
         'Map every customer-facing channel that publishes accessibility info.',
         'Publish the register internally and require channels to reference it.',
@@ -369,7 +369,7 @@ export const organisationHelp: HelpContent[] = [
       steps: [
         'Name a specific role (not a committee), with backup for leave coverage.',
         'Add ownership to the role description and DIAP.',
-        'Document monthly review, quarterly full audit, and annual major review cadence.',
+        'Document monthly review, quarterly full audit and annual major review cadence.',
         'Tie register currency to the owner\'s performance review or a quarterly Exec report.',
         'Brief leadership on the role and cadence.',
       ],
@@ -422,7 +422,7 @@ export const organisationHelp: HelpContent[] = [
     {
       businessType: 'health-wellness',
       businessTypeLabel: 'Health Service Network',
-      scenario: 'Patient-facing accessibility info varied across clinic websites, MyAgedCare listing, and patient reception scripts. Patients receiving conflicting info before appointments.',
+      scenario: 'Patient-facing accessibility info varied across clinic websites, MyAgedCare listing and patient reception scripts. Patients receiving conflicting info before appointments.',
       solution: 'Stood up a network-wide register. Each clinic site references the central register. Reception scripts auto-pull from register. Quarterly audit by patient experience team.',
       outcome: 'Pre-appointment complaints about access uncertainty halved. Network adopted register as model for other communication needs.',
       cost: '$8,500',
@@ -431,7 +431,7 @@ export const organisationHelp: HelpContent[] = [
     {
       businessType: 'tour-operator',
       businessTypeLabel: 'Tourism Operator',
-      scenario: 'Operator listed on its own site, on regional tourism portal, and on TripAdvisor. Each had slightly different accessibility info, last updated at different times. Customer arrived expecting features that had been changed.',
+      scenario: 'Operator listed on its own site, on regional tourism portal and on TripAdvisor. Each had slightly different accessibility info, last updated at different times. Customer arrived expecting features that had been changed.',
       solution: 'Built simple register (one shared document). Set rule: any access change notified to operator owner within 1 hour. Owner updates own site, then regional portal, then TripAdvisor within 24 hours.',
       outcome: 'Three subsequent access changes all reflected across channels within timeframe. One refund avoided.',
       cost: '$1,200 (register + process design)',
@@ -455,10 +455,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Disability awareness training program',
   coveredQuestionIds: ['5.3-F-2', '5.3-D-1', '5.3-D-7', '5.3-D-11'],
-  summary: 'All staff who interact with customers should complete disability awareness training covering types of disability, communication techniques, the social model of disability, and your venue\'s specific accessibility features. Training should be part of induction and refreshed annually.',
+  summary: 'All staff who interact with customers should complete disability awareness training covering types of disability, communication techniques, the social model of disability and your venue\'s specific accessibility features. Training should be part of induction and refreshed annually.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Staff attitudes and confidence make or break the customer experience for people with disability. Even in a perfectly accessible building, untrained staff can create barriers through awkwardness, assumptions, or well-meaning but inappropriate behaviour.',
+    text: 'Staff attitudes and confidence make or break the customer experience for people with disability. Even in a perfectly accessible building, untrained staff can create barriers through awkwardness, assumptions or well-meaning but inappropriate behaviour.',
     statistic: { value: '73%', context: 'of people with disability say staff attitudes are as important as physical access when choosing where to spend their money.', source: 'AND Customer Insights' },
     quote: { text: 'The building was accessible but the staff made me feel like a burden. They talked to my carer instead of me and made a fuss about my wheelchair. Training would have made all the difference.', attribution: 'Customer with disability, feedback survey' }
   },
@@ -478,7 +478,7 @@ export const organisationHelp: HelpContent[] = [
       { text: 'Does the training include practical scenarios and role-play?' },
       { text: 'Is training delivered or co-delivered by people with disability?' },
       { text: 'Is there an annual refresher?' },
-      { text: 'Can staff articulate how to assist a person with vision impairment, a wheelchair user, or a person who communicates differently?' }
+      { text: 'Can staff articulate how to assist a person with vision impairment, a wheelchair user or a person who communicates differently?' }
     ],
     tools: ['Training records', 'Staff survey'],
     estimatedTime: '20-30 minutes'
@@ -487,7 +487,7 @@ export const organisationHelp: HelpContent[] = [
     primary: { code: 'DDA', section: 'Section 122', requirement: 'Employers have vicarious liability for discriminatory actions by employees. Training demonstrates due diligence.' },
     related: [{ code: 'UNCRPD', relevance: 'Article 8 requires awareness-raising including training of professionals and staff.' }],
     plainEnglish: 'While not explicitly required by law, disability awareness training protects your organisation from discrimination claims and improves customer experience.',
-    complianceNote: 'Training records are valuable evidence if a discrimination complaint is made. Document who was trained, when, and on what.'
+    complianceNote: 'Training records are valuable evidence if a discrimination complaint is made. Document who was trained, when and on what.'
   },
   solutions: [
     {
@@ -530,16 +530,16 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Training content: disability types and communication',
   coveredQuestionIds: ['5.3-D-5', '5.3-D-9', '5.3-D-10', '5.3-D-12', '5.3-D-13'],
-  summary: 'Training content should cover visible and invisible disabilities, communication techniques for each type, assistive technology awareness, person-first language, and practical scenarios staff will encounter. Include both knowledge and hands-on practice.',
+  summary: 'Training content should cover visible and invisible disabilities, communication techniques for each type, assistive technology awareness, person-first language and practical scenarios staff will encounter. Include both knowledge and hands-on practice.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Many staff think "disability" means wheelchairs. In reality, most disabilities are invisible: chronic pain, mental health conditions, autism, hearing loss, and cognitive disabilities. Without understanding the breadth of disability, staff miss opportunities to help and may inadvertently cause harm.',
+    text: 'Many staff think "disability" means wheelchairs. In reality, most disabilities are invisible: chronic pain, mental health conditions, autism, hearing loss and cognitive disabilities. Without understanding the breadth of disability, staff miss opportunities to help and may inadvertently cause harm.',
     statistic: { value: '80%+', context: 'of disabilities are invisible. If your staff only think about wheelchair users, they are missing the vast majority of customers with disability.', source: 'Australian Bureau of Statistics - Survey of Disability, Ageing and Carers' }
   },
   tips: [
     { icon: 'Eye', text: 'Cover both visible and invisible disabilities: mobility, vision, hearing, cognitive, psychosocial, chronic illness.', priority: 1 },
     { icon: 'MessageSquare', text: 'Teach specific communication techniques for each: speak directly to the person, face lip-readers, allow extra time.', priority: 2 },
-    { icon: 'Lightbulb', text: 'Include assistive technology awareness: what hearing aids, screen readers, and AAC devices look like and how they work.', priority: 3 },
+    { icon: 'Lightbulb', text: 'Include assistive technology awareness: what hearing aids, screen readers and AAC devices look like and how they work.', priority: 3 },
     { icon: 'ClipboardList', text: 'Use practical scenarios: "A customer is having a panic attack", "A customer\'s guide dog is with them".', priority: 4 },
     { icon: 'Heart', text: 'Emphasise person-first and respectful language: "person with disability" not "disabled person" (unless they prefer otherwise).', priority: 5 }
   ],
@@ -558,7 +558,7 @@ export const organisationHelp: HelpContent[] = [
     estimatedTime: '20-30 minutes'
   },
   standardsReference: {
-    primary: { code: 'DDA', section: 'Section 5', requirement: 'The DDA defines disability broadly including physical, intellectual, psychiatric, neurological, and learning disabilities, as well as conditions that may exist in the future.' },
+    primary: { code: 'DDA', section: 'Section 5', requirement: 'The DDA defines disability broadly including physical, intellectual, psychiatric, neurological and learning disabilities, as well as conditions that may exist in the future.' },
     related: [{ code: 'UNCRPD', relevance: 'Preamble recognises that disability is an evolving concept resulting from interaction with barriers.' }],
     plainEnglish: 'Staff need to understand the full range of disabilities, not just those that are visible. Training should be practical and relevant to your workplace.',
     complianceNote: 'Knowledge of different disability types and communication techniques reduces the risk of discriminatory behaviour and complaint.'
@@ -568,7 +568,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Update training content',
       description: 'Expand existing training to cover all disability types with practical scenarios.',
       resourceLevel: 'low', costRange: '$0-300', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Review current training content against a disability type checklist.', 'Add modules on invisible disability, autism, and mental health.', 'Create scenario cards for common situations at your venue.', 'Add assistive technology show-and-tell (hearing loop receiver, communication board).', 'Include a language guide with dos and don\'ts.', 'Deliver updated content at next staff meeting.']
+      steps: ['Review current training content against a disability type checklist.', 'Add modules on invisible disability, autism and mental health.', 'Create scenario cards for common situations at your venue.', 'Add assistive technology show-and-tell (hearing loop receiver, communication board).', 'Include a language guide with dos and don\'ts.', 'Deliver updated content at next staff meeting.']
     },
     {
       title: 'Engage specialist trainers for comprehensive content',
@@ -584,7 +584,7 @@ export const organisationHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'attraction', businessTypeLabel: 'Zoo', scenario: 'Training only covered physical disability.', solution: 'Expanded to cover autism (sensory needs), vision impairment (guiding techniques), hearing loss (communication), and intellectual disability (Easy English). Added scenario role-plays.', outcome: 'Staff handle diverse situations confidently. Autism-friendly sessions launched.', cost: '$2,000', timeframe: '4 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Zoo', scenario: 'Training only covered physical disability.', solution: 'Expanded to cover autism (sensory needs), vision impairment (guiding techniques), hearing loss (communication) and intellectual disability (Easy English). Added scenario role-plays.', outcome: 'Staff handle diverse situations confidently. Autism-friendly sessions launched.', cost: '$2,000', timeframe: '4 weeks' },
     { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Staff did not know how to interact with guests using AAC devices.', solution: 'Added AAC awareness to training. Staff practised using communication boards. Invited local speech pathologist to demonstrate devices.', outcome: 'Staff comfortable with non-verbal guests. Communication boards installed at reception.', cost: '$500', timeframe: '2 weeks' }
   ],
   resources: [
@@ -603,10 +603,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Equipment knowledge and escalation',
   coveredQuestionIds: ['5.3-D-3', '5.3-D-6', '5.3-D-8'],
-  summary: 'Staff must know how to operate accessibility equipment (hearing loops, portable ramps, hoists, communication boards), troubleshoot common issues, and escalate when they cannot resolve a situation. Equipment that staff cannot use is equipment that does not exist.',
+  summary: 'Staff must know how to operate accessibility equipment (hearing loops, portable ramps, hoists, communication boards), troubleshoot common issues and escalate when they cannot resolve a situation. Equipment that staff cannot use is equipment that does not exist.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Investing in accessibility equipment is wasted if staff do not know it exists, where it is stored, or how to use it. A hearing loop that is never switched on, a portable ramp in a locked cupboard, or a hoist that no one is trained to operate all represent failed investment.',
+    text: 'Investing in accessibility equipment is wasted if staff do not know it exists, where it is stored or how to use it. A hearing loop that is never switched on, a portable ramp in a locked cupboard or a hoist that no one is trained to operate all represent failed investment.',
     quote: { text: 'I asked about the hearing loop and the staff member said they did not know they had one. It was right there on the counter, switched off.', attribution: 'Hearing aid user, venue feedback' }
   },
   tips: [
@@ -675,10 +675,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility in supplier selection',
   coveredQuestionIds: ['5.4-D-1', '5.4-D-2', '5.4-D-4', '5.4-D-7', '5.4-D-11'],
-  summary: 'Accessible procurement means evaluating suppliers on their accessibility practices, requiring WCAG compliance for digital products, considering disability-owned enterprises, and making the tendering process itself accessible.',
+  summary: 'Accessible procurement means evaluating suppliers on their accessibility practices, requiring WCAG compliance for digital products, considering disability-owned enterprises and making the tendering process itself accessible.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Your accessibility chain is only as strong as its weakest supplier. If a third-party catering company, technology vendor, or event supplier does not understand accessibility, your customers with disability suffer. Procurement is a powerful lever for driving accessibility across your supply chain.',
+    text: 'Your accessibility chain is only as strong as its weakest supplier. If a third-party catering company, technology vendor or event supplier does not understand accessibility, your customers with disability suffer. Procurement is a powerful lever for driving accessibility across your supply chain.',
     statistic: { value: '$54 billion', context: 'annual spending by Australians with disability is influenced by the entire supply chain, not just the front-line provider.', source: 'AND' }
   },
   tips: [
@@ -747,7 +747,7 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility requirements in contracts',
   coveredQuestionIds: ['5.4-D-3', '5.4-D-5', '5.4-D-6', '5.4-D-12'],
-  summary: 'Contracts should include specific accessibility requirements, compliance standards (WCAG for digital, AS 1428.1 for physical), testing obligations, remediation timelines, and consideration of total cost of ownership including accessibility maintenance.',
+  summary: 'Contracts should include specific accessibility requirements, compliance standards (WCAG for digital, AS 1428.1 for physical), testing obligations, remediation timelines and consideration of total cost of ownership including accessibility maintenance.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Without accessibility clauses in contracts, you have no leverage when suppliers deliver inaccessible products or services. Contractual requirements make accessibility a business obligation, not a goodwill request.',
@@ -819,7 +819,7 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Ongoing supplier accountability',
   coveredQuestionIds: ['5.4-D-9', '5.4-D-10'],
-  summary: 'Accessibility requirements in contracts are only effective if compliance is monitored. Regular supplier reviews, accessibility audits, performance reporting, and contract renewal criteria ensure ongoing accountability.',
+  summary: 'Accessibility requirements in contracts are only effective if compliance is monitored. Regular supplier reviews, accessibility audits, performance reporting and contract renewal criteria ensure ongoing accountability.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Suppliers may meet accessibility requirements at the start of a contract but let standards slip over time. Software updates may break accessibility features. Staff turnover at supplier organisations may erode training. Regular review maintains standards.',
@@ -890,10 +890,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Accessibility performance review',
   coveredQuestionIds: ['5.5-D-1', '5.5-D-6', '5.5-D-10', '5.5-D-11', '5.5-F-2'],
-  summary: 'Regular accessibility performance reviews assess progress against DIAP goals, measure customer and employee experience, identify new barriers, and ensure accountability through board-level reporting and multi-year roadmaps.',
+  summary: 'Regular accessibility performance reviews assess progress against DIAP goals, measure customer and employee experience, identify new barriers and ensure accountability through board-level reporting and multi-year roadmaps.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'Accessibility is not a destination but a continuous improvement journey. Without regular reviews, organisations lose momentum, new barriers emerge unnoticed, and staff revert to old habits. Performance reviews keep accessibility visible and accountable.',
+    text: 'Accessibility is not a destination but a continuous improvement journey. Without regular reviews, organisations lose momentum, new barriers emerge unnoticed and staff revert to old habits. Performance reviews keep accessibility visible and accountable.',
     statistic: { value: '85%', context: 'of organisations that review accessibility performance quarterly report achieving DIAP goals on time, compared to 30% that review annually or less.', source: 'AND Benchmarking Data' }
   },
   tips: [
@@ -932,7 +932,7 @@ export const organisationHelp: HelpContent[] = [
     },
     {
       title: 'Structured accessibility management system',
-      description: 'Formal system for tracking, reporting, and improving.',
+      description: 'Formal system for tracking, reporting and improving.',
       resourceLevel: 'medium', costRange: '$3,000-10,000', timeRequired: '2-3 months', implementedBy: 'staff', impact: 'moderate',
       steps: ['Develop accessibility dashboard with real-time KPIs.', 'Create multi-year roadmap aligned to strategic plan.', 'Establish quarterly review cycle with leadership.', 'Integrate customer feedback from people with disability.', 'Commission annual physical and digital accessibility audits.', 'Publish annual accessibility progress report.', 'Benchmark against peers.']
     },
@@ -963,7 +963,7 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Reporting and benchmarking',
   coveredQuestionIds: ['5.5-D-2', '5.5-D-3', '5.5-D-4', '5.5-D-12'],
-  summary: 'Public reporting on accessibility progress builds trust, creates accountability, and enables benchmarking. Annual reports should cover progress against goals, challenges encountered, customer and employee outcomes, and plans for the next period.',
+  summary: 'Public reporting on accessibility progress builds trust, creates accountability and enables benchmarking. Annual reports should cover progress against goals, challenges encountered, customer and employee outcomes and plans for the next period.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
     text: 'Transparency builds trust. When organisations publicly report on accessibility, people with disability can make informed choices and the disability community can recognise genuine effort. Benchmarking against peers drives competitive improvement.',
@@ -1005,7 +1005,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Annual accessibility report and benchmarking',
       description: 'Produce a formal report and participate in benchmarking.',
       resourceLevel: 'medium', costRange: '$2,000-8,000', timeRequired: '4-8 weeks', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Compile annual accessibility data.', 'Write progress report covering achievements, challenges, and plans.', 'Participate in AND Access and Inclusion Index.', 'Publish report on website and share with stakeholders.', 'Present results at board meeting.', 'Use benchmarking results to set next year\'s priorities.', 'Promote publicly.']
+      steps: ['Compile annual accessibility data.', 'Write progress report covering achievements, challenges and plans.', 'Participate in AND Access and Inclusion Index.', 'Publish report on website and share with stakeholders.', 'Present results at board meeting.', 'Use benchmarking results to set next year\'s priorities.', 'Promote publicly.']
     },
     {
       title: 'Industry leadership in transparency',
@@ -1015,12 +1015,12 @@ export const organisationHelp: HelpContent[] = [
     }
   ],
   examples: [
-    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'No public accessibility information.', solution: 'Created accessibility web page with features, DIAP, and contact. Published annual progress update.', outcome: 'Bookings from disability travel community increased. Featured on Travability.', cost: '$0', timeframe: '1 week' },
+    { businessType: 'accommodation', businessTypeLabel: 'Hotel Group', scenario: 'No public accessibility information.', solution: 'Created accessibility web page with features, DIAP and contact. Published annual progress update.', outcome: 'Bookings from disability travel community increased. Featured on Travability.', cost: '$0', timeframe: '1 week' },
     { businessType: 'general', businessTypeLabel: 'Corporate', scenario: 'Wanted to demonstrate accessibility leadership.', solution: 'Published first accessibility report. Registered DIAP with AHRC. Presented results at industry conference.', outcome: 'Public DIAP registration. Media coverage. Talent attraction improved.', cost: '$10,000', timeframe: '3 months' }
   ],
   resources: [
     { title: 'AHRC DIAP Register', url: 'https://humanrights.gov.au/our-work/disability-rights/action-plans', type: 'website', source: 'Australian Human Rights Commission', description: 'Public register for DIAPs - visibility and accountability for your reporting.', isAustralian: true, isFree: true },
-    { title: 'Australia\'s Disability Strategy', url: 'https://www.disabilitygateway.gov.au/ads', type: 'website', source: 'Australian Government', description: 'National reporting framework with outcome areas, indicators, and targets.', isAustralian: true, isFree: true },
+    { title: 'Australia\'s Disability Strategy', url: 'https://www.disabilitygateway.gov.au/ads', type: 'website', source: 'Australian Government', description: 'National reporting framework with outcome areas, indicators and targets.', isAustralian: true, isFree: true },
     { title: 'Global Reporting Initiative', url: 'https://www.globalreporting.org/', type: 'guide', source: 'GRI', description: 'Framework for sustainability reporting including disability.', isFree: true }
   ],
   keywords: ['reporting', 'benchmarking', 'transparency', 'annual report', 'DIAP register', 'public reporting', 'roadmap']
@@ -1035,10 +1035,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Learning, engagement and recognition',
   coveredQuestionIds: ['5.5-D-7', '5.5-D-8', '5.5-D-9', '5.5-D-13'],
-  summary: 'Meaningful disability community engagement goes beyond consultation to include co-design, ongoing relationships, sharing learnings publicly, and celebrating accessibility achievements. Recognition motivates continued effort and signals commitment to the community.',
+  summary: 'Meaningful disability community engagement goes beyond consultation to include co-design, ongoing relationships, sharing learnings publicly and celebrating accessibility achievements. Recognition motivates continued effort and signals commitment to the community.',
   lastUpdated: '2026-02-26',
   whyItMatters: {
-    text: 'The disability community is your most valuable accessibility resource. Engaging genuinely, sharing what you learn, and celebrating progress creates a virtuous cycle of improvement. Organisations that engage with the community consistently achieve better accessibility outcomes.',
+    text: 'The disability community is your most valuable accessibility resource. Engaging genuinely, sharing what you learn and celebrating progress creates a virtuous cycle of improvement. Organisations that engage with the community consistently achieve better accessibility outcomes.',
     quote: { text: 'When an organisation invites us to co-design, not just consult, the results are transformative. We know what works because we live it every day.', attribution: 'Disability advocate, co-design participant' }
   },
   tips: [
@@ -1110,11 +1110,11 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Third-party service standards and verification',
   coveredQuestionIds: ['5.6-PC-3', '5.6-PC-4', '5.6-PC-5', '5.6-D-3', '5.6-D-4', '5.6-D-5'],
-  summary: 'Your accessibility reputation depends on every touchpoint, including those delivered by third parties. Setting clear accessibility standards for suppliers, delivery partners, contractors, and outsourced services ensures customers with disability receive consistent, quality experiences regardless of who delivers the service.',
+  summary: 'Your accessibility reputation depends on every touchpoint, including those delivered by third parties. Setting clear accessibility standards for suppliers, delivery partners, contractors and outsourced services ensures customers with disability receive consistent, quality experiences regardless of who delivers the service.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'Customers do not distinguish between your staff and your contractors. If a catering company you hired serves food at an inaccessible height, if a cleaning contractor blocks an accessible toilet with equipment, or if a transport partner sends a vehicle without wheelchair access, the customer blames your organisation. Under the DDA, you cannot outsource your accessibility obligations. Section 24 makes it unlawful to discriminate in the provision of goods, services, and facilities, whether delivered directly or through third parties. Setting standards, briefing suppliers, verifying compliance, and reviewing performance at contract renewal are essential to maintaining accessible service across your full operation.',
+    text: 'Customers do not distinguish between your staff and your contractors. If a catering company you hired serves food at an inaccessible height, if a cleaning contractor blocks an accessible toilet with equipment or if a transport partner sends a vehicle without wheelchair access, the customer blames your organisation. Under the DDA, you cannot outsource your accessibility obligations. Section 24 makes it unlawful to discriminate in the provision of goods, services and facilities, whether delivered directly or through third parties. Setting standards, briefing suppliers, verifying compliance and reviewing performance at contract renewal are essential to maintaining accessible service across your full operation.',
     statistic: {
       value: '4.4 million',
       context: 'Australians have disability. When they encounter an accessibility failure from a third-party provider at your venue or event, the complaint comes to you. Proactive supplier management prevents reputational and legal risk.',
@@ -1130,13 +1130,13 @@ export const organisationHelp: HelpContent[] = [
     {
       icon: 'FileText',
       text: 'Include accessibility requirements in all supplier contracts and service level agreements.',
-      detail: 'Add a standard accessibility clause to your procurement templates. Specify what you expect: staff trained in disability awareness, accessible equipment, compliance with DDA and relevant standards, and a process for handling accessibility complaints. Make it a condition of contract, not an optional extra.',
+      detail: 'Add a standard accessibility clause to your procurement templates. Specify what you expect: staff trained in disability awareness, accessible equipment, compliance with DDA and relevant standards and a process for handling accessibility complaints. Make it a condition of contract, not an optional extra.',
       priority: 1
     },
     {
       icon: 'ClipboardList',
       text: 'Create an accessibility briefing template for all contractors and casual suppliers.',
-      detail: 'A one-page briefing covering: key accessibility features of your venue (accessible toilets, paths, parking), behaviours expected (do not block accessible routes, offer assistance without assuming), emergency procedures for people with disability, and who to contact with accessibility questions. Hand it to every caterer, cleaner, AV technician, and event crew member.',
+      detail: 'A one-page briefing covering: key accessibility features of your venue (accessible toilets, paths, parking), behaviours expected (do not block accessible routes, offer assistance without assuming), emergency procedures for people with disability and who to contact with accessibility questions. Hand it to every caterer, cleaner, AV technician and event crew member.',
       priority: 2
     },
     {
@@ -1154,13 +1154,13 @@ export const organisationHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Review supplier accessibility performance at contract renewal.',
-      detail: 'At renewal, assess each supplier against their accessibility obligations. Have there been complaints? Did they meet the standards in the contract? Are there patterns of failure? Use this data to decide whether to renew, renegotiate, or find an alternative supplier with stronger accessibility credentials.',
+      detail: 'At renewal, assess each supplier against their accessibility obligations. Have there been complaints? Did they meet the standards in the contract? Are there patterns of failure? Use this data to decide whether to renew, renegotiate or find an alternative supplier with stronger accessibility credentials.',
       priority: 5
     },
     {
       icon: 'AlertTriangle',
       text: 'Brief delivery partners specifically on accessible delivery practices.',
-      detail: 'Delivery partners need to know: knock and wait (do not leave packages at a distance), communicate via the customer\'s preferred method (text, call, email), handle goods carefully for customers who cannot inspect on delivery, and offer flexible delivery windows for customers with support worker schedules.',
+      detail: 'Delivery partners need to know: knock and wait (do not leave packages at a distance), communicate via the customer\'s preferred method (text, call, email), handle goods carefully for customers who cannot inspect on delivery and offer flexible delivery windows for customers with support worker schedules.',
       priority: 6
     }
   ],
@@ -1185,12 +1185,12 @@ export const organisationHelp: HelpContent[] = [
     primary: {
       code: 'DDA',
       section: 'Section 24',
-      requirement: 'It is unlawful to discriminate in the provision of goods, services, and facilities. This extends to services delivered by third parties on your behalf. You cannot outsource your DDA obligations.'
+      requirement: 'It is unlawful to discriminate in the provision of goods, services and facilities. This extends to services delivered by third parties on your behalf. You cannot outsource your DDA obligations.'
     },
     related: [
       { code: 'UNCRPD', relevance: 'Article 9: Accessibility obligations apply to services provided by private entities to the public, including through contractors and suppliers.' }
     ],
-    plainEnglish: 'If a third party delivers a service on your behalf and that service discriminates against someone with disability, you are responsible. Setting accessibility standards for suppliers, verifying compliance, and acting on complaints protects your customers and your organisation.',
+    plainEnglish: 'If a third party delivers a service on your behalf and that service discriminates against someone with disability, you are responsible. Setting accessibility standards for suppliers, verifying compliance and acting on complaints protects your customers and your organisation.',
     complianceNote: 'The AHRC has found organisations liable for third-party accessibility failures in multiple conciliation outcomes. Including accessibility in contracts and actively managing supplier performance is the strongest defence.'
   },
 
@@ -1204,8 +1204,8 @@ export const organisationHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'quick-win',
       steps: [
-        'Draft a one-page accessibility briefing covering: venue accessible features, expected behaviours, emergency procedures, and contact for accessibility questions.',
-        'Include a simple map showing accessible routes, toilets, and parking.',
+        'Draft a one-page accessibility briefing covering: venue accessible features, expected behaviours, emergency procedures and contact for accessibility questions.',
+        'Include a simple map showing accessible routes, toilets and parking.',
         'Add a section on disability etiquette: offer assistance, do not assume, communicate respectfully.',
         'Distribute to all current contractors and include in onboarding for new suppliers.',
         'Keep copies at reception and loading dock for casual suppliers (caterers, AV, delivery).',
@@ -1233,7 +1233,7 @@ export const organisationHelp: HelpContent[] = [
     },
     {
       title: 'Comprehensive supplier accessibility program',
-      description: 'Formal program embedding accessibility across the full supplier lifecycle: procurement, onboarding, monitoring, and renewal.',
+      description: 'Formal program embedding accessibility across the full supplier lifecycle: procurement, onboarding, monitoring and renewal.',
       resourceLevel: 'high',
       costRange: '$10,000-30,000',
       timeRequired: '2-3 months',
@@ -1244,7 +1244,7 @@ export const organisationHelp: HelpContent[] = [
         'Rewrite procurement templates to include mandatory accessibility requirements with measurable KPIs.',
         'Develop supplier onboarding program with accessibility training module (online, 30 minutes).',
         'Implement quarterly spot-check audits of supplier accessibility performance.',
-        'Build a supplier accessibility dashboard tracking complaints, scores, and improvement trends.',
+        'Build a supplier accessibility dashboard tracking complaints, scores and improvement trends.',
         'Include accessibility as a mandatory criterion in all tender evaluations (minimum 10% weighting).',
         'Create a preferred supplier list recognising suppliers with strong accessibility credentials.',
         'Conduct annual supplier accessibility summit sharing best practice and expectations.',
@@ -1258,7 +1258,7 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'event-venue', businessTypeLabel: 'Event Organiser', scenario: 'Hired caterers who placed food tables at standing height only. Hired security who blocked wheelchair access to the VIP area. Multiple complaints.', solution: 'Created an event supplier accessibility briefing template. Added accessibility clauses to all supplier contracts. Required caterers to provide food at two heights. Briefed security on accessible entry requirements.', outcome: 'No accessibility complaints from supplier-delivered services in the following 6 months. Suppliers report clearer expectations.', cost: '$500', timeframe: '1 week' },
     { businessType: 'accommodation', businessTypeLabel: 'Hotel', scenario: 'Airport transfer partner consistently sent inaccessible vehicles despite requests. Guest complaints eroding the hotel\'s accessibility reputation.', solution: 'Added a mandatory wheelchair-accessible vehicle clause to the transfer contract. Switched to a partner with a verified accessible fleet. Implemented a pre-arrival confirmation process for accessible transfers.', outcome: 'Zero transfer complaints in 12 months. Guests specifically praise the accessible door-to-door experience.', cost: '$200', timeframe: '2 weeks' },
     { businessType: 'retail', businessTypeLabel: 'Shopping Centre', scenario: 'Cleaning contractor regularly blocked accessible toilets and ramps with equipment carts. No accountability mechanism.', solution: 'Included accessible route clearance in the cleaning contract with penalty clauses. Provided an accessibility briefing and accessible route map to all cleaning staff. Implemented monthly spot checks.', outcome: 'Route blockages eliminated. Cleaning contractor now trains their own staff on accessibility. Approach adopted by other centres managed by the same group.', cost: '$300', timeframe: '1 week' },
-    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Council outsourced library programs, pool management, and waste collection. No accessibility requirements in any contract. Complaints about inaccessible library events and pool staff who did not understand adaptive equipment.', solution: 'Developed a council-wide supplier accessibility framework with mandatory contract clauses, onboarding training, and annual performance reviews. Required all major suppliers to nominate an accessibility contact.', outcome: 'Supplier-related accessibility complaints reduced 70%. Council uses the framework as a model for neighbouring councils. Library program participation by people with disability doubled.', cost: '$15,000', timeframe: '3 months' }
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Council outsourced library programs, pool management and waste collection. No accessibility requirements in any contract. Complaints about inaccessible library events and pool staff who did not understand adaptive equipment.', solution: 'Developed a council-wide supplier accessibility framework with mandatory contract clauses, onboarding training and annual performance reviews. Required all major suppliers to nominate an accessibility contact.', outcome: 'Supplier-related accessibility complaints reduced 70%. Council uses the framework as a model for neighbouring councils. Library program participation by people with disability doubled.', cost: '$15,000', timeframe: '3 months' }
   ],
 
   keywords: ['supplier', 'third-party', 'contractor', 'procurement', 'SLA', 'service level agreement', 'vendor', 'outsource', 'delivery partner', 'contract', 'briefing', 'DDA section 24']
@@ -1273,11 +1273,11 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'operations-policy-procedure',
   title: 'Digital platform and franchise accessibility',
   coveredQuestionIds: ['5.6-D-1', '5.6-D-2', '5.6-D-6'],
-  summary: 'When customers interact with your organisation through third-party booking platforms, franchise templates, procurement portals, or outsourced digital services, accessibility barriers in those platforms become your barriers. Assessing digital platforms for WCAG compliance, including accessibility in procurement criteria, and ensuring franchise or brand templates meet accessibility standards protects your customers and your brand.',
+  summary: 'When customers interact with your organisation through third-party booking platforms, franchise templates, procurement portals or outsourced digital services, accessibility barriers in those platforms become your barriers. Assessing digital platforms for WCAG compliance, including accessibility in procurement criteria and ensuring franchise or brand templates meet accessibility standards protects your customers and your brand.',
   lastUpdated: '2026-03-31',
 
   whyItMatters: {
-    text: 'Digital platforms are increasingly the front door to your organisation. If a customer with vision impairment cannot complete a booking through your third-party reservation system, or a screen reader user cannot navigate your franchise website template, or a person with motor impairment cannot use the procurement portal to do business with you, the barrier is just as real as a step at your physical entrance. Many organisations assume their platform provider has handled accessibility, but most third-party platforms have significant WCAG gaps. The DDA applies to digital services, and you are responsible for the customer experience you offer, even when a third party built the platform.',
+    text: 'Digital platforms are increasingly the front door to your organisation. If a customer with vision impairment cannot complete a booking through your third-party reservation system or a screen reader user cannot navigate your franchise website template or a person with motor impairment cannot use the procurement portal to do business with you, the barrier is just as real as a step at your physical entrance. Many organisations assume their platform provider has handled accessibility, but most third-party platforms have significant WCAG gaps. The DDA applies to digital services and you are responsible for the customer experience you offer, even when a third party built the platform.',
     statistic: {
       value: '96.3%',
       context: 'of the top one million websites have detectable WCAG 2.1 failures. Third-party platforms you rely on are very likely to have accessibility issues unless you specifically require and verify compliance.',
@@ -1293,7 +1293,7 @@ export const organisationHelp: HelpContent[] = [
     {
       icon: 'Eye',
       text: 'Test key third-party platforms with a screen reader and keyboard-only navigation before signing a contract.',
-      detail: 'Before committing to a booking platform, event registration system, or digital service, test it with NVDA (free screen reader) and keyboard-only navigation. Can a user complete the full workflow (search, select, pay, confirm) without a mouse? If not, the platform is not accessible. This 30-minute test can save months of complaints.',
+      detail: 'Before committing to a booking platform, event registration system or digital service, test it with NVDA (free screen reader) and keyboard-only navigation. Can a user complete the full workflow (search, select, pay, confirm) without a mouse? If not, the platform is not accessible. This 30-minute test can save months of complaints.',
       priority: 1
     },
     {
@@ -1311,13 +1311,13 @@ export const organisationHelp: HelpContent[] = [
     {
       icon: 'Shield',
       text: 'Audit franchise or brand website templates for WCAG compliance before distributing to franchisees.',
-      detail: 'If you provide website templates, booking widgets, or digital assets to franchisees or partner businesses, test them for WCAG 2.1 AA compliance first. Every franchisee site that uses your inaccessible template multiplies the barrier. Fix the template once and every site benefits.',
+      detail: 'If you provide website templates, booking widgets or digital assets to franchisees or partner businesses, test them for WCAG 2.1 AA compliance first. Every franchisee site that uses your inaccessible template multiplies the barrier. Fix the template once and every site benefits.',
       priority: 4
     },
     {
       icon: 'AlertTriangle',
       text: 'Provide an accessible alternative when a third-party platform is not accessible.',
-      detail: 'While working with the vendor to fix accessibility issues, offer an alternative: phone booking, email, or an accessible form on your own website. Publish this alternative prominently so customers who encounter barriers know how to complete their transaction.',
+      detail: 'While working with the vendor to fix accessibility issues, offer an alternative: phone booking, email or an accessible form on your own website. Publish this alternative prominently so customers who encounter barriers know how to complete their transaction.',
       priority: 5
     }
   ],
@@ -1328,7 +1328,7 @@ export const organisationHelp: HelpContent[] = [
       { text: 'List all third-party digital platforms your customers use: booking systems, event registration, payment portals, loyalty apps, franchise websites, etc.' },
       { text: 'For each platform, check: does a current VPAT or accessibility conformance report exist? Request it from the vendor if not.' },
       { text: 'Test the most critical customer-facing platform with keyboard-only navigation. Can you complete the full workflow (search, select, pay, confirm) without a mouse?' },
-      { text: 'Test the same platform with a screen reader (NVDA is free). Can you complete the full workflow? Are form labels, buttons, and error messages announced correctly?' },
+      { text: 'Test the same platform with a screen reader (NVDA is free). Can you complete the full workflow? Are form labels, buttons and error messages announced correctly?' },
       { text: 'Run an automated accessibility scan (axe DevTools browser extension, free) on the platform. Note the number and severity of issues found.' },
       { text: 'Review your digital procurement contracts. Do any include WCAG conformance requirements? If so, have they been verified?' },
       { text: 'If you distribute franchise or brand templates, test one franchisee site built from the template against WCAG 2.1 AA.' },
@@ -1345,9 +1345,9 @@ export const organisationHelp: HelpContent[] = [
       requirement: 'WCAG 2.1 Level AA is the accepted standard for web accessibility in Australia. All customer-facing digital platforms, whether built in-house or provided by third parties, should conform to this standard.'
     },
     related: [
-      { code: 'DDA', relevance: 'Section 24: Digital services provided to the public are covered. The DDA applies to websites, apps, and digital platforms regardless of who built or hosts them.' }
+      { code: 'DDA', relevance: 'Section 24: Digital services provided to the public are covered. The DDA applies to websites, apps and digital platforms regardless of who built or hosts them.' }
     ],
-    plainEnglish: 'Digital platforms your customers use must be accessible. This means they work with screen readers, keyboard navigation, and assistive technology. Ask vendors for proof of accessibility (VPAT), test platforms yourself, and include accessibility in contracts.',
+    plainEnglish: 'Digital platforms your customers use must be accessible. This means they work with screen readers, keyboard navigation and assistive technology. Ask vendors for proof of accessibility (VPAT), test platforms yourself and include accessibility in contracts.',
     complianceNote: 'The AHRC has accepted complaints about inaccessible third-party platforms used by Australian organisations. The organisation offering the service to customers is responsible for the platform\'s accessibility, not just the vendor who built it.'
   },
 
@@ -1378,7 +1378,7 @@ export const organisationHelp: HelpContent[] = [
       implementedBy: 'staff',
       impact: 'moderate',
       steps: [
-        'Draft a standard digital accessibility clause for all procurement contracts requiring WCAG 2.1 AA conformance, VPAT provision, and remediation commitments.',
+        'Draft a standard digital accessibility clause for all procurement contracts requiring WCAG 2.1 AA conformance, VPAT provision and remediation commitments.',
         'Conduct a structured accessibility audit of all customer-facing platforms using a WCAG 2.1 AA checklist.',
         'Engage a screen reader user (paid tester or disability organisation) to test the most critical platform end-to-end.',
         'Score each platform and prioritise remediation based on customer impact and contract timing.',
@@ -1390,7 +1390,7 @@ export const organisationHelp: HelpContent[] = [
     },
     {
       title: 'WCAG-compliant platform procurement program',
-      description: 'Formal program ensuring all digital platforms meet WCAG 2.1 AA, with ongoing monitoring, vendor accountability, and franchise template governance.',
+      description: 'Formal program ensuring all digital platforms meet WCAG 2.1 AA, with ongoing monitoring, vendor accountability and franchise template governance.',
       resourceLevel: 'high',
       costRange: '$15,000-50,000',
       timeRequired: '2-3 months',
@@ -1404,7 +1404,7 @@ export const organisationHelp: HelpContent[] = [
         'Establish annual WCAG re-certification requirement for all digital platform vendors.',
         'If operating a franchise model, develop an accessible website template and require all franchisees to use it.',
         'Implement continuous monitoring using automated accessibility scanning tools (e.g., Siteimprove, Level Access) across all platforms.',
-        'Create a digital accessibility register tracking conformance status, VPAT dates, and remediation progress for all platforms.',
+        'Create a digital accessibility register tracking conformance status, VPAT dates and remediation progress for all platforms.',
         'Report digital platform accessibility status in DIAP progress reports.'
       ],
       notes: 'Continuous monitoring tools cost $5,000-20,000 per year but catch regressions introduced by platform updates. Essential for organisations with many digital touchpoints.'
@@ -1414,8 +1414,8 @@ export const organisationHelp: HelpContent[] = [
   examples: [
     { businessType: 'accommodation', businessTypeLabel: 'Hospitality Group', scenario: 'Booking engine provided by a major platform vendor was inaccessible to screen reader users. Complaints from blind travellers.', solution: 'Requested VPAT from vendor (none existed). Tested with NVDA and documented 23 WCAG failures. Negotiated a remediation plan in the contract renewal. Published phone booking alternative immediately.', outcome: 'Vendor fixed critical issues within 3 months. Phone bookings from customers with disability handled smoothly in the interim. Group now requires VPATs from all digital vendors.', cost: '$2,000', timeframe: '3 months' },
     { businessType: 'event-venue', businessTypeLabel: 'Event Venue', scenario: 'Third-party event registration platform had an inaccessible date picker and payment form. Attendees with disability could not register online.', solution: 'Tested three alternative platforms and selected the most accessible. Added WCAG 2.1 AA requirement to the new contract. Published an accessible registration form on the venue website as a backup.', outcome: 'Online registration accessible to all. No more registration complaints. New platform vendor provides annual VPAT updates.', cost: '$500 (testing time)', timeframe: '2 weeks' },
-    { businessType: 'retail', businessTypeLabel: 'Franchise', scenario: 'Franchise website template provided to 50 locations had missing alt text, no keyboard navigation, and poor colour contrast. Every franchisee site was inaccessible.', solution: 'Commissioned a WCAG audit of the template. Fixed 35 issues in the core template. Pushed the updated template to all franchisee sites. Added WCAG compliance to the franchise agreement.', outcome: 'All 50 franchise websites now meet WCAG 2.1 AA baseline. Customer complaints about website accessibility dropped to zero.', cost: '$8,000', timeframe: '4 weeks' },
-    { businessType: 'attraction', businessTypeLabel: 'Tourism Operator', scenario: 'Used three different third-party platforms: booking, reviews, and loyalty. None had been assessed for accessibility.', solution: 'Tested all three with keyboard and screen reader. Requested VPATs. Found the loyalty platform was the worst offender. Switched loyalty platforms and negotiated remediation plans for the other two.', outcome: 'All customer-facing digital touchpoints now assessed. Accessibility included in annual vendor review for all three platforms.', cost: '$3,000', timeframe: '1 month' }
+    { businessType: 'retail', businessTypeLabel: 'Franchise', scenario: 'Franchise website template provided to 50 locations had missing alt text, no keyboard navigation and poor colour contrast. Every franchisee site was inaccessible.', solution: 'Commissioned a WCAG audit of the template. Fixed 35 issues in the core template. Pushed the updated template to all franchisee sites. Added WCAG compliance to the franchise agreement.', outcome: 'All 50 franchise websites now meet WCAG 2.1 AA baseline. Customer complaints about website accessibility dropped to zero.', cost: '$8,000', timeframe: '4 weeks' },
+    { businessType: 'attraction', businessTypeLabel: 'Tourism Operator', scenario: 'Used three different third-party platforms: booking, reviews and loyalty. None had been assessed for accessibility.', solution: 'Tested all three with keyboard and screen reader. Requested VPATs. Found the loyalty platform was the worst offender. Switched loyalty platforms and negotiated remediation plans for the other two.', outcome: 'All customer-facing digital touchpoints now assessed. Accessibility included in annual vendor review for all three platforms.', cost: '$3,000', timeframe: '1 month' }
   ],
 
   keywords: ['digital accessibility', 'WCAG', 'VPAT', 'booking platform', 'franchise', 'procurement', 'screen reader', 'keyboard navigation', 'third-party platform', 'vendor', 'template', 'DDA section 24']
@@ -1430,10 +1430,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Inclusive job design and advertising',
   coveredQuestionIds: ['5.7-PC-2', '5.7-PC-3', '5.7-PC-4', '5.7-PC-5', '5.7-PC-6'],
-  summary: 'The way roles are designed and advertised determines who applies. Inherent requirements, plain language, named access statements, specialist channels, accessible application systems, and authentic employer branding together broaden who sees the role as "for them."',
+  summary: 'The way roles are designed and advertised determines who applies. Inherent requirements, plain language, named access statements, specialist channels, accessible application systems and authentic employer branding together broaden who sees the role as "for them."',
   lastUpdated: '2026-04-14',
   whyItMatters: {
-    text: 'Access Compass positions inclusive recruitment as part of whole-of-organisation accessibility, across education, health & wellness, retail, tourism, local government, events, and venues. For deep organisation-wide workforce transformation programs, specialist providers like the Australian Disability Network are a natural pair.',
+    text: 'Access Compass positions inclusive recruitment as part of whole-of-organisation accessibility, across education, health & wellness, retail, tourism, local government, events and venues. For deep organisation-wide workforce transformation programs, specialist providers like the Australian Disability Network are a natural pair.',
     statistic: { value: '48%', context: 'of Australians with disability are in the labour force, compared to 80% of those without disability. Most of the gap is recruitment practice, not capability.', source: 'Australian Bureau of Statistics' },
   },
   tips: [
@@ -1459,7 +1459,7 @@ export const organisationHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Ad template refresh',
-      description: 'Update job ad templates with plain language, salary disclosure, and named-contact access statement.',
+      description: 'Update job ad templates with plain language, salary disclosure and named-contact access statement.',
       resourceLevel: 'low', costRange: '$0-500', timeRequired: '1 day', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Pull existing templates.', 'Apply inherent-vs-preferred filter.', 'Rewrite in plain language.', 'Add salary range and access statement.', 'Pilot on next 3 ads and measure applicant diversity.'],
     },
@@ -1467,7 +1467,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Recruitment process co-design',
       description: 'Redesign the full recruitment journey with input from Disabled employees or external advisors.',
       resourceLevel: 'medium', costRange: '$3,000-8,000', timeRequired: '1-2 months', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Audit the current journey stage-by-stage.', 'Engage Disabled advisors (paid).', 'Test ATS accessibility.', 'Redesign templates, process, and employer brand.', 'Train hiring managers on new practice.', 'Publish updated recruitment commitment.'],
+      steps: ['Audit the current journey stage-by-stage.', 'Engage Disabled advisors (paid).', 'Test ATS accessibility.', 'Redesign templates, process and employer brand.', 'Train hiring managers on new practice.', 'Publish updated recruitment commitment.'],
     },
     {
       title: 'Specialist partnership program',
@@ -1477,29 +1477,29 @@ export const organisationHelp: HelpContent[] = [
     },
   ],
   examples: [
-    { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'Seasonal hiring of 80+ FOH, box office, and production crew. Low disability disclosure among applicants despite stated inclusion commitment.', solution: 'Rewrote ad templates (plain language, salary disclosed, named access contact). Partnered with sector Disabled People\'s Organisations. Added paid 4-hour work trial as alternative to second-round panel.', outcome: 'Disclosure rate at application up 3x. Two new crew hires through disability-led network. Retention at end of season +15%.', cost: '$3,000', timeframe: '2 months' },
-    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Recruiting library, community centre, and customer service staff. ATS was unreliable for screen reader users.', solution: 'Council procured VPAT from ATS vendor, found 14 critical failures. Added email alternative on every ad. Briefed all hiring panels on adjustments. Began CV-blind shortlisting for customer roles.', outcome: 'Applications from disabled candidates up. Council cited as inclusion leader by peer councils.', cost: '$5,000', timeframe: '3 months' },
+    { businessType: 'event-venue', businessTypeLabel: 'Festival', scenario: 'Seasonal hiring of 80+ FOH, box office and production crew. Low disability disclosure among applicants despite stated inclusion commitment.', solution: 'Rewrote ad templates (plain language, salary disclosed, named access contact). Partnered with sector Disabled People\'s Organisations. Added paid 4-hour work trial as alternative to second-round panel.', outcome: 'Disclosure rate at application up 3x. Two new crew hires through disability-led network. Retention at end of season +15%.', cost: '$3,000', timeframe: '2 months' },
+    { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Recruiting library, community centre and customer service staff. ATS was unreliable for screen reader users.', solution: 'Council procured VPAT from ATS vendor, found 14 critical failures. Added email alternative on every ad. Briefed all hiring panels on adjustments. Began CV-blind shortlisting for customer roles.', outcome: 'Applications from disabled candidates up. Council cited as inclusion leader by peer councils.', cost: '$5,000', timeframe: '3 months' },
     { businessType: 'health-wellness', businessTypeLabel: 'Allied Health Clinic', scenario: 'Small clinic hiring reception and admin staff. No formal recruitment process.', solution: 'Adopted AC module templates. Used plain-language ads. Partnered with a local DES provider for one role. Offered phone interview option.', outcome: 'First disabled hire in clinic\'s history. Process now standard.', cost: '$500', timeframe: '1 month' },
     { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'High turnover in customer-facing roles. Generic EEO statement but no specific access offer.', solution: 'Rolled out named-contact access statement across all job ads. Added to hiring manager training. Began tracking disclosure at application.', outcome: 'Applicant disclosure up. Feedback to HR: "The named contact made me feel safe to ask."', cost: '$1,500', timeframe: '6 weeks' },
   ],
   resources: [
-    { title: 'JobAccess - Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'website', source: 'Australian Government', description: 'Free funding for workplace adjustments including assistive tech, Auslan, and modifications.', isAustralian: true, isFree: true },
-    { title: 'JobAccess - Attracting and recruiting people with disability', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Free government guide covering job design, advertising, and inclusive recruitment.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'website', source: 'Australian Government', description: 'Free funding for workplace adjustments including assistive tech, Auslan and modifications.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Attracting and recruiting people with disability', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Free government guide covering job design, advertising and inclusive recruitment.', isAustralian: true, isFree: true },
     { title: 'Australian Human Rights Commission - Employers', url: 'https://humanrights.gov.au/our-work/employers', type: 'guide', source: 'AHRC', description: 'AHRC employer guidance on inclusive hiring and DDA compliance.', isAustralian: true, isFree: true },
-    { title: 'IncludeAbility', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'National initiative with tools, resources, and employer case studies.', isAustralian: true, isFree: true },
+    { title: 'IncludeAbility', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'National initiative with tools, resources and employer case studies.', isAustralian: true, isFree: true },
   ],
   keywords: ['recruitment', 'job ads', 'ATS', 'inherent requirements', 'access statement', 'DES', 'JobAccess', 'inclusive hiring', 'employer branding'],
 },
 
 {
   questionId: '5.7-DD-1',
-  questionText: 'Recruitment governance, role design, and pipeline partnerships',
+  questionText: 'Recruitment governance, role design and pipeline partnerships',
   moduleCode: '5.7',
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
-  title: 'Recruitment governance, role design, and pipeline partnerships',
+  title: 'Recruitment governance, role design and pipeline partnerships',
   coveredQuestionIds: ['5.7-DD-2', '5.7-DD-5', '5.7-DD-6', '5.7-DD-9'],
-  summary: 'Inclusive recruitment is built upstream. Clear sign-off on inherent requirements, default consideration of flexible arrangements, briefed external recruiters, consistent standards across all worker types, and ongoing pipeline partnerships make inclusion structural rather than incidental.',
+  summary: 'Inclusive recruitment is built upstream. Clear sign-off on inherent requirements, default consideration of flexible arrangements, briefed external recruiters, consistent standards across all worker types and ongoing pipeline partnerships make inclusion structural rather than incidental.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Without governance, inherent requirements drift back toward how the role used to be done. Without flexible arrangements considered upfront, full-time defaults exclude people who could thrive part-time. Without briefed external recruiters, your access standards stop at the agency door. Pipeline partnerships build the long-term candidate flow that one-off ads cannot.',
@@ -1507,9 +1507,9 @@ export const organisationHelp: HelpContent[] = [
   },
   tips: [
     { icon: 'ShieldCheck', text: 'Name a sign-off owner for inherent requirements before any role is advertised.', priority: 1 },
-    { icon: 'Clock', text: 'Default to considering part-time, job-share, and flexible options for every role.', priority: 2 },
-    { icon: 'Briefcase', text: 'Brief recruitment agencies on your access statement, formats, and selection standards.', priority: 3 },
-    { icon: 'Users', text: 'Apply the same accessibility standards to volunteers, casuals, and interns.', priority: 4 },
+    { icon: 'Clock', text: 'Default to considering part-time, job-share and flexible options for every role.', priority: 2 },
+    { icon: 'Briefcase', text: 'Brief recruitment agencies on your access statement, formats and selection standards.', priority: 3 },
+    { icon: 'Users', text: 'Apply the same accessibility standards to volunteers, casuals and interns.', priority: 4 },
     { icon: 'Handshake', text: 'Build at least one ongoing pipeline partnership with a Disabled-led network or DES provider.', priority: 5 },
   ],
   howToCheck: {
@@ -1528,7 +1528,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Inherent requirements sign-off',
       description: 'Establish a quick governance step where inherent requirements are signed off before advertising.',
       resourceLevel: 'low', costRange: '$0-1,000', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Name an owner (HR Lead, Director, or DEI Champion).', 'Add a one-page checklist to the role-creation form.', 'Pilot on next 5 roles.', 'Refine and roll out.'],
+      steps: ['Name an owner (HR Lead, Director or DEI Champion).', 'Add a one-page checklist to the role-creation form.', 'Pilot on next 5 roles.', 'Refine and roll out.'],
     },
     {
       title: 'Flexible-by-default policy',
@@ -1540,11 +1540,11 @@ export const organisationHelp: HelpContent[] = [
       title: 'External recruiter charter',
       description: 'Brief and charter all external recruitment partners to your access standards.',
       resourceLevel: 'low', costRange: '$1,000-3,000', timeRequired: '1-2 months', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Document your access standards in a one-page brief.', 'Include access statement template, format alternatives, and panel expectations.', 'Brief all current external partners.', 'Add to procurement requirements for new partners.', 'Audit compliance annually.'],
+      steps: ['Document your access standards in a one-page brief.', 'Include access statement template, format alternatives and panel expectations.', 'Brief all current external partners.', 'Add to procurement requirements for new partners.', 'Audit compliance annually.'],
     },
     {
       title: 'Disability pipeline partnerships',
-      description: 'Build sustained partnerships with Disabled-led organisations, DES providers, or specialist programs.',
+      description: 'Build sustained partnerships with Disabled-led organisations, DES providers or specialist programs.',
       resourceLevel: 'medium', costRange: '$3,000-12,000/year', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: ['Identify 2-3 partners aligned to your sector and roles.', 'Establish a regular brief cadence.', 'Co-design a paid traineeship or internship pathway.', 'Allocate recurring budget.', 'Review outcomes annually with partners.'],
     },
@@ -1556,7 +1556,7 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Casual ads were generic, no access statement, while permanent ads carried the full inclusion language.', solution: 'Standardised all worker-type ads to the same access standard. Updated casual templates first; rolled out to volunteer next.', outcome: 'Disclosure rate at application equalised across worker types within 6 months.', cost: '$500', timeframe: '2 months' },
   ],
   resources: [
-    { title: 'JobAccess - Employer Toolkit', url: 'https://www.jobaccess.gov.au/employers', type: 'website', source: 'Australian Government', description: 'Resources on inclusive recruitment, role design, and inherent requirements.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Employer Toolkit', url: 'https://www.jobaccess.gov.au/employers', type: 'website', source: 'Australian Government', description: 'Resources on inclusive recruitment, role design and inherent requirements.', isAustralian: true, isFree: true },
     { title: 'Fair Work Ombudsman - Flexible Working', url: 'https://www.fairwork.gov.au/employment-conditions/flexibility-in-the-workplace/flexible-working-arrangements', type: 'guide', source: 'Fair Work Ombudsman', description: 'Right to request flexible work and employer obligations.', isAustralian: true, isFree: true },
     { title: 'IncludeAbility - Pathway Programs', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'Examples and toolkits for traineeship and internship pipelines.', isAustralian: true, isFree: true },
     { title: 'DES Provider Locator', url: 'https://jobsearch.gov.au/serviceproviders', type: 'tool', source: 'Australian Government', description: 'Locate DES providers in your area for partnership.', isAustralian: true, isFree: true },
@@ -1566,23 +1566,23 @@ export const organisationHelp: HelpContent[] = [
 
 {
   questionId: '5.7-DD-3',
-  questionText: 'Inclusive recruitment reach, accessibility, and measurement',
+  questionText: 'Inclusive recruitment reach, accessibility and measurement',
   moduleCode: '5.7',
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
-  title: 'Inclusive recruitment reach, accessibility, and measurement',
+  title: 'Inclusive recruitment reach, accessibility and measurement',
   coveredQuestionIds: ['5.7-DD-4', '5.7-DD-7', '5.7-DD-8'],
-  summary: 'Reaching disabled candidates means offering ads in alternative formats, removing bias from shortlisting, measuring diversity at each funnel stage, and keeping careers content accessible. Without measurement you cannot know whether your changes work.',
+  summary: 'Reaching disabled candidates means offering ads in alternative formats, removing bias from shortlisting, measuring diversity at each funnel stage and keeping careers content accessible. Without measurement you cannot know whether your changes work.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Inclusive intent without measurement is hard to defend or improve. Tracking applicant disclosure, shortlist composition, and offer rates by stage shows where the funnel still leaks. Alternative formats and accessible careers content open the funnel in the first place.',
+    text: 'Inclusive intent without measurement is hard to defend or improve. Tracking applicant disclosure, shortlist composition and offer rates by stage shows where the funnel still leaks. Alternative formats and accessible careers content open the funnel in the first place.',
     quote: { text: 'I had to apply through a screen reader. Their PDF application form was an unusable image. I gave up at stage one. They never knew they lost me.', attribution: 'Blind candidate, sector unspecified' },
   },
   tips: [
-    { icon: 'FileText', text: 'Offer ads in Easy Read, audio, plain text, and Auslan video on request.', priority: 1 },
+    { icon: 'FileText', text: 'Offer ads in Easy Read, audio, plain text and Auslan video on request.', priority: 1 },
     { icon: 'EyeOff', text: 'Pilot CV-blind or name-blind shortlisting on at least one role per quarter.', priority: 2 },
-    { icon: 'BarChart3', text: 'Measure disclosure, shortlist, and offer rates against labour market benchmarks.', priority: 3 },
-    { icon: 'Globe', text: 'Audit careers page, employer-brand video, and testimonial content against WCAG 2.2 AA annually.', priority: 4 },
+    { icon: 'BarChart3', text: 'Measure disclosure, shortlist and offer rates against labour market benchmarks.', priority: 3 },
+    { icon: 'Globe', text: 'Audit careers page, employer-brand video and testimonial content against WCAG 2.2 AA annually.', priority: 4 },
   ],
   howToCheck: {
     title: 'Auditing recruitment reach and accessibility',
@@ -1598,9 +1598,9 @@ export const organisationHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Alternative format provision',
-      description: 'Set up a low-friction process for offering ads in Easy Read, audio, plain text, and Auslan formats.',
+      description: 'Set up a low-friction process for offering ads in Easy Read, audio, plain text and Auslan formats.',
       resourceLevel: 'low', costRange: '$1,000-3,000', timeRequired: '1-2 months', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Add "available in Easy Read, plain text, audio, or Auslan video on request" to access statements.', 'Identify a provider for on-demand alternative formats.', 'Create plain-text version of all ad templates.', 'Track requests to right-size capacity.'],
+      steps: ['Add "available in Easy Read, plain text, audio or Auslan video on request" to access statements.', 'Identify a provider for on-demand alternative formats.', 'Create plain-text version of all ad templates.', 'Track requests to right-size capacity.'],
     },
     {
       title: 'Bias-aware shortlisting',
@@ -1616,7 +1616,7 @@ export const organisationHelp: HelpContent[] = [
     },
     {
       title: 'Careers content WCAG audit',
-      description: 'Annual audit of careers page, employer brand video, and testimonials against WCAG 2.2 AA.',
+      description: 'Annual audit of careers page, employer brand video and testimonials against WCAG 2.2 AA.',
       resourceLevel: 'medium', costRange: '$2,000-6,000', timeRequired: '1-2 months', implementedBy: 'specialist', impact: 'moderate',
       steps: ['Engage a digital accessibility auditor.', 'Test page, video captions, transcripts, alt text.', 'Fix critical issues within 30 days.', 'Set new content WCAG 2.2 AA acceptance criteria.', 'Repeat annually.'],
     },
@@ -1629,7 +1629,7 @@ export const organisationHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'JobAccess - Recruiting and Hiring', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Free guidance on inclusive recruitment practices and measurement.', isAustralian: true, isFree: true },
-    { title: 'Inclusion Australia - Easy Read', url: 'https://www.inclusionaustralia.org.au/easy-read/', type: 'guide', source: 'Inclusion Australia', description: 'Easy Read principles, examples, and provider listing.', isAustralian: true, isFree: true },
+    { title: 'Inclusion Australia - Easy Read', url: 'https://www.inclusionaustralia.org.au/easy-read/', type: 'guide', source: 'Inclusion Australia', description: 'Easy Read principles, examples and provider listing.', isAustralian: true, isFree: true },
     { title: 'WAVE Web Accessibility Tool', url: 'https://wave.webaim.org/', type: 'tool', source: 'WebAIM', description: 'Free WCAG checker for careers pages and online forms.', isAustralian: false, isFree: true },
     { title: 'ABS Disability and Labour Force', url: 'https://www.abs.gov.au/statistics/people/people-with-disability/disability-ageing-and-carers-australia-summary-findings', type: 'website', source: 'Australian Bureau of Statistics', description: 'Labour-force participation benchmarks for sector comparison.', isAustralian: true, isFree: true },
   ],
@@ -1670,11 +1670,11 @@ export const organisationHelp: HelpContent[] = [
       title: 'Panel training program',
       description: 'Run disability-confident interviewing training for all panel members.',
       resourceLevel: 'medium', costRange: '$3,000-8,000', timeRequired: '2-3 months', implementedBy: 'specialist', impact: 'moderate',
-      steps: ['Source a training provider (JobAccess, Scope Australia, state disability employment body, or disability-led consultant).', 'Schedule for all existing panel members.', 'Add to onboarding for new managers.', 'Set 2-year refresh cadence.', 'Test through scenario roleplays.'],
+      steps: ['Source a training provider (JobAccess, Scope Australia, state disability employment body or disability-led consultant).', 'Schedule for all existing panel members.', 'Add to onboarding for new managers.', 'Set 2-year refresh cadence.', 'Test through scenario roleplays.'],
     },
     {
       title: 'Alternative assessment design',
-      description: 'Design and pilot work trials, portfolio reviews, or scenario tasks for roles where panels are a weak signal.',
+      description: 'Design and pilot work trials, portfolio reviews or scenario tasks for roles where panels are a weak signal.',
       resourceLevel: 'medium', costRange: '$2,000-6,000', timeRequired: '3-6 months', implementedBy: 'staff', impact: 'significant',
       steps: ['Identify 2-3 roles where interviews under-predict performance.', 'Co-design alternative with current role holders.', 'Pilot with next 3 vacancies.', 'Compare hire quality and retention.', 'Expand to more roles if successful.'],
     },
@@ -1686,7 +1686,7 @@ export const organisationHelp: HelpContent[] = [
     { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Store manager role. Untrained regional panel asked an applicant "how would you manage your condition?"', solution: 'Rolled out panel training nationally. Documented lawful/unlawful question guide. Added compliance to hiring manager KPIs.', outcome: 'Zero discriminatory-question complaints since. Legal risk reduced.', cost: '$6,000', timeframe: '3 months' },
   ],
   resources: [
-    { title: 'JobAccess - Inclusive Interviews and Selection', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Government guidance on interview adjustments, lawful questioning, and fair selection.', isAustralian: true, isFree: true },
+    { title: 'JobAccess - Inclusive Interviews and Selection', url: 'https://www.jobaccess.gov.au/employers/attracting-recruiting-people-disability', type: 'guide', source: 'Australian Government', description: 'Government guidance on interview adjustments, lawful questioning and fair selection.', isAustralian: true, isFree: true },
     { title: 'AHRC - Disability Rights and Employment', url: 'https://humanrights.gov.au/our-work/disability-rights/employment', type: 'guide', source: 'AHRC', description: 'Legal framework and best-practice interview and selection guidance.', isAustralian: true, isFree: true },
     { title: 'IncludeAbility - Employer Resources', url: 'https://includeability.gov.au/resources-employers', type: 'website', source: 'AHRC', description: 'Practical interview and assessment resources with employer case studies.', isAustralian: true, isFree: true },
   ],
@@ -1701,7 +1701,7 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Selection process design and assessment fairness',
   coveredQuestionIds: ['5.8-DD-2', '5.8-DD-3', '5.8-DD-4'],
-  summary: 'Fair selection requires structured rubrics with behavioural anchors, sensory-checked interview environments, default break flexibility, and bias-audited assessment tools. Together these reduce reliance on panel "feel" that often disadvantages candidates with disability.',
+  summary: 'Fair selection requires structured rubrics with behavioural anchors, sensory-checked interview environments, default break flexibility and bias-audited assessment tools. Together these reduce reliance on panel "feel" that often disadvantages candidates with disability.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Unstructured interviews and unaudited assessment tools are where disability bias most often hides in selection. Structured rubrics make ratings defensible. Sensory-checked environments stop the room itself from being a barrier. Break flexibility removes a hidden cost on candidates who fatigue or process differently.',
@@ -1709,16 +1709,16 @@ export const organisationHelp: HelpContent[] = [
   },
   tips: [
     { icon: 'ListChecks', text: 'Use structured scoring rubrics with defined behavioural anchors for every interview question.', priority: 1 },
-    { icon: 'Sun', text: 'Pre-check the room or platform for lighting, noise, captions, and camera framing.', priority: 2 },
+    { icon: 'Sun', text: 'Pre-check the room or platform for lighting, noise, captions and camera framing.', priority: 2 },
     { icon: 'Pause', text: 'Offer break flexibility (pause, extended time, multi-session) by default.', priority: 3 },
     { icon: 'AlertTriangle', text: 'Audit psychometric and cognitive tools for disability bias before use.', priority: 4 },
   ],
   howToCheck: {
     title: 'Auditing selection process design',
     steps: [
-      { text: 'Pull the last 3 panel scoresheets. Are scores anchored to behaviours, or just gut numbers?' },
-      { text: 'Walk through your interview venue or video platform. Score lighting, noise, glare, and platform captions.' },
-      { text: 'Check your interview invitation. Does it offer breaks proactively, or only on request?' },
+      { text: 'Pull the last 3 panel scoresheets. Are scores anchored to behaviours or just gut numbers?' },
+      { text: 'Walk through your interview venue or video platform. Score lighting, noise, glare and platform captions.' },
+      { text: 'Check your interview invitation. Does it offer breaks proactively or only on request?' },
       { text: 'List all assessment tools used in the last 12 months. For each, has the vendor provided a bias audit or accessibility statement?' },
     ],
     estimatedTime: '2-3 hours',
@@ -1734,17 +1734,17 @@ export const organisationHelp: HelpContent[] = [
       title: 'Interview environment audit',
       description: 'Standardise sensory-checked interview rooms and video platforms.',
       resourceLevel: 'low', costRange: '$0-1,500', timeRequired: '2-4 weeks', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Identify 1-2 reserved rooms with controlled lighting and low noise.', 'Test default video platform for captions, screen-reader, and keyboard nav.', 'Document the standard in a one-page checklist.', 'Add to interview booking process.'],
+      steps: ['Identify 1-2 reserved rooms with controlled lighting and low noise.', 'Test default video platform for captions, screen-reader and keyboard nav.', 'Document the standard in a one-page checklist.', 'Add to interview booking process.'],
     },
     {
       title: 'Default break flexibility',
       description: 'Build break flexibility into all interview invitations and assessments.',
       resourceLevel: 'low', costRange: '$0', timeRequired: '1-2 weeks', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Update invitation templates: "We offer breaks, extended time, or multi-session formats. Tell us what works for you."', 'Train panels to honour requests without questioning them.', 'Build buffer time into scheduling.', 'Track uptake to right-size capacity.'],
+      steps: ['Update invitation templates: "We offer breaks, extended time or multi-session formats. Tell us what works for you."', 'Train panels to honour requests without questioning them.', 'Build buffer time into scheduling.', 'Track uptake to right-size capacity.'],
     },
     {
       title: 'Assessment tool bias audit',
-      description: 'Audit all psychometric, cognitive, and technical assessments for disability bias.',
+      description: 'Audit all psychometric, cognitive and technical assessments for disability bias.',
       resourceLevel: 'medium', costRange: '$3,000-10,000', timeRequired: '3-6 months', implementedBy: 'specialist', impact: 'significant',
       steps: ['List every tool in use. Request vendor documentation on disability validation.', 'Engage an organisational psychologist or accessibility consultant.', 'Replace or modify tools that fail audit.', 'Document the standard for new tool selection.', 'Re-audit annually.'],
     },
@@ -1765,20 +1765,20 @@ export const organisationHelp: HelpContent[] = [
 
 {
   questionId: '5.8-DD-5',
-  questionText: 'Candidate experience, decisions, and accountability in selection',
+  questionText: 'Candidate experience, decisions and accountability in selection',
   moduleCode: '5.8',
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
-  title: 'Candidate experience, decisions, and accountability in selection',
+  title: 'Candidate experience, decisions and accountability in selection',
   coveredQuestionIds: ['5.8-DD-6', '5.8-DD-7', '5.8-DD-8', '5.8-DD-9'],
-  summary: 'How you treat candidates after they apply matters as much as the design of the process. Support persons, reimbursed costs, bias-aware reference checks, respectful feedback, and a clear complaints path build trust and protect against discrimination claims.',
+  summary: 'How you treat candidates after they apply matters as much as the design of the process. Support persons, reimbursed costs, bias-aware reference checks, respectful feedback and a clear complaints path build trust and protect against discrimination claims.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Candidates experience selection as a sign of how the organisation treats people generally. A candidate who is reimbursed for an interpreter, given respectful feedback, and told how to escalate concerns will share that experience whether or not they got the job. So will the one who waited months for a generic rejection.',
+    text: 'Candidates experience selection as a sign of how the organisation treats people generally. A candidate who is reimbursed for an interpreter, given respectful feedback and told how to escalate concerns will share that experience whether or not they got the job. So will the one who waited months for a generic rejection.',
     quote: { text: 'I had asked for a support person for my interview because of my anxiety. The panel was clearly thrown by it. I did not get the job. I never got feedback that addressed why. The complaints email bounced.', attribution: 'Candidate, retail sector' },
   },
   tips: [
-    { icon: 'Heart', text: 'Welcome support persons, interpreters, and advocates as standard.', priority: 1 },
+    { icon: 'Heart', text: 'Welcome support persons, interpreters and advocates as standard.', priority: 1 },
     { icon: 'DollarSign', text: 'Reimburse interview-related costs (travel, interpreter, support, care, AT rental).', priority: 2 },
     { icon: 'Search', text: 'Train reference-checkers to spot disability bias (gaps, complicated past relationships).', priority: 3 },
     { icon: 'MessageCircle', text: 'Provide specific, respectful feedback to unsuccessful candidates.', priority: 4 },
@@ -1787,11 +1787,11 @@ export const organisationHelp: HelpContent[] = [
   howToCheck: {
     title: 'Auditing candidate experience and accountability',
     steps: [
-      { text: 'Check your invitation: does it actively offer support person, interpreter, or AT?' },
+      { text: 'Check your invitation: does it actively offer support person, interpreter or AT?' },
       { text: 'Pull cost reimbursement policy. Does it cover interview-related disability costs?' },
       { text: 'Sample 5 reference check notes from last 12 months. Were any gaps or complicated histories assumed negative?' },
-      { text: 'Pull 5 rejection emails. Are they specific and respectful, or generic templates?' },
-      { text: 'Find your complaints channel. Is it published, named, and time-bound?' },
+      { text: 'Pull 5 rejection emails. Are they specific and respectful or generic templates?' },
+      { text: 'Find your complaints channel. Is it published, named and time-bound?' },
     ],
     estimatedTime: '2 hours',
   },
@@ -1844,10 +1844,10 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Onboarding and workplace adjustments',
   coveredQuestionIds: ['5.9-PC-2', '5.9-PC-3', '5.9-PC-4', '5.9-PC-5', '5.9-PC-6'],
-  summary: 'Proactive adjustment conversations, portable adjustment passports, awareness of JobAccess EAF funding, accessible induction content, manager training, and a documented adjustment process together make workplace inclusion operational, not aspirational.',
+  summary: 'Proactive adjustment conversations, portable adjustment passports, awareness of JobAccess EAF funding, accessible induction content, manager training and a documented adjustment process together make workplace inclusion operational, not aspirational.',
   lastUpdated: '2026-04-14',
   whyItMatters: {
-    text: 'A hire is only a start. Without proactive onboarding and embedded adjustment practice, new disabled employees face a disclosure tax and a higher early-exit risk. These practices also benefit staff without diagnosed disability — flexible setup, clear communication preferences, and accessible content help everyone.',
+    text: 'A hire is only a start. Without proactive onboarding and embedded adjustment practice, new disabled employees face a disclosure tax and a higher early-exit risk. These practices also benefit staff without diagnosed disability — flexible setup, clear communication preferences and accessible content help everyone.',
     statistic: { value: '$6,000', context: 'typical per-adjustment cap under JobAccess Employment Assistance Fund — free to eligible employers. Most organisations do not know this exists.', source: 'JobAccess' },
   },
   tips: [
@@ -1875,7 +1875,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Manager capability uplift',
       description: 'Comprehensive manager training program on disability-confident management.',
       resourceLevel: 'high', costRange: '$8,000-25,000', timeRequired: '6-12 months', implementedBy: 'specialist', impact: 'significant',
-      steps: ['Select provider (AC training hub, disability-led training specialist, or state disability employment body).', 'Mandatory for all people managers.', 'Scenario-based learning + assessment.', 'Include EAF awareness module.', 'Refresh every 2 years.', 'Measure through staff engagement scores.'],
+      steps: ['Select provider (AC training hub, disability-led training specialist or state disability employment body).', 'Mandatory for all people managers.', 'Scenario-based learning + assessment.', 'Include EAF awareness module.', 'Refresh every 2 years.', 'Measure through staff engagement scores.'],
     },
   ],
   examples: [
@@ -1895,23 +1895,23 @@ export const organisationHelp: HelpContent[] = [
 
 {
   questionId: '5.9-DD-1',
-  questionText: 'Adjustment infrastructure: champion role, technology, capability, and EAP access',
+  questionText: 'Adjustment infrastructure: champion role, technology, capability and EAP access',
   moduleCode: '5.9',
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
-  title: 'Adjustment infrastructure: champion role, technology, capability, and EAP access',
+  title: 'Adjustment infrastructure: champion role, technology, capability and EAP access',
   coveredQuestionIds: ['5.9-DD-5', '5.9-DD-6', '5.9-DD-9'],
-  summary: 'Without infrastructure, every adjustment becomes an individual negotiation. A named champion, fast assistive technology provisioning, targeted first-time-manager training, and proactive EAP access make adjustment a system, not a favour.',
+  summary: 'Without infrastructure, every adjustment becomes an individual negotiation. A named champion, fast assistive technology provisioning, targeted first-time-manager training and proactive EAP access make adjustment a system, not a favour.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'When the same adjustment must be re-fought every time someone joins, transfers, or gets a new manager, employees with disability burn energy on logistics that everyone else uses on their job. Infrastructure shifts that cost off the individual.',
+    text: 'When the same adjustment must be re-fought every time someone joins, transfers or gets a new manager, employees with disability burn energy on logistics that everyone else uses on their job. Infrastructure shifts that cost off the individual.',
     statistic: { value: '14 days', context: 'is a reasonable benchmark for assistive technology provisioning. Most Australian organisations take weeks or months due to procurement delays. JobAccess EAF reimburses most cost.', source: 'JobAccess and practitioner benchmarks' },
   },
   tips: [
     { icon: 'UserCog', text: 'Name a Workplace Adjustment Champion or coordinator who owns the process organisation-wide.', priority: 1 },
     { icon: 'Zap', text: 'Provision assistive technology within 2 weeks of identified need.', priority: 2 },
     { icon: 'GraduationCap', text: 'Train first-time managers before (or at) the point of first managing a disclosed disabled employee.', priority: 3 },
-    { icon: 'Heart', text: 'Make EAP, occupational health, and mental health support proactively known with named entry paths.', priority: 4 },
+    { icon: 'Heart', text: 'Make EAP, occupational health and mental health support proactively known with named entry paths.', priority: 4 },
   ],
   howToCheck: {
     title: 'Auditing adjustment infrastructure',
@@ -1946,7 +1946,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Proactive EAP and wellbeing pathways',
       description: 'Make wellbeing supports actively visible and easy to access.',
       resourceLevel: 'low', costRange: '$1,000-3,000', timeRequired: '2-3 months', implementedBy: 'staff', impact: 'quick-win',
-      steps: ['Confirm EAP, OH, and mental health entry paths.', 'Publish on intranet, payslip, and onboarding pack.', 'Brief managers on referral process.', 'Track utilisation by EAP provider report (anonymised).', 'Address utilisation gaps via communications.'],
+      steps: ['Confirm EAP, OH and mental health entry paths.', 'Publish on intranet, payslip and onboarding pack.', 'Brief managers on referral process.', 'Track utilisation by EAP provider report (anonymised).', 'Address utilisation gaps via communications.'],
     },
   ],
   examples: [
@@ -1958,7 +1958,7 @@ export const organisationHelp: HelpContent[] = [
   resources: [
     { title: 'JobAccess - Employment Assistance Fund', url: 'https://www.jobaccess.gov.au/employment-assistance-fund-eaf', type: 'website', source: 'Australian Government', description: 'Free funding for assistive technology and workplace adjustments.', isAustralian: true, isFree: true },
     { title: 'JobAccess - National Disability Recruitment Coordinator', url: 'https://www.jobaccess.gov.au/employers/national-disability-recruitment-coordinator-ndrc', type: 'website', source: 'Australian Government', description: 'Free dedicated employer advisor for adjustment infrastructure.', isAustralian: true, isFree: true },
-    { title: 'Beyond Blue - Workplace Mental Health', url: 'https://www.beyondblue.org.au/mental-health/workplace-mental-health', type: 'website', source: 'Beyond Blue', description: 'EAP, manager training, and wellbeing pathway resources.', isAustralian: true, isFree: true },
+    { title: 'Beyond Blue - Workplace Mental Health', url: 'https://www.beyondblue.org.au/mental-health/workplace-mental-health', type: 'website', source: 'Beyond Blue', description: 'EAP, manager training and wellbeing pathway resources.', isAustralian: true, isFree: true },
     { title: 'Heads Up - Workplace Mental Health', url: 'https://www.headsup.org.au/', type: 'website', source: 'Beyond Blue', description: 'Free workplace mental health planning toolkit.', isAustralian: true, isFree: true },
   ],
   keywords: ['adjustment champion', 'assistive technology', 'AT provisioning', 'manager training', 'EAP', 'occupational health', 'mental health', 'EAF'],
@@ -1975,7 +1975,7 @@ export const organisationHelp: HelpContent[] = [
   summary: 'Generic induction, untested PEEPs, performance-only check-ins, ad-hoc return-to-work and unaudited probation are where disabled employees quietly fall out of the workforce. Designing these moments deliberately prevents predictable losses.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Most disability-related departures happen at predictable inflection points: a botched induction, an emergency evacuation that exposed a gap, a 90-day check-in that focused on output without asking about adjustments, a return-to-work assumed to "just resume", or a probation ended without checking whether adjustments were actually delivered. Each of these is engineerable.',
+    text: 'Most disability-related departures happen at predictable inflection points: a botched induction, an emergency evacuation that exposed a gap, a 90-day check-in that focused on output without asking about adjustments, a return-to-work assumed to "just resume" or a probation ended without checking whether adjustments were actually delivered. Each of these is engineerable.',
     quote: { text: 'My PEEP was a piece of paper in a folder. There was a fire alarm one Tuesday and nobody looked at me. I went down four flights of stairs alone. I left the job inside three months.', attribution: 'Wheelchair-using employee, government sector' },
   },
   tips: [
@@ -1991,7 +1991,7 @@ export const organisationHelp: HelpContent[] = [
       { text: 'Pull last 3 disabled-hire induction plans. Are adjustments and communication preferences explicit?' },
       { text: 'Check date of last PEEP practice for each documented PEEP. More than 12 months ago?' },
       { text: 'Sample 30/60/90-day check-in notes. How many specifically discussed adjustments?' },
-      { text: 'Check return-to-work documentation. Is there a disability-specific path, or one generic policy?' },
+      { text: 'Check return-to-work documentation. Is there a disability-specific path or one generic policy?' },
       { text: 'Pull last 12 months of failed probation decisions. Was adjustment delivery audited before each?' },
     ],
     estimatedTime: '3-4 hours',
@@ -1999,7 +1999,7 @@ export const organisationHelp: HelpContent[] = [
   solutions: [
     {
       title: 'Personalised induction template',
-      description: 'Build a personalised induction plan template that includes adjustments, communication preferences, and a named buddy.',
+      description: 'Build a personalised induction plan template that includes adjustments, communication preferences and a named buddy.',
       resourceLevel: 'low', costRange: '$500-2,000', timeRequired: '1 month', implementedBy: 'staff', impact: 'quick-win',
       steps: ['Adapt existing onboarding template.', 'Add sections: adjustments confirmed, communication preferences, AT delivery dates, named buddy.', 'Brief managers and HR on use.', 'Pilot on next 3 hires.'],
     },
@@ -2019,7 +2019,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Disability-specific return-to-work pathway',
       description: 'Build a return-to-work process specifically for disability-related leave.',
       resourceLevel: 'medium', costRange: '$3,000-8,000', timeRequired: '2-4 months', implementedBy: 'staff', impact: 'significant',
-      steps: ['Co-design pathway with HR, WHS, and EAP partner.', 'Cover: pre-return planning, gradual return option, role adjustment, manager preparation.', 'Brief all managers.', 'Set check-in cadence after return.', 'Review outcomes annually.'],
+      steps: ['Co-design pathway with HR, WHS and EAP partner.', 'Cover: pre-return planning, gradual return option, role adjustment, manager preparation.', 'Brief all managers.', 'Set check-in cadence after return.', 'Review outcomes annually.'],
     },
     {
       title: 'Probation audit process',
@@ -2051,7 +2051,7 @@ export const organisationHelp: HelpContent[] = [
   diapCategory: 'people-culture',
   title: 'Retention, ERGs and inclusive culture',
   coveredQuestionIds: ['5.10-PC-2', '5.10-PC-3', '5.10-PC-4', '5.10-PC-5', '5.10-PC-6'],
-  summary: 'Hiring disabled staff is a start. Retention depends on data (disclosure and retention tracking), resourced ERGs, visible senior representation, honest exit interviews, co-designed policies, and inclusion-specific engagement measurement.',
+  summary: 'Hiring disabled staff is a start. Retention depends on data (disclosure and retention tracking), resourced ERGs, visible senior representation, honest exit interviews, co-designed policies and inclusion-specific engagement measurement.',
   lastUpdated: '2026-04-14',
   whyItMatters: {
     text: 'Organisations that hire well but retain poorly burn trust with the disability community fast. Disabled employees talk to each other. A reputation for "getting in but not getting on" follows. Culture work is slower than process work, but it is where long-term inclusion happens.',
@@ -2093,8 +2093,8 @@ export const organisationHelp: HelpContent[] = [
   ],
   resources: [
     { title: 'Australia\'s Disability Strategy 2021-2031', url: 'https://www.disabilitygateway.gov.au/ads', type: 'website', source: 'Australian Government', description: 'National strategy including Employment outcome area with indicators and targets.', isAustralian: true, isFree: true },
-    { title: 'AHRC - Employers', url: 'https://humanrights.gov.au/our-work/employers', type: 'guide', source: 'AHRC', description: 'Guidance on inclusive workplace culture, policy, and reporting.', isAustralian: true, isFree: true },
-    { title: 'People with Disability Australia (PWDA)', url: 'https://pwd.org.au/', type: 'website', source: 'PWDA', description: 'National peak body. Policy positions, research, and lived-experience perspective.', isAustralian: true, isFree: true },
+    { title: 'AHRC - Employers', url: 'https://humanrights.gov.au/our-work/employers', type: 'guide', source: 'AHRC', description: 'Guidance on inclusive workplace culture, policy and reporting.', isAustralian: true, isFree: true },
+    { title: 'People with Disability Australia (PWDA)', url: 'https://pwd.org.au/', type: 'website', source: 'PWDA', description: 'National peak body. Policy positions, research and lived-experience perspective.', isAustralian: true, isFree: true },
     { title: 'IncludeAbility - Inclusive Workplaces', url: 'https://includeability.gov.au/', type: 'website', source: 'AHRC', description: 'Tools and templates for building sustained inclusive culture.', isAustralian: true, isFree: true },
   ],
   keywords: ['retention', 'ERG', 'employee resource group', 'culture', 'engagement', 'exit interview', 'co-design', 'promotion', 'disclosure'],
@@ -2102,13 +2102,13 @@ export const organisationHelp: HelpContent[] = [
 
 {
   questionId: '5.10-DD-1',
-  questionText: 'Inclusive operational practice: meetings, development, pay equity, and chronic illness support',
+  questionText: 'Inclusive operational practice: meetings, development, pay equity and chronic illness support',
   moduleCode: '5.10',
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
-  title: 'Inclusive operational practice: meetings, development, pay equity, and chronic illness support',
+  title: 'Inclusive operational practice: meetings, development, pay equity and chronic illness support',
   coveredQuestionIds: ['5.10-DD-2', '5.10-DD-3', '5.10-DD-9', '5.10-DD-10'],
-  summary: 'Retention is built in the small operational moments. Inclusive meeting culture, proactive development opportunities, pay equity that includes disability, structured mentoring, and flexibility that supports chronic illness and mental health together signal that this is a workplace where disabled people can build careers, not just hold jobs.',
+  summary: 'Retention is built in the small operational moments. Inclusive meeting culture, proactive development opportunities, pay equity that includes disability, structured mentoring and flexibility that supports chronic illness and mental health together signal that this is a workplace where disabled people can build careers, not just hold jobs.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
     text: 'Disabled employees often report that the systems work but the daily texture does not. Meetings without agendas exclude processing-different staff. Stretch projects assigned only to those who "ask" exclude staff with confidence-eroding past experiences. Pay reviews that ignore disclosure status hide systemic underpayment. Chronic illness flexibility offered grudgingly burns trust faster than it fixes anything.',
@@ -2125,9 +2125,9 @@ export const organisationHelp: HelpContent[] = [
     title: 'Auditing inclusive operational practice',
     steps: [
       { text: 'Sit in 3 routine meetings. Score: was an agenda sent in advance? Were captions used? Was speaking order clear?' },
-      { text: 'Pull last 12 months of conference, training, and stretch project allocations. Are disabled staff over- or under-represented?' },
+      { text: 'Pull last 12 months of conference, training and stretch project allocations. Are disabled staff over- or under-represented?' },
       { text: 'Run pay equity analysis cut by disclosure status. What gap appears, controlled for role and tenure?' },
-      { text: 'Check whether a mentoring or sponsorship program exists, who is in it, and what mentor training is provided.' },
+      { text: 'Check whether a mentoring or sponsorship program exists, who is in it and what mentor training is provided.' },
       { text: 'Review chronic illness and mental health support against statutory minimum. What is the gap?' },
     ],
     estimatedTime: '4-6 hours',
@@ -2161,7 +2161,7 @@ export const organisationHelp: HelpContent[] = [
       title: 'Chronic illness and mental health flex policy',
       description: 'Build and publish flexibility provisions that go beyond statutory minimums.',
       resourceLevel: 'medium', costRange: '$2,000-6,000', timeRequired: '3-6 months', implementedBy: 'staff', impact: 'moderate',
-      steps: ['Co-design with disabled staff, ERG, and EAP partner.', 'Cover: flexible sick leave banking, recovery leave, medication-cycle hours, episodic flexibility.', 'Train managers on use.', 'Publish in policy library and onboarding.', 'Review annually.'],
+      steps: ['Co-design with disabled staff, ERG and EAP partner.', 'Cover: flexible sick leave banking, recovery leave, medication-cycle hours, episodic flexibility.', 'Train managers on use.', 'Publish in policy library and onboarding.', 'Review annually.'],
     },
   ],
   examples: [
@@ -2181,16 +2181,16 @@ export const organisationHelp: HelpContent[] = [
 
 {
   questionId: '5.10-DD-4',
-  questionText: 'Voice, accountability, and intersectional data',
+  questionText: 'Voice, accountability and intersectional data',
   moduleCode: '5.10',
   moduleGroup: 'organisational-commitment',
   diapCategory: 'people-culture',
-  title: 'Voice, accountability, and intersectional data',
+  title: 'Voice, accountability and intersectional data',
   coveredQuestionIds: ['5.10-DD-5', '5.10-DD-6', '5.10-DD-7', '5.10-DD-8'],
-  summary: 'Inclusion that lasts ties senior accountability to measurable outcomes, surfaces voice through paid Disabled-led partnerships, measures psychological safety honestly, and tracks intersectional patterns. Without these, "culture work" becomes a values poster.',
+  summary: 'Inclusion that lasts ties senior accountability to measurable outcomes, surfaces voice through paid Disabled-led partnerships, measures psychological safety honestly and tracks intersectional patterns. Without these, "culture work" becomes a values poster.',
   lastUpdated: '2026-05-04',
   whyItMatters: {
-    text: 'Performative inclusion is detected fast by the disability community and does long-term reputational damage. Real inclusion has accountability tied to executive and board metrics, paid (not volunteer) engagement with Disabled-led organisations, intersectional data that recognises disability is not a single category, and customer-facing decisions shaped by Disabled staff whose lived expertise matters commercially.',
+    text: 'Performative inclusion is detected fast by the disability community and does long-term reputational damage. Real inclusion has accountability tied to executive and board metrics, paid (not volunteer) engagement with Disabled-led organisations, intersectional data that recognises disability is not a single category and customer-facing decisions shaped by Disabled staff whose lived expertise matters commercially.',
     quote: { text: 'They asked me to share my disability story for free at three internal events. They paid the catering. I declined the fourth ask. They were surprised.', attribution: 'Disabled employee, education sector' },
   },
   tips: [
@@ -2201,13 +2201,13 @@ export const organisationHelp: HelpContent[] = [
     { icon: 'Trophy', text: 'Tie leadership accountability to measurable inclusion outcomes, reviewed at Board or Exec level.', priority: 5 },
   ],
   howToCheck: {
-    title: 'Auditing voice, accountability, and data',
+    title: 'Auditing voice, accountability and data',
     steps: [
       { text: 'Pull last 5 customer-facing decisions (product, service, venue change). Were Disabled staff or customers consulted? Paid?' },
       { text: 'Check engagement survey methodology. Is psychological safety measured? Is it cut by disclosure?' },
       { text: 'List all Disabled-led organisations engaged in last 12 months. Were they paid market rate?' },
       { text: 'Pull HR data dimensions. Can you cut by disability x gender, disability x First Nations, etc.?' },
-      { text: 'Check executive scorecard. Are inclusion metrics named with targets, or vague aspirations?' },
+      { text: 'Check executive scorecard. Are inclusion metrics named with targets or vague aspirations?' },
     ],
     estimatedTime: '3-4 hours',
   },
@@ -2244,7 +2244,7 @@ export const organisationHelp: HelpContent[] = [
     },
   ],
   examples: [
-    { businessType: 'event-venue', businessTypeLabel: 'Major Venue', scenario: 'New venue layout designed without consulting Disabled staff. Costly redesign needed after launch when wheelchair access proved unworkable.', solution: 'Built Disabled Staff Customer Experience Panel (paid). All future venue, product, and service decisions consulted with panel pre-launch.', outcome: 'Subsequent layout changes accessibility-compliant first time. Estimated $400k saved on redesigns over 3 years.', cost: '$8,000/year (panel honorarium + meeting time)', timeframe: '12 months' },
+    { businessType: 'event-venue', businessTypeLabel: 'Major Venue', scenario: 'New venue layout designed without consulting Disabled staff. Costly redesign needed after launch when wheelchair access proved unworkable.', solution: 'Built Disabled Staff Customer Experience Panel (paid). All future venue, product and service decisions consulted with panel pre-launch.', outcome: 'Subsequent layout changes accessibility-compliant first time. Estimated $400k saved on redesigns over 3 years.', cost: '$8,000/year (panel honorarium + meeting time)', timeframe: '12 months' },
     { businessType: 'local-government', businessTypeLabel: 'Council', scenario: 'Engagement survey showed disabled staff scored 18 points lower on psych safety. No team-level action.', solution: 'Cut survey by disclosure at team level. Any team with 10-point gap required action plan owned by team leader. CEO reviewed quarterly.', outcome: 'Gap halved within 18 months. Three managers identified for capability uplift; two for coaching out.', cost: '$5,500/year (survey instrument + facilitation)', timeframe: '2 years' },
     { businessType: 'health-wellness', businessTypeLabel: 'Health Network', scenario: 'CEO regularly invited PWDA and other Disabled-led organisations to "advise" without paying. Network publicly declined further engagement.', solution: 'Set $10,000 annual budget for Disabled-led advisory engagement. Paid all current advisors retrospectively for past unpaid time. Renegotiated relationships.', outcome: 'PWDA re-engaged. Network became advisor on next strategic plan. Reputation in sector restored.', cost: '$10,000/year', timeframe: '6 months' },
     { businessType: 'retail', businessTypeLabel: 'Retail Chain', scenario: 'Disability metrics in CEO scorecard were "improve disability inclusion" with no measurable target. No accountability when results plateaued.', solution: 'Set hard targets: 7% disclosed disability hire by year 2, retention parity within 3 years, engagement gap under 5 points by year 4. Tied to CEO and CHRO bonus.', outcome: 'Hiring target met in year 2. Retention parity reached year 3. Annual report cited externally as best practice.', cost: '$0 (existing process change)', timeframe: '4 years' },
