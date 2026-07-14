@@ -1842,6 +1842,28 @@ details[open] .diap-framework__domain-summary::after {
   flex: 1;
 }
 
+/* Detail panel: group objective (context) stacked above the per-item outcome */
+.item-title-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.item-objective-context {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted, #6b7280);
+  line-height: 1.3;
+}
+
+/* Edit page: read-only reminder of the derived outcome this action works toward */
+.edit-outcome-context {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #4a4340);
+  margin: -8px 0 16px;
+  line-height: 1.4;
+}
+
 /* Item details row - owner and timeline */
 .item-details-row {
   display: flex;

@@ -3244,7 +3244,19 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachE
       </div>
 
       <div className="item-title-row">
-        <h3 className="item-title">{item.objective}</h3>
+        <div className="item-title-stack">
+          {(() => {
+            const outcome = outcomeForItem(item);
+            return outcome ? (
+              <>
+                <span className="item-objective-context">{item.objective}</span>
+                <h3 className="item-title">{outcome}</h3>
+              </>
+            ) : (
+              <h3 className="item-title">{item.objective}</h3>
+            );
+          })()}
+        </div>
         <button
           className="inline-edit-btn"
           onClick={(e) => { e.stopPropagation(); onEdit(); }}
@@ -3840,6 +3852,16 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
             {label && <span className="question-context-answer"> (answered: {label})</span>}
           </div>
         );
+      })()}
+
+      {item && (() => {
+        const outcome = outcomeForItem(item);
+        return outcome ? (
+          <div className="edit-outcome-context">
+            <span className="question-context-label">Outcome to reach: </span>
+            {outcome}
+          </div>
+        ) : null;
       })()}
 
       <div className="form-row">
