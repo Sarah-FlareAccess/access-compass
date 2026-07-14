@@ -333,10 +333,10 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
     }
     if (topPriorityActions.length > 0) {
       const top = topPriorityActions[0];
-      recs.push({ kind: 'Program', text: `Run a sector-wide initiative around “${top.action}” — the most common recommended action, appearing across ${top.count} business${top.count !== 1 ? 'es' : ''}.` });
+      recs.push({ kind: 'Program', text: `Coordinate a shared, sector-wide program around the cohort's most common recommendations (the top pattern recurs across ${top.count} business${top.count !== 1 ? 'es' : ''}) — more efficient than supporting each business one at a time. Confirm the specific focus against the underlying plans.` });
     }
     if (topAreasToExplore.length > 0) {
-      recs.push({ kind: 'Guidance', text: `Publish plain-language guidance on ${topAreasToExplore[0].text.replace(/\.$/, '').toLowerCase()} — businesses repeatedly flagged this as unclear.` });
+      recs.push({ kind: 'Guidance', text: `Publish plain-language guidance in areas the cohort repeatedly flagged as unclear — a small number of shared explainers would resolve questions across many businesses.` });
     }
     if (enrolment.enrolled > 0) {
       recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });

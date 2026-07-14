@@ -197,8 +197,10 @@ function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, c
   if (strongPct < 25) barriers.push(`Cohort maturity is still developing (${strongPct}% strong), so meaningful collective work remains.`);
 
   if (topPriorityActions.length > 0) {
-    const t = topPriorityActions[0];
-    opportunity.push(`"${t.action}" appears in ${t.count} business${t.count !== 1 ? 'es' : ''} - the strongest candidate for a single shared initiative.`);
+    const area = topPriorityActions[0].theme?.label;
+    opportunity.push(area
+      ? `${area} is where recommendations cluster most across the cohort — the strongest area for a shared, council-led response rather than supporting businesses one at a time.`
+      : `Recommendations cluster in a few areas across the cohort — a shared, council-led response reaches more businesses than one-at-a-time support.`);
   }
   if (completedPct >= 40 && completedPct < 80) opportunity.push(`At ${completedPct}% completion, re-running in 4 to 6 weeks will firm up findings before public reporting.`);
 
@@ -688,7 +690,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addStatBox(PAGE.marginX + 2 * (impactW + 3), yPos, impactW, String(sharedOpps.length), 'Shared opportunities', COLORS.aussieLight);
   addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), 'Themes active', COLORS.mixedText);
   yPos += 30;
-  addParagraph('Shared opportunities are actions recommended for two or more businesses - the strongest candidates for a single council-funded initiative rather than business-by-business support.', 9);
+  addParagraph('Shared opportunities are recommendations that recur across two or more businesses - a signal of where a single, council-led initiative could help many at once rather than supporting each business separately.', 9);
 
   // Before/after improvement - only when the re-assessed subset exists.
   if (payload.improvement && payload.improvement.reassessedCount > 0) {
@@ -715,8 +717,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.setTextColor(...hexToRgb(COLORS.text));
-    sharedOpps.slice(0, 3).forEach(op => {
-      const line = `- ${op.action} (${op.count} businesses) -> ${sharedResponseFor(op.theme?.key)}`;
+    // Lead with the AREA and a direction, not a single frequency-derived action:
+    // the counts show where support helps most, but the specific action to fund
+    // should be confirmed against the businesses' plans, not read off one line.
+    groupByTheme(sharedOpps).slice(0, 3).forEach(g => {
+      const line = `- ${g.label}: recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort. Consider ${sharedResponseFor(g.key)}.`;
       doc.splitTextToSize(line, PAGE.contentWidth).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
       yPos += 1;
     });
@@ -760,8 +765,8 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Top priority actions
   // =====================================================
   if (topPriorityActions.length > 0) {
-    addSectionHeader('Priority actions by theme');
-    addParagraph('The most common recommended actions, grouped by area. The count is how many businesses each action appears in - higher counts are the strongest candidates for a shared, council-led response.');
+    addSectionHeader('Common recommendations by theme');
+    addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the automated assessments to illustrate each theme; they are not a human-reviewed priority list, so confirm against each business’s own plan before acting.');
 
     groupByTheme(topPriorityActions).forEach(g => {
       ensureSpace(16);
@@ -795,17 +800,17 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (sharedOpps.length > 0) {
     addSectionHeader('Recommended program investments');
-    addParagraph('Where a single initiative would serve many businesses at once. Each is drawn from the actions most commonly recommended across the cohort; the suggested response is a starting point for council planning, not a costed commitment.');
-    sharedOpps.slice(0, 6).forEach((op, idx) => {
+    addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed or human-reviewed commitment. Confirm the specific response against the underlying business plans before committing.');
+    groupByTheme(sharedOpps).slice(0, 5).forEach((g, idx) => {
       ensureSpace(14);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      doc.splitTextToSize(`${idx + 1}. ${op.action}`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
+      doc.splitTextToSize(`${idx + 1}. ${g.label}`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.splitTextToSize(`${op.count} businesses share this - consider ${sharedResponseFor(op.theme?.key)}.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+      doc.splitTextToSize(`Recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort here. A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
       yPos += 3;
       doc.setTextColor(0, 0, 0);
     });
