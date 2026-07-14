@@ -1876,13 +1876,6 @@ details[open] .diap-framework__domain-summary::after {
   line-height: 1;
 }
 
-/* Edit page: read-only reminder of the derived outcome this action works toward */
-.edit-outcome-context {
-  font-size: 0.8125rem;
-  color: var(--text-secondary, #4a4340);
-  margin: -8px 0 16px;
-  line-height: 1.4;
-}
 
 /* Item details row - owner and timeline */
 .item-details-row {

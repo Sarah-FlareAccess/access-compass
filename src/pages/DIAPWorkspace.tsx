@@ -3856,16 +3856,6 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
         );
       })()}
 
-      {item && (() => {
-        const outcome = outcomeForItem(item);
-        return outcome ? (
-          <div className="edit-outcome-context">
-            <span className="question-context-label">Objective (target to reach): </span>
-            {outcome}
-          </div>
-        ) : null;
-      })()}
-
       <div className="form-row">
         <label>
           Objective *
