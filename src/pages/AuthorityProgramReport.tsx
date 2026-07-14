@@ -287,8 +287,74 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
     return insights.slice(0, 4);
   }, [strongPct, confidence, moduleAggregates, topPriorityActions, topStrengths]);
 
+  // Network Accessibility Maturity Score: a single, transparent 0-100 metric an
+  // executive can track over time and put in a board paper. Each assessment
+  // scores Strong = 100, Mixed = 50, Needs work = 0; the score is the cohort
+  // average. Deliberately independent of participation so it measures the
+  // cohort's accessibility, not how many have responded.
+  const maturity = useMemo(() => {
+    const t = confidence.total;
+    const score = t > 0 ? Math.round((confidence.strong * 100 + confidence.mixed * 50) / t) : 0;
+    const band =
+      score >= 80 ? 'Leading' :
+      score >= 60 ? 'Established' :
+      score >= 40 ? 'Developing' :
+      score >= 20 ? 'Emerging' : 'Foundational';
+    return { score, band };
+  }, [confidence]);
+
+  // Recommended actions for the AUTHORITY (not the businesses): turn the
+  // aggregate signal into a short set of decisions a council can act on.
+  const recommendations = useMemo(() => {
+    const recs: { text: string; kind: string }[] = [];
+    const sortedNeeds = [...moduleAggregates]
+      .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
+      .sort((a, b) => {
+        const aT = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
+        const bT = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
+        return (b.confidence_needs_work / bT) - (a.confidence_needs_work / aT);
+      });
+    const weakest = sortedNeeds[0];
+    if (weakest && weakest.confidence_needs_work > 0) {
+      recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${getModuleName(weakest.module_id)} — it carries the highest needs-work signal across the network.` });
+    }
+    if (topPriorityActions.length > 0) {
+      const top = topPriorityActions[0];
+      recs.push({ kind: 'Program', text: `Run a sector-wide initiative around “${top.action}” — the most common recommended action, appearing across ${top.count} business${top.count !== 1 ? 'es' : ''}.` });
+    }
+    if (topAreasToExplore.length > 0) {
+      recs.push({ kind: 'Guidance', text: `Publish plain-language guidance on ${topAreasToExplore[0].text.replace(/\.$/, '').toLowerCase()} — businesses repeatedly flagged this as unclear.` });
+    }
+    if (enrolment.enrolled > 0) {
+      recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });
+    }
+    if (weakest) {
+      recs.push({ kind: 'Investment', text: `Focus the next funding round on ${getModuleName(weakest.module_id)} for the largest cohort-wide accessibility gain per dollar.` });
+    }
+    if (topStrengths.length > 0) {
+      const top = topStrengths[0];
+      recs.push({ kind: 'Recognition', text: `Showcase “${top.text}” publicly — already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} — to build momentum and evidence outcomes.` });
+    }
+    return recs.slice(0, 6);
+  }, [moduleAggregates, topPriorityActions, topAreasToExplore, topStrengths, enrolment]);
+
   return (
     <div className="program-report">
+      {/* Network Accessibility Maturity Score — the headline, trackable metric */}
+      <section className="report-maturity" aria-label="Network Accessibility Maturity Score">
+        <div className="report-maturity__score">
+          <div className="report-maturity__num">{maturity.score}<span className="report-maturity__denom">/100</span></div>
+          <div className="report-maturity__band">{maturity.band}</div>
+        </div>
+        <div className="report-maturity__body">
+          <h2>Network Accessibility Maturity</h2>
+          <p>A single, trackable measure of the cohort&rsquo;s accessibility, drawn from all {confidence.total} assessment{confidence.total !== 1 ? 's' : ''} captured. Put it in board papers and annual reports, and watch it move as the network improves.</p>
+          <p className="report-maturity__method">
+            <strong>How it&rsquo;s calculated:</strong> each assessment scores Strong = 100, Mixed = 50, Needs work = 0; the score is the cohort average. It measures accessibility maturity, not how many businesses have responded.
+          </p>
+        </div>
+      </section>
+
       {/* At-a-glance hero - 3 column visual layout */}
       <section className="report-hero">
         <div className="report-hero__card">
@@ -359,6 +425,25 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </section>
       )}
 
+      {/* Recommended actions for the authority — turns the report into a
+          decision-making document, not just a description of the cohort. */}
+      {recommendations.length > 0 && (
+        <section className="authority-form-card report-section report-recommendations">
+          <h2>Recommended actions for the authority</h2>
+          <p className="report-section__subtitle">
+            Where to focus next, derived from the cohort&rsquo;s aggregate signal — actions for the authority, not the individual businesses.
+          </p>
+          <ol className="report-recs">
+            {recommendations.map((r, i) => (
+              <li key={i}>
+                <span className="report-recs__kind">{r.kind}</span>
+                <span className="report-recs__text">{r.text}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
       {/* Plain-English interpretation */}
       <section className="report-interpretation">
         <p>
@@ -413,8 +498,8 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         )}
         {topStrengths.length > 0 && (
           <ExpandableSection
-            title="Strengths worth celebrating"
-            subtitle="Practices already in place across multiple businesses."
+            title="What's working well"
+            subtitle="Practices already in place across multiple businesses — worth celebrating and showcasing."
             items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count }))}
             accent="green"
           />

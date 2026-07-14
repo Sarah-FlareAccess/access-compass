@@ -439,3 +439,92 @@
   color: var(--text-secondary, #5C4A4E);
   font-style: italic;
 }
+
+/* ===== Network Accessibility Maturity Score — headline metric ===== */
+.report-maturity {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #490E67 0%, #6b2c91 100%);
+  color: #fff;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+}
+@media (max-width: 700px) {
+  .report-maturity { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
+.report-maturity__score {
+  flex: none;
+  text-align: center;
+  min-width: 140px;
+}
+.report-maturity__num {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.report-maturity__denom {
+  font-size: 1.25rem;
+  font-weight: 600;
+  opacity: 0.7;
+}
+.report-maturity__band {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #E9D5FF;
+}
+.report-maturity__body h2 {
+  margin: 0 0 6px;
+  color: #fff;
+  font-size: 1.25rem;
+}
+.report-maturity__body p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+}
+.report-maturity__method {
+  font-size: 0.8rem !important;
+  color: rgba(255, 255, 255, 0.78) !important;
+  margin-bottom: 0 !important;
+}
+
+/* ===== Recommended actions for the authority ===== */
+.report-recs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.report-recs li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #F5EFFA;
+  border-radius: 8px;
+  border-left: 3px solid var(--amethyst-diamond, #490E67);
+}
+@media (max-width: 640px) {
+  .report-recs li { flex-direction: column; gap: 4px; }
+}
+.report-recs__kind {
+  flex: none;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--amethyst-diamond, #490E67);
+  min-width: 84px;
+}
+.report-recs__text {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #3e2b2f;
+}
