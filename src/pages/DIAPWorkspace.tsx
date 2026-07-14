@@ -2810,49 +2810,104 @@ function questionLabelForItem(item: DIAPItem): string | null {
 }
 
 // Level-3 Objective: the accessibility OUTCOME ("what good looks like") for an
-// item, derived from its source question (e.g. "Do entrance ramps have handrails
-// on both sides?" -> "Entrance ramps have handrails on both sides"). This sits
-// between the Group heading and the action steps, so the plan reads
-// Category -> Group objective -> per-item outcome -> action steps.
-//
-// deriveOutcome turns an assessment question into an affirmative outcome
-// statement, handling each interrogative form grammatically:
-//   - "Can <subj> be <participle>..."  -> "<subj> can be <participle>..."
-//   - "Does <subj> <verb>..."          -> "<subj> <verb-s>..." (3rd-person via
-//                                          a known-verb list to locate the verb)
-//   - "Is/Are <subj> <predicate>..."   -> "<subj> is/are <predicate>..." (insert
-//                                          the copula the base converter drops)
-//   - "If/When/... <cond>, <main>?"    -> resolves the conditional / pronoun
-// Anything it can't convert cleanly returns null, so the row falls back to the
-// action step rather than showing a fragment. Validated against all 962
-// assessment questions (see scratchpad deriver/validate).
+// item, in a neutral/impersonal voice (no you/your). Derived from the source
+// question so the plan reads Category -> Group objective -> per-item outcome ->
+// action steps. deriveOutcome converts each interrogative form grammatically
+// (copula insertion, verb conjugation, active->passive neutralisation, Oxford
+// comma removal); anything it cannot convert cleanly returns null so the row
+// falls back to its action step. Validated against all 1058 assessment questions
+// (see scratchpad deriver/validate).
 
-// 3rd-person singular for the verbs used in "Does ..." / conditional questions.
-function conjugateThirdPerson(verb: string): string {
-  const irregular: Record<string, string> = { have: 'has', do: 'does', go: 'goes', be: 'is' };
-  const lower = verb.toLowerCase();
-  if (irregular[lower]) return irregular[lower];
-  if (/(s|x|z|ch|sh)$/i.test(verb)) return verb + 'es';
-  if (/[^aeiou]y$/i.test(verb)) return verb.slice(0, -1) + 'ies';
-  return verb + 's';
+const oc_cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const oc_cl = (t: string) => t.toLowerCase().replace(/[),.;:]+$/, '');
+
+function conjugateThirdPerson(v: string): string {
+  const irr: Record<string, string> = { have: 'has', do: 'does', go: 'goes', be: 'is' };
+  const lv = v.toLowerCase();
+  if (irr[lv]) return irr[lv];
+  if (/(s|x|z|ch|sh)$/i.test(v)) return v + 'es';
+  if (/[^aeiou]y$/i.test(v)) return v.slice(0, -1) + 'ies';
+  return v + 's';
+}
+const OC_PP_IRREGULAR: Record<string, string> = {
+  have: 'had', make: 'made', give: 'given', hold: 'held', keep: 'kept', set: 'set',
+  send: 'sent', take: 'taken', run: 'run', do: 'done', see: 'seen', meet: 'met',
+  build: 'built', put: 'put', let: 'let', tell: 'told', show: 'shown', know: 'known',
+  write: 'written', drive: 'driven', get: 'got', find: 'found', choose: 'chosen',
+  teach: 'taught', buy: 'bought', bring: 'brought', think: 'thought', catch: 'caught',
+  deal: 'dealt', mean: 'meant', leave: 'left', feel: 'felt', understand: 'understood',
+  speak: 'spoken', pay: 'paid', lay: 'laid',
+};
+function pastParticiple(v: string): string {
+  const lv = v.toLowerCase();
+  if (OC_PP_IRREGULAR[lv]) return OC_PP_IRREGULAR[lv];
+  if (/e$/.test(lv)) return lv + 'd';
+  if (/[^aeiou]y$/i.test(lv)) return lv.slice(0, -1) + 'ied';
+  return lv + 'ed';
 }
 
-// Verbs that follow the subject in "Does <subject> <verb> ..." questions, so we
-// find the real verb rather than treating a noun in the subject as the verb.
-const DOES_VERBS = 'have|include|cover|support|work|provide|offer|meet|allow|display|show|list|state|reflect|welcome|help|feature|contain|require|explain|link|invite|disclose|identify|indicate|use|address|apply|stay|remain|give|come|comply|integrate|connect|adapt|accommodate|anticipate|contrast|cater|receive|recognise|recognize|feel|incorporate|ensure|enable|respond|follow|permit|capture|reduce|prevent|detect|describe|label|caption|prioritise|prioritize|maintain|monitor|publish|communicate|consider|account|allocate|assign|track|report|handle|send|make|take|keep|hold|run|set';
-// Verbs after the subject in "Can <subject> <verb> ..." questions.
-const CAN_VERBS = 'fit|access|request|store|enter|move|control|resize|navigate|use|book|find|get|reach|adjust|operate|park|transfer|see|hear|understand|complete|submit|contact|choose|select|order|pay|register|download|read|watch|listen|follow|receive|provide|arrange|manage|configure|customise|customize|zoom|scroll|type|swipe|tap|bring|discuss|ask|modify|explain|specify|take|cancel|accommodate|pause|apply|opt|change|update|leave|join|attend|participate|purchase|browse|search|filter|sort|save|share|report|raise|flag';
-const DOES_VERB_RE = new RegExp(`^Does (your |the )?(.+?) \\b(${DOES_VERBS})\\b (.+)$`, 'i');
-const CAN_VERB_RE = new RegExp(`^Can (.+?) \\b(${CAN_VERBS})\\b (.+)$`, 'i');
+const OC_UNCOUNTABLE = new Set(['information','training','signage','content','feedback','guidance','access','seating','lighting','furniture','equipment','staff','software','hardware','wayfinding','messaging','funding','parking','catering','maintenance','support','advice','provision','accommodation','availability','compliance','clarity','audio','video','imagery','representation','wifi','stock','merchandise','artwork','music','flooring','noise','glare','space','pricing','luggage']);
+const OC_SING_S = new Set(['access','business','process','progress','address','status','focus','bias','analysis','campus','bonus','census','apparatus','kiosk']);
+function isPluralNoun(w: string): boolean {
+  return /[^s]s$/.test(w) && !/(ous|ss|is|us)$/.test(w) && !OC_SING_S.has(w) && !isPart(w) && !isAdj(w) && !OC_ADVERB.has(w) && w.length > 2 && !/^(this|its|has|was)$/.test(w);
+}
+function isAre(objRaw: string): string {
+  const np = objRaw.trim().split(/\s+(?:for|with|to|in|on|of|from|by|through|at|into|over|under|within|without|around|between|near|above|below|that|which|who|where|when|before|after|so|such|including|during|across|throughout|about)\b/i)[0].trim();
+  if (/^(staff|people|personnel|police)\b/i.test(np)) return 'are';
+  if (/^(a|an|each|every|one|a single)\b/i.test(np)) return 'is';
+  if (/^(all|several|many|multiple|both|these|those|two|three|four|five|\d)\b/i.test(np)) return 'are';
+  if (/\band\b/i.test(np)) return 'are';
+  const words = np.split(/\s+/).map(oc_cl);
+  if (words.some(isPluralNoun)) return 'are';
+  if (words.some(w => OC_UNCOUNTABLE.has(w))) return 'is';
+  return 'is';
+}
 
-// Predicate markers: the word that begins a copula predicate (adjective /
-// participle / preposition / adverb). Used to split "Is <subject> <predicate>".
-const OUTCOME_PRED = new Set(['accessible','available','clear','easy','large','small','consistent','compatible','readable','legible','visible','suitable','comfortable','safe','secure','present','current','accurate','complete','adequate','sufficient','appropriate','wide','level','free','open','clean','tidy','well','high','low','bright','quiet','calm','functional','usable','operable','reliable','robust','inclusive','welcoming','dignified','prominent','obvious','intuitive','familiar','standard','formal','informal','regular','ongoing','proactive','responsive','flexible','affordable','reasonable','genuine','active','enough','firm','stable','step-free','barrier-free','ready','aware','trained','knowledgeable','confident','competent','capable','simple','fit','big','short','long','tall','deep','slip-resistant','non-slip','detectable','flush','flat','sturdy','durable','spacious','roomy','portable','adjustable','removable','foldable','designed','created','tagged','captioned','subtitled','synchronised','synchronized','positioned','communicated','located','provided','kept','marked','labelled','labeled','written','published','tested','checked','audited','reviewed','updated','maintained','monitored','documented','recorded','displayed','signed','signposted','enclosed','covered','protected','lit','illuminated','defined','measured','calibrated','configured','integrated','connected','aligned','based','geared','tailored','adapted','equipped','staffed','resourced','funded','budgeted','scheduled','planned','embedded','established','implemented','enforced','applied','followed','offered','given','made','held','shared','stored','captured','collected','gathered','presented','formatted','structured','organised','organized','arranged','installed','fitted','set','placed','mounted','still','always','clearly','easily','readily','consistently','regularly','properly','fully']);
-// Prepositions handled separately: a prepositional phrase is often part of the
-// subject ("controls within the space"), so it must only start the predicate
-// when no adjective/participle follows ("the toilet is on the ground floor").
-const OUTCOME_PREP = new Set(['in','at','on','within','across','throughout','for','with','without','of','from','into','over','under','above','below','near','beside','around','between']);
-const OUTCOME_PRED_PHRASE = [/^(.+?)\s+(easy to .*)$/i, /^(.+?)\s+(free (?:of|from) .*)$/i, /^(.+?)\s+(kept clear.*)$/i, /^(.+?)\s+(able to .*)$/i];
+const OC_ADJ = new Set(['accessible','available','clear','easy','even','odd','large','small','consistent','compatible','responsible','readable','legible','visible','suitable','comfortable','safe','secure','present','current','accurate','complete','adequate','sufficient','appropriate','wide','level','free','open','clean','tidy','high','low','bright','quiet','calm','functional','usable','operable','reliable','robust','inclusive','welcoming','dignified','prominent','obvious','intuitive','familiar','standard','ongoing','proactive','responsive','flexible','affordable','reasonable','genuine','active','enough','firm','stable','step-free','barrier-free','ready','aware','knowledgeable','confident','competent','capable','simple','fit','big','short','long','tall','deep','smooth','equivalent','uneven','narrow','steep','shallow','vacant','occupied','close','near','adjacent','slip-resistant','non-slip','detectable','flush','flat','sturdy','durable','spacious','roomy','portable','adjustable','removable','foldable','specific','effective','supportive','comprehensive','positive','attentive','informative','interactive','independent','permanent','apparent','evident','transparent','relevant','compliant','resistant','efficient','convenient']);
+const OC_PART = new Set(['designed','created','tagged','captioned','subtitled','synchronised','synchronized','positioned','communicated','located','provided','kept','marked','labelled','labeled','written','published','tested','checked','audited','reviewed','updated','maintained','monitored','documented','recorded','displayed','signed','signposted','enclosed','covered','protected','lit','illuminated','defined','measured','calibrated','configured','integrated','connected','aligned','based','geared','tailored','adapted','equipped','staffed','resourced','funded','budgeted','scheduled','planned','embedded','established','implemented','enforced','applied','followed','offered','given','made','held','shared','stored','captured','collected','gathered','presented','formatted','structured','organised','organized','arranged','installed','fitted','set','placed','mounted','trained','welcomed','accommodated','invited','announced','honoured','honored','briefed','vetted','shown','taken','known','seen','done','drawn','grown','thrown','worn','chosen','driven','spoken','broken','hidden','met','paid','said','read','led','born','torn','frozen','forbidden','built','sent','told','sold','found']);
+const OC_ADVERB = new Set(['still','always','clearly','easily','readily','consistently','regularly','properly','fully','independently','comfortably','safely','quickly','prominently','visibly','adequately','appropriately','effectively','proactively','actively','automatically','physically','digitally','publicly','formally','currently','genuinely','reliably','well']);
+const OC_PREP = new Set(['in','at','on','within','across','throughout','through','for','with','without','of','from','into','over','under','above','below','near','beside','around','between','during','per','via','among','amongst','despite','upon','onto','towards','toward','against','beyond','by']);
+const OC_BACKUP = new Set([...OC_ADVERB, 'wheelchair','pushchair','pram','stroller','user','child','as']);
+const OC_DITRANSITIVE = new Set(['offered','given','sent','shown','told','provided','granted','awarded','assigned','allocated','promised','taught','paid','issued','handed','served','charged','reimbursed']);
+const OC_PRED_PHRASE = [/^(.+?)\s+(easy to .*)$/i, /^(.+?)\s+(free (?:of|from) .*)$/i, /^(.+?)\s+(kept clear.*)$/i, /^(.+?)\s+(able to .*)$/i];
+const OC_QUANT = /^(at least|at most|no more than|no less than|no higher than|no lower than|no wider than|no narrower than|no smaller than|no bigger than|no greater than|under \d|over \d|up to \d|a minimum of|a maximum of|within reach|within \d)/i;
+const OC_SHORT_PART = new Set(['used','made','set','led','run','put','met','paid','kept','held','sent','told','read','worn','born','done','seen','lit']);
+const OC_NOT_ADVERB_LY = new Set(['family','supply','reply','apply','comply','assembly','ally','only','early','likely','friendly','ugly','silly','daily','weekly','monthly','yearly','elderly','lovely','lonely','deadly','multiply','imply','rely','holy','duly','wholly','jelly','rally','tally','bully','fully']);
+
+function isAdj(t: string): boolean { const c = oc_cl(t); if (OC_PREP.has(c)) return false; if (OC_ADJ.has(c)) return true; if (/-(accessible|friendly|ready|free|resistant|compliant|proof|type|contrast|quality|length|coded|paced|lit|maintained|slip)$/.test(c)) return true; if (/^(high|low|well|non|self|user|sensory|autism|dementia|wheelchair|colour|color|child|age|barrier|step|slip|full|co)-/.test(c)) return true; return /(ible|able|less|ous)$/.test(c) && c.length > 4; }
+function isPart(t: string): boolean { const c = oc_cl(t); if (OC_PART.has(c) || OC_SHORT_PART.has(c)) return true; if (/-(vetted|operated|paced|balanced|coded|coloured|colored|maintained|signed|lit|based)$/.test(c)) return true; return /ed$/.test(c) && c.length > 4 && !OC_ADJ.has(c); }
+function isAdv(t: string): boolean { const c = oc_cl(t); if (OC_ADVERB.has(c)) return true; return /ly$/.test(c) && c.length > 3 && !OC_NOT_ADVERB_LY.has(c); }
+function isPrepTok(t: string): boolean { return OC_PREP.has(oc_cl(t)); }
+function predicativeNext(nx: string | undefined): boolean {
+  if (nx === undefined) return true;
+  const c = oc_cl(nx);
+  if (OC_PREP.has(c) || /^(and|or|but|nor)$/.test(c) || isAdv(nx) || c === 'to' || c === 'enough') return true;
+  if (/^(who|that|which|whether|how|why|where|when|if)$/.test(c)) return true;
+  if (/,$/.test(nx)) return true;
+  if (isAdj(nx) || isPart(nx)) return true;
+  return false;
+}
+
+function insertCopula(rest: string, verb: string): string | null {
+  const toks = rest.split(/\s+/);
+  const depthAt = (i: number) => { const u = toks.slice(0, i).join(' '); return (u.match(/\(/g) || []).length - (u.match(/\)/g) || []).length; };
+  const split = (j: number) => { while (j > 1 && (OC_BACKUP.has(oc_cl(toks[j - 1])) || isAdv(toks[j - 1]))) j--; return `${toks.slice(0, j).join(' ')} ${verb} ${toks.slice(j).join(' ')}`; };
+  for (let i = 1; i < toks.length; i++) {
+    if (depthAt(i) !== 0 || /,$/.test(toks[i - 1])) continue;
+    if (OC_QUANT.test(toks.slice(i, i + 4).join(' '))) return split(i);
+    if (isAdv(toks[i])) return split(i);
+    if (OC_DITRANSITIVE.has(oc_cl(toks[i]))) return split(i);
+    if ((isPart(toks[i]) || isAdj(toks[i])) && (predicativeNext(toks[i + 1]) || /,$/.test(toks[i]))) return split(i);
+  }
+  for (const re of OC_PRED_PHRASE) { const m = rest.match(re); if (m) return `${m[1]} ${verb} ${m[2]}`; }
+  for (let i = 1; i < toks.length; i++) {
+    if (depthAt(i) === 0 && /^(a|an|part|member|subject)$/i.test(toks[i]) && !/,$/.test(toks[i - 1]) && !isPrepTok(toks[i - 1])) return `${toks.slice(0, i).join(' ')} ${verb} ${toks.slice(i).join(' ')}`;
+  }
+  for (let i = 1; i < toks.length; i++) {
+    if (depthAt(i) === 0 && isPrepTok(toks[i]) && !/,$/.test(toks[i - 1])) return `${toks.slice(0, i).join(' ')} ${verb} ${toks.slice(i).join(' ')}`;
+  }
+  return null;
+}
 
 // Curated overrides for the rare item whose auto-derived outcome still reads
 // awkwardly. Keyed by base question id (suffixes like "-media-0" are stripped
@@ -2861,116 +2916,107 @@ const OUTCOME_OVERRIDES: Record<string, string> = {
   '2.2-D-27': 'Entrance ramps include handrails on both sides',
 };
 
-const capFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+function neutraliseVoice(sIn: string): string | null {
+  let s = sIn;
+  let m: RegExpMatchArray | null;
+  const compound = (o: string) => /^(and|or)\b/i.test(o) || /\b(and|or) [a-z]+ (on|to|about|with|for|in)\b/i.test(o) || /\b(and|or) (support|provide|ensure|offer|track|monitor|review|maintain|promote|improve|manage|deliver|report|act|respond|analyse|analyze|collect|compare|apply|remember|capture)\b/i.test(o);
 
-// True when a token begins a copula predicate (adjective / participle / adverb,
-// or a morphological match). Excludes prepositions (handled separately) and -ing
-// (too many subject nouns: seating, lighting).
-function isOutcomePredStart(tok: string): boolean {
-  const t = tok.toLowerCase().replace(/[),.]+$/, '');
-  if (OUTCOME_PREP.has(t)) return false;
-  if (OUTCOME_PRED.has(t)) return true;
-  if (/-(accessible|friendly|ready|vetted|free|resistant|compliant|proof|based|lit|maintained|signed|type|operated|paced|balanced|coded|coloured|colored)$/.test(t)) return true;
-  if (/^(specific|prone|due|apt|akin)$/.test(t)) return true;
-  if (/(ed|ible|able|ive|ent|ant|ory|ful|less)$/.test(t) && t.length > 4) return true;
-  return false;
+  if ((m = s.match(/^You have (.+)$/i))) {
+    const obj = m[1];
+    const st = obj.match(/^(.+?) (available|in place|installed)\b(.*)$/i);
+    if (st) s = `${oc_cap(st[1])} ${isAre(st[1])} ${st[2].toLowerCase()}${st[3]}`;
+    else s = `${oc_cap(obj)} ${isAre(obj)} available`;
+  } else if ((m = s.match(/^You can ([a-z-]+) (.+)$/i))) {
+    if (compound(m[2])) return null;
+    s = `${oc_cap(m[2])} can be ${pastParticiple(m[1])}`;
+  } else if ((m = s.match(/^You are (.+)$/i))) {
+    s = oc_cap(m[1]);
+  } else if ((m = s.match(/^You ((?:[a-z]+ly) )?(train|brief|inform|educate|remind|notify|update|consult|survey|ask|reimburse|compensate) ((?:\S+ )?(?:staff|customers|visitors|people|artists|candidates|managers|volunteers|attendees|guests|users|employees|performers|contractors|clients|applicants)|the .+?) (on|about|of|in|to|with|for) (.+)$/i))) {
+    const adv = (m[1] || '').trim(), grp = m[3];
+    s = `${oc_cap(grp)} ${isAre(grp)}${adv ? ' ' + adv : ''} ${pastParticiple(m[2])} ${m[4]} ${m[5]}`;
+  } else if ((m = s.match(/^You ((?:[a-z]+ly) )?([a-z-]+) (.+)$/i))) {
+    const adv = (m[1] || '').trim(), verb = m[2], obj = m[3];
+    if (compound(obj)) return null;
+    if (/^(stay|remain|become|keep|feel|seem|get|look|sound|appear)$/i.test(verb)) return null;
+    s = `${oc_cap(obj)} ${isAre(obj)}${adv ? ' ' + adv : ''} ${pastParticiple(verb)}`;
+  }
+  s = s.replace(/\byour own\b/gi, 'its own');
+  s = s.replace(/\byour\b/g, 'the').replace(/\bYour\b/g, 'The');
+  s = s.replace(/,(\s+(?:and|or)\s)/g, '$1');
+  return oc_cap(s.trim());
 }
 
-// Insert the copula (is/are) before the predicate in "<subject> <predicate>".
-function insertCopula(rest: string, verb: string): string | null {
-  const toks = rest.split(/\s+/);
-  const depthAt = (i: number) => { const u = toks.slice(0, i).join(' '); return (u.match(/\(/g) || []).length - (u.match(/\)/g) || []).length; };
-  // Pass 1: prefer an adjective/participle/adverb marker over a preposition that
-  // may belong to the subject. List guard: don't split right after a comma
-  // (that means we matched an adjective inside an "A, B, or C <noun>" list).
-  for (let i = 1; i < toks.length; i++) {
-    if (depthAt(i) === 0 && isOutcomePredStart(toks[i]) && !/,$/.test(toks[i - 1])) {
-      // Back up over a bare pre-modifier so "fitting rooms wheelchair accessible"
-      // -> "fitting rooms are wheelchair accessible", not "...wheelchair are...".
-      let j = i;
-      if (i >= 2 && /^(wheelchair|pushchair|pram|stroller|user|child)$/i.test(toks[i - 1])) j = i - 1;
-      return `${toks.slice(0, j).join(' ')} ${verb} ${toks.slice(j).join(' ')}`;
-    }
-  }
-  for (const re of OUTCOME_PRED_PHRASE) { const m = rest.match(re); if (m) return `${m[1]} ${verb} ${m[2]}`; }
-  // Pass 2: only now allow a prepositional predicate.
-  for (let i = 1; i < toks.length; i++) {
-    if (depthAt(i) === 0 && OUTCOME_PREP.has(toks[i].toLowerCase().replace(/[),.]+$/, '')) && !/,$/.test(toks[i - 1]))
-      return `${toks.slice(0, i).join(' ')} ${verb} ${toks.slice(i).join(' ')}`;
-  }
-  return null;
+function finishOutcome(out: string): string | null {
+  const r = neutraliseVoice(oc_cap(out.trim()));
+  if (r === null) return null;
+  if (/\byou\b|\byour\b/i.test(r)) return null;
+  if (/\b(and|or) (is|are|do|does|can|has|have|will)\b/i.test(r)) return null;
+  if (/\b(is|are|do|does) (it|they)\b/i.test(r)) return null;
+  if (/\b(is|are) (is|are)\b/i.test(r)) return null;
+  if (/^(and|or|but|nor|about|whether|had|to|with|for|from|of|on|in|at|by)\b/i.test(r)) return null;
+  return r;
 }
 
 function deriveOutcome(qRaw: string): string | null {
   const s = qRaw.replace(/\?.*$/, '').replace(/[.:]\s*(select all that apply|choose all|tick all).*$/i, '').trim();
+  if (/^(What|How|Which|Who|Why)\b/i.test(s) || /\banything else\b/i.test(s) || /^Would you like\b/i.test(s)) return null;
   let m: RegExpMatchArray | null;
 
-  // Open-ended / diagnostic questions have no affirmative outcome — bail so the
-  // row falls back to its action step (these are also filtered from generating
-  // items upstream, but guard here too so no nonsense statement is ever shown,
-  // e.g. "Is there anything else...?" -> would read "There is anything else...").
-  if (/^(What|How|Which|Who|Why)\b/i.test(s) || /\banything else\b/i.test(s) || /^Would you like\b/i.test(s)) return null;
-
-  // ---- Conditionals: "If/When/During/Where/Once/In/For <cond>, <main>?" ----
   if (/^(If|When|During|Where|Once|In|For)\b/i.test(s)) {
     const cond = s.match(/^(If|When|During|Where|Once|In|For)\b.*?,\s*((?:does|do|is|are|has|have|can|it|they|you|your|the)\b.+)$/i);
     if (!cond) return null;
     const condClause = s.slice(0, s.length - cond[2].length).replace(/^(If|When|During|Where|Once|In|For)\b\s*/i, '').replace(/,\s*$/, '').trim();
     const main = cond[2];
-    // Pronoun subject ("it"/"they") -> resolve from the condition's noun.
     const pron = main.match(/^(does it|do they|is it|are they|has it|have they|can it|can they)\b(.*)$/i);
     if (pron) {
       let noun: string | null = null, plural = false, n: RegExpMatchArray | null;
       if ((n = condClause.match(/^there is (?:a|an) (.+)$/i))) noun = n[1];
       else if ((n = condClause.match(/^there are (.+)$/i))) { noun = n[1]; plural = true; }
-      else if ((n = condClause.match(/^(?:you |your .+? )?(?:offer|have|has|use|create|provide) (?:a |an )?(.+)$/i))) { noun = n[1]; plural = /\bor\b/i.test(n[1]); }
+      else if ((n = condClause.match(/^(?:you |the .+? )?(?:offer|have|has|use|create|provide) (?:a |an )?(.+)$/i))) { noun = n[1]; plural = /\bor\b/i.test(n[1]); }
       else if ((n = condClause.match(/^(.+?) (?:are|is) (?:used|available|present|provided|in use)$/i))) { noun = n[1]; plural = /\bare\b/i.test(condClause); }
       if (!noun) return null;
       const lead = pron[1].toLowerCase(); const vp = pron[2].trim();
-      if (/^does it|^do they/.test(lead)) { const vm = vp.match(/^([a-z]+)\b(.*)$/i); if (!vm) return null; return capFirst(`${noun} ${/^do they/.test(lead) || plural ? vm[1] : conjugateThirdPerson(vm[1])}${vm[2]}`).trim(); }
-      if (/^is it|^are they/.test(lead)) return capFirst(`${noun} ${plural || /^are they/.test(lead) ? 'are' : 'is'} ${vp}`).trim();
-      if (/^has it|^have they/.test(lead)) return capFirst(`${noun} ${plural ? 'have' : 'has'} ${vp}`).trim();
-      if (/^can it|^can they/.test(lead)) return capFirst(`${noun} can ${vp}`).trim();
+      let out: string;
+      if (/^does it|^do they/.test(lead)) { const vm = vp.match(/^([a-z]+)\b(.*)$/i); if (!vm) return null; out = `${noun} ${/^do they/.test(lead) || plural ? vm[1] : conjugateThirdPerson(vm[1])}${vm[2]}`; }
+      else if (/^is it|^are they/.test(lead)) out = `${noun} ${plural || /^are they/.test(lead) ? 'are' : 'is'} ${vp}`;
+      else if (/^has it|^have they/.test(lead)) out = `${noun} ${plural ? 'have' : 'has'} ${vp}`;
+      else out = `${noun} can ${vp}`;
+      return finishOutcome(out);
     }
-    // Main clause has its own subject: convert it, drop existentials.
     const d = deriveOutcome(main);
     if (d === null || /^(If|When|During|Where|Once|Is |Are |Do |Does |Can |Has |Have )/i.test(d) || /^There (is|are)\b/i.test(d)) return null;
     return d;
   }
 
-  // ---- Can ----
-  if ((m = s.match(/^Can (.+?) be (.+)$/i))) return capFirst(`${m[1]} can be ${m[2]}`).trim();
-  if ((m = s.match(CAN_VERB_RE))) return capFirst(`${m[1]} can ${m[2]} ${m[3]}`).trim();
-  if ((m = s.match(/^Can (you) (.+)$/i))) return capFirst(`You can ${m[2]}`).trim();
-
-  // ---- Does ----
-  if ((m = s.match(DOES_VERB_RE))) return capFirst(`${m[1] || ''}${m[2]} ${conjugateThirdPerson(m[3])} ${m[4]}`).trim();
-
-  // ---- Do ----
-  if ((m = s.match(/^Do you have (.+)$/i))) return capFirst(`You have ${m[1]}`).trim();
-  if ((m = s.match(/^Do (you|your .+?|staff|customers|visitors|people) (.+)$/i))) return capFirst(`${m[1]} ${m[2]}`).trim();
-  if ((m = s.match(/^Do (.+)$/i))) return capFirst(m[1]).trim();
-
-  // ---- Is / Are (copula) ----
-  if ((m = s.match(/^Is there (.+)$/i))) return capFirst(`There is ${m[1]}`).trim();
-  if ((m = s.match(/^Are there (.+)$/i))) return capFirst(`There are ${m[1]}`).trim();
-  if ((m = s.match(/^(Is|Are) (your |the |all )?(.+)$/i))) {
-    const verb = /^Is$/i.test(m[1]) ? 'is' : 'are';
-    const rest = `${m[2] || ''}${m[3]}`.trim();
-    const c = insertCopula(rest, verb);
-    return c ? capFirst(c).trim() : null;
+  let out: string | null = null;
+  if ((m = s.match(/^Can (.+?) be (.+)$/i))) out = `${m[1]} can be ${m[2]}`;
+  else if ((m = s.match(new RegExp(`^Can (.+?) \\b(fit|access|request|store|enter|move|control|resize|navigate|use|book|find|get|reach|adjust|operate|park|transfer|see|hear|understand|complete|submit|contact|choose|select|order|pay|register|download|read|watch|listen|follow|receive|provide|arrange|manage|configure|customise|customize|zoom|scroll|type|swipe|tap|bring|discuss|ask|modify|explain|specify|take|cancel|accommodate|pause|apply|opt|change|update|leave|join|attend|participate|purchase|browse|search|filter|sort|save|share|report|raise|flag|indicate)\\b (.+)$`, 'i')))) {
+    let subj = m[1], adv = '';
+    const am = subj.match(/^(.+?)\s+((?:[a-z]+ly))$/i);
+    if (am && !/^(family|supply|reply|apply|comply|assembly|ally|only|early)$/i.test(am[2])) { subj = am[1]; adv = am[2] + ' '; }
+    out = `${subj} can ${adv}${m[2]} ${m[3]}`;
   }
+  else if ((m = s.match(/^Can (you) (.+)$/i))) out = `You can ${m[2]}`;
+  else if ((m = s.match(new RegExp(`^Does (your |the )?(.+?) \\b(have|include|cover|support|work|provide|offer|meet|allow|display|show|list|state|reflect|welcome|help|feature|contain|require|explain|link|invite|disclose|identify|indicate|use|address|apply|stay|remain|give|come|comply|integrate|connect|adapt|accommodate|anticipate|contrast|cater|receive|recognise|recognize|feel|incorporate|ensure|enable|respond|follow|permit|capture|reduce|prevent|detect|describe|label|caption|prioritise|prioritize|maintain|monitor|publish|communicate|consider|account|allocate|assign|track|report|handle|send|make|take|keep|hold|run|set)\\b (.+)$`, 'i')))) out = `${m[1] || ''}${m[2]} ${conjugateThirdPerson(m[3])} ${m[4]}`;
+  else if ((m = s.match(/^Do you have (.+)$/i))) out = `You have ${m[1]}`;
+  else if ((m = s.match(/^Do (you|your .+?|staff|customers|visitors|people) (.+)$/i))) out = `${m[1]} ${m[2]}`;
+  else if ((m = s.match(/^Do (.+)$/i))) out = m[1];
+  else if ((m = s.match(/^Is there (.+)$/i))) out = `There is ${m[1]}`;
+  else if ((m = s.match(/^Are there (.+)$/i))) out = `There are ${m[1]}`;
+  else if ((m = s.match(/^(Is|Are) (your |the |all )?(.+)$/i))) { out = insertCopula(`${m[2] || ''}${m[3]}`.trim(), /^Is$/i.test(m[1]) ? 'is' : 'are'); }
+  else if ((m = s.match(/^Have you (.+)$/i))) {
+    const obj = m[1], first = obj.split(/\s+/)[0], rest = obj.slice(first.length).trim();
+    out = (isPart(first) && rest && !/^(whether|that|if|how|when|they|it|there|we|he|she|people)\b/i.test(rest)) ? `${rest} ${isAre(rest) === 'are' ? 'have' : 'has'} been ${oc_cl(first)}` : null;
+  }
+  else if ((m = s.match(/^Have your (.+)$/i))) out = `Your ${m[1]}`;
+  else if ((m = s.match(/^Have (.+?) been (.+)$/i))) out = `${m[1]} have been ${m[2]}`;
+  else if ((m = s.match(/^Have (.+?) (received|completed|undertaken|attended|established|adopted|implemented|published|documented|reviewed|tested|checked|considered) (.+)$/i))) out = `${m[1]} have ${m[2]} ${m[3]}`;
+  else if ((m = s.match(/^Has (.+?) been (.+)$/i))) out = `${m[1]} has been ${m[2]}`;
+  else if ((m = s.match(/^Has your (.+)$/i))) out = `Your ${m[1]}`;
+  else if ((m = s.match(/^Has the (.+)$/i))) out = `The ${m[1]}`;
 
-  // ---- Have / Has ----
-  if ((m = s.match(/^Have you (.+)$/i))) return capFirst(`You have ${m[1]}`).trim();
-  if ((m = s.match(/^Have your (.+)$/i))) return capFirst(`Your ${m[1]}`).trim();
-  if ((m = s.match(/^Have (.+?) been (.+)$/i))) return capFirst(`${m[1]} have been ${m[2]}`).trim();
-  if ((m = s.match(/^Have (.+?) (received|completed|undertaken|attended|established|adopted|implemented|published|documented|reviewed|tested|checked|considered) (.+)$/i))) return capFirst(`${m[1]} have ${m[2]} ${m[3]}`).trim();
-  if ((m = s.match(/^Has (.+?) been (.+)$/i))) return capFirst(`${m[1]} has been ${m[2]}`).trim();
-  if ((m = s.match(/^Has your (.+)$/i))) return capFirst(`Your ${m[1]}`).trim();
-  if ((m = s.match(/^Has the (.+)$/i))) return capFirst(`The ${m[1]}`).trim();
-
-  return null; // unknown shape -> caller falls back to the action step
+  if (out === null) return null;
+  return finishOutcome(out);
 }
 
 function outcomeForItem(item: DIAPItem): string | null {
