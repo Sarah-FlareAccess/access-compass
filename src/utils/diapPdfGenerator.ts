@@ -713,13 +713,6 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     // Summarise completed work by area rather than listing individual actions.
     // A static PDF cannot expand a truncated list, so a per-category count shows
     // the breadth of progress without a dangling "and N more".
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'italic');
-    doc.setTextColor(...hexToRgb(COLORS.textMuted));
-    wrapText(`${completedCount} action${completedCount === 1 ? '' : 's'} completed so far, spanning these areas. Recognising progress matters as much as planning the work ahead.`, PAGE.contentWidth)
-      .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
-    yPos += 3;
-
     const achievedByCat = [...Object.keys(categoryLabels), '__other__']
       .map(key => ({
         label: key === '__other__' ? OTHER_CATEGORY_LABEL : categoryLabels[key],
@@ -729,6 +722,19 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       }))
       .filter(c => c.count > 0)
       .sort((a, b) => b.count - a.count);
+
+    // Analysis line matching the web plan: completion %, the strongest areas, and
+    // a progress note — so the PDF reads as analysis, not just a count.
+    const topAch = achievedByCat.slice(0, 2).map(c => c.label).join(' and ');
+    const progressNote = completionRate >= 50
+      ? ' The plan is well progressed.'
+      : ' Momentum is building — keep the completed work evidenced for statutory reporting.';
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(...hexToRgb(COLORS.textMuted));
+    wrapText(`${completedCount} of ${totalItems} action${totalItems === 1 ? '' : 's'} in this plan ${completedCount === 1 ? 'is' : 'are'} complete (${completionRate}%)${topAch ? `, with the strongest progress in ${topAch}` : ''}.${progressNote}`, PAGE.contentWidth)
+      .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+    yPos += 3;
 
     for (const c of achievedByCat) {
       checkNewPage(7);
@@ -758,10 +764,17 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   if (frameworkGrouping && frameworkGrouping.domains.some(d => d.items.length > 0)) {
     addSectionHeader(`Alignment with ${frameworkGrouping.short}`, 'accent');
 
+    const doms = frameworkGrouping.domains;
+    const coveredD = doms.filter(d => d.items.length > 0);
+    const gapD = doms.filter(d => d.items.length === 0);
+    const strongestD = [...doms].sort((a, b) => b.items.length - a.items.length)[0];
+    const gapNote = gapD.length > 0
+      ? ` No actions are mapped yet to ${gapD.map(d => d.name).join(', ')} — review whether ${gapD.length === 1 ? 'that domain applies' : 'those domains apply'} to this plan, or add coverage.`
+      : ' Every outcome domain has at least one action.';
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    wrapText(`This action plan is mapped to the ${frameworkGrouping.name} outcome domains for statutory reporting. Domain-by-domain detail appears in the appendix.`, PAGE.contentWidth)
+    wrapText(`This plan's actions cover ${coveredD.length} of ${doms.length} ${frameworkGrouping.name} outcome domains${strongestD && strongestD.items.length > 0 ? `, most under "${strongestD.name}"` : ''}.${gapNote} Domain-by-domain detail appears in the appendix.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
     yPos += 4;
 
