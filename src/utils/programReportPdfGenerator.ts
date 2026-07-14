@@ -766,7 +766,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addSectionHeader('Common recommendations by theme');
-    addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the automated assessments to illustrate each theme; they are not a human-reviewed priority list, so confirm against each business’s own plan before acting.');
+    addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessments to illustrate each theme; they are not a human-reviewed priority list, so confirm against each business’s own plan before acting.');
 
     groupByTheme(topPriorityActions).forEach(g => {
       ensureSpace(16);
