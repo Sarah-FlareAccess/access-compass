@@ -274,6 +274,19 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
       insights.push(`${getModuleName(m.module_id)} (${m.module_id}) shows the most NEEDS-WORK signal (${m.confidence_needs_work} of ${t} assessments). Prioritise for cohort-wide support.`);
     }
 
+    // Comparative insight: how the strongest and weakest modules differ, which
+    // reads as more intelligent than a single percentage.
+    const byStrong = moduleAggregates
+      .map(m => { const t = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work; return { m, t, sp: t > 0 ? (m.confidence_strong / t) * 100 : -1 }; })
+      .filter(x => x.sp >= 0);
+    if (byStrong.length >= 2) {
+      byStrong.sort((a, b) => b.sp - a.sp);
+      const best = byStrong[0], worst = byStrong[byStrong.length - 1];
+      if (Math.round(best.sp) - Math.round(worst.sp) >= 15) {
+        insights.push(`${getModuleName(best.m.module_id)} is consistently outperforming ${getModuleName(worst.m.module_id)} across the network (${Math.round(best.sp)}% vs ${Math.round(worst.sp)}% strong) — a clear place to redirect shared support.`);
+      }
+    }
+
     if (topPriorityActions.length > 0) {
       const top = topPriorityActions[0];
       insights.push(`The most common recommended action is "${top.action}" (appears in ${top.count} business${top.count !== 1 ? 'es' : ''}). Consider this for a sector-wide initiative.`);
@@ -348,6 +361,24 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
     ].filter(g => g.items.length > 0);
   }, [topPriorityActions]);
 
+  // Network accessibility risk: councils plan around risk. A simple, transparent
+  // read from maturity (how accessible), participation (how much is done) and
+  // evidence volume (how confident we can be).
+  const risk = useMemo(() => {
+    const m = maturity.score, p = completionPct;
+    let level: 'Low' | 'Moderate' | 'High';
+    if (confidence.total < 5) level = 'High';
+    else if (m >= 60 && p >= 60) level = 'Low';
+    else if (m < 30 || p < 25) level = 'High';
+    else level = 'Moderate';
+    const note = level === 'Low'
+      ? 'A mature, well-evidenced cohort. Findings are safe to cite in public reporting.'
+      : level === 'High'
+        ? 'Low maturity or thin evidence. Treat findings as a baseline and prioritise support and participation before public reporting.'
+        : 'A developing cohort. Findings are directional; firm them up with more completions before citing publicly.';
+    return { level, note };
+  }, [maturity.score, completionPct, confidence.total]);
+
   return (
     <div className="program-report">
       {/* Network Accessibility Maturity Score — the headline, trackable metric */}
@@ -363,6 +394,15 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
             <strong>How it&rsquo;s calculated:</strong> each assessment scores Strong = 100, Mixed = 50, Needs work = 0; the score is the cohort average. It measures accessibility maturity, not how many businesses have responded.
           </p>
         </div>
+      </section>
+
+      {/* Network accessibility risk — councils plan around risk */}
+      <section className={`report-risk report-risk--${risk.level.toLowerCase()}`} aria-label="Network accessibility risk">
+        <div className="report-risk__label">
+          <span className="report-risk__kicker">Network accessibility risk</span>
+          <span className="report-risk__level">{risk.level}</span>
+        </div>
+        <p className="report-risk__note">{risk.note}</p>
       </section>
 
       {/* At-a-glance hero - 3 column visual layout */}
@@ -472,7 +512,8 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
       <section className="authority-form-card report-section">
         <h2>Module maturity heatmap</h2>
         <p className="report-section__subtitle">
-          Confidence distribution per module. Wider green = cohort is doing well. Wider red = needs collective attention.
+          Confidence distribution per module, with a verdict on where to focus. <strong>Maintain</strong> = doing well,
+          keep it up · <strong>Invest</strong> = mixed, targeted support pays off · <strong>Improve</strong> = the biggest collective gap.
         </p>
         <div className="report-heatmap">
           {moduleAggregates.map(m => {
@@ -480,6 +521,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
             const strongP = total > 0 ? (m.confidence_strong / total) * 100 : 0;
             const mixedP = total > 0 ? (m.confidence_mixed / total) * 100 : 0;
             const needsP = total > 0 ? (m.confidence_needs_work / total) * 100 : 0;
+            const verdict = total === 0 ? null : strongP >= 55 ? { label: 'Maintain', cls: 'maintain' } : strongP >= 30 ? { label: 'Invest', cls: 'invest' } : { label: 'Improve', cls: 'improve' };
             return (
               <div key={m.module_id} className="report-heatmap__row">
                 <div className="report-heatmap__label">
@@ -490,6 +532,9 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
                   {mixedP > 0 && <div className="seg seg--mixed" style={{ width: `${mixedP}%` }}>{mixedP >= 10 && <span>{m.confidence_mixed}</span>}</div>}
                   {needsP > 0 && <div className="seg seg--needs" style={{ width: `${needsP}%` }}>{needsP >= 10 && <span>{m.confidence_needs_work}</span>}</div>}
                 </div>
+                {verdict
+                  ? <span className={`report-verdict report-verdict--${verdict.cls}`}>{verdict.label}</span>
+                  : <span className="report-verdict report-verdict--none">—</span>}
                 <div className="report-heatmap__count">{m.completed}/{m.total_enrolments}</div>
               </div>
             );
