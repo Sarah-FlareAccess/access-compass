@@ -80,11 +80,6 @@ const PRIORITY_COLORS: Record<string, string> = {
   low: COLORS.statusLow,
 };
 
-const PRIORITY_ACCENT: Record<string, string> = {
-  high: '#ef4444',
-  medium: '#d97706',
-  low: '#3b82f6',
-};
 
 const STATUS_COLORS: Record<string, string> = {
   'not-started': '#6b7280',
@@ -953,14 +948,11 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     // so the card body carries only the action and its detail.
     const actionLines = wrapText(item.action, textMaxWidth);
     const itemPriority = item.priority || 'low';
-    const accentColor = PRIORITY_ACCENT[itemPriority] || PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
     const priorityColor = PRIORITY_COLORS[itemPriority] || COLORS.statusLow;
 
     const optionalFields = buildOptionalFields(item);
 
     checkNewPage(Math.min(estimateCardHeight(item), 80));
-
-    const cardStartY = yPos;
 
     // Objective (outcome) heading - "what good looks like" for this item - with
     // the recommended action steps listed beneath it. The group heading above
@@ -1114,16 +1106,19 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     yPos += 3;
 
-    const cardHeight = yPos - cardStartY;
-    doc.setDrawColor(230, 230, 230);
-    doc.setLineWidth(0.3);
-    doc.roundedRect(cardX, cardStartY, cardWidth, cardHeight, 2, 2, 'S');
-
-    doc.setFillColor(...hexToRgb(accentColor));
-    doc.roundedRect(cardX, cardStartY, 1.5, cardHeight, 0.75, 0.75, 'F');
-
-    doc.setDrawColor(0, 0, 0);
+    // No card border box or accent bar. They were drawn as tall rectangles sized
+    // across the whole card (cardStartY -> yPos), so whenever a card's content
+    // wrapped onto a new page the rectangle was drawn with a cross-page height and
+    // rendered in the wrong place / off-page / overlapping — inconsistent by
+    // content. The card already reads clearly from its OBJECTIVE kicker, bold
+    // outcome, badges and labelled fields; a faint full-width divider (a single
+    // line, always on the current page, so page-break safe) keeps items distinct.
     yPos += 4;
+    doc.setDrawColor(226, 222, 218);
+    doc.setLineWidth(0.2);
+    doc.line(cardX, yPos, cardX + cardWidth, yPos);
+    doc.setDrawColor(0, 0, 0);
+    yPos += 6;
   };
 
   // An objective heading shown once above its group of action cards (ivory bar,
