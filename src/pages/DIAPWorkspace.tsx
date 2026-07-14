@@ -1553,7 +1553,9 @@ export default function DIAPWorkspace() {
             roll-up of how the plan's actions map to the outcome domains, so it
             can be read straight into statutory reporting. The interactive filter
             version lives on the board (group by "<framework> outcomes"). */}
-        {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (
+        {frameworkOutcomes && frameworkOutcomes.mapped > 0 && (() => {
+          const maxDomainTotal = Math.max(1, ...frameworkOutcomes.domains.map(d => d.total));
+          return (
           <section className="diap-framework" aria-label={`Alignment with ${frameworkOutcomes.fw.name}`}>
             <div className="diap-framework__head">
               <h2>Alignment with {frameworkOutcomes.fw.name}</h2>
@@ -1562,27 +1564,51 @@ export default function DIAPWorkspace() {
               How this plan&rsquo;s actions map to the {frameworkOutcomes.fw.short} outcome domains.
               These headings mirror the framework, so they can be read straight into your statutory report.
             </p>
+            <div className="diap-fw-legend">
+              <span className="diap-fw-legend__item"><span className="diap-fw-legend__swatch is-achieved" aria-hidden="true" />Achieved</span>
+              <span className="diap-fw-legend__item"><span className="diap-fw-legend__swatch is-inprogress" aria-hidden="true" />In progress</span>
+              <span className="diap-fw-legend__item"><span className="diap-fw-legend__swatch is-notstarted" aria-hidden="true" />Not started</span>
+            </div>
             <div className="diap-framework__domains">
-              {frameworkOutcomes.domains.map(d => (
+              {frameworkOutcomes.domains.map(d => {
+                const segs = [
+                  { key: 'achieved', n: d.achieved },
+                  { key: 'inprogress', n: d.inProgress },
+                  { key: 'notstarted', n: d.notStarted },
+                ];
+                return (
                 <div key={d.id} className={`diap-framework__domain diap-framework__domain--readonly${d.total === 0 ? ' is-empty' : ''}`}>
                   <div className="diap-framework__domain-head">
                     <h3>{d.name}</h3>
                     <span className="diap-framework__domain-count">{d.total}</span>
                   </div>
                   {d.total > 0 ? (
-                    <p className="diap-framework__breakdown">
-                      {d.achieved} achieved · {d.inProgress} in progress · {d.notStarted} not started
-                    </p>
+                    <div
+                      className="diap-fw-bar"
+                      role="img"
+                      aria-label={`${d.achieved} achieved, ${d.inProgress} in progress, ${d.notStarted} not started of ${d.total}`}
+                      title={`${d.achieved} achieved · ${d.inProgress} in progress · ${d.notStarted} not started`}
+                    >
+                      <div className="diap-fw-bar__fill" style={{ width: `${(d.total / maxDomainTotal) * 100}%` }}>
+                        {segs.filter(s => s.n > 0).map(s => (
+                          <span key={s.key} className={`diap-fw-bar__seg is-${s.key}`} style={{ flexGrow: s.n }}>
+                            <span className="diap-fw-bar__seg-num">{s.n}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   ) : (
                     <p className="diap-framework__breakdown diap-framework__breakdown--empty">
                       No actions mapped yet
                     </p>
                   )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           </section>
-        )}
+          );
+        })()}
 
         {/* Filter alert: the summary card above counts the whole venue, but the
             list below is filtered, but the exported PDF is always the full plan
