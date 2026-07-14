@@ -2476,6 +2476,7 @@ export default function DIAPWorkspace() {
                                     />
                                     <span className={`diap-row__status status-${item.status}`} aria-hidden="true" />
                                     <span className="diap-row__main">
+                                      {outcomeForItem(item) && <span className="diap-row__kicker">Objective</span>}
                                       <span className="diap-row__title">
                                         {outcomeForItem(item) || firstActionLine(item.action) || questionLabelForItem(item) || item.objective}
                                         {changedItems[item.id] && <span className="diap-row__changed" title="Assessment answer changed">updated</span>}
@@ -3249,8 +3250,9 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachE
             const outcome = outcomeForItem(item);
             return outcome ? (
               <>
-                <span className="item-objective-context">{item.objective}</span>
+                <span className="item-objective-kicker">Objective (target to reach)</span>
                 <h3 className="item-title">{outcome}</h3>
+                <span className="item-objective-context">Contributes to: {item.objective}</span>
               </>
             ) : (
               <h3 className="item-title">{item.objective}</h3>
@@ -3858,7 +3860,7 @@ function DIAPItemForm({ item, onSave, onCancel, onDelete, responsiblePeopleList 
         const outcome = outcomeForItem(item);
         return outcome ? (
           <div className="edit-outcome-context">
-            <span className="question-context-label">Outcome to reach: </span>
+            <span className="question-context-label">Objective (target to reach): </span>
             {outcome}
           </div>
         ) : null;

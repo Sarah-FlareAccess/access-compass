@@ -1851,9 +1851,29 @@ details[open] .diap-framework__domain-summary::after {
 }
 .item-objective-context {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-muted, #6b7280);
   line-height: 1.3;
+}
+
+/* "Objective" kicker: frames the affirmative outcome line as a target to reach,
+   so a DIAP objective isn't misread as something already in place. */
+.item-objective-kicker {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--amethyst-diamond);
+  line-height: 1;
+}
+.diap-row__kicker {
+  align-self: flex-start;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--amethyst-diamond);
+  line-height: 1;
 }
 
 /* Edit page: read-only reminder of the derived outcome this action works toward */
