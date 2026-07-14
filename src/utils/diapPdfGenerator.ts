@@ -969,6 +969,14 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     yPos += 4;
     const outcome = outcomes[item.id];
     if (outcome) {
+      // Kicker so the affirmative outcome reads as a target to reach, not a
+      // statement that it is already in place.
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(107, 114, 128);
+      checkNewPage(4);
+      doc.text('OBJECTIVE', cardX + textInset, yPos);
+      yPos += 4;
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
@@ -1131,14 +1139,17 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     if (yPos > PAGE.marginY + 5) yPos += 4;
 
     const boxTop = yPos - 4;
+    // Align the heading box and its accent bar to the same left edge as the
+    // action cards below (marginX + 2), so the accent bars form one clean
+    // vertical line instead of clashing at a 5mm offset.
     doc.setFillColor(...hexToRgb(COLORS.ivory));
-    doc.roundedRect(PAGE.marginX - 3, boxTop, PAGE.contentWidth + 6, boxH, 2, 2, 'F');
+    doc.roundedRect(PAGE.marginX + 2, boxTop, PAGE.contentWidth - 2, boxH, 2, 2, 'F');
     doc.setFillColor(...hexToRgb(accent));
-    doc.roundedRect(PAGE.marginX - 3, boxTop, 1.5, boxH, 0.75, 0.75, 'F');
+    doc.roundedRect(PAGE.marginX + 2, boxTop, 1.5, boxH, 0.75, 0.75, 'F');
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.text));
-    lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + 3, boxTop + 5 + idx * lineH); });
+    lines.forEach((l, idx) => { doc.text(l, PAGE.marginX + 7, boxTop + 5 + idx * lineH); });
     yPos = boxTop + boxH + 5;
     doc.setTextColor(0, 0, 0);
     doc.setFont('helvetica', 'normal');
@@ -1194,34 +1205,51 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
       }
       const topThemes = [...themeTally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
 
-      const dashH = topThemes.length > 0 ? 21 : 16;
+      const dashH = topThemes.length > 0 ? 22 : 17;
       checkNewPage(dashH + 4);
       const top = yPos;
       doc.setFillColor(...hexToRgb(COLORS.ivory));
-      doc.roundedRect(PAGE.marginX - 3, top, PAGE.contentWidth + 6, dashH, 2, 2, 'F');
+      doc.roundedRect(PAGE.marginX + 2, top, PAGE.contentWidth - 2, dashH, 2, 2, 'F');
 
-      doc.setFontSize(16);
+      // Left: total actions (number centred over its label)
+      doc.setFontSize(17);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.text(String(total), PAGE.marginX + 1, top + 9);
-      doc.setFontSize(7.5);
+      doc.text(String(total), PAGE.marginX + 6, top + 10);
+      doc.setFontSize(7);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.text(total === 1 ? 'action' : 'actions', PAGE.marginX + 1, top + 14);
+      doc.text(total === 1 ? 'action' : 'actions', PAGE.marginX + 6, top + 15);
 
       const cx = PAGE.marginX + 28;
-      doc.setFontSize(9);
+      // Priority split, evenly spaced by measured text width (no magic offsets)
+      doc.setFontSize(8.5);
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...hexToRgb(COLORS.statusHigh)); doc.text(`High ${hi}`, cx, top + 6);
-      doc.setTextColor(...hexToRgb(COLORS.statusMedium)); doc.text(`Medium ${med}`, cx + 24, top + 6);
-      doc.setTextColor(...hexToRgb(COLORS.statusLow)); doc.text(`Low ${low}`, cx + 58, top + 6);
-      doc.setTextColor(...hexToRgb(COLORS.text)); doc.text(`${completion}% complete`, cx, top + 12);
+      let px = cx;
+      for (const [lbl, n, col] of [['High', hi, COLORS.statusHigh], ['Medium', med, COLORS.statusMedium], ['Low', low, COLORS.statusLow]] as [string, number, string][]) {
+        doc.setTextColor(...hexToRgb(col));
+        const label = `${lbl} ${n}`;
+        doc.text(label, px, top + 7);
+        px += doc.getTextWidth(label) + 7;
+      }
+      // Completion: small progress bar + label
+      const barX = cx, barY = top + 10, barW = 32, barH = 2.6;
+      doc.setFillColor(...hexToRgb('#e5e7eb'));
+      doc.roundedRect(barX, barY, barW, barH, 1.3, 1.3, 'F');
+      if (completion > 0) {
+        doc.setFillColor(...hexToRgb(COLORS.green));
+        doc.roundedRect(barX, barY, Math.max(barW * completion / 100, 1.3), barH, 1.3, 1.3, 'F');
+      }
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      doc.text(`${completion}% complete`, barX + barW + 4, barY + barH);
 
       if (topThemes.length > 0) {
         doc.setFontSize(8);
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(...hexToRgb(COLORS.textMuted));
-        doc.text(wrapText(`Focus areas: ${topThemes.join(', ')}`, PAGE.contentWidth - 4)[0], PAGE.marginX + 1, top + 18);
+        doc.text(wrapText(`Focus areas: ${topThemes.join(', ')}`, PAGE.contentWidth - 30)[0], cx, top + 18);
       }
 
       yPos = top + dashH + 4;
