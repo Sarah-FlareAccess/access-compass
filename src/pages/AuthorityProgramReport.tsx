@@ -19,6 +19,7 @@ import {
   computeRisk,
   authorityRecommendations,
   priorityHorizons as computePriorityHorizons,
+  moduleVerdict,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
@@ -438,7 +439,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
             const strongP = total > 0 ? (m.confidence_strong / total) * 100 : 0;
             const mixedP = total > 0 ? (m.confidence_mixed / total) * 100 : 0;
             const needsP = total > 0 ? (m.confidence_needs_work / total) * 100 : 0;
-            const verdict = total === 0 ? null : strongP >= 55 ? { label: 'Maintain', cls: 'maintain' } : strongP >= 30 ? { label: 'Invest', cls: 'invest' } : { label: 'Improve', cls: 'improve' };
+            const verdict = moduleVerdict(m);
             return (
               <div key={m.module_id} className="report-heatmap__row">
                 <div className="report-heatmap__label">
@@ -450,7 +451,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
                   {needsP > 0 && <div className="seg seg--needs" style={{ width: `${needsP}%` }}>{needsP >= 10 && <span>{m.confidence_needs_work}</span>}</div>}
                 </div>
                 {verdict
-                  ? <span className={`report-verdict report-verdict--${verdict.cls}`}>{verdict.label}</span>
+                  ? <span className={`report-verdict report-verdict--${verdict.key}`}>{verdict.label}</span>
                   : <span className="report-verdict report-verdict--none">-</span>}
                 <div className="report-heatmap__count">{m.completed}/{m.total_enrolments}</div>
               </div>

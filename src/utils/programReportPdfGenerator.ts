@@ -26,6 +26,7 @@ import {
   computeRisk,
   authorityRecommendations,
   priorityHorizons,
+  moduleVerdict,
   type ThemeGroup,
 } from './programReportModel';
 
@@ -450,6 +451,14 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         PAGE.marginX,
         yPos,
       );
+      // Verdict, right-aligned and colour-coded (Maintain / Invest / Improve).
+      const verdict = agg ? moduleVerdict(agg) : null;
+      if (verdict) {
+        const vColor = verdict.key === 'maintain' ? COLORS.strongText : verdict.key === 'invest' ? COLORS.mixedText : COLORS.needsText;
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...hexToRgb(vColor));
+        doc.text(verdict.label, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
+      }
       yPos += 6;
     } else {
       yPos += 1;
@@ -812,7 +821,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   addSectionHeader('Module progress');
-  addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed.', 9);
+  addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The verdict on the right flags where to focus: Maintain (doing well), Invest (mixed, targeted support pays off) or Improve (the biggest collective gap).');
 
   // Legend for the confidence bars
   ensureSpace(8);

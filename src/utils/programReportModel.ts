@@ -74,6 +74,15 @@ export function groupByTheme<T extends { count: number; theme?: { key: string; l
   return Array.from(map.values()).sort((a, b) => b.total - a.total);
 }
 
+// Per-module verdict from its strong-confidence share: Maintain (doing well),
+// Invest (mixed, targeted support pays off) or Improve (biggest collective gap).
+export function moduleVerdict(m: { confidence_strong: number; confidence_mixed: number; confidence_needs_work: number }): { label: string; key: 'maintain' | 'invest' | 'improve' } | null {
+  const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+  if (total === 0) return null;
+  const strongP = (m.confidence_strong / total) * 100;
+  return strongP >= 55 ? { label: 'Maintain', key: 'maintain' } : strongP >= 30 ? { label: 'Invest', key: 'invest' } : { label: 'Improve', key: 'improve' };
+}
+
 export interface GroupedInsights { strengths: string[]; barriers: string[]; opportunity: string[]; }
 
 // A module needs at least this many assessed businesses before it can be named
