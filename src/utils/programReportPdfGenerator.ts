@@ -323,35 +323,71 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setFont('helvetica', 'normal');
   };
 
-  const addParagraph = (text: string, fontSize = 10) => {
-    doc.setFontSize(fontSize);
+  // Body prose never renders below 11pt for readability; callers that pass a
+  // smaller size (older footnote sizes) are floored up.
+  const BODY_TEXT_SIZE = 11;
+  const addParagraph = (text: string, fontSize = BODY_TEXT_SIZE) => {
+    const size = Math.max(fontSize, BODY_TEXT_SIZE);
+    doc.setFontSize(size);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(...hexToRgb(COLORS.text));
     const lines = doc.splitTextToSize(text, PAGE.contentWidth);
     lines.forEach((line: string) => {
-      ensureSpace(fontSize * 0.5);
+      ensureSpace(size * 0.5);
+      // Re-assert after a possible page break in ensureSpace, which runs the
+      // header/footer and leaves their smaller font size and colour.
+      doc.setFontSize(size);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...hexToRgb(COLORS.text));
       doc.text(line, PAGE.marginX, yPos);
-      yPos += fontSize * 0.5;
+      yPos += size * 0.5;
     });
     yPos += 2;
   };
 
   // Small interpretation block ("What this means" callout)
   const drawWhatThisMeans = (text: string) => {
-    ensureSpace(14);
-    doc.setFontSize(9);
+    doc.setFontSize(BODY_TEXT_SIZE);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(...hexToRgb(COLORS.text));
-    doc.setFillColor(...hexToRgb(COLORS.ivory));
     const lines = doc.splitTextToSize(text, PAGE.contentWidth - 6);
-    const h = lines.length * 4 + 4;
+    const h = lines.length * 5.5 + 5;
+    ensureSpace(h + 4);
+    // Re-assert after a possible page break in ensureSpace, which runs the
+    // header/footer and leaves their own font size, colour and fill.
+    doc.setFontSize(BODY_TEXT_SIZE);
+    doc.setFont('helvetica', 'normal');
+    doc.setFillColor(...hexToRgb(COLORS.ivory));
     doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, h, 2, 2, 'F');
-    let cY = yPos + 4;
+    doc.setTextColor(...hexToRgb(COLORS.text));
+    let cY = yPos + 5.5;
     lines.forEach((line: string) => {
       doc.text(line, PAGE.marginX + 3, cY);
-      cY += 4;
+      cY += 5.5;
     });
     yPos += h + 4;
+  };
+
+  // Draw "- ..." body list items at one consistent size. The font is re-applied
+  // per item because a mid-list page break runs the header/footer, which leave
+  // their own size and colour - without this the overflow items after a break
+  // render smaller and in the wrong colour, which reads as mismatched fonts.
+  const BODY_LIST_SIZE = 11;
+  const drawBulletList = (items: string[]) => {
+    items.forEach(item => {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(BODY_LIST_SIZE);
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      const lines = doc.splitTextToSize(item, PAGE.contentWidth - 4) as string[];
+      ensureSpace(lines.length * 5.5);
+      // A page break inside ensureSpace resets the font, so set it again.
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(BODY_LIST_SIZE);
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      lines.forEach((line, i) => {
+        doc.text(line, PAGE.marginX + (i === 0 ? 0 : 4), yPos);
+        yPos += 5.5;
+      });
+    });
   };
 
   const addStatBox = (x: number, y: number, width: number, value: string, label: string, accent: string) => {
@@ -377,9 +413,9 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   };
 
   const addModuleRow = (moduleId: string, agg: typeof moduleAggregates[number] | undefined) => {
-    ensureSpace(18);
+    ensureSpace(20);
 
-    doc.setFontSize(10);
+    doc.setFontSize(BODY_TEXT_SIZE);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.text));
     doc.text(`${moduleName(moduleId)} (${moduleId})`, PAGE.marginX, yPos);
@@ -387,10 +423,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     const total = agg?.total_enrolments ?? 0;
     const completed = agg?.completed ?? 0;
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
+    doc.setFontSize(BODY_TEXT_SIZE);
     doc.setTextColor(...hexToRgb(COLORS.textMuted));
     doc.text(`${completed}/${total} completed`, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
-    yPos += 3;
+    yPos += 4;
 
     const barW = PAGE.contentWidth;
     const barH = 4;
@@ -434,7 +470,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     yPos += barH + 3;
 
     if (confTotal > 0) {
-      doc.setFontSize(8);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
       doc.text(
@@ -442,7 +478,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         PAGE.marginX,
         yPos,
       );
-      yPos += 4;
+      yPos += 6;
     } else {
       yPos += 1;
     }
@@ -597,22 +633,24 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Interpretation right block
   const interpX = legendX + 50;
   const interpW = PAGE.width - PAGE.marginX - interpX;
-  doc.setFontSize(8);
+  doc.setFontSize(BODY_TEXT_SIZE);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text(`COHORT MATURITY: ${maturityBand(strongPct).toUpperCase()}`, interpX, yPos + 6);
+  doc.text(`COHORT MATURITY: ${maturityBand(strongPct).toUpperCase()}`, interpX, yPos + 5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...hexToRgb(COLORS.text));
-  doc.setFontSize(9);
+  doc.setFontSize(BODY_TEXT_SIZE);
   const interpText = `This is ${describeCohortMaturity(strongPct)}`;
   const interpLines = doc.splitTextToSize(interpText, interpW);
   let interpY = yPos + 11;
   interpLines.forEach((line: string) => {
     doc.text(line, interpX, interpY);
-    interpY += 4;
+    interpY += 5.5;
   });
 
-  yPos += 56;
+  // Clear the taller of the donut band and the interpretation text, so the 11pt
+  // maturity blurb never overruns into the completion paragraph below.
+  yPos = Math.max(yPos + 56, interpY + 3);
 
   // Completion context paragraph
   const completionText = `Completion: ${completedPct}% of enrolled businesses have finished. ${describeCompletion(completedPct, enrolment.total)}`;
@@ -636,26 +674,26 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     // Pre-wrap each line at the render font size so the box height matches what
     // actually draws. Long items (e.g. a wordy top-investment action) wrap to a
     // second line; rendering only the first line would truncate them.
-    doc.setFontSize(9);
+    doc.setFontSize(BODY_TEXT_SIZE);
     const wrappedGlance = glance.map(g => doc.splitTextToSize(g, PAGE.contentWidth - 14) as string[]);
     const glanceLines = wrappedGlance.reduce((n, lines) => n + lines.length, 0);
-    const gH = 9 + glanceLines * 5.5;
+    const gH = 11 + glanceLines * 6.5;
     ensureSpace(gH + 6);
     doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
     doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, gH, 3, 3, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(255, 255, 255);
-    doc.text('PROGRAM AT A GLANCE (FOR COUNCIL)', PAGE.marginX + 5, yPos + 6);
+    doc.text('PROGRAM AT A GLANCE (FOR COUNCIL)', PAGE.marginX + 5, yPos + 7);
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    let gy = yPos + 12;
+    doc.setFontSize(BODY_TEXT_SIZE);
+    let gy = yPos + 14;
     for (const lines of wrappedGlance) {
       doc.setFillColor(...hexToRgb(COLORS.aussieLight));
-      doc.circle(PAGE.marginX + 6, gy - 1, 0.8, 'F');
+      doc.circle(PAGE.marginX + 6, gy - 1.2, 0.8, 'F');
       doc.setTextColor(255, 255, 255);
       lines.forEach(line => {
         doc.text(line, PAGE.marginX + 10, gy);
-        gy += 5.5;
+        gy += 6.5;
       });
     }
     yPos += gH + 5;
@@ -670,17 +708,17 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     { label: 'Biggest opportunity', items: insights.opportunity },
   ].filter(g => g.items.length > 0);
   if (insightGroups.length > 0) {
-    const lineH = 4.6;
+    const lineH = 5.5;
     // Pre-wrap every item at the render font size so the callout height matches
     // what actually draws. Long items (e.g. the opportunity summary) wrap to 2-3
     // lines; rendering only the first line would truncate them mid-sentence.
-    doc.setFontSize(8.5);
+    doc.setFontSize(BODY_TEXT_SIZE);
     const wrapped = insightGroups.map(g => ({
       label: g.label,
       items: g.items.map(it => doc.splitTextToSize(it, PAGE.contentWidth - 16) as string[]),
     }));
-    const calloutH = 6 + wrapped.reduce(
-      (n, g) => n + 5 + g.items.reduce((m, lines) => m + lines.length * lineH, 0) + 1,
+    const calloutH = 7 + wrapped.reduce(
+      (n, g) => n + 6.5 + g.items.reduce((m, lines) => m + lines.length * lineH, 0) + 1.5,
       0,
     ) + 1;
     ensureSpace(calloutH + 6);
@@ -690,25 +728,25 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, calloutH, 3, 3, 'FD');
     doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
     doc.rect(PAGE.marginX, yPos, 2, calloutH, 'F');
-    let iy = yPos + 6;
+    let iy = yPos + 7;
     for (const g of wrapped) {
-      doc.setFontSize(8.5);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.text(g.label.toUpperCase(), PAGE.marginX + 6, iy);
-      iy += 5;
+      iy += 6.5;
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8.5);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.text));
       for (const lines of g.items) {
         doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-        doc.circle(PAGE.marginX + 8, iy - 1, 0.7, 'F');
+        doc.circle(PAGE.marginX + 8, iy - 1.2, 0.7, 'F');
         lines.forEach(line => {
           doc.text(line, PAGE.marginX + 12, iy);
           iy += lineH;
         });
       }
-      iy += 1;
+      iy += 1.5;
     }
     yPos += calloutH + 4;
     doc.setLineWidth(0.3);
@@ -747,22 +785,16 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
 
   if (sharedOpps.length > 0) {
     ensureSpace(24);
-    doc.setFontSize(10);
+    doc.setFontSize(BODY_TEXT_SIZE);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text('Recommended council response', PAGE.marginX, yPos);
-    yPos += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(...hexToRgb(COLORS.text));
+    yPos += 6.5;
     // Lead with the AREA and a direction, not a single frequency-derived action:
     // the counts show where support helps most, but the specific action to fund
     // should be confirmed against the businesses' plans, not read off one line.
-    groupByTheme(sharedOpps).slice(0, 3).forEach(g => {
-      const line = `- ${g.label}: recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort. Consider ${sharedResponseFor(g.key)}.`;
-      doc.splitTextToSize(line, PAGE.contentWidth).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
-      yPos += 1;
-    });
+    drawBulletList(groupByTheme(sharedOpps).slice(0, 3).map(g =>
+      `- ${g.label}: recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort. Consider ${sharedResponseFor(g.key)}.`));
     yPos += 2;
     doc.setTextColor(0, 0, 0);
   }
@@ -814,30 +846,25 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each theme; confirm against each business’s own plan before acting.');
 
     groupByTheme(topPriorityActions).forEach(g => {
-      ensureSpace(16);
-      doc.setFontSize(10);
+      ensureSpace(18);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.text(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.marginX, yPos);
-      yPos += 6;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(...hexToRgb(COLORS.text));
-      g.items.slice(0, 3).forEach(pa => {
-        const line = `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`;
-        doc.splitTextToSize(line, PAGE.contentWidth - 4).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
-      });
+      doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
+      drawBulletList(g.items.slice(0, 3).map(pa =>
+        `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`));
       if (g.items.length > 3) {
-        doc.setFontSize(8);
+        ensureSpace(6);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(BODY_TEXT_SIZE);
         doc.setTextColor(...hexToRgb(COLORS.textMuted));
         doc.text(`...and ${g.items.length - 3} more in this theme`, PAGE.marginX + 4, yPos);
-        yPos += 5;
-        doc.setFontSize(9);
+        yPos += 6;
         doc.setTextColor(...hexToRgb(COLORS.text));
       }
       yPos += 3;
     });
-    addParagraph('The main body shows the top few patterns per theme; every recommendation pattern is listed in full in the appendix.', 8);
+    addParagraph('The main body shows the top few patterns per theme; every recommendation pattern is listed in full in the appendix.');
   }
 
   // =====================================================
@@ -847,15 +874,15 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addSectionHeader('Recommended program investments');
     addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed commitment. Confirm the specific response against the underlying business plans before committing.');
     groupByTheme(sharedOpps).slice(0, 5).forEach((g, idx) => {
-      ensureSpace(14);
-      doc.setFontSize(10);
+      ensureSpace(16);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.text));
-      doc.splitTextToSize(`${idx + 1}. ${g.label}`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
+      doc.splitTextToSize(`${idx + 1}. ${g.label}`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6); doc.text(l, PAGE.marginX, yPos); yPos += 6; });
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.splitTextToSize(`Recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort here. A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
+      doc.splitTextToSize(`Recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort here. A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
       yPos += 3;
       doc.setTextColor(0, 0, 0);
     });
@@ -868,19 +895,13 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addSectionHeader('Strengths across the cohort');
     addParagraph('Practices already in place, grouped by area. Worth celebrating publicly and using as case studies.');
     groupByTheme(topStrengths).forEach(g => {
-      ensureSpace(14);
-      doc.setFontSize(10);
+      ensureSpace(16);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.text(g.label, PAGE.marginX, yPos);
-      yPos += 6;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(...hexToRgb(COLORS.text));
-      g.items.forEach(s => {
-        const text = `- ${s.text} (${s.count} business${s.count !== 1 ? 'es' : ''})`;
-        doc.splitTextToSize(text, PAGE.contentWidth - 4).forEach((line: string, i: number) => { ensureSpace(5); doc.text(line, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
-      });
+      yPos += 6.5;
+      drawBulletList(g.items.map(s => `- ${s.text} (${s.count} business${s.count !== 1 ? 'es' : ''})`));
       yPos += 3;
     });
 
@@ -893,19 +914,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (topAreasToExplore.length > 0) {
     addSectionHeader('Capability gaps');
     addParagraph('Topics businesses flagged as "unable to check" or "unsure". This measures where the cohort lacks knowledge, not where it is failing - each gap is a low-cost training or guidance opportunity.');
-    topAreasToExplore.forEach(a => {
-      ensureSpace(10);
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(...hexToRgb(COLORS.text));
-      const text = `- ${a.text} (${a.count} business${a.count !== 1 ? 'es' : ''})`;
-      doc.splitTextToSize(text, PAGE.contentWidth).forEach((line: string) => {
-        ensureSpace(5);
-        doc.text(line, PAGE.marginX, yPos);
-        yPos += 5;
-      });
-      yPos += 1;
-    });
+    drawBulletList(topAreasToExplore.map(a => `- ${a.text} (${a.count} business${a.count !== 1 ? 'es' : ''})`));
 
     drawWhatThisMeans('What this means: businesses are uncertain rather than failing. A short council-issued guide or a quick training session can turn this uncertainty into competence at low cost.');
   }
@@ -919,16 +928,16 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, ready for statutory reporting.`, 9);
     fw.domains.forEach(d => {
       if (d.total === 0) return;
-      ensureSpace(16);
-      doc.setFontSize(10);
+      ensureSpace(18);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.text));
       doc.text(d.name, PAGE.marginX, yPos);
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
       doc.text(`${d.total} assessed`, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
-      yPos += 3;
+      yPos += 4;
       const barW = PAGE.contentWidth;
       const barH = 4;
       doc.setFillColor(...hexToRgb(COLORS.greyBar));
@@ -940,11 +949,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       seg(d.strong, COLORS.strongFill);
       seg(d.mixed, COLORS.mixedFill);
       seg(d.needsWork, COLORS.needsFill);
-      yPos += barH + 3;
-      doc.setFontSize(8);
+      yPos += barH + 4;
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
       doc.text(`Strong ${d.strong}  -  Mixed ${d.mixed}  -  Needs work ${d.needsWork}`, PAGE.marginX, yPos);
-      yPos += 5;
+      yPos += 6;
       doc.setTextColor(0, 0, 0);
     });
   }
@@ -964,19 +973,13 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addParagraph('The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each theme; this appendix carries the rest. Counts show how many businesses each pattern appears in. Confirm against each business’s own plan before acting.', 9);
 
     groupByTheme(topPriorityActions).forEach(g => {
-      ensureSpace(14);
-      doc.setFontSize(10);
+      ensureSpace(16);
+      doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.text(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.marginX, yPos);
-      yPos += 6;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(...hexToRgb(COLORS.text));
-      g.items.forEach(pa => {
-        const line = `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`;
-        doc.splitTextToSize(line, PAGE.contentWidth - 4).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
-      });
+      doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
+      drawBulletList(g.items.map(pa =>
+        `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`));
       yPos += 3;
     });
   }
