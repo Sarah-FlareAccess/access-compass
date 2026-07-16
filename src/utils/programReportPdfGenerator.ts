@@ -266,11 +266,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const groupMode: 'theme' | 'framework' =
     options.groupBy === 'framework' && framework ? 'framework' : 'theme';
   const groupWord = groupMode === 'framework' ? 'outcome area' : 'theme';
-  // Quick-glance grouping label (cover + intro) and filename slug, so a reader
-  // can tell how a downloaded report is grouped without opening it.
-  const groupLabel = groupMode === 'framework'
-    ? `Recommendations grouped by ${payload.outcomes?.frameworkShort ?? 'outcome'} outcome areas`
-    : 'Recommendations grouped by theme';
+  // Intro sentence describing how the report is organised, plus a filename slug
+  // so a downloaded report is recognisable without opening it.
+  const groupSentence = groupMode === 'framework'
+    ? `Throughout, recommendations are organised by the ${payload.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
+    : 'Throughout, recommendations are organised by accessibility theme (the area of the visitor journey they relate to).';
   const groupSlug = groupMode === 'framework' ? 'by-outcome-area' : 'by-theme';
   const domainShortById = framework
     ? new Map(framework.domains.map(d => [d.id, d.short || d.name]))
@@ -584,20 +584,6 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setFillColor(...hexToRgb(COLORS.aussieLight));
   doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
 
-  // Grouping badge straddling the divider (quick-glance recognition of grouping).
-  const groupBadgeText = groupMode === 'framework' ? 'By outcome area' : 'By theme';
-  const badgeWidth = 56;
-  doc.setFillColor(255, 237, 200);
-  doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'F');
-  doc.setDrawColor(224, 125, 0);
-  doc.setLineWidth(0.5);
-  doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'S');
-  doc.setFontSize(11);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(120, 53, 0);
-  doc.text(groupBadgeText, ccx, PAGE.height * 0.44 + 19, { align: 'center' });
-  doc.setDrawColor(0, 0, 0);
-
   // Council (org) name - dark on the light area.
   doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
@@ -641,7 +627,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // council reader the context the cover no longer carries.
   addSectionHeader('About this program');
   if (program.description) addParagraph(program.description);
-  addParagraph(`Report type: ${program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}. ${program.moduleIds.length} area${program.moduleIds.length !== 1 ? 's' : ''} assessed across ${enrolment.total} enrolled business${enrolment.total !== 1 ? 'es' : ''}. ${groupLabel}.`);
+  addParagraph(`Report type: ${program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}. ${program.moduleIds.length} area${program.moduleIds.length !== 1 ? 's' : ''} assessed across ${enrolment.total} enrolled business${enrolment.total !== 1 ? 'es' : ''}. ${groupSentence}`);
   if (program.moduleIds.length > 0) {
     doc.setFontSize(BODY_TEXT_SIZE);
     doc.setFont('helvetica', 'bold');
@@ -922,7 +908,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addSectionHeader(`Common recommendations by ${groupWord}`);
-    addParagraph(`Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each ${groupWord}; confirm against each business’s own plan before acting.`);
+    addParagraph(`Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each ${groupWord}; check the specifics with the businesses before acting on their behalf.`);
 
     groupItems(topPriorityActions).forEach(g => {
       ensureSpace(18);
@@ -961,10 +947,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      {
-        const examples = g.items.slice(0, 2).map(a => a.action.charAt(0).toLowerCase() + a.action.slice(1)).join('; ');
-        doc.splitTextToSize(`Recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort here. A shared response - ${sharedResponseFor(g.key)} - would address the most common of these${examples ? `, such as ${examples}` : ''}, reaching many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
-      }
+      doc.splitTextToSize(`${g.total} recommendation${g.total !== 1 ? 's' : ''} recur across the cohort here. A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once rather than supporting each one alone.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
       yPos += 3;
       doc.setTextColor(0, 0, 0);
     });
@@ -1063,7 +1046,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (topPriorityActions.length > 0) {
     addNewPage();
     addSectionHeader(`Appendix: all recommendations by ${groupWord}`);
-    addParagraph(`The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each ${groupWord}; this appendix carries the rest. Counts show how many businesses each pattern appears in. Confirm against each business’s own plan before acting.`);
+    addParagraph(`The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each ${groupWord}; this appendix carries the rest. Counts show how many businesses each pattern appears in. Check the specifics with the businesses before acting on their behalf.`);
 
     groupItems(topPriorityActions).forEach(g => {
       ensureSpace(16);
