@@ -270,12 +270,9 @@ export function useProgramReport(programId: string | null) {
           improvement,
         };
 
-        const dateLabel = new Date().toLocaleDateString('en-AU', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-        });
-        const defaultName = reportName?.trim() || `${program.name} report ${dateLabel}`;
+        // The saved-reports card renders the generated date alongside the name,
+        // so the default name omits it to avoid showing the date twice.
+        const defaultName = reportName?.trim() || `${program.name} report`;
 
         const { data: inserted, error: insErr } = await supabase
           .from('program_reports')
