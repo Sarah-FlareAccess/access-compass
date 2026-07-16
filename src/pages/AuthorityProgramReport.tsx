@@ -24,6 +24,7 @@ import {
   groupWordFor,
   groupRecommendations,
   sharedResponseFor,
+  APPENDIX_MIN_PATTERNS,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
@@ -320,9 +321,14 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
             ? `Recommendations throughout are organised by the ${data.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
             : 'Recommendations throughout are organised by accessibility theme (the area of the visitor journey they relate to).'}
         </p>
-        <p className="outcome-modules"><span className="outcome-modules__label">Areas assessed:</span>{' '}
-          {program.moduleIds.map(mId => `${getModuleName(mId)} (${mId})`).join(' · ')}
+        <p className="report-section__subtitle" style={{ marginBottom: '0.25rem' }}>
+          Areas assessed ({program.moduleIds.length}):
         </p>
+        <ul className="report-areas-list" style={{ columns: program.moduleIds.length > 8 ? '2' : '1', margin: 0 }}>
+          {program.moduleIds.map(mId => (
+            <li key={mId}>{getModuleName(mId)} ({mId})</li>
+          ))}
+        </ul>
       </section>
       {/* Network Accessibility Maturity Score - the headline, trackable metric */}
       <section className="report-maturity" aria-label="Network Accessibility Maturity Score">
@@ -485,25 +491,18 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         </div>
       </section>
 
-      {/* Common recommendations by theme/outcome area (parity with the PDF) */}
+      {/* Where to focus by theme/outcome area - area summary, not a third action
+          list (the actions live in the horizon view + appendix). */}
       {recGroups.length > 0 && (
         <section className="authority-form-card report-section">
-          <h2>Common recommendations by {groupWord}</h2>
+          <h2>Where to focus by {groupWord}</h2>
           <p className="report-section__subtitle">
-            Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in. Check the specifics with the businesses before acting on their behalf.
+            Where shared support goes furthest, by area. Counts show how many recommendations recur in each {groupWord}, and the suggested response is the kind of shared initiative that would help. The specific actions are grouped by planning horizon below{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.
           </p>
           {recGroups.map(g => (
             <div key={g.key} className="report-rec-group">
               <h3>{g.label} - {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</h3>
-              <p className="report-section__subtitle">A shared response - {sharedResponseFor(g.key)} - would reach many businesses at once. Examples:</p>
-              <ul>
-                {g.items.slice(0, 3).map((pa, i) => (
-                  <li key={pa.action + i}>{pa.action} ({pa.count} business{pa.count !== 1 ? 'es' : ''}{pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})</li>
-                ))}
-              </ul>
-              {g.items.length > 3 && (
-                <p className="report-section__subtitle">...and {g.items.length - 3} more in this {groupWord} - see the appendix for the full list.</p>
-              )}
+              <p className="report-section__subtitle">A shared response - {sharedResponseFor(g.key)} - would reach many businesses at once.</p>
             </div>
           ))}
         </section>
@@ -557,8 +556,9 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         />
       )}
 
-      {/* Appendix - full recommendation list (parity with the PDF) */}
-      {recGroups.length > 0 && (
+      {/* Appendix - full recommendation list (only when there are enough
+          patterns; below that the horizon view already shows them all). */}
+      {topPriorityActions.length >= APPENDIX_MIN_PATTERNS && (
         <section className="authority-form-card report-section">
           <h2>Appendix: all recommendations by {groupWord}</h2>
           <p className="report-section__subtitle">

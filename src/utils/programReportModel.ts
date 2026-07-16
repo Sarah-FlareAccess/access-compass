@@ -79,6 +79,11 @@ export function groupByTheme<T extends { count: number; theme?: { key: string; l
 // Grouping mode for the recommendation sections: DIAP theme (default) or the
 // jurisdiction's statutory outcome domain. Shared so the PDF and web group
 // identically for the same groupBy choice.
+// Show the full appendix only when there are enough distinct recommendation
+// patterns to be worth it - below this the by-horizon list already shows them
+// all, so a separate full appendix would just restate it.
+export const APPENDIX_MIN_PATTERNS = 7;
+
 export type GroupMode = 'theme' | 'framework';
 export function resolveGroupMode(groupBy: GroupMode | undefined, frameworkKey?: string): GroupMode {
   return groupBy === 'framework' && frameworkKey && getFramework(frameworkKey) ? 'framework' : 'theme';

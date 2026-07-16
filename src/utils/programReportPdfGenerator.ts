@@ -27,6 +27,7 @@ import {
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
+  APPENDIX_MIN_PATTERNS,
 } from './programReportModel';
 
 const COLORS = {
@@ -819,35 +820,22 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Top priority actions
   // =====================================================
   if (topPriorityActions.length > 0) {
-    addSectionHeader(`Common recommendations by ${groupWord}`);
-    addParagraph(`Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each ${groupWord}; check the specifics with the businesses before acting on their behalf.`);
+    addSectionHeader(`Where to focus by ${groupWord}`);
+    addParagraph(`Where shared support goes furthest, by area. Counts show how many recommendations recur in each ${groupWord}, and the suggested response is the kind of shared initiative that would help. The specific actions are grouped by planning horizon below${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
 
     groupItems(topPriorityActions).forEach(g => {
-      ensureSpace(18);
+      ensureSpace(16);
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
-      // Shared-response suggestion (folds in the old "investments" section).
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.splitTextToSize(`A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once. Examples:`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
-      doc.setTextColor(...hexToRgb(COLORS.text));
-      drawBulletList(g.items.slice(0, 3).map(pa =>
-        `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`));
-      if (g.items.length > 3) {
-        ensureSpace(6);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(BODY_TEXT_SIZE);
-        doc.setTextColor(...hexToRgb(COLORS.textMuted));
-        doc.text(`...and ${g.items.length - 3} more in this ${groupWord} - see the appendix for the full list`, PAGE.marginX + 4, yPos);
-        yPos += 6;
-        doc.setTextColor(...hexToRgb(COLORS.text));
-      }
+      doc.splitTextToSize(`A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
+      doc.setTextColor(0, 0, 0);
       yPos += 3;
     });
-    addParagraph(`The main body shows the top few patterns per ${groupWord}; every recommendation pattern is listed in full in the appendix.`);
   }
 
   // =====================================================
@@ -982,9 +970,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. Priority actions and strengths are self-assessed narrative (not independently audited); the same recommendation is counted once per business and grouped across the cohort. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
 
   // =====================================================
-  // Appendix - full recommendation list by theme
+  // Appendix - full recommendation list by theme (only when there are enough
+  // patterns to be worth it; below that the by-horizon list already shows them).
   // =====================================================
-  if (topPriorityActions.length > 0) {
+  if (topPriorityActions.length >= APPENDIX_MIN_PATTERNS) {
     addNewPage();
     addSectionHeader(`Appendix: all recommendations by ${groupWord}`);
     addParagraph(`The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each ${groupWord}; this appendix carries the rest. Counts show how many businesses each pattern appears in. Check the specifics with the businesses before acting on their behalf.`);
