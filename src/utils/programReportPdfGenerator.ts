@@ -187,7 +187,7 @@ function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, c
   else if (strongPct >= 25) strengths.push(`${strongPct}% of assessed modules are already strong - a solid base to build on.`);
   if (topStrengths.length > 0) {
     const t = topStrengths[0];
-    strengths.push(`"${t.text}" is in place across ${t.count} business${t.count !== 1 ? 'es' : ''} - worth highlighting publicly.`);
+    strengths.push(`Established strengths are already in place across the cohort${t.theme?.label ? `, strongest in ${t.theme.label}` : ''} - worth highlighting publicly (see Strengths across the cohort).`);
   }
 
   const sortedByNeeds = [...moduleAggregates]
@@ -729,16 +729,14 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Program at a glance - the quotable summary for a council reader.
   {
     const paThemes = groupItems(payload.topPriorityActions);
-    // Lower-case the lead word of an "e.g." example so it reads mid-sentence,
-    // but leave acronyms (NDIS, DIAP) untouched.
-    const asExample = (t: string) => (/^[A-Z]{2,}/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1));
     const glance: string[] = [`Cohort readiness: ${maturityBand(strongPct)} (${strongPct}% strong)`];
     if (paThemes[0]) glance.push(`Biggest shared need: ${paThemes[0].label} (${paThemes[0].total} recommendation${paThemes[0].total !== 1 ? 's' : ''})`);
-    if (payload.topStrengths[0]) {
-      const s = payload.topStrengths[0];
-      glance.push(s.theme?.label ? `Strongest area: ${s.theme.label} (e.g. ${asExample(s.text)})` : `Strongest area: ${s.text}`);
-    }
-    if (paThemes[0] && payload.topPriorityActions[0]) glance.push(`Recommended focus: a shared ${paThemes[0].label} initiative (e.g. ${asExample(payload.topPriorityActions[0].action)})`);
+    // Strongest area = the area with the most strengths that is NOT the biggest
+    // need, so this line names a genuinely different area. (The old "Recommended
+    // focus" line was dropped - it just restated the biggest need, and the
+    // Recommended council response section already covers what to do.)
+    const strongestArea = groupItems(payload.topStrengths).find(g => g.key !== paThemes[0]?.key);
+    if (strongestArea) glance.push(`Strongest area: ${strongestArea.label} (${strongestArea.total} strength${strongestArea.total !== 1 ? 's' : ''} already in place)`);
     if (payload.improvement && payload.improvement.reassessedCount > 0) glance.push(`Readiness change: ${payload.improvement.avgDelta >= 0 ? '+' : ''}${payload.improvement.avgDelta} points across ${payload.improvement.reassessedCount} re-assessed`);
 
     // Pre-wrap each line at the render font size so the box height matches what
@@ -825,7 +823,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   // Program impact + recommended council response
   // =====================================================
-  const sharedOpps = topPriorityActions.filter(a => a.count >= 2);
+  const sharedOpps = topPriorityActions.filter(a => a.count >= 3);
   const activeThemes = groupItems(topPriorityActions).length;
 
   addSectionHeader('Program impact');
@@ -836,7 +834,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addStatBox(PAGE.marginX + 2 * (impactW + 3), yPos, impactW, String(sharedOpps.length), 'Shared opportunities', COLORS.aussieLight);
   addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), groupMode === 'framework' ? 'Outcome areas' : 'Themes active', COLORS.mixedText);
   yPos += 30;
-  addParagraph('Shared opportunities are recommendations that recur across two or more businesses - a signal of where a single, council-led initiative could help many at once rather than supporting each business separately.', 9);
+  addParagraph('Shared opportunities are recommendations that recur across three or more businesses - a signal of where a single, council-led initiative could help many at once rather than supporting each business separately.', 9);
 
   // Before/after improvement - only when the re-assessed subset exists.
   if (payload.improvement && payload.improvement.reassessedCount > 0) {
@@ -928,7 +926,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(BODY_TEXT_SIZE);
         doc.setTextColor(...hexToRgb(COLORS.textMuted));
-        doc.text(`...and ${g.items.length - 3} more in this ${groupWord}`, PAGE.marginX + 4, yPos);
+        doc.text(`...and ${g.items.length - 3} more in this ${groupWord} - see the appendix for the full list`, PAGE.marginX + 4, yPos);
         yPos += 6;
         doc.setTextColor(...hexToRgb(COLORS.text));
       }
@@ -952,7 +950,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.splitTextToSize(`Recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort here. A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
+      {
+        const examples = g.items.slice(0, 2).map(a => a.action.charAt(0).toLowerCase() + a.action.slice(1)).join('; ');
+        doc.splitTextToSize(`Recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort here. A shared response - ${sharedResponseFor(g.key)} - would address the most common of these${examples ? `, such as ${examples}` : ''}, reaching many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
+      }
       yPos += 3;
       doc.setTextColor(0, 0, 0);
     });
