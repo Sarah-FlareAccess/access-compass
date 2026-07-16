@@ -645,8 +645,19 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     { label: 'Biggest opportunity', items: insights.opportunity },
   ].filter(g => g.items.length > 0);
   if (insightGroups.length > 0) {
-    const totalRows = insightGroups.reduce((n, g) => n + 1 + g.items.length, 0);
-    const calloutH = 6 + totalRows * 5.2 + insightGroups.length * 1;
+    const lineH = 4.6;
+    // Pre-wrap every item at the render font size so the callout height matches
+    // what actually draws. Long items (e.g. the opportunity summary) wrap to 2-3
+    // lines; rendering only the first line would truncate them mid-sentence.
+    doc.setFontSize(8.5);
+    const wrapped = insightGroups.map(g => ({
+      label: g.label,
+      items: g.items.map(it => doc.splitTextToSize(it, PAGE.contentWidth - 16) as string[]),
+    }));
+    const calloutH = 6 + wrapped.reduce(
+      (n, g) => n + 5 + g.items.reduce((m, lines) => m + lines.length * lineH, 0) + 1,
+      0,
+    ) + 1;
     ensureSpace(calloutH + 6);
     doc.setFillColor(...hexToRgb(COLORS.insightBg));
     doc.setDrawColor(...hexToRgb(COLORS.insightBorder));
@@ -655,7 +666,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
     doc.rect(PAGE.marginX, yPos, 2, calloutH, 'F');
     let iy = yPos + 6;
-    for (const g of insightGroups) {
+    for (const g of wrapped) {
       doc.setFontSize(8.5);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
@@ -664,11 +675,13 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8.5);
       doc.setTextColor(...hexToRgb(COLORS.text));
-      for (const it of g.items) {
+      for (const lines of g.items) {
         doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
         doc.circle(PAGE.marginX + 8, iy - 1, 0.7, 'F');
-        doc.text(doc.splitTextToSize(it, PAGE.contentWidth - 16)[0], PAGE.marginX + 12, iy);
-        iy += 5.2;
+        lines.forEach(line => {
+          doc.text(line, PAGE.marginX + 12, iy);
+          iy += lineH;
+        });
       }
       iy += 1;
     }
@@ -766,7 +779,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addSectionHeader('Common recommendations by theme');
-    addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessments to illustrate each theme; they are not a human-reviewed priority list, so confirm against each business’s own plan before acting.');
+    addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each theme; confirm against each business’s own plan before acting.');
 
     groupByTheme(topPriorityActions).forEach(g => {
       ensureSpace(16);
@@ -792,7 +805,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       }
       yPos += 3;
     });
-    addParagraph('The full action list for each business is available in Access Compass.', 8);
+    addParagraph('The main body shows the top few patterns per theme; every recommendation pattern is listed in full in the appendix.', 8);
   }
 
   // =====================================================
@@ -800,7 +813,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (sharedOpps.length > 0) {
     addSectionHeader('Recommended program investments');
-    addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed or human-reviewed commitment. Confirm the specific response against the underlying business plans before committing.');
+    addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed commitment. Confirm the specific response against the underlying business plans before committing.');
     groupByTheme(sharedOpps).slice(0, 5).forEach((g, idx) => {
       ensureSpace(14);
       doc.setFontSize(10);
@@ -909,6 +922,32 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   addSectionHeader('Methodology and privacy');
   addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Priority actions and strengths are the narrative generated from each business assessment, counted by how many businesses share each one. Figures are a point-in-time snapshot and update as more businesses complete or re-assess.', 9);
+
+  // =====================================================
+  // Appendix - full recommendation list by theme
+  // =====================================================
+  if (topPriorityActions.length > 0) {
+    addNewPage();
+    addSectionHeader('Appendix: all recommendations by theme');
+    addParagraph('The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each theme; this appendix carries the rest. Counts show how many businesses each pattern appears in. Confirm against each business’s own plan before acting.', 9);
+
+    groupByTheme(topPriorityActions).forEach(g => {
+      ensureSpace(14);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.marginX, yPos);
+      yPos += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(...hexToRgb(COLORS.text));
+      g.items.forEach(pa => {
+        const line = `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`;
+        doc.splitTextToSize(line, PAGE.contentWidth - 4).forEach((l: string, i: number) => { ensureSpace(5); doc.text(l, PAGE.marginX + (i === 0 ? 0 : 4), yPos); yPos += 4.5; });
+      });
+      yPos += 3;
+    });
+  }
 
   addFooter();
 
