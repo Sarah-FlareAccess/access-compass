@@ -779,7 +779,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   addSectionHeader('Module progress');
-  addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The verdict on the right flags where to focus: Maintain (doing well), Invest (mixed, targeted support pays off) or Improve (the biggest collective gap).');
+  addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The tag on the right shows how the cohort is tracking on each module: On track (most businesses strong), Developing (mixed, targeted support pays off) or Priority (the biggest collective gap).');
 
   // Legend for the confidence bars
   ensureSpace(8);
@@ -829,9 +829,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const SHOWN_PER_GROUP = 6;
   const appendixNeeded = topPriorityActions.length > groupItems(topPriorityActions)
     .reduce((n, g) => n + Math.min(SHOWN_PER_GROUP, sharedRecommendations(g.items).length), 0);
+  // Distinct businesses that contributed data - the denominator for the count
+  // percentages shown against recommendations and strengths.
+  const cohortSize = payload.assessedBusinesses || enrolment.completed + enrolment.submitted || enrolment.total;
 
   if (topPriorityActions.length > 0) {
-    const cohortSize = payload.assessedBusinesses || enrolment.completed + enrolment.submitted || enrolment.total;
     addSectionHeader(`Most common recommendations by ${groupWord}`);
     addParagraph(`The specific recommendations raised across the cohort, grouped by ${groupWord} and ordered by how many businesses raised each - so it is clear exactly where the gaps are. Priorities vary between organisations, but they show where shared resources, funding or capability-building could support several at once. Counts show how many of the ${cohortSize} assessed business${cohortSize !== 1 ? 'es' : ''} raised each${appendixNeeded ? '; any beyond the top few per area are in the appendix' : ''}.`);
     groupItems(topPriorityActions).forEach(g => {
@@ -894,7 +896,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.text(g.label, PAGE.marginX, yPos);
       yPos += 6.5;
-      drawBulletList(g.items.map(s => `- ${s.text} (${s.count} business${s.count !== 1 ? 'es' : ''})`));
+      drawBulletList(g.items.map(s => `- ${s.text} (${s.count} business${s.count !== 1 ? 'es' : ''}, ${pctOfCohort(s.count, cohortSize)}%)`));
       yPos += 3;
     });
 
@@ -907,7 +909,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (topAreasToExplore.length > 0) {
     addSectionHeader('Capability gaps');
     addParagraph('Topics businesses flagged as "unable to check" or "unsure". This measures where the cohort lacks knowledge, not where it is failing - each gap is a low-cost training or guidance opportunity.');
-    drawBulletList(topAreasToExplore.map(a => `- ${a.text} (${a.count} business${a.count !== 1 ? 'es' : ''})`));
+    drawBulletList(topAreasToExplore.map(a => `- ${a.text} (${a.count} business${a.count !== 1 ? 'es' : ''}, ${pctOfCohort(a.count, cohortSize)}%)`));
 
     drawWhatThisMeans('What this means: businesses are uncertain rather than failing. A short council-issued guide or a quick training session can turn this uncertainty into competence at low cost.');
   }
@@ -984,7 +986,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
       drawBulletList(g.items.map(pa =>
-        `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`));
+        `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}, ${pctOfCohort(pa.count, cohortSize)}%)`));
       yPos += 3;
     });
   }

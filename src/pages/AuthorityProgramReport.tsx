@@ -477,8 +477,8 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
       <section className="authority-form-card report-section">
         <h2>Module maturity heatmap</h2>
         <p className="report-section__subtitle">
-          Confidence distribution per module, with a verdict on where to focus. <strong>Maintain</strong> = doing well,
-          keep it up · <strong>Invest</strong> = mixed, targeted support pays off · <strong>Improve</strong> = the biggest collective gap.
+          Confidence distribution per module, with a tag showing how the cohort is tracking. <strong>On track</strong> = most businesses strong ·
+          <strong>Developing</strong> = mixed, targeted support pays off · <strong>Priority</strong> = the biggest collective gap.
         </p>
         <div className="report-heatmap">
           {moduleAggregates.map(m => {
@@ -544,7 +544,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         <ExpandableSection
           title="What's working well"
           subtitle="Practices already in place across multiple businesses - worth celebrating and showcasing."
-          items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count }))}
+          items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count, pct: pctOfCohort(s.count, cohortSize) }))}
           accent="green"
           wide
         />
@@ -554,7 +554,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         <ExpandableSection
           title="Areas to explore"
           subtitle="Topics businesses flagged as unable to check or unsure. Signal for sector-wide guidance and training."
-          items={topAreasToExplore.map(a => ({ key: a.text, text: a.text, count: a.count }))}
+          items={topAreasToExplore.map(a => ({ key: a.text, text: a.text, count: a.count, pct: pctOfCohort(a.count, cohortSize) }))}
           accent="purple"
           wide
         />
@@ -573,7 +573,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
               <h3>{g.label} - {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</h3>
               <ul>
                 {g.items.map((pa, i) => (
-                  <li key={pa.action + i}>{pa.action} ({pa.count} business{pa.count !== 1 ? 'es' : ''}{pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})</li>
+                  <li key={pa.action + i}>{pa.action} ({pa.count} business{pa.count !== 1 ? 'es' : ''}, {pctOfCohort(pa.count, cohortSize)}%)</li>
                 ))}
               </ul>
             </div>
@@ -699,6 +699,7 @@ interface ExpandableItem {
   key: string;
   text: string;
   count: number;
+  pct?: number;
   priority?: string;
 }
 
@@ -731,7 +732,7 @@ function ExpandableSection({
             {item.priority && (
               <span className="report-list__priority">{item.priority.toUpperCase()}</span>
             )}
-            <span className="report-list__count">{item.count}</span>
+            <span className="report-list__count">{item.count}{item.pct != null ? ` (${item.pct}%)` : ''}</span>
           </li>
         ))}
       </ol>

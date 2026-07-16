@@ -121,7 +121,7 @@ export function moduleVerdict(m: { confidence_strong: number; confidence_mixed: 
   const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
   if (total === 0) return null;
   const strongP = (m.confidence_strong / total) * 100;
-  return strongP >= 55 ? { label: 'Maintain', key: 'maintain' } : strongP >= 30 ? { label: 'Invest', key: 'invest' } : { label: 'Improve', key: 'improve' };
+  return strongP >= 55 ? { label: 'On track', key: 'maintain' } : strongP >= 30 ? { label: 'Developing', key: 'invest' } : { label: 'Priority', key: 'improve' };
 }
 
 export interface GroupedInsights { strengths: string[]; barriers: string[]; opportunity: string[]; }
