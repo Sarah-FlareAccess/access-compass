@@ -18,7 +18,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { AuthorityProgram, AccessLevel } from '../types/access';
-import { diapThemeForModules, diapThemeForAction, type AggregateTheme } from '../utils/aggregateTheme';
+import { diapThemeForAction, type AggregateTheme } from '../utils/aggregateTheme';
 import { getFramework } from '../data/frameworks';
 import { hasMappings } from '../data/frameworkMappings';
 import {
