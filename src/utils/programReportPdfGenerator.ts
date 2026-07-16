@@ -22,6 +22,7 @@ import {
   computeRisk,
   authorityRecommendations,
   sharedRecommendations,
+  THEME_RATIONALE,
   pctOfCohort,
   formatAssessmentWindow,
   moduleVerdict,
@@ -585,6 +586,16 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setTextColor(0, 0, 0);
   yPos += 30;
 
+  // One-line explanation of the score right where it appears, so a reader never
+  // has to hunt the methodology to answer "where did that number come from".
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(9.5);
+  doc.setTextColor(...hexToRgb(COLORS.textMuted));
+  (doc.splitTextToSize('How it is calculated: each assessment scores Strong 100, Mixed 50, Needs work 0, averaged across the cohort. It is an Access Compass planning indicator, not a compliance rating.', PAGE.contentWidth) as string[]).forEach(line => { doc.text(line, PAGE.marginX, yPos); yPos += 4.6; });
+  yPos += 3;
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(0, 0, 0);
+
   // Network support need (implementation-planning indicator, not a risk/compliance rating).
   const riskColor = risk.level === 'Low' ? COLORS.strongText : risk.level === 'High' ? COLORS.needsText : COLORS.mixedText;
   const supportNeed = risk.level === 'Low' ? 'Low' : risk.level === 'High' ? 'High' : 'Moderate';
@@ -846,6 +857,16 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.text(g.label, PAGE.marginX, yPos);
       yPos += 6;
+      // "Why this matters" one-liner for the theme (only in theme grouping).
+      const rationale = THEME_RATIONALE[g.key];
+      if (rationale) {
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(10);
+        doc.setTextColor(...hexToRgb(COLORS.textMuted));
+        (doc.splitTextToSize(rationale, PAGE.contentWidth) as string[]).forEach(line => { ensureSpace(5); doc.text(line, PAGE.marginX, yPos); yPos += 5; });
+        yPos += 1;
+        doc.setFont('helvetica', 'normal');
+      }
       drawBulletList(shown.map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''}, ${pctOfCohort(p.count, cohortSize)}%)`));
       if (appendixNeeded && items.length > SHOWN_PER_GROUP) {
         doc.setFont('helvetica', 'italic');

@@ -175,7 +175,7 @@ export function computeRisk(maturityScore: number, completionPct: number, confid
     ? 'A mature cohort with consistent practices across the areas assessed. Little shared support is needed - focus on maintaining and showcasing. This is an implementation-planning indicator, not a legal, safety or compliance assessment.'
     : level === 'High'
       ? 'An early-stage cohort or limited data so far. Prioritise participation and foundational support before drawing firm conclusions. This is an implementation-planning indicator, not a legal, safety or compliance assessment.'
-      : 'A developing cohort with clear opportunities for shared, network-wide support. This is an implementation-planning indicator, not a legal, safety or compliance assessment.';
+      : 'There are clear opportunities for shared, network-wide support across the cohort. This is an implementation-planning indicator, not a legal, safety or compliance assessment.';
   return { level, note };
 }
 
@@ -191,7 +191,7 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   }
   if (topPriorityActions.length > 0) {
     const top = topPriorityActions[0];
-    recs.push({ kind: 'Shared initiative', text: `Explore a coordinated response to "${top.action.charAt(0).toLowerCase()}${top.action.slice(1)}" - raised by ${top.count} business${top.count !== 1 ? 'es' : ''}. Depending on the need, this could be shared guidance, supplier or product advice, group training or joint procurement, reaching them all at once rather than one at a time.` });
+    recs.push({ kind: 'Shared initiative', text: `Develop a coordinated response to "${top.action.charAt(0).toLowerCase()}${top.action.slice(1)}" - raised by ${top.count} business${top.count !== 1 ? 'es' : ''}. Depending on the need this could combine shared guidance, group training and joint procurement, reaching them all at once rather than one at a time.` });
   }
   if (topAreasToExplore.length > 0) {
     recs.push({ kind: 'Guidance', text: 'Publish plain-language guidance in areas the cohort repeatedly flagged as unclear - a small number of shared explainers would resolve questions across many businesses.' });
@@ -241,6 +241,16 @@ export function sharedRecommendations<T extends { count: number }>(items: T[]): 
   return items.filter(a => a.count >= MIN_SHARED).slice().sort((a, b) => b.count - a.count);
 }
 
+// One-line "why this matters" per theme, so each area reads as expertise rather
+// than a bare list. Keyed by DIAP theme; only shown when grouping by theme.
+export const THEME_RATIONALE: Record<string, string> = {
+  'information-communication-marketing': 'Information and digital barriers stop many visitors before they arrive, so fixing them helps the most people for the least cost - and tends to improve search visibility too.',
+  'physical-access': 'Physical changes are more site-specific and usually suit targeted grant funding rather than network-wide training.',
+  'people-culture': 'Staff capability is a common network-wide challenge, well suited to shared workshops and coaching rather than site-by-site investment.',
+  'customer-service': 'Service and feedback practices are low-cost to improve and shape whether visitors feel welcome and come back.',
+  'operations-policy-procedure': 'Policies and procedures set the foundation - shared templates and guidance can move many businesses at once.',
+};
+
 export function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): GroupedInsights {
   const { topPriorityActions, topStrengths } = payload;
   const strengths: string[] = [];
@@ -268,7 +278,7 @@ export function generateKeyInsights(payload: ProgramReportPayload, strongPct: nu
     // Name the single most common SPECIFIC recommendation (not the theme), so this
     // never collides with the "most strengths" line above.
     const top = topPriorityActions[0];
-    opportunity.push(`The most common recommendation, "${top.action}", recurs across ${top.count} business${top.count !== 1 ? 'es' : ''} - a strong candidate for a shared, network-wide response rather than supporting businesses one at a time.`);
+    opportunity.push(`The clearest shared opportunity is "${top.action}", recommended for ${top.count} business${top.count !== 1 ? 'es' : ''} - the strongest candidate for a coordinated, network-wide response rather than supporting each business one at a time.`);
   }
   if (completedPct >= 40 && completedPct < 80) opportunity.push(`At ${completedPct}% completion, re-running in 4 to 6 weeks will firm up findings before public reporting.`);
 

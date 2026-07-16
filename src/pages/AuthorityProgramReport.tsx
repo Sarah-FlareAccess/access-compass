@@ -25,6 +25,7 @@ import {
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
+  THEME_RATIONALE,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
@@ -560,6 +561,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
             return (
               <div className="report-rec-group" key={g.key}>
                 <h3>{g.label}</h3>
+                {THEME_RATIONALE[g.key] && <p className="report-rec-why">{THEME_RATIONALE[g.key]}</p>}
                 <ul className="report-rec-list">
                   {shown.map((p, i) => (
                     <li key={p.action + i}>

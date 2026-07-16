@@ -172,6 +172,13 @@
   margin: 0.2rem 0;
   break-inside: avoid;
 }
+.report-rec-why {
+  margin: 0.1rem 0 0.35rem;
+  color: var(--text-muted, #6b7280);
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.45;
+}
 .report-rec-list__count {
   color: var(--text-muted, #6b7280);
   font-size: 0.8125rem;
