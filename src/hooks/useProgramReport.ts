@@ -18,7 +18,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { AuthorityProgram, AccessLevel } from '../types/access';
-import { diapThemeForModules, type AggregateTheme } from '../utils/aggregateTheme';
+import { diapThemeForModules, diapThemeForAction, type AggregateTheme } from '../utils/aggregateTheme';
 import { getFramework } from '../data/frameworks';
 import { hasMappings } from '../data/frameworkMappings';
 import {
@@ -55,7 +55,7 @@ interface CohortSummaryRow {
 
 interface ModuleSummaryJson {
   doingWell?: string[];
-  priorityActions?: Array<string | { action: string; priority?: string; timeframe?: string }>;
+  priorityActions?: Array<string | { action: string; priority?: string; timeframe?: string; questionId?: string }>;
   areasToExplore?: Array<string | { action: string }>;
 }
 
@@ -448,7 +448,7 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   // Count DISTINCT businesses per item, not (business, module) occurrences: a
   // business that flags the same action across two modules must count once, or
   // a pattern's "N businesses" can exceed the number of enrolled businesses.
-  const priorityMap = new Map<string, { action: string; priority?: string; moduleIds: string[]; businesses: Set<string> }>();
+  const priorityMap = new Map<string, { action: string; priority?: string; moduleIds: string[]; businesses: Set<string>; questionId?: string }>();
   const strengthMap = new Map<string, { text: string; moduleIds: string[]; businesses: Set<string> }>();
   const areaMap = new Map<string, { text: string; businesses: Set<string> }>();
 
@@ -462,10 +462,12 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
       if (!text) continue;
       const key = normaliseText(text);
       const priority = typeof pa === 'string' ? undefined : pa.priority;
+      const questionId = typeof pa === 'string' ? undefined : pa.questionId;
       const existing = priorityMap.get(key);
       if (existing) {
         existing.businesses.add(business);
         if (!existing.moduleIds.includes(moduleId)) existing.moduleIds.push(moduleId);
+        if (!existing.questionId && questionId) existing.questionId = questionId;
         // Keep the most severe priority any business assigned, not the first
         // seen, so a pattern that is HIGH for some isn't shown as LOW by chance.
         if (prioritySeverity(priority) > prioritySeverity(existing.priority)) existing.priority = priority;
@@ -475,6 +477,7 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
           priority,
           moduleIds: [moduleId],
           businesses: new Set([business]),
+          questionId,
         });
       }
     }
@@ -511,7 +514,9 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
     count: v.businesses.size,
     priority: v.priority,
     moduleIds: v.moduleIds,
-    theme: diapThemeForModules(v.moduleIds),
+    // Theme by the source question's own topic (content), not just its module,
+    // so a website/WCAG action from a physical module lands in the right area.
+    theme: diapThemeForAction(v.questionId, v.moduleIds),
   }));
   const strengths: StrengthAggregate[] = Array.from(strengthMap.values()).map(v => ({
     text: v.text,
