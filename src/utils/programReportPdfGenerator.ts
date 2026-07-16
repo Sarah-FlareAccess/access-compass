@@ -880,11 +880,32 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   // =====================================================
+  // Priorities by planning horizon (the second grouping lens)
+  // =====================================================
+  {
+    const horizons = priorityHorizons(topPriorityActions);
+    if (horizons.length > 0) {
+      addSectionHeader('Priorities by planning horizon');
+      addParagraph("The cohort's most common recommended actions, grouped so they map onto your planning cycles.");
+      horizons.forEach(h => {
+        ensureSpace(16);
+        doc.setFontSize(BODY_TEXT_SIZE);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+        doc.text(`${h.label} - ${h.hint}`, PAGE.marginX, yPos);
+        yPos += 6.5;
+        drawBulletList(h.items.slice(0, 6).map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''})`));
+        yPos += 3;
+      });
+    }
+  }
+
+  // =====================================================
   // Recommended program investments (shared opportunities)
   // =====================================================
   if (sharedOpps.length > 0) {
     addSectionHeader('Recommended program investments');
-    addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed commitment. Confirm the specific response against the underlying business plans before committing.');
+    addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed commitment. Confirm the specific response with the businesses before committing.');
     groupItems(sharedOpps).slice(0, 5).forEach((g, idx) => {
       ensureSpace(16);
       doc.setFontSize(BODY_TEXT_SIZE);
@@ -898,6 +919,29 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       yPos += 3;
       doc.setTextColor(0, 0, 0);
     });
+  }
+
+  // =====================================================
+  // Recommended actions for the authority (decisions for the council)
+  // =====================================================
+  {
+    const authRecs = authorityRecommendations(payload);
+    if (authRecs.length > 0) {
+      addSectionHeader('Recommended actions for the authority');
+      addParagraph("Where to focus next, drawn from the cohort's aggregate signal - actions for the authority, not the individual businesses.");
+      authRecs.forEach(r => {
+        ensureSpace(14);
+        doc.setFontSize(BODY_TEXT_SIZE);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+        doc.text(r.kind, PAGE.marginX, yPos);
+        yPos += 5.5;
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...hexToRgb(COLORS.text));
+        doc.splitTextToSize(r.text, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
+        yPos += 3;
+      });
+    }
   }
 
   // =====================================================
