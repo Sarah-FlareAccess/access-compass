@@ -18,7 +18,8 @@ import {
   computeMaturity,
   computeRisk,
   authorityRecommendations,
-  priorityHorizons as computePriorityHorizons,
+  prevalenceBands,
+  pctOfCohort,
   moduleVerdict,
   resolveGroupMode,
   groupWordFor,
@@ -301,7 +302,8 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
   // cohort's accessibility, not how many have responded.
   const maturity = useMemo(() => computeMaturity(confidence), [confidence]);
   const recommendations = useMemo(() => authorityRecommendations(data), [data]);
-  const priorityHorizons = useMemo(() => computePriorityHorizons(topPriorityActions), [topPriorityActions]);
+  const cohortSize = data.assessedBusinesses || completedDisplay || enrolment.total;
+  const prevalence = useMemo(() => prevalenceBands(topPriorityActions, cohortSize), [topPriorityActions, cohortSize]);
   const risk = useMemo(() => computeRisk(maturity.score, completionPct, confidence.total), [maturity.score, completionPct, confidence.total]);
 
   const groupMode = resolveGroupMode(groupBy, data.outcomes?.frameworkKey);
@@ -426,13 +428,13 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         </section>
       )}
 
-      {/* Recommended actions for the authority - turns the report into a
-          decision-making document, not just a description of the cohort. */}
+      {/* Potential network initiatives - the "so what" that turns the report
+          into a decision-making document, not just a description of the cohort. */}
       {recommendations.length > 0 && (
         <section className="authority-form-card report-section report-recommendations">
-          <h2>Recommended actions for the authority</h2>
+          <h2>Potential network initiatives</h2>
           <p className="report-section__subtitle">
-            Where to focus next, derived from the cohort&rsquo;s aggregate signal - actions for the authority, not the individual businesses.
+            The pattern of recommendations points to opportunities for shared support across the network - initiatives that would help many businesses at once rather than each in isolation. Flare Access can help scope and deliver these with you.
           </p>
           <ol className="report-recs">
             {recommendations.map((r, i) => (
@@ -499,7 +501,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         <section className="authority-form-card report-section">
           <h2>Where recommendations concentrate, by {groupWord}</h2>
           <p className="report-section__subtitle">
-            How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are set out below as a suggested focus{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.
+            How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are listed below by how commonly they were raised{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and in full in the appendix' : ''}.
           </p>
           <ul className="report-areas-list">
             {recGroups.map(g => (
@@ -510,36 +512,30 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
       )}
 
       {/* Side-by-side priorities and strengths */}
-      {priorityHorizons.length > 0 && (
+      {prevalence.length > 0 && (
         <section className="authority-form-card report-section">
-          <h2>Where to focus first</h2>
+          <h2>Most common recommendations across the cohort</h2>
           <p className="report-section__subtitle">
-            A suggested focus drawn from the cohort&rsquo;s responses. It points to where attention is often best directed first and is a guide, not a fixed plan or a compliance assessment.
-          </p>
-          <p className="report-section__disclaimer">
-            These groupings are generated automatically from each business&rsquo;s responses and have not been individually reviewed. They suggest where attention is often best directed first, not a definitive order of works. Local knowledge and, where needed, professional advice should shape the final priorities.
+            These recommendations appeared most frequently across the participating businesses. Priorities will vary between organisations, but they mark where shared resources, funding or capability-building could support several at once. Counts show how many of the {cohortSize} assessed business{cohortSize !== 1 ? 'es' : ''} raised each; only patterns shared by at least three are listed here, with the full set in the appendix.
           </p>
           <div className="report-horizons">
-            {priorityHorizons.map(g => (
-              <div key={g.key} className={`report-horizon report-horizon--${g.accent}`}>
+            {prevalence.map(b => (
+              <div key={b.key} className="report-horizon report-horizon--prevalence">
                 <div className="report-horizon__head">
-                  <h3>{g.label}</h3>
-                  <span>{g.hint}</span>
+                  <h3>{b.label}</h3>
+                  <span>{b.hint}</span>
                 </div>
                 <ol className="report-horizon__list">
-                  {g.items.slice(0, 6).map((p, i) => (
+                  {b.items.slice(0, 8).map((p, i) => (
                     <li key={p.action + i}>
                       <span className="report-horizon__text">{p.action}</span>
-                      <span className="report-horizon__count">{p.count}</span>
+                      <span className="report-horizon__count">{p.count} · {pctOfCohort(p.count, cohortSize)}%</span>
                     </li>
                   ))}
                 </ol>
               </div>
             ))}
           </div>
-          <p className="report-section__note">
-            <strong>Next steps:</strong> Flare Access can work alongside your businesses to confirm these priorities in context and shape a practical plan.
-          </p>
         </section>
       )}
 

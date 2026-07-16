@@ -21,7 +21,8 @@ import {
   computeMaturity,
   computeRisk,
   authorityRecommendations,
-  priorityHorizons,
+  prevalenceBands,
+  pctOfCohort,
   moduleVerdict,
   resolveGroupMode,
   groupWordFor,
@@ -308,30 +309,6 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.text(line, PAGE.marginX + 3, cY);
       cY += 5.5;
     });
-    yPos += h + 4;
-  };
-
-  // A tinted callout with an orange left accent, used for the risk-level
-  // disclaimer so the caveat reads as distinct from the body copy.
-  const drawDisclaimer = (text: string) => {
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'italic');
-    const lines = doc.splitTextToSize(text, PAGE.contentWidth - 8) as string[];
-    const h = lines.length * 5 + 5;
-    ensureSpace(h + 4);
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'italic');
-    doc.setFillColor(253, 246, 236);
-    doc.rect(PAGE.marginX, yPos, PAGE.contentWidth, h, 'F');
-    doc.setFillColor(...hexToRgb(COLORS.aussieLight));
-    doc.rect(PAGE.marginX, yPos, 1.2, h, 'F');
-    doc.setTextColor(...hexToRgb(COLORS.textMuted));
-    let cY = yPos + 5;
-    lines.forEach((line: string) => {
-      doc.text(line, PAGE.marginX + 4, cY);
-      cY += 5;
-    });
-    doc.setFont('helvetica', 'normal');
     yPos += h + 4;
   };
 
@@ -846,7 +823,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addSectionHeader(`Where recommendations concentrate, by ${groupWord}`);
-    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are set out below as a suggested focus${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
+    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are listed below by how commonly they were raised${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and in full in the appendix' : ''}.`);
 
     drawBulletList(groupItems(topPriorityActions).map(g =>
       `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`));
@@ -854,61 +831,43 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   // =====================================================
-  // Recommendations by risk level (the second grouping lens)
+  // Most common recommendations, grouped by prevalence (descriptive, not a
+  // priority judgement - see programReportModel.prevalenceBands)
   // =====================================================
   {
-    const horizons = priorityHorizons(topPriorityActions);
-    if (horizons.length > 0) {
-      addSectionHeader('Where to focus first');
-      addParagraph("A suggested focus drawn from the cohort's responses. It points to where attention is often best directed first and is a guide, not a fixed plan or a compliance assessment.");
-      drawDisclaimer("These groupings are generated automatically from each business's responses and have not been individually reviewed. They suggest where attention is often best directed first, not a definitive order of works. Local knowledge and, where needed, professional advice should shape the final priorities.");
-      horizons.forEach(h => {
-        // Label bold on its own line, hint wrapped in muted body text beneath -
-        // the hints are too long to sit inline without overrunning the margin.
-        const hintLines = doc.splitTextToSize(h.hint, PAGE.contentWidth) as string[];
+    const cohortSize = payload.assessedBusinesses || enrolment.completed + enrolment.submitted || enrolment.total;
+    const bands = prevalenceBands(topPriorityActions, cohortSize);
+    if (bands.length > 0) {
+      addSectionHeader('Most common recommendations across the cohort');
+      addParagraph(`These recommendations appeared most frequently across the participating businesses. Priorities will vary between organisations, but they mark where shared resources, funding or capability-building could support several at once. Counts show how many of the ${cohortSize} assessed business${cohortSize !== 1 ? 'es' : ''} raised each; only patterns shared by at least three are listed here, with the full set in the appendix.`);
+      bands.forEach(b => {
+        // Band label bold on its own line, descriptor wrapped in muted body text.
+        const hintLines = doc.splitTextToSize(b.hint, PAGE.contentWidth) as string[];
         ensureSpace(6.5 + hintLines.length * 5 + 6);
         doc.setFontSize(BODY_TEXT_SIZE);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-        doc.text(h.label, PAGE.marginX, yPos);
+        doc.text(b.label, PAGE.marginX, yPos);
         yPos += 5.5;
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(10);
         doc.setTextColor(...hexToRgb(COLORS.textMuted));
         hintLines.forEach(line => { doc.text(line, PAGE.marginX, yPos); yPos += 5; });
         yPos += 1.5;
-        drawBulletList(h.items.slice(0, 6).map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''})`));
+        drawBulletList(b.items.slice(0, 8).map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''}, ${pctOfCohort(p.count, cohortSize)}%)`));
         yPos += 3;
       });
-      // Supportive next-steps note - a soft pointer that turning these
-      // groupings into a validated plan is where Flare Access can help.
-      {
-        const note = 'Next steps: Flare Access can work alongside your businesses to confirm these priorities in context and shape a practical plan.';
-        const lines = doc.splitTextToSize(note, PAGE.contentWidth - 8) as string[];
-        const h = lines.length * 5.5 + 6;
-        ensureSpace(h + 2);
-        doc.setFillColor(...hexToRgb(COLORS.insightBg));
-        doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, h, 2, 2, 'F');
-        doc.setFillColor(...hexToRgb(COLORS.insightBorder));
-        doc.rect(PAGE.marginX, yPos, 1.5, h, 'F');
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(...hexToRgb(COLORS.text));
-        let cY = yPos + 5.5;
-        lines.forEach((line: string) => { doc.text(line, PAGE.marginX + 4, cY); cY += 5.5; });
-        yPos += h + 4;
-      }
     }
   }
 
   // =====================================================
-  // Recommended actions for the authority (decisions for the council)
+  // Potential network initiatives (the "so what" for the council)
   // =====================================================
   {
     const authRecs = authorityRecommendations(payload);
     if (authRecs.length > 0) {
-      addSectionHeader('Recommended actions for the authority');
-      addParagraph("Where to focus next, drawn from the cohort's aggregate signal - actions for the authority, not the individual businesses.");
+      addSectionHeader('Potential network initiatives');
+      addParagraph("The pattern of recommendations points to opportunities for shared support across the network - initiatives that would help many businesses at once rather than each in isolation. Flare Access can help scope and deliver these with you.");
       authRecs.forEach(r => {
         ensureSpace(14);
         doc.setFontSize(BODY_TEXT_SIZE);

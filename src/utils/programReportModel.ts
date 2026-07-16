@@ -193,7 +193,7 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   }
   if (topPriorityActions.length > 0) {
     const top = topPriorityActions[0];
-    recs.push({ kind: 'Program', text: `Coordinate a shared, sector-wide program around the cohort's most common recommendations (the top pattern recurs across ${top.count} business${top.count !== 1 ? 'es' : ''}) - more efficient than supporting each business one at a time. Confirm the specific focus with the businesses.` });
+    recs.push({ kind: 'Shared initiative', text: `Pool effort on "${top.action}" - raised by ${top.count} business${top.count !== 1 ? 'es' : ''}, so a shared template, group training or joint procurement would reach them all at once rather than one at a time.` });
   }
   if (topAreasToExplore.length > 0) {
     recs.push({ kind: 'Guidance', text: 'Publish plain-language guidance in areas the cohort repeatedly flagged as unclear - a small number of shared explainers would resolve questions across many businesses.' });
@@ -211,19 +211,27 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   return recs.slice(0, 6);
 }
 
-// Priority actions grouped into a soft, indicative ordering derived from each
-// pattern's computed priority. The labels deliberately avoid legal or compliance
-// claims: the underlying priority tags are a "where to start" heuristic, not a
-// verified compliance classification, so the report points in a direction and
-// leaves the final call to local knowledge and professional advice.
-export interface PriorityHorizon { key: string; label: string; hint: string; accent: string; items: ProgramReportPayload['topPriorityActions']; }
-export function priorityHorizons(topPriorityActions: ProgramReportPayload['topPriorityActions']): PriorityHorizon[] {
-  const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
+// Recommendations grouped by PREVALENCE - how many businesses raised each, as a
+// share of the cohort. This is purely descriptive: it reports the data rather
+// than making a priority judgement, so it does not depend on the (unreliable)
+// per-question compliance tags. Only patterns shared by at least MIN_SHARED
+// businesses appear; one-off items live in the appendix.
+export const MIN_SHARED = 3;
+export interface PrevalenceBand { key: string; label: string; hint: string; items: ProgramReportPayload['topPriorityActions']; }
+export function pctOfCohort(count: number, cohortSize: number): number {
+  return cohortSize > 0 ? Math.min(100, Math.round((count / cohortSize) * 100)) : 0;
+}
+export function prevalenceBands(actions: ProgramReportPayload['topPriorityActions'], cohortSize: number): PrevalenceBand[] {
+  const ratio = (n: number) => (cohortSize > 0 ? n / cohortSize : 0);
+  // Sort by count so each band lists its most-shared items first, regardless of
+  // the order the aggregation happened to produce.
+  const shared = actions.filter(a => a.count >= MIN_SHARED).slice().sort((a, b) => b.count - a.count);
+  const pick = (lo: number, hi: number) => shared.filter(a => { const r = ratio(a.count); return r >= lo && r < hi; });
   return [
-    { key: 'immediate', label: 'Often worth starting with', hint: 'Frequently the most pressing gaps, and a sensible place for a shared effort to begin', accent: 'red', items: at('high') },
-    { key: 'medium', label: 'Valuable improvements to follow', hint: 'Meaningful gains that build on the essentials', accent: 'amber', items: at('medium') },
-    { key: 'long', label: 'Further enhancements', hint: 'Refinements that round out an inclusive experience', accent: 'blue', items: at('low') },
-  ].filter(g => g.items.length > 0);
+    { key: 'very', label: 'Very common', hint: 'Raised by most of the cohort', items: pick(0.6, Infinity) },
+    { key: 'common', label: 'Common', hint: 'Raised by a sizeable share of the cohort', items: pick(0.3, 0.6) },
+    { key: 'emerging', label: 'Emerging', hint: 'Raised by a smaller group, an early signal', items: pick(0, 0.3) },
+  ].filter(b => b.items.length > 0);
 }
 
 export function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): GroupedInsights {

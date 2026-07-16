@@ -124,6 +124,9 @@ export interface ProgramReportPayload {
     name: string;
   };
   enrolment: EnrolmentCounts;
+  /** Distinct businesses that contributed any module summary - the denominator
+   *  for prevalence percentages. Absent on snapshots generated before this. */
+  assessedBusinesses?: number;
   moduleAggregates: ModuleAggregate[];
   topPriorityActions: PriorityActionAggregate[];
   topStrengths: StrengthAggregate[];
@@ -239,6 +242,15 @@ export function useProgramReport(programId: string | null) {
         const { topPriorityActions, topStrengths, topAreasToExplore } =
           aggregateCohortSummaries(cohortSummaries);
 
+        // Distinct businesses that contributed any module summary. This is the
+        // right denominator for "N of the assessed businesses raised X": a
+        // business can finish a module (and so a recommendation) without its
+        // whole enrolment being complete, so completed-enrolment counts can be
+        // smaller than an action's business count.
+        const assessedBusinesses = new Set(
+          cohortSummaries.filter(r => r.summary).map(r => r.child_org_id),
+        ).size;
+
         // Statutory framework domain roll-up, baked into the snapshot so it
         // stays accurate to this point in time (privacy: domain counts only).
         const outcomes = await computeOutcomes(programId, program.organisation_id, cohortSummaries);
@@ -265,6 +277,7 @@ export function useProgramReport(programId: string | null) {
           topPriorityActions,
           topStrengths,
           topAreasToExplore,
+          assessedBusinesses,
           methodology: METHODOLOGY_NOTE,
           outcomes,
           improvement,
