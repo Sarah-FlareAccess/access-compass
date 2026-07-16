@@ -445,6 +445,14 @@ export function useReportGeneration(
       // Extract evidence files from questions
       const questionEvidence: QuestionEvidence[] = [];
 
+      // Dedup GLOBALLY across modules (not just within one): the same templated
+      // strength/action can be generated in several modules, and counting or
+      // printing the identical sentence twice is noise, not signal.
+      const seenStrength = new Set<string>();
+      const seenAction = new Set<string>();
+      const seenExplore = new Set<string>();
+      const seenReview = new Set<string>();
+
       completedModules.forEach(moduleProgress => {
         {
           const mod = getModuleById(moduleProgress.moduleId);
@@ -461,44 +469,40 @@ export function useReportGeneration(
           // same action or strength text and the same sentence repeated is
           // noise, not signal. Keep the first occurrence.
           if (summary?.doingWell) {
-            const seen = new Set<string>();
             summary.doingWell.forEach(text => {
               const key = text.trim().toLowerCase();
-              if (seen.has(key)) return;
-              seen.add(key);
+              if (seenStrength.has(key)) return;
+              seenStrength.add(key);
               allStrengths.push(text);
               catStrengths.push({ text, moduleCode: mCode, moduleName: mName, group: mod?.group });
             });
           }
           if (summary?.priorityActions) {
-            const seen = new Set<string>();
             summary.priorityActions.forEach(a => {
               const key = a.action.trim().toLowerCase();
-              if (seen.has(key)) return;
-              seen.add(key);
+              if (seenAction.has(key)) return;
+              seenAction.add(key);
               const text = a.action;
               allPriorityActions.push(`${a.action} (${a.priority} priority)`);
               catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || ''), group: mod?.group });
             });
           }
           if (summary?.areasToExplore) {
-            const seen = new Set<string>();
             summary.areasToExplore.forEach(item => {
               const text = typeof item === 'string' ? item : item.action;
               const key = text.trim().toLowerCase();
-              if (seen.has(key)) return;
-              seen.add(key);
+              if (seenExplore.has(key)) return;
+              seenExplore.add(key);
               const questionId = typeof item === 'string' ? undefined : item.questionId;
               allAreasToExplore.push(text);
               catAreasToExplore.push({ text, moduleCode: mCode, moduleName: mName, questionId });
             });
           }
           if (summary?.professionalReview) {
-            const seen = new Set<string>();
             summary.professionalReview.forEach(text => {
               const key = text.trim().toLowerCase();
-              if (seen.has(key)) return;
-              seen.add(key);
+              if (seenReview.has(key)) return;
+              seenReview.add(key);
               allProfessionalReview.push(text);
               catProfessionalReview.push({ text, moduleCode: mCode, moduleName: mName });
             });
