@@ -432,6 +432,14 @@ function computeEnrolmentCounts(
   };
 }
 
+function prioritySeverity(p?: string): number {
+  const v = (p ?? '').toLowerCase();
+  if (v === 'high') return 3;
+  if (v === 'medium') return 2;
+  if (v === 'low') return 1;
+  return 0;
+}
+
 function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   topPriorityActions: PriorityActionAggregate[];
   topStrengths: StrengthAggregate[];
@@ -453,14 +461,18 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
       const text = typeof pa === 'string' ? pa : pa.action;
       if (!text) continue;
       const key = normaliseText(text);
+      const priority = typeof pa === 'string' ? undefined : pa.priority;
       const existing = priorityMap.get(key);
       if (existing) {
         existing.businesses.add(business);
         if (!existing.moduleIds.includes(moduleId)) existing.moduleIds.push(moduleId);
+        // Keep the most severe priority any business assigned, not the first
+        // seen, so a pattern that is HIGH for some isn't shown as LOW by chance.
+        if (prioritySeverity(priority) > prioritySeverity(existing.priority)) existing.priority = priority;
       } else {
         priorityMap.set(key, {
           action: text,
-          priority: typeof pa === 'string' ? undefined : pa.priority,
+          priority,
           moduleIds: [moduleId],
           businesses: new Set([business]),
         });
