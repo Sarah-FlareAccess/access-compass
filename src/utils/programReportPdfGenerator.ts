@@ -543,11 +543,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(32);
   doc.setFont('helvetica', 'bold');
-  doc.text('Program Report', PAGE.width / 2, PAGE.height * 0.26, { align: 'center' });
-
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'normal');
-  doc.text(program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive', PAGE.width / 2, PAGE.height * 0.32, { align: 'center' });
+  doc.text('Program Report', PAGE.width / 2, PAGE.height * 0.29, { align: 'center' });
 
   // Org + program name card
   doc.setFillColor(255, 255, 255);
@@ -614,6 +610,22 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   yPos = PAGE.marginY;
   addHeader();
   yPos += 10;
+
+  // About this program - purpose, areas in scope and report type. Gives a
+  // council reader the context the cover no longer carries.
+  addSectionHeader('About this program');
+  if (program.description) addParagraph(program.description);
+  addParagraph(`Report type: ${program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}. ${program.moduleIds.length} area${program.moduleIds.length !== 1 ? 's' : ''} assessed across ${enrolment.total} enrolled business${enrolment.total !== 1 ? 'es' : ''}.`);
+  if (program.moduleIds.length > 0) {
+    doc.setFontSize(BODY_TEXT_SIZE);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+    ensureSpace(7);
+    doc.text('Areas assessed', PAGE.marginX, yPos);
+    yPos += 6.5;
+    drawBulletList(program.moduleIds.map(mid => `- ${moduleName(mid)} (${mid})`));
+    yPos += 3;
+  }
 
   addSectionHeader('Executive summary');
 
