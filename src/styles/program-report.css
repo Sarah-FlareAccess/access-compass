@@ -143,6 +143,31 @@
   font-size: 0.875rem;
 }
 
+/* Areas-assessed + recommendation lists match the subtitle size/colour so the
+   "About this program" block reads at one consistent size. */
+.report-areas-list,
+.report-rec-group {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+.report-areas-list {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+.report-areas-list li {
+  margin: 0.15rem 0;
+  break-inside: avoid;
+}
+.report-rec-group h3 {
+  font-size: 0.9375rem;
+  margin: 0.75rem 0 0.25rem;
+  color: var(--text-primary, #2d2420);
+}
+.report-rec-group ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.25rem;
+}
+
 /* ===== Module heatmap ===== */
 .report-heatmap {
   display: flex;
