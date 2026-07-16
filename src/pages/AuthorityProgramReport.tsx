@@ -75,7 +75,7 @@ export default function AuthorityProgramReport() {
   const [genFrom, setGenFrom] = useState('');
   const [genTo, setGenTo] = useState('');
 
-  usePageTitle(program ? `${program.name} report` : 'Program report');
+  usePageTitle(program ? `${program.name} intelligence report` : 'Program intelligence report');
 
   useEffect(() => {
     if (!programId) return;
@@ -619,6 +619,23 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
           ))}
         </section>
       )}
+
+      {/* Ongoing-value close - only what re-running genuinely provides. */}
+      <section className="authority-form-card report-section">
+        <h2>Tracking progress over time</h2>
+        <p className="report-section__subtitle">
+          This is a point-in-time snapshot. Its value grows when the cohort reassesses - at the next funding round, or annually - and this report is re-run. Each new version turns a one-off picture into a measurable trend you can report against. With each round, re-running this report shows:
+        </p>
+        <ul className="report-rec-list">
+          <li>Network maturity trend - the maturity score moving as businesses act on their gaps.</li>
+          <li>Gaps closing - recommendations that have become strengths since the last assessment.</li>
+          <li>New and emerging needs - fresh recommendations that surface as more businesses complete, or as practices evolve.</li>
+          <li>Progress by business - each business&rsquo;s readiness change between rounds.</li>
+        </ul>
+        <p className="report-section__subtitle" style={{ marginTop: '0.75rem', marginBottom: 0 }}>
+          Regular reassessment gives you evidence to put in front of funders and to report against year on year, and shows where a coordinated program is moving the network rather than each business in isolation.
+        </p>
+      </section>
 
       <section className="report-methodology">
         <strong>Methodology and privacy:</strong> {methodology}

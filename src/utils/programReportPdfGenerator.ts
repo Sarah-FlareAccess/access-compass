@@ -216,7 +216,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.text('Access Compass', PAGE.marginX, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text('Program Report', PAGE.width - PAGE.marginX, 10, { align: 'right' });
+    doc.text('Program Intelligence Report', PAGE.width - PAGE.marginX, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
@@ -474,11 +474,13 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.circle(cpx, cpy, 1.6, 'F');
   doc.setDrawColor(0, 0, 0);
 
-  // Title, left-aligned on the clean purple band beside the compass.
+  // Title, left-aligned on the clean purple band beside the compass. Two lines so
+  // the longer name keeps its size without colliding with the compass imagery.
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(30);
   doc.setFont('helvetica', 'bold');
-  doc.text('Program Report', PAGE.marginX + 4, PAGE.height * 0.20, { align: 'left' });
+  doc.text('Program', PAGE.marginX + 4, PAGE.height * 0.20, { align: 'left' });
+  doc.text('Intelligence Report', PAGE.marginX + 4, PAGE.height * 0.20 + 12, { align: 'left' });
 
   // Orange divider.
   doc.setFillColor(...hexToRgb(COLORS.aussieLight));
@@ -984,6 +986,24 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setTextColor(0, 0, 0);
     });
   }
+
+  // =====================================================
+  // Tracking progress over time - the ongoing-value close. Only describes what
+  // re-running the assessment genuinely provides (maturity trend, gaps closing,
+  // new needs, per-business change); no unbuilt claims (grant outcomes etc).
+  // =====================================================
+  addNewPage();
+  addSectionHeader('Tracking progress over time');
+  addParagraph('This is a point-in-time snapshot. Its value grows when the cohort reassesses - at the next funding round, or annually - and this report is re-run. Each new version turns a one-off picture into a measurable trend you can report against.');
+  addParagraph('With each round, re-running this report shows:');
+  drawBulletList([
+    '- Network maturity trend - the maturity score moving as businesses act on their gaps.',
+    '- Gaps closing - recommendations that have become strengths since the last assessment.',
+    '- New and emerging needs - fresh recommendations that surface as more businesses complete, or as practices evolve.',
+    '- Progress by business - each business\'s readiness change between rounds.',
+  ]);
+  yPos += 3;
+  addParagraph('Regular reassessment gives you evidence to put in front of funders and to report against year on year, and shows where a coordinated program is moving the network rather than each business in isolation.');
 
   // =====================================================
   // Methodology (concise)
