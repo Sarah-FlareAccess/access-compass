@@ -213,6 +213,25 @@ export const MIN_SHARED = 3;
 export function pctOfCohort(count: number, cohortSize: number): number {
   return cohortSize > 0 ? Math.min(100, Math.round((count / cohortSize) * 100)) : 0;
 }
+
+// Human-readable description of a report's assessment-date window (by completion
+// date). Returns null when there is no window (all assessments). compact form is
+// for the saved-report card; the full form for the report body.
+export function formatAssessmentWindow(
+  w?: { from: string | null; to: string | null } | null,
+  compact = false,
+): string | null {
+  if (!w || (!w.from && !w.to)) return null;
+  const fmt = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+  if (compact) {
+    if (w.from && w.to) return `${fmt(w.from)} to ${fmt(w.to)}`;
+    if (w.from) return `since ${fmt(w.from)}`;
+    return `up to ${fmt(w.to!)}`;
+  }
+  if (w.from && w.to) return `assessments completed between ${fmt(w.from)} and ${fmt(w.to)}`;
+  if (w.from) return `assessments completed since ${fmt(w.from)}`;
+  return `assessments completed up to ${fmt(w.to!)}`;
+}
 // The shared recommendations within a group, most-raised first. Descriptive - no
 // priority judgement, so it does not lean on the (unreliable) compliance tags.
 export function sharedRecommendations<T extends { count: number }>(items: T[]): T[] {

@@ -20,6 +20,7 @@ import {
   authorityRecommendations,
   sharedRecommendations,
   pctOfCohort,
+  formatAssessmentWindow,
   moduleVerdict,
   resolveGroupMode,
   groupWordFor,
@@ -68,6 +69,10 @@ export default function AuthorityProgramReport() {
   const [program, setProgram] = useState<AuthorityProgram | null>(null);
   const [selectedSnapshotId, setSelectedSnapshotId] = useState<string | null>(null);
   const [groupBy, setGroupBy] = useState<'theme' | 'framework'>('theme');
+  // Optional assessment-date window for the next generated report (by completion
+  // date). Blank = all assessments.
+  const [genFrom, setGenFrom] = useState('');
+  const [genTo, setGenTo] = useState('');
 
   usePageTitle(program ? `${program.name} report` : 'Program report');
 
@@ -89,7 +94,7 @@ export default function AuthorityProgramReport() {
   );
 
   const handleGenerate = async () => {
-    const row = await generateReport();
+    const row = await generateReport(undefined, { from: genFrom || null, to: genTo || null });
     if (row) setSelectedSnapshotId(row.id);
   };
 
@@ -183,6 +188,29 @@ export default function AuthorityProgramReport() {
               Download PDF
             </button>
           )}
+          <div
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8125rem', color: 'var(--text-muted, #6b7280)' }}
+            title="Limit the report to assessments completed in this range. Leave blank to include all."
+          >
+            <span>Completed</span>
+            <input
+              type="date"
+              aria-label="Assessments completed from"
+              value={genFrom}
+              max={genTo || undefined}
+              onChange={e => setGenFrom(e.target.value)}
+              style={{ padding: '0.3rem 0.4rem', border: '1px solid #d1cdd0', borderRadius: 6, fontSize: '0.8125rem' }}
+            />
+            <span>to</span>
+            <input
+              type="date"
+              aria-label="Assessments completed to"
+              value={genTo}
+              min={genFrom || undefined}
+              onChange={e => setGenTo(e.target.value)}
+              style={{ padding: '0.3rem 0.4rem', border: '1px solid #d1cdd0', borderRadius: 6, fontSize: '0.8125rem' }}
+            />
+          </div>
           <button
             type="button"
             className="btn btn-primary"
@@ -235,6 +263,9 @@ export default function AuthorityProgramReport() {
                     {s.name}
                     <span style={{ color: 'var(--text-secondary, #5C4A4E)', fontWeight: 400, marginLeft: '0.5rem', fontSize: '0.875rem' }}>
                       {`· ${formatDateTime(s.generated_at)} · ${s.enrolment_count} businesses, ${s.completed_count} completed`}
+                      {formatAssessmentWindow(s.snapshot_data.assessmentWindow, true)
+                        ? ` · ${formatAssessmentWindow(s.snapshot_data.assessmentWindow, true)}`
+                        : ''}
                       {s.snapshot_data.outcomes
                         ? ` · view by theme or ${s.snapshot_data.outcomes.frameworkShort} outcome areas`
                         : ''}
@@ -337,6 +368,11 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
             ? `Recommendations throughout are organised by the ${data.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
             : 'Recommendations throughout are organised by accessibility theme (the area of the visitor journey they relate to).'}
         </p>
+        {formatAssessmentWindow(data.assessmentWindow) && (
+          <p className="report-section__subtitle" style={{ fontWeight: 600 }}>
+            This report covers {formatAssessmentWindow(data.assessmentWindow)}. Businesses without an assessment completed in this period are not included.
+          </p>
+        )}
         <p className="report-section__subtitle" style={{ marginBottom: '0.25rem' }}>
           Areas assessed ({program.moduleIds.length}):
         </p>

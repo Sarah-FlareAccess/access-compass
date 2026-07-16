@@ -127,6 +127,9 @@ export interface ProgramReportPayload {
   /** Distinct businesses that contributed any module summary - the denominator
    *  for prevalence percentages. Absent on snapshots generated before this. */
   assessedBusinesses?: number;
+  /** Assessment-date window this report was generated for (by completion date).
+   *  Null/absent means all assessments (no filter). */
+  assessmentWindow?: { from: string | null; to: string | null } | null;
   moduleAggregates: ModuleAggregate[];
   topPriorityActions: PriorityActionAggregate[];
   topStrengths: StrengthAggregate[];
@@ -196,7 +199,7 @@ export function useProgramReport(programId: string | null) {
   }, [programId, loadSnapshots]);
 
   const generateReport = useCallback(
-    async (reportName?: string): Promise<ProgramReportRow | null> => {
+    async (reportName?: string, dateRange?: { from?: string | null; to?: string | null }): Promise<ProgramReportRow | null> => {
       if (!programId || !isSupabaseEnabled() || !supabase || !user) return null;
       setIsGenerating(true);
       setError(null);
@@ -225,12 +228,28 @@ export function useProgramReport(programId: string | null) {
         const { data: sumData, error: sErr } =
           await supabase.rpc('get_program_cohort_summaries', { p_program_id: programId });
         if (sErr) throw new Error(sErr.message);
+        // Optional assessment-date window: restrict to assessments COMPLETED in
+        // the range (for rolling programs, or to exclude stale data). Rows with no
+        // completion date can't be placed in a window, so they drop out when a
+        // bound is set; with no window the behaviour is unchanged (all rows).
+        const fromT = dateRange?.from ? new Date(dateRange.from).getTime() : null;
+        const toT = dateRange?.to ? new Date(dateRange.to + 'T23:59:59.999').getTime() : null;
+        const hasWindow = fromT !== null || toT !== null;
+        const inWindow = (r: CohortSummaryRow): boolean => {
+          if (!hasWindow) return true;
+          if (!r.completed_at) return false;
+          const t = new Date(r.completed_at).getTime();
+          if (fromT !== null && t < fromT) return false;
+          if (toT !== null && t > toT) return false;
+          return true;
+        };
+
         // module_progress holds a row per session/site, so a business can appear
         // many times per module. Keep only its latest run per module (and drop
         // withdrawn businesses) so every figure counts distinct businesses, not
         // runs, and stale recommendations from superseded runs are excluded.
         const cohortSummaries = latestRunPerBusinessModule(
-          ((sumData ?? []) as CohortSummaryRow[]).filter(r => rosterIds.has(r.child_org_id)),
+          ((sumData ?? []) as CohortSummaryRow[]).filter(r => rosterIds.has(r.child_org_id) && inWindow(r)),
         );
 
         // Module + enrolment rollups are computed from that deduped set rather
@@ -278,6 +297,7 @@ export function useProgramReport(programId: string | null) {
           topStrengths,
           topAreasToExplore,
           assessedBusinesses,
+          assessmentWindow: hasWindow ? { from: dateRange?.from ?? null, to: dateRange?.to ?? null } : null,
           methodology: METHODOLOGY_NOTE,
           outcomes,
           improvement,

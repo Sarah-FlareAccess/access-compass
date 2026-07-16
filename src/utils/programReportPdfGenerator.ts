@@ -23,6 +23,7 @@ import {
   authorityRecommendations,
   sharedRecommendations,
   pctOfCohort,
+  formatAssessmentWindow,
   moduleVerdict,
   resolveGroupMode,
   groupWordFor,
@@ -526,6 +527,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addSectionHeader('About this program');
   if (program.description) addParagraph(program.description);
   addParagraph(`Report type: ${program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}. ${program.moduleIds.length} area${program.moduleIds.length !== 1 ? 's' : ''} assessed across ${enrolment.total} enrolled business${enrolment.total !== 1 ? 'es' : ''}. ${groupSentence}`);
+  {
+    const windowPhrase = formatAssessmentWindow(payload.assessmentWindow);
+    if (windowPhrase) addParagraph(`This report covers ${windowPhrase}. Businesses without an assessment completed in this period are not included.`);
+  }
   if (program.moduleIds.length > 0) {
     doc.setFontSize(BODY_TEXT_SIZE);
     doc.setFont('helvetica', 'bold');
