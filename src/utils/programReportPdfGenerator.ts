@@ -311,6 +311,30 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     yPos += h + 4;
   };
 
+  // A tinted callout with an orange left accent, used for the risk-level
+  // disclaimer so the caveat reads as distinct from the body copy.
+  const drawDisclaimer = (text: string) => {
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    const lines = doc.splitTextToSize(text, PAGE.contentWidth - 8) as string[];
+    const h = lines.length * 5 + 5;
+    ensureSpace(h + 4);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'italic');
+    doc.setFillColor(253, 246, 236);
+    doc.rect(PAGE.marginX, yPos, PAGE.contentWidth, h, 'F');
+    doc.setFillColor(...hexToRgb(COLORS.aussieLight));
+    doc.rect(PAGE.marginX, yPos, 1.2, h, 'F');
+    doc.setTextColor(...hexToRgb(COLORS.textMuted));
+    let cY = yPos + 5;
+    lines.forEach((line: string) => {
+      doc.text(line, PAGE.marginX + 4, cY);
+      cY += 5;
+    });
+    doc.setFont('helvetica', 'normal');
+    yPos += h + 4;
+  };
+
   // Draw "- ..." body list items at one consistent size. The font is re-applied
   // per item because a mid-list page break runs the header/footer, which leave
   // their own size and colour - without this the overflow items after a break
@@ -822,7 +846,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addSectionHeader(`Where recommendations concentrate, by ${groupWord}`);
-    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are grouped by planning horizon below${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
+    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are grouped by risk level below${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
 
     drawBulletList(groupItems(topPriorityActions).map(g =>
       `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`));
@@ -830,20 +854,29 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   // =====================================================
-  // Priorities by planning horizon (the second grouping lens)
+  // Recommendations by risk level (the second grouping lens)
   // =====================================================
   {
     const horizons = priorityHorizons(topPriorityActions);
     if (horizons.length > 0) {
-      addSectionHeader('Priorities by planning horizon');
-      addParagraph("The cohort's most common recommended actions, grouped so they map onto your planning cycles.");
+      addSectionHeader('Recommendations by risk level');
+      addParagraph("The cohort's most common recommended actions, grouped by the legal and safety risk of the underlying gap.");
+      drawDisclaimer("These levels are derived automatically from each business's responses and have not been individually reviewed. They indicate where risk is likely to concentrate across the cohort, not a definitive order of works. Confirm the specifics with each business before acting.");
       horizons.forEach(h => {
-        ensureSpace(16);
+        // Label bold on its own line, hint wrapped in muted body text beneath -
+        // the hints are too long to sit inline without overrunning the margin.
+        const hintLines = doc.splitTextToSize(h.hint, PAGE.contentWidth) as string[];
+        ensureSpace(6.5 + hintLines.length * 5 + 6);
         doc.setFontSize(BODY_TEXT_SIZE);
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-        doc.text(`${h.label} - ${h.hint}`, PAGE.marginX, yPos);
-        yPos += 6.5;
+        doc.text(h.label, PAGE.marginX, yPos);
+        yPos += 5.5;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(...hexToRgb(COLORS.textMuted));
+        hintLines.forEach(line => { doc.text(line, PAGE.marginX, yPos); yPos += 5; });
+        yPos += 1.5;
         drawBulletList(h.items.slice(0, 6).map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''})`));
         yPos += 3;
       });

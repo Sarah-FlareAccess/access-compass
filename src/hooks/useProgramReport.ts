@@ -429,12 +429,21 @@ function computeEnrolmentCounts(
   };
 }
 
-function prioritySeverity(p?: string): number {
-  const v = (p ?? '').toLowerCase();
-  if (v === 'high') return 3;
-  if (v === 'medium') return 2;
-  if (v === 'low') return 1;
-  return 0;
+// The priority shown for a cohort pattern is the one MOST assessments assigned,
+// not the single most-severe one. A lone business rating an item "high" should
+// not promote a pattern that is "medium" for everyone else. Ties break toward
+// the more severe level (iteration is severe-first with a strict >).
+function modalPriority(votes: Record<string, number>): string | undefined {
+  let best: string | undefined;
+  let bestCount = 0;
+  for (const p of ['high', 'medium', 'low']) {
+    const c = votes[p] ?? 0;
+    if (c > bestCount) {
+      bestCount = c;
+      best = p;
+    }
+  }
+  return best;
 }
 
 function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
@@ -445,7 +454,7 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   // Count DISTINCT businesses per item, not (business, module) occurrences: a
   // business that flags the same action across two modules must count once, or
   // a pattern's "N businesses" can exceed the number of enrolled businesses.
-  const priorityMap = new Map<string, { action: string; priority?: string; moduleIds: string[]; businesses: Set<string>; questionId?: string }>();
+  const priorityMap = new Map<string, { action: string; priorityVotes: Record<string, number>; moduleIds: string[]; businesses: Set<string>; questionId?: string }>();
   const strengthMap = new Map<string, { text: string; moduleIds: string[]; businesses: Set<string> }>();
   const areaMap = new Map<string, { text: string; businesses: Set<string> }>();
 
@@ -465,13 +474,13 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
         existing.businesses.add(business);
         if (!existing.moduleIds.includes(moduleId)) existing.moduleIds.push(moduleId);
         if (!existing.questionId && questionId) existing.questionId = questionId;
-        // Keep the most severe priority any business assigned, not the first
-        // seen, so a pattern that is HIGH for some isn't shown as LOW by chance.
-        if (prioritySeverity(priority) > prioritySeverity(existing.priority)) existing.priority = priority;
+        // Tally each assessment's priority so the pattern can show the level
+        // MOST assigned it, rather than being promoted by a single outlier.
+        if (priority) existing.priorityVotes[priority] = (existing.priorityVotes[priority] ?? 0) + 1;
       } else {
         priorityMap.set(key, {
           action: text,
-          priority,
+          priorityVotes: priority ? { [priority]: 1 } : {},
           moduleIds: [moduleId],
           businesses: new Set([business]),
           questionId,
@@ -509,7 +518,7 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   const priorityActions: PriorityActionAggregate[] = Array.from(priorityMap.values()).map(v => ({
     action: v.action,
     count: v.businesses.size,
-    priority: v.priority,
+    priority: modalPriority(v.priorityVotes),
     moduleIds: v.moduleIds,
     // Theme by the source question's own topic (content), not just its module,
     // so a website/WCAG action from a physical module lands in the right area.

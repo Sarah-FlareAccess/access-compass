@@ -211,15 +211,17 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   return recs.slice(0, 6);
 }
 
-// Priority actions grouped by planning horizon (maps onto council planning
-// cycles), derived from each pattern's priority.
+// Priority actions grouped by RISK LEVEL, derived from each pattern's priority
+// (compliance and safety weighted, per priorityCalculation.ts). The labels
+// describe what each level IS rather than prescribing a planning cycle, since
+// these are auto-derived from responses and not a human-reviewed action plan.
 export interface PriorityHorizon { key: string; label: string; hint: string; accent: string; items: ProgramReportPayload['topPriorityActions']; }
 export function priorityHorizons(topPriorityActions: ProgramReportPayload['topPriorityActions']): PriorityHorizon[] {
   const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
   return [
-    { key: 'immediate', label: 'Immediate', hint: 'High priority - act this cycle', accent: 'red', items: at('high') },
-    { key: 'medium', label: 'Medium-term', hint: 'Plan into the next 6 to 12 months', accent: 'amber', items: at('medium') },
-    { key: 'long', label: 'Longer-term', hint: 'Build into the multi-year roadmap', accent: 'blue', items: at('low') },
+    { key: 'immediate', label: 'Compliance and safety related', hint: 'Gaps in mandatory standards (Premises Standards, WCAG, NCC) or safety items - the highest legal and safety risk, worth addressing first', accent: 'red', items: at('high') },
+    { key: 'medium', label: 'High-impact improvements', hint: 'Significant gains for people with disability, or items a business could not verify', accent: 'amber', items: at('medium') },
+    { key: 'long', label: 'Best-practice improvements', hint: 'Lower legal risk, still a real difference to accessibility and inclusion', accent: 'blue', items: at('low') },
   ].filter(g => g.items.length > 0);
 }
 
