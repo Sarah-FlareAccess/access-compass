@@ -991,8 +991,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Tracking progress over time - the ongoing-value close. Only describes what
   // re-running the assessment genuinely provides (maturity trend, gaps closing,
   // new needs, per-business change); no unbuilt claims (grant outcomes etc).
+  // Flows on rather than forcing a page break, which stranded the previous
+  // section's tail (e.g. a "not yet covered" outcome domain) alone on its page.
   // =====================================================
-  addNewPage();
+  yPos += 4;
   addSectionHeader('Tracking progress over time');
   addParagraph('This is a point-in-time snapshot. Its value grows when the cohort reassesses - at the next funding round, or annually - and this report is re-run. Each new version turns a one-off picture into a measurable trend you can report against.');
   addParagraph('With each round, re-running this report shows:');

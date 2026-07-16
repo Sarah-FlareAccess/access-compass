@@ -179,6 +179,21 @@
   font-style: italic;
   line-height: 1.45;
 }
+
+/* Closing section reads as proper body copy (dark, not the muted subtitle grey). */
+.report-overtime p,
+.report-overtime li {
+  color: #2d2420;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.report-overtime ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.report-overtime li {
+  margin: 0.25rem 0;
+}
 .report-rec-list__count {
   color: var(--text-muted, #6b7280);
   font-size: 0.8125rem;
