@@ -31,10 +31,11 @@ export function describeCohortMaturity(strongPct: number): string {
 
 export function describeCompletion(completedPct: number, total: number): string {
   if (total === 0) return 'No businesses are currently enrolled. Once enrolment begins this section will populate.';
-  if (completedPct >= 80) return 'Most businesses have finished their assessments, giving this report a high-confidence basis. Findings can be cited in public reporting.';
-  if (completedPct >= 40) return 'A meaningful proportion has finished. Findings are directional but reliable. Follow up with the in-progress cohort to firm up the picture before public reporting.';
-  if (completedPct >= 15) return 'Early-stage program. Findings are indicative only. Consider this a baseline read; re-run the report in 4-8 weeks once more businesses complete.';
-  return 'Very early in the program. Treat the figures below as preliminary signal, not conclusion.';
+  if (completedPct >= 100) return 'All enrolled businesses have completed the assessment, giving a complete picture of the cohort across the areas assessed. Findings are self-reported indicators of readiness, not independently verified accessibility outcomes.';
+  if (completedPct >= 80) return 'Most enrolled businesses have completed the assessment, so the findings give a solid read of the cohort across the areas assessed. Findings are self-reported, not independently verified.';
+  if (completedPct >= 40) return 'A meaningful proportion has completed the assessment, so the findings are directional. Following up with the businesses yet to finish will round out the picture.';
+  if (completedPct >= 15) return 'Early in the program - treat the findings as an initial baseline and re-run once more businesses complete.';
+  return 'Very early in the program. Treat the figures below as a preliminary signal, not a conclusion.';
 }
 
 // Cohort-wide confidence-band totals + the % strong (band-weighted).
@@ -169,10 +170,10 @@ export function computeRisk(maturityScore: number, completionPct: number, confid
   else if (maturityScore < 30 || completionPct < 25) level = 'High';
   else level = 'Moderate';
   const note = level === 'Low'
-    ? 'A mature, well-evidenced cohort. Findings are safe to cite in public reporting.'
+    ? 'A mature cohort with consistent practices across the areas assessed. Little shared support is needed - focus on maintaining and showcasing. This is an implementation-planning indicator, not a legal, safety or compliance assessment.'
     : level === 'High'
-      ? 'Low maturity or thin evidence. Treat findings as a baseline and prioritise support and participation before public reporting.'
-      : 'A developing cohort. Findings are directional; firm them up with more completions before citing publicly.';
+      ? 'An early-stage cohort or limited data so far. Prioritise participation and foundational support before drawing firm conclusions. This is an implementation-planning indicator, not a legal, safety or compliance assessment.'
+      : 'A developing cohort with clear opportunities for shared, network-wide support. This is an implementation-planning indicator, not a legal, safety or compliance assessment.';
   return { level, note };
 }
 
@@ -244,11 +245,13 @@ export function generateKeyInsights(payload: ProgramReportPayload, strongPct: nu
   const barriers: string[] = [];
   const opportunity: string[] = [];
 
-  if (strongPct >= 50) strengths.push(`${strongPct}% of assessed modules show strong confidence - the cohort is doing well overall.`);
+  if (strongPct >= 50) strengths.push(`${strongPct}% of assessed modules are strong - the cohort is doing well overall.`);
   else if (strongPct >= 25) strengths.push(`${strongPct}% of assessed modules are already strong - a solid base to build on.`);
   if (topStrengths.length > 0) {
-    const t = topStrengths[0];
-    strengths.push(`Established strengths are already in place across the cohort${t.theme?.label ? `, strongest in ${t.theme.label}` : ''} - worth highlighting publicly (see Strengths across the cohort).`);
+    // Use the area with the MOST established practices, matching the "at a glance"
+    // box, so the two never disagree on the strongest area.
+    const topStrengthTheme = groupByTheme(topStrengths)[0];
+    strengths.push(`Established strengths are already in place across the cohort${topStrengthTheme?.label ? `, most in ${topStrengthTheme.label}` : ''} - worth highlighting publicly (see Strengths across the cohort).`);
   }
 
   const m = topNeedsWorkModule(payload);

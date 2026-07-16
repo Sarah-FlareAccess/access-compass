@@ -365,7 +365,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         {program.description && <p className="report-section__subtitle">{program.description}</p>}
         <p className="report-section__subtitle">
           {groupMode === 'framework'
-            ? `Recommendations throughout are organised by the ${data.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
+            ? `Recommendations throughout are organised by the ${data.outcomes?.frameworkShort ?? 'jurisdiction'} outcome domains, so you can connect the findings to your access and inclusion planning and reporting. Each recommendation is mapped to the domain most closely related to its intent, and some relate to more than one; confirm the fit with your own plan before relying on it.`
             : 'Recommendations throughout are organised by accessibility theme (the area of the visitor journey they relate to).'}
         </p>
         {formatAssessmentWindow(data.assessmentWindow) && (
@@ -397,10 +397,11 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         </div>
       </section>
 
-      {/* Network accessibility risk - councils plan around risk */}
-      <section className={`report-risk report-risk--${risk.level.toLowerCase()}`} aria-label="Network accessibility risk">
+      {/* Network support need - an implementation-planning indicator, not a
+          risk/compliance rating (kept the report-risk-- class for styling). */}
+      <section className={`report-risk report-risk--${risk.level.toLowerCase()}`} aria-label="Network support need">
         <div className="report-risk__label">
-          <span className="report-risk__kicker">Network accessibility risk</span>
+          <span className="report-risk__kicker">Network support need</span>
           <span className="report-risk__level">{risk.level}</span>
         </div>
         <p className="report-risk__note">{risk.note}</p>
@@ -409,8 +410,8 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
       {/* At-a-glance hero - 3 column visual layout */}
       <section className="report-hero">
         <div className="report-hero__card">
-          <h3>Cohort maturity</h3>
-          <p className="report-hero__subtitle">Confidence across all assessed modules</p>
+          <h3>Cohort readiness</h3>
+          <p className="report-hero__subtitle">Assessment status across all assessed modules</p>
           <div className="report-donut-wrap">
             <Donut
               segments={[

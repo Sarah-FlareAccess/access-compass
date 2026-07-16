@@ -17,6 +17,7 @@ import {
   describeCohortMaturity,
   describeCompletion,
   generateKeyInsights,
+  topNeedsWorkModule,
   MIN_ASSESSED_TO_FLAG,
   computeMaturity,
   computeRisk,
@@ -183,7 +184,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Intro sentence describing how the report is organised, plus a filename slug
   // so a downloaded report is recognisable without opening it.
   const groupSentence = groupMode === 'framework'
-    ? `Throughout, recommendations are organised by the ${payload.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
+    ? `Throughout, recommendations are organised by the ${payload.outcomes?.frameworkShort ?? 'jurisdiction'} outcome domains, so you can connect the findings to your access and inclusion planning and reporting. Each recommendation is mapped to the domain most closely related to its intent, and some relate to more than one; confirm the fit with your own plan before relying on it.`
     : 'Throughout, recommendations are organised by accessibility theme (the area of the visitor journey they relate to).';
   const groupSlug = groupMode === 'framework' ? 'by-outcome-area' : 'by-theme';
   const groupItems = <T extends { count: number; moduleIds: string[]; theme?: AggregateTheme }>(items: T[]) =>
@@ -585,13 +586,14 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setTextColor(0, 0, 0);
   yPos += 30;
 
-  // Network accessibility risk read.
+  // Network support need (implementation-planning indicator, not a risk/compliance rating).
   const riskColor = risk.level === 'Low' ? COLORS.strongText : risk.level === 'High' ? COLORS.needsText : COLORS.mixedText;
+  const supportNeed = risk.level === 'Low' ? 'Low' : risk.level === 'High' ? 'High' : 'Moderate';
   ensureSpace(8);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(BODY_TEXT_SIZE);
   doc.setTextColor(...hexToRgb(riskColor));
-  doc.text(`Network accessibility risk: ${risk.level}`, PAGE.marginX, yPos);
+  doc.text(`Network support need: ${supportNeed}`, PAGE.marginX, yPos);
   yPos += 5.5;
   doc.setTextColor(0, 0, 0);
   addParagraph(risk.note);
@@ -638,7 +640,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setFontSize(BODY_TEXT_SIZE);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text('CONFIDENCE BREAKDOWN', interpX, yPos + 5);
+  doc.text('READINESS BREAKDOWN', interpX, yPos + 5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...hexToRgb(COLORS.text));
   doc.setFontSize(BODY_TEXT_SIZE);
@@ -655,20 +657,22 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   yPos = Math.max(yPos + 56, interpY + 3);
 
   // Completion context paragraph
-  const completionText = `Completion: ${completedPct}% of enrolled businesses have finished. ${describeCompletion(completedPct, enrolment.total)}`;
+  const completionText = `Completion: ${completedPct}% of enrolled businesses have completed the assessment. ${describeCompletion(completedPct, enrolment.total)}`;
   addParagraph(completionText, 9);
 
-  // Program at a glance - the quotable summary for a council reader.
+  // Program at a glance - the quotable summary for a council reader. Each line is
+  // a DISTINCT measure so they don't contradict: readiness = module status,
+  // action concentration = recommendation volume, strongest area = most existing
+  // strengths (same source the Strengths narrative uses, so they always agree).
   {
     const paThemes = groupItems(payload.topPriorityActions);
-    const glance: string[] = [`Cohort readiness: ${maturity.band} (${maturity.score}/100, ${strongPct}% strong)`];
-    if (paThemes[0]) glance.push(`Biggest shared need: ${paThemes[0].label} (${paThemes[0].total} recommendation${paThemes[0].total !== 1 ? 's' : ''})`);
-    // Strongest area = the area with the most strengths that is NOT the biggest
-    // need, so this line names a genuinely different area. (The old "Recommended
-    // focus" line was dropped - it just restated the biggest need, and the
-    // Recommended council response section already covers what to do.)
-    const strongestArea = groupItems(payload.topStrengths).find(g => g.key !== paThemes[0]?.key);
-    if (strongestArea) glance.push(`Strongest area: ${strongestArea.label} (${strongestArea.total} strength${strongestArea.total !== 1 ? 's' : ''} already in place)`);
+    const strengthThemes = groupItems(payload.topStrengths);
+    const glance: string[] = [`Cohort readiness: ${maturity.band} (${maturity.score}/100, ${strongPct}% of assessed modules strong)`];
+    const topNeeds = topNeedsWorkModule(payload);
+    if (topNeeds) glance.push(`Greatest assessed barrier: ${moduleName(topNeeds.module_id)} (most needs-work results)`);
+    if (paThemes[0]) glance.push(`Most recommended actions: ${paThemes[0].label} (${paThemes[0].items.length} distinct action${paThemes[0].items.length !== 1 ? 's' : ''} across the cohort)`);
+    const strongestArea = strengthThemes[0];
+    if (strongestArea) glance.push(`Most existing strengths: ${strongestArea.label} (${strongestArea.items.length} practice${strongestArea.items.length !== 1 ? 's' : ''} already in place)`);
     if (payload.improvement && payload.improvement.reassessedCount > 0) glance.push(`Readiness change: ${payload.improvement.avgDelta >= 0 ? '+' : ''}${payload.improvement.avgDelta} points across ${payload.improvement.reassessedCount} re-assessed`);
 
     // Pre-wrap each line at the render font size so the box height matches what
