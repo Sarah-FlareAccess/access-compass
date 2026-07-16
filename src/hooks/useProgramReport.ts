@@ -359,13 +359,17 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   topStrengths: StrengthAggregate[];
   topAreasToExplore: AreaToExploreAggregate[];
 } {
-  const priorityMap = new Map<string, PriorityActionAggregate>();
-  const strengthMap = new Map<string, StrengthAggregate>();
-  const areaMap = new Map<string, AreaToExploreAggregate>();
+  // Count DISTINCT businesses per item, not (business, module) occurrences: a
+  // business that flags the same action across two modules must count once, or
+  // a pattern's "N businesses" can exceed the number of enrolled businesses.
+  const priorityMap = new Map<string, { action: string; priority?: string; moduleIds: string[]; businesses: Set<string> }>();
+  const strengthMap = new Map<string, { text: string; moduleIds: string[]; businesses: Set<string> }>();
+  const areaMap = new Map<string, { text: string; businesses: Set<string> }>();
 
   for (const row of rows) {
     if (!row.summary) continue;
     const moduleId = row.module_id;
+    const business = row.child_org_id;
 
     for (const pa of row.summary.priorityActions ?? []) {
       const text = typeof pa === 'string' ? pa : pa.action;
@@ -373,14 +377,14 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
       const key = normaliseText(text);
       const existing = priorityMap.get(key);
       if (existing) {
-        existing.count += 1;
+        existing.businesses.add(business);
         if (!existing.moduleIds.includes(moduleId)) existing.moduleIds.push(moduleId);
       } else {
         priorityMap.set(key, {
           action: text,
-          count: 1,
           priority: typeof pa === 'string' ? undefined : pa.priority,
           moduleIds: [moduleId],
+          businesses: new Set([business]),
         });
       }
     }
@@ -390,10 +394,10 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
       const key = normaliseText(s);
       const existing = strengthMap.get(key);
       if (existing) {
-        existing.count += 1;
+        existing.businesses.add(business);
         if (!existing.moduleIds.includes(moduleId)) existing.moduleIds.push(moduleId);
       } else {
-        strengthMap.set(key, { text: s, count: 1, moduleIds: [moduleId] });
+        strengthMap.set(key, { text: s, moduleIds: [moduleId], businesses: new Set([business]) });
       }
     }
 
@@ -403,22 +407,35 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
       const key = normaliseText(text);
       const existing = areaMap.get(key);
       if (existing) {
-        existing.count += 1;
+        existing.businesses.add(business);
       } else {
-        areaMap.set(key, { text, count: 1 });
+        areaMap.set(key, { text, businesses: new Set([business]) });
       }
     }
   }
 
   const byCount = <T extends { count: number }>(a: T, b: T) => b.count - a.count;
 
-  const withTheme = <T extends { moduleIds: string[] }>(x: T): T & { theme: AggregateTheme } =>
-    ({ ...x, theme: diapThemeForModules(x.moduleIds) });
+  const priorityActions: PriorityActionAggregate[] = Array.from(priorityMap.values()).map(v => ({
+    action: v.action,
+    count: v.businesses.size,
+    priority: v.priority,
+    moduleIds: v.moduleIds,
+    theme: diapThemeForModules(v.moduleIds),
+  }));
+  const strengths: StrengthAggregate[] = Array.from(strengthMap.values()).map(v => ({
+    text: v.text,
+    count: v.businesses.size,
+    moduleIds: v.moduleIds,
+    theme: diapThemeForModules(v.moduleIds),
+  }));
 
   return {
-    topPriorityActions: Array.from(priorityMap.values()).map(withTheme).sort(byCount).slice(0, 20),
-    topStrengths: Array.from(strengthMap.values()).map(withTheme).sort(byCount).slice(0, 15),
-    topAreasToExplore: Array.from(areaMap.values()).sort(byCount).slice(0, 10),
+    topPriorityActions: priorityActions.sort(byCount).slice(0, 20),
+    topStrengths: strengths.sort(byCount).slice(0, 15),
+    topAreasToExplore: Array.from(areaMap.values())
+      .map(v => ({ text: v.text, count: v.businesses.size }))
+      .sort(byCount).slice(0, 10),
   };
 }
 
