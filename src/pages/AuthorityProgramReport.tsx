@@ -116,17 +116,44 @@ export default function AuthorityProgramReport() {
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           {selected && outcomesFramework && (
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.875rem' }}>
-              Group by
-              <select
-                value={groupBy}
-                onChange={e => setGroupBy(e.target.value as 'theme' | 'framework')}
-                aria-label="Group recommendations by"
-              >
-                <option value="theme">Theme</option>
-                <option value="framework">{outcomesFramework.frameworkShort} outcome area</option>
-              </select>
-            </label>
+            <div
+              role="group"
+              aria-label="Group recommendations by"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+            >
+              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-muted, #6b7280)' }}>
+                Group by
+              </span>
+              <div style={{ display: 'inline-flex', border: '1px solid #490E67', borderRadius: 6, overflow: 'hidden' }}>
+                {([
+                  { key: 'theme', label: 'Theme' },
+                  { key: 'framework', label: `${outcomesFramework.frameworkShort} outcome areas` },
+                ] as const).map((opt, i) => {
+                  const active = groupBy === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => setGroupBy(opt.key)}
+                      style={{
+                        appearance: 'none',
+                        border: 'none',
+                        borderLeft: i > 0 ? '1px solid #490E67' : 'none',
+                        cursor: 'pointer',
+                        padding: '0.4rem 0.8rem',
+                        fontSize: '0.8125rem',
+                        fontWeight: 600,
+                        background: active ? '#490E67' : '#fff',
+                        color: active ? '#fff' : '#490E67',
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           )}
           {selected && (
             <button

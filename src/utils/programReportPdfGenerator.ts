@@ -266,6 +266,12 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const groupMode: 'theme' | 'framework' =
     options.groupBy === 'framework' && framework ? 'framework' : 'theme';
   const groupWord = groupMode === 'framework' ? 'outcome area' : 'theme';
+  // Quick-glance grouping label (cover + intro) and filename slug, so a reader
+  // can tell how a downloaded report is grouped without opening it.
+  const groupLabel = groupMode === 'framework'
+    ? `Recommendations grouped by ${payload.outcomes?.frameworkShort ?? 'outcome'} outcome areas`
+    : 'Recommendations grouped by theme';
+  const groupSlug = groupMode === 'framework' ? 'by-outcome-area' : 'by-theme';
   const domainShortById = framework
     ? new Map(framework.domains.map(d => [d.id, d.short || d.name]))
     : new Map<string, string>();
@@ -548,7 +554,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(32);
   doc.setFont('helvetica', 'bold');
-  doc.text('Program Report', PAGE.width / 2, PAGE.height * 0.29, { align: 'center' });
+  doc.text('Program Report', PAGE.width / 2, PAGE.height * 0.27, { align: 'center' });
+
+  doc.setFontSize(13);
+  doc.setFont('helvetica', 'normal');
+  doc.text(groupLabel, PAGE.width / 2, PAGE.height * 0.32, { align: 'center' });
 
   // Org + program name card
   doc.setFillColor(255, 255, 255);
@@ -620,7 +630,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // council reader the context the cover no longer carries.
   addSectionHeader('About this program');
   if (program.description) addParagraph(program.description);
-  addParagraph(`Report type: ${program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}. ${program.moduleIds.length} area${program.moduleIds.length !== 1 ? 's' : ''} assessed across ${enrolment.total} enrolled business${enrolment.total !== 1 ? 'es' : ''}.`);
+  addParagraph(`Report type: ${program.accessLevel === 'pulse' ? 'Pulse Check' : 'Deep Dive'}. ${program.moduleIds.length} area${program.moduleIds.length !== 1 ? 's' : ''} assessed across ${enrolment.total} enrolled business${enrolment.total !== 1 ? 'es' : ''}. ${groupLabel}.`);
   if (program.moduleIds.length > 0) {
     doc.setFontSize(BODY_TEXT_SIZE);
     doc.setFont('helvetica', 'bold');
@@ -1033,7 +1043,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Methodology (concise)
   // =====================================================
   addSectionHeader('Methodology and privacy');
-  addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. Priority actions and strengths are self-assessed narrative (not independently audited), and shared patterns are grouped by wording - so slightly different phrasings of the same point may count separately. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
+  addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. Priority actions and strengths are self-assessed narrative (not independently audited); the same recommendation is counted once per business and grouped across the cohort. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
 
   // =====================================================
   // Appendix - full recommendation list by theme
@@ -1057,5 +1067,5 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
 
   addFooter();
 
-  doc.save(`program-report-${safeProgramName}-${fileDate}.pdf`);
+  doc.save(`program-report-${safeProgramName}-${groupSlug}-${fileDate}.pdf`);
 }
