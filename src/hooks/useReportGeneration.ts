@@ -8,7 +8,7 @@
 
 import { useMemo } from 'react';
 import { useModuleProgress } from './useModuleProgress';
-import type { ModuleProgress, ModuleRun } from './useModuleProgress';
+import type { ModuleProgress, ModuleRun, ModuleSummary } from './useModuleProgress';
 import { useDIAPManagement } from './useDIAPManagement';
 import type { DIAPItem } from './useDIAPManagement';
 import { getModuleById } from '../data/accessModules';
@@ -24,7 +24,7 @@ import type { MaturityResult } from '../utils/maturityModel';
 import { buildAnalysis } from '../utils/reportAnalysis';
 import type { ReportAnalysis } from '../utils/reportAnalysis';
 import { getFramework, FRAMEWORKS } from '../data/frameworks';
-import { aggregateDomains, normaliseBand } from '../lib/outcomesAggregation';
+import { aggregateDomains } from '../lib/outcomesAggregation';
 import type { DomainAggregate } from '../lib/outcomesAggregation';
 import { normalizeModuleCode } from '../utils/moduleCompat';
 
@@ -92,6 +92,11 @@ export interface ModuleCompletionEvidence {
   confidenceSnapshot?: 'strong' | 'mixed' | 'needs-work';
   strengthsCount: number;
   actionsCount: number;
+  /** Distinct QUESTIONS that are a strength vs a gap. Used for scoring so a
+   *  multi-select question (which emits many action items) counts once, and so
+   *  the readiness band and Performance by Area agree. */
+  strengthQuestions: number;
+  actionQuestions: number;
 }
 
 // URL Analysis result for the report
@@ -293,6 +298,32 @@ interface UseReportGenerationReturn {
   getModuleRuns: (moduleId: string) => ModuleRun[];
 }
 
+// Count DISTINCT questions that produced a strength vs an action, so a
+// multi-select question (which emits many action items) counts once. Used so the
+// readiness band and Performance by Area are computed from the same numbers.
+function countQuestions(summary?: ModuleSummary | null): { strengthQuestions: number; actionQuestions: number } {
+  if (!summary) return { strengthQuestions: 0, actionQuestions: 0 };
+  const sIds = (summary.doingWellIds ?? []).filter(Boolean) as string[];
+  const strengthQuestions = sIds.length > 0 ? new Set(sIds).size : (summary.doingWell?.length || 0);
+  const aIds: string[] = [];
+  let untagged = 0;
+  for (const pa of summary.priorityActions ?? []) {
+    const qid = (pa as { questionId?: string }).questionId;
+    if (qid) aIds.push(qid); else untagged++;
+  }
+  return { strengthQuestions, actionQuestions: new Set(aIds).size + untagged };
+}
+
+// Readiness band from the per-question strength/action ratio. Null when the
+// module produced no findings (e.g. all unable-to-check) so it is not forced
+// into a band or silently mislabelled.
+function bandFromRatio(strengthQ: number, actionQ: number): 'strong' | 'mixed' | 'needs_work' | null {
+  const total = strengthQ + actionQ;
+  if (total === 0) return null;
+  const pct = (strengthQ / total) * 100;
+  return pct >= 70 ? 'strong' : pct >= 40 ? 'mixed' : 'needs_work';
+}
+
 export function useReportGeneration(
   selectedModuleIds: string[],
   progressOverride?: Record<string, ModuleProgress> | null,
@@ -398,6 +429,7 @@ export function useReportGeneration(
           confidenceSnapshot: moduleProgress.confidenceSnapshot,
           strengthsCount: freshSummary?.doingWell?.length || 0,
           actionsCount: freshSummary?.priorityActions?.length || 0,
+          ...countQuestions(freshSummary),
         };
       });
 
@@ -594,21 +626,25 @@ export function useReportGeneration(
       });
 
       // Per-theme performance, aggregated from module evidence by journey group.
-      const themeAgg = new Map<string, { assessed: number; strengths: number; actions: number }>();
+      // sQ/aQ are per-QUESTION (for the ratio, so multi-select doesn't skew it);
+      // strengths/actions stay item counts for display.
+      const themeAgg = new Map<string, { assessed: number; strengths: number; actions: number; sQ: number; aQ: number }>();
       for (const ev of moduleEvidence) {
         const g = getModuleById(ev.moduleId)?.group || 'other';
-        const t = themeAgg.get(g) || { assessed: 0, strengths: 0, actions: 0 };
+        const t = themeAgg.get(g) || { assessed: 0, strengths: 0, actions: 0, sQ: 0, aQ: 0 };
         t.assessed += 1;
         t.strengths += ev.strengthsCount;
         t.actions += ev.actionsCount;
+        t.sQ += ev.strengthQuestions;
+        t.aQ += ev.actionQuestions;
         themeAgg.set(g, t);
       }
       const themeBreakdown: ThemeScore[] = Array.from(themeAgg.entries())
         .map(([group, t]) => ({
           group,
           label: groupLabel(group),
-          performancePct: t.strengths + t.actions > 0
-            ? Math.round((t.strengths / (t.strengths + t.actions)) * 100)
+          performancePct: t.sQ + t.aQ > 0
+            ? Math.round((t.sQ / (t.sQ + t.aQ)) * 100)
             : 0,
           assessed: t.assessed,
           strengths: t.strengths,
@@ -659,7 +695,7 @@ export function useReportGeneration(
         const alignmentRows = moduleEvidence.map(ev => ({
           businessId: 'self',
           moduleId: normalizeModuleCode(ev.moduleCode),
-          band: normaliseBand(ev.confidenceSnapshot),
+          band: bandFromRatio(ev.strengthQuestions, ev.actionQuestions),
         }));
         frameworkAlignment = {
           frameworkName: fw.name,
