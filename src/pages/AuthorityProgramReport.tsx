@@ -115,7 +115,7 @@ export default function AuthorityProgramReport() {
           {program?.description && <p className="authority-subtitle">{program.description}</p>}
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          {selected && outcomesFramework && (
+          {(outcomesFramework || snapshots.length === 0) && (
             <div
               role="group"
               aria-label="Group recommendations by"
@@ -127,7 +127,7 @@ export default function AuthorityProgramReport() {
               <div style={{ display: 'inline-flex', border: '1px solid #490E67', borderRadius: 6, overflow: 'hidden' }}>
                 {([
                   { key: 'theme', label: 'Theme' },
-                  { key: 'framework', label: `${outcomesFramework.frameworkShort} outcome areas` },
+                  { key: 'framework', label: outcomesFramework ? `${outcomesFramework.frameworkShort} outcome areas` : 'Outcome areas' },
                 ] as const).map((opt, i) => {
                   const active = groupBy === opt.key;
                   return (
