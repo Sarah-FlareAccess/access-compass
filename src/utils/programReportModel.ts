@@ -211,17 +211,18 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   return recs.slice(0, 6);
 }
 
-// Priority actions grouped by RISK LEVEL, derived from each pattern's priority
-// (compliance and safety weighted, per priorityCalculation.ts). The labels
-// describe what each level IS rather than prescribing a planning cycle, since
-// these are auto-derived from responses and not a human-reviewed action plan.
+// Priority actions grouped into a soft, indicative ordering derived from each
+// pattern's computed priority. The labels deliberately avoid legal or compliance
+// claims: the underlying priority tags are a "where to start" heuristic, not a
+// verified compliance classification, so the report points in a direction and
+// leaves the final call to local knowledge and professional advice.
 export interface PriorityHorizon { key: string; label: string; hint: string; accent: string; items: ProgramReportPayload['topPriorityActions']; }
 export function priorityHorizons(topPriorityActions: ProgramReportPayload['topPriorityActions']): PriorityHorizon[] {
   const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
   return [
-    { key: 'immediate', label: 'Compliance and safety related', hint: 'Gaps in mandatory standards (Premises Standards, WCAG, NCC) or safety items - the highest legal and safety risk, worth addressing first', accent: 'red', items: at('high') },
-    { key: 'medium', label: 'High-impact improvements', hint: 'Significant gains for people with disability, or items a business could not verify', accent: 'amber', items: at('medium') },
-    { key: 'long', label: 'Best-practice improvements', hint: 'Lower legal risk, still a real difference to accessibility and inclusion', accent: 'blue', items: at('low') },
+    { key: 'immediate', label: 'Often worth starting with', hint: 'Frequently the most pressing gaps, and a sensible place for a shared effort to begin', accent: 'red', items: at('high') },
+    { key: 'medium', label: 'Valuable improvements to follow', hint: 'Meaningful gains that build on the essentials', accent: 'amber', items: at('medium') },
+    { key: 'long', label: 'Further enhancements', hint: 'Refinements that round out an inclusive experience', accent: 'blue', items: at('low') },
   ].filter(g => g.items.length > 0);
 }
 

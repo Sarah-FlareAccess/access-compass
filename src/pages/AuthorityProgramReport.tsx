@@ -499,7 +499,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         <section className="authority-form-card report-section">
           <h2>Where recommendations concentrate, by {groupWord}</h2>
           <p className="report-section__subtitle">
-            How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are grouped by risk level below{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.
+            How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are set out below as a suggested focus{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.
           </p>
           <ul className="report-areas-list">
             {recGroups.map(g => (
@@ -512,12 +512,12 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
       {/* Side-by-side priorities and strengths */}
       {priorityHorizons.length > 0 && (
         <section className="authority-form-card report-section">
-          <h2>Recommendations by risk level</h2>
+          <h2>Where to focus first</h2>
           <p className="report-section__subtitle">
-            The cohort&rsquo;s most common recommended actions, grouped by the legal and safety risk of the underlying gap.
+            A suggested focus drawn from the cohort&rsquo;s responses. It points to where attention is often best directed first and is a guide, not a fixed plan or a compliance assessment.
           </p>
           <p className="report-section__disclaimer">
-            These levels are derived automatically from each business&rsquo;s responses and have not been individually reviewed. They indicate where risk is likely to concentrate across the cohort, not a definitive order of works. Confirm the specifics with each business before acting.
+            These groupings are generated automatically from each business&rsquo;s responses and have not been individually reviewed. They suggest where attention is often best directed first, not a definitive order of works. Local knowledge and, where needed, professional advice should shape the final priorities.
           </p>
           <div className="report-horizons">
             {priorityHorizons.map(g => (
@@ -537,6 +537,9 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
               </div>
             ))}
           </div>
+          <p className="report-section__note">
+            <strong>Next steps:</strong> Flare Access can work alongside your businesses to confirm these priorities in context and shape a practical plan.
+          </p>
         </section>
       )}
 

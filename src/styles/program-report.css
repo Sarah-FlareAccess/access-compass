@@ -154,6 +154,17 @@
   border-radius: 0 4px 4px 0;
 }
 
+.report-section__note {
+  margin: 1rem 0 0;
+  padding: 0.75rem 0.875rem;
+  border-left: 3px solid var(--deep-plum, #490E67);
+  background: #F5EFFA;
+  color: var(--text, #1f2937);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0 4px 4px 0;
+}
+
 /* Areas-assessed + recommendation lists match the subtitle size/colour so the
    "About this program" block reads at one consistent size. */
 .report-areas-list,

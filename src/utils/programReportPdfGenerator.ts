@@ -846,7 +846,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addSectionHeader(`Where recommendations concentrate, by ${groupWord}`);
-    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are grouped by risk level below${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
+    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are set out below as a suggested focus${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
 
     drawBulletList(groupItems(topPriorityActions).map(g =>
       `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`));
@@ -859,9 +859,9 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   {
     const horizons = priorityHorizons(topPriorityActions);
     if (horizons.length > 0) {
-      addSectionHeader('Recommendations by risk level');
-      addParagraph("The cohort's most common recommended actions, grouped by the legal and safety risk of the underlying gap.");
-      drawDisclaimer("These levels are derived automatically from each business's responses and have not been individually reviewed. They indicate where risk is likely to concentrate across the cohort, not a definitive order of works. Confirm the specifics with each business before acting.");
+      addSectionHeader('Where to focus first');
+      addParagraph("A suggested focus drawn from the cohort's responses. It points to where attention is often best directed first and is a guide, not a fixed plan or a compliance assessment.");
+      drawDisclaimer("These groupings are generated automatically from each business's responses and have not been individually reviewed. They suggest where attention is often best directed first, not a definitive order of works. Local knowledge and, where needed, professional advice should shape the final priorities.");
       horizons.forEach(h => {
         // Label bold on its own line, hint wrapped in muted body text beneath -
         // the hints are too long to sit inline without overrunning the margin.
@@ -880,6 +880,24 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         drawBulletList(h.items.slice(0, 6).map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''})`));
         yPos += 3;
       });
+      // Supportive next-steps note - a soft pointer that turning these
+      // groupings into a validated plan is where Flare Access can help.
+      {
+        const note = 'Next steps: Flare Access can work alongside your businesses to confirm these priorities in context and shape a practical plan.';
+        const lines = doc.splitTextToSize(note, PAGE.contentWidth - 8) as string[];
+        const h = lines.length * 5.5 + 6;
+        ensureSpace(h + 2);
+        doc.setFillColor(...hexToRgb(COLORS.insightBg));
+        doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, h, 2, 2, 'F');
+        doc.setFillColor(...hexToRgb(COLORS.insightBorder));
+        doc.rect(PAGE.marginX, yPos, 1.5, h, 'F');
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(...hexToRgb(COLORS.text));
+        let cY = yPos + 5.5;
+        lines.forEach((line: string) => { doc.text(line, PAGE.marginX + 4, cY); cY += 5.5; });
+        yPos += h + 4;
+      }
     }
   }
 
