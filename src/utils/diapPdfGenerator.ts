@@ -350,8 +350,12 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const medItems = items.filter(i => i.priority === 'medium');
   const lowItems = items.filter(i => i.priority === 'low');
   const achievedItems = items.filter(i => i.status === 'achieved');
-  const completedCount = achievedItems.length;
-  const completionRate = totalItems > 0 ? Math.round((completedCount / totalItems) * 100) : 0;
+  // Completion rate: delivered = achieved + ongoing (an embedded, continuing
+  // practice is delivered); denominator excludes cancelled items (they are no
+  // longer part of the plan, so counting them drags the rate down unfairly).
+  const activeCount = items.filter(i => i.status !== 'cancelled').length;
+  const deliveredCount = items.filter(i => i.status === 'achieved' || i.status === 'ongoing').length;
+  const completionRate = activeCount > 0 ? Math.round((deliveredCount / activeCount) * 100) : 0;
 
   // Any item whose category is not a known label (standard or custom) is
   // collected here so it is never silently dropped from the plan.
@@ -728,11 +732,11 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     const topAch = achievedByCat.slice(0, 2).map(c => c.label).join(' and ');
     const progressNote = completionRate >= 50
       ? ' The plan is well progressed.'
-      : ' Momentum is building — keep the completed work evidenced for statutory reporting.';
+      : ' Momentum is building - keep the delivered work evidenced.';
     doc.setFontSize(9);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(...hexToRgb(COLORS.textMuted));
-    wrapText(`${completedCount} of ${totalItems} action${totalItems === 1 ? '' : 's'} in this plan ${completedCount === 1 ? 'is' : 'are'} complete (${completionRate}%)${topAch ? `, with the strongest progress in ${topAch}` : ''}.${progressNote}`, PAGE.contentWidth)
+    wrapText(`${deliveredCount} of ${activeCount} active action${activeCount === 1 ? '' : 's'} ${deliveredCount === 1 ? 'is' : 'are'} self-reported as delivered or ongoing (${completionRate}%)${topAch ? `, with the strongest progress in ${topAch}` : ''}.${progressNote} Status is self-reported, not independently verified.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 4.5; });
     yPos += 3;
 
@@ -774,7 +778,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    wrapText(`This plan's actions cover ${coveredD.length} of ${doms.length} ${frameworkGrouping.name} outcome domains${strongestD && strongestD.items.length > 0 ? `, most under "${strongestD.name}"` : ''}.${gapNote} Domain-by-domain detail appears in the appendix.`, PAGE.contentWidth)
+    wrapText(`This plan's actions cover ${coveredD.length} of ${doms.length} ${frameworkGrouping.name} outcome domains${strongestD && strongestD.items.length > 0 ? `, most under "${strongestD.name}"` : ''}.${gapNote} The mapping is automatically derived, so review it before relying on it for statutory reporting. An action that relates to more than one domain is counted under each, so the Actions column can total more than the plan's overall action count. Domain-by-domain detail appears in the appendix.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
     yPos += 4;
 
@@ -805,9 +809,12 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     for (const d of frameworkGrouping.domains) {
       if (d.items.length === 0) continue;
       const actions = d.items.length;
-      const done = d.items.filter(i => i.status === 'achieved').length;
+      // Delivered = achieved + ongoing; remaining excludes in-progress AND
+      // cancelled (cancelled is not "remaining work"), so the columns reconcile.
+      const done = d.items.filter(i => i.status === 'achieved' || i.status === 'ongoing').length;
       const prog = d.items.filter(i => i.status === 'in-progress').length;
-      const rem = actions - done - prog;
+      const cancelled = d.items.filter(i => i.status === 'cancelled').length;
+      const rem = actions - done - prog - cancelled;
 
       const nameLines = wrapText(d.name, 82);
       checkNewPage(nameLines.length * 4.5 + 3);
@@ -1357,7 +1364,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
-    wrapText(`Every objective grouped under its ${frameworkGrouping.name} outcome domain.`, PAGE.contentWidth)
+    wrapText(`Every objective grouped under its ${frameworkGrouping.name} outcome domain. The mapping is automatically derived - confirm it fits your plan before relying on it for statutory reporting.`, PAGE.contentWidth)
       .forEach(l => { checkNewPage(6); doc.text(l, PAGE.marginX, yPos); yPos += 5; });
     yPos += 3;
 

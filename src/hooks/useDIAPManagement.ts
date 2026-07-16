@@ -309,12 +309,15 @@ function getLocalItems(): DIAPItem[] {
     }
   }
 
-  // Deduplicate items by questionSource (keep the first occurrence)
+  // Deduplicate by questionSource + siteId (keep the first occurrence). The
+  // siteId MUST be in the key: the same question at two venues is two distinct
+  // items sharing a questionSource, and keying on questionSource alone silently
+  // discarded one venue's item on reload/sync (multi-site data loss).
   const seen = new Set<string>();
   let deduped = false;
   const uniqueItems: DIAPItem[] = [];
   for (const item of items) {
-    const key = item.questionSource || item.id;
+    const key = item.questionSource ? `${item.questionSource}::${item.siteId ?? ''}` : item.id;
     if (item.questionSource && seen.has(key)) {
       deduped = true;
       continue;
@@ -678,11 +681,12 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
               }
             }
 
-            // Deduplicate after merge
+            // Deduplicate after merge - by questionSource + siteId, so the same
+            // question at two venues is not collapsed to one (multi-site data loss).
             const seenQ = new Set<string>();
             const dedupedMerged: DIAPItem[] = [];
             for (const item of merged) {
-              const key = item.questionSource || item.id;
+              const key = item.questionSource ? `${item.questionSource}::${item.siteId ?? ''}` : item.id;
               if (item.questionSource && seenQ.has(key)) {
                 hasChanges = true;
                 continue;
