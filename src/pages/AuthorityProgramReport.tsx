@@ -319,14 +319,14 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
       });
     const weakest = sortedNeeds[0];
     if (weakest && weakest.confidence_needs_work > 0) {
-      recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${getModuleName(weakest.module_id)} — it carries the highest needs-work signal across the network.` });
+      recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${getModuleName(weakest.module_id)} - it carries the highest needs-work signal across the network.` });
     }
     if (topPriorityActions.length > 0) {
       const top = topPriorityActions[0];
-      recs.push({ kind: 'Program', text: `Coordinate a shared, sector-wide program around the cohort's most common recommendations (the top pattern recurs across ${top.count} business${top.count !== 1 ? 'es' : ''}) — more efficient than supporting each business one at a time. Confirm the specific focus against the underlying plans.` });
+      recs.push({ kind: 'Program', text: `Coordinate a shared, sector-wide program around the cohort's most common recommendations (the top pattern recurs across ${top.count} business${top.count !== 1 ? 'es' : ''}) - more efficient than supporting each business one at a time. Confirm the specific focus against the underlying plans.` });
     }
     if (topAreasToExplore.length > 0) {
-      recs.push({ kind: 'Guidance', text: `Publish plain-language guidance in areas the cohort repeatedly flagged as unclear — a small number of shared explainers would resolve questions across many businesses.` });
+      recs.push({ kind: 'Guidance', text: `Publish plain-language guidance in areas the cohort repeatedly flagged as unclear - a small number of shared explainers would resolve questions across many businesses.` });
     }
     if (enrolment.enrolled > 0) {
       recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });
@@ -336,7 +336,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
     }
     if (topStrengths.length > 0) {
       const top = topStrengths[0];
-      recs.push({ kind: 'Recognition', text: `Showcase “${top.text}” publicly — already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} — to build momentum and evidence outcomes.` });
+      recs.push({ kind: 'Recognition', text: `Showcase “${top.text}” publicly - already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} - to build momentum and evidence outcomes.` });
     }
     return recs.slice(0, 6);
   }, [moduleAggregates, topPriorityActions, topAreasToExplore, topStrengths, enrolment]);
@@ -345,7 +345,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
   const priorityHorizons = useMemo(() => {
     const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
     return [
-      { key: 'immediate', label: 'Immediate', hint: 'High priority — act this cycle', accent: 'red', items: at('high') },
+      { key: 'immediate', label: 'Immediate', hint: 'High priority - act this cycle', accent: 'red', items: at('high') },
       { key: 'medium', label: 'Medium-term', hint: 'Plan into the next 6–12 months', accent: 'amber', items: at('medium') },
       { key: 'long', label: 'Longer-term', hint: 'Build into the multi-year roadmap', accent: 'blue', items: at('low') },
     ].filter(g => g.items.length > 0);
@@ -371,7 +371,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
 
   return (
     <div className="program-report">
-      {/* Network Accessibility Maturity Score — the headline, trackable metric */}
+      {/* Network Accessibility Maturity Score - the headline, trackable metric */}
       <section className="report-maturity" aria-label="Network Accessibility Maturity Score">
         <div className="report-maturity__score">
           <div className="report-maturity__num">{maturity.score}<span className="report-maturity__denom">/100</span></div>
@@ -386,7 +386,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </div>
       </section>
 
-      {/* Network accessibility risk — councils plan around risk */}
+      {/* Network accessibility risk - councils plan around risk */}
       <section className={`report-risk report-risk--${risk.level.toLowerCase()}`} aria-label="Network accessibility risk">
         <div className="report-risk__label">
           <span className="report-risk__kicker">Network accessibility risk</span>
@@ -465,13 +465,13 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </section>
       )}
 
-      {/* Recommended actions for the authority — turns the report into a
+      {/* Recommended actions for the authority - turns the report into a
           decision-making document, not just a description of the cohort. */}
       {recommendations.length > 0 && (
         <section className="authority-form-card report-section report-recommendations">
           <h2>Recommended actions for the authority</h2>
           <p className="report-section__subtitle">
-            Where to focus next, derived from the cohort&rsquo;s aggregate signal — actions for the authority, not the individual businesses.
+            Where to focus next, derived from the cohort&rsquo;s aggregate signal - actions for the authority, not the individual businesses.
           </p>
           <ol className="report-recs">
             {recommendations.map((r, i) => (
@@ -484,7 +484,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </section>
       )}
 
-      {/* Statutory framework outcomes — moved high: for many authorities this is
+      {/* Statutory framework outcomes - moved high: for many authorities this is
           the reason they buy (it saves statutory reporting). */}
       {data.outcomes && <OutcomesView outcomes={data.outcomes} />}
 
@@ -524,7 +524,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
                 </div>
                 {verdict
                   ? <span className={`report-verdict report-verdict--${verdict.cls}`}>{verdict.label}</span>
-                  : <span className="report-verdict report-verdict--none">—</span>}
+                  : <span className="report-verdict report-verdict--none">-</span>}
                 <div className="report-heatmap__count">{m.completed}/{m.total_enrolments}</div>
               </div>
             );
@@ -563,7 +563,7 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
       {topStrengths.length > 0 && (
         <ExpandableSection
           title="What's working well"
-          subtitle="Practices already in place across multiple businesses — worth celebrating and showcasing."
+          subtitle="Practices already in place across multiple businesses - worth celebrating and showcasing."
           items={topStrengths.map(s => ({ key: s.text, text: s.text, count: s.count }))}
           accent="green"
           wide
@@ -634,7 +634,7 @@ function OutcomesView({ outcomes }: { outcomes: OutcomesSnapshot }) {
               </>
             ) : (
               <p className="outcome-empty">
-                No assessed modules map to this domain yet &mdash; a coverage gap for this cohort.
+                No assessed modules map to this domain yet - a coverage gap for this cohort.
               </p>
             )}
           </div>
