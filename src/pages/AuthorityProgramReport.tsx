@@ -227,7 +227,7 @@ export default function AuthorityProgramReport() {
                   >
                     {s.name}
                     <span style={{ color: 'var(--text-secondary, #5C4A4E)', fontWeight: 400, marginLeft: '0.5rem', fontSize: '0.875rem' }}>
-                      {formatDate(s.generated_at)} - {s.enrolment_count} businesses, {s.completed_count} completed
+                      {`· ${formatDate(s.generated_at)} · ${s.enrolment_count} businesses, ${s.completed_count} completed`}
                       {s.snapshot_data.outcomes
                         ? ` · groupable by theme or ${s.snapshot_data.outcomes.frameworkShort} outcome areas`
                         : ' · grouped by theme'}
