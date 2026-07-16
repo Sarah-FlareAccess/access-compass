@@ -10,7 +10,7 @@
  */
 
 import jsPDF from 'jspdf';
-import type { ProgramReportPayload } from '../hooks/useProgramReport';
+import type { ModuleAggregate, ProgramReportPayload } from '../hooks/useProgramReport';
 import { accessModules } from '../data/accessModules';
 
 const COLORS = {
@@ -199,8 +199,8 @@ function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, c
   if (topPriorityActions.length > 0) {
     const area = topPriorityActions[0].theme?.label;
     opportunity.push(area
-      ? `${area} is where recommendations cluster most across the cohort — the strongest area for a shared, council-led response rather than supporting businesses one at a time.`
-      : `Recommendations cluster in a few areas across the cohort — a shared, council-led response reaches more businesses than one-at-a-time support.`);
+      ? `${area} is where recommendations cluster most across the cohort - the strongest area for a shared, council-led response rather than supporting businesses one at a time.`
+      : `Recommendations cluster in a few areas across the cohort - a shared, council-led response reaches more businesses than one-at-a-time support.`);
   }
   if (completedPct >= 40 && completedPct < 80) opportunity.push(`At ${completedPct}% completion, re-running in 4 to 6 weeks will firm up findings before public reporting.`);
 
@@ -609,29 +609,42 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Program at a glance - the quotable summary for a council reader.
   {
     const paThemes = groupByTheme(payload.topPriorityActions);
+    // Lower-case the lead word of an "e.g." example so it reads mid-sentence,
+    // but leave acronyms (NDIS, DIAP) untouched.
+    const asExample = (t: string) => (/^[A-Z]{2,}/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1));
     const glance: string[] = [`Cohort readiness: ${maturityBand(strongPct)} (${strongPct}% strong)`];
-    if (paThemes[0]) glance.push(`Most common barrier area: ${paThemes[0].label} (${paThemes[0].total} recommendation${paThemes[0].total !== 1 ? 's' : ''})`);
-    if (payload.topStrengths[0]) glance.push(`Standout strength: ${payload.topStrengths[0].text}`);
-    if (payload.topPriorityActions[0]) glance.push(`Top shared investment: ${payload.topPriorityActions[0].action} (${payload.topPriorityActions[0].count} business${payload.topPriorityActions[0].count !== 1 ? 'es' : ''})`);
+    if (paThemes[0]) glance.push(`Biggest shared need: ${paThemes[0].label} (${paThemes[0].total} recommendation${paThemes[0].total !== 1 ? 's' : ''})`);
+    if (payload.topStrengths[0]) {
+      const s = payload.topStrengths[0];
+      glance.push(s.theme?.label ? `Strongest area: ${s.theme.label} (e.g. ${asExample(s.text)})` : `Strongest area: ${s.text}`);
+    }
+    if (paThemes[0] && payload.topPriorityActions[0]) glance.push(`Recommended focus: a shared ${paThemes[0].label} initiative (e.g. ${asExample(payload.topPriorityActions[0].action)})`);
     if (payload.improvement && payload.improvement.reassessedCount > 0) glance.push(`Readiness change: ${payload.improvement.avgDelta >= 0 ? '+' : ''}${payload.improvement.avgDelta} points across ${payload.improvement.reassessedCount} re-assessed`);
 
-    const gH = 9 + glance.length * 5.5;
+    // Pre-wrap each line at the render font size so the box height matches what
+    // actually draws. Long items (e.g. a wordy top-investment action) wrap to a
+    // second line; rendering only the first line would truncate them.
+    doc.setFontSize(9);
+    const wrappedGlance = glance.map(g => doc.splitTextToSize(g, PAGE.contentWidth - 14) as string[]);
+    const glanceLines = wrappedGlance.reduce((n, lines) => n + lines.length, 0);
+    const gH = 9 + glanceLines * 5.5;
     ensureSpace(gH + 6);
     doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
     doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, gH, 3, 3, 'F');
-    doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(255, 255, 255);
     doc.text('PROGRAM AT A GLANCE (FOR COUNCIL)', PAGE.marginX + 5, yPos + 6);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     let gy = yPos + 12;
-    for (const g of glance) {
+    for (const lines of wrappedGlance) {
       doc.setFillColor(...hexToRgb(COLORS.aussieLight));
       doc.circle(PAGE.marginX + 6, gy - 1, 0.8, 'F');
       doc.setTextColor(255, 255, 255);
-      doc.text(doc.splitTextToSize(g, PAGE.contentWidth - 14)[0], PAGE.marginX + 10, gy);
-      gy += 5.5;
+      lines.forEach(line => {
+        doc.text(line, PAGE.marginX + 10, gy);
+        gy += 5.5;
+      });
     }
     yPos += gH + 5;
     doc.setTextColor(0, 0, 0);
@@ -765,10 +778,17 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addModuleRow(mid, agg);
   });
 
-  // What this means
+  // What this means. Rank by the share of assessed businesses needing work, not
+  // the raw count, so the module flagged matches the "most needs-work signal"
+  // barrier insight above (which also uses the ratio). Absolute count is the
+  // tiebreak when two modules have the same share.
+  const needsRatio = (m: ModuleAggregate) => {
+    const t = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+    return t > 0 ? m.confidence_needs_work / t : 0;
+  };
   const topNeeds = [...moduleAggregates]
     .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
-    .sort((a, b) => b.confidence_needs_work - a.confidence_needs_work)[0];
+    .sort((a, b) => (needsRatio(b) - needsRatio(a)) || (b.confidence_needs_work - a.confidence_needs_work))[0];
   const interpModuleText = topNeeds && topNeeds.confidence_needs_work > 0
     ? `What this means: ${moduleName(topNeeds.module_id)} (${topNeeds.module_id}) shows the strongest needs-work signal across the cohort. A group training or shared resource focused here will lift multiple businesses at once.`
     : `What this means: confidence is reasonably consistent across modules. No single module dominates as a sector-wide concern, so support can be distributed.`;
