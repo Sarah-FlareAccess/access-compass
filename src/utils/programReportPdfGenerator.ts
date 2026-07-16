@@ -122,9 +122,9 @@ function drawDonutSegment(
 
 // Plain-English interpretation generators
 function describeCohortMaturity(strongPct: number): string {
-  if (strongPct >= 60) return 'an established cohort. Most businesses have solid accessibility foundations and are assessing at high confidence. The opportunity now is to capture what the strongest businesses do well as shared case studies and lift the rest to the same standard.';
-  if (strongPct >= 40) return 'a developing cohort. Businesses have good foundations and clear, visible areas to improve. Shared support focused on the themes with the highest needs signal will move several businesses forward at once.';
-  if (strongPct >= 20) return 'an emerging cohort. Businesses are beginning to establish accessibility foundations - most have started the journey but still need structured guidance and practical implementation support. Sector-wide training and shared resources will accelerate progress on the priorities below.';
+  if (strongPct >= 60) return 'an established cohort. Most assessed areas show solid foundations at high confidence. The opportunity now is to capture what the strongest performers do well as shared case studies and lift the rest to the same standard.';
+  if (strongPct >= 40) return 'a developing cohort. The cohort shows good foundations across most assessed areas, with clear, visible areas to improve. Shared support focused on the themes with the highest needs signal will move several businesses forward at once.';
+  if (strongPct >= 20) return 'an emerging cohort. Accessibility foundations are just starting to show across the assessed areas - most are early in the journey and still need structured guidance and practical implementation support. Sector-wide training and shared resources will accelerate progress on the priorities below.';
   return 'a cohort at the very start of its journey. Capacity-building investment now, targeted at the most common barriers, will produce measurable progress within 6 to 12 months.';
 }
 
@@ -172,6 +172,11 @@ function describeCompletion(completedPct: number, total: number): string {
 
 interface GroupedInsights { strengths: string[]; barriers: string[]; opportunity: string[]; }
 
+// A module needs at least this many assessed businesses before it can be named
+// as the cohort's headline barrier - a 1-2 sample module can top a ratio ranking
+// on noise and misdirect shared investment.
+const MIN_ASSESSED_TO_FLAG = 3;
+
 function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): GroupedInsights {
   const { moduleAggregates, topPriorityActions, topStrengths } = payload;
   const strengths: string[] = [];
@@ -186,7 +191,7 @@ function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, c
   }
 
   const sortedByNeeds = [...moduleAggregates]
-    .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
+    .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) >= MIN_ASSESSED_TO_FLAG)
     .sort((a, b) => {
       const at = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
       const bt = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
@@ -886,7 +891,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     return t > 0 ? m.confidence_needs_work / t : 0;
   };
   const topNeeds = [...moduleAggregates]
-    .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
+    .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) >= MIN_ASSESSED_TO_FLAG)
     .sort((a, b) => (needsRatio(b) - needsRatio(a)) || (b.confidence_needs_work - a.confidence_needs_work))[0];
   const interpModuleText = topNeeds && topNeeds.confidence_needs_work > 0
     ? `What this means: ${moduleName(topNeeds.module_id)} (${topNeeds.module_id}) shows the strongest needs-work signal across the cohort. A group training or shared resource focused here will lift multiple businesses at once.`
@@ -960,7 +965,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       yPos += 3;
     });
 
-    drawWhatThisMeans('What this means: these are proof points. Use them in council communications, grant applications and award nominations to demonstrate sector progress and reassure the community that local businesses are responsive.');
+    drawWhatThisMeans('What this means: these are strengths businesses report already having in place (self-assessed, not independently audited). Confirm before citing externally, then use them to celebrate progress in council communications and case studies.');
   }
 
   // =====================================================
@@ -980,7 +985,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (payload.outcomes && payload.outcomes.domains.some(d => d.total > 0)) {
     const fw = payload.outcomes;
     addSectionHeader(`Alignment with ${fw.frameworkShort}`);
-    addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, ready for statutory reporting. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
+    addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, to support your statutory reporting. The mapping is automated - confirm it fits your plan before relying on it. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
     // List ALL framework domains, including any with no assessed modules. For a
     // statutory report an uncovered outcome area is itself reportable, so it is
     // shown as "not yet covered" rather than silently dropped.
@@ -1028,7 +1033,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Methodology (concise)
   // =====================================================
   addSectionHeader('Methodology and privacy');
-  addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Priority actions and strengths are the narrative generated from each business assessment, counted by how many businesses share each one. Figures are a point-in-time snapshot and update as more businesses complete or re-assess.', 9);
+  addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. Priority actions and strengths are self-assessed narrative (not independently audited), and shared patterns are grouped by wording - so slightly different phrasings of the same point may count separately. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
 
   // =====================================================
   // Appendix - full recommendation list by theme
