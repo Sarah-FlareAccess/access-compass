@@ -57,7 +57,6 @@ type TierFeatures = {
   zones?: string;
   zoneReporting?: boolean | string;
   crossZoneTrends?: boolean | string;
-  coBrandedSummary?: boolean | string;
   consultantTime?: string;
   sso?: boolean | string;
   multiDiap?: boolean | string;
@@ -170,10 +169,6 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     title: 'Cross-Zone Trend Analysis',
     description: 'Compare accessibility performance across zones and track improvements over time. Identify which zones are leading, which need attention and how your complex is moving as a whole.',
   },
-  coBrandedSummary: {
-    title: 'Co-Branded Public Summary',
-    description: 'A public-facing summary of your accessibility commitments and progress, co-branded with Access Compass. Suitable for your website, annual report or community communications.',
-  },
   consultantTime: {
     title: 'Consultant Check-Ins and Time',
     description: 'Scheduled sessions with an Access Compass accessibility specialist, included in your plan. Use for strategic guidance, progress reviews or working through complex areas with your team.',
@@ -241,7 +236,6 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'crossZoneTrends', label: 'Cross-Zone Trend Analysis', infoKey: 'crossZoneTrends' },
   { key: 'diapDepartments', label: 'Department-Level DIAP Sections', infoKey: 'diapDepartments' },
   { key: 'stakeholderReporting', label: 'Stakeholder / Board Reporting (PDF)', infoKey: 'stakeholderReporting' },
-  { key: 'coBrandedSummary', label: 'Co-Branded Public Summary', infoKey: 'coBrandedSummary' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
   { key: 'consultantTime', label: 'Consultant Check-Ins', infoKey: 'consultantTime' },
@@ -979,7 +973,6 @@ const majorVenueTiers: Tier[] = [
       crossZoneTrends: false,
       diapDepartments: false,
       stakeholderReporting: 'Tailored report (select assessment, sections)',
-      coBrandedSummary: false,
       businessGroupIncluded: false,
       comparison: '1 per year',
       consultantTime: '2 check-ins per year',
@@ -1010,7 +1003,6 @@ const majorVenueTiers: Tier[] = [
       crossZoneTrends: true,
       diapDepartments: true,
       stakeholderReporting: 'Tailored report + branding on request',
-      coBrandedSummary: 'Optional',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       comparison: 'Unlimited',
       consultantTime: 'Quarterly + 4 hours consultation',
