@@ -514,7 +514,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
       <section className="authority-form-card report-section">
         <h2>Module maturity heatmap</h2>
         <p className="report-section__subtitle">
-          Confidence distribution per module, with a tag showing how the cohort is tracking. <strong>On track</strong> = most businesses strong ·
+          Readiness distribution per module, with a tag showing how the cohort is tracking. <strong>On track</strong> = most businesses strong ·
           <strong>Developing</strong> = mixed, targeted support pays off · <strong>Priority</strong> = the biggest collective gap.
         </p>
         <div className="report-heatmap">

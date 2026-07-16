@@ -761,7 +761,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const sharedOpps = topPriorityActions.filter(a => a.count >= 3);
   const activeThemes = groupItems(topPriorityActions).length;
 
-  addSectionHeader('Program impact');
+  addSectionHeader('Program reach and insights');
   ensureSpace(30);
   const impactW = (PAGE.contentWidth - 9) / 4;
   addStatBox(PAGE.marginX, yPos, impactW, String(enrolment.total), 'Businesses reached', COLORS.amethystDiamond);
@@ -774,7 +774,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Before/after improvement - only when the re-assessed subset exists.
   if (payload.improvement && payload.improvement.reassessedCount > 0) {
     const imp = payload.improvement;
-    addSectionHeader('Program impact over time');
+    addSectionHeader('Program progress over time');
     ensureSpace(30);
     const impW = (PAGE.contentWidth - 9) / 4;
     const deltaColor = imp.avgDelta > 0 ? COLORS.strongText : imp.avgDelta < 0 ? COLORS.needsText : COLORS.textMuted;
@@ -787,7 +787,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   }
 
   addSectionHeader('Module progress');
-  addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The tag on the right shows how the cohort is tracking on each module: On track (most businesses strong), Developing (mixed, targeted support pays off) or Priority (the biggest collective gap).');
+  addParagraph('Completion rate and readiness distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The tag on the right shows how the cohort is tracking on each module: On track (most businesses strong), Developing (mixed, targeted support pays off) or Priority (the biggest collective gap).');
 
   // Legend for the confidence bars
   ensureSpace(8);
@@ -920,7 +920,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (payload.outcomes && payload.outcomes.domains.some(d => d.total > 0)) {
     const fw = payload.outcomes;
     addSectionHeader(`Alignment with ${fw.frameworkShort} - readiness by outcome area`);
-    addParagraph(`This is the cohort's readiness against each ${fw.frameworkShort} outcome domain - the confidence bands mapped to the ${fw.frameworkName} domains, to support your statutory reporting.${groupMode === 'framework' ? ` It complements the recommendations earlier in this report, which are grouped by these same outcome areas: this section shows where the cohort stands, those show what to act on.` : ''} The mapping is automated - confirm it fits your plan before relying on it. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
+    addParagraph(`This maps the cohort's readiness to each ${fw.frameworkShort} outcome domain, to help you connect the findings with your relevant plan priorities and reporting.${groupMode === 'framework' ? ` It complements the recommendations earlier in this report, which are grouped by these same outcome areas: this section shows where the cohort stands, those show what to act on.` : ''} The mapping is automated - confirm it fits your plan before relying on it. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
     // List ALL framework domains, including any with no assessed modules. For a
     // statutory report an uncovered outcome area is itself reportable, so it is
     // shown as "not yet covered" rather than silently dropped.
@@ -968,7 +968,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Methodology (concise)
   // =====================================================
   addSectionHeader('Methodology and privacy');
-  addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. Priority actions and strengths are self-assessed narrative (not independently audited); the same recommendation is counted once per business and grouped across the cohort. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
+  addParagraph('This report aggregates completion and readiness bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. The maturity score converts each module\'s readiness into a standardised 0 to 100 score (Strong = 100, Mixed = 50, Needs work = 0, averaged across the cohort) and bands it as Foundational (under 20), Emerging (20 to 39), Developing (40 to 59), Established (60 to 79) or Leading (80 and above); it is an Access Compass planning indicator, not a compliance rating. Priority actions and strengths are self-assessed narrative (not independently audited); each is assigned to one primary accessibility theme to avoid double counting, though some may relate to more than one. The same recommendation is counted once per business and grouped across the cohort. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
 
   // =====================================================
   // Appendix - full recommendation list by theme, only when the body could not

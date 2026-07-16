@@ -191,7 +191,7 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   }
   if (topPriorityActions.length > 0) {
     const top = topPriorityActions[0];
-    recs.push({ kind: 'Shared initiative', text: `Pool effort on "${top.action}" - raised by ${top.count} business${top.count !== 1 ? 'es' : ''}, so a shared template, group training or joint procurement would reach them all at once rather than one at a time.` });
+    recs.push({ kind: 'Shared initiative', text: `Explore a coordinated response to "${top.action.charAt(0).toLowerCase()}${top.action.slice(1)}" - raised by ${top.count} business${top.count !== 1 ? 'es' : ''}. Depending on the need, this could be shared guidance, supplier or product advice, group training or joint procurement, reaching them all at once rather than one at a time.` });
   }
   if (topAreasToExplore.length > 0) {
     recs.push({ kind: 'Guidance', text: 'Publish plain-language guidance in areas the cohort repeatedly flagged as unclear - a small number of shared explainers would resolve questions across many businesses.' });
@@ -200,7 +200,7 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
     recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });
   }
   if (weakest) {
-    recs.push({ kind: 'Investment', text: `Focus the next funding round on ${moduleName(weakest.module_id)} for the largest cohort-wide accessibility gain per dollar.` });
+    recs.push({ kind: 'Investment', text: `Consider prioritising the next funding round for ${moduleName(weakest.module_id)}, where targeted investment could address a common barrier across multiple businesses (subject to site-specific feasibility and cost).` });
   }
   if (topStrengths.length > 0) {
     const top = topStrengths[0];
