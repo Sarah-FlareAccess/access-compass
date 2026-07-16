@@ -82,7 +82,7 @@ const THEME_KEYWORDS: { label: string; kws: string[] }[] = [
   { label: 'Signage & wayfinding', kws: ['signage', 'wayfind', 'directional'] },
   { label: 'Parking & arrival', kws: ['parking', 'car park', 'drop-off', 'drop off', 'set-down'] },
   { label: 'Entrances & doors', kws: ['entrance', 'doorway', 'door ', 'doors', 'entry point', 'threshold'] },
-  { label: 'Paths & circulation', kws: ['pathway', 'path ', 'paths', 'circulation', 'corridor', 'ramp', 'handrail', 'stair', 'step ', 'steps', 'gradient', 'level access'] },
+  { label: 'Paths & circulation', kws: ['pathway', 'path ', 'paths', 'circulation', 'corridor', 'ramp', 'handrail', 'stair', 'step-free', 'step free', 'gradient', 'level access'] },
   { label: 'Toilets & amenities', kws: ['toilet', 'bathroom', 'amenit', 'change facilit', 'changing places'] },
   { label: 'Lighting', kws: ['lighting', 'glare', 'illuminat', 'well lit', 'well-lit'] },
   { label: 'Digital & website', kws: ['website', 'web page', 'online', 'digital', ' pdf', 'wcag', 'alt text', 'alt-text', 'caption', 'screen reader'] },
@@ -98,7 +98,7 @@ const THEME_KEYWORDS: { label: string; kws: string[] }[] = [
 const STRUCTURAL_KWS = [
   'ramp', 'entrance', 'doorway', 'parking', 'toilet', 'lift', 'stair', 'pathway',
   'handrail', 'lighting', 'install', 'construct', 'widen', 'kerb', 'threshold',
-  'gradient', 'resurface', 'surface',
+  'gradient', 'resurface',
 ];
 
 // Themes that typically involve built-environment / capital works, as opposed
@@ -249,11 +249,11 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
 
   // --- Why this matters (executive framing; operational-first, non-deterring) ---
   const whyItMatters = totalActions > 0
-    ? 'Addressing the identified barriers reduces accessibility and legal risk while improving the experience for a wide range of community members.'
+    ? 'Addressing the identified barriers reduces accessibility and legal risk while improving the experience for a wide range of community members. '
       + (operationalShare >= 0.5
-          ? 'Most improvements are operational and can begin immediately, without major capital works. '
-          : 'Many improvements are operational and can begin immediately, with larger infrastructure works planned into future capital budgets. ')
-      + 'Tracking these actions over time demonstrates measurable progress against your obligations.'
+          ? 'Many of the improvements look operational and could begin without major capital works. '
+          : 'The plan includes a mix of operational changes and likely infrastructure works. ')
+      + 'The operational-versus-capital split is indicative only - confirm scope and cost site by site. Tracking these actions over time demonstrates measurable progress against your obligations.'
     : '';
 
   // --- Estimated effort, for budgeting (approximate; capital is keyword-based) ---
