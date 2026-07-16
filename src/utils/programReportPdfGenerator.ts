@@ -16,7 +16,6 @@ import {
   moduleName,
   describeCohortMaturity,
   describeCompletion,
-  sharedResponseFor,
   generateKeyInsights,
   MIN_ASSESSED_TO_FLAG,
   computeMaturity,
@@ -253,7 +252,9 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   };
 
   const addSectionHeader = (title: string) => {
-    ensureSpace(20);
+    // Reserve room for the header plus the first lines of its content, so a
+    // heading never sits alone at the foot of a page (orphaned heading).
+    ensureSpace(34);
     yPos += 4;
     doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
     doc.roundedRect(PAGE.marginX - 3, yPos - 4, PAGE.contentWidth + 6, 10, 2, 2, 'F');
@@ -577,7 +578,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setFontSize(13);
   doc.text(`Network Accessibility Maturity: ${maturity.band}`, PAGE.marginX + 9 + scoreW + 16, yPos + 12.5);
   doc.setTextColor(0, 0, 0);
-  yPos += 24;
+  yPos += 30;
 
   // Network accessibility risk read.
   const riskColor = risk.level === 'Low' ? COLORS.strongText : risk.level === 'High' ? COLORS.needsText : COLORS.mixedText;
@@ -820,22 +821,12 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Top priority actions
   // =====================================================
   if (topPriorityActions.length > 0) {
-    addSectionHeader(`Where to focus by ${groupWord}`);
-    addParagraph(`Where shared support goes furthest, by area. Counts show how many recommendations recur in each ${groupWord}, and the suggested response is the kind of shared initiative that would help. The specific actions are grouped by planning horizon below${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
+    addSectionHeader(`Where recommendations concentrate, by ${groupWord}`);
+    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are grouped by planning horizon below${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.`);
 
-    groupItems(topPriorityActions).forEach(g => {
-      ensureSpace(16);
-      doc.setFontSize(BODY_TEXT_SIZE);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(BODY_TEXT_SIZE);
-      doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.splitTextToSize(`A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
-      doc.setTextColor(0, 0, 0);
-      yPos += 3;
-    });
+    drawBulletList(groupItems(topPriorityActions).map(g =>
+      `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`));
+    yPos += 3;
   }
 
   // =====================================================

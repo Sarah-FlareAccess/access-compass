@@ -23,7 +23,6 @@ import {
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
-  sharedResponseFor,
   APPENDIX_MIN_PATTERNS,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
@@ -494,20 +493,19 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         </div>
       </section>
 
-      {/* Where to focus by theme/outcome area - area summary, not a third action
-          list (the actions live in the horizon view + appendix). */}
+      {/* Where recommendations concentrate, by area - a distribution ranking.
+          The actions live in the horizon view + appendix. */}
       {recGroups.length > 0 && (
         <section className="authority-form-card report-section">
-          <h2>Where to focus by {groupWord}</h2>
+          <h2>Where recommendations concentrate, by {groupWord}</h2>
           <p className="report-section__subtitle">
-            Where shared support goes furthest, by area. Counts show how many recommendations recur in each {groupWord}, and the suggested response is the kind of shared initiative that would help. The specific actions are grouped by planning horizon below{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.
+            How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are grouped by planning horizon below{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and listed in full in the appendix' : ''}.
           </p>
-          {recGroups.map(g => (
-            <div key={g.key} className="report-rec-group">
-              <h3>{g.label} - {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</h3>
-              <p className="report-section__subtitle">A shared response - {sharedResponseFor(g.key)} - would reach many businesses at once.</p>
-            </div>
-          ))}
+          <ul className="report-areas-list">
+            {recGroups.map(g => (
+              <li key={g.key}>{g.label}: {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</li>
+            ))}
+          </ul>
         </section>
       )}
 
