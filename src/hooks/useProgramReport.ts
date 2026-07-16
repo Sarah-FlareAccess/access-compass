@@ -209,27 +209,32 @@ export function useProgramReport(programId: string | null) {
 
         const { data: enrolmentRows, error: eErr } = await supabase
           .from('program_enrolments')
-          .select('status')
+          .select('organisation_id, status')
           .eq('program_id', programId);
         if (eErr) throw new Error(eErr.message);
-        const enrolments = (enrolmentRows ?? []) as { status: string }[];
-        const enrolmentCounts: EnrolmentCounts = {
-          total: enrolments.length,
-          completed: enrolments.filter(e => e.status === 'completed').length,
-          submitted: enrolments.filter(e => e.status === 'submitted').length,
-          in_progress: enrolments.filter(e => e.status === 'in_progress').length,
-          enrolled: enrolments.filter(e => e.status === 'enrolled').length,
-        };
+        const enrolments = (enrolmentRows ?? []) as { organisation_id: string; status: string }[];
+        // Withdrawn businesses are excluded from every figure; the non-withdrawn
+        // enrolment roster is the source of truth for who is in the program.
+        const rosterIds = new Set(
+          enrolments.filter(e => e.status !== 'withdrawn').map(e => e.organisation_id),
+        );
 
-        const [aggRes, sumRes] = await Promise.all([
-          supabase.rpc('get_program_module_aggregates', { p_program_id: programId }),
-          supabase.rpc('get_program_cohort_summaries', { p_program_id: programId }),
-        ]);
-        if (aggRes.error) throw new Error(aggRes.error.message);
-        if (sumRes.error) throw new Error(sumRes.error.message);
+        const { data: sumData, error: sErr } =
+          await supabase.rpc('get_program_cohort_summaries', { p_program_id: programId });
+        if (sErr) throw new Error(sErr.message);
+        // module_progress holds a row per session/site, so a business can appear
+        // many times per module. Keep only its latest run per module (and drop
+        // withdrawn businesses) so every figure counts distinct businesses, not
+        // runs, and stale recommendations from superseded runs are excluded.
+        const cohortSummaries = latestRunPerBusinessModule(
+          ((sumData ?? []) as CohortSummaryRow[]).filter(r => rosterIds.has(r.child_org_id)),
+        );
 
-        const moduleAggregates = (aggRes.data ?? []) as ModuleAggregate[];
-        const cohortSummaries = (sumRes.data ?? []) as CohortSummaryRow[];
+        // Module + enrolment rollups are computed from that deduped set rather
+        // than from program_enrolments.status (which the app never advances past
+        // 'enrolled'), so completion reflects actual module progress.
+        const moduleAggregates = computeModuleAggregates(program.required_module_ids, rosterIds, cohortSummaries);
+        const enrolmentCounts = computeEnrolmentCounts(program.required_module_ids, rosterIds, cohortSummaries);
 
         const { topPriorityActions, topStrengths, topAreasToExplore } =
           aggregateCohortSummaries(cohortSummaries);
@@ -353,6 +358,79 @@ export function useProgramReport(programId: string | null) {
 // JS-side aggregation
 // =====================================================
 
+
+// Collapse module_progress rows (one per session/site) to a single latest run
+// per (business, module): prefer the most recently completed, else any started.
+function latestRunPerBusinessModule(rows: CohortSummaryRow[]): CohortSummaryRow[] {
+  const rank = (r: CohortSummaryRow) =>
+    r.completed_at ? new Date(r.completed_at).getTime() : (r.status === 'completed' ? 0 : -1);
+  const best = new Map<string, CohortSummaryRow>();
+  for (const r of rows) {
+    const key = `${r.child_org_id}::${r.module_id}`;
+    const cur = best.get(key);
+    if (!cur || rank(r) > rank(cur)) best.set(key, r);
+  }
+  return Array.from(best.values());
+}
+
+// Per-module completion + confidence distribution across the cohort, counting
+// distinct businesses (the input is already one latest run per business-module).
+function computeModuleAggregates(
+  requiredModuleIds: string[],
+  rosterIds: Set<string>,
+  latest: CohortSummaryRow[],
+): ModuleAggregate[] {
+  const total = rosterIds.size;
+  const byModule = new Map<string, CohortSummaryRow[]>();
+  for (const r of latest) {
+    const arr = byModule.get(r.module_id);
+    if (arr) arr.push(r); else byModule.set(r.module_id, [r]);
+  }
+  return requiredModuleIds.map(mid => {
+    const rows = byModule.get(mid) ?? [];
+    const completed = rows.filter(r => r.status === 'completed').length;
+    const inProgress = rows.filter(r => r.status === 'in-progress').length;
+    return {
+      module_id: mid,
+      total_enrolments: total,
+      completed,
+      in_progress: inProgress,
+      not_started: Math.max(0, total - completed - inProgress),
+      confidence_strong: rows.filter(r => r.confidence_snapshot === 'strong').length,
+      confidence_mixed: rows.filter(r => r.confidence_snapshot === 'mixed').length,
+      confidence_needs_work: rows.filter(r => r.confidence_snapshot === 'needs-work').length,
+    };
+  });
+}
+
+// Business-level enrolment breakdown derived from actual module progress: a
+// business is "completed" once every required module has a completed latest run.
+function computeEnrolmentCounts(
+  requiredModuleIds: string[],
+  rosterIds: Set<string>,
+  latest: CohortSummaryRow[],
+): EnrolmentCounts {
+  const required = new Set(requiredModuleIds);
+  const completedByOrg = new Map<string, number>();
+  const startedOrgs = new Set<string>();
+  for (const r of latest) {
+    if (!required.has(r.module_id)) continue;
+    if (r.status === 'completed') completedByOrg.set(r.child_org_id, (completedByOrg.get(r.child_org_id) ?? 0) + 1);
+    if (r.status === 'completed' || r.status === 'in-progress') startedOrgs.add(r.child_org_id);
+  }
+  let completed = 0;
+  for (const org of rosterIds) {
+    if (required.size > 0 && (completedByOrg.get(org) ?? 0) >= required.size) completed += 1;
+  }
+  const started = [...startedOrgs].filter(o => rosterIds.has(o)).length;
+  return {
+    total: rosterIds.size,
+    completed,
+    submitted: 0,
+    in_progress: Math.max(0, started - completed),
+    enrolled: Math.max(0, rosterIds.size - started),
+  };
+}
 
 function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   topPriorityActions: PriorityActionAggregate[];
