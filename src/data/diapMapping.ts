@@ -165,7 +165,7 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '3.4': 'service-delivery',           // Equipment and resources
   '3.5': 'built-environment',          // Signage and wayfinding
   '3.6': 'information-communication',  // Menus and printed materials
-  '3.7': 'service-delivery',           // Audio, digital and interactive content
+  '3.7': 'information-communication',  // Information when you're here
   '3.8': 'service-delivery',           // Participating in experiences and activities
   '3.9': 'built-environment',          // Accessible accommodation
   '3.10': 'service-delivery',          // Retail and shopping accessibility
@@ -173,11 +173,13 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '3.12': 'built-environment',          // Playgrounds and play spaces
 
   // Service and support
+  '4.1': 'information-communication',  // Ways to reach us
   '4.2': 'customer-service-training',  // Customer service and staff confidence
   '4.3': 'service-delivery',           // Bookings and ticketing
   '4.4': 'service-delivery',           // Safety and emergencies
   '4.5': 'service-delivery',           // Feedback and reviews
   '4.6': 'information-communication',  // Staying connected
+  '4.7': 'information-communication',  // Keeping in touch
 
   // Policy and operations
   '5.1': 'policy-procedure',           // Policy and inclusion
@@ -192,9 +194,9 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
 
   // Event modules
   '6.1': 'service-delivery',           // Event planning
-  '6.2': 'service-delivery',           // Event delivery
+  '6.2': 'built-environment',          // Venue and physical access
   '6.3': 'information-communication',  // Event communications
-  '6.4': 'service-delivery',           // Event venue and logistics
+  '6.4': 'built-environment',          // Sensory access and technology
   '6.5': 'service-delivery',           // Post-event
 
   // Major event modules (7.x)
@@ -202,7 +204,7 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '7.2': 'service-delivery',           // Accessibility programming curation
   '7.3': 'service-delivery',           // Ticketing & box office accessibility
   '7.4': 'service-delivery',           // Performer/artist/talent access
-  '7.5': 'employment-volunteering',    // Volunteer & staff at scale + cohort planning
+  '7.5': 'customer-service-training',  // Volunteer and staff accessibility at scale
   '7.6': 'service-delivery',           // Attendee experience operations
   '7.7': 'service-delivery',           // Ability Camping
 

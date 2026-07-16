@@ -2138,13 +2138,13 @@ function prioritizeFromText(text: string): DIAPPriority {
 // keys, so an item stored with one of these falls into "Other" and must be
 // re-mapped to its DIAP category. Custom DIAP categories are not in this set, so
 // they are never touched by the repair.
-const RAW_QUESTION_CATEGORIES = new Set<string>([
+export const RAW_QUESTION_CATEGORIES = new Set<string>([
   'operational', 'information', 'policy', 'physical', 'feedback', 'training',
   'improvement', 'procurement', 'sensory-environment', 'safety', 'measurement',
   'digital', 'communication', 'lived-experience', 'evidence', 'employment',
 ]);
 
-function mapModuleToCategory(moduleNameOrCode: string): DIAPCategory {
+export function mapModuleToCategory(moduleNameOrCode: string): DIAPCategory {
   // Extract module code (e.g. "1.4" from "Social media, video & audio" or "1.4")
   const codeMatch = moduleNameOrCode.match(/(\d+\.\d+)/);
   if (codeMatch) {
