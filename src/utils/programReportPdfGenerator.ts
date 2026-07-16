@@ -12,6 +12,8 @@
 import jsPDF from 'jspdf';
 import type { ModuleAggregate, ProgramReportPayload } from '../hooks/useProgramReport';
 import { diapThemeForModules, type AggregateTheme } from './aggregateTheme';
+import { domainsForModule } from '../data/frameworkMappings';
+import { getFramework } from '../data/frameworks';
 import { accessModules } from '../data/accessModules';
 
 const COLORS = {
@@ -229,6 +231,10 @@ interface ProgramReportPdfOptions {
   payload: ProgramReportPayload;
   reportName: string;
   generatedAt: string;
+  /** Group the recommendation sections by DIAP theme (default) or by the
+   *  jurisdiction's statutory outcome domain. 'framework' falls back to 'theme'
+   *  when the snapshot has no framework outcomes. */
+  groupBy?: 'theme' | 'framework';
 }
 
 export function generateProgramReportPdf(options: ProgramReportPdfOptions): void {
@@ -245,6 +251,43 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     topStrengths: options.payload.topStrengths.map(withTheme),
   };
   const { program, authority, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore } = payload;
+
+  // Grouping mode for the recommendation sections. 'framework' groups by the
+  // jurisdiction's statutory outcome domain (via the module -> domain mapping)
+  // instead of DIAP theme; it needs the snapshot's framework key and falls back
+  // to theme grouping otherwise.
+  const fwKey = payload.outcomes?.frameworkKey;
+  const framework = fwKey ? getFramework(fwKey) : undefined;
+  const groupMode: 'theme' | 'framework' =
+    options.groupBy === 'framework' && framework ? 'framework' : 'theme';
+  const groupWord = groupMode === 'framework' ? 'outcome area' : 'theme';
+  const domainShortById = framework
+    ? new Map(framework.domains.map(d => [d.id, d.short || d.name]))
+    : new Map<string, string>();
+  const frameworkGroupForModules = (moduleIds: string[]): { key: string; label: string } => {
+    const tally = new Map<string, number>();
+    for (const mid of moduleIds) {
+      const code = mid.match(/\d+\.\d+/)?.[0] ?? mid;
+      for (const dId of domainsForModule(code, fwKey)) tally.set(dId, (tally.get(dId) ?? 0) + 1);
+    }
+    let best: string | undefined;
+    let bestN = 0;
+    for (const [k, n] of tally) if (n > bestN) { bestN = n; best = k; }
+    if (!best) return { key: 'unmapped', label: 'Not yet mapped to an outcome area' };
+    return { key: best, label: domainShortById.get(best) ?? best };
+  };
+  const groupItems = <T extends { count: number; moduleIds: string[]; theme?: AggregateTheme }>(items: T[]): ThemeGroup<T>[] => {
+    if (groupMode !== 'framework') return groupByTheme(items);
+    const map = new Map<string, ThemeGroup<T>>();
+    for (const it of items) {
+      const g = frameworkGroupForModules(it.moduleIds);
+      let e = map.get(g.key);
+      if (!e) { e = { key: g.key, label: g.label, total: 0, items: [] }; map.set(g.key, e); }
+      e.total += it.count;
+      e.items.push(it);
+    }
+    return Array.from(map.values()).sort((a, b) => b.total - a.total);
+  };
 
   const formattedDate = formatDate(generatedAt);
   const fileDate = new Date(generatedAt).toISOString().split('T')[0];
@@ -658,7 +701,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
 
   // Program at a glance - the quotable summary for a council reader.
   {
-    const paThemes = groupByTheme(payload.topPriorityActions);
+    const paThemes = groupItems(payload.topPriorityActions);
     // Lower-case the lead word of an "e.g." example so it reads mid-sentence,
     // but leave acronyms (NDIS, DIAP) untouched.
     const asExample = (t: string) => (/^[A-Z]{2,}/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1));
@@ -756,7 +799,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Program impact + recommended council response
   // =====================================================
   const sharedOpps = topPriorityActions.filter(a => a.count >= 2);
-  const activeThemes = new Set(topPriorityActions.map(a => a.theme?.key ?? 'other')).size;
+  const activeThemes = groupItems(topPriorityActions).length;
 
   addSectionHeader('Program impact');
   ensureSpace(30);
@@ -764,7 +807,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addStatBox(PAGE.marginX, yPos, impactW, String(enrolment.total), 'Businesses reached', COLORS.amethystDiamond);
   addStatBox(PAGE.marginX + impactW + 3, yPos, impactW, String(completedDisplay), 'Assessments done', COLORS.strongText);
   addStatBox(PAGE.marginX + 2 * (impactW + 3), yPos, impactW, String(sharedOpps.length), 'Shared opportunities', COLORS.aussieLight);
-  addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), 'Themes active', COLORS.mixedText);
+  addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), groupMode === 'framework' ? 'Outcome areas' : 'Themes active', COLORS.mixedText);
   yPos += 30;
   addParagraph('Shared opportunities are recommendations that recur across two or more businesses - a signal of where a single, council-led initiative could help many at once rather than supporting each business separately.', 9);
 
@@ -793,7 +836,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     // Lead with the AREA and a direction, not a single frequency-derived action:
     // the counts show where support helps most, but the specific action to fund
     // should be confirmed against the businesses' plans, not read off one line.
-    drawBulletList(groupByTheme(sharedOpps).slice(0, 3).map(g =>
+    drawBulletList(groupItems(sharedOpps).slice(0, 3).map(g =>
       `- ${g.label}: recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort. Consider ${sharedResponseFor(g.key)}.`));
     yPos += 2;
     doc.setTextColor(0, 0, 0);
@@ -842,10 +885,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Top priority actions
   // =====================================================
   if (topPriorityActions.length > 0) {
-    addSectionHeader('Common recommendations by theme');
-    addParagraph('Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each theme; confirm against each business’s own plan before acting.');
+    addSectionHeader(`Common recommendations by ${groupWord}`);
+    addParagraph(`Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in - a signal of where shared support would help most. The specific actions below are examples drawn from the assessment responses to illustrate each ${groupWord}; confirm against each business’s own plan before acting.`);
 
-    groupByTheme(topPriorityActions).forEach(g => {
+    groupItems(topPriorityActions).forEach(g => {
       ensureSpace(18);
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
@@ -858,13 +901,13 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(BODY_TEXT_SIZE);
         doc.setTextColor(...hexToRgb(COLORS.textMuted));
-        doc.text(`...and ${g.items.length - 3} more in this theme`, PAGE.marginX + 4, yPos);
+        doc.text(`...and ${g.items.length - 3} more in this ${groupWord}`, PAGE.marginX + 4, yPos);
         yPos += 6;
         doc.setTextColor(...hexToRgb(COLORS.text));
       }
       yPos += 3;
     });
-    addParagraph('The main body shows the top few patterns per theme; every recommendation pattern is listed in full in the appendix.');
+    addParagraph(`The main body shows the top few patterns per ${groupWord}; every recommendation pattern is listed in full in the appendix.`);
   }
 
   // =====================================================
@@ -873,7 +916,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (sharedOpps.length > 0) {
     addSectionHeader('Recommended program investments');
     addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed commitment. Confirm the specific response against the underlying business plans before committing.');
-    groupByTheme(sharedOpps).slice(0, 5).forEach((g, idx) => {
+    groupItems(sharedOpps).slice(0, 5).forEach((g, idx) => {
       ensureSpace(16);
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
@@ -894,7 +937,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (topStrengths.length > 0) {
     addSectionHeader('Strengths across the cohort');
     addParagraph('Practices already in place, grouped by area. Worth celebrating publicly and using as case studies.');
-    groupByTheme(topStrengths).forEach(g => {
+    groupItems(topStrengths).forEach(g => {
       ensureSpace(16);
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
@@ -980,10 +1023,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (topPriorityActions.length > 0) {
     addNewPage();
-    addSectionHeader('Appendix: all recommendations by theme');
-    addParagraph('The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each theme; this appendix carries the rest. Counts show how many businesses each pattern appears in. Confirm against each business’s own plan before acting.', 9);
+    addSectionHeader(`Appendix: all recommendations by ${groupWord}`);
+    addParagraph(`The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each ${groupWord}; this appendix carries the rest. Counts show how many businesses each pattern appears in. Confirm against each business’s own plan before acting.`);
 
-    groupByTheme(topPriorityActions).forEach(g => {
+    groupItems(topPriorityActions).forEach(g => {
       ensureSpace(16);
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');

@@ -48,6 +48,7 @@ export default function AuthorityProgramReport() {
 
   const [program, setProgram] = useState<AuthorityProgram | null>(null);
   const [selectedSnapshotId, setSelectedSnapshotId] = useState<string | null>(null);
+  const [groupBy, setGroupBy] = useState<'theme' | 'framework'>('theme');
 
   usePageTitle(program ? `${program.name} report` : 'Program report');
 
@@ -87,8 +88,13 @@ export default function AuthorityProgramReport() {
       payload: selected.snapshot_data,
       reportName: selected.name,
       generatedAt: selected.generated_at,
+      groupBy,
     });
   };
+
+  // Framework grouping is only offered when the snapshot carries statutory
+  // outcomes (a mapped jurisdiction); otherwise there is nothing to group by.
+  const outcomesFramework = selected?.snapshot_data.outcomes;
 
   if (!programId) {
     return (
@@ -108,7 +114,20 @@ export default function AuthorityProgramReport() {
           <h1>{program?.name || 'Program report'}</h1>
           {program?.description && <p className="authority-subtitle">{program.description}</p>}
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          {selected && outcomesFramework && (
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.875rem' }}>
+              Group by
+              <select
+                value={groupBy}
+                onChange={e => setGroupBy(e.target.value as 'theme' | 'framework')}
+                aria-label="Group recommendations by"
+              >
+                <option value="theme">Theme</option>
+                <option value="framework">{outcomesFramework.frameworkShort} outcome area</option>
+              </select>
+            </label>
+          )}
           {selected && (
             <button
               type="button"
