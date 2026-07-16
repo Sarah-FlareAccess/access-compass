@@ -11,6 +11,7 @@
 
 import jsPDF from 'jspdf';
 import type { ModuleAggregate, ProgramReportPayload } from '../hooks/useProgramReport';
+import { diapThemeForModules, type AggregateTheme } from './aggregateTheme';
 import { accessModules } from '../data/accessModules';
 
 const COLORS = {
@@ -231,7 +232,18 @@ interface ProgramReportPdfOptions {
 }
 
 export function generateProgramReportPdf(options: ProgramReportPdfOptions): void {
-  const { payload, reportName, generatedAt } = options;
+  const { reportName, generatedAt } = options;
+  // Re-derive an aggregate's theme from its source modules when the snapshot has
+  // none. Reports saved before theming existed carry no theme, which otherwise
+  // collapses every action and strength into a single "Other" group. moduleIds
+  // are stored on the aggregate, so this fixes old snapshots without regenerating.
+  const withTheme = <T extends { moduleIds: string[]; theme?: AggregateTheme }>(x: T): T =>
+    x.theme ? x : { ...x, theme: diapThemeForModules(x.moduleIds) };
+  const payload: ProgramReportPayload = {
+    ...options.payload,
+    topPriorityActions: options.payload.topPriorityActions.map(withTheme),
+    topStrengths: options.payload.topStrengths.map(withTheme),
+  };
   const { program, authority, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore } = payload;
 
   const formattedDate = formatDate(generatedAt);
