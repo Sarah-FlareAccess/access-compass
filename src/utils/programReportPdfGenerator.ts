@@ -524,7 +524,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         doc.rect(x, yPos, w, barH, 'F');
       }
     }
-    yPos += barH + 3;
+    yPos += barH + 6;
 
     if (confTotal > 0) {
       doc.setFontSize(BODY_TEXT_SIZE);
@@ -1018,7 +1018,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         seg(d.mixed, COLORS.mixedFill);
         seg(d.needsWork, COLORS.needsFill);
       }
-      yPos += barH + 4;
+      yPos += barH + 6;
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
