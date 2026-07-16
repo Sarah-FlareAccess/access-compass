@@ -14,6 +14,11 @@ import {
   describeCohortMaturity,
   describeCompletion,
   generateKeyInsights,
+  computeConfidence,
+  computeMaturity,
+  computeRisk,
+  authorityRecommendations,
+  priorityHorizons as computePriorityHorizons,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
@@ -268,17 +273,8 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
   const { program, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore, methodology } = data;
 
   // Cohort-wide confidence totals for the maturity donut
-  const confidence = useMemo(() => {
-    let strong = 0, mixed = 0, needsWork = 0;
-    moduleAggregates.forEach(m => {
-      strong += m.confidence_strong;
-      mixed += m.confidence_mixed;
-      needsWork += m.confidence_needs_work;
-    });
-    return { strong, mixed, needsWork, total: strong + mixed + needsWork };
-  }, [moduleAggregates]);
-
-  const strongPct = confidence.total > 0 ? Math.round((confidence.strong / confidence.total) * 100) : 0;
+  const confidence = useMemo(() => computeConfidence(data), [data]);
+  const strongPct = confidence.strongPct;
   // Merge submitted into completed for display (no review workflow exists yet)
   const completedDisplay = enrolment.completed + enrolment.submitted;
   const completionPct = pct(completedDisplay, enrolment.total);
@@ -295,79 +291,10 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
   // scores Strong = 100, Mixed = 50, Needs work = 0; the score is the cohort
   // average. Deliberately independent of participation so it measures the
   // cohort's accessibility, not how many have responded.
-  const maturity = useMemo(() => {
-    const t = confidence.total;
-    const score = t > 0 ? Math.round((confidence.strong * 100 + confidence.mixed * 50) / t) : 0;
-    const band =
-      score >= 80 ? 'Leading' :
-      score >= 60 ? 'Established' :
-      score >= 40 ? 'Developing' :
-      score >= 20 ? 'Emerging' : 'Foundational';
-    return { score, band };
-  }, [confidence]);
-
-  // Recommended actions for the AUTHORITY (not the businesses): turn the
-  // aggregate signal into a short set of decisions a council can act on.
-  const recommendations = useMemo(() => {
-    const recs: { text: string; kind: string }[] = [];
-    const sortedNeeds = [...moduleAggregates]
-      .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) > 0)
-      .sort((a, b) => {
-        const aT = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
-        const bT = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
-        return (b.confidence_needs_work / bT) - (a.confidence_needs_work / aT);
-      });
-    const weakest = sortedNeeds[0];
-    if (weakest && weakest.confidence_needs_work > 0) {
-      recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${getModuleName(weakest.module_id)} - it carries the highest needs-work signal across the network.` });
-    }
-    if (topPriorityActions.length > 0) {
-      const top = topPriorityActions[0];
-      recs.push({ kind: 'Program', text: `Coordinate a shared, sector-wide program around the cohort's most common recommendations (the top pattern recurs across ${top.count} business${top.count !== 1 ? 'es' : ''}) - more efficient than supporting each business one at a time. Confirm the specific focus against the underlying plans.` });
-    }
-    if (topAreasToExplore.length > 0) {
-      recs.push({ kind: 'Guidance', text: `Publish plain-language guidance in areas the cohort repeatedly flagged as unclear - a small number of shared explainers would resolve questions across many businesses.` });
-    }
-    if (enrolment.enrolled > 0) {
-      recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });
-    }
-    if (weakest) {
-      recs.push({ kind: 'Investment', text: `Focus the next funding round on ${getModuleName(weakest.module_id)} for the largest cohort-wide accessibility gain per dollar.` });
-    }
-    if (topStrengths.length > 0) {
-      const top = topStrengths[0];
-      recs.push({ kind: 'Recognition', text: `Showcase “${top.text}” publicly - already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} - to build momentum and evidence outcomes.` });
-    }
-    return recs.slice(0, 6);
-  }, [moduleAggregates, topPriorityActions, topAreasToExplore, topStrengths, enrolment]);
-
-  // Priorities grouped by planning horizon (maps onto council planning cycles).
-  const priorityHorizons = useMemo(() => {
-    const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
-    return [
-      { key: 'immediate', label: 'Immediate', hint: 'High priority - act this cycle', accent: 'red', items: at('high') },
-      { key: 'medium', label: 'Medium-term', hint: 'Plan into the next 6–12 months', accent: 'amber', items: at('medium') },
-      { key: 'long', label: 'Longer-term', hint: 'Build into the multi-year roadmap', accent: 'blue', items: at('low') },
-    ].filter(g => g.items.length > 0);
-  }, [topPriorityActions]);
-
-  // Network accessibility risk: councils plan around risk. A simple, transparent
-  // read from maturity (how accessible), participation (how much is done) and
-  // evidence volume (how confident we can be).
-  const risk = useMemo(() => {
-    const m = maturity.score, p = completionPct;
-    let level: 'Low' | 'Moderate' | 'High';
-    if (confidence.total < 5) level = 'High';
-    else if (m >= 60 && p >= 60) level = 'Low';
-    else if (m < 30 || p < 25) level = 'High';
-    else level = 'Moderate';
-    const note = level === 'Low'
-      ? 'A mature, well-evidenced cohort. Findings are safe to cite in public reporting.'
-      : level === 'High'
-        ? 'Low maturity or thin evidence. Treat findings as a baseline and prioritise support and participation before public reporting.'
-        : 'A developing cohort. Findings are directional; firm them up with more completions before citing publicly.';
-    return { level, note };
-  }, [maturity.score, completionPct, confidence.total]);
+  const maturity = useMemo(() => computeMaturity(confidence), [confidence]);
+  const recommendations = useMemo(() => authorityRecommendations(data), [data]);
+  const priorityHorizons = useMemo(() => computePriorityHorizons(topPriorityActions), [topPriorityActions]);
+  const risk = useMemo(() => computeRisk(maturity.score, completionPct, confidence.total), [maturity.score, completionPct, confidence.total]);
 
   return (
     <div className="program-report">

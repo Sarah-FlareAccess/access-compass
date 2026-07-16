@@ -93,6 +93,81 @@ export function topNeedsWorkModule(payload: ProgramReportPayload) {
     })[0];
 }
 
+// Network Accessibility Maturity Score: a single trackable 0-100 metric (Strong
+// = 100, Mixed = 50, Needs work = 0, averaged) an executive can put in a board
+// paper. Band-weighted like strongPct, so it measures accessibility, not
+// participation.
+export interface Maturity { score: number; band: string; }
+export function computeMaturity(confidence: { strong: number; mixed: number; total: number }): Maturity {
+  const t = confidence.total;
+  const score = t > 0 ? Math.round((confidence.strong * 100 + confidence.mixed * 50) / t) : 0;
+  const band =
+    score >= 80 ? 'Leading' :
+    score >= 60 ? 'Established' :
+    score >= 40 ? 'Developing' :
+    score >= 20 ? 'Emerging' : 'Foundational';
+  return { score, band };
+}
+
+// A transparent risk read from maturity (how accessible), participation (how
+// much is done) and evidence volume (how confident we can be).
+export interface Risk { level: 'Low' | 'Moderate' | 'High'; note: string; }
+export function computeRisk(maturityScore: number, completionPct: number, confidenceTotal: number): Risk {
+  let level: 'Low' | 'Moderate' | 'High';
+  if (confidenceTotal < 5) level = 'High';
+  else if (maturityScore >= 60 && completionPct >= 60) level = 'Low';
+  else if (maturityScore < 30 || completionPct < 25) level = 'High';
+  else level = 'Moderate';
+  const note = level === 'Low'
+    ? 'A mature, well-evidenced cohort. Findings are safe to cite in public reporting.'
+    : level === 'High'
+      ? 'Low maturity or thin evidence. Treat findings as a baseline and prioritise support and participation before public reporting.'
+      : 'A developing cohort. Findings are directional; firm them up with more completions before citing publicly.';
+  return { level, note };
+}
+
+// Decisions for the AUTHORITY (not the businesses): turn the aggregate signal
+// into a short set of actions a council can take.
+export interface AuthorityRec { kind: string; text: string; }
+export function authorityRecommendations(payload: ProgramReportPayload): AuthorityRec[] {
+  const { topPriorityActions, topAreasToExplore, topStrengths, enrolment } = payload;
+  const recs: AuthorityRec[] = [];
+  const weakest = topNeedsWorkModule(payload);
+  if (weakest && weakest.confidence_needs_work > 0) {
+    recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${moduleName(weakest.module_id)} - it carries the highest needs-work signal across the network.` });
+  }
+  if (topPriorityActions.length > 0) {
+    const top = topPriorityActions[0];
+    recs.push({ kind: 'Program', text: `Coordinate a shared, sector-wide program around the cohort's most common recommendations (the top pattern recurs across ${top.count} business${top.count !== 1 ? 'es' : ''}) - more efficient than supporting each business one at a time. Confirm the specific focus with the businesses.` });
+  }
+  if (topAreasToExplore.length > 0) {
+    recs.push({ kind: 'Guidance', text: 'Publish plain-language guidance in areas the cohort repeatedly flagged as unclear - a small number of shared explainers would resolve questions across many businesses.' });
+  }
+  if (enrolment.enrolled > 0) {
+    recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });
+  }
+  if (weakest) {
+    recs.push({ kind: 'Investment', text: `Focus the next funding round on ${moduleName(weakest.module_id)} for the largest cohort-wide accessibility gain per dollar.` });
+  }
+  if (topStrengths.length > 0) {
+    const top = topStrengths[0];
+    recs.push({ kind: 'Recognition', text: `Showcase "${top.text}" publicly - already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} - to build momentum and evidence outcomes.` });
+  }
+  return recs.slice(0, 6);
+}
+
+// Priority actions grouped by planning horizon (maps onto council planning
+// cycles), derived from each pattern's priority.
+export interface PriorityHorizon { key: string; label: string; hint: string; accent: string; items: ProgramReportPayload['topPriorityActions']; }
+export function priorityHorizons(topPriorityActions: ProgramReportPayload['topPriorityActions']): PriorityHorizon[] {
+  const at = (lvl: string) => topPriorityActions.filter(p => (p.priority || 'low').toLowerCase() === lvl);
+  return [
+    { key: 'immediate', label: 'Immediate', hint: 'High priority - act this cycle', accent: 'red', items: at('high') },
+    { key: 'medium', label: 'Medium-term', hint: 'Plan into the next 6 to 12 months', accent: 'amber', items: at('medium') },
+    { key: 'long', label: 'Longer-term', hint: 'Build into the multi-year roadmap', accent: 'blue', items: at('low') },
+  ].filter(g => g.items.length > 0);
+}
+
 export function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): GroupedInsights {
   const { topPriorityActions, topStrengths } = payload;
   const strengths: string[] = [];
