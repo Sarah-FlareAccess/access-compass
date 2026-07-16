@@ -10,7 +10,7 @@
  */
 
 import jsPDF from 'jspdf';
-import type { ModuleAggregate, ProgramReportPayload } from '../hooks/useProgramReport';
+import type { ProgramReportPayload } from '../hooks/useProgramReport';
 import { diapThemeForModules, type AggregateTheme } from './aggregateTheme';
 import {
   moduleName,
@@ -18,7 +18,6 @@ import {
   describeCompletion,
   generateKeyInsights,
   topNeedsWorkModule,
-  MIN_ASSESSED_TO_FLAG,
   computeMaturity,
   computeRisk,
   authorityRecommendations,
@@ -660,19 +659,19 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const completionText = `Completion: ${completedPct}% of enrolled businesses have completed the assessment. ${describeCompletion(completedPct, enrolment.total)}`;
   addParagraph(completionText, 9);
 
-  // Program at a glance - the quotable summary for a council reader. Each line is
-  // a DISTINCT measure so they don't contradict: readiness = module status,
-  // action concentration = recommendation volume, strongest area = most existing
-  // strengths (same source the Strengths narrative uses, so they always agree).
+  // Program at a glance - the quotable summary. Each line is a DISTINCT, specific
+  // measure so they don't collide: readiness = module status, barrier = weakest
+  // module, then the single most common recommendation and the single most common
+  // strength. (Theme-level "most X" is biased by how many topics a theme covers,
+  // so the broadest theme wins every superlative and reads as a contradiction.)
   {
-    const paThemes = groupItems(payload.topPriorityActions);
-    const strengthThemes = groupItems(payload.topStrengths);
     const glance: string[] = [`Cohort readiness: ${maturity.band} (${maturity.score}/100, ${strongPct}% of assessed modules strong)`];
     const topNeeds = topNeedsWorkModule(payload);
-    if (topNeeds) glance.push(`Greatest assessed barrier: ${moduleName(topNeeds.module_id)} (most needs-work results)`);
-    if (paThemes[0]) glance.push(`Most recommended actions: ${paThemes[0].label} (${paThemes[0].items.length} distinct action${paThemes[0].items.length !== 1 ? 's' : ''} across the cohort)`);
-    const strongestArea = strengthThemes[0];
-    if (strongestArea) glance.push(`Most existing strengths: ${strongestArea.label} (${strongestArea.items.length} practice${strongestArea.items.length !== 1 ? 's' : ''} already in place)`);
+    if (topNeeds && topNeeds.confidence_needs_work > 0) glance.push(`Greatest assessed barrier: ${moduleName(topNeeds.module_id)} (most needs-work results)`);
+    const topAction = payload.topPriorityActions[0];
+    if (topAction) glance.push(`Most common recommendation: "${topAction.action}" (${topAction.count} business${topAction.count !== 1 ? 'es' : ''})`);
+    const topStrength = payload.topStrengths[0];
+    if (topStrength) glance.push(`Most common strength: "${topStrength.text}" (${topStrength.count} business${topStrength.count !== 1 ? 'es' : ''})`);
     if (payload.improvement && payload.improvement.reassessedCount > 0) glance.push(`Readiness change: ${payload.improvement.avgDelta >= 0 ? '+' : ''}${payload.improvement.avgDelta} points across ${payload.improvement.reassessedCount} re-assessed`);
 
     // Pre-wrap each line at the render font size so the box height matches what
@@ -687,7 +686,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, gH, 3, 3, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(255, 255, 255);
-    doc.text('PROGRAM AT A GLANCE (FOR COUNCIL)', PAGE.marginX + 5, yPos + 7);
+    doc.text('PROGRAM AT A GLANCE', PAGE.marginX + 5, yPos + 7);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(BODY_TEXT_SIZE);
     let gy = yPos + 14;
@@ -770,7 +769,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addStatBox(PAGE.marginX + 2 * (impactW + 3), yPos, impactW, String(sharedOpps.length), 'Shared opportunities', COLORS.aussieLight);
   addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), groupMode === 'framework' ? 'Outcome areas' : 'Themes active', COLORS.mixedText);
   yPos += 30;
-  addParagraph('Shared opportunities are recommendations that recur across three or more businesses - a signal of where a single, council-led initiative could help many at once rather than supporting each business separately.', 9);
+  addParagraph('Shared opportunities are recommendations that recur across three or more businesses - a signal of where a single, coordinated initiative could help many at once rather than supporting each business separately.', 9);
 
   // Before/after improvement - only when the re-assessed subset exists.
   if (payload.improvement && payload.improvement.reassessedCount > 0) {
@@ -810,19 +809,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addModuleRow(mid, agg);
   });
 
-  // What this means. Rank by the share of assessed businesses needing work, not
-  // the raw count, so the module flagged matches the "most needs-work signal"
-  // barrier insight above (which also uses the ratio). Absolute count is the
-  // tiebreak when two modules have the same share.
-  const needsRatio = (m: ModuleAggregate) => {
-    const t = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
-    return t > 0 ? m.confidence_needs_work / t : 0;
-  };
-  const topNeeds = [...moduleAggregates]
-    .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) >= MIN_ASSESSED_TO_FLAG)
-    .sort((a, b) => (needsRatio(b) - needsRatio(a)) || (b.confidence_needs_work - a.confidence_needs_work))[0];
+  // What this means. Use the SAME function as the barrier insight and the
+  // at-a-glance box so all three name the same module - never a contradiction.
+  const topNeeds = topNeedsWorkModule(payload);
   const interpModuleText = topNeeds && topNeeds.confidence_needs_work > 0
-    ? `What this means: ${moduleName(topNeeds.module_id)} (${topNeeds.module_id}) shows the strongest needs-work signal across the cohort. A group training or shared resource focused here will lift multiple businesses at once.`
+    ? `What this means: ${moduleName(topNeeds.module_id)} (${topNeeds.module_id}) shows the strongest needs-work signal across the cohort. Shared support or a shared resource focused here would lift multiple businesses at once.`
     : `What this means: confidence is reasonably consistent across modules. No single module dominates as a sector-wide concern, so support can be distributed.`;
   drawWhatThisMeans(interpModuleText);
 
@@ -909,7 +900,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       yPos += 3;
     });
 
-    drawWhatThisMeans('What this means: these are strengths businesses report already having in place (self-assessed, not independently audited). Confirm before citing externally, then use them to celebrate progress in council communications and case studies.');
+    drawWhatThisMeans('What this means: these are strengths businesses report already having in place (self-assessed, not independently audited). Confirm before citing externally, then use them to celebrate progress in your communications and case studies.');
   }
 
   // =====================================================
@@ -920,7 +911,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addParagraph('Topics businesses flagged as "unable to check" or "unsure". This measures where the cohort lacks knowledge, not where it is failing - each gap is a low-cost training or guidance opportunity.');
     drawBulletList(topAreasToExplore.map(a => `- ${a.text} (${a.count} business${a.count !== 1 ? 'es' : ''}, ${pctOfCohort(a.count, cohortSize)}%)`));
 
-    drawWhatThisMeans('What this means: businesses are uncertain rather than failing. A short council-issued guide or a quick training session can turn this uncertainty into competence at low cost.');
+    drawWhatThisMeans('What this means: businesses are uncertain rather than failing. A short shared guide or a quick training session can turn this uncertainty into competence at low cost.');
   }
 
   // =====================================================

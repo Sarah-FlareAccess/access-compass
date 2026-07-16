@@ -29,13 +29,15 @@ export function describeCohortMaturity(strongPct: number): string {
   return 'a cohort at the very start of its journey. Capacity-building investment now, targeted at the most common barriers, will produce measurable progress within 6 to 12 months.';
 }
 
+// Interpretation only - both renderers already state the completion percentage
+// before this, so it must not restate "X have completed".
 export function describeCompletion(completedPct: number, total: number): string {
   if (total === 0) return 'No businesses are currently enrolled. Once enrolment begins this section will populate.';
-  if (completedPct >= 100) return 'All enrolled businesses have completed the assessment, giving a complete picture of the cohort across the areas assessed. Findings are self-reported indicators of readiness, not independently verified accessibility outcomes.';
-  if (completedPct >= 80) return 'Most enrolled businesses have completed the assessment, so the findings give a solid read of the cohort across the areas assessed. Findings are self-reported, not independently verified.';
-  if (completedPct >= 40) return 'A meaningful proportion has completed the assessment, so the findings are directional. Following up with the businesses yet to finish will round out the picture.';
-  if (completedPct >= 15) return 'Early in the program - treat the findings as an initial baseline and re-run once more businesses complete.';
-  return 'Very early in the program. Treat the figures below as a preliminary signal, not a conclusion.';
+  if (completedPct >= 100) return 'This gives a complete picture of the cohort across the areas assessed. Findings are self-reported indicators of readiness, not independently verified accessibility outcomes.';
+  if (completedPct >= 80) return 'That gives a solid read of the cohort across the areas assessed. Findings are self-reported, not independently verified.';
+  if (completedPct >= 40) return 'Findings are directional; following up with the businesses yet to finish will round out the picture. They are self-reported, not independently verified.';
+  if (completedPct >= 15) return 'Treat the findings as an initial baseline and re-run once more businesses complete.';
+  return 'Treat the figures below as a preliminary signal, not a conclusion.';
 }
 
 // Cohort-wide confidence-band totals + the % strong (band-weighted).
@@ -248,10 +250,11 @@ export function generateKeyInsights(payload: ProgramReportPayload, strongPct: nu
   if (strongPct >= 50) strengths.push(`${strongPct}% of assessed modules are strong - the cohort is doing well overall.`);
   else if (strongPct >= 25) strengths.push(`${strongPct}% of assessed modules are already strong - a solid base to build on.`);
   if (topStrengths.length > 0) {
-    // Use the area with the MOST established practices, matching the "at a glance"
-    // box, so the two never disagree on the strongest area.
-    const topStrengthTheme = groupByTheme(topStrengths)[0];
-    strengths.push(`Established strengths are already in place across the cohort${topStrengthTheme?.label ? `, most in ${topStrengthTheme.label}` : ''} - worth highlighting publicly (see Strengths across the cohort).`);
+    // Name the most common SPECIFIC strength, not the theme. Theme totals are
+    // biased by how many topics a theme covers, so the broadest theme wins both
+    // "most strengths" and "most recommendations", which reads as a contradiction.
+    const top = topStrengths[0];
+    strengths.push(`"${top.text}" is already in place across ${top.count} business${top.count !== 1 ? 'es' : ''} - the most common strength, worth highlighting publicly (see Strengths across the cohort).`);
   }
 
   const m = topNeedsWorkModule(payload);
@@ -262,10 +265,10 @@ export function generateKeyInsights(payload: ProgramReportPayload, strongPct: nu
   if (strongPct < 25) barriers.push(`Cohort maturity is still developing (${strongPct}% strong), so meaningful collective work remains.`);
 
   if (topPriorityActions.length > 0) {
-    const area = topPriorityActions[0].theme?.label;
-    opportunity.push(area
-      ? `${area} is where recommendations cluster most across the cohort - the strongest area for a shared, council-led response rather than supporting businesses one at a time.`
-      : `Recommendations cluster in a few areas across the cohort - a shared, council-led response reaches more businesses than one-at-a-time support.`);
+    // Name the single most common SPECIFIC recommendation (not the theme), so this
+    // never collides with the "most strengths" line above.
+    const top = topPriorityActions[0];
+    opportunity.push(`The most common recommendation, "${top.action}", recurs across ${top.count} business${top.count !== 1 ? 'es' : ''} - a strong candidate for a shared, network-wide response rather than supporting businesses one at a time.`);
   }
   if (completedPct >= 40 && completedPct < 80) opportunity.push(`At ${completedPct}% completion, re-running in 4 to 6 weeks will firm up findings before public reporting.`);
 
