@@ -888,7 +888,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     const authRecs = authorityRecommendations(payload);
     if (authRecs.length > 0) {
       addSectionHeader('Potential network initiatives');
-      addParagraph("The pattern of recommendations points to opportunities for shared support across the network - initiatives that would help many businesses at once rather than each in isolation. Flare Access can help scope and deliver these with you.");
+      addParagraph("The pattern of recommendations points to opportunities for shared support across the network - initiatives that would help many businesses at once rather than each in isolation.");
       authRecs.forEach(r => {
         ensureSpace(14);
         doc.setFontSize(BODY_TEXT_SIZE);

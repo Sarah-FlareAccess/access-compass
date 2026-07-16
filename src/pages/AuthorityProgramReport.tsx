@@ -484,7 +484,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         <section className="authority-form-card report-section report-recommendations">
           <h2>Potential network initiatives</h2>
           <p className="report-section__subtitle">
-            The pattern of recommendations points to opportunities for shared support across the network - initiatives that would help many businesses at once rather than each in isolation. Flare Access can help scope and deliver these with you.
+            The pattern of recommendations points to opportunities for shared support across the network - initiatives that would help many businesses at once rather than each in isolation.
           </p>
           <ol className="report-recs">
             {recommendations.map((r, i) => (
