@@ -804,22 +804,6 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addParagraph(`Measured only for the ${imp.reassessedCount} business${imp.reassessedCount !== 1 ? 'es' : ''} that have re-assessed since joining - a fair before-and-after needs two assessments. Readiness is a 0 to 100 score weighted by confidence (strong 100, mixed 50, needs work 0). Businesses assessed once are not counted here until they re-assess.`, 9);
   }
 
-  if (sharedOpps.length > 0) {
-    ensureSpace(24);
-    doc.setFontSize(BODY_TEXT_SIZE);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-    doc.text('Recommended council response', PAGE.marginX, yPos);
-    yPos += 6.5;
-    // Lead with the AREA and a direction, not a single frequency-derived action:
-    // the counts show where support helps most, but the specific action to fund
-    // should be confirmed against the businesses' plans, not read off one line.
-    drawBulletList(groupItems(sharedOpps).slice(0, 3).map(g =>
-      `- ${g.label}: recommendations recur across ${g.total} point${g.total !== 1 ? 's' : ''} in the cohort. Consider ${sharedResponseFor(g.key)}.`));
-    yPos += 2;
-    doc.setTextColor(0, 0, 0);
-  }
-
   addSectionHeader('Module progress');
   addParagraph('Completion rate and confidence band distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The verdict on the right flags where to focus: Maintain (doing well), Invest (mixed, targeted support pays off) or Improve (the biggest collective gap).');
 
@@ -872,6 +856,12 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
       doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
+      // Shared-response suggestion (folds in the old "investments" section).
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(BODY_TEXT_SIZE);
+      doc.setTextColor(...hexToRgb(COLORS.textMuted));
+      doc.splitTextToSize(`A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once. Examples:`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
+      doc.setTextColor(...hexToRgb(COLORS.text));
       drawBulletList(g.items.slice(0, 3).map(pa =>
         `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}${pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})`));
       if (g.items.length > 3) {
@@ -907,27 +897,6 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         yPos += 3;
       });
     }
-  }
-
-  // =====================================================
-  // Recommended program investments (shared opportunities)
-  // =====================================================
-  if (sharedOpps.length > 0) {
-    addSectionHeader('Recommended program investments');
-    addParagraph('Areas where a single, shared initiative would serve many businesses at once. These point to where investment goes furthest based on how often recommendations recur; they are a starting point for council planning, not a costed commitment. Confirm the specific response with the businesses before committing.');
-    groupItems(sharedOpps).slice(0, 5).forEach((g, idx) => {
-      ensureSpace(16);
-      doc.setFontSize(BODY_TEXT_SIZE);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...hexToRgb(COLORS.text));
-      doc.splitTextToSize(`${idx + 1}. ${g.label}`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6); doc.text(l, PAGE.marginX, yPos); yPos += 6; });
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(BODY_TEXT_SIZE);
-      doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.splitTextToSize(`${g.total} recommendation${g.total !== 1 ? 's' : ''} recur across the cohort here. A shared response - ${sharedResponseFor(g.key)} - would reach many businesses at once rather than supporting each one alone.`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(5.5); doc.text(l, PAGE.marginX, yPos); yPos += 5.5; });
-      yPos += 3;
-      doc.setTextColor(0, 0, 0);
-    });
   }
 
   // =====================================================
