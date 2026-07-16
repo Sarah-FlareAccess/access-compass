@@ -20,6 +20,10 @@ import {
   authorityRecommendations,
   priorityHorizons as computePriorityHorizons,
   moduleVerdict,
+  resolveGroupMode,
+  groupWordFor,
+  groupRecommendations,
+  sharedResponseFor,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
@@ -258,7 +262,7 @@ export default function AuthorityProgramReport() {
       )}
 
       {/* Selected snapshot render */}
-      {selected && <ReportRender data={selected.snapshot_data} />}
+      {selected && <ReportRender data={selected.snapshot_data} groupBy={groupBy} />}
 
       {/* Footer authority context */}
       {selected && accessState.organisation && (
@@ -270,7 +274,7 @@ export default function AuthorityProgramReport() {
   );
 }
 
-function ReportRender({ data }: { data: ProgramReportPayload }) {
+function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 'theme' | 'framework' }) {
   const { program, enrolment, moduleAggregates, topPriorityActions, topStrengths, topAreasToExplore, methodology } = data;
 
   // Cohort-wide confidence totals for the maturity donut
@@ -297,8 +301,29 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
   const priorityHorizons = useMemo(() => computePriorityHorizons(topPriorityActions), [topPriorityActions]);
   const risk = useMemo(() => computeRisk(maturity.score, completionPct, confidence.total), [maturity.score, completionPct, confidence.total]);
 
+  const groupMode = resolveGroupMode(groupBy, data.outcomes?.frameworkKey);
+  const groupWord = groupWordFor(groupMode);
+  const recGroups = useMemo(
+    () => groupRecommendations(topPriorityActions, groupMode, data.outcomes?.frameworkKey),
+    [topPriorityActions, groupMode, data.outcomes],
+  );
+
   return (
     <div className="program-report">
+      {/* About this program - context (parity with the PDF). Stats live in the
+          hero card below, so this stays to purpose + grouping + areas list. */}
+      <section className="authority-form-card report-section">
+        <h2>About this program</h2>
+        {program.description && <p className="report-section__subtitle">{program.description}</p>}
+        <p className="report-section__subtitle">
+          {groupMode === 'framework'
+            ? `Recommendations throughout are organised by the ${data.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
+            : 'Recommendations throughout are organised by accessibility theme (the area of the visitor journey they relate to).'}
+        </p>
+        <p className="outcome-modules"><span className="outcome-modules__label">Areas assessed:</span>{' '}
+          {program.moduleIds.map(mId => `${getModuleName(mId)} (${mId})`).join(' · ')}
+        </p>
+      </section>
       {/* Network Accessibility Maturity Score - the headline, trackable metric */}
       <section className="report-maturity" aria-label="Network Accessibility Maturity Score">
         <div className="report-maturity__score">
@@ -460,6 +485,30 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
         </div>
       </section>
 
+      {/* Common recommendations by theme/outcome area (parity with the PDF) */}
+      {recGroups.length > 0 && (
+        <section className="authority-form-card report-section">
+          <h2>Common recommendations by {groupWord}</h2>
+          <p className="report-section__subtitle">
+            Where businesses most often received recommendations, by area. Counts show how many businesses each pattern appears in. Check the specifics with the businesses before acting on their behalf.
+          </p>
+          {recGroups.map(g => (
+            <div key={g.key} className="report-rec-group">
+              <h3>{g.label} - {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</h3>
+              <p className="report-section__subtitle">A shared response - {sharedResponseFor(g.key)} - would reach many businesses at once. Examples:</p>
+              <ul>
+                {g.items.slice(0, 3).map((pa, i) => (
+                  <li key={pa.action + i}>{pa.action} ({pa.count} business{pa.count !== 1 ? 'es' : ''}{pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})</li>
+                ))}
+              </ul>
+              {g.items.length > 3 && (
+                <p className="report-section__subtitle">...and {g.items.length - 3} more in this {groupWord} - see the appendix for the full list.</p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
+
       {/* Side-by-side priorities and strengths */}
       {priorityHorizons.length > 0 && (
         <section className="authority-form-card report-section">
@@ -506,6 +555,26 @@ function ReportRender({ data }: { data: ProgramReportPayload }) {
           accent="purple"
           wide
         />
+      )}
+
+      {/* Appendix - full recommendation list (parity with the PDF) */}
+      {recGroups.length > 0 && (
+        <section className="authority-form-card report-section">
+          <h2>Appendix: all recommendations by {groupWord}</h2>
+          <p className="report-section__subtitle">
+            The complete list of recommendation patterns, grouped by area. Counts show how many businesses each appears in.
+          </p>
+          {recGroups.map(g => (
+            <div key={g.key} className="report-rec-group">
+              <h3>{g.label} - {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</h3>
+              <ul>
+                {g.items.map((pa, i) => (
+                  <li key={pa.action + i}>{pa.action} ({pa.count} business{pa.count !== 1 ? 'es' : ''}{pa.priority ? `, ${pa.priority.toUpperCase()} priority` : ''})</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
       )}
 
       <section className="report-methodology">
