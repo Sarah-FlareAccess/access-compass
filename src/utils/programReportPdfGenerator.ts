@@ -467,11 +467,14 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   };
 
   const addModuleRow = (moduleId: string, agg: typeof moduleAggregates[number] | undefined) => {
-    ensureSpace(20);
+    ensureSpace(22);
+    yPos += 1;
 
-    doc.setFontSize(BODY_TEXT_SIZE);
+    // Module title is the skim anchor - larger and bold so the eye lands on it
+    // before the muted completion count and the band-count line below the bar.
+    doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(COLORS.text));
+    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text(`${moduleName(moduleId)} (${moduleId})`, PAGE.marginX, yPos);
 
     const total = agg?.total_enrolments ?? 0;
@@ -480,7 +483,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setFontSize(BODY_TEXT_SIZE);
     doc.setTextColor(...hexToRgb(COLORS.textMuted));
     doc.text(`${completed}/${total} completed`, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
-    yPos += 4;
+    yPos += 5;
 
     const barW = PAGE.contentWidth;
     const barH = 4;
