@@ -542,80 +542,88 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   };
 
   // =====================================================
-  // COVER PAGE
+  // COVER PAGE (matches the DIAP + assessment report covers)
   // =====================================================
-  doc.setFillColor(...hexToRgb(COLORS.amethystDark));
-  doc.rect(0, 0, PAGE.width, PAGE.height, 'F');
+  const ccx = PAGE.width / 2;
+  // Amethyst top band (single tone) + warm ivory lower area.
   doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.rect(PAGE.width * 0.3, 0, PAGE.width * 0.7, PAGE.height * 0.5, 'F');
-  doc.setFillColor(...hexToRgb(COLORS.aussieLight));
-  doc.rect(0, PAGE.height * 0.42, PAGE.width, 4, 'F');
+  doc.rect(0, 0, PAGE.width, PAGE.height * 0.44, 'F');
+  doc.setFillColor(...hexToRgb(COLORS.ivory));
+  doc.rect(0, PAGE.height * 0.44 + 3, PAGE.width, PAGE.height - (PAGE.height * 0.44 + 3), 'F');
 
+  // Tone-on-tone compass, offset to the lower-right of the band beside the title.
+  const cpx = PAGE.width * 0.70;
+  const cpy = PAGE.height * 0.31;
+  doc.setDrawColor(96, 42, 134);
+  doc.setLineWidth(0.6);
+  doc.circle(cpx, cpy, 30, 'S');
+  doc.circle(cpx, cpy, 21, 'S');
+  doc.setLineWidth(0.9);
+  doc.line(cpx, cpy - 30, cpx, cpy - 25);
+  doc.line(cpx, cpy + 25, cpx, cpy + 30);
+  doc.line(cpx - 30, cpy, cpx - 25, cpy);
+  doc.line(cpx + 25, cpy, cpx + 30, cpy);
+  doc.setFillColor(124, 66, 166);
+  doc.triangle(cpx, cpy - 18, cpx - 3.5, cpy, cpx + 3.5, cpy, 'F');
+  doc.setFillColor(90, 32, 128);
+  doc.triangle(cpx, cpy + 14, cpx - 3.5, cpy, cpx + 3.5, cpy, 'F');
+  doc.setFillColor(255, 144, 21);
+  doc.circle(cpx, cpy, 1.6, 'F');
+  doc.setDrawColor(0, 0, 0);
+
+  // Title, left-aligned on the clean purple band beside the compass.
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(32);
+  doc.setFontSize(30);
   doc.setFont('helvetica', 'bold');
-  doc.text('Program Report', PAGE.width / 2, PAGE.height * 0.27, { align: 'center' });
+  doc.text('Program Report', PAGE.marginX + 4, PAGE.height * 0.20, { align: 'left' });
 
-  doc.setFontSize(13);
-  doc.setFont('helvetica', 'normal');
-  doc.text(groupLabel, PAGE.width / 2, PAGE.height * 0.32, { align: 'center' });
+  // Orange divider.
+  doc.setFillColor(...hexToRgb(COLORS.aussieLight));
+  doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
 
-  // Org + program name card
-  doc.setFillColor(255, 255, 255);
-  const orgCardY = PAGE.height * 0.54;
-  doc.roundedRect(PAGE.marginX + 10, orgCardY, PAGE.contentWidth - 20, 40, 4, 4, 'F');
-  doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.roundedRect(PAGE.marginX + 10, orgCardY, 4, 40, 2, 2, 'F');
+  // Grouping badge straddling the divider (quick-glance recognition of grouping).
+  const groupBadgeText = groupMode === 'framework' ? 'By outcome area' : 'By theme';
+  const badgeWidth = 56;
+  doc.setFillColor(255, 237, 200);
+  doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'F');
+  doc.setDrawColor(224, 125, 0);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'S');
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(120, 53, 0);
+  doc.text(groupBadgeText, ccx, PAGE.height * 0.44 + 19, { align: 'center' });
+  doc.setDrawColor(0, 0, 0);
 
-  doc.setFontSize(18);
+  // Council (org) name - dark on the light area.
+  doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text(authority.name, PAGE.width / 2, orgCardY + 12, { align: 'center' });
+  doc.text(authority.name, ccx, PAGE.height * 0.62, { align: 'center' });
 
+  // Program name.
   doc.setFontSize(13);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...hexToRgb(COLORS.text));
-  const programLines = doc.splitTextToSize(program.name, PAGE.contentWidth - 30);
-  doc.text(programLines, PAGE.width / 2, orgCardY + 22, { align: 'center' });
-
-  doc.setFontSize(9);
-  doc.setTextColor(...hexToRgb(COLORS.textMuted));
-  doc.text(`Generated ${formattedDate}`, PAGE.width / 2, orgCardY + 34, { align: 'center' });
-
-  // Cover stats
-  const coverStatsY = PAGE.height * 0.72;
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(PAGE.marginX + 10, coverStatsY, PAGE.contentWidth - 20, 28, 4, 4, 'F');
-  const coverStats = [
-    { val: String(enrolment.total), label: 'Businesses' },
-    { val: String(enrolment.completed + enrolment.submitted), label: 'Completed' },
-    { val: String(program.moduleIds.length), label: 'Modules' },
-    { val: `${pct(enrolment.completed + enrolment.submitted, enrolment.total)}%`, label: 'Completion' },
-  ];
-  const coverStatW = (PAGE.contentWidth - 20) / 4;
-  coverStats.forEach((s, idx) => {
-    const x = PAGE.marginX + 10 + idx * coverStatW;
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-    doc.text(s.val, x + coverStatW / 2, coverStatsY + 12, { align: 'center' });
-    doc.setFontSize(7);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(75, 85, 99);
-    doc.text(s.label, x + coverStatW / 2, coverStatsY + 20, { align: 'center' });
+  doc.splitTextToSize(program.name, PAGE.contentWidth - 20).forEach((line: string, i: number) => {
+    doc.text(line, ccx, PAGE.height * 0.62 + 9 + i * 6, { align: 'center' });
   });
 
-  // Branding badge
-  doc.setFillColor(255, 255, 255);
-  doc.roundedRect(PAGE.width / 2 - 40, PAGE.height * 0.87, 80, 18, 3, 3, 'F');
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text('Access Compass', PAGE.width / 2, PAGE.height * 0.87 + 8, { align: 'center' });
-  doc.setFontSize(8);
+  // Generated date.
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...hexToRgb(COLORS.textMuted));
-  doc.text('by Flare Access', PAGE.width / 2, PAGE.height * 0.87 + 14, { align: 'center' });
+  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + 22, { align: 'center' });
+
+  // Branding at the bottom.
+  doc.setFontSize(13);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+  doc.text('Access Compass', ccx, PAGE.height * 0.9, { align: 'center' });
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...hexToRgb(COLORS.textMuted));
+  doc.text('by Flare Access', ccx, PAGE.height * 0.9 + 6, { align: 'center' });
 
   // =====================================================
   // PAGE 2: Executive summary + module rollup
