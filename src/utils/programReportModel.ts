@@ -4,6 +4,8 @@
 // can never drift in wording or logic - fix a number or a sentence once, here.
 
 import { accessModules } from '../data/accessModules';
+import { domainsForModule } from '../data/frameworkMappings';
+import { getFramework } from '../data/frameworks';
 import type { ProgramReportPayload } from '../hooks/useProgramReport';
 
 export function moduleName(moduleId: string): string {
@@ -70,6 +72,45 @@ export function groupByTheme<T extends { count: number; theme?: { key: string; l
     if (!g) { g = { key, label, total: 0, items: [] }; map.set(key, g); }
     g.total += it.count;
     g.items.push(it);
+  }
+  return Array.from(map.values()).sort((a, b) => b.total - a.total);
+}
+
+// Grouping mode for the recommendation sections: DIAP theme (default) or the
+// jurisdiction's statutory outcome domain. Shared so the PDF and web group
+// identically for the same groupBy choice.
+export type GroupMode = 'theme' | 'framework';
+export function resolveGroupMode(groupBy: GroupMode | undefined, frameworkKey?: string): GroupMode {
+  return groupBy === 'framework' && frameworkKey && getFramework(frameworkKey) ? 'framework' : 'theme';
+}
+export function groupWordFor(mode: GroupMode): string {
+  return mode === 'framework' ? 'outcome area' : 'theme';
+}
+export function groupRecommendations<T extends { count: number; moduleIds: string[]; theme?: { key: string; label: string } }>(
+  items: T[], mode: GroupMode, frameworkKey?: string,
+): ThemeGroup<T>[] {
+  if (mode !== 'framework' || !frameworkKey) return groupByTheme(items);
+  const fw = getFramework(frameworkKey);
+  const shortById = fw ? new Map(fw.domains.map(d => [d.id, d.short || d.name])) : new Map<string, string>();
+  const groupOf = (moduleIds: string[]): { key: string; label: string } => {
+    const tally = new Map<string, number>();
+    for (const mid of moduleIds) {
+      const code = mid.match(/\d+\.\d+/)?.[0] ?? mid;
+      for (const dId of domainsForModule(code, frameworkKey)) tally.set(dId, (tally.get(dId) ?? 0) + 1);
+    }
+    let best: string | undefined;
+    let bestN = 0;
+    for (const [k, n] of tally) if (n > bestN) { bestN = n; best = k; }
+    if (!best) return { key: 'unmapped', label: 'Not yet mapped to an outcome area' };
+    return { key: best, label: shortById.get(best) ?? best };
+  };
+  const map = new Map<string, ThemeGroup<T>>();
+  for (const it of items) {
+    const g = groupOf(it.moduleIds);
+    let e = map.get(g.key);
+    if (!e) { e = { key: g.key, label: g.label, total: 0, items: [] }; map.set(g.key, e); }
+    e.total += it.count;
+    e.items.push(it);
   }
   return Array.from(map.values()).sort((a, b) => b.total - a.total);
 }

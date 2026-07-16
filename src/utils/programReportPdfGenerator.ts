@@ -12,14 +12,11 @@
 import jsPDF from 'jspdf';
 import type { ModuleAggregate, ProgramReportPayload } from '../hooks/useProgramReport';
 import { diapThemeForModules, type AggregateTheme } from './aggregateTheme';
-import { domainsForModule } from '../data/frameworkMappings';
-import { getFramework } from '../data/frameworks';
 import {
   moduleName,
   describeCohortMaturity,
   describeCompletion,
   sharedResponseFor,
-  groupByTheme,
   generateKeyInsights,
   MIN_ASSESSED_TO_FLAG,
   computeMaturity,
@@ -27,7 +24,9 @@ import {
   authorityRecommendations,
   priorityHorizons,
   moduleVerdict,
-  type ThemeGroup,
+  resolveGroupMode,
+  groupWordFor,
+  groupRecommendations,
 } from './programReportModel';
 
 const COLORS = {
@@ -178,43 +177,16 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // instead of DIAP theme; it needs the snapshot's framework key and falls back
   // to theme grouping otherwise.
   const fwKey = payload.outcomes?.frameworkKey;
-  const framework = fwKey ? getFramework(fwKey) : undefined;
-  const groupMode: 'theme' | 'framework' =
-    options.groupBy === 'framework' && framework ? 'framework' : 'theme';
-  const groupWord = groupMode === 'framework' ? 'outcome area' : 'theme';
+  const groupMode = resolveGroupMode(options.groupBy, fwKey);
+  const groupWord = groupWordFor(groupMode);
   // Intro sentence describing how the report is organised, plus a filename slug
   // so a downloaded report is recognisable without opening it.
   const groupSentence = groupMode === 'framework'
     ? `Throughout, recommendations are organised by the ${payload.outcomes?.frameworkShort ?? 'jurisdiction'} statutory outcome areas, so they map directly to your reporting.`
     : 'Throughout, recommendations are organised by accessibility theme (the area of the visitor journey they relate to).';
   const groupSlug = groupMode === 'framework' ? 'by-outcome-area' : 'by-theme';
-  const domainShortById = framework
-    ? new Map(framework.domains.map(d => [d.id, d.short || d.name]))
-    : new Map<string, string>();
-  const frameworkGroupForModules = (moduleIds: string[]): { key: string; label: string } => {
-    const tally = new Map<string, number>();
-    for (const mid of moduleIds) {
-      const code = mid.match(/\d+\.\d+/)?.[0] ?? mid;
-      for (const dId of domainsForModule(code, fwKey)) tally.set(dId, (tally.get(dId) ?? 0) + 1);
-    }
-    let best: string | undefined;
-    let bestN = 0;
-    for (const [k, n] of tally) if (n > bestN) { bestN = n; best = k; }
-    if (!best) return { key: 'unmapped', label: 'Not yet mapped to an outcome area' };
-    return { key: best, label: domainShortById.get(best) ?? best };
-  };
-  const groupItems = <T extends { count: number; moduleIds: string[]; theme?: AggregateTheme }>(items: T[]): ThemeGroup<T>[] => {
-    if (groupMode !== 'framework') return groupByTheme(items);
-    const map = new Map<string, ThemeGroup<T>>();
-    for (const it of items) {
-      const g = frameworkGroupForModules(it.moduleIds);
-      let e = map.get(g.key);
-      if (!e) { e = { key: g.key, label: g.label, total: 0, items: [] }; map.set(g.key, e); }
-      e.total += it.count;
-      e.items.push(it);
-    }
-    return Array.from(map.values()).sort((a, b) => b.total - a.total);
-  };
+  const groupItems = <T extends { count: number; moduleIds: string[]; theme?: AggregateTheme }>(items: T[]) =>
+    groupRecommendations(items, groupMode, fwKey);
 
   const formattedDate = formatDate(generatedAt);
   const fileDate = new Date(generatedAt).toISOString().split('T')[0];
