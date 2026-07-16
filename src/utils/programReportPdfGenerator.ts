@@ -925,9 +925,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   if (payload.outcomes && payload.outcomes.domains.some(d => d.total > 0)) {
     const fw = payload.outcomes;
     addSectionHeader(`Alignment with ${fw.frameworkShort}`);
-    addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, ready for statutory reporting.`, 9);
+    addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, ready for statutory reporting. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
+    // List ALL framework domains, including any with no assessed modules. For a
+    // statutory report an uncovered outcome area is itself reportable, so it is
+    // shown as "not yet covered" rather than silently dropped.
     fw.domains.forEach(d => {
-      if (d.total === 0) return;
       ensureSpace(18);
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
@@ -936,23 +938,32 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.text(`${d.total} assessed`, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
+      doc.text(d.total > 0 ? `${d.total} assessed` : 'Not yet covered', PAGE.width - PAGE.marginX, yPos, { align: 'right' });
       yPos += 4;
       const barW = PAGE.contentWidth;
       const barH = 4;
       doc.setFillColor(...hexToRgb(COLORS.greyBar));
       doc.roundedRect(PAGE.marginX, yPos, barW, barH, 1, 1, 'F');
-      let x = PAGE.marginX;
-      const seg = (v: number, color: string) => {
-        if (v > 0) { const w = (v / d.total) * barW; doc.setFillColor(...hexToRgb(color)); doc.rect(x, yPos, w, barH, 'F'); x += w; }
-      };
-      seg(d.strong, COLORS.strongFill);
-      seg(d.mixed, COLORS.mixedFill);
-      seg(d.needsWork, COLORS.needsFill);
+      if (d.total > 0) {
+        let x = PAGE.marginX;
+        const seg = (v: number, color: string) => {
+          if (v > 0) { const w = (v / d.total) * barW; doc.setFillColor(...hexToRgb(color)); doc.rect(x, yPos, w, barH, 'F'); x += w; }
+        };
+        seg(d.strong, COLORS.strongFill);
+        seg(d.mixed, COLORS.mixedFill);
+        seg(d.needsWork, COLORS.needsFill);
+      }
       yPos += barH + 4;
       doc.setFontSize(BODY_TEXT_SIZE);
+      doc.setFont('helvetica', 'normal');
       doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.text(`Strong ${d.strong}  -  Mixed ${d.mixed}  -  Needs work ${d.needsWork}`, PAGE.marginX, yPos);
+      doc.text(
+        d.total > 0
+          ? `Strong ${d.strong}  -  Mixed ${d.mixed}  -  Needs work ${d.needsWork}`
+          : 'No modules in this program map to this outcome area yet.',
+        PAGE.marginX,
+        yPos,
+      );
       yPos += 6;
       doc.setTextColor(0, 0, 0);
     });
