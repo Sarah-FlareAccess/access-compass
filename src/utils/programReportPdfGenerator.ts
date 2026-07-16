@@ -16,13 +16,16 @@ import { domainsForModule } from '../data/frameworkMappings';
 import { getFramework } from '../data/frameworks';
 import {
   moduleName,
-  maturityBand,
   describeCohortMaturity,
   describeCompletion,
   sharedResponseFor,
   groupByTheme,
   generateKeyInsights,
   MIN_ASSESSED_TO_FLAG,
+  computeMaturity,
+  computeRisk,
+  authorityRecommendations,
+  priorityHorizons,
   type ThemeGroup,
 } from './programReportModel';
 
@@ -572,6 +575,38 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   const confTotal = confidence.strong + confidence.mixed + confidence.needs;
   const strongPct = confTotal > 0 ? Math.round((confidence.strong / confTotal) * 100) : 0;
   const completedPct = pct(completedDisplay, enrolment.total);
+  const maturity = computeMaturity({ strong: confidence.strong, mixed: confidence.mixed, total: confTotal });
+  const risk = computeRisk(maturity.score, completedPct, confTotal);
+
+  // Network Accessibility Maturity Score - the headline, trackable board-paper
+  // metric. The donut below is the confidence breakdown behind it.
+  ensureSpace(26);
+  doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
+  doc.roundedRect(PAGE.marginX, yPos, PAGE.contentWidth, 20, 3, 3, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(26);
+  doc.text(String(maturity.score), PAGE.marginX + 8, yPos + 14);
+  const scoreW = doc.getTextWidth(String(maturity.score));
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+  doc.text('/100', PAGE.marginX + 9 + scoreW, yPos + 14);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.text(`Network Accessibility Maturity: ${maturity.band}`, PAGE.marginX + 9 + scoreW + 16, yPos + 12.5);
+  doc.setTextColor(0, 0, 0);
+  yPos += 24;
+
+  // Network accessibility risk read.
+  const riskColor = risk.level === 'Low' ? COLORS.strongText : risk.level === 'High' ? COLORS.needsText : COLORS.mixedText;
+  ensureSpace(8);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(BODY_TEXT_SIZE);
+  doc.setTextColor(...hexToRgb(riskColor));
+  doc.text(`Network accessibility risk: ${risk.level}`, PAGE.marginX, yPos);
+  yPos += 5.5;
+  doc.setTextColor(0, 0, 0);
+  addParagraph(risk.note);
 
   // Maturity donut + legend (left) + interpretation (right)
   ensureSpace(60);
@@ -615,7 +650,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   doc.setFontSize(BODY_TEXT_SIZE);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-  doc.text(`COHORT MATURITY: ${maturityBand(strongPct).toUpperCase()}`, interpX, yPos + 5);
+  doc.text('CONFIDENCE BREAKDOWN', interpX, yPos + 5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(...hexToRgb(COLORS.text));
   doc.setFontSize(BODY_TEXT_SIZE);
@@ -638,7 +673,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // Program at a glance - the quotable summary for a council reader.
   {
     const paThemes = groupItems(payload.topPriorityActions);
-    const glance: string[] = [`Cohort readiness: ${maturityBand(strongPct)} (${strongPct}% strong)`];
+    const glance: string[] = [`Cohort readiness: ${maturity.band} (${maturity.score}/100, ${strongPct}% strong)`];
     if (paThemes[0]) glance.push(`Biggest shared need: ${paThemes[0].label} (${paThemes[0].total} recommendation${paThemes[0].total !== 1 ? 's' : ''})`);
     // Strongest area = the area with the most strengths that is NOT the biggest
     // need, so this line names a genuinely different area. (The old "Recommended
