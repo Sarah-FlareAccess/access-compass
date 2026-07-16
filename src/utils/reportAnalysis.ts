@@ -228,7 +228,9 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   const article = /^[aeiou]/i.test(maturity.level) ? 'an' : 'a';
   interpretation.push(
     `Within the areas assessed, ${organisation} demonstrates ${article} ${maturity.level.toLowerCase()} level of accessibility maturity` +
-    (strongest ? `, with its strongest practice in ${strongest.label.toLowerCase()}.` : '.')
+    (strongest
+      ? `, with its highest performing area being ${strongest.label.toLowerCase()}${strongest.actions === 0 ? ', where all assessed criteria were met' : ''}.`
+      : '.')
   );
   if (topDomain) {
     interpretation.push(

@@ -400,7 +400,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
   const execParas: string[] = [];
   execParas.push(
-    `This plan sets out ${totalItems} action${totalItems === 1 ? '' : 's'} to improve accessibility across the visitor journey, organisational systems and workforce capability.`,
+    `This plan sets out ${totalItems} action${totalItems === 1 ? '' : 's'} to improve accessibility across the visitor journey, organisational systems and workforce capability. It is a prioritised register of the actions selected for delivery, so the balance across areas here can differ from the assessment report, which describes every finding across all areas.`,
   );
   // Headline a real accessibility area, never "Other" - leading with "Other" is
   // a weak message and implies the plan could not be classified.
