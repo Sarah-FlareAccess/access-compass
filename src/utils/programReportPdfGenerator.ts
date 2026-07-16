@@ -994,8 +994,8 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   if (payload.outcomes && payload.outcomes.domains.some(d => d.total > 0)) {
     const fw = payload.outcomes;
-    addSectionHeader(`Alignment with ${fw.frameworkShort}`);
-    addParagraph(`The cohort's confidence bands mapped to the ${fw.frameworkName} outcome domains, to support your statutory reporting. The mapping is automated - confirm it fits your plan before relying on it. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
+    addSectionHeader(`Alignment with ${fw.frameworkShort} - readiness by outcome area`);
+    addParagraph(`This is the cohort's readiness against each ${fw.frameworkShort} outcome domain - the confidence bands mapped to the ${fw.frameworkName} domains, to support your statutory reporting.${groupMode === 'framework' ? ` It complements the recommendations earlier in this report, which are grouped by these same outcome areas: this section shows where the cohort stands, those show what to act on.` : ''} The mapping is automated - confirm it fits your plan before relying on it. Every outcome domain is listed; domains with no assessed modules yet are shown as not yet covered so the coverage gap is explicit.`);
     // List ALL framework domains, including any with no assessed modules. For a
     // statutory report an uncovered outcome area is itself reportable, so it is
     // shown as "not yet covered" rather than silently dropped.
