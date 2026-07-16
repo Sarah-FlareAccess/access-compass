@@ -402,17 +402,21 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   execParas.push(
     `This plan sets out ${totalItems} action${totalItems === 1 ? '' : 's'} to improve accessibility across the visitor journey, organisational systems and workforce capability.`,
   );
-  if (catCounts[0] && totalItems > 0) {
-    const top = catCounts[0];
+  // Headline a real accessibility area, never "Other" - leading with "Other" is
+  // a weak message and implies the plan could not be classified.
+  const namedCatCounts = catCounts.filter(c => c.key !== '__other__');
+  if (namedCatCounts[0] && totalItems > 0) {
+    const top = namedCatCounts[0];
     let weight = `The largest concentration of work sits in ${catPhrase(top.key)} (${Math.round((top.count / totalItems) * 100)}% of actions)`;
-    if (catCounts[1]) {
-      weight += `, followed by ${catPhrase(catCounts[1].key)} (${Math.round((catCounts[1].count / totalItems) * 100)}%)`;
+    if (namedCatCounts[1]) {
+      weight += `, followed by ${catPhrase(namedCatCounts[1].key)} (${Math.round((namedCatCounts[1].count / totalItems) * 100)}%)`;
     }
     execParas.push(weight + '.');
   }
-  if (highItems.length > 0 && highByCat[0]) {
+  const namedHighByCat = highByCat.filter(c => c.key !== '__other__');
+  if (highItems.length > 0 && namedHighByCat[0]) {
     execParas.push(
-      `Most high-priority actions relate to ${catPhrase(highByCat[0].key)}, where legal-compliance and safety risk is greatest. Progressing these early reduces exposure while improving the visitor experience.`,
+      `Most high-priority actions relate to ${catPhrase(namedHighByCat[0].key)}, where compliance and safety considerations often concentrate. Progressing these early reduces exposure while improving the visitor experience.`,
     );
   }
   execParas.push(

@@ -317,6 +317,14 @@ function getLocalItems(): DIAPItem[] {
   let deduped = false;
   const uniqueItems: DIAPItem[] = [];
   for (const item of items) {
+    // Always-on category repair: some items were stored with a RAW question
+    // category ('physical', 'feedback', ...) or none, which is not a DIAP
+    // category key, so they fell into "Other / Uncategorised". Re-derive from the
+    // module. Custom categories are left alone (only raw/empty are re-mapped).
+    if ((!item.category || RAW_QUESTION_CATEGORIES.has(item.category)) && (item.moduleSource || item.questionSource)) {
+      const mapped = mapModuleToCategory(item.moduleSource || item.questionSource || '');
+      if (mapped && mapped !== item.category) { item.category = mapped; deduped = true; }
+    }
     const key = item.questionSource ? `${item.questionSource}::${item.siteId ?? ''}` : item.id;
     if (item.questionSource && seen.has(key)) {
       deduped = true;
@@ -946,7 +954,11 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         sessionId: session?.session_id || '',
         objective: generateObjective(genQuestion, response.answer, response.moduleCode),
         action: generateDIAPActions(genQuestion, response.answer, response.moduleCode),
-        category: response.category || 'operations-policy-procedure',
+        // Map to a DIAP category via the authoritative module mapping. The raw
+        // response.category is a question category ('physical', 'feedback', ...)
+        // that does NOT match the DIAP category keys, so using it dumped nearly
+        // half the plan into "Other / Uncategorised".
+        category: mapModuleToCategory(response.moduleCode) || response.category || 'operations-policy-procedure',
         priority,
         timeframe,
         status: 'not-started',
@@ -2122,6 +2134,16 @@ function prioritizeFromText(text: string): DIAPPriority {
 }
 
 // Helper: Map module code or name to DIAP category using authoritative mapping
+// Raw QUESTION category slugs (from accessModules) - these are NOT DIAP category
+// keys, so an item stored with one of these falls into "Other" and must be
+// re-mapped to its DIAP category. Custom DIAP categories are not in this set, so
+// they are never touched by the repair.
+const RAW_QUESTION_CATEGORIES = new Set<string>([
+  'operational', 'information', 'policy', 'physical', 'feedback', 'training',
+  'improvement', 'procurement', 'sensory-environment', 'safety', 'measurement',
+  'digital', 'communication', 'lived-experience', 'evidence', 'employment',
+]);
+
 function mapModuleToCategory(moduleNameOrCode: string): DIAPCategory {
   // Extract module code (e.g. "1.4" from "Social media, video & audio" or "1.4")
   const codeMatch = moduleNameOrCode.match(/(\d+\.\d+)/);
