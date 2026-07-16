@@ -27,6 +27,7 @@ import {
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
+  themeComposition,
   APPENDIX_MIN_PATTERNS,
 } from './programReportModel';
 
@@ -825,8 +826,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addSectionHeader(`Where recommendations concentrate, by ${groupWord}`);
     addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are listed below by how commonly they were raised${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and in full in the appendix' : ''}.`);
 
-    drawBulletList(groupItems(topPriorityActions).map(g =>
-      `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`));
+    drawBulletList(groupItems(topPriorityActions).map(g => {
+      const comp = themeComposition(g.items);
+      const suffix = comp.length ? ` (${comp.map(c => `${c.label} ${c.count}`).join(', ')})` : '';
+      return `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort${suffix}`;
+    }));
     yPos += 3;
   }
 

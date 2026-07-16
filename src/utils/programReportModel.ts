@@ -129,6 +129,32 @@ export function moduleVerdict(m: { confidence_strong: number; confidence_mixed: 
   return strongP >= 55 ? { label: 'Maintain', key: 'maintain' } : strongP >= 30 ? { label: 'Invest', key: 'invest' } : { label: 'Improve', key: 'improve' };
 }
 
+// Friendly labels for the finer question categories, used to show a broad DIAP
+// theme's internal make-up (e.g. Information, Communication & Marketing is mostly
+// Digital). Falls back to a capitalised slug for any unmapped category.
+const QUESTION_CATEGORY_LABEL: Record<string, string> = {
+  operational: 'Operations', policy: 'Policy', information: 'Information', digital: 'Digital',
+  communication: 'Communication', physical: 'Physical', feedback: 'Feedback', training: 'Training',
+  improvement: 'Improvement', procurement: 'Procurement', 'sensory-environment': 'Sensory environment',
+  safety: 'Safety', measurement: 'Measurement', 'lived-experience': 'Lived experience',
+  evidence: 'Evidence', employment: 'Employment',
+};
+
+// Break a theme group's recommendations down by their finer question category,
+// as a share of the group total. Returns [] when the group spans only one finer
+// category (nothing to add) so callers can skip the breakdown entirely.
+export function themeComposition(items: { count: number; questionCategory?: string }[]): { label: string; count: number }[] {
+  const tally = new Map<string, number>();
+  for (const it of items) {
+    if (!it.questionCategory) continue;
+    tally.set(it.questionCategory, (tally.get(it.questionCategory) ?? 0) + it.count);
+  }
+  if (tally.size < 2) return [];
+  return Array.from(tally.entries())
+    .map(([k, c]) => ({ label: QUESTION_CATEGORY_LABEL[k] ?? (k.charAt(0).toUpperCase() + k.slice(1)), count: c }))
+    .sort((a, b) => b.count - a.count);
+}
+
 export interface GroupedInsights { strengths: string[]; barriers: string[]; opportunity: string[]; }
 
 // A module needs at least this many assessed businesses before it can be named

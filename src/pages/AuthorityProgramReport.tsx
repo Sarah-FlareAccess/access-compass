@@ -24,6 +24,7 @@ import {
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
+  themeComposition,
   APPENDIX_MIN_PATTERNS,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
@@ -504,9 +505,17 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
             How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are listed below by how commonly they were raised{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and in full in the appendix' : ''}.
           </p>
           <ul className="report-areas-list">
-            {recGroups.map(g => (
-              <li key={g.key}>{g.label}: {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort</li>
-            ))}
+            {recGroups.map(g => {
+              const comp = themeComposition(g.items);
+              return (
+                <li key={g.key}>
+                  {g.label}: {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort
+                  {comp.length > 0 && (
+                    <span className="report-areas-list__comp"> ({comp.map(c => `${c.label} ${c.count}`).join(', ')})</span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </section>
       )}

@@ -19,6 +19,7 @@ import { supabase, isSupabaseEnabled } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { AuthorityProgram, AccessLevel } from '../types/access';
 import { diapThemeForModules, diapThemeForAction, type AggregateTheme } from '../utils/aggregateTheme';
+import { getQuestionCategory } from '../data/accessModules';
 import { getFramework } from '../data/frameworks';
 import { hasMappings } from '../data/frameworkMappings';
 import {
@@ -67,6 +68,9 @@ export interface PriorityActionAggregate {
   priority?: string;
   moduleIds: string[];
   theme?: AggregateTheme;
+  /** Finer question category (digital, information, communication, ...) used to
+   *  show a broad DIAP theme's internal composition. */
+  questionCategory?: string;
 }
 
 export interface StrengthAggregate {
@@ -536,6 +540,9 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
     // Theme by the source question's own topic (content), not just its module,
     // so a website/WCAG action from a physical module lands in the right area.
     theme: diapThemeForAction(v.questionId, v.moduleIds),
+    // Finer question category (e.g. digital / information / communication) so a
+    // broad DIAP theme can show its internal make-up in the report.
+    questionCategory: v.questionId ? getQuestionCategory(v.questionId) : undefined,
   }));
   const strengths: StrengthAggregate[] = Array.from(strengthMap.values()).map(v => ({
     text: v.text,
