@@ -583,7 +583,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       ...(report.frameworkAlignment ? ['Legislative Alignment'] : []),
       'About This Report',
       ...(report.themeBreakdown.length ? ['Performance by Area'] : []),
-      ...(report.analysis.recurringThemes.length ? ['Recurring Themes'] : []),
+      ...(report.analysis.recurringThemes.length ? ['Key Themes'] : []),
       ...(report.analysis.thematicSummaries.length ? ['Where the Priorities Sit'] : []),
       ...(report.analysis.strengthsByTheme.length ? ["Where You're Strongest"] : []),
       ...(report.analysis.startingSequence.length ? ['Suggested Implementation Roadmap'] : []),
@@ -963,7 +963,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.setFontSize(11);
       if (noFindings) {
         doc.setTextColor(156, 163, 175);
-        doc.text('No findings', PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
+        doc.text(t.assessed === 0 ? 'Not assessed' : 'No findings', PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
       } else {
         doc.setTextColor(31, 41, 55);
         doc.text(`${t.performancePct}%`, PAGE.width - PAGE.marginRight, yPosition + 2, { align: 'right' });
@@ -986,7 +986,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Recurring themes across recommendations ---
   if (report.analysis.recurringThemes.length > 0) {
-    addSectionTitle('Recurring Themes');
+    addSectionTitle('Key Themes');
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);

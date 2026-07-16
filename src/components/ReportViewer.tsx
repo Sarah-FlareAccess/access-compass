@@ -612,8 +612,8 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
               {/* Recurring themes */}
               {report.analysis.recurringThemes.length > 0 && (
                 <div className="report-analysis-block">
-                  <h3>Recurring themes</h3>
-                  <p className="report-analysis-sub">Themes that appear across multiple recommendations, most frequent first.</p>
+                  <h3>Key themes</h3>
+                  <p className="report-analysis-sub">The themes running through your recommendations, most frequent first.</p>
                   <div className="report-freq-rows">
                     {report.analysis.recurringThemes.map(t => (
                       <div key={t.label} className="report-freq-row">

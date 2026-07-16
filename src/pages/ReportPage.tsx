@@ -966,8 +966,8 @@ export default function ReportPage() {
         {/* Recurring themes across recommendations */}
         {report.analysis.recurringThemes.length > 0 && (
           <div className="rp-analysis-block">
-            <h2>Recurring themes</h2>
-            <p className="rp-analysis-sub">Themes that appear across multiple recommendations, most frequent first.</p>
+            <h2>Key themes</h2>
+            <p className="rp-analysis-sub">The themes running through your recommendations, most frequent first.</p>
             <div className="rp-freq-rows">
               {report.analysis.recurringThemes.map(t => (
                 <div key={t.label} className="rp-freq-row">

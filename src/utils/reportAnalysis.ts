@@ -196,8 +196,10 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
     scopeHigh,
   }));
 
-  // --- Recurring themes across all recommendations (appearing at least twice) ---
-  const recurringThemes = countThemes(actions, 6, 2);
+  // --- Key themes across the recommendations. Top 5, including themes that
+  // appear once, so the section reads richly rather than showing just the one or
+  // two that happen to recur. Renamed from "Recurring" in the PDF accordingly. ---
+  const recurringThemes = countThemes(actions, 5, 1);
   let recurringInsight = '';
   if (recurringThemes.length >= 2) {
     recurringInsight = `Addressing ${recurringThemes[0].label.toLowerCase()} and ${recurringThemes[1].label.toLowerCase()} would remove several barriers at once.`;
