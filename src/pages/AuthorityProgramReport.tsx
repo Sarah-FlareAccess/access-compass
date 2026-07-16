@@ -18,14 +18,12 @@ import {
   computeMaturity,
   computeRisk,
   authorityRecommendations,
-  prevalenceBands,
+  sharedRecommendations,
   pctOfCohort,
   moduleVerdict,
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
-  themeComposition,
-  APPENDIX_MIN_PATTERNS,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
 import type { AuthorityProgram } from '../types/access';
@@ -304,7 +302,6 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
   const maturity = useMemo(() => computeMaturity(confidence), [confidence]);
   const recommendations = useMemo(() => authorityRecommendations(data), [data]);
   const cohortSize = data.assessedBusinesses || completedDisplay || enrolment.total;
-  const prevalence = useMemo(() => prevalenceBands(topPriorityActions, cohortSize), [topPriorityActions, cohortSize]);
   const risk = useMemo(() => computeRisk(maturity.score, completionPct, confidence.total), [maturity.score, completionPct, confidence.total]);
 
   const groupMode = resolveGroupMode(groupBy, data.outcomes?.frameworkKey);
@@ -312,6 +309,13 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
   const recGroups = useMemo(
     () => groupRecommendations(topPriorityActions, groupMode, data.outcomes?.frameworkKey),
     [topPriorityActions, groupMode, data.outcomes],
+  );
+  // The appendix is only worth showing when the body cannot show everything
+  // (a group with more than the per-group cap, or one-off patterns); otherwise
+  // it just repeats the body.
+  const REC_SHOWN_PER_GROUP = 6;
+  const appendixNeeded = topPriorityActions.length > recGroups.reduce(
+    (n, g) => n + Math.min(REC_SHOWN_PER_GROUP, sharedRecommendations(g.items).length), 0,
   );
 
   return (
@@ -496,55 +500,36 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         </div>
       </section>
 
-      {/* Where recommendations concentrate, by area - a distribution ranking.
-          The actions live in the horizon view + appendix. */}
+      {/* Most common recommendations grouped by area (or jurisdiction outcome
+          area), with the specific actions under each so a council can see
+          exactly what the gap is. Descriptive - count + share, no judgement. */}
       {recGroups.length > 0 && (
         <section className="authority-form-card report-section">
-          <h2>Where recommendations concentrate, by {groupWord}</h2>
+          <h2>Most common recommendations by {groupWord}</h2>
           <p className="report-section__subtitle">
-            How the cohort&rsquo;s recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are listed below by how commonly they were raised{topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and in full in the appendix' : ''}.
+            The specific recommendations raised across the cohort, grouped by {groupWord} and ordered by how many businesses raised each - so it&rsquo;s clear exactly where the gaps are. Priorities vary between organisations, but they show where shared resources, funding or capability-building could support several at once. Counts show how many of the {cohortSize} assessed business{cohortSize !== 1 ? 'es' : ''} raised each{appendixNeeded ? '; any beyond the top few per area are in the appendix' : ''}.
           </p>
-          <ul className="report-areas-list">
-            {recGroups.map(g => {
-              const comp = themeComposition(g.items);
-              return (
-                <li key={g.key}>
-                  {g.label}: {g.total} recommendation{g.total !== 1 ? 's' : ''} across the cohort
-                  {comp.length > 0 && (
-                    <span className="report-areas-list__comp"> ({comp.map(c => `${c.label} ${c.count}`).join(', ')})</span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      )}
-
-      {/* Side-by-side priorities and strengths */}
-      {prevalence.length > 0 && (
-        <section className="authority-form-card report-section">
-          <h2>Most common recommendations across the cohort</h2>
-          <p className="report-section__subtitle">
-            These recommendations appeared most frequently across the participating businesses. Priorities will vary between organisations, but they mark where shared resources, funding or capability-building could support several at once. Counts show how many of the {cohortSize} assessed business{cohortSize !== 1 ? 'es' : ''} raised each; only patterns shared by at least three are listed here, with the full set in the appendix.
-          </p>
-          <div className="report-horizons">
-            {prevalence.map(b => (
-              <div key={b.key} className="report-horizon report-horizon--prevalence">
-                <div className="report-horizon__head">
-                  <h3>{b.label}</h3>
-                  <span>{b.hint}</span>
-                </div>
-                <ol className="report-horizon__list">
-                  {b.items.slice(0, 8).map((p, i) => (
+          {recGroups.map(g => {
+            const items = sharedRecommendations(g.items);
+            if (items.length === 0) return null;
+            const shown = appendixNeeded ? items.slice(0, REC_SHOWN_PER_GROUP) : items;
+            return (
+              <div className="report-rec-group" key={g.key}>
+                <h3>{g.label}</h3>
+                <ul className="report-rec-list">
+                  {shown.map((p, i) => (
                     <li key={p.action + i}>
-                      <span className="report-horizon__text">{p.action}</span>
-                      <span className="report-horizon__count">{p.count} · {pctOfCohort(p.count, cohortSize)}%</span>
+                      <span className="report-rec-list__text">{p.action}</span>
+                      <span className="report-rec-list__count">{p.count} business{p.count !== 1 ? 'es' : ''} ({pctOfCohort(p.count, cohortSize)}%)</span>
                     </li>
                   ))}
-                </ol>
+                </ul>
+                {appendixNeeded && items.length > REC_SHOWN_PER_GROUP && (
+                  <p className="report-rec-more">+ {items.length - REC_SHOWN_PER_GROUP} more in the appendix</p>
+                )}
               </div>
-            ))}
-          </div>
+            );
+          })}
         </section>
       )}
 
@@ -568,9 +553,9 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
         />
       )}
 
-      {/* Appendix - full recommendation list (only when there are enough
-          patterns; below that the horizon view already shows them all). */}
-      {topPriorityActions.length >= APPENDIX_MIN_PATTERNS && (
+      {/* Appendix - full recommendation list, only when the body could not show
+          everything (otherwise it would just repeat the body). */}
+      {appendixNeeded && (
         <section className="authority-form-card report-section">
           <h2>Appendix: all recommendations by {groupWord}</h2>
           <p className="report-section__subtitle">

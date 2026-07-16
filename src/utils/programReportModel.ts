@@ -79,11 +79,6 @@ export function groupByTheme<T extends { count: number; theme?: { key: string; l
 // Grouping mode for the recommendation sections: DIAP theme (default) or the
 // jurisdiction's statutory outcome domain. Shared so the PDF and web group
 // identically for the same groupBy choice.
-// Show the full appendix only when there are enough distinct recommendation
-// patterns to be worth it - below this the by-horizon list already shows them
-// all, so a separate full appendix would just restate it.
-export const APPENDIX_MIN_PATTERNS = 7;
-
 export type GroupMode = 'theme' | 'framework';
 export function resolveGroupMode(groupBy: GroupMode | undefined, frameworkKey?: string): GroupMode {
   return groupBy === 'framework' && frameworkKey && getFramework(frameworkKey) ? 'framework' : 'theme';
@@ -127,32 +122,6 @@ export function moduleVerdict(m: { confidence_strong: number; confidence_mixed: 
   if (total === 0) return null;
   const strongP = (m.confidence_strong / total) * 100;
   return strongP >= 55 ? { label: 'Maintain', key: 'maintain' } : strongP >= 30 ? { label: 'Invest', key: 'invest' } : { label: 'Improve', key: 'improve' };
-}
-
-// Friendly labels for the finer question categories, used to show a broad DIAP
-// theme's internal make-up (e.g. Information, Communication & Marketing is mostly
-// Digital). Falls back to a capitalised slug for any unmapped category.
-const QUESTION_CATEGORY_LABEL: Record<string, string> = {
-  operational: 'Operations', policy: 'Policy', information: 'Information', digital: 'Digital',
-  communication: 'Communication', physical: 'Physical', feedback: 'Feedback', training: 'Training',
-  improvement: 'Improvement', procurement: 'Procurement', 'sensory-environment': 'Sensory environment',
-  safety: 'Safety', measurement: 'Measurement', 'lived-experience': 'Lived experience',
-  evidence: 'Evidence', employment: 'Employment',
-};
-
-// Break a theme group's recommendations down by their finer question category,
-// as a share of the group total. Returns [] when the group spans only one finer
-// category (nothing to add) so callers can skip the breakdown entirely.
-export function themeComposition(items: { count: number; questionCategory?: string }[]): { label: string; count: number }[] {
-  const tally = new Map<string, number>();
-  for (const it of items) {
-    if (!it.questionCategory) continue;
-    tally.set(it.questionCategory, (tally.get(it.questionCategory) ?? 0) + it.count);
-  }
-  if (tally.size < 2) return [];
-  return Array.from(tally.entries())
-    .map(([k, c]) => ({ label: QUESTION_CATEGORY_LABEL[k] ?? (k.charAt(0).toUpperCase() + k.slice(1)), count: c }))
-    .sort((a, b) => b.count - a.count);
 }
 
 export interface GroupedInsights { strengths: string[]; barriers: string[]; opportunity: string[]; }
@@ -237,27 +206,17 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   return recs.slice(0, 6);
 }
 
-// Recommendations grouped by PREVALENCE - how many businesses raised each, as a
-// share of the cohort. This is purely descriptive: it reports the data rather
-// than making a priority judgement, so it does not depend on the (unreliable)
-// per-question compliance tags. Only patterns shared by at least MIN_SHARED
-// businesses appear; one-off items live in the appendix.
+// Only recommendations shared by at least this many businesses are listed in the
+// report body (a shared, council-worthy pattern rather than a one-off); the rest
+// live in the appendix.
 export const MIN_SHARED = 3;
-export interface PrevalenceBand { key: string; label: string; hint: string; items: ProgramReportPayload['topPriorityActions']; }
 export function pctOfCohort(count: number, cohortSize: number): number {
   return cohortSize > 0 ? Math.min(100, Math.round((count / cohortSize) * 100)) : 0;
 }
-export function prevalenceBands(actions: ProgramReportPayload['topPriorityActions'], cohortSize: number): PrevalenceBand[] {
-  const ratio = (n: number) => (cohortSize > 0 ? n / cohortSize : 0);
-  // Sort by count so each band lists its most-shared items first, regardless of
-  // the order the aggregation happened to produce.
-  const shared = actions.filter(a => a.count >= MIN_SHARED).slice().sort((a, b) => b.count - a.count);
-  const pick = (lo: number, hi: number) => shared.filter(a => { const r = ratio(a.count); return r >= lo && r < hi; });
-  return [
-    { key: 'very', label: 'Very common', hint: 'Raised by most of the cohort', items: pick(0.6, Infinity) },
-    { key: 'common', label: 'Common', hint: 'Raised by a sizeable share of the cohort', items: pick(0.3, 0.6) },
-    { key: 'emerging', label: 'Emerging', hint: 'Raised by a smaller group, an early signal', items: pick(0, 0.3) },
-  ].filter(b => b.items.length > 0);
+// The shared recommendations within a group, most-raised first. Descriptive - no
+// priority judgement, so it does not lean on the (unreliable) compliance tags.
+export function sharedRecommendations<T extends { count: number }>(items: T[]): T[] {
+  return items.filter(a => a.count >= MIN_SHARED).slice().sort((a, b) => b.count - a.count);
 }
 
 export function generateKeyInsights(payload: ProgramReportPayload, strongPct: number, completedPct: number): GroupedInsights {

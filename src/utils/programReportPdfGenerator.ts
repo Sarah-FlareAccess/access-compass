@@ -21,14 +21,12 @@ import {
   computeMaturity,
   computeRisk,
   authorityRecommendations,
-  prevalenceBands,
+  sharedRecommendations,
   pctOfCohort,
   moduleVerdict,
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
-  themeComposition,
-  APPENDIX_MIN_PATTERNS,
 } from './programReportModel';
 
 const COLORS = {
@@ -820,48 +818,44 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   drawWhatThisMeans(interpModuleText);
 
   // =====================================================
-  // Top priority actions
+  // Most common recommendations, grouped by area (or jurisdiction outcome area)
+  // with the SPECIFIC actions under each so a council can see exactly what the
+  // gap is - descriptive (count + share), no priority judgement.
   // =====================================================
+  // The appendix is only worth a page when the body cannot show everything -
+  // i.e. some group has more than SHOWN_PER_GROUP shared items, or there are
+  // one-off (<MIN_SHARED) patterns the body omits. Otherwise it just repeats
+  // the body, which the report deliberately avoids.
+  const SHOWN_PER_GROUP = 6;
+  const appendixNeeded = topPriorityActions.length > groupItems(topPriorityActions)
+    .reduce((n, g) => n + Math.min(SHOWN_PER_GROUP, sharedRecommendations(g.items).length), 0);
+
   if (topPriorityActions.length > 0) {
-    addSectionHeader(`Where recommendations concentrate, by ${groupWord}`);
-    addParagraph(`How the cohort's recommendations distribute across areas - a signal of where a shared, council-led initiative would help the most businesses at once. The specific actions are listed below by how commonly they were raised${topPriorityActions.length >= APPENDIX_MIN_PATTERNS ? ' and in full in the appendix' : ''}.`);
-
-    drawBulletList(groupItems(topPriorityActions).map(g => {
-      const comp = themeComposition(g.items);
-      const suffix = comp.length ? ` (${comp.map(c => `${c.label} ${c.count}`).join(', ')})` : '';
-      return `- ${g.label}: ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort${suffix}`;
-    }));
-    yPos += 3;
-  }
-
-  // =====================================================
-  // Most common recommendations, grouped by prevalence (descriptive, not a
-  // priority judgement - see programReportModel.prevalenceBands)
-  // =====================================================
-  {
     const cohortSize = payload.assessedBusinesses || enrolment.completed + enrolment.submitted || enrolment.total;
-    const bands = prevalenceBands(topPriorityActions, cohortSize);
-    if (bands.length > 0) {
-      addSectionHeader('Most common recommendations across the cohort');
-      addParagraph(`These recommendations appeared most frequently across the participating businesses. Priorities will vary between organisations, but they mark where shared resources, funding or capability-building could support several at once. Counts show how many of the ${cohortSize} assessed business${cohortSize !== 1 ? 'es' : ''} raised each; only patterns shared by at least three are listed here, with the full set in the appendix.`);
-      bands.forEach(b => {
-        // Band label bold on its own line, descriptor wrapped in muted body text.
-        const hintLines = doc.splitTextToSize(b.hint, PAGE.contentWidth) as string[];
-        ensureSpace(6.5 + hintLines.length * 5 + 6);
-        doc.setFontSize(BODY_TEXT_SIZE);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-        doc.text(b.label, PAGE.marginX, yPos);
-        yPos += 5.5;
-        doc.setFont('helvetica', 'normal');
+    addSectionHeader(`Most common recommendations by ${groupWord}`);
+    addParagraph(`The specific recommendations raised across the cohort, grouped by ${groupWord} and ordered by how many businesses raised each - so it is clear exactly where the gaps are. Priorities vary between organisations, but they show where shared resources, funding or capability-building could support several at once. Counts show how many of the ${cohortSize} assessed business${cohortSize !== 1 ? 'es' : ''} raised each${appendixNeeded ? '; any beyond the top few per area are in the appendix' : ''}.`);
+    groupItems(topPriorityActions).forEach(g => {
+      const items = sharedRecommendations(g.items);
+      if (items.length === 0) return;
+      const shown = appendixNeeded ? items.slice(0, SHOWN_PER_GROUP) : items;
+      ensureSpace(12);
+      doc.setFontSize(BODY_TEXT_SIZE);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.text(g.label, PAGE.marginX, yPos);
+      yPos += 6;
+      drawBulletList(shown.map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''}, ${pctOfCohort(p.count, cohortSize)}%)`));
+      if (appendixNeeded && items.length > SHOWN_PER_GROUP) {
+        doc.setFont('helvetica', 'italic');
         doc.setFontSize(10);
         doc.setTextColor(...hexToRgb(COLORS.textMuted));
-        hintLines.forEach(line => { doc.text(line, PAGE.marginX, yPos); yPos += 5; });
-        yPos += 1.5;
-        drawBulletList(b.items.slice(0, 8).map(p => `- ${p.action} (${p.count} business${p.count !== 1 ? 'es' : ''}, ${pctOfCohort(p.count, cohortSize)}%)`));
-        yPos += 3;
-      });
-    }
+        ensureSpace(5);
+        doc.text(`+ ${items.length - SHOWN_PER_GROUP} more in the appendix`, PAGE.marginX + 4, yPos);
+        yPos += 5;
+        doc.setFont('helvetica', 'normal');
+      }
+      yPos += 3;
+    });
   }
 
   // =====================================================
@@ -975,10 +969,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addParagraph('This report aggregates completion and confidence bands across enrolled businesses; individual business responses are never shown. Each figure counts distinct businesses from their most recent assessment, with withdrawn businesses excluded. Priority actions and strengths are self-assessed narrative (not independently audited); the same recommendation is counted once per business and grouped across the cohort. Figures are a point-in-time snapshot and update as businesses complete or re-assess; treat a small cohort as indicative rather than conclusive.');
 
   // =====================================================
-  // Appendix - full recommendation list by theme (only when there are enough
-  // patterns to be worth it; below that the by-horizon list already shows them).
+  // Appendix - full recommendation list by theme, only when the body could not
+  // show everything (otherwise it would just repeat the body).
   // =====================================================
-  if (topPriorityActions.length >= APPENDIX_MIN_PATTERNS) {
+  if (appendixNeeded) {
     addNewPage();
     addSectionHeader(`Appendix: all recommendations by ${groupWord}`);
     addParagraph(`The complete list of recommendation patterns the report holds, grouped by area. The main body highlights the top few in each ${groupWord}; this appendix carries the rest. Counts show how many businesses each pattern appears in. Check the specifics with the businesses before acting on their behalf.`);

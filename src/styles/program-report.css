@@ -159,18 +159,30 @@
   margin: 0.15rem 0;
   break-inside: avoid;
 }
-.report-areas-list__comp {
-  color: var(--text-muted, #6b7280);
-  font-size: 0.8125rem;
-}
 .report-rec-group h3 {
   font-size: 0.9375rem;
-  margin: 0.75rem 0 0.25rem;
-  color: var(--text-primary, #2d2420);
+  margin: 0.9rem 0 0.25rem;
+  color: var(--deep-plum, #490E67);
 }
 .report-rec-group ul {
   margin: 0.25rem 0 0;
   padding-left: 1.25rem;
+}
+.report-rec-list li {
+  margin: 0.2rem 0;
+  break-inside: avoid;
+}
+.report-rec-list__count {
+  color: var(--text-muted, #6b7280);
+  font-size: 0.8125rem;
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+.report-rec-more {
+  margin: 0.3rem 0 0 1.25rem;
+  color: var(--text-muted, #6b7280);
+  font-size: 0.8125rem;
+  font-style: italic;
 }
 
 /* ===== Module heatmap ===== */
@@ -578,9 +590,6 @@
 .report-horizon--red { border-top-color: #DC2626; }
 .report-horizon--amber { border-top-color: #F59E0B; }
 .report-horizon--blue { border-top-color: #2563EB; }
-/* Prevalence bands are descriptive, not severity - use the brand plum so the
-   colour does not imply one band is more urgent than another. */
-.report-horizon--prevalence { border-top-color: #490E67; }
 .report-horizon__head h3 { margin: 0; font-size: 0.95rem; color: #3e2b2f; }
 .report-horizon__head span { font-size: 0.72rem; color: #6b5b60; }
 .report-horizon__list {
