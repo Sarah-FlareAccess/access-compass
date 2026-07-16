@@ -55,6 +55,7 @@ interface CohortSummaryRow {
 
 interface ModuleSummaryJson {
   doingWell?: string[];
+  doingWellIds?: (string | null)[];
   priorityActions?: Array<string | { action: string; priority?: string; timeframe?: string; questionId?: string }>;
   areasToExplore?: Array<string | { action: string }>;
 }
@@ -488,7 +489,7 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
   // business that flags the same action across two modules must count once, or
   // a pattern's "N businesses" can exceed the number of enrolled businesses.
   const priorityMap = new Map<string, { action: string; priorityVotes: Record<string, number>; moduleIds: string[]; businesses: Set<string>; questionId?: string }>();
-  const strengthMap = new Map<string, { text: string; moduleIds: string[]; businesses: Set<string> }>();
+  const strengthMap = new Map<string, { text: string; moduleIds: string[]; businesses: Set<string>; questionId?: string }>();
   const areaMap = new Map<string, { text: string; businesses: Set<string> }>();
 
   for (const row of rows) {
@@ -521,17 +522,21 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
       }
     }
 
-    for (const s of row.summary.doingWell ?? []) {
-      if (!s) continue;
+    (row.summary.doingWell ?? []).forEach((s, index) => {
+      if (!s) return;
       const key = normaliseText(s);
+      // Question id behind this strength (parallel array), so it can be themed by
+      // content rather than by its module.
+      const questionId = row.summary?.doingWellIds?.[index] ?? undefined;
       const existing = strengthMap.get(key);
       if (existing) {
         existing.businesses.add(business);
         if (!existing.moduleIds.includes(moduleId)) existing.moduleIds.push(moduleId);
+        if (!existing.questionId && questionId) existing.questionId = questionId;
       } else {
-        strengthMap.set(key, { text: s, moduleIds: [moduleId], businesses: new Set([business]) });
+        strengthMap.set(key, { text: s, moduleIds: [moduleId], businesses: new Set([business]), questionId: questionId ?? undefined });
       }
-    }
+    });
 
     for (const a of row.summary.areasToExplore ?? []) {
       const text = typeof a === 'string' ? a : a.action;
@@ -561,7 +566,10 @@ function aggregateCohortSummaries(rows: CohortSummaryRow[]): {
     text: v.text,
     count: v.businesses.size,
     moduleIds: v.moduleIds,
-    theme: diapThemeForModules(v.moduleIds),
+    // Theme by the strength's own question content (via its questionId), not its
+    // module, so a captioning or training strength no longer lands under Physical
+    // Access. Falls back to module theming when a legacy summary lacks the id.
+    theme: diapThemeForAction(v.questionId, v.moduleIds),
   }));
 
   return {

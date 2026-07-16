@@ -164,6 +164,10 @@ export interface ExploreItem {
 
 export interface ModuleSummary {
   doingWell: string[];
+  /** Question id behind each doingWell entry, same order and length. Lets the
+   *  cohort report theme a strength by its content instead of its module.
+   *  Optional so existing/legacy summaries stay valid. */
+  doingWellIds?: (string | undefined)[];
   priorityActions: ActionItem[];
   areasToExplore: (string | ExploreItem)[];
   professionalReview: string[];

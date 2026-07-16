@@ -344,6 +344,10 @@ export function generateModuleSummary(
   questions: BranchingQuestion[],
 ): ModuleSummary {
   const doingWell: string[] = [];
+  // Question id behind each doingWell entry (same order/length), so the cohort
+  // report can theme a strength by its content, not its module.
+  const doingWellIds: (string | undefined)[] = [];
+  const pushDoingWell = (text: string, qId?: string) => { doingWell.push(text); doingWellIds.push(qId); };
   const priorityActions: ActionItem[] = [];
   const areasToExplore: ExploreItem[] = [];
   const professionalReview: string[] = [];
@@ -359,7 +363,7 @@ export function generateModuleSummary(
     const sentiment = categorizeResponseSentiment(response, question);
 
     if (response.answer === 'yes') {
-      doingWell.push(convertQuestionToStatement(question.text));
+      pushDoingWell(convertQuestionToStatement(question.text), question.id);
     } else if (response.answer === 'no') {
       const priority = calculateQuestionPriority({
         complianceLevel: question.complianceLevel,
@@ -416,7 +420,7 @@ export function generateModuleSummary(
       const status = response.mediaAnalysis.overallStatus;
 
       if (status === 'excellent' || status === 'good') {
-        doingWell.push(`${analysisType.charAt(0).toUpperCase() + analysisType.slice(1)} analysis: ${score}/100 - ${status}`);
+        pushDoingWell(`${analysisType.charAt(0).toUpperCase() + analysisType.slice(1)} analysis: ${score}/100 - ${status}`, question.id);
       } else if (status === 'poor') {
         priorityActions.push({
           questionId: question.id,
@@ -473,7 +477,7 @@ export function generateModuleSummary(
         if (sentiment === 'positive') {
           const statement = convertQuestionToStatement(question.text);
           const details = getResponseDetails(response, question);
-          doingWell.push(details ? `${statement} (${details})` : statement);
+          pushDoingWell(details ? `${statement} (${details})` : statement, question.id);
         } else if (sentiment === 'negative') {
           const priority = calculateQuestionPriority({
             complianceLevel: question.complianceLevel,
@@ -537,13 +541,14 @@ export function generateModuleSummary(
         });
       } else if (ideal !== undefined && value >= ideal) {
         const statement = convertQuestionToStatement(question.text);
-        doingWell.push(`${statement} (${value}${question.measurementUnit})`);
+        pushDoingWell(`${statement} (${value}${question.measurementUnit})`, question.id);
       }
     }
   });
 
   return {
     doingWell,
+    doingWellIds,
     priorityActions,
     areasToExplore,
     professionalReview,
