@@ -33,33 +33,34 @@ The second kind is the expensive one. That was work already paid for, sitting un
 | Own Sites / Venues / Events | all tabs | **BUILT** | `sites` (023), `hooks/useSites.ts` |
 | Resource Hub | all tabs | **BUILT** | `pages/ResourceCentre.tsx` |
 | Network Program Included | MV, Auth | **BUILT** | `pages/AuthorityPrograms.tsx`, `ProgramEnrol.tsx`, `hooks/useProgramEnrolment.ts` |
-| Procurement-Ready Pack | Enterprise | **BUILT** (documents, not software) | Supplied by Flare with the contract |
-| Consultant Check-Ins | MV | **BUILT** (a service commitment) | Sarah's calendar |
+| Strategic Reviews | MV | **BUILT** (a service commitment) | Sarah's calendar. Bounded and diarised — the open-ended "4 hours consultation" is gone. |
 | Australian hosted / data residency | MV, Auth (platform note) | **BUILT** | Supabase, Sydney region |
 | Works With Your Project Tools | MS, MV, Auth | **PARTIAL** | Export **is** built (`useDIAPManagement.exportToCSV`, `diapPdfGenerator`). **Delivery packages are not** — today's export is the whole plan, not team-scoped. |
 | Team Allocation + Consolidated Emails | MS, MV, Auth | **PARTIAL** | Assigning `responsible_role` works. **"One consolidated email per person" has no implementation.** |
 | Zones / Zone-Based Reporting / Cross-Zone Trends | **all of Major Venue** | 🔴 **PLANNED** | **Nothing.** No zone table, column or type. `sites` is flat. See `bug-zones-sold-not-built`. |
-| Multi-Plan Support | Enterprise | 🔴 **PLANNED** | **Nothing.** No plan entity, no `plan_id` on `diap_items`, no historical comparison. Plans are auto-generated per venue. |
-| Superuser Training | Premier, Major, Core, Prof, Ent | **PLANNED** | The Training Hub platform exists (`026`, `027`, courses + lessons + progress). **The superuser course itself does not.** Content work, build once. |
+| Program History & Cycle Comparison | Enterprise | 🔴 **PLANNED** | **Nothing.** No plan entity, no `plan_id` on `diap_items`. Rescoped as version history (archive a cycle, compare against it) — concurrent plans was a scenario nobody has. |
+| Superuser Program | Premier, Major, Core, Prof, Ent | **PLANNED** | The Training Hub platform exists (`026`, `027`, courses + lessons + progress). **The superuser course itself does not.** Content work, build once. |
 | Single Sign-On (SSO) | Enterprise, Major Venue | **PLANNED** | Nothing. The only SAML strings in the repo are the pricing copy. |
 | API access | Enterprise, Major Venue | **PLANNED** | Nothing. No edge functions, no endpoints. |
+| Cross-site / org-wide reporting | Multi-Site (engine inclusions) | 🔴 **PLANNED** | **Nothing.** No side-by-side site scoring anywhere. The engine already claims "cross-site comparison" on all three Multi-Site tiers. |
 | Report format (PDF vs PDF + interactive) | Single Site, Multi-Site | ⚠️ **NOT GATED** | No tier gate found in `ReportPage.tsx`. Deep and Plus are identical on this row anyway — candidate for removal. |
 
 ## The two that cost you money right now
 
 **Framework alignment is not tier-gated.** Every tier gets it in the product. It is off the Single Site and Multi-Site tabs, so it is *unadvertised*, not *restricted*. Until it is enforced, Core's reason to exist above Multi-Site Plus ($7,900 vs $3,499) is a presentational choice rather than a product one.
 
-**Zones and multi-plan carry two prices between them.** Zones are the only thing separating Major Venue ($18,900) from Multi-Site Plus ($3,499). Multi-plan is the only thing separating Enterprise ($25,000) from Professional ($12,900). Both are unbuilt. Those two prices are currently held up by rows with nothing behind them.
+**Zones and program history carry two prices between them.** Zones are the only thing separating Major Venue ($18,900) from Multi-Site Plus ($3,499). Program history is the only thing Professional ($12,900) structurally cannot have, and it is what Enterprise ($25,000) rests on. Both are unbuilt. Those two prices are currently held up by rows with nothing behind them.
 
 ## Build order (by value per hour, 17 Jul 2026)
 
 0. **The superuser course** — the Training Hub is built and orphaned; this gives it a reason to be on the pricing page. It is also the scalable replacement for bundled consulting hours, which do not scale past ~50 customers. Build once, serves everyone, available at 9pm when a new starter joins. Directly answers the problem Access Compass claims to solve: when the person who cared leaves, the capability stays.
-1. **Delivery packages** — group by `responsible_team`, export that team's rows. Days. Also resurrects department-level ownership **without** Phase 1b RLS, because handing Parks a file is a file, not a permission.
-2. **Zones** — `ALTER TABLE sites ADD COLUMN parent_site_id UUID REFERENCES sites(id)`. `site_id` is already on every data table, so assessment, plan, evidence and reporting scope per zone for free. Makes Multi-Site vs Major Venue a real, enforceable boundary.
-3. **Evidence capture** — the localStorage quota bug and mobile upload. Filed as maintenance; actually the moat. Evidence is the thing a task tool cannot hold and the board report cannot do without.
-4. **Framework gate** — small, and it is what makes Core's $7,900 defensible.
-5. **Multi-plan** — `plan_id` on `diap_items` plus a plan switcher. Holds up the Enterprise price.
-6. **SSO**, then **API**.
+1. **Cross-site / organisation-wide reporting** — no side-by-side site scoring exists anywhere, and the engine already claims "cross-site comparison" on all three Multi-Site tiers. A core product capability rather than a convenience, and one build serves Multi-Site *and* Enterprise.
+2. **Delivery packages** — group by `responsible_team`, export that team's rows. Days. Also resurrects department-level ownership **without** Phase 1b RLS, because handing Parks a file is a file, not a permission.
+3. **Zones** — `ALTER TABLE sites ADD COLUMN parent_site_id UUID REFERENCES sites(id)`. `site_id` is already on every data table, so assessment, plan, evidence and reporting scope per zone for free. Makes Multi-Site vs Major Venue a real, enforceable boundary.
+4. **Evidence capture** — the localStorage quota bug and mobile upload. Filed as maintenance; actually the moat. Evidence is the thing a task tool cannot hold and the board report cannot do without.
+5. **Framework gate** — small, and it is what makes Core's $7,900 defensible.
+6. **Program history** — archive a plan at cycle end and compare against it. Scoped as version history, not concurrent plans. Holds up the Enterprise price.
+7. **SSO**, then **API**. Procurement assurance, not value.
 
 ## Maintaining this
 

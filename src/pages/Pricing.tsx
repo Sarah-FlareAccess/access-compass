@@ -203,8 +203,8 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     description: 'Compare accessibility performance across zones and track improvements over time. Identify which zones are leading, which need attention and how your complex is moving as a whole.',
   },
   consultantTime: {
-    title: 'Consultant Check-Ins and Time',
-    description: 'Scheduled sessions with an Access Compass accessibility specialist, included in your plan. Use for strategic guidance, progress reviews or working through complex areas with your team.',
+    title: 'Strategic Reviews',
+    description: 'A scheduled session with an Access Compass accessibility specialist to look at where your program is, what has moved and what to prioritise next. Diarised and bounded, not an open line. Where you need depth on something specific, expert advisory is available separately.',
   },
   multiDiap: {
     title: 'Program History & Cycle Comparison',
@@ -287,7 +287,7 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'stakeholderReporting', label: 'Executive & Board Reporting', infoKey: 'stakeholderReporting' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
   { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
-  { key: 'consultantTime', label: 'Consultant Check-Ins', infoKey: 'consultantTime' },
+  { key: 'consultantTime', label: 'Strategic Reviews', infoKey: 'consultantTime' },
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'support', label: 'Support' },
 ];
@@ -1021,7 +1021,7 @@ const majorVenueTiers: Tier[] = [
       stakeholderReporting: 'Tailored report (select assessment, sections)',
       businessGroupIncluded: false,
       comparison: '2 per year',
-      consultantTime: '2 check-ins per year',
+      consultantTime: '2 strategic reviews per year',
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       seatExpansion: '$300/seat',
@@ -1054,7 +1054,7 @@ const majorVenueTiers: Tier[] = [
       stakeholderReporting: 'Tailored report (select assessment, sections, zones)',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       comparison: 'Unlimited',
-      consultantTime: 'Quarterly + 4 hours consultation',
+      consultantTime: 'Quarterly strategic review',
       report: 'PDF + interactive + cross-zone summary',
       resourceHub: '12 months',
       seatExpansion: '$250/seat',
@@ -1142,7 +1142,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF + in-app dashboard + cycle-on-cycle comparison. Filter by section + site / venue / event + framework domain + plan cycle.',
       resourceHub: '12 months',
       evidenceLibrary: true,
-      superuserTraining: 'Organisation-wide program with ongoing training for new team members',
+      superuserTraining: 'Organisation-wide Superuser Program with ongoing retraining',
       integrations: 'Standalone, or delivery packages to your tools. API access, custom integrations on request',
       sso: true,
       comparison: 'Unlimited',
@@ -1604,7 +1604,7 @@ export default function Pricing() {
             {view === 'authority'
               ? 'One 60-minute advisory session included on Core and Professional, two on Enterprise. Additional expert advisory available. Sites and seats expandable mid-cycle, pro-rated for the months remaining.'
               : view === 'majorvenue'
-              ? 'Expert advisory available in addition to your included consultant time. Seats expandable mid-cycle, pro-rated for the months remaining.'
+              ? 'Expert advisory available in addition to your included strategic reviews. Seats expandable mid-cycle, pro-rated for the months remaining.'
               : 'Expert advisory available on any tier.'}
             {' '}All figures AUD, excluding GST.
           </p>
