@@ -81,8 +81,8 @@ type Tier = {
 // Info bubble content for features that need explanation
 const featureInfoContent: Record<string, { title: string; description: string; examples?: string[] }> = {
   diap: {
-    title: 'Disability Inclusion Action Plan (DIAP)',
-    description: 'A structured plan for improving accessibility across your organisation. Import your existing DIAP, assign actions to team members, track progress and export reports for your board or stakeholders.',
+    title: 'Action Plan Management',
+    description: 'Create and manage your action plan in one place. Import an existing plan, assign actions to the people who own them, work it as a board, collect evidence that the work happened, collaborate with comments, see the full activity history of who changed what, and generate reports when you are asked for them.',
   },
   diapForBusinesses: {
     title: 'DIAP for Businesses',
@@ -120,8 +120,12 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     description: 'Assign modules and action plan items to team members. Generate a single summary email with all assignments for each person, rather than sending individual emails for every item.',
   },
   stakeholderReporting: {
-    title: 'Stakeholder and Board Reporting',
-    description: 'Export professional PDF reports showing your DIAP progress for council meetings, board papers or funding acquittals.',
+    title: 'Executive & Board Reporting',
+    description: 'Board-ready reports showing what has moved, what is complete, the evidence behind it and how you are tracking against the framework you report on. Built to be tabled at a council meeting, put in a board paper or attached to a funding acquittal, rather than reformatted first.',
+  },
+  assessmentOutcome: {
+    title: 'Accessibility Self-Assessment',
+    description: 'Answer questions about your venue, your service and your organisation, and Access Compass produces your accessibility maturity score, the priorities to fix first and recommendations written for your situation. Only the modules relevant to you are asked, scoped from a library of 50 by what you tell us about your operation.',
   },
   businessGroupIncluded: {
     title: 'Network Program Included (Lite)',
@@ -206,8 +210,11 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   },
 };
 
+// Which of these rows are actually built is tracked in docs/feature-status.md.
+// That file is never imported, so it never reaches the bundle. Keep it honest:
+// a row that cannot name the file implementing it is PLANNED, not a tick.
 const featureLabelsIndividual: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
-  { key: 'assessment', label: 'Accessibility Self-Assessment' },
+  { key: 'assessment', label: 'Accessibility Self-Assessment', infoKey: 'assessmentOutcome' },
   { key: 'sites', label: 'Sites / Venues / Events' },
   { key: 'users', label: 'Users / Assessors' },
   { key: 'report', label: 'Accessibility Report & Recommendations' },
@@ -219,7 +226,7 @@ const featureLabelsIndividual: { key: keyof TierFeatures; label: string; infoKey
 ];
 
 const featureLabelsMultiSite: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
-  { key: 'assessment', label: 'Accessibility Self-Assessment' },
+  { key: 'assessment', label: 'Accessibility Self-Assessment', infoKey: 'assessmentOutcome' },
   { key: 'sites', label: 'Sites / Venues / Events' },
   { key: 'users', label: 'Users / Assessors' },
   { key: 'report', label: 'Accessibility Report & Recommendations' },
@@ -243,7 +250,7 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'integrations', label: 'Works With Your Project Tools', infoKey: 'integrations' },
-  { key: 'assessment', label: 'Self-Assessment Modules' },
+  { key: 'assessment', label: 'Self-Assessment Modules', infoKey: 'assessmentOutcome' },
   { key: 'sites', label: 'Own Sites / Venues / Events' },
   { key: 'users', label: 'User Seats' },
   { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
@@ -253,7 +260,7 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
 ];
 
 const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
-  { key: 'assessment', label: 'Accessibility Self-Assessment' },
+  { key: 'assessment', label: 'Accessibility Self-Assessment', infoKey: 'assessmentOutcome' },
   { key: 'zones', label: 'Zones within Complex', infoKey: 'zones' },
   { key: 'users', label: 'User Seats' },
   { key: 'diap', label: 'Action Plan Management', infoKey: 'diap' },
@@ -1321,6 +1328,12 @@ export default function Pricing() {
         </div>
 
         {/* Tab intro / router callout */}
+        {view !== 'networkprograms' && (
+          <p className="pricing-editions-note" style={{ maxWidth: '64rem', margin: '0 auto 1.5rem', fontSize: '0.9375rem', color: colors.walnut, textAlign: 'center', lineHeight: 1.6 }}>
+            Every plan includes the full Access Compass platform. Editions differ in scale, governance and reporting — not in whether you get the product.
+          </p>
+        )}
+
         {view === 'multisite' && (
           <div className="pricing-tab-intro" role="note" style={{ maxWidth: '64rem', margin: '0 auto 2rem', padding: '1rem 1.25rem', backgroundColor: '#FFF4E6', border: `1px solid ${colors.sunriseBright}`, borderRadius: '0.5rem' }}>
             <p style={{ margin: 0, fontSize: '0.875rem', color: colors.walnut, lineHeight: 1.5 }}>
@@ -1542,6 +1555,29 @@ export default function Pricing() {
         </>)}
 
         {/* ============ Cross-reference to Network Programs (non-NP tabs) ============ */}
+        {view !== 'networkprograms' && (
+          <div className="pricing-included-band" style={{ maxWidth: '64rem', margin: '2rem auto 0', padding: '1.35rem 1.5rem', backgroundColor: colors.white, border: `1px solid ${colors.ivoryDark}`, borderRadius: '0.5rem' }}>
+            <p style={{ margin: '0 0 0.9rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: colors.amethyst, textAlign: 'center' }}>
+              Every Access Compass plan includes
+            </p>
+            <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(15rem, 1fr))', gap: '0.65rem 1.5rem', listStyle: 'none', margin: 0, padding: 0 }}>
+              {[
+                'Australian-built and hosted in Sydney',
+                'Full data export — your data always belongs to you',
+                'Accessibility maturity scoring',
+                'Secure audit trail and activity history',
+                'Mobile-friendly access with offline support',
+                'Transfer ownership if staff or contractors change',
+              ].map((item) => (
+                <li key={item} style={{ display: 'flex', gap: '0.6rem', alignItems: 'flex-start', fontSize: '0.875rem', color: colors.walnut, lineHeight: 1.5 }}>
+                  <span aria-hidden="true" style={{ color: colors.amethyst, fontWeight: 800, flexShrink: 0 }}>✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {(view === 'authority' || view === 'majorvenue') && (
           <p className="pricing-platform-note" style={{ color: colors.textOnWhite, fontSize: '0.9375rem', lineHeight: 1.6, margin: '1.25rem auto 0', textAlign: 'center', maxWidth: '62ch' }}>
             <strong>Australian-built and hosted in Sydney.</strong> Designed for Australian accessibility legislation and procurement.
