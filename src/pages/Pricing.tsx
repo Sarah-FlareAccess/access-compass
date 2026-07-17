@@ -845,7 +845,7 @@ const individualTiers: Tier[] = [
     whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
     features: {
-      assessment: 'Pulse Check (all relevant modules)',
+      assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 50)',
       sites: '1 site / venue / event',
       assessments: '1',
       users: '2',
@@ -866,7 +866,7 @@ const individualTiers: Tier[] = [
     whoFor: 'Your living action plan for one venue, renewed every year.',
     highlight: true,
     features: {
-      assessment: 'Deep Dive (all relevant modules)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
       sites: '1 site / venue / event',
       assessments: '1',
       users: '3',
@@ -891,7 +891,7 @@ const multisiteTiers: Tier[] = [
     highlight: false,
     perSite: '$333/site',
     features: {
-      assessment: 'Pulse Check (all relevant modules)',
+      assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 50)',
       sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
@@ -913,7 +913,7 @@ const multisiteTiers: Tier[] = [
     highlight: true,
     perSite: '$666/site',
     features: {
-      assessment: 'Deep Dive (all relevant modules)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
       sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
@@ -935,7 +935,7 @@ const multisiteTiers: Tier[] = [
     highlight: false,
     perSite: '$583/site',
     features: {
-      assessment: 'Deep Dive (all relevant modules)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
       sites: 'Up to 6 sites / venues / events',
       assessments: '1 per site',
       users: '12',
@@ -961,7 +961,7 @@ const majorVenueTiers: Tier[] = [
     whoFor: 'When one site is the whole operation.',
     highlight: false,
     features: {
-      assessment: 'Deep Dive (all relevant modules)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
       sites: '1 complex',
       zones: 'Up to 10 zones',
       users: '10',
@@ -991,7 +991,7 @@ const majorVenueTiers: Tier[] = [
     whoFor: 'Governance-grade accessibility for flagship venues.',
     highlight: true,
     features: {
-      assessment: 'Deep Dive (all relevant modules)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
       sites: '1 complex',
       zones: 'Unlimited zones',
       users: '40',

@@ -50,7 +50,7 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
     moduleLimit: null,
     resourceHubMonths: 6,
     inclusions: [
-      'Pulse Check on all relevant modules',
+      'Pulse Check on all relevant modules (scoped to your venue from a library of 50)',
       'Resource Hub access (6 months)',
       'Self-service support',
       'Priority action recommendations',
@@ -64,7 +64,7 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
     moduleLimit: null,
     resourceHubMonths: 12,
     inclusions: [
-      'Deep Dive on all relevant modules',
+      'Deep Dive on all relevant modules (scoped to your venue from a library of 50)',
       'Resource Hub access (12 months)',
       'Full DIAP workspace',
       '1x re-assessment included',
