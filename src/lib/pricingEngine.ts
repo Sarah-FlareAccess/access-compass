@@ -231,6 +231,7 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     inclusions: [
       'Full DIAP management (import, assign, track, export)',
       'Statutory framework alignment and reporting',
+      'Australian-built and hosted in Sydney',
       '6 sites / events, 20 user seats',
       'All modules (Pulse + Deep Dive)',
       '12-month Resource Hub access',

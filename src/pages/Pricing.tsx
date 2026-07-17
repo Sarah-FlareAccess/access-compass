@@ -126,8 +126,8 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     description: 'Need to assess more venues mid-year? Add sites without upgrading your tier. Cost is pro-rated for the remaining months in your subscription period.',
   },
   comparison: {
-    title: 'Progress Tracking (Re-assessment)',
-    description: 'Run the same assessment again after improvements and compare results side by side to measure progress over time.',
+    title: 'Year-on-Year Progress Measurement',
+    description: 'Run the same assessment again after improvements and compare results side by side, so you can evidence what actually moved rather than describing intent. This is what turns a plan into a reportable record over a multi-year cycle.',
   },
   groups: {
     title: 'Groups',
@@ -152,8 +152,8 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     description: 'Your plan includes assessment of your own venues and operations, separate from the businesses in your groups.',
   },
   training: {
-    title: 'Consultation',
-    description: 'One-on-one sessions with an accessibility specialist. Includes preparation and follow-up notes. Available for your team or for businesses in your groups.',
+    title: 'Expert Advisory',
+    description: 'One-on-one sessions with an accessibility specialist. Includes preparation and follow-up notes. Available for your team or for businesses in your programs. Talk to us about scope and we will quote it.',
   },
   zones: {
     title: 'Zones',
@@ -199,7 +199,7 @@ const featureLabelsIndividual: { key: keyof TierFeatures; label: string; infoKey
   { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)', infoKey: 'diap' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'resourceHub', label: 'Resource Hub' },
-  { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
+  { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
   { key: 'support', label: 'Support' },
 ];
 
@@ -212,42 +212,42 @@ const featureLabelsMultiSite: { key: keyof TierFeatures; label: string; infoKey?
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'resourceHub', label: 'Resource Hub' },
-  { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
+  { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
   { key: 'support', label: 'Support' },
 ];
 
 const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
-  { key: 'diap', label: 'DIAP Management', infoKey: 'diap' },
-  { key: 'diapImport', label: 'DIAP Import (Guided Flow + Undo)', infoKey: 'diapImport' },
+  { key: 'diap', label: 'Action Plan Management', infoKey: 'diap' },
   { key: 'frameworkAlignment', label: 'Statutory Framework Alignment', infoKey: 'frameworkAlignment' },
+  { key: 'diapImport', label: 'Plan Import (Guided Flow + Undo)', infoKey: 'diapImport' },
+  { key: 'multiDiap', label: 'Multi-Plan Support', infoKey: 'multiDiap' },
+  { key: 'report', label: 'Executive & Board Reporting', infoKey: 'stakeholderReporting' },
+  { key: 'procurement', label: 'Procurement-Ready Pack', infoKey: 'procurement' },
+  { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
-  { key: 'multiDiap', label: 'Multi-DIAP Support', infoKey: 'multiDiap' },
   { key: 'assessment', label: 'Self-Assessment Modules' },
   { key: 'sites', label: 'Own Sites / Venues / Events' },
   { key: 'users', label: 'User Seats' },
-  { key: 'report', label: 'Board / Stakeholder Report (PDF)', infoKey: 'stakeholderReporting' },
-  { key: 'resourceHub', label: 'Resource Hub' },
-  { key: 'evidenceLibrary', label: 'Evidence Library' },
-  { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
+  { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
+  { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'support', label: 'Support' },
-  { key: 'procurement', label: 'Procurement-Ready Pack', infoKey: 'procurement' },
 ];
 
 const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
   { key: 'assessment', label: 'Accessibility Self-Assessment' },
   { key: 'zones', label: 'Zones within Complex', infoKey: 'zones' },
   { key: 'users', label: 'User Seats' },
-  { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)', infoKey: 'diap' },
-  { key: 'diapImport', label: 'DIAP Import (Guided Flow + Undo)', infoKey: 'diapImport' },
+  { key: 'diap', label: 'Action Plan Management', infoKey: 'diap' },
   { key: 'frameworkAlignment', label: 'Statutory Framework Alignment', infoKey: 'frameworkAlignment' },
+  { key: 'diapImport', label: 'Plan Import (Guided Flow + Undo)', infoKey: 'diapImport' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'zoneReporting', label: 'Zone-Based Reporting', infoKey: 'zoneReporting' },
   { key: 'crossZoneTrends', label: 'Cross-Zone Trend Analysis', infoKey: 'crossZoneTrends' },
-  { key: 'stakeholderReporting', label: 'Stakeholder / Board Reporting (PDF)', infoKey: 'stakeholderReporting' },
+  { key: 'stakeholderReporting', label: 'Executive & Board Reporting', infoKey: 'stakeholderReporting' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
-  { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
+  { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
   { key: 'consultantTime', label: 'Consultant Check-Ins', infoKey: 'consultantTime' },
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'support', label: 'Support' },
@@ -840,7 +840,7 @@ const individualTiers: Tier[] = [
       resourceHub: false,
       diap: false,
       comparison: false,
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Self-service'
     }
   },
@@ -860,7 +860,7 @@ const individualTiers: Tier[] = [
       resourceHub: '12 months',
       diap: false,
       comparison: false,
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Self-service'
     }
   },
@@ -881,7 +881,7 @@ const individualTiers: Tier[] = [
       diap: true,
       evidenceLibrary: true,
       comparison: '1 re-assessment',
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Self-service'
     }
   }
@@ -905,7 +905,7 @@ const multisiteTiers: Tier[] = [
       resourceHub: '12 months',
       diap: false,
       comparison: false,
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Self-service'
     }
   },
@@ -926,7 +926,7 @@ const multisiteTiers: Tier[] = [
       resourceHub: '12 months',
       diap: true,
       comparison: '1 per site',
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Email support'
     }
   },
@@ -949,7 +949,7 @@ const multisiteTiers: Tier[] = [
       teamAllocation: true,
       evidenceLibrary: true,
       comparison: '1 per site',
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Email support + quarterly check-ins'
     }
   }
@@ -982,7 +982,7 @@ const majorVenueTiers: Tier[] = [
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       seatExpansion: '$300/seat',
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Priority email + onboarding'
     }
   },
@@ -1012,7 +1012,7 @@ const majorVenueTiers: Tier[] = [
       report: 'PDF + interactive + cross-zone summary',
       resourceHub: '12 months',
       seatExpansion: '$250/seat',
-      training: 'Add-on: from $300',
+      training: 'Expert advisory available',
       support: 'Named consultant + priority onboarding'
     }
   }
@@ -1042,7 +1042,7 @@ const orgAccessibilityTiers: Tier[] = [
       businessGroupIncluded: false,
       seatExpansion: '$300/seat',
       siteExpansion: '$550/site',
-      training: '1 × 60-min included; add-ons from $300',
+      training: '1 × 60-min included; further advisory available',
       support: 'Email + guided onboarding',
       procurement: false,
     }
@@ -1070,7 +1070,7 @@ const orgAccessibilityTiers: Tier[] = [
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       seatExpansion: '$300/seat',
       siteExpansion: '$525/site',
-      training: '1 × 60-min included; add-ons from $300',
+      training: '1 × 60-min included; further advisory available',
       support: 'Priority email + onboarding + 6-monthly check-in',
       procurement: false,
     }
@@ -1098,7 +1098,7 @@ const orgAccessibilityTiers: Tier[] = [
       businessGroupIncluded: '2 Lite Network Programs (up to 10 businesses each)',
       seatExpansion: 'from $250/seat',
       siteExpansion: '$500/site',
-      training: '2 × 60-min included; add-ons from $300',
+      training: '2 × 60-min included; further advisory available',
       support: 'Dedicated support + consultant access',
       procurement: 'MSA, security questionnaire, insurance certs',
     }
@@ -1513,13 +1513,20 @@ export default function Pricing() {
         </>)}
 
         {/* ============ Cross-reference to Network Programs (non-NP tabs) ============ */}
+        {(view === 'authority' || view === 'majorvenue') && (
+          <p className="pricing-platform-note" style={{ color: colors.textOnWhite, fontSize: '0.9375rem', lineHeight: 1.6, margin: '1.25rem auto 0', textAlign: 'center', maxWidth: '62ch' }}>
+            <strong>Australian-built and hosted in Sydney.</strong> Designed for Australian accessibility legislation and procurement.
+            {view === 'authority' && <> <strong>Three-year agreements with annual invoicing available</strong>, so your licence runs to your plan cycle rather than to ours.</>}
+          </p>
+        )}
+
         {view !== 'networkprograms' && (
-          <p className="pricing-table-notes" style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.6, margin: '0.75rem 0 0', textAlign: 'center', maxWidth: '60ch', marginLeft: 'auto', marginRight: 'auto' }}>
+          <p className="pricing-table-notes" style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.6, margin: '0.75rem auto 0', textAlign: 'center', maxWidth: '60ch' }}>
             {view === 'authority'
-              ? 'Consultation: one 60-minute session included on Core and Professional, two on Enterprise. Additional sessions from $300. Sites and seats expandable mid-cycle, pro-rated for the months remaining. Three-year term with annual invoicing available.'
+              ? 'One 60-minute advisory session included on Core and Professional, two on Enterprise. Additional expert advisory available. Sites and seats expandable mid-cycle, pro-rated for the months remaining.'
               : view === 'majorvenue'
-              ? 'Additional consultation from $300. Seats expandable mid-cycle, pro-rated for the months remaining.'
-              : 'Consultation available as an add-on from $300 on any tier.'}
+              ? 'Expert advisory available in addition to your included consultant time. Seats expandable mid-cycle, pro-rated for the months remaining.'
+              : 'Expert advisory available on any tier.'}
             {' '}All figures AUD, excluding GST.
           </p>
         )}
