@@ -232,6 +232,7 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
       'Full DIAP management (import, assign, track, export)',
       'Statutory framework alignment and reporting',
       'Australian-built and hosted in Sydney',
+      'CSV and PDF export to your existing project tools',
       '6 sites / events, 20 user seats',
       'All modules (Pulse + Deep Dive)',
       '12-month Resource Hub access',

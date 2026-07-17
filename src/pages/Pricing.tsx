@@ -45,6 +45,7 @@ type TierFeatures = {
   aggregateDashboard?: boolean | string;
   diapImport?: boolean | string;
   frameworkAlignment?: boolean | string;
+  integrations?: boolean | string;
   teamAllocation?: boolean | string;
   stakeholderReporting?: boolean | string;
   evidenceLibrary?: boolean | string;
@@ -86,6 +87,15 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   diapForBusinesses: {
     title: 'DIAP for Businesses',
     description: 'Each business in your group gets its own Disability Inclusion Action Plan (DIAP) based on their assessment results. They manage their own actions and improvements. You see their overall progress from your network dashboard, but individual action items stay private to each business.',
+  },
+  integrations: {
+    title: 'Export & Integrations',
+    description: 'Your assessment findings and action plan export to CSV and PDF at any time, so items move into Asana, Monday.com, Microsoft Teams, a board pack or whatever your teams already run. Access Compass is designed to sit beside your existing systems rather than replace them, and nothing you put in is locked in. Where a direct live connection is genuinely needed, we scope it as a separate project.',
+    examples: [
+      'Push action items into an existing Asana or Monday.com board for the team that owns them',
+      'Drop the plan into a board pack or committee paper',
+      'Hand a supplier their own items without giving them a login',
+    ],
   },
   frameworkAlignment: {
     title: 'Statutory Framework Alignment',
@@ -211,6 +221,7 @@ const featureLabelsMultiSite: { key: keyof TierFeatures; label: string; infoKey?
   { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)', infoKey: 'diap' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
+  { key: 'integrations', label: 'Export & Integrations', infoKey: 'integrations' },
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'comparison', label: 'Year-on-Year Progress Measurement', infoKey: 'comparison' },
   { key: 'support', label: 'Support' },
@@ -225,6 +236,7 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'procurement', label: 'Procurement-Ready Pack', infoKey: 'procurement' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
+  { key: 'integrations', label: 'Export & Integrations', infoKey: 'integrations' },
   { key: 'assessment', label: 'Self-Assessment Modules' },
   { key: 'sites', label: 'Own Sites / Venues / Events' },
   { key: 'users', label: 'User Seats' },
@@ -243,6 +255,7 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'diapImport', label: 'Plan Import (Guided Flow + Undo)', infoKey: 'diapImport' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
+  { key: 'integrations', label: 'Export & Integrations', infoKey: 'integrations' },
   { key: 'zoneReporting', label: 'Zone-Based Reporting', infoKey: 'zoneReporting' },
   { key: 'crossZoneTrends', label: 'Cross-Zone Trend Analysis', infoKey: 'crossZoneTrends' },
   { key: 'stakeholderReporting', label: 'Executive & Board Reporting', infoKey: 'stakeholderReporting' },
@@ -925,6 +938,7 @@ const multisiteTiers: Tier[] = [
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       diap: true,
+      integrations: 'CSV + PDF export',
       comparison: '1 per site',
       training: 'Expert advisory available',
       support: 'Email support'
@@ -948,6 +962,7 @@ const multisiteTiers: Tier[] = [
       diap: 'Full (assign, track, export)',
       teamAllocation: true,
       evidenceLibrary: true,
+      integrations: 'CSV + PDF export',
       comparison: '1 per site',
       training: 'Expert advisory available',
       support: 'Email support + quarterly check-ins'
@@ -973,6 +988,7 @@ const majorVenueTiers: Tier[] = [
       frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
+      integrations: 'CSV + PDF export',
       zoneReporting: true,
       crossZoneTrends: false,
       stakeholderReporting: 'Tailored report (select assessment, sections)',
@@ -1003,6 +1019,7 @@ const majorVenueTiers: Tier[] = [
       frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
+      integrations: 'CSV + PDF export, custom integrations on request',
       zoneReporting: true,
       crossZoneTrends: true,
       stakeholderReporting: 'Tailored report + branding on request',
@@ -1038,6 +1055,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
       resourceHub: '12 months',
       evidenceLibrary: true,
+      integrations: 'CSV + PDF export',
       comparison: '1 per site',
       businessGroupIncluded: false,
       seatExpansion: '$300/seat',
@@ -1066,6 +1084,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
       resourceHub: '12 months',
       evidenceLibrary: true,
+      integrations: 'CSV + PDF export',
       comparison: '1 per site',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       seatExpansion: '$300/seat',
@@ -1094,6 +1113,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF (your branding) + in-app dashboard + multi-DIAP comparison. Filter by section + site / venue / event + framework domain + DIAP.',
       resourceHub: '12 months',
       evidenceLibrary: true,
+      integrations: 'CSV + PDF export, custom integrations on request',
       comparison: 'Unlimited',
       businessGroupIncluded: '2 Lite Network Programs (up to 10 businesses each)',
       seatExpansion: 'from $250/seat',
