@@ -245,7 +245,6 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'diapImport', label: 'Plan Import (Guided Flow + Undo)', infoKey: 'diapImport' },
   { key: 'multiDiap', label: 'Multi-Plan Support', infoKey: 'multiDiap' },
   { key: 'report', label: 'Executive & Board Reporting', infoKey: 'stakeholderReporting' },
-  { key: 'procurement', label: 'Procurement-Ready Pack', infoKey: 'procurement' },
   { key: 'sso', label: 'Single Sign-On (SSO)', infoKey: 'sso' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
@@ -855,7 +854,7 @@ const individualTiers: Tier[] = [
     name: 'Free',
     price: '$0',
     period: '',
-    description: 'See where you stand',
+    description: 'Try it. See where you stand.',
     whoFor: 'A free first look. Start small, no commitment.',
     highlight: false,
     features: {
@@ -875,7 +874,7 @@ const individualTiers: Tier[] = [
     name: 'Starter',
     price: '$499',
     period: '12 months',
-    description: 'Understand your baseline across all areas',
+    description: 'Understand your accessibility across every relevant area.',
     whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
     features: {
@@ -895,7 +894,7 @@ const individualTiers: Tier[] = [
     name: 'Committed',
     price: '$899',
     period: '12 months',
-    description: 'Comprehensive review with action planning',
+    description: 'Manage accessibility as an ongoing plan, not a one-off report.',
     whoFor: 'Your living action plan for one venue, renewed every year.',
     highlight: true,
     features: {
@@ -919,7 +918,7 @@ const multisiteTiers: Tier[] = [
     name: 'Multi-Site Pulse',
     price: '$1,199',
     period: '12 months',
-    description: 'Baseline across locations',
+    description: 'Understand where every venue stands.',
     whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
     perSite: '$400/site',
@@ -940,7 +939,7 @@ const multisiteTiers: Tier[] = [
     name: 'Multi-Site Deep',
     price: '$1,999',
     period: '12 months',
-    description: 'Detailed multi-site review',
+    description: 'Manage accessibility across two or three venues.',
     whoFor: 'Coordinated action plans across two or three venues, one program.',
     highlight: true,
     perSite: '$666/site',
@@ -962,8 +961,8 @@ const multisiteTiers: Tier[] = [
     name: 'Multi-Site Plus',
     price: '$3,499',
     period: '12 months',
-    description: 'Growing chains and groups',
-    whoFor: 'One program across every venue in your group, up to six sites.',
+    description: 'One accessibility program across every venue, run the same way.',
+    whoFor: 'For groups who want every venue held to the same standard, not just the flagship.',
     highlight: false,
     perSite: '$583/site',
     features: {
@@ -989,7 +988,7 @@ const majorVenueTiers: Tier[] = [
     name: 'Premier Venue',
     price: '$9,900',
     period: '12 months',
-    description: 'Mid-size single complex with zone-based assessment',
+    description: 'Manage accessibility across a complex, zone by zone.',
     whoFor: 'When one site is the whole operation.',
     highlight: false,
     features: {
@@ -1020,7 +1019,7 @@ const majorVenueTiers: Tier[] = [
     name: 'Major Venue',
     price: '$18,900',
     period: '12 months',
-    description: 'Flagship single complex with full board reporting and supplier group',
+    description: 'Govern accessibility at flagship scale, with evidence your board can table.',
     whoFor: 'Governance-grade accessibility for flagship venues.',
     highlight: true,
     features: {
@@ -1055,7 +1054,7 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Core',
     price: '$7,900',
     period: '12 months',
-    description: 'Move your action plan from document to living system: import, assign, track, report.',
+    description: 'Keep your action plan active, accountable and on track.',
     whoFor: 'For regional councils and smaller authorities running their accessibility action plan.',
     highlight: false,
     features: {
@@ -1084,7 +1083,7 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Professional',
     price: '$12,900',
     period: '12 months',
-    description: 'Coordinate your DIAP across a bigger portfolio. Includes a Network Program for the suppliers, tenants or businesses you work with.',
+    description: 'Coordinate accessibility across teams, sites and funded programs.',
     whoFor: 'For mid-size authorities running accessibility across more sites and teams, with a small Network Program for suppliers, tenants or grant recipients.',
     highlight: true,
     features: {
@@ -1113,7 +1112,7 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Enterprise',
     price: 'from $25,000',
     period: '12 months',
-    description: 'Portfolio-scale accessibility with multi-DIAP support, custom integrations on request and a procurement-ready contract.',
+    description: 'Govern accessibility across a complex organisation, with executive oversight and reporting your board will accept.',
     whoFor: 'For large councils, state and federal departments, universities, health networks and school systems running accessibility at portfolio scale.',
     highlight: false,
     features: {
