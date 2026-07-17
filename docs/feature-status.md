@@ -40,6 +40,7 @@ The second kind is the expensive one. That was work already paid for, sitting un
 | Team Allocation + Consolidated Emails | MS, MV, Auth | **PARTIAL** | Assigning `responsible_role` works. **"One consolidated email per person" has no implementation.** |
 | Zones / Zone-Based Reporting / Cross-Zone Trends | **all of Major Venue** | 🔴 **PLANNED** | **Nothing.** No zone table, column or type. `sites` is flat. See `bug-zones-sold-not-built`. |
 | Multi-Plan Support | Enterprise | 🔴 **PLANNED** | **Nothing.** No plan entity, no `plan_id` on `diap_items`, no historical comparison. Plans are auto-generated per venue. |
+| Superuser Training | Premier, Major, Core, Prof, Ent | **PLANNED** | The Training Hub platform exists (`026`, `027`, courses + lessons + progress). **The superuser course itself does not.** Content work, build once. |
 | Single Sign-On (SSO) | Enterprise, Major Venue | **PLANNED** | Nothing. The only SAML strings in the repo are the pricing copy. |
 | API access | Enterprise, Major Venue | **PLANNED** | Nothing. No edge functions, no endpoints. |
 | Report format (PDF vs PDF + interactive) | Single Site, Multi-Site | ⚠️ **NOT GATED** | No tier gate found in `ReportPage.tsx`. Deep and Plus are identical on this row anyway — candidate for removal. |
@@ -52,6 +53,7 @@ The second kind is the expensive one. That was work already paid for, sitting un
 
 ## Build order (by value per hour, 17 Jul 2026)
 
+0. **The superuser course** — the Training Hub is built and orphaned; this gives it a reason to be on the pricing page. It is also the scalable replacement for bundled consulting hours, which do not scale past ~50 customers. Build once, serves everyone, available at 9pm when a new starter joins. Directly answers the problem Access Compass claims to solve: when the person who cared leaves, the capability stays.
 1. **Delivery packages** — group by `responsible_team`, export that team's rows. Days. Also resurrects department-level ownership **without** Phase 1b RLS, because handing Parks a file is a file, not a permission.
 2. **Zones** — `ALTER TABLE sites ADD COLUMN parent_site_id UUID REFERENCES sites(id)`. `site_id` is already on every data table, so assessment, plan, evidence and reporting scope per zone for free. Makes Multi-Site vs Major Venue a real, enforceable boundary.
 3. **Evidence capture** — the localStorage quota bug and mobile upload. Filed as maintenance; actually the moat. Evidence is the thing a task tool cannot hold and the board report cannot do without.

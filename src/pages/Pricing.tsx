@@ -46,6 +46,7 @@ type TierFeatures = {
   diapImport?: boolean | string;
   frameworkAlignment?: boolean | string;
   integrations?: boolean | string;
+  superuserTraining?: boolean | string;
   teamAllocation?: boolean | string;
   stakeholderReporting?: boolean | string;
   evidenceLibrary?: boolean | string;
@@ -91,6 +92,15 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   sso: {
     title: 'Single Sign-On (SSO)',
     description: 'Your people sign in with their existing work account through your identity provider, so there is no separate password to manage, offboarding a staff member removes their access automatically, and your IT team keeps control of who gets in. Supports SAML.',
+  },
+  superuserTraining: {
+    title: 'Superuser Training',
+    description: 'Train your own people to run Access Compass, so the capability sits in your organisation rather than in one person\'s head. When that person moves on, the next one is trained and the plan keeps running. Every plan includes the self-serve course; larger editions add live sessions and retraining as your team changes.',
+    examples: [
+      'A superuser in each directorate who can answer questions without calling us',
+      'Your accessibility lead leaves; the plan does not stall while you recruit',
+      'New starters trained on your terms, not ours',
+    ],
   },
   integrations: {
     title: 'Works With Your Project Tools',
@@ -248,6 +258,7 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'sso', label: 'Single Sign-On (SSO)', infoKey: 'sso' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
+  { key: 'superuserTraining', label: 'Superuser Training', infoKey: 'superuserTraining' },
   { key: 'integrations', label: 'Works With Your Project Tools', infoKey: 'integrations' },
   { key: 'assessment', label: 'Self-Assessment Modules', infoKey: 'assessmentOutcome' },
   { key: 'sites', label: 'Own Sites / Venues / Events' },
@@ -267,6 +278,7 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'diapImport', label: 'Plan Import (Guided Flow + Undo)', infoKey: 'diapImport' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
+  { key: 'superuserTraining', label: 'Superuser Training', infoKey: 'superuserTraining' },
   { key: 'integrations', label: 'Works With Your Project Tools', infoKey: 'integrations' },
   { key: 'sso', label: 'Single Sign-On (SSO)', infoKey: 'sso' },
   { key: 'zoneReporting', label: 'Zone-Based Reporting', infoKey: 'zoneReporting' },
@@ -1001,6 +1013,7 @@ const majorVenueTiers: Tier[] = [
       frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
+      superuserTraining: 'Self-serve course',
       integrations: 'Standalone, or delivery packages to your tools',
       zoneReporting: true,
       crossZoneTrends: false,
@@ -1032,6 +1045,7 @@ const majorVenueTiers: Tier[] = [
       frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
+      superuserTraining: 'Course + 2 superusers trained live',
       integrations: 'Standalone, or delivery packages to your tools. API access, custom integrations on request',
       sso: true,
       zoneReporting: true,
@@ -1069,6 +1083,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
       resourceHub: '12 months',
       evidenceLibrary: true,
+      superuserTraining: 'Self-serve course',
       integrations: 'Standalone, or delivery packages to your tools',
       comparison: '1 per site',
       businessGroupIncluded: false,
@@ -1098,6 +1113,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
       resourceHub: '12 months',
       evidenceLibrary: true,
+      superuserTraining: 'Course + 2 superusers trained live',
       integrations: 'Standalone, or delivery packages to your tools',
       comparison: '1 per site',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
@@ -1127,6 +1143,7 @@ const orgAccessibilityTiers: Tier[] = [
       report: 'PDF + in-app dashboard + multi-DIAP comparison. Filter by section + site / venue / event + framework domain + DIAP.',
       resourceHub: '12 months',
       evidenceLibrary: true,
+      superuserTraining: 'Superusers trained across your directorates, retrained as staff change',
       integrations: 'Standalone, or delivery packages to your tools. API access, custom integrations on request',
       sso: true,
       comparison: 'Unlimited',
