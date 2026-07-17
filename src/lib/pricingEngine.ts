@@ -208,7 +208,6 @@ interface AuthorityTierConfig {
   users: string;
   reAssessments: number | null;
   networkProgramsIncluded: string | null;
-  diapDepartments: boolean;
   multiDiap: boolean;
   procurementPack: boolean;
   isPurchasable: boolean;
@@ -226,12 +225,12 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     users: '20',
     reAssessments: 6,
     networkProgramsIncluded: null,
-    diapDepartments: false,
     multiDiap: false,
     procurementPack: false,
     isPurchasable: true,
     inclusions: [
       'Full DIAP management (import, assign, track, export)',
+      'Statutory framework alignment and reporting',
       '6 sites / events, 20 user seats',
       'All modules (Pulse + Deep Dive)',
       '12-month Resource Hub access',
@@ -253,13 +252,11 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     users: '50',
     reAssessments: 12,
     networkProgramsIncluded: '1 Lite group (up to 10 businesses)',
-    diapDepartments: true,
     multiDiap: false,
     procurementPack: false,
     isPurchasable: true,
     inclusions: [
       'Everything in Core',
-      'Department-level DIAP sections',
       '12 sites / events, 50 user seats',
       '1 Lite Network Program included (10 businesses, 10 Pulse Check modules of your choice, aggregate dashboard, 12 months)',
       '1 re-assessment per site',
@@ -277,7 +274,6 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     users: 'Unlimited',
     reAssessments: null,
     networkProgramsIncluded: '2 Lite Network Programs (up to 10 businesses each)',
-    diapDepartments: true,
     multiDiap: true,
     procurementPack: true,
     isPurchasable: false,

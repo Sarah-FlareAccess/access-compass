@@ -41,12 +41,11 @@ type TierFeatures = {
   training?: boolean | string;
   support: string;
   assessments?: string;
-  departments?: boolean | string;
   programs?: string;
   aggregateDashboard?: boolean | string;
   diapImport?: boolean | string;
+  frameworkAlignment?: boolean | string;
   teamAllocation?: boolean | string;
-  diapDepartments?: boolean | string;
   stakeholderReporting?: boolean | string;
   evidenceLibrary?: boolean | string;
   businessGroupIncluded?: boolean | string;
@@ -88,6 +87,15 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     title: 'DIAP for Businesses',
     description: 'Each business in your group gets its own Disability Inclusion Action Plan (DIAP) based on their assessment results. They manage their own actions and improvements. You see their overall progress from your network dashboard, but individual action items stay private to each business.',
   },
+  frameworkAlignment: {
+    title: 'Statutory Framework Alignment',
+    description: 'Your actions map to the statutory framework for your jurisdiction: the Australia\'s Disability Strategy outcome areas nationally, or your own state instrument. Tag an action against more than one domain, track progress by domain on the outcomes board, and group or export reports by domain so what you send lines up with how you already report.',
+    examples: [
+      'Victoria: Disability Action Plan objectives under the Disability Act 2006',
+      'New South Wales: Disability Inclusion Action Plan focus areas',
+      'South Australia: State Disability Inclusion Plan domains and priority groups',
+    ],
+  },
   diapImport: {
     title: 'DIAP Import (Guided Flow)',
     description: 'Step-by-step import from Excel or CSV. Map your columns to Access Compass fields, preview items before committing and reverse the import if the results are not right.',
@@ -95,10 +103,6 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   teamAllocation: {
     title: 'Team Allocation and Consolidated Emails',
     description: 'Assign modules and action plan items to team members. Generate a single summary email with all assignments for each person, rather than sending individual emails for every item.',
-  },
-  diapDepartments: {
-    title: 'Department-Level DIAP Sections',
-    description: 'Organise your action plan by department (e.g. Events, Parks, Customer Service). Each department sees their own items while leadership sees the full plan.',
   },
   stakeholderReporting: {
     title: 'Stakeholder and Board Reporting',
@@ -187,27 +191,36 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   },
 };
 
-const featureLabelsStandard: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
+const featureLabelsIndividual: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
   { key: 'assessment', label: 'Accessibility Self-Assessment' },
   { key: 'sites', label: 'Sites / Venues / Events' },
-  { key: 'assessments', label: 'Assessments' },
   { key: 'users', label: 'Users / Assessors' },
-  { key: 'departments', label: 'Department Breakdown' },
   { key: 'report', label: 'Accessibility Report & Recommendations' },
+  { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)', infoKey: 'diap' },
+  { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'resourceHub', label: 'Resource Hub' },
+  { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
+  { key: 'support', label: 'Support' },
+];
+
+const featureLabelsMultiSite: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
+  { key: 'assessment', label: 'Accessibility Self-Assessment' },
+  { key: 'sites', label: 'Sites / Venues / Events' },
+  { key: 'users', label: 'Users / Assessors' },
+  { key: 'report', label: 'Accessibility Report & Recommendations' },
   { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)', infoKey: 'diap' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
+  { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
-  { key: 'training', label: 'Consultation', infoKey: 'training' },
   { key: 'support', label: 'Support' },
 ];
 
 const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; infoKey?: string }[] = [
   { key: 'diap', label: 'DIAP Management', infoKey: 'diap' },
   { key: 'diapImport', label: 'DIAP Import (Guided Flow + Undo)', infoKey: 'diapImport' },
+  { key: 'frameworkAlignment', label: 'Statutory Framework Alignment', infoKey: 'frameworkAlignment' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
-  { key: 'diapDepartments', label: 'Department-Level DIAP Sections', infoKey: 'diapDepartments' },
   { key: 'multiDiap', label: 'Multi-DIAP Support', infoKey: 'multiDiap' },
   { key: 'assessment', label: 'Self-Assessment Modules' },
   { key: 'sites', label: 'Own Sites / Venues / Events' },
@@ -217,9 +230,6 @@ const featureLabelsOrgAccessibility: { key: keyof TierFeatures; label: string; i
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
-  { key: 'seatExpansion', label: 'Seat Expansion (Mid-Cycle)', infoKey: 'seatExpansion' },
-  { key: 'siteExpansion', label: 'Site Expansion (Mid-Cycle)', infoKey: 'siteExpansion' },
-  { key: 'training', label: 'Consultation', infoKey: 'training' },
   { key: 'support', label: 'Support' },
   { key: 'procurement', label: 'Procurement-Ready Pack', infoKey: 'procurement' },
 ];
@@ -230,18 +240,16 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'users', label: 'User Seats' },
   { key: 'diap', label: 'Disability Inclusion Action Plan (DIAP)', infoKey: 'diap' },
   { key: 'diapImport', label: 'DIAP Import (Guided Flow + Undo)', infoKey: 'diapImport' },
+  { key: 'frameworkAlignment', label: 'Statutory Framework Alignment', infoKey: 'frameworkAlignment' },
   { key: 'teamAllocation', label: 'Team Allocation + Consolidated Emails', infoKey: 'teamAllocation' },
   { key: 'evidenceLibrary', label: 'Evidence Library' },
   { key: 'zoneReporting', label: 'Zone-Based Reporting', infoKey: 'zoneReporting' },
   { key: 'crossZoneTrends', label: 'Cross-Zone Trend Analysis', infoKey: 'crossZoneTrends' },
-  { key: 'diapDepartments', label: 'Department-Level DIAP Sections', infoKey: 'diapDepartments' },
   { key: 'stakeholderReporting', label: 'Stakeholder / Board Reporting (PDF)', infoKey: 'stakeholderReporting' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
   { key: 'comparison', label: 'Progress Tracking (Re-assessment)', infoKey: 'comparison' },
   { key: 'consultantTime', label: 'Consultant Check-Ins', infoKey: 'consultantTime' },
   { key: 'resourceHub', label: 'Resource Hub' },
-  { key: 'seatExpansion', label: 'Seat Expansion (Mid-Cycle)', infoKey: 'seatExpansion' },
-  { key: 'training', label: 'Additional Consultation', infoKey: 'training' },
   { key: 'support', label: 'Support' },
 ];
 
@@ -395,7 +403,7 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   'Major Venue': {
     title: 'Major Venue',
     situation: 'Your brand is on the line every day. You need governance-grade accessibility evidence, board-ready reporting and a program that can survive a public-incident inquiry.',
-    audience: 'Best for flagship venues where one accessibility incident becomes news, with unlimited zones, department-level DIAP and named consultant support.',
+    audience: 'Best for flagship venues where one accessibility incident becomes news, with unlimited zones, cross-zone trend analysis and named consultant support.',
     examples: [
       'A flagship national or state stadium',
       'A major convention and exhibition centre',
@@ -419,8 +427,8 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Professional': {
     title: 'Professional',
-    situation: 'Your DIAP spans multiple teams and venues and you also work with suppliers, tenants or grant recipients you want to bring along. You need DIAP coordination across departments and a way to run an accessibility program for the businesses you fund or contract with, in one place.',
-    audience: 'Best for mid-size metropolitan authorities coordinating accessibility across departments and sites, with department-level DIAP sections and a board-ready report.',
+    situation: 'Your DIAP spans multiple teams and venues and you also work with suppliers, tenants or grant recipients you want to bring along. You need more sites and seats than Core allows, and a way to run an accessibility program for the businesses you fund or contract with, in one place.',
+    audience: 'Best for mid-size metropolitan authorities running accessibility across more sites and teams, with statutory framework reporting and a board-ready report.',
     examples: [
       'A mid-size metro council',
       'A regional tourism authority covering multiple LGAs',
@@ -828,7 +836,6 @@ const individualTiers: Tier[] = [
       sites: '1 site / venue / event',
       assessments: '1',
       users: '1',
-      departments: false,
       report: 'PDF report (scoped to 3 modules)',
       resourceHub: false,
       diap: false,
@@ -849,7 +856,6 @@ const individualTiers: Tier[] = [
       sites: '1 site / venue / event',
       assessments: '1',
       users: '2',
-      departments: false,
       report: 'PDF report',
       resourceHub: '12 months',
       diap: false,
@@ -870,10 +876,10 @@ const individualTiers: Tier[] = [
       sites: '1 site / venue / event',
       assessments: '1',
       users: '3',
-      departments: false,
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       diap: true,
+      evidenceLibrary: true,
       comparison: '1 re-assessment',
       training: 'Add-on: from $300',
       support: 'Self-service'
@@ -895,7 +901,6 @@ const multisiteTiers: Tier[] = [
       sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
-      departments: false,
       report: 'PDF report',
       resourceHub: '12 months',
       diap: false,
@@ -917,7 +922,6 @@ const multisiteTiers: Tier[] = [
       sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
-      departments: false,
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       diap: true,
@@ -939,7 +943,6 @@ const multisiteTiers: Tier[] = [
       sites: 'Up to 6 sites / venues / events',
       assessments: '1 per site',
       users: '12',
-      departments: false,
       report: 'PDF + interactive in-app report',
       resourceHub: '12 months',
       diap: 'Full (assign, track, export)',
@@ -967,11 +970,11 @@ const majorVenueTiers: Tier[] = [
       users: '20',
       diap: 'Full (assign, track, export)',
       diapImport: true,
+      frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
       zoneReporting: true,
       crossZoneTrends: false,
-      diapDepartments: false,
       stakeholderReporting: 'Tailored report (select assessment, sections)',
       businessGroupIncluded: false,
       comparison: '2 per year',
@@ -997,11 +1000,11 @@ const majorVenueTiers: Tier[] = [
       users: '60',
       diap: 'Full (assign, track, export)',
       diapImport: true,
+      frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
       zoneReporting: true,
       crossZoneTrends: true,
-      diapDepartments: true,
       stakeholderReporting: 'Tailored report + branding on request',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       comparison: 'Unlimited',
@@ -1026,13 +1029,13 @@ const orgAccessibilityTiers: Tier[] = [
     features: {
       diap: 'Full (import, assign, track, export)',
       diapImport: true,
+      frameworkAlignment: true,
       teamAllocation: true,
-      diapDepartments: false,
       multiDiap: false,
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '6 sites / venues / events',
       users: '20',
-      report: 'PDF + in-app dashboard. Filter by section + site / venue / event.',
+      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       comparison: '1 per site',
@@ -1048,19 +1051,19 @@ const orgAccessibilityTiers: Tier[] = [
     name: 'Professional',
     price: '$12,900',
     period: '12 months',
-    description: 'Coordinate your DIAP across departments. Includes a Network Program for the suppliers, tenants or businesses you work with.',
-    whoFor: 'For mid-size authorities coordinating accessibility across departments, with a small Network Program for suppliers, tenants or grant recipients.',
+    description: 'Coordinate your DIAP across a bigger portfolio. Includes a Network Program for the suppliers, tenants or businesses you work with.',
+    whoFor: 'For mid-size authorities running accessibility across more sites and teams, with a small Network Program for suppliers, tenants or grant recipients.',
     highlight: true,
     features: {
       diap: 'Full (import, assign, track, export)',
       diapImport: true,
+      frameworkAlignment: true,
       teamAllocation: true,
-      diapDepartments: true,
       multiDiap: false,
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '12 sites / venues / events',
       users: '50',
-      report: 'PDF + in-app dashboard + per-department summary. Filter by section + site / venue / event + department.',
+      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       comparison: '1 per site',
@@ -1082,13 +1085,13 @@ const orgAccessibilityTiers: Tier[] = [
     features: {
       diap: 'Full (import, assign, track, export)',
       diapImport: true,
+      frameworkAlignment: true,
       teamAllocation: true,
-      diapDepartments: true,
       multiDiap: 'Concurrent + historical comparison',
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: 'from 20 sites / venues / events',
       users: 'Unlimited',
-      report: 'PDF (your branding) + in-app dashboard + multi-DIAP comparison. Filter by section + site / venue / event + department + DIAP.',
+      report: 'PDF (your branding) + in-app dashboard + multi-DIAP comparison. Filter by section + site / venue / event + framework domain + DIAP.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       comparison: 'Unlimited',
@@ -1144,7 +1147,8 @@ export default function Pricing() {
   const featureLabels =
     view === 'authority' ? featureLabelsOrgAccessibility :
     view === 'majorvenue' ? featureLabelsMajorVenue :
-    featureLabelsStandard;
+    view === 'multisite' ? featureLabelsMultiSite :
+    featureLabelsIndividual;
 
   const viewLabels: Record<string, string> = {
     individual: 'Single Site / Venue',
@@ -1509,6 +1513,17 @@ export default function Pricing() {
         </>)}
 
         {/* ============ Cross-reference to Network Programs (non-NP tabs) ============ */}
+        {view !== 'networkprograms' && (
+          <p className="pricing-table-notes" style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.6, margin: '0.75rem 0 0', textAlign: 'center', maxWidth: '60ch', marginLeft: 'auto', marginRight: 'auto' }}>
+            {view === 'authority'
+              ? 'Consultation: one 60-minute session included on Core and Professional, two on Enterprise. Additional sessions from $300. Sites and seats expandable mid-cycle, pro-rated for the months remaining. Three-year term with annual invoicing available.'
+              : view === 'majorvenue'
+              ? 'Additional consultation from $300. Seats expandable mid-cycle, pro-rated for the months remaining.'
+              : 'Consultation available as an add-on from $300 on any tier.'}
+            {' '}All figures AUD, excluding GST.
+          </p>
+        )}
+
         {view !== 'networkprograms' && (
           <div className="pricing-addons pricing-addons-wide" style={{ marginTop: '1rem' }}>
             <div className="pricing-addons-inner" style={{ backgroundColor: colors.white, border: `2px solid ${colors.ivoryDark}`, padding: '1.25rem 1.5rem' }}>
