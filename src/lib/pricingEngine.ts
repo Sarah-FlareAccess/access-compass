@@ -209,7 +209,6 @@ interface AuthorityTierConfig {
   reAssessments: number | null;
   networkProgramsIncluded: string | null;
   multiDiap: boolean;
-  procurementPack: boolean;
   isPurchasable: boolean;
   inclusions: string[];
 }
@@ -226,7 +225,6 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     reAssessments: 6,
     networkProgramsIncluded: null,
     multiDiap: false,
-    procurementPack: false,
     isPurchasable: true,
     inclusions: [
       'Full DIAP management (import, assign, track, export)',
@@ -255,7 +253,6 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     reAssessments: 12,
     networkProgramsIncluded: '1 Lite group (up to 10 businesses)',
     multiDiap: false,
-    procurementPack: false,
     isPurchasable: true,
     inclusions: [
       'Everything in Core',
@@ -277,7 +274,6 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     reAssessments: null,
     networkProgramsIncluded: '2 Lite Network Programs (up to 10 businesses each)',
     multiDiap: true,
-    procurementPack: true,
     isPurchasable: false,
     inclusions: [
       'Everything in Professional',
@@ -286,7 +282,6 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
       'Multi-DIAP support (concurrent + historical comparison)',
       'Single sign-on (SAML)',
       'API access and custom integrations on request',
-      'Procurement-ready pack (MSA, security questionnaire, insurance certs)',
       'Unlimited re-assessments',
       '2 × 60-min consultations included',
       'Dedicated support + consultant access',

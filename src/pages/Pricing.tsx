@@ -64,7 +64,6 @@ type TierFeatures = {
   dataResidency?: boolean | string;
   dataExport?: boolean | string;
   sla?: boolean | string;
-  procurement?: boolean | string;
 };
 
 type Tier = {
@@ -140,7 +139,7 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   },
   businessGroupIncluded: {
     title: 'Network Program Included (Lite)',
-    description: 'Pro and Enterprise tiers include Lite Network Program(s). Each Lite program covers: up to 10 businesses, 10 Pulse Check modules of your choice (out of 40+), aggregate progress dashboard, 12-month duration. Deep Dive depth, question guidance notes and per-program PDF reports are full Network Program features. Upgrade to a full Network Program for unlimited businesses, all modules at Deep Dive depth, guidance notes and per-program reports.',
+    description: 'Pro and Enterprise tiers include Lite Network Program(s). Each Lite program covers: up to 10 businesses, 10 Pulse Check modules of your choice (out of 50), aggregate progress dashboard, 12-month duration. Deep Dive depth, question guidance notes and per-program PDF reports are full Network Program features. Upgrade to a full Network Program for unlimited businesses, all modules at Deep Dive depth, guidance notes and per-program reports.',
     examples: [
       'Grant recipients completing 3 modules as part of funding acquittal',
       'Regional venues completing a Pulse Check across priority areas',
@@ -219,10 +218,6 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   dataResidency: {
     title: 'Australian Data Residency',
     description: 'All data hosted in Sydney. Meets sovereignty requirements for state and federal procurement, health networks and education systems.',
-  },
-  procurement: {
-    title: 'Procurement-Ready Pack',
-    description: 'Master Services Agreement, pre-filled security questionnaire, Privacy Act 1988 schedule and current insurance certificates (public liability, professional indemnity, cyber liability) supplied with your contract, so council legal and IT can sign off in days, not months.',
   },
 };
 
@@ -483,8 +478,8 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   },
   'Enterprise': {
     title: 'Enterprise',
-    situation: 'You manage accessibility at portfolio scale, across many sites, many teams and often multiple concurrent DIAPs. Your procurement team requires a security questionnaire and your legal team requires a real Master Services Agreement. You need this to work for a strategic policy roll-out, not a single team.',
-    audience: 'Best for large metropolitan, state and federal bodies running accessibility across teams, sites and DIAPs at portfolio scale, with multi-DIAP support, custom integrations on request and a procurement-ready contract.',
+    situation: 'You manage accessibility at portfolio scale, across many sites and many teams, and the plan has to survive a full cycle and the people who wrote it. You need to show what the last plan delivered, not just what this one promises. This has to work for a strategic roll-out, not a single team.',
+    audience: 'Best for large metropolitan, state and federal bodies governing accessibility across teams and sites at portfolio scale, with cycle-on-cycle plan history and scale tailored to your organisation.',
     examples: [
       'A large metropolitan council',
       'A state tourism body or major destination authority',
@@ -1097,7 +1092,6 @@ const orgAccessibilityTiers: Tier[] = [
       siteExpansion: '$550/site',
       training: '1 × 60-min included; further advisory available',
       support: 'Email + guided onboarding',
-      procurement: false,
     }
   },
   {
@@ -1127,7 +1121,6 @@ const orgAccessibilityTiers: Tier[] = [
       siteExpansion: '$525/site',
       training: '1 × 60-min included; further advisory available',
       support: 'Priority email + onboarding + 6-monthly check-in',
-      procurement: false,
     }
   },
   {
@@ -1158,7 +1151,6 @@ const orgAccessibilityTiers: Tier[] = [
       siteExpansion: '$500/site',
       training: '2 × 60-min included; further advisory available',
       support: 'Dedicated implementation and ongoing success support',
-      procurement: 'MSA, security questionnaire, insurance certs',
     }
   }
 ];
@@ -1282,7 +1274,7 @@ export default function Pricing() {
         {/* Header */}
         <div className="pricing-header">
           <h1 style={{ color: colors.walnut }}>Pricing Plans</h1>
-          <p style={{ color: colors.subtleText }}>45+ modules covering every touchpoint of your visitor journey and business operations: staff, policies, procurement and more.</p>
+          <p style={{ color: colors.subtleText }}>50 modules covering every touchpoint of your visitor journey and business operations: staff, policies, procurement and more.</p>
         </div>
 
         {/* Founding Partner banner */}
