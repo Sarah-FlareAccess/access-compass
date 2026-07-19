@@ -5,23 +5,23 @@ import './FoundingPartnerBanner.css';
 const BENEFITS = [
   {
     icon: '🔒',
-    title: 'Price lock for 2 years',
-    body: 'Your Founding Partner rate is locked for the first 2 years from sign-up. After that, renewals move to the current rate for your tier. Outgrow into a higher tier and the new tier is billed at current rates.',
+    title: 'Price lock for two years',
+    body: 'Your Founding Partner rate is locked for the first two years from sign-up. After that, renewals move to the current rate for your edition. Move up an edition and the new edition is billed at current rates.',
   },
   {
-    icon: '🏅',
-    title: 'Founding Partner badge',
-    body: 'Opt-in featured logo on accesscompass.com.au, badge for your accessibility statement and named in case studies. Visible recognition as a leader.',
+    icon: '🤝',
+    title: 'Founding Partner Advisory Group',
+    body: 'Help shape the future of accessibility governance in Australia through roadmap sessions and direct input to the product team. Founding Partners are recognised publicly as founding members of the platform.',
   },
   {
-    icon: '✨',
-    title: 'Priority access to new platform capabilities and services',
-    body: 'When we launch new add-ons (training certifications, cohort programs, SCORM export), Founding Partners get first access.',
+    icon: '🚀',
+    title: 'Priority access to new capabilities',
+    body: 'Be first to new platform capabilities, optional modules and services as they are introduced, ahead of general release.',
   },
   {
     icon: '📅',
-    title: 'Annual accessibility check-in',
-    body: 'A 60-minute review each year with our team. Talk through what\'s working, where you\'re stuck and where to focus next year. Included in your subscription.',
+    title: 'Annual Governance Review',
+    body: 'A structured session each year with our team to assess progress and set your next priorities. Included in your subscription.',
   },
 ] as const;
 
