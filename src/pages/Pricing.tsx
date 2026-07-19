@@ -1000,7 +1000,7 @@ const multisiteTiers: Tier[] = [
     price: '$3,499',
     period: '12 months',
     description: 'One accessibility program across every venue, run the same way.',
-    whoFor: 'For groups who want every venue held to the same standard, not just the flagship.',
+    whoFor: 'For a larger group running one program across up to six venues.',
     highlight: false,
     perSite: '$583/site',
     features: {
