@@ -43,8 +43,8 @@ export function FoundingPartnerBanner() {
             Founding Partner pricing
           </h2>
           <p className="founding-partner-banner-subtitle">
-            Current rates are locked in for our first <strong>50 organisations</strong>.
-            Join the cohort shaping Access Compass and lock in your rate while we grow.
+            The first <strong>50 organisations</strong> can lock today's pricing for two years while the platform continues to grow.
+            Future customers move onto our standard pricing as new capabilities and services are introduced.
           </p>
         </div>
 
