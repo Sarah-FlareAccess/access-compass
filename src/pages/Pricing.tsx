@@ -287,7 +287,6 @@ const featureLabelsMajorVenue: { key: keyof TierFeatures; label: string; infoKey
   { key: 'stakeholderReporting', label: 'Executive & Board Reporting', infoKey: 'stakeholderReporting' },
   { key: 'businessGroupIncluded', label: 'Network Program Included', infoKey: 'businessGroupIncluded' },
   { key: 'comparison', label: 'Re-assessments included', infoKey: 'comparison' },
-  { key: 'consultantTime', label: 'Strategic Reviews', infoKey: 'consultantTime' },
   { key: 'resourceHub', label: 'Resource Hub' },
   { key: 'support', label: 'Support' },
 ];
@@ -1064,7 +1063,7 @@ const majorVenueTiers: Tier[] = [
       frameworkAlignment: true,
       teamAllocation: true,
       evidenceLibrary: true,
-      superuserTraining: 'Self-paced program, 2 superusers',
+      superuserTraining: 'Self-paced program + live workshop, 2 superusers',
       integrations: 'Standalone, or delivery packages to your tools',
       zoneReporting: true,
       crossZoneTrends: false,
