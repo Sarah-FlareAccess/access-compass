@@ -15,7 +15,7 @@ const BENEFITS = [
   },
   {
     icon: '✨',
-    title: 'First refusal on new offerings',
+    title: 'Priority access to new platform capabilities and services',
     body: 'When we launch new add-ons (training certifications, cohort programs, SCORM export), Founding Partners get first access.',
   },
   {
