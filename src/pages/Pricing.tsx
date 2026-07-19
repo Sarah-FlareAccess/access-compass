@@ -1018,6 +1018,29 @@ const multisiteTiers: Tier[] = [
       training: 'Expert advisory available',
       support: 'Email support + quarterly check-ins'
     }
+  },
+  {
+    name: 'Multi-Site Custom',
+    price: 'Contact us',
+    period: '',
+    description: 'One governed program across a large group of venues.',
+    whoFor: 'For chains and groups beyond six venues that want enterprise-grade scale, SSO and API access, and one accessibility program run the same way across every site.',
+    highlight: false,
+    features: {
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
+      sites: '7+ sites / venues / events',
+      assessments: '1 per site',
+      users: 'Tailored to your group',
+      report: 'PDF + interactive + cross-site trends',
+      resourceHub: '12 months',
+      diap: 'Full (assign, track, export)',
+      teamAllocation: true,
+      evidenceLibrary: true,
+      integrations: 'Standalone, or delivery packages to your tools. API access, SSO and custom integrations on request',
+      comparison: '1 per site',
+      training: 'Expert advisory available',
+      support: 'Dedicated account manager'
+    }
   }
 ];
 
@@ -1311,6 +1334,14 @@ export default function Pricing() {
           <p style={{ color: colors.subtleText }}>50 modules covering every touchpoint of your visitor journey and business operations: staff, policies, procurement and more.</p>
         </div>
 
+        {/* Why Access Compass exists */}
+        <div className="pricing-why-band" style={{ maxWidth: '64rem', margin: '0 auto 1.75rem', padding: '1.4rem 1.6rem', backgroundColor: colors.white, border: `1px solid ${colors.ivoryDark}`, borderRadius: '0.5rem' }}>
+          <h2 style={{ color: colors.amethyst, fontSize: '1rem', fontWeight: 800, margin: '0 0 0.6rem' }}>Why Access Compass exists</h2>
+          <p style={{ color: colors.walnut, fontSize: '0.9375rem', lineHeight: 1.6, margin: '0 0 0.6rem' }}>Assessing where you stand is only the start. What most organisations struggle with is what comes next: keeping the work moving after the report and proving progress when it's time to report to the board or the regulator.</p>
+          <p style={{ color: colors.walnut, fontSize: '0.9375rem', lineHeight: 1.6, margin: '0 0 0.6rem' }}>The report gets filed away and the actions scatter across spreadsheets and separate systems. Ownership moves around and when staff leave the knowledge often goes with them.</p>
+          <p style={{ color: colors.walnut, fontSize: '0.9375rem', lineHeight: 1.6, margin: 0 }}>Access Compass turns accessibility from a static document into a living governance system. It assesses where you stand, keeps actions connected to your legislative framework, assigns ownership across teams, captures evidence as the work is done and makes reporting straightforward. It works alongside your existing consultants and project tools, giving every team member clear, practical guidance so they can complete the work with confidence while still drawing on specialist advice when it's needed.</p>
+        </div>
+
         {/* Founding Partner banner */}
         <FoundingPartnerBanner />
 
@@ -1378,7 +1409,7 @@ export default function Pricing() {
         {/* Tab intro / router callout */}
         {view !== 'networkprograms' && (
           <p className="pricing-editions-note" style={{ maxWidth: '64rem', margin: '0 auto 1.5rem', fontSize: '0.9375rem', color: colors.walnut, textAlign: 'center', lineHeight: 1.6 }}>
-            Every plan includes the full Access Compass platform. Editions differ in scale, governance and reporting — not in whether you get the product.
+            Every plan includes the full Access Compass platform. Editions differ in scale, governance and reporting, not in whether you get the product.
           </p>
         )}
 
