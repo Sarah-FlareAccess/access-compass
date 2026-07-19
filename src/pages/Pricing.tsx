@@ -1126,11 +1126,12 @@ const orgAccessibilityTiers: Tier[] = [
       diapImport: true,
       frameworkAlignment: true,
       teamAllocation: true,
-      multiDiap: false,
+      multiDiap: 'Compare each plan cycle against the last',
+      sso: 'On request',
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '6 sites / venues / events',
       users: '20',
-      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
+      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain + plan cycle.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       superuserTraining: 'Self-paced program, 2 superusers',
@@ -1156,10 +1157,11 @@ const orgAccessibilityTiers: Tier[] = [
       frameworkAlignment: true,
       teamAllocation: true,
       multiDiap: 'Compare each plan cycle against the last',
+      sso: 'On request',
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '12 sites / venues / events',
       users: '30',
-      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain.',
+      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain + plan cycle.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       superuserTraining: 'Self-paced program + live workshop, up to 5 superusers',
@@ -1188,13 +1190,13 @@ const orgAccessibilityTiers: Tier[] = [
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: 'Tailored to your organisation',
       users: 'Tailored to your organisation',
-      report: 'PDF + in-app dashboard + cycle-on-cycle comparison. Filter by section + site / venue / event + framework domain + plan cycle.',
+      report: 'PDF + in-app dashboard. Filter by section + site / venue / event + framework domain + plan cycle.',
       resourceHub: '12 months',
       evidenceLibrary: true,
       superuserTraining: 'Organisation-wide Superuser Program with ongoing retraining',
       integrations: 'Standalone, or delivery packages to your tools. API access, custom integrations on request',
-      sso: true,
-      comparison: 'Unlimited',
+      sso: 'On request',
+      comparison: 'Tailored',
       businessGroupIncluded: 'Network Programs tailored to your needs',
       seatExpansion: 'from $250/seat',
       siteExpansion: '$500/site',
@@ -1675,7 +1677,7 @@ export default function Pricing() {
         {view !== 'networkprograms' && (
           <p className="pricing-table-notes" style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.6, margin: '0.75rem auto 0', textAlign: 'center', maxWidth: '60ch' }}>
             {view === 'authority'
-              ? 'One 60-minute advisory session included on Core and Professional, two on Enterprise. Additional expert advisory available. Sites and seats expandable mid-cycle, pro-rated for the months remaining.'
+              ? 'One 60-minute advisory session included on Core and Professional, two on Enterprise. Additional expert advisory available. Core and Professional expand mid-cycle, extra sites from $525 each and extra seats from $300 each, so you can scale before moving to Enterprise. Pro-rated for the months remaining.'
               : view === 'majorvenue'
               ? 'Expert advisory available in addition to your included strategic reviews. Seats expandable mid-cycle, pro-rated for the months remaining.'
               : 'Expert advisory available on any tier.'}
