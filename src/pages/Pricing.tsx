@@ -305,6 +305,31 @@ function renderFeatureValue(value: boolean | string | undefined, onHighlight = f
   return <span>{value}</span>;
 }
 
+type FeatureLabel = { key: keyof TierFeatures; label: string; infoKey?: string };
+
+// A comparison row that reads identically across every tier cannot help anyone
+// choose, which is the only job a comparison table has. Lift those rows out of
+// the grid into an "included in every edition" panel above it, so the grid
+// differentiates on every row. Only positive inclusions (a tick or a value) are
+// lifted; a row nobody gets stays in the grid so nothing is advertised as
+// included when it is not.
+function splitSharedFeatures(labels: FeatureLabel[], tiers: Tier[]) {
+  const shared: (FeatureLabel & { value: boolean | string })[] = [];
+  const grid: FeatureLabel[] = [];
+  for (const item of labels) {
+    const values = tiers.map((t) => t.features[item.key]);
+    const first = values[0];
+    const allSame = values.every((v) => v === first);
+    const isPositive = first === true || (typeof first === 'string' && first.length > 0 && first !== 'add-on');
+    if (allSame && isPositive) {
+      shared.push({ ...item, value: first as boolean | string });
+    } else {
+      grid.push(item);
+    }
+  }
+  return { shared, grid };
+}
+
 const colors = {
   amethyst: '#490E67',
   sunrise: '#8B5E00',
@@ -1106,7 +1131,7 @@ const orgAccessibilityTiers: Tier[] = [
       diapImport: true,
       frameworkAlignment: true,
       teamAllocation: true,
-      multiDiap: false,
+      multiDiap: 'Compare each plan cycle against the last',
       assessment: 'All modules (Pulse + Deep Dive)',
       sites: '12 sites / venues / events',
       users: '30',
@@ -1115,7 +1140,7 @@ const orgAccessibilityTiers: Tier[] = [
       evidenceLibrary: true,
       superuserTraining: 'Self-paced program + live workshop, up to 5 superusers',
       integrations: 'Standalone, or delivery packages to your tools',
-      comparison: '1 per site',
+      comparison: '2 per site',
       businessGroupIncluded: '1 Lite group (up to 10 businesses)',
       seatExpansion: '$300/seat',
       siteExpansion: '$525/site',
@@ -1207,6 +1232,15 @@ export default function Pricing() {
     authority: 'Councils & Authorities',
     networkprograms: 'Network Programs',
   };
+
+  // Rows identical across every tier move into a panel above the comparison
+  // table; only the rows that differ stay in the grid.
+  const { shared: sharedFeatures, grid: gridFeatures } = splitSharedFeatures(featureLabels, currentTiers);
+  const includedInEveryLabel =
+    view === 'authority' ? 'Included in every Authority edition' :
+    view === 'majorvenue' ? 'Included in every Major Venue edition' :
+    view === 'multisite' ? 'Included in every Multi-Site plan' :
+    'Included in every Single Site plan';
 
   // Keyboard / focus management for Network Programs prompt dialog
   const promptDialogRef = useRef<HTMLDivElement>(null);
@@ -1518,6 +1552,21 @@ export default function Pricing() {
           <div className="pricing-comparison-header" style={{ backgroundColor: colors.amethyst }}>
             <h3 style={{ color: colors.white, fontSize: '1.125rem', fontWeight: 700 }}>Feature Comparison: {viewLabels[view]}</h3>
           </div>
+          {sharedFeatures.length > 0 && (
+            <div className="pricing-included-in-every" style={{ padding: '1.1rem 1.25rem 1.25rem', borderBottom: `1px solid ${colors.ivoryDark}`, backgroundColor: colors.ivory }}>
+              <p style={{ margin: '0 0 0.75rem', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: colors.amethyst }}>
+                {includedInEveryLabel}
+              </p>
+              <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(16rem, 1fr))', gap: '0.55rem 1.5rem', listStyle: 'none', margin: 0, padding: 0 }}>
+                {sharedFeatures.map(({ key, label, value }) => (
+                  <li key={key} style={{ display: 'flex', gap: '0.6rem', alignItems: 'flex-start', fontSize: '0.875rem', color: colors.walnut, lineHeight: 1.5 }}>
+                    <span aria-hidden="true" style={{ color: colors.amethyst, fontWeight: 800, flexShrink: 0 }}>✓</span>
+                    <span>{label}{typeof value === 'string' ? <span style={{ color: colors.subtleText }}>: {value}</span> : null}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <table>
             <thead>
               <tr style={{ backgroundColor: colors.walnut }}>
@@ -1528,7 +1577,7 @@ export default function Pricing() {
               </tr>
             </thead>
             <tbody>
-              {featureLabels.map(({ key, label, infoKey }, idx) => (
+              {gridFeatures.map(({ key, label, infoKey }, idx) => (
                 <tr key={key} style={{ backgroundColor: idx % 2 === 1 ? colors.ivory : colors.white }}>
                   <td style={{ color: colors.textOnWhite, position: 'relative' }}>
                     {label}
@@ -1550,7 +1599,7 @@ export default function Pricing() {
             {currentTiers.map((tier, i) => (
               <div key={i} className="pricing-mobile-tier">
                 <h4 style={{ color: colors.amethyst }}>{tier.name} <span style={{ color: colors.subtleText, fontWeight: 400, fontSize: '0.875rem' }}>{tier.price}</span></h4>
-                {featureLabels.map(({ key, label, infoKey }) => (
+                {gridFeatures.map(({ key, label, infoKey }) => (
                   <div key={key} className="pricing-mobile-row">
                     <span className="pricing-mobile-label" style={{ color: colors.textOnWhite, position: 'relative' }}>
                       {label}
