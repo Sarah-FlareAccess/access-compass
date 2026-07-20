@@ -1043,7 +1043,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
       doc.setFontSize(BODY_TEXT_SIZE);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
-      doc.splitTextToSize(`${g.label} - ${g.total} recommendation${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
+      doc.splitTextToSize(`${g.label} - ${g.items.length} recommendation${g.items.length !== 1 ? 's' : ''}, raised ${g.total} time${g.total !== 1 ? 's' : ''} across the cohort`, PAGE.contentWidth).forEach((l: string) => { ensureSpace(6.5); doc.text(l, PAGE.marginX, yPos); yPos += 6.5; });
       drawBulletList(g.items.map(pa =>
         `- ${pa.action} (${pa.count} business${pa.count !== 1 ? 'es' : ''}, ${pctOfCohort(pa.count, cohortSize)}%)`));
       yPos += 3;
