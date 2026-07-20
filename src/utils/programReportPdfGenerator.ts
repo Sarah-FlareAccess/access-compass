@@ -216,7 +216,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.text('Access Compass', PAGE.marginX, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text('Program Intelligence Report', PAGE.width - PAGE.marginX, 10, { align: 'right' });
+    doc.text('Network Program Report', PAGE.width - PAGE.marginX, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
