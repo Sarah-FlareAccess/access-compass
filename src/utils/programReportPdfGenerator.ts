@@ -17,7 +17,8 @@ import {
   describeCohortMaturity,
   describeCompletion,
   generateKeyInsights,
-  topNeedsWorkModule,
+  topNeedsWorkGroup,
+  moduleNameList,
   computeMaturity,
   computeRisk,
   authorityRecommendations,
@@ -679,8 +680,11 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // so the broadest theme wins every superlative and reads as a contradiction.)
   {
     const glance: string[] = [`Cohort readiness: ${maturity.band} (${maturity.score}/100, ${strongPct}% of assessed modules strong)`];
-    const topNeeds = topNeedsWorkModule(payload);
-    if (topNeeds && topNeeds.confidence_needs_work > 0) glance.push(`Greatest assessed barrier: ${moduleName(topNeeds.module_id)} (most needs-work results)`);
+    const needsGroup = topNeedsWorkGroup(payload).filter(m => m.confidence_needs_work > 0);
+    if (needsGroup.length > 0) {
+      const ids = needsGroup.map(m => m.module_id);
+      glance.push(`Greatest assessed barrier${ids.length > 1 ? 's' : ''}: ${moduleNameList(ids)}${ids.length > 1 ? ' (tied)' : ' (most needs-work results)'}`);
+    }
     const topAction = payload.topPriorityActions[0];
     if (topAction) glance.push(`Most common recommendation: "${topAction.action}" (${topAction.count} business${topAction.count !== 1 ? 'es' : ''})`);
     const topStrength = payload.topStrengths[0];
@@ -822,12 +826,17 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addModuleRow(mid, agg);
   });
 
-  // What this means. Use the SAME function as the barrier insight and the
-  // at-a-glance box so all three name the same module - never a contradiction.
-  const topNeeds = topNeedsWorkModule(payload);
-  const interpModuleText = topNeeds && topNeeds.confidence_needs_work > 0
-    ? `What this means: ${moduleName(topNeeds.module_id)} (${topNeeds.module_id}) shows the strongest needs-work signal across the cohort. Shared support or a shared resource focused here would lift multiple businesses at once.`
-    : `What this means: confidence is reasonably consistent across modules. No single module dominates as a sector-wide concern, so support can be distributed.`;
+  // What this means. Uses the SAME tie-group function as the barrier insight and
+  // the at-a-glance box, so all three name the same module(s) and a genuine tie is
+  // reported as a tie rather than one module being singled out.
+  const needsGroup = topNeedsWorkGroup(payload).filter(m => m.confidence_needs_work > 0);
+  const ids = needsGroup.map(m => m.module_id);
+  const interpModuleText =
+    ids.length === 0
+      ? `What this means: confidence is reasonably consistent across modules. No single module dominates as a sector-wide concern, so support can be distributed.`
+      : ids.length === 1
+      ? `What this means: ${moduleNameList(ids)} shows the strongest needs-work signal across the cohort. Shared support or a shared resource focused here would lift multiple businesses at once.`
+      : `What this means: ${moduleNameList(ids)} are tied for the strongest needs-work signal across the cohort, each flagged by the same number of assessments so far. A shared resource across these would lift multiple businesses at once.`;
   drawWhatThisMeans(interpModuleText);
 
   // =====================================================

@@ -136,14 +136,33 @@ export const MIN_ASSESSED_TO_FLAG = 3;
 
 // The module with the strongest needs-work signal, guarded by a minimum sample
 // so a 1-2 assessment module can't top the ratio ranking on noise.
-export function topNeedsWorkModule(payload: ProgramReportPayload) {
-  return [...payload.moduleAggregates]
+// The module(s) carrying the strongest needs-work signal. Ranked by needs-work
+// proportion, then absolute count as the tiebreak (so a 4-of-4 outranks a 1-of-1).
+// Returns EVERY module tied at the top on both keys, so a genuine tie is reported
+// as a tie rather than one module being arbitrarily singled out as "the strongest".
+export function topNeedsWorkGroup(payload: ProgramReportPayload) {
+  const ranked = [...payload.moduleAggregates]
     .filter(m => (m.confidence_strong + m.confidence_mixed + m.confidence_needs_work) >= MIN_ASSESSED_TO_FLAG)
-    .sort((a, b) => {
-      const at = a.confidence_strong + a.confidence_mixed + a.confidence_needs_work;
-      const bt = b.confidence_strong + b.confidence_mixed + b.confidence_needs_work;
-      return (b.confidence_needs_work / bt) - (a.confidence_needs_work / at);
-    })[0];
+    .map(m => {
+      const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+      return { m, prop: total > 0 ? m.confidence_needs_work / total : 0, count: m.confidence_needs_work };
+    })
+    .sort((a, b) => (b.prop - a.prop) || (b.count - a.count));
+  if (ranked.length === 0) return [];
+  const lead = ranked[0];
+  return ranked.filter(r => r.prop === lead.prop && r.count === lead.count).map(r => r.m);
+}
+
+export function topNeedsWorkModule(payload: ProgramReportPayload) {
+  return topNeedsWorkGroup(payload)[0];
+}
+
+// Format module ids as "Name (id)", joined "A", "A and B", "A, B and C" (no Oxford comma).
+export function moduleNameList(ids: string[]): string {
+  const parts = ids.map(id => `${moduleName(id)} (${id})`);
+  if (parts.length <= 1) return parts[0] ?? '';
+  if (parts.length === 2) return `${parts[0]} and ${parts[1]}`;
+  return `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}`;
 }
 
 // Network Accessibility Maturity Score: a single trackable 0-100 metric (Strong
@@ -185,9 +204,10 @@ export interface AuthorityRec { kind: string; text: string; }
 export function authorityRecommendations(payload: ProgramReportPayload): AuthorityRec[] {
   const { topPriorityActions, topAreasToExplore, topStrengths, enrolment } = payload;
   const recs: AuthorityRec[] = [];
-  const weakest = topNeedsWorkModule(payload);
-  if (weakest && weakest.confidence_needs_work > 0) {
-    recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${moduleName(weakest.module_id)} - it carries the highest needs-work signal across the network.` });
+  const weakestGroup = topNeedsWorkGroup(payload).filter(m => m.confidence_needs_work > 0);
+  if (weakestGroup.length > 0) {
+    const ids = weakestGroup.map(m => m.module_id);
+    recs.push({ kind: 'Capability', text: `Deliver cohort-wide support on ${moduleNameList(ids)} - ${ids.length > 1 ? 'they carry' : 'it carries'} the highest needs-work signal across the network.` });
   }
   if (topPriorityActions.length > 0) {
     const top = topPriorityActions[0];
