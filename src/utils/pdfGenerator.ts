@@ -142,7 +142,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Access Compass', PAGE.marginLeft, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text(summaryOnly ? 'Executive Summary' : 'Accessibility Self-Review', PAGE.width - PAGE.marginRight, 10, { align: 'right' });
+    doc.text(`${summaryOnly ? 'Executive Summary' : 'Accessibility Self-Review'}  ·  ${new Date(report.generatedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}`, PAGE.width - PAGE.marginRight, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
@@ -158,18 +158,13 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(73, 14, 103); // amethystDiamond
     doc.rect(PAGE.marginLeft, footerY - 6, 40, 1, 'F');
 
-    // Footer text. Left: org (+ scope). Centre: date. Truncate the left text so it
-    // can never run into the centred date, however long the org name is.
+    // Footer text: org (+ scope) on the left with the full width up to the page
+    // number. The date now sits in the header, so a long org name has room here.
     doc.setFontSize(7);
     doc.setFont('helvetica', 'normal');
-    const dateStr = new Date(report.generatedAt).toLocaleDateString('en-AU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
     const scopeTail = reportScope && reportScope !== report.organisation ? `  ·  ${reportScope}` : '';
     let footerLeft = `${report.organisation}${scopeTail}`;
-    const leftMaxW = PAGE.width / 2 - doc.getTextWidth(dateStr) / 2 - PAGE.marginLeft - 5;
+    const leftMaxW = PAGE.width - PAGE.marginRight - 30 - PAGE.marginLeft;
     if (doc.getTextWidth(footerLeft) > leftMaxW) {
       while (footerLeft.length > 1 && doc.getTextWidth(footerLeft + '…') > leftMaxW) {
         footerLeft = footerLeft.slice(0, -1);
@@ -178,8 +173,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     }
     doc.setTextColor(107, 114, 128); // gray
     doc.text(footerLeft, PAGE.marginLeft, footerY);
-    doc.setTextColor(73, 14, 103); // amethystDiamond
-    doc.text(dateStr, PAGE.width / 2, footerY, { align: 'center' });
     // Page number placeholder (updated in final pass with total)
     doc.setTextColor(107, 114, 128);
     doc.text(`Page ${currentPage}`, PAGE.width - PAGE.marginRight, footerY, { align: 'right' });
@@ -906,13 +899,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.setFontSize(7);
       doc.setTextColor(107, 114, 128);
       doc.text('Access Compass by Flare Access', PAGE.marginLeft, fy);
-      doc.setTextColor(73, 14, 103);
-      doc.text(
-        new Date(report.generatedAt).toLocaleDateString('en-AU', {
-          day: 'numeric', month: 'long', year: 'numeric',
-        }),
-        PAGE.width / 2, fy, { align: 'center' },
-      );
       doc.setTextColor(107, 114, 128);
       doc.text(`Page ${i} of ${totalPages}`, PAGE.width - PAGE.marginRight, fy, { align: 'right' });
     }
@@ -1034,7 +1020,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Recurring themes across recommendations ---
   if (report.analysis.recurringThemes.length > 0) {
-    addSectionTitle('Key Themes', COLORS.amethystDiamond, 18 + report.analysis.recurringThemes.length * 10);
+    addSectionTitle('Key Themes', COLORS.amethystDiamond, 28 + report.analysis.recurringThemes.length * 10);
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
@@ -1062,14 +1048,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Where the priorities sit ---
   if (report.analysis.thematicSummaries.length > 0) {
-    addSectionTitle('Where the Priorities Sit', COLORS.amethystDiamond, 14 + report.analysis.thematicSummaries.length * 22);
+    addSectionTitle('Where the Priorities Sit', COLORS.amethystDiamond, 24 + report.analysis.thematicSummaries.length * 22);
     yPosition += 4;
     renderThematicSummaries(report.analysis.thematicSummaries);
   }
 
   // --- Where you're strongest ---
   if (report.analysis.strengthsByTheme.length > 0) {
-    addSectionTitle("Where You're Strongest", COLORS.amethystDiamond, 18 + report.analysis.strengthsByTheme.length * 10);
+    addSectionTitle("Where You're Strongest", COLORS.amethystDiamond, 28 + report.analysis.strengthsByTheme.length * 10);
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
