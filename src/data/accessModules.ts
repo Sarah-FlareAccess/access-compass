@@ -562,7 +562,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'We mention some limitations but not all' or 'Only on certain pages'",
         showWhen: { questionId: '1.1-F-1', answers: ['yes', 'partially'] },
@@ -4208,7 +4208,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'We have an accessibility page but it\'s hard to find' or 'Info is scattered across different pages'",
         helpContent: {
@@ -5390,7 +5390,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Entrance is visible but no directional signage' or 'Some signage but not at all decision points'",
         helpContent: {
@@ -8573,7 +8573,7 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for guidance',
           ],
         },
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.1 Cl. 3.3',
         actionText: {
           yes: 'The queue layout accommodates wheelchair users and people with mobility aids, supporting equitable access.',
@@ -12268,7 +12268,7 @@ export const accessModules: AccessModule[] = [
             'If you are unsure whether this meets the standard, contact Flare Access for guidance',
           ],
         },
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         complianceRef: 'AS 1428.2',
         actionText: {
           yes: 'Signs are placed at consistent heights and locations.',
@@ -18493,7 +18493,7 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Email available but phone is promoted as primary contact' or 'Live chat during limited hours'",
@@ -22528,7 +22528,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, consistently across all platforms' },
@@ -35713,7 +35713,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'policy',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -35934,7 +35934,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -36971,7 +36971,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'policy',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
