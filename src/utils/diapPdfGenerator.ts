@@ -178,9 +178,8 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   const coverScope = siteName
     ? siteName
     : coveredSiteNames.length === 0 ? ''
-    : coveredSiteNames.length <= 3 && coveredSiteNames.join(', ').length <= 48
-      ? coveredSiteNames.join(', ')
-      : `${coveredSiteNames.length} sites`;
+    : coveredSiteNames.length <= 3 ? coveredSiteNames.join(', ')
+    : `${coveredSiteNames.length} sites`;
 
   // Build category labels with custom categories and name overrides
   const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
@@ -480,17 +479,20 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
   doc.text(orgName, ccx, PAGE.height * 0.62, { align: 'center' });
 
+  let coverScopeLines = 0;
   if (coverScope) {
     doc.setFontSize(13);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(90, 60, 120);
-    doc.text(coverScope, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
+    const lines = doc.splitTextToSize(coverScope, PAGE.width - PAGE.marginX * 2);
+    coverScopeLines = lines.length;
+    lines.forEach((l: string, i: number) => doc.text(l, ccx, PAGE.height * 0.62 + 9 + i * 6, { align: 'center' }));
   }
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(107, 114, 128);
-  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (coverScope ? 18 : 10), { align: 'center' });
+  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (coverScope ? 9 + coverScopeLines * 6 + 2 : 10), { align: 'center' });
 
   // Discreet credit line only (branding kept to a small, footer-style credit so
   // the plan reads as the organisation's own submittable document).

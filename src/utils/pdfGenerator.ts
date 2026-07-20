@@ -83,7 +83,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   const reportScope = report.siteName
     ? report.siteName
     : report.coveredSites && report.coveredSites.length > 0
-      ? (report.coveredSites.length <= 3 && report.coveredSites.join(', ').length <= 48
+      ? (report.coveredSites.length <= 3
           ? report.coveredSites.join(', ')
           : `${report.coveredSites.length} venues`)
       : '';
@@ -522,11 +522,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setTextColor(73, 14, 103);
     doc.text(report.organisation, ccx, PAGE.height * 0.62, { align: 'center' });
 
+    let coverScopeLines = 0;
     if (reportScope) {
       doc.setFontSize(13);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(90, 60, 120);
-      doc.text(reportScope, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
+      const lines = doc.splitTextToSize(reportScope, PAGE.contentWidth);
+      coverScopeLines = lines.length;
+      lines.forEach((l: string, i: number) => doc.text(l, ccx, PAGE.height * 0.62 + 9 + i * 6, { align: 'center' }));
     }
 
     doc.setFontSize(10);
@@ -537,7 +540,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         day: 'numeric', month: 'long', year: 'numeric',
       })}`,
       ccx,
-      PAGE.height * 0.62 + (reportScope ? 18 : 10),
+      PAGE.height * 0.62 + (reportScope ? 9 + coverScopeLines * 6 + 2 : 10),
       { align: 'center' }
     );
 
