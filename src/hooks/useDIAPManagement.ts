@@ -147,7 +147,7 @@ const DIAP_ITEMS_KEY = 'access_compass_diap_items';
 const DIAP_DOCUMENTS_KEY = 'access_compass_diap_documents';
 
 // Local storage functions
-const DIAP_MIGRATION_KEY = 'diap_migration_v8';
+const DIAP_MIGRATION_KEY = 'diap_migration_v9';
 
 function getLocalItems(): DIAPItem[] {
   const data = localStorage.getItem(DIAP_ITEMS_KEY);
@@ -194,8 +194,11 @@ function getLocalItems(): DIAPItem[] {
             const baseQuestionId = item.questionSource.replace(/-(media|url)-\d+$/, '');
             const question = questions.find(q => q.id === baseQuestionId || q.id === item.questionSource);
             if (question) {
-              // Fix complianceLevel if missing
-              if (!item.complianceLevel && question.complianceLevel) {
+              // Sync complianceLevel from the source question. It is derived, not
+              // user-set, so a corrected question tag must overwrite the stored value,
+              // otherwise a stale tag (e.g. "mandatory") lingers on the item while the
+              // priority beside it recalculates, leaving the two out of sync.
+              if (question.complianceLevel && item.complianceLevel !== question.complianceLevel) {
                 item.complianceLevel = question.complianceLevel;
                 changed = true;
               }
