@@ -654,6 +654,9 @@ export function useReportGeneration(
           strengths: t.strengths,
           actions: t.actions,
         }))
+        // Never surface the 'Other' catch-all group as a performing area, in the
+        // chart, the highest-performing sentence or anywhere else.
+        .filter(t => t.label !== 'Other')
         .sort((a, b) => groupOrderIndex(a.group) - groupOrderIndex(b.group));
 
       // Headline counts for a director: the priority load at a glance.
