@@ -627,10 +627,33 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   // GROUP 1: OVERVIEW
   // ============================================
   addGroupHeader('Overview');
+
+  // The exec summary has no cover page, so name the organisation and the sites it
+  // covers up front, otherwise the location only appears in the footer.
+  if (summaryOnly) {
+    doc.setFontSize(15);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(COLORS.amethystDiamond);
+    doc.text(report.organisation, PAGE.marginLeft, yPosition);
+    yPosition += 6.5;
+    if (coverSites.length > 0) {
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(90, 90, 90);
+      for (const l of doc.splitTextToSize(coverSites.join(', '), PAGE.contentWidth)) {
+        doc.text(l, PAGE.marginLeft, yPosition);
+        yPosition += 5;
+      }
+    }
+    yPosition += 4;
+    doc.setTextColor(0, 0, 0);
+  }
+
   addSectionTitle('Accessibility Performance Summary');
 
-  // Scope: which venues an organisation-wide report aggregates.
-  if (report.coveredSites && report.coveredSites.length > 0) {
+  // Scope: which venues an organisation-wide report aggregates (full report only;
+  // the exec states its scope in the identification block above).
+  if (!summaryOnly && report.coveredSites && report.coveredSites.length > 0) {
     const n = report.coveredSites.length;
     const scopeText = `This organisation-wide report aggregates self-review assessments across ${n} ${n === 1 ? 'venue' : 'venues'}: ${report.coveredSites.join(', ')}.`;
     doc.setFontSize(11);
