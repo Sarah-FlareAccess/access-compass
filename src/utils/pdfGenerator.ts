@@ -77,6 +77,16 @@ const GROUP_ORDER: { id: string; label: string }[] = [
  */
 export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   const { report, includeCoverPage = true, includeTableOfContents = true, summaryOnly = false } = options;
+
+  // Compact venue/site scope for the cover subtitle and the page footer, so the
+  // sites a report addresses are visible without opening the body.
+  const reportScope = report.siteName
+    ? report.siteName
+    : report.coveredSites && report.coveredSites.length > 0
+      ? (report.coveredSites.length <= 3 && report.coveredSites.join(', ').length <= 48
+          ? report.coveredSites.join(', ')
+          : `${report.coveredSites.length} venues`)
+      : '';
   const doc = new jsPDF('p', 'mm', 'a4');
 
   // Accessibility: enforce an 11pt minimum font size across the entire
@@ -146,7 +156,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Footer text
     doc.setFontSize(7);
     doc.setTextColor(107, 114, 128); // gray
-    doc.text(report.organisation, PAGE.marginLeft, footerY);
+    doc.text((reportScope ? `${report.organisation}  ·  ${reportScope}` : report.organisation).slice(0, 50), PAGE.marginLeft, footerY);
     doc.setTextColor(73, 14, 103); // amethystDiamond
     doc.text(
       new Date(report.generatedAt).toLocaleDateString('en-AU', {
@@ -512,11 +522,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setTextColor(73, 14, 103);
     doc.text(report.organisation, ccx, PAGE.height * 0.62, { align: 'center' });
 
-    if (report.siteName) {
+    if (reportScope) {
       doc.setFontSize(13);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(90, 60, 120);
-      doc.text(report.siteName, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
+      doc.text(reportScope, ccx, PAGE.height * 0.62 + 9, { align: 'center' });
     }
 
     doc.setFontSize(10);
@@ -527,7 +537,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         day: 'numeric', month: 'long', year: 'numeric',
       })}`,
       ccx,
-      PAGE.height * 0.62 + (report.siteName ? 18 : 10),
+      PAGE.height * 0.62 + (reportScope ? 18 : 10),
       { align: 'center' }
     );
 

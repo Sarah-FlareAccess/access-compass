@@ -177,8 +177,10 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   // site or a count when the plan spans several (the full list sits by the intro).
   const coverScope = siteName
     ? siteName
-    : coveredSiteNames.length === 1 ? coveredSiteNames[0]
-    : coveredSiteNames.length > 1 ? `${coveredSiteNames.length} sites` : '';
+    : coveredSiteNames.length === 0 ? ''
+    : coveredSiteNames.length <= 3 && coveredSiteNames.join(', ').length <= 48
+      ? coveredSiteNames.join(', ')
+      : `${coveredSiteNames.length} sites`;
 
   // Build category labels with custom categories and name overrides
   const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
@@ -243,7 +245,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     doc.setFontSize(7);
     doc.setTextColor(107, 114, 128);
-    doc.text(orgName, PAGE.marginX, fy);
+    doc.text((coverScope ? `${orgName}  ·  ${coverScope}` : orgName).slice(0, 50), PAGE.marginX, fy);
     doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text(formattedDate, PAGE.width / 2, fy, { align: 'center' });
     doc.setTextColor(107, 114, 128);
