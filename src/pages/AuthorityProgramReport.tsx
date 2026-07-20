@@ -324,6 +324,8 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
   const strongPct = confidence.strongPct;
   // Merge submitted into completed for display (no review workflow exists yet)
   const completedDisplay = enrolment.completed + enrolment.submitted;
+  // "Not started" as the remainder, so the breakdown always reconciles to the total.
+  const notStartedDisplay = Math.max(0, enrolment.total - completedDisplay - enrolment.in_progress);
   const completionPct = pct(completedDisplay, enrolment.total);
 
   // Key insights come from the shared model (sample-guarded, single source of
@@ -441,7 +443,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
               segments={[
                 { value: completedDisplay, color: '#86EFAC' },
                 { value: enrolment.in_progress, color: '#C4B5FD' },
-                { value: enrolment.enrolled, color: 'rgba(62, 43, 47, 0.18)' },
+                { value: notStartedDisplay, color: 'rgba(62, 43, 47, 0.18)' },
               ]}
             />
             <div className="report-donut-center">
@@ -452,7 +454,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
           <div className="report-donut-legend">
             <span><span className="dot dot--green" />Completed {completedDisplay}</span>
             <span><span className="dot dot--purple" />In progress {enrolment.in_progress}</span>
-            <span><span className="dot dot--grey" />Not started {enrolment.enrolled}</span>
+            <span><span className="dot dot--grey" />Not started {notStartedDisplay}</span>
           </div>
         </div>
 
