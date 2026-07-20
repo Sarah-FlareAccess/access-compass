@@ -127,7 +127,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Access Compass', PAGE.marginLeft, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text('Accessibility Report', PAGE.width - PAGE.marginRight, 10, { align: 'right' });
+    doc.text(summaryOnly ? 'Executive Summary' : 'Accessibility Report', PAGE.width - PAGE.marginRight, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
@@ -1120,7 +1120,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     // Per-domain rows
     for (const d of fa.domains) {
-      checkNewPage(22);
+      checkNewPage(30);
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(COLORS.text);
@@ -1156,7 +1156,17 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         for (const [n, c] of segs) {
           if (n > 0) { const w = barW * n / d.total; doc.setFillColor(c); doc.rect(cx, yPosition, w, 4, 'F'); cx += w; }
         }
-        yPosition += 4 + 5;
+        yPosition += 4 + 4;
+        // Text breakdown so the status split is not carried by colour alone (WCAG 1.4.1).
+        const parts: string[] = [];
+        if (d.strong > 0) parts.push(`Doing well ${d.strong}`);
+        if (d.mixed > 0) parts.push(`Mixed ${d.mixed}`);
+        if (d.needsWork > 0) parts.push(`Needs work ${d.needsWork}`);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(75, 85, 99);
+        doc.text(parts.join('    ·    '), PAGE.marginLeft, yPosition);
+        yPosition += 5;
       } else {
         yPosition += 3;
       }
