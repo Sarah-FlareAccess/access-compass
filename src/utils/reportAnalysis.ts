@@ -168,7 +168,7 @@ export function buildAnalysis(input: AnalysisInput): ReportAnalysis {
   // Only themes with real findings are "rated". A theme at 0% with no findings
   // means it was not assessed enough to judge, NOT that performance is poor, so
   // it must never be surfaced as the weak spot or an "opportunity".
-  const ratedThemes = themeBreakdown.filter(t => (t.strengths + t.actions) > 0);
+  const ratedThemes = themeBreakdown.filter(t => (t.strengths + t.actions) > 0 && t.label !== 'Other');
   const strongest = ratedThemes.length
     ? ratedThemes.reduce((a, b) => (b.performancePct > a.performancePct ? b : a))
     : null;
