@@ -780,6 +780,10 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // =====================================================
   const sharedOpps = topPriorityActions.filter(a => a.count >= 3);
   const activeThemes = groupItems(topPriorityActions).length;
+  // In framework mode the box is labelled "Outcome areas", so it must count covered
+  // outcome domains (those with assessed modules), matching the alignment section
+  // below, not the themes represented among the top priority actions.
+  const coveredOutcomeAreas = payload.outcomes?.domains.filter(d => d.total > 0).length ?? activeThemes;
 
   addSectionHeader('Program reach and insights');
   ensureSpace(30);
@@ -787,7 +791,7 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   addStatBox(PAGE.marginX, yPos, impactW, String(enrolment.total), 'Businesses reached', COLORS.amethystDiamond);
   addStatBox(PAGE.marginX + impactW + 3, yPos, impactW, String(completedDisplay), 'Assessments done', COLORS.strongText);
   addStatBox(PAGE.marginX + 2 * (impactW + 3), yPos, impactW, String(sharedOpps.length), 'Shared opportunities', COLORS.aussieLight);
-  addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(activeThemes), groupMode === 'framework' ? 'Outcome areas' : 'Themes active', COLORS.mixedText);
+  addStatBox(PAGE.marginX + 3 * (impactW + 3), yPos, impactW, String(groupMode === 'framework' ? coveredOutcomeAreas : activeThemes), groupMode === 'framework' ? 'Outcome areas' : 'Themes active', COLORS.mixedText);
   yPos += 30;
   addParagraph('Shared opportunities are recommendations that recur across three or more businesses - a signal of where a single, coordinated initiative could help many at once rather than supporting each business separately.', 9);
 
