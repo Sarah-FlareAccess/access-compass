@@ -219,8 +219,8 @@ export function authorityRecommendations(payload: ProgramReportPayload): Authori
   if (enrolment.enrolled > 0) {
     recs.push({ kind: 'Participation', text: `Follow up with the ${enrolment.enrolled} enrolled business${enrolment.enrolled !== 1 ? 'es' : ''} yet to start, to firm up the cohort picture before public reporting.` });
   }
-  if (weakest) {
-    recs.push({ kind: 'Investment', text: `Consider prioritising the next funding round for ${moduleName(weakest.module_id)}, where targeted investment could address a common barrier across multiple businesses (subject to site-specific feasibility and cost).` });
+  if (weakestGroup.length > 0) {
+    recs.push({ kind: 'Investment', text: `Consider prioritising the next funding round for ${moduleNameList(weakestGroup.map(m => m.module_id))}, where targeted investment could address a common barrier across multiple businesses (subject to site-specific feasibility and cost).` });
   }
   if (topStrengths.length > 0) {
     const top = topStrengths[0];
