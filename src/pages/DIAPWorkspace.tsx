@@ -13,7 +13,7 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDIAPManagement } from '../hooks/useDIAPManagement';
-import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT } from '../utils/priorityCalculation';
+import { PRIORITY_LEGEND, PRIORITY_ENCOURAGEMENT, calculateQuestionPriority } from '../utils/priorityCalculation';
 import { FLARE_CONTACT, groupModuleCodesByExpertise } from '../utils/professionalSupportGroups';
 import { generateDIAPPdf } from '../utils/diapPdfGenerator';
 import { getSession } from '../utils/session';
@@ -1017,8 +1017,29 @@ export default function DIAPWorkspace() {
       || 'Your Organisation';
     const planTitle = exportTitle.trim() || defaultPlanTitle;
 
+    // Re-derive complianceLevel and priority from the live source question, so a
+    // question retag flows into the export immediately without depending on the
+    // one-time stored-item migration (which only reflects the tags as they were
+    // when it last ran, and so misses any retag made afterwards).
+    const syncItemTags = (item: DIAPItem): DIAPItem => {
+      if (!item.questionSource || !item.moduleSource) return item;
+      const moduleCode = item.moduleSource.match(/(\d+\.\d+)/)?.[1];
+      const mod = moduleCode ? getModuleById(moduleCode) : undefined;
+      if (!mod?.questions) return item;
+      const baseId = item.questionSource.replace(/-(media|url)-\d+$/, '');
+      const question = mod.questions.find(q => q.id === baseId || q.id === item.questionSource);
+      if (!question) return item;
+      const priority = calculateQuestionPriority({
+        complianceLevel: question.complianceLevel,
+        safetyRelated: question.safetyRelated,
+        impactLevel: question.impactLevel,
+        answer: item.status === 'achieved' ? 'yes' : 'no',
+      });
+      return { ...item, complianceLevel: question.complianceLevel ?? item.complianceLevel, priority };
+    };
+
     // Items for the selected sites only (site filter), all statuses/priorities.
-    const exportItems = items.filter(matchesSite);
+    const exportItems = items.filter(matchesSite).map(syncItemTags);
 
     // Rebuild the framework grouping from exactly these items, using the same
     // domain mapping as the on-screen outcomes, so the statutory section matches
