@@ -127,7 +127,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Access Compass', PAGE.marginLeft, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text(report.organisation, PAGE.width - PAGE.marginRight, 10, { align: 'right' });
+    doc.text('Accessibility Report', PAGE.width - PAGE.marginRight, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
@@ -146,7 +146,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Footer text
     doc.setFontSize(7);
     doc.setTextColor(107, 114, 128); // gray
-    doc.text('Access Compass by Flare Access', PAGE.marginLeft, footerY);
+    doc.text(report.organisation, PAGE.marginLeft, footerY);
     doc.setTextColor(73, 14, 103); // amethystDiamond
     doc.text(
       new Date(report.generatedAt).toLocaleDateString('en-AU', {
@@ -505,21 +505,6 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Orange divider
     doc.setFillColor(255, 144, 21);
     doc.rect(0, PAGE.height * 0.44, PAGE.width, 3, 'F');
-
-    // Report type badge, straddling the divider
-    const reportTypeText =
-      report.reportType === 'pulse-check' ? 'Pulse Check' : 'Deep Dive';
-    const badgeWidth = 50;
-    doc.setFillColor(255, 237, 200); // light amber bg
-    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'F');
-    doc.setDrawColor(224, 125, 0);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(ccx - badgeWidth / 2, PAGE.height * 0.44 + 11, badgeWidth, 12, 3, 3, 'S');
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(120, 53, 0);
-    doc.text(reportTypeText, ccx, PAGE.height * 0.44 + 19, { align: 'center' });
-    doc.setDrawColor(0, 0, 0);
 
     // Organisation name (dark on the light area)
     doc.setFontSize(22);
@@ -904,6 +889,22 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     `This report summarises the findings of ${reportTypeIntro} conducted using Access Compass. Findings are benchmarked against the Disability (Access to Premises-Buildings) Standards 2010, the National Construction Code, relevant Australian Standards including AS 1428.1 and the Web Content Accessibility Guidelines (WCAG) 2.2 for digital content. Recommendations that extend beyond mandatory compliance are identified as best practice.`,
     11
   );
+
+  // Scope: the organisation and the venue(s) / site(s) this report addressed.
+  const areasAssessed = report.executiveSummary?.modulesCompleted;
+  const totalAreas = report.executiveSummary?.totalModules;
+  let scopeAbout: string;
+  if (report.coveredSites && report.coveredSites.length > 1) {
+    scopeAbout = `It is an organisation-wide report for ${report.organisation}, aggregating the self-review across ${report.coveredSites.length} venues: ${report.coveredSites.join(', ')}.`;
+  } else if (report.siteName) {
+    scopeAbout = `It covers ${report.siteName}, part of ${report.organisation}.`;
+  } else {
+    scopeAbout = `It covers ${report.organisation}.`;
+  }
+  if (typeof areasAssessed === 'number' && typeof totalAreas === 'number') {
+    scopeAbout += ` ${areasAssessed} of ${totalAreas} accessibility areas were assessed.`;
+  }
+  addParagraph(scopeAbout, 11);
 
   addSectionTitle('Your Obligations');
 
@@ -1510,7 +1511,10 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     // Group header when entering a new group (findings style)
     if (mod.group !== lastGroup) {
       lastGroup = mod.group;
-      addGroupHeader(getGroupLabel(mod.group), true);
+      // Reserve enough for the header + 6mm gap + the module card (30) + the
+      // first finding line, so a group header is never stranded alone at the
+      // foot of a page with its first module pushed to the next one.
+      addGroupHeader(getGroupLabel(mod.group), true, 72);
     }
 
     // 6mm space before module card
