@@ -390,7 +390,7 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
+        complianceLevel: 'best-practice',
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Findability is one of the most common accessibility failures. You might have excellent information, but it has no value if customers can\'t locate it when they need it. Many people give up if they can\'t find answers quickly. Test this yourself by opening your website homepage and counting the clicks needed to reach your accessibility information.',
