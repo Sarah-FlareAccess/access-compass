@@ -158,21 +158,28 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFillColor(73, 14, 103); // amethystDiamond
     doc.rect(PAGE.marginLeft, footerY - 6, 40, 1, 'F');
 
-    // Footer text
+    // Footer text. Left: org (+ scope). Centre: date. Truncate the left text so it
+    // can never run into the centred date, however long the org name is.
     doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    const dateStr = new Date(report.generatedAt).toLocaleDateString('en-AU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    const scopeTail = reportScope && reportScope !== report.organisation ? `  ·  ${reportScope}` : '';
+    let footerLeft = `${report.organisation}${scopeTail}`;
+    const leftMaxW = PAGE.width / 2 - doc.getTextWidth(dateStr) / 2 - PAGE.marginLeft - 5;
+    if (doc.getTextWidth(footerLeft) > leftMaxW) {
+      while (footerLeft.length > 1 && doc.getTextWidth(footerLeft + '…') > leftMaxW) {
+        footerLeft = footerLeft.slice(0, -1);
+      }
+      footerLeft = footerLeft.replace(/[\s·]+$/, '') + '…';
+    }
     doc.setTextColor(107, 114, 128); // gray
-    doc.text((reportScope ? `${report.organisation}  ·  ${reportScope}` : report.organisation).slice(0, 50), PAGE.marginLeft, footerY);
+    doc.text(footerLeft, PAGE.marginLeft, footerY);
     doc.setTextColor(73, 14, 103); // amethystDiamond
-    doc.text(
-      new Date(report.generatedAt).toLocaleDateString('en-AU', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
-      PAGE.width / 2,
-      footerY,
-      { align: 'center' }
-    );
+    doc.text(dateStr, PAGE.width / 2, footerY, { align: 'center' });
     // Page number placeholder (updated in final pass with total)
     doc.setTextColor(107, 114, 128);
     doc.text(`Page ${currentPage}`, PAGE.width - PAGE.marginRight, footerY, { align: 'right' });
@@ -1027,7 +1034,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Recurring themes across recommendations ---
   if (report.analysis.recurringThemes.length > 0) {
-    addSectionTitle('Key Themes');
+    addSectionTitle('Key Themes', COLORS.amethystDiamond, 18 + report.analysis.recurringThemes.length * 10);
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
@@ -1055,14 +1062,14 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // --- Where the priorities sit ---
   if (report.analysis.thematicSummaries.length > 0) {
-    addSectionTitle('Where the Priorities Sit');
+    addSectionTitle('Where the Priorities Sit', COLORS.amethystDiamond, 14 + report.analysis.thematicSummaries.length * 22);
     yPosition += 4;
     renderThematicSummaries(report.analysis.thematicSummaries);
   }
 
   // --- Where you're strongest ---
   if (report.analysis.strengthsByTheme.length > 0) {
-    addSectionTitle("Where You're Strongest");
+    addSectionTitle("Where You're Strongest", COLORS.amethystDiamond, 18 + report.analysis.strengthsByTheme.length * 10);
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(107, 114, 128);
