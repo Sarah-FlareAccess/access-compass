@@ -180,6 +180,12 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     : coveredSiteNames.length === 0 ? ''
     : coveredSiteNames.length <= 3 ? coveredSiteNames.join(', ')
     : `${coveredSiteNames.length} sites`;
+  // Full list of the sites this plan addresses, for the title page (one per line;
+  // collapses to a count only beyond eight so the cover stays readable).
+  const coverSites: string[] = siteName ? [siteName]
+    : coveredSiteNames.length === 0 ? []
+    : coveredSiteNames.length <= 8 ? coveredSiteNames
+    : [`${coveredSiteNames.length} sites`];
 
   // Build category labels with custom categories and name overrides
   const categoryLabels: Record<string, string> = { ...CATEGORY_LABELS };
@@ -480,19 +486,18 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.text(orgName, ccx, PAGE.height * 0.62, { align: 'center' });
 
   let coverScopeLines = 0;
-  if (coverScope) {
+  if (coverSites.length > 0) {
     doc.setFontSize(13);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(90, 60, 120);
-    const lines = doc.splitTextToSize(coverScope, PAGE.width - PAGE.marginX * 2);
-    coverScopeLines = lines.length;
-    lines.forEach((l: string, i: number) => doc.text(l, ccx, PAGE.height * 0.62 + 9 + i * 6, { align: 'center' }));
+    coverSites.forEach((s, i) => doc.text(s, ccx, PAGE.height * 0.62 + 9 + i * 7, { align: 'center' }));
+    coverScopeLines = coverSites.length;
   }
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(107, 114, 128);
-  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (coverScope ? 9 + coverScopeLines * 6 + 2 : 10), { align: 'center' });
+  doc.text(`Generated ${formattedDate}`, ccx, PAGE.height * 0.62 + (coverSites.length ? 9 + coverScopeLines * 7 + 2 : 10), { align: 'center' });
 
   // Discreet credit line only (branding kept to a small, footer-style credit so
   // the plan reads as the organisation's own submittable document).

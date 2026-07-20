@@ -87,6 +87,11 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
           ? report.coveredSites.join(', ')
           : `${report.coveredSites.length} venues`)
       : '';
+  // Full list of venues for the title page (one per line; count only beyond eight).
+  const coverSites: string[] = report.siteName ? [report.siteName]
+    : report.coveredSites && report.coveredSites.length > 0
+      ? (report.coveredSites.length <= 8 ? report.coveredSites : [`${report.coveredSites.length} venues`])
+      : [];
   const doc = new jsPDF('p', 'mm', 'a4');
 
   // Accessibility: enforce an 11pt minimum font size across the entire
@@ -523,13 +528,12 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text(report.organisation, ccx, PAGE.height * 0.62, { align: 'center' });
 
     let coverScopeLines = 0;
-    if (reportScope) {
+    if (coverSites.length > 0) {
       doc.setFontSize(13);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(90, 60, 120);
-      const lines = doc.splitTextToSize(reportScope, PAGE.contentWidth);
-      coverScopeLines = lines.length;
-      lines.forEach((l: string, i: number) => doc.text(l, ccx, PAGE.height * 0.62 + 9 + i * 6, { align: 'center' }));
+      coverSites.forEach((s, i) => doc.text(s, ccx, PAGE.height * 0.62 + 9 + i * 7, { align: 'center' }));
+      coverScopeLines = coverSites.length;
     }
 
     doc.setFontSize(10);
@@ -540,7 +544,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
         day: 'numeric', month: 'long', year: 'numeric',
       })}`,
       ccx,
-      PAGE.height * 0.62 + (reportScope ? 9 + coverScopeLines * 6 + 2 : 10),
+      PAGE.height * 0.62 + (coverSites.length ? 9 + coverScopeLines * 7 + 2 : 10),
       { align: 'center' }
     );
 
