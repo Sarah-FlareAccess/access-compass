@@ -142,7 +142,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.text('Access Compass', PAGE.marginLeft, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
-    doc.text(summaryOnly ? 'Executive Summary' : 'Accessibility Report', PAGE.width - PAGE.marginRight, 10, { align: 'right' });
+    doc.text(summaryOnly ? 'Executive Summary' : 'Accessibility Self-Review', PAGE.width - PAGE.marginRight, 10, { align: 'right' });
     doc.setTextColor(0, 0, 0);
   };
 
