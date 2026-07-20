@@ -878,9 +878,9 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   yPos += 7;
 
   const legendItems = [
-    { label: 'High', color: COLORS.statusHigh, desc: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. Highest legal and safety risk.' },
+    { label: 'High', color: COLORS.statusHigh, desc: 'Compliance-oriented and safety-related items, generally the highest-risk areas and the usual place to start. This is a prioritisation guide, not a legal compliance assessment, so confirm the specific requirements that apply to you.' },
     { label: 'Medium', color: COLORS.statusMedium, desc: 'High-impact improvements that significantly affect the experience of people with disability and items needing further investigation.' },
-    { label: 'Low', color: COLORS.statusLow, desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower legal risk.' },
+    { label: 'Low', color: COLORS.statusLow, desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower risk.' },
   ];
   for (const item of legendItems) {
     doc.setFontSize(9);

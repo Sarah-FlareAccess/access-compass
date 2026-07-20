@@ -1510,9 +1510,9 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   yPosition += 8;
 
   const legendItems: { label: string; color: string; desc: string }[] = [
-    { label: 'High', color: '#b91c1c', desc: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. Highest legal and safety risk.' },
+    { label: 'High', color: '#b91c1c', desc: 'Compliance-oriented and safety-related items, generally the highest-risk areas and the usual place to start. This is a prioritisation guide, not a legal compliance assessment, so confirm the specific requirements that apply to you.' },
     { label: 'Medium', color: '#945a00', desc: 'High-impact improvements that significantly affect the experience of people with disability and items needing further investigation.' },
-    { label: 'Low', color: '#1a4fd6', desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower legal risk.' },
+    { label: 'Low', color: '#1a4fd6', desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower risk.' },
   ];
   for (const item of legendItems) {
     // Reserve label + first description line so the label never orphans.
