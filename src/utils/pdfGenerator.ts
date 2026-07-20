@@ -698,7 +698,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   addStatBox(col(0), yPosition, tileW, String(report.executiveSummary.modulesCompleted), 'Areas reviewed', COLORS.amethystDiamond);
   addStatBox(col(1), yPosition, tileW, String(report.executiveSummary.strengthsCount), 'Strengths', COLORS.green, '#15803d');
-  addStatBox(col(2), yPosition, tileW, String(report.executiveSummary.actionsCount), 'Priority Actions', '#b91c1c');
+  addStatBox(col(2), yPosition, tileW, String(report.executiveSummary.actionsCount), 'Recommendations', '#b91c1c');
 
   yPosition += 27;
 
@@ -713,7 +713,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setFontSize(11);
     doc.setTextColor(90, 90, 90);
     const cap = doc.splitTextToSize(
-      'The priority actions split by the nature of the change. Operational items can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.',
+      'The recommendations split by the nature of the change. Operational items can begin now without major works (communications, customer service, policy, staff training and signage). Capital works are built-environment items likely to need planning and budget.',
       PAGE.contentWidth
     );
     doc.text(cap, PAGE.marginLeft, yPosition);
@@ -1726,7 +1726,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
   // Management-platform note: this assessment feeds the action plan
   {
-    const noteText = 'The priority actions in this report can be added to your action plan in Access Compass, where each one can be assigned to a team, given a due date, tracked, evidenced and reported on over time. This assessment is the starting point. The platform helps you manage delivery.';
+    const noteText = 'The recommendations in this report can be added to your action plan in Access Compass, where each one becomes an action that can be assigned to a team, given a due date, tracked, evidenced and reported on over time. This assessment is the starting point. The platform helps you manage delivery.';
     doc.setFontSize(8.5);
     doc.setFont('helvetica', 'normal');
     const lines = doc.splitTextToSize(noteText, PAGE.contentWidth - 12);
