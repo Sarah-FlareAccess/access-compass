@@ -548,14 +548,17 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
 
   addSectionHeader('Executive summary');
 
-  // Stat row (submitted merged into completed - no review workflow yet)
+  // Stat row (submitted merged into completed - no review workflow yet). "Not
+  // started" is shown as the remainder so the four boxes always reconcile to the
+  // enrolled total, whatever other statuses (withdrawn, invited) sit in the roster.
   const completedDisplay = enrolment.completed + enrolment.submitted;
+  const notStartedDisplay = Math.max(0, enrolment.total - completedDisplay - enrolment.in_progress);
   const statBoxW = (PAGE.contentWidth - 9) / 4;
   ensureSpace(30);
   addStatBox(PAGE.marginX, yPos, statBoxW, String(enrolment.total), 'Enrolled', COLORS.amethystDiamond);
   addStatBox(PAGE.marginX + statBoxW + 3, yPos, statBoxW, String(completedDisplay), 'Completed', COLORS.strongText);
   addStatBox(PAGE.marginX + 2 * (statBoxW + 3), yPos, statBoxW, String(enrolment.in_progress), 'In progress', COLORS.mixedText);
-  addStatBox(PAGE.marginX + 3 * (statBoxW + 3), yPos, statBoxW, String(enrolment.enrolled), 'Not started', COLORS.textMuted);
+  addStatBox(PAGE.marginX + 3 * (statBoxW + 3), yPos, statBoxW, String(notStartedDisplay), 'Not started', COLORS.textMuted);
   yPos += 32;
 
   // Cohort maturity calc for the donut + insights
