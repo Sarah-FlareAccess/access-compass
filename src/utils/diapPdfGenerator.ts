@@ -225,7 +225,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
-    doc.text(orgName, PAGE.marginX, 10);
+    doc.text('Access Compass', PAGE.marginX, 10);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.text(planTitle, PAGE.width - PAGE.marginX, 10, { align: 'right' });
@@ -243,7 +243,7 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
 
     doc.setFontSize(7);
     doc.setTextColor(107, 114, 128);
-    doc.text('Prepared with Access Compass by Flare Access', PAGE.marginX, fy);
+    doc.text(orgName, PAGE.marginX, fy);
     doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text(formattedDate, PAGE.width / 2, fy, { align: 'center' });
     doc.setTextColor(107, 114, 128);

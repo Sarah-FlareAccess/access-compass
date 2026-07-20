@@ -1637,10 +1637,11 @@ export default function DIAPWorkspace() {
           <div className="diap-filter-alert" role="status">
             <span className="diap-filter-alert__icon" aria-hidden="true">⚠️</span>
             <span>
-              Filters are applied. The list below shows only the{' '}
-              {filteredItems.length} matching item{filteredItems.length !== 1 ? 's' : ''}. The exported PDF
-              still includes the full {activeSiteName || 'organisation-wide'} plan{' '}
-              ({siteScopedItems.length} item{siteScopedItems.length !== 1 ? 's' : ''}).
+              Status and priority filters narrow the list below to{' '}
+              {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}. The exported PDF includes
+              every action across the venue{filterSites.size !== 1 ? 's' : ''} you have selected{' '}
+              ({items.filter(matchesSite).length} item{items.filter(matchesSite).length !== 1 ? 's' : ''}),
+              since status and priority filters are not applied to the export.
             </span>
             <button type="button" className="diap-filter-alert__clear" onClick={resetFilters}>
               Clear filters
