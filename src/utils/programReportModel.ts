@@ -94,26 +94,31 @@ export function groupRecommendations<T extends { count: number; moduleIds: strin
 ): ThemeGroup<T>[] {
   if (mode !== 'framework' || !frameworkKey) return groupByTheme(items);
   const fw = getFramework(frameworkKey);
-  const shortById = fw ? new Map(fw.domains.map(d => [d.id, d.short || d.name])) : new Map<string, string>();
-  const groupOf = (moduleIds: string[]): { key: string; label: string } => {
-    const tally = new Map<string, number>();
+  // Full outcome-domain names (not the short labels), so the recommendation
+  // groupings read with the same domain names as the readiness-by-outcome-area
+  // section rather than a second, shorter set.
+  const labelById = fw ? new Map(fw.domains.map(d => [d.id, d.name])) : new Map<string, string>();
+  // Every outcome area a recommendation maps to (via its backing modules),
+  // deduped. A rec that spans several domains appears under each - matching the
+  // DIAP and the readiness section - rather than collapsing to a single primary
+  // domain (which previously left the appendix showing just one area).
+  const domainsOf = (moduleIds: string[]): string[] => {
+    const ids = new Set<string>();
     for (const mid of moduleIds) {
       const code = mid.match(/\d+\.\d+/)?.[0] ?? mid;
-      for (const dId of domainsForModule(code, frameworkKey)) tally.set(dId, (tally.get(dId) ?? 0) + 1);
+      for (const dId of domainsForModule(code, frameworkKey)) ids.add(dId);
     }
-    let best: string | undefined;
-    let bestN = 0;
-    for (const [k, n] of tally) if (n > bestN) { bestN = n; best = k; }
-    if (!best) return { key: 'unmapped', label: 'Not yet mapped to an outcome area' };
-    return { key: best, label: shortById.get(best) ?? best };
+    return ids.size ? Array.from(ids) : ['unmapped'];
   };
   const map = new Map<string, ThemeGroup<T>>();
   for (const it of items) {
-    const g = groupOf(it.moduleIds);
-    let e = map.get(g.key);
-    if (!e) { e = { key: g.key, label: g.label, total: 0, items: [] }; map.set(g.key, e); }
-    e.total += it.count;
-    e.items.push(it);
+    for (const dId of domainsOf(it.moduleIds)) {
+      const label = dId === 'unmapped' ? 'Not yet mapped to an outcome area' : (labelById.get(dId) ?? dId);
+      let e = map.get(dId);
+      if (!e) { e = { key: dId, label, total: 0, items: [] }; map.set(dId, e); }
+      e.total += it.count;
+      e.items.push(it);
+    }
   }
   return Array.from(map.values()).sort((a, b) => b.total - a.total);
 }
