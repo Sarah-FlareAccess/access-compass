@@ -146,6 +146,25 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     doc.setTextColor(0, 0, 0);
   };
 
+  // Footer left text: org (+ scope), truncated to fit before the page number.
+  // Shared by addFooter and the summary-only page-numbering pass so both
+  // footers read identically. Sets font size 7 first so truncation measures
+  // against the size the footer actually renders at.
+  const footerLeftText = (): string => {
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    const scopeTail = reportScope && reportScope !== report.organisation ? `  ·  ${reportScope}` : '';
+    let s = `${report.organisation}${scopeTail}`;
+    const leftMaxW = PAGE.width - PAGE.marginRight - 30 - PAGE.marginLeft;
+    if (doc.getTextWidth(s) > leftMaxW) {
+      while (s.length > 1 && doc.getTextWidth(s + '…') > leftMaxW) {
+        s = s.slice(0, -1);
+      }
+      s = s.replace(/[\s·]+$/, '') + '…';
+    }
+    return s;
+  };
+
   // Helper: Add footer to current page
   const addFooter = () => {
     const footerY = PAGE.height - 12;
@@ -160,19 +179,8 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
 
     // Footer text: org (+ scope) on the left with the full width up to the page
     // number. The date now sits in the header, so a long org name has room here.
-    doc.setFontSize(7);
-    doc.setFont('helvetica', 'normal');
-    const scopeTail = reportScope && reportScope !== report.organisation ? `  ·  ${reportScope}` : '';
-    let footerLeft = `${report.organisation}${scopeTail}`;
-    const leftMaxW = PAGE.width - PAGE.marginRight - 30 - PAGE.marginLeft;
-    if (doc.getTextWidth(footerLeft) > leftMaxW) {
-      while (footerLeft.length > 1 && doc.getTextWidth(footerLeft + '…') > leftMaxW) {
-        footerLeft = footerLeft.slice(0, -1);
-      }
-      footerLeft = footerLeft.replace(/[\s·]+$/, '') + '…';
-    }
     doc.setTextColor(107, 114, 128); // gray
-    doc.text(footerLeft, PAGE.marginLeft, footerY);
+    doc.text(footerLeftText(), PAGE.marginLeft, footerY);
     // Page number placeholder (updated in final pass with total)
     doc.setTextColor(107, 114, 128);
     doc.text(`Page ${currentPage}`, PAGE.width - PAGE.marginRight, footerY, { align: 'right' });
@@ -898,7 +906,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
       doc.rect(PAGE.marginLeft, fy - 6, 40, 1, 'F');
       doc.setFontSize(7);
       doc.setTextColor(107, 114, 128);
-      doc.text('Access Compass by Flare Access', PAGE.marginLeft, fy);
+      doc.text(footerLeftText(), PAGE.marginLeft, fy);
       doc.setTextColor(107, 114, 128);
       doc.text(`Page ${i} of ${totalPages}`, PAGE.width - PAGE.marginRight, fy, { align: 'right' });
     }
