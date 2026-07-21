@@ -23,6 +23,7 @@ import {
   computeRisk,
   authorityRecommendations,
   sharedRecommendations,
+  MIN_SHARED,
   THEME_RATIONALE,
   pctOfCohort,
   formatAssessmentWindow,
@@ -856,8 +857,14 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
   // one-off (<MIN_SHARED) patterns the body omits. Otherwise it just repeats
   // the body, which the report deliberately avoids.
   const SHOWN_PER_GROUP = 6;
-  const appendixNeeded = topPriorityActions.length > groupItems(topPriorityActions)
-    .reduce((n, g) => n + Math.min(SHOWN_PER_GROUP, sharedRecommendations(g.items).length), 0);
+  // The appendix earns its page when the body cannot show everything: either a
+  // one-off pattern (count < MIN_SHARED) the body never lists, or a group with
+  // more shared recs than the body prints per area. Computed from the recs
+  // themselves (not a per-group sum) so it stays correct now that a rec can sit
+  // under several outcome areas.
+  const appendixNeeded =
+    topPriorityActions.some(a => a.count < MIN_SHARED) ||
+    groupItems(topPriorityActions).some(g => sharedRecommendations(g.items).length > SHOWN_PER_GROUP);
   // Distinct businesses that contributed data - the denominator for the count
   // percentages shown against recommendations and strengths.
   const cohortSize = payload.assessedBusinesses || enrolment.completed + enrolment.submitted || enrolment.total;
