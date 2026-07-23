@@ -53,6 +53,7 @@ const ActionDetail = lazyWithRetry(() => import('./pages/ActionDetail'));
 const DIAPWorkspace = lazyWithRetry(() => import('./pages/DIAPWorkspace'));
 const ClarifyLater = lazyWithRetry(() => import('./pages/ClarifyLater'));
 const ReportPage = lazyWithRetry(() => import('./pages/ReportPage'));
+const AccessProfile = lazyWithRetry(() => import('./pages/AccessProfile'));
 
 // Static pages
 const AccessibilityStatement = lazyWithRetry(() => import('./pages/AccessibilityStatement'));
@@ -203,6 +204,14 @@ function App() {
               element={
                 <RouteGuard requireAuth requireAccess="pulse">
                   <Suspense fallback={<PageLoader />}><ReportPage /></Suspense>
+                </RouteGuard>
+              }
+            />
+            <Route
+              path="/access-profile"
+              element={
+                <RouteGuard requireAuth requireAccess="pulse">
+                  <Suspense fallback={<PageLoader />}><AccessProfile /></Suspense>
                 </RouteGuard>
               }
             />

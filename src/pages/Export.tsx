@@ -262,6 +262,25 @@ export default function Export() {
                 </button>
               </div>
 
+              {/* Accessibility Profile */}
+              <div className="card">
+                <div style={{ fontSize: '3rem', marginBottom: '20px', textAlign: 'center' }}>♿</div>
+                <h2>Accessibility Profile</h2>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
+                  A shareable summary of the accessibility features you have in place, ready to share
+                  with festivals, event organisers and patrons
+                </p>
+                <div style={{ marginBottom: '15px' }}>
+                  <strong>Shows:</strong> Features in place (Yes and Partial)
+                </div>
+                <div style={{ marginBottom: '20px' }}>
+                  <strong>Share as:</strong> Web page, PDF or copied text
+                </div>
+                <Link to="/access-profile" className="btn btn-primary" style={{ display: 'inline-block', textAlign: 'center', textDecoration: 'none' }}>
+                  View Profile
+                </Link>
+              </div>
+
               {/* Certificate Download */}
               {badgeProgress.level !== 'none' && (
                 <div className="card">
