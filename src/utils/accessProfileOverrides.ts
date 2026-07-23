@@ -16,6 +16,8 @@ import type { AccessStatement, StatementCategory, StatementFeature } from './gen
 
 export interface FeatureOverride {
   hidden?: boolean;
+  /** Venue-edited note for a partial feature, replacing the note from the module. */
+  note?: string;
 }
 
 export interface CustomSection {
@@ -89,8 +91,10 @@ export function applyOverrides(
       const features: StatementFeature[] = [];
       for (const f of cat.features) {
         const key = featureKey(cat.id, f.label);
-        if (featureOverrides[key]?.hidden) continue;
-        features.push({ ...f, refKey: key });
+        const ov = featureOverrides[key];
+        if (ov?.hidden) continue;
+        const note = ov?.note !== undefined ? ov.note.trim() || undefined : f.note;
+        features.push({ ...f, note, refKey: key });
       }
       return { id: cat.id, title: cat.title, lead: cat.lead, features };
     })

@@ -46,7 +46,9 @@ log(`Parsed ${count} Riverside Theatre responses across ${Object.keys(progress).
 const statement = generateAccessStatement(progress as never, 'Riverside Theatre');
 for (const s of buildAccessProfileProse(statement)) {
   log(s.title);
-  log('  ' + s.paragraph + '\n');
+  if (s.paragraph) log('  ' + s.paragraph);
+  if (s.notes.length > 0) log('  In some areas: ' + s.notes.join(' '));
+  log('');
 }
 
 // Prove the fix matters: the same data with multi-select answers dropped (the old bug).

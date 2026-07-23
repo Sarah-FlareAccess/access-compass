@@ -17,6 +17,8 @@ export interface StatementFeature {
   detail?: string;
   /** Warm mid-sentence fragment for composed copy. */
   phrase?: string;
+  /** The venue's own note explaining a partial answer (its exact words). */
+  note?: string;
   /** Set by applyOverrides so the edit UI can target a generated feature. */
   refKey?: string;
 }
@@ -33,6 +35,8 @@ export interface ProfileBlock {
   id: string;
   title: string;
   paragraph?: string;
+  /** The venue's own notes for partial features in this category. */
+  notes: string[];
   sections: ProfileSection[];
 }
 
@@ -56,6 +60,8 @@ export interface ProseSection {
   id: string;
   title: string;
   paragraph: string;
+  /** The venue's own notes for partial features in this category. */
+  notes: string[];
 }
 
 /** questionId -> (optionId -> label). */
@@ -126,13 +132,18 @@ function resolveFeature(
   // Everything still flows to the internal report and DIAP.
   let present = false;
   let partial = false;
+  let partialNote: string | undefined;
   const matchedLabels: string[] = [];
 
   for (const qid of def.yesNo ?? []) {
     const r = responseByQuestion.get(qid);
     if (!r) continue;
     if (r.answer === 'yes') { present = true; continue; }
-    if (r.answer === 'partially') { partial = true; continue; }
+    if (r.answer === 'partially') {
+      partial = true;
+      if (!partialNote) partialNote = r.partialDescription?.trim() || r.notes?.trim() || undefined;
+      continue;
+    }
     if (r.answer) continue; // 'no' / 'unable-to-check' are omitted
     // Some questions mapped here are single/multi-select; grade the selection.
     if (r.multiSelectValues && r.multiSelectValues.length > 0) {
@@ -163,7 +174,7 @@ function resolveFeature(
     const detail = Array.from(new Set(matchedLabels)).slice(0, 2).join(', ') || undefined;
     return { label: def.label, phrase: def.phrase, state: 'yes', detail };
   }
-  if (partial) return { label: def.label, phrase: def.phrase, state: 'partial' };
+  if (partial) return { label: def.label, phrase: def.phrase, state: 'partial', note: partialNote };
   return null;
 }
 
@@ -228,16 +239,20 @@ export function buildAccessProfileProse(statement: AccessStatement): ProseSectio
     .map((cat) => {
       const lead = cat.lead || cat.title;
       const inPlace = cat.features.filter((f) => f.state === 'yes').map(phraseOf);
-      const working = cat.features.filter((f) => f.state === 'partial').map(phraseOf);
-      let paragraph = inPlace.length > 0 ? composeList(lead, inPlace) : '';
-      if (working.length > 0) {
-        paragraph += paragraph
-          ? ` We're also working on ${humanJoin(working)}.`
-          : `${lead}, we're working on ${humanJoin(working)}.`;
-      }
-      return { id: cat.id, title: cat.title, paragraph };
+      // Partial features carry the venue's own note (its exact words). Fall back
+      // to a plain "in some areas" line only if a note is somehow missing.
+      const notes = cat.features
+        .filter((f) => f.state === 'partial')
+        .map((f) => {
+          const n = f.note?.trim();
+          if (n) return n;
+          const p = phraseOf(f);
+          return `${p.charAt(0).toUpperCase()}${p.slice(1)} is available in some areas.`;
+        });
+      const paragraph = inPlace.length > 0 ? composeList(lead, inPlace) : '';
+      return { id: cat.id, title: cat.title, paragraph, notes };
     })
-    .filter((s) => s.paragraph.length > 0);
+    .filter((s) => s.paragraph.length > 0 || s.notes.length > 0);
 }
 
 /**
@@ -248,17 +263,19 @@ export function buildAccessProfileLayout(statement: AccessStatement): {
   categories: ProfileBlock[];
   general: ProfileSection[];
 } {
-  const proseById = new Map(buildAccessProfileProse(statement).map((p) => [p.id, p.paragraph]));
+  const proseById = new Map(buildAccessProfileProse(statement).map((p) => [p.id, p]));
   const titleById = new Map(ACCESS_STATEMENT_CATEGORIES.map((c) => [c.id, c.title]));
   const catIds = ACCESS_STATEMENT_CATEGORIES.map((c) => c.id);
   const sections = statement.sections ?? [];
 
   const categories: ProfileBlock[] = [];
   for (const cid of catIds) {
-    const paragraph = proseById.get(cid);
+    const p = proseById.get(cid);
+    const paragraph = p?.paragraph || undefined;
+    const notes = p?.notes ?? [];
     const secs = sections.filter((s) => s.placement === cid);
-    if (!paragraph && secs.length === 0) continue;
-    categories.push({ id: cid, title: titleById.get(cid) || cid, paragraph, sections: secs });
+    if (!paragraph && notes.length === 0 && secs.length === 0) continue;
+    categories.push({ id: cid, title: titleById.get(cid) || cid, paragraph, notes, sections: secs });
   }
   const general = sections.filter((s) => !s.placement || s.placement === 'general' || !catIds.includes(s.placement));
   return { categories, general };
@@ -284,6 +301,7 @@ export function serializeAccessStatementText(statement: AccessStatement): string
   for (const b of layout.categories) {
     out += `\n${b.title}\n`;
     if (b.paragraph) out += `${b.paragraph}\n`;
+    if (b.notes.length > 0) out += `In some areas: ${b.notes.join(' ')}\n`;
     for (const s of b.sections) out += `${s.heading?.trim() ? `${s.heading.trim()}\n` : ''}${s.text.trim()}\n`;
   }
   for (const s of layout.general) {

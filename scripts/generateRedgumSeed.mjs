@@ -143,7 +143,7 @@ const VENUES = [
 const REASSESSED = new Set(['Central Library|3.1', 'Aquatic & Leisure Centre|2.1', 'Winter Markets|2.1']);
 
 const DIST = {
-  showcase: { yes: 0.85, partially: 0.15, no: 0, 'unable-to-check': 0 },
+  showcase: { yes: 1, partially: 0, no: 0, 'unable-to-check': 0 },
   high: { yes: 0.68, partially: 0.18, no: 0.08, 'unable-to-check': 0.06 },
   med: { yes: 0.55, partially: 0.22, no: 0.14, 'unable-to-check': 0.09 },
   low: { yes: 0.42, partially: 0.25, no: 0.22, 'unable-to-check': 0.11 },
@@ -154,7 +154,7 @@ function rollAnswer(maturity) {
   return 'yes';
 }
 const GRADE_DIST = {
-  showcase: { positive: 0.9, neutral: 0.1, negative: 0 },
+  showcase: { positive: 1, neutral: 0, negative: 0 },
   high: { positive: 0.66, neutral: 0.2, negative: 0.14 },
   med: { positive: 0.5, neutral: 0.27, negative: 0.23 },
   low: { positive: 0.36, neutral: 0.3, negative: 0.34 },
@@ -243,10 +243,24 @@ function answerQuestion(q, maturity, worse) {
   return { qid: q.qid, type: q.type, answer: null, selected: selected.map(o => o.id), notes: null, partial: null, grade: allPos ? 'positive' : 'neutral' };
 }
 
+// A few curated partials for the showcase venue, so the "in some areas" notes
+// on the Access Profile read as real, specific detail rather than generic text.
+const SHOWCASE_PARTIALS = {
+  '2.2-D-23': 'Handrails are on one side of the entrance steps, not both.',
+  '3.2-D-8': 'Grab rails are on one side of the accessible toilet.',
+  '4.3-D-1': 'Most shows can be booked online; a few still need a quick phone call.',
+};
+
 // build one module's answers + summary
 function buildModule(code, maturity, worse = false) {
   const qs = (byModule.get(code) || []).slice(0, maturity === 'showcase' ? 200 : 16);
   const answers = qs.map(q => answerQuestion(q, maturity, worse)).filter(Boolean);
+  if (maturity === 'showcase') {
+    for (const a of answers) {
+      const note = SHOWCASE_PARTIALS[a.qid];
+      if (note) { a.answer = 'partially'; a.partial = note; a.selected = null; a.grade = 'negative'; }
+    }
+  }
   const doingWell = answers.filter(a => a.grade === 'positive').slice(0, 3)
     .map(a => qs.find(q => q.qid === a.qid)?.text).filter(Boolean);
   const priorityActions = answers.filter(a => a.grade === 'negative').slice(0, 4).map(a => {

@@ -129,7 +129,9 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
   // Each category with its prose and any custom sections placed under it.
   for (const block of layout.categories) {
     heading(block.title);
-    if (block.paragraph) paragraph(block.paragraph, 12, [40, 40, 50], block.sections.length ? 4 : 7);
+    const hasNotes = block.notes.length > 0;
+    if (block.paragraph) paragraph(block.paragraph, 12, [40, 40, 50], hasNotes || block.sections.length ? 4 : 7);
+    if (hasNotes) paragraph(`In some areas: ${block.notes.join(' ')}`, 11, [90, 90, 90], block.sections.length ? 4 : 7);
     for (const s of block.sections) {
       if (s.heading?.trim()) {
         ensure(20);

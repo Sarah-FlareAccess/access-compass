@@ -70,8 +70,18 @@ export default function AccessProfile() {
 
   const toggleHidden = (categoryId: string, label: string) => {
     const key = featureKey(categoryId, label);
-    const hidden = !overrides.features[key]?.hidden;
-    commit({ ...overrides, features: { ...overrides.features, [key]: { hidden } } });
+    const current = overrides.features[key];
+    commit({ ...overrides, features: { ...overrides.features, [key]: { ...current, hidden: !current?.hidden } } });
+  };
+
+  const featureNote = (categoryId: string, label: string, fallback?: string) => {
+    const ov = overrides.features[featureKey(categoryId, label)]?.note;
+    return ov !== undefined ? ov : fallback || '';
+  };
+
+  const setFeatureNote = (categoryId: string, label: string, note: string) => {
+    const key = featureKey(categoryId, label);
+    commit({ ...overrides, features: { ...overrides.features, [key]: { ...overrides.features[key], note } } });
   };
 
   const addSection = () => {
@@ -191,6 +201,11 @@ export default function AccessProfile() {
               <div key={block.id} style={{ marginBottom: '20px' }}>
                 <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '17px' }}>{block.title}</h3>
                 {block.paragraph && <p style={{ margin: '0 0 10px 0' }}>{block.paragraph}</p>}
+                {block.notes.length > 0 && (
+                  <p style={{ margin: '0 0 10px 0', color: 'var(--text-muted)', fontSize: '14px' }}>
+                    <em>In some areas:</em> {block.notes.join(' ')}
+                  </p>
+                )}
                 {block.sections.map((s) => (
                   <div key={s.id} style={{ marginTop: '10px' }}>
                     {s.heading?.trim() && <strong style={{ display: 'block' }}>{s.heading.trim()}</strong>}
@@ -225,15 +240,27 @@ export default function AccessProfile() {
               {base.categories.map((cat) => (
                 <div key={cat.id} style={{ marginBottom: '18px' }}>
                   <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '15px' }}>{cat.title}</h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {cat.features.map((f) => (
-                      <label key={f.label} style={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
-                        <input type="checkbox" checked={!isHidden(cat.id, f.label)} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} />
-                        <span style={{ color: isHidden(cat.id, f.label) ? 'var(--text-muted)' : 'inherit' }}>{f.label}</span>
-                        {f.state === 'partial' && (
-                          <span style={{ fontSize: '12px', fontWeight: 700, color: '#7c3a09', background: '#fef3c7', borderRadius: '5px', padding: '1px 7px' }}>working on — review</span>
+                      <div key={f.label} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <label style={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
+                          <input type="checkbox" checked={!isHidden(cat.id, f.label)} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} />
+                          <span style={{ color: isHidden(cat.id, f.label) ? 'var(--text-muted)' : 'inherit' }}>{f.label}</span>
+                          {f.state === 'partial' && (
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#7c3a09', background: '#fef3c7', borderRadius: '5px', padding: '1px 7px' }}>partly in place</span>
+                          )}
+                        </label>
+                        {f.state === 'partial' && !isHidden(cat.id, f.label) && (
+                          <textarea
+                            value={featureNote(cat.id, f.label, f.note)}
+                            onChange={(e) => setFeatureNote(cat.id, f.label, e.target.value)}
+                            placeholder="Describe what's available, e.g. 'ramp at the front entrance, not the rear'"
+                            rows={2}
+                            style={{ ...inputStyle, resize: 'vertical', marginLeft: '27px', width: 'calc(100% - 27px)' }}
+                            aria-label={`Note for ${f.label}`}
+                          />
                         )}
-                      </label>
+                      </div>
                     ))}
                   </div>
                 </div>
