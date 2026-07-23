@@ -274,8 +274,13 @@ out.push('-- Safe to run once; ON CONFLICT DO NOTHING makes re-runs no-ops.');
 out.push('do $$');
 out.push('declare v_org uuid; v_user uuid; v_site uuid;');
 out.push('begin');
-out.push("  select id into v_org from organisations where name ilike '%redgum%' order by created_at limit 1;");
-out.push("  if v_org is null then raise exception 'Redgum org not found - no organisation name contains redgum'; end if;");
+// Resolve the council org specifically: there can be more than one org whose
+// name contains "redgum" (e.g. a separate convention-centre demo org), so match
+// the exact council name first and only fall back to a loose match.
+out.push("  select id into v_org from organisations where name = 'Redgum Shire Council' order by created_at limit 1;");
+out.push("  if v_org is null then select id into v_org from organisations where name ilike '%redgum%shire%' order by created_at limit 1; end if;");
+out.push("  if v_org is null then select id into v_org from organisations where name ilike '%redgum%' order by created_at limit 1; end if;");
+out.push("  if v_org is null then raise exception 'Redgum council org not found'; end if;");
 out.push("  select user_id into v_user from organisation_memberships where organisation_id = v_org and status = 'active' order by created_at limit 1;");
 out.push("  update organisations set jurisdiction = 'AU-SA' where id = v_org;");
 out.push('');
