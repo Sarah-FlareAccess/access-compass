@@ -46,8 +46,15 @@ log(`Parsed ${count} Riverside Theatre responses across ${Object.keys(progress).
 const statement = generateAccessStatement(progress as never, 'Riverside Theatre');
 for (const s of buildAccessProfileProse(statement)) {
   log(s.title);
-  if (s.paragraph) log('  ' + s.paragraph);
-  if (s.notes.length > 0) log('  In some areas: ' + s.notes.join(' '));
+  if (s.intro) log('  ' + s.intro);
+  if (s.bullets.length > 0) {
+    log('  ' + s.leadIn);
+    for (const b of s.bullets) log('    - ' + b);
+  }
+  if (s.notes.length > 0) {
+    log('  Good to know:');
+    for (const n of s.notes) log('    - ' + n);
+  }
   log('');
 }
 

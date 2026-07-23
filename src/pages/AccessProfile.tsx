@@ -281,13 +281,28 @@ export default function AccessProfile() {
             </div>
 
             {layout.categories.map((block) => (
-              <div key={block.id} style={{ marginBottom: '20px' }}>
-                <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '17px' }}>{block.title}</h3>
-                {block.paragraph && <p style={{ margin: '0 0 10px 0' }}>{block.paragraph}</p>}
+              <div key={block.id} style={{ marginBottom: '28px' }}>
+                <h3 style={{ margin: '0 0 6px 0', color: '#490E67', fontSize: '18px' }}>{block.title}</h3>
+                {block.intro && <p style={{ margin: '0 0 10px 0' }}>{block.intro}</p>}
+                {block.bullets.length > 0 && (
+                  <>
+                    {block.leadIn && <p style={{ margin: '0 0 6px 0', fontWeight: 600 }}>{block.leadIn}</p>}
+                    <ul style={{ margin: '0 0 12px 0', paddingLeft: '22px', lineHeight: 1.7 }}>
+                      {block.bullets.map((b, i) => (
+                        <li key={i}>{b}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
                 {block.notes.length > 0 && (
-                  <p style={{ margin: '0 0 10px 0', color: 'var(--text-muted)', fontSize: '14px' }}>
-                    <em>In some areas:</em> {block.notes.join(' ')}
-                  </p>
+                  <div style={{ background: 'rgba(230,119,0,0.06)', border: '1px solid #fcd9a6', borderRadius: '8px', padding: '10px 14px', marginBottom: '12px' }}>
+                    <strong style={{ display: 'block', marginBottom: '4px', color: '#7c3a09' }}>Good to know</strong>
+                    <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: 1.6 }}>
+                      {block.notes.map((n, i) => (
+                        <li key={i}>{n}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
                 {block.sections.map((s) => (
                   <div key={s.id} style={{ marginTop: '10px' }}>

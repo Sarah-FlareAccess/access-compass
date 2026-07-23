@@ -126,12 +126,43 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
 
   const layout = buildAccessProfileLayout(statement);
 
-  // Each category with its prose and any custom sections placed under it.
+  const label = (text: string, color: [number, number, number]) => {
+    ensure(7);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(...color);
+    doc.text(text, PAGE.marginLeft, y);
+    y += 5;
+    doc.setTextColor(0, 0, 0);
+  };
+
+  const bullet = (text: string, color: [number, number, number] = [40, 40, 50]) => {
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    const lines = doc.splitTextToSize(text, PAGE.contentWidth - 6) as string[];
+    ensure(lines.length * 5.4 + 1);
+    doc.setTextColor(...color);
+    doc.text('•', PAGE.marginLeft + 1, y);
+    doc.text(lines, PAGE.marginLeft + 6, y);
+    y += lines.length * 5.4 + 1;
+    doc.setTextColor(0, 0, 0);
+  };
+
+  // Each category: intro, lead-in, bullet list, a "Good to know" callout, then
+  // any custom sections placed under it.
   for (const block of layout.categories) {
     heading(block.title);
-    const hasNotes = block.notes.length > 0;
-    if (block.paragraph) paragraph(block.paragraph, 12, [40, 40, 50], hasNotes || block.sections.length ? 4 : 7);
-    if (hasNotes) paragraph(`In some areas: ${block.notes.join(' ')}`, 11, [90, 90, 90], block.sections.length ? 4 : 7);
+    if (block.intro) paragraph(block.intro, 12, [40, 40, 50], 3);
+    if (block.bullets.length > 0) {
+      if (block.leadIn) label(block.leadIn, [60, 60, 70]);
+      for (const b of block.bullets) bullet(b);
+      y += 2;
+    }
+    if (block.notes.length > 0) {
+      label('Good to know', [180, 83, 9]);
+      for (const n of block.notes) bullet(n, [90, 90, 90]);
+      y += 3;
+    }
     for (const s of block.sections) {
       if (s.heading?.trim()) {
         ensure(20);

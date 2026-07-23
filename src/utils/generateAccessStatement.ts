@@ -34,8 +34,10 @@ export interface ProfileSection {
 export interface ProfileBlock {
   id: string;
   title: string;
-  paragraph?: string;
-  /** The venue's own notes for partial features in this category. */
+  intro: string;
+  leadIn: string;
+  bullets: string[];
+  /** The venue's own notes for partial features (the "Good to know" callout). */
   notes: string[];
   sections: ProfileSection[];
 }
@@ -59,8 +61,13 @@ export interface AccessStatement {
 export interface ProseSection {
   id: string;
   title: string;
-  paragraph: string;
-  /** The venue's own notes for partial features in this category. */
+  /** A warm one-line intro of what to expect. */
+  intro: string;
+  /** A varied lead-in phrase before the bullet list. */
+  leadIn: string;
+  /** In-place features as concise bullet points. */
+  bullets: string[];
+  /** The venue's own notes for partial features (the "Good to know" callout). */
   notes: string[];
 }
 
@@ -211,48 +218,54 @@ function lowerFirst(s: string): string {
   return s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
 }
 
-/** Join without an Oxford comma: "a", "a and b", "a, b and c". */
-function humanJoin(items: string[]): string {
-  if (items.length === 0) return '';
-  if (items.length === 1) return items[0];
-  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
-}
-
 function phraseOf(f: StatementFeature): string {
   return f.phrase || lowerFirst(f.label);
 }
 
-/** Compose each category as a warm paragraph from its features. */
-/** Compose a list of phrases into sentences of about three, so nothing runs on. */
-function composeList(lead: string, phrases: string[]): string {
-  if (phrases.length <= 3) return `${lead}, you'll find ${humanJoin(phrases)}.`;
-  const chunks: string[][] = [];
-  for (let i = 0; i < phrases.length; i += 3) chunks.push(phrases.slice(i, i + 3));
-  let out = `${lead}, you'll find ${humanJoin(chunks[0])}.`;
-  const connectors = ["You'll also find", 'You can also expect'];
-  for (let i = 1; i < chunks.length; i += 1) out += ` ${connectors[(i - 1) % connectors.length]} ${humanJoin(chunks[i])}.`;
-  return out;
-}
+// A warm one-line intro for each category, so a section opens with a welcome
+// before the scannable bullet list.
+const CATEGORY_INTROS: Record<string, string> = {
+  planning: "A little planning goes a long way, so here's what you can sort out before you arrive.",
+  'getting-there': 'Getting here is straightforward, whether you drive or come by public transport.',
+  'getting-in': "We've worked to make coming through the door easy.",
+  inside: "There's room to move around comfortably once you're inside.",
+  toilets: 'Accessible facilities are available on site.',
+  seating: 'There are seating options to suit different needs, with clear views of the stage.',
+  sensory: "We've thought about comfort for a range of sensory needs.",
+  'hearing-comms': 'Support is on hand so everyone can follow along.',
+  service: 'Our team is here to help, and a few extras make your visit easier.',
+};
+
+// Varied lead-ins so no two sections open the same way.
+const LEAD_INS = ["You'll find:", 'Features include:', 'Available at the venue:', 'You can expect:', "Here's what's on hand:", 'On offer:'];
 
 export function buildAccessProfileProse(statement: AccessStatement): ProseSection[] {
-  return statement.categories
-    .map((cat) => {
-      const lead = cat.lead || cat.title;
-      const inPlace = cat.features.filter((f) => f.state === 'yes').map(phraseOf);
-      // Partial features carry the venue's own note (its exact words). Fall back
-      // to a plain "in some areas" line only if a note is somehow missing.
-      const notes = cat.features
-        .filter((f) => f.state === 'partial')
-        .map((f) => {
-          const n = f.note?.trim();
-          if (n) return n;
-          const p = phraseOf(f);
-          return `${p.charAt(0).toUpperCase()}${p.slice(1)} is available in some areas.`;
-        });
-      const paragraph = inPlace.length > 0 ? composeList(lead, inPlace) : '';
-      return { id: cat.id, title: cat.title, paragraph, notes };
-    })
-    .filter((s) => s.paragraph.length > 0 || s.notes.length > 0);
+  const sections: ProseSection[] = [];
+  let index = 0;
+  for (const cat of statement.categories) {
+    const bullets = cat.features.filter((f) => f.state === 'yes').map((f) => f.label);
+    // Partial features carry the venue's own note (its exact words). Fall back
+    // to a plain "in some areas" line only if a note is somehow missing.
+    const notes = cat.features
+      .filter((f) => f.state === 'partial')
+      .map((f) => {
+        const n = f.note?.trim();
+        if (n) return n;
+        const p = phraseOf(f);
+        return `${p.charAt(0).toUpperCase()}${p.slice(1)} is available in some areas.`;
+      });
+    if (bullets.length === 0 && notes.length === 0) continue;
+    sections.push({
+      id: cat.id,
+      title: cat.title,
+      intro: CATEGORY_INTROS[cat.id] || '',
+      leadIn: LEAD_INS[index % LEAD_INS.length],
+      bullets,
+      notes,
+    });
+    index += 1;
+  }
+  return sections;
 }
 
 /**
@@ -271,11 +284,17 @@ export function buildAccessProfileLayout(statement: AccessStatement): {
   const categories: ProfileBlock[] = [];
   for (const cid of catIds) {
     const p = proseById.get(cid);
-    const paragraph = p?.paragraph || undefined;
-    const notes = p?.notes ?? [];
     const secs = sections.filter((s) => s.placement === cid);
-    if (!paragraph && notes.length === 0 && secs.length === 0) continue;
-    categories.push({ id: cid, title: titleById.get(cid) || cid, paragraph, notes, sections: secs });
+    if (!p && secs.length === 0) continue;
+    categories.push({
+      id: cid,
+      title: titleById.get(cid) || cid,
+      intro: p?.intro || '',
+      leadIn: p?.leadIn || '',
+      bullets: p?.bullets ?? [],
+      notes: p?.notes ?? [],
+      sections: secs,
+    });
   }
   const general = sections.filter((s) => !s.placement || s.placement === 'general' || !catIds.includes(s.placement));
   return { categories, general };
@@ -300,8 +319,15 @@ export function serializeAccessStatementText(statement: AccessStatement): string
   const layout = buildAccessProfileLayout(statement);
   for (const b of layout.categories) {
     out += `\n${b.title}\n`;
-    if (b.paragraph) out += `${b.paragraph}\n`;
-    if (b.notes.length > 0) out += `In some areas: ${b.notes.join(' ')}\n`;
+    if (b.intro) out += `${b.intro}\n`;
+    if (b.bullets.length > 0) {
+      if (b.leadIn) out += `${b.leadIn}\n`;
+      for (const bl of b.bullets) out += `- ${bl}\n`;
+    }
+    if (b.notes.length > 0) {
+      out += 'Good to know:\n';
+      for (const n of b.notes) out += `- ${n}\n`;
+    }
     for (const s of b.sections) out += `${s.heading?.trim() ? `${s.heading.trim()}\n` : ''}${s.text.trim()}\n`;
   }
   for (const s of layout.general) {
