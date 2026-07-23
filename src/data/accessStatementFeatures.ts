@@ -157,7 +157,7 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
 
 /** Default, warm-but-neutral intro for each category. Editable by the venue. */
 export const DEFAULT_CATEGORY_INTROS: Record<string, string> = {
-  planning: 'A few things worth sorting out before you visit.',
+  planning: 'Here are a few things to help you plan your visit.',
   'getting-there': "Here's what to know about getting to us.",
   'getting-in': 'What to expect as you come in.',
   inside: "Getting around once you're inside.",
