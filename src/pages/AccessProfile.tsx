@@ -94,7 +94,21 @@ export default function AccessProfile() {
 
   const setFeatureNote = (categoryId: string, label: string, note: string) => {
     const key = featureKey(categoryId, label);
-    commit({ ...overrides, features: { ...overrides.features, [key]: { ...overrides.features[key], note } } });
+    // Editing a note un-confirms that item, so the venue re-checks the new wording.
+    commit({
+      ...overrides,
+      features: { ...overrides.features, [key]: { ...overrides.features[key], note } },
+      confirmedPartials: (overrides.confirmedPartials ?? []).filter((k) => k !== key),
+    });
+  };
+
+  const isPartialConfirmed = (categoryId: string, label: string) =>
+    (overrides.confirmedPartials ?? []).includes(featureKey(categoryId, label));
+
+  const confirmOnePartial = (categoryId: string, label: string) => {
+    const set = new Set(overrides.confirmedPartials ?? []);
+    set.add(featureKey(categoryId, label));
+    commit({ ...overrides, confirmedPartials: Array.from(set) });
   };
 
   const addSection = () => {
@@ -280,27 +294,57 @@ export default function AccessProfile() {
                 <div key={cat.id} style={{ marginBottom: '18px' }}>
                   <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '15px' }}>{cat.title}</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {cat.features.map((f) => (
-                      <div key={f.label} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <label style={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
-                          <input type="checkbox" checked={!isHidden(cat.id, f.label)} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} />
-                          <span style={{ color: isHidden(cat.id, f.label) ? 'var(--text-muted)' : 'inherit' }}>{f.label}</span>
-                          {f.state === 'partial' && (
-                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#7c3a09', background: '#fef3c7', borderRadius: '5px', padding: '1px 7px' }}>partly in place</span>
+                    {cat.features.map((f) => {
+                      const partial = f.state === 'partial';
+                      const shown = !isHidden(cat.id, f.label);
+                      const confirmed = isPartialConfirmed(cat.id, f.label);
+                      const needsReview = partial && shown && !confirmed;
+                      return (
+                        <div
+                          key={f.label}
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '6px',
+                            ...(needsReview
+                              ? { border: '2px solid #ea580c', background: 'rgba(234,88,12,0.06)', borderRadius: '8px', padding: '10px' }
+                              : partial && shown && confirmed
+                                ? { border: '1px solid #86efac', background: 'rgba(22,163,74,0.05)', borderRadius: '8px', padding: '10px' }
+                                : {}),
+                          }}
+                        >
+                          <label style={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
+                            <input type="checkbox" checked={shown} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} />
+                            <span style={{ color: shown ? 'inherit' : 'var(--text-muted)' }}>{f.label}</span>
+                            {partial && (
+                              <span style={{ fontSize: '12px', fontWeight: 700, borderRadius: '5px', padding: '1px 7px', color: confirmed ? '#166534' : '#7c3a09', background: confirmed ? '#dcfce7' : '#fef3c7' }}>
+                                {confirmed ? 'reviewed' : 'needs review'}
+                              </span>
+                            )}
+                          </label>
+                          {partial && shown && (
+                            <div style={{ marginLeft: '27px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                              <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+                                In your self-review you answered this "partly in place". The note below is your own description of what's available. Check or edit it for the public, then confirm.
+                              </span>
+                              <textarea
+                                value={featureNote(cat.id, f.label, f.note)}
+                                onChange={(e) => setFeatureNote(cat.id, f.label, e.target.value)}
+                                placeholder="Describe what's available, e.g. 'ramp at the front entrance, not the rear'"
+                                rows={2}
+                                style={{ ...inputStyle, resize: 'vertical' }}
+                                aria-label={`Note for ${f.label}`}
+                              />
+                              {!confirmed && (
+                                <button className="btn btn-primary" onClick={() => confirmOnePartial(cat.id, f.label)} style={{ alignSelf: 'flex-start', padding: '6px 12px' }}>
+                                  Confirm this is accurate
+                                </button>
+                              )}
+                            </div>
                           )}
-                        </label>
-                        {f.state === 'partial' && !isHidden(cat.id, f.label) && (
-                          <textarea
-                            value={featureNote(cat.id, f.label, f.note)}
-                            onChange={(e) => setFeatureNote(cat.id, f.label, e.target.value)}
-                            placeholder="Describe what's available, e.g. 'ramp at the front entrance, not the rear'"
-                            rows={2}
-                            style={{ ...inputStyle, resize: 'vertical', marginLeft: '27px', width: 'calc(100% - 27px)' }}
-                            aria-label={`Note for ${f.label}`}
-                          />
-                        )}
-                      </div>
-                    ))}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
