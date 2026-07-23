@@ -124,6 +124,18 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
     paragraph(section.paragraph, 12, [40, 40, 50], 7);
   }
 
+  // Custom free-text sections the venue added.
+  for (const s of statement.sections ?? []) {
+    ensure(16);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(73, 14, 103);
+    doc.text(s.heading?.trim() || 'More information', PAGE.marginLeft, y);
+    y += 7;
+    doc.setTextColor(0, 0, 0);
+    paragraph(s.text.trim(), 12, [40, 40, 50], 7);
+  }
+
   // Closing
   ensure(6);
   doc.setDrawColor(230, 230, 230);

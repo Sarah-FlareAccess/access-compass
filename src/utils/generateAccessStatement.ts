@@ -19,8 +19,11 @@ export interface StatementFeature {
   phrase?: string;
   /** Set by applyOverrides so the edit UI can target a generated feature. */
   refKey?: string;
-  /** Set by applyOverrides for a user-added custom feature. */
-  customId?: string;
+}
+
+export interface ProfileSection {
+  heading?: string;
+  text: string;
 }
 
 export interface StatementCategory {
@@ -35,6 +38,8 @@ export interface AccessStatement {
   generatedAt: string;
   categories: StatementCategory[];
   featureCount: number;
+  /** Free-text sections the venue added (applied by applyOverrides). */
+  sections?: ProfileSection[];
 }
 
 export interface ProseSection {
@@ -191,6 +196,9 @@ export function serializeAccessStatementText(statement: AccessStatement): string
   let out = `${venue}\nAccessibility profile\n\n${accessProfileIntro(venue)}\nSelf-reported as of ${date}.\n`;
   for (const section of buildAccessProfileProse(statement)) {
     out += `\n${section.title}\n${section.paragraph}\n`;
+  }
+  for (const s of statement.sections ?? []) {
+    out += `\n${s.heading?.trim() || 'More information'}\n${s.text.trim()}\n`;
   }
   out += `\n${accessProfileClosing(venue)}\n\nPrepared with Access Compass.`;
   return out;

@@ -1,10 +1,14 @@
 /**
  * Access Profile edits
  *
- * A venue can tweak its generated Access Profile: edit a feature's wording or
- * detail, change Yes to Partial, hide a feature, or add a custom one. Edits are
- * stored locally per organisation and applied on top of the generated statement.
- * The generated data is never changed, so removing all edits restores it exactly.
+ * A venue can tailor its public Access Profile in two safe ways, without ever
+ * rewording a generated claim (which must stay faithful to the assessment):
+ *   - hide a generated feature it would rather not publish (omission only), and
+ *   - add its own free-text sections (heading + text) for extra context.
+ *
+ * Edits are stored locally per organisation and applied on top of the generated
+ * statement. The assessment data, report and DIAP are never touched, so removing
+ * all edits restores the generated profile exactly.
  */
 
 import { ACCESS_STATEMENT_CATEGORIES } from '../data/accessStatementFeatures';
@@ -12,22 +16,17 @@ import type { AccessStatement, StatementCategory, StatementFeature } from './gen
 
 export interface FeatureOverride {
   hidden?: boolean;
-  label?: string;
-  detail?: string;
-  state?: 'yes' | 'partial';
 }
 
-export interface CustomFeature {
+export interface CustomSection {
   id: string;
-  categoryId: string;
-  label: string;
-  detail?: string;
-  state: 'yes' | 'partial';
+  heading?: string;
+  text: string;
 }
 
 export interface AccessProfileOverrides {
   features: Record<string, FeatureOverride>;
-  custom: CustomFeature[];
+  sections: CustomSection[];
 }
 
 const STORAGE_PREFIX = 'access-profile-overrides:';
@@ -42,7 +41,7 @@ function storageKey(organisationName: string): string {
 }
 
 export function emptyOverrides(): AccessProfileOverrides {
-  return { features: {}, custom: [] };
+  return { features: {}, sections: [] };
 }
 
 export function loadOverrides(organisationName: string): AccessProfileOverrides {
@@ -52,7 +51,7 @@ export function loadOverrides(organisationName: string): AccessProfileOverrides 
     const parsed = JSON.parse(raw) as Partial<AccessProfileOverrides>;
     return {
       features: parsed.features ?? {},
-      custom: Array.isArray(parsed.custom) ? parsed.custom : [],
+      sections: Array.isArray(parsed.sections) ? parsed.sections : [],
     };
   } catch {
     return emptyOverrides();
@@ -67,63 +66,33 @@ export function saveOverrides(organisationName: string, overrides: AccessProfile
   }
 }
 
-export function newCustomId(): string {
+export function newId(): string {
   const c = (globalThis as { crypto?: { randomUUID?: () => string } }).crypto;
-  return c?.randomUUID ? c.randomUUID() : `custom-${Math.round(performance.now())}-${Math.floor(Math.random() * 1e6)}`;
+  return c?.randomUUID ? c.randomUUID() : `sec-${Math.round(performance.now())}-${Math.floor(Math.random() * 1e6)}`;
 }
 
-/** Apply saved edits to a generated statement, tagging features for the edit UI. */
+/** Apply saved edits: drop hidden features, tag the rest, attach custom sections. */
 export function applyOverrides(
   statement: AccessStatement,
   overrides: AccessProfileOverrides,
 ): AccessStatement {
-  const titleById = new Map(ACCESS_STATEMENT_CATEGORIES.map((c) => [c.id, c.title]));
-  const leadById = new Map(ACCESS_STATEMENT_CATEGORIES.map((c) => [c.id, c.lead]));
   const order = ACCESS_STATEMENT_CATEGORIES.map((c) => c.id);
 
-  const categories: StatementCategory[] = statement.categories.map((cat) => {
-    const features: StatementFeature[] = [];
-    for (const f of cat.features) {
-      const key = featureKey(cat.id, f.label);
-      const ov = overrides.features[key];
-      if (ov?.hidden) continue;
-      features.push({
-        label: ov?.label?.trim() || f.label,
-        phrase: f.phrase,
-        state: ov?.state ?? f.state,
-        detail: ov?.detail !== undefined ? ov.detail.trim() || undefined : f.detail,
-        refKey: key,
-      });
-    }
-    return { id: cat.id, title: cat.title, lead: cat.lead, features };
-  });
+  const categories: StatementCategory[] = statement.categories
+    .map((cat) => {
+      const features: StatementFeature[] = [];
+      for (const f of cat.features) {
+        const key = featureKey(cat.id, f.label);
+        if (overrides.features[key]?.hidden) continue;
+        features.push({ ...f, refKey: key });
+      }
+      return { id: cat.id, title: cat.title, lead: cat.lead, features };
+    })
+    .filter((c) => c.features.length > 0);
 
-  const indexById = new Map(categories.map((c, i) => [c.id, i]));
-  for (const cf of overrides.custom) {
-    const feature: StatementFeature = {
-      label: cf.label,
-      phrase: cf.label ? cf.label.charAt(0).toLowerCase() + cf.label.slice(1) : cf.label,
-      state: cf.state,
-      detail: cf.detail?.trim() || undefined,
-      customId: cf.id,
-    };
-    const idx = indexById.get(cf.categoryId);
-    if (idx !== undefined) {
-      categories[idx].features.push(feature);
-    } else {
-      categories.push({
-        id: cf.categoryId,
-        title: titleById.get(cf.categoryId) || 'Other',
-        lead: leadById.get(cf.categoryId),
-        features: [feature],
-      });
-      indexById.set(cf.categoryId, categories.length - 1);
-    }
-  }
+  categories.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+  const featureCount = categories.reduce((n, c) => n + c.features.length, 0);
+  const sections = overrides.sections.filter((s) => s.text.trim().length > 0);
 
-  const visible = categories.filter((c) => c.features.length > 0);
-  visible.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
-  const featureCount = visible.reduce((n, c) => n + c.features.length, 0);
-
-  return { ...statement, categories: visible, featureCount };
+  return { ...statement, categories, sections, featureCount };
 }
