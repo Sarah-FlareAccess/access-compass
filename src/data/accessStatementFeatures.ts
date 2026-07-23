@@ -39,6 +39,19 @@ export interface FeatureCategory {
 
 export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
   {
+    id: 'planning',
+    title: 'Planning your visit',
+    lead: 'To plan ahead',
+    features: [
+      { label: 'Accessible website', phrase: 'a website tested with screen readers', options: [{ questionId: '1.2-1-8', anyOf: ['yes-regular', 'yes-once'] }] },
+      { label: 'Social story or visual guide', phrase: 'a social story or visual guide to preview your visit', options: [{ questionId: '1.1-D-13', anyOf: ['yes-downloadable', 'yes-online'] }] },
+      { label: 'Sensory map or guide', phrase: 'a sensory map or guide to the venue', options: [{ questionId: '3.3-D-10', anyOf: ['yes-detailed', 'yes-basic'] }] },
+      { label: 'Information in large print or Easy Read', phrase: 'key information in large print or Easy Read', yesNo: ['3.6-1-1'], options: [{ questionId: '3.6-1-4', anyOf: ['yes-both', 'easy-read', 'plain-english'] }] },
+      { label: 'Quiet and busy times published', phrase: 'information about quiet and busy times to help you plan', yesNo: ['2.4-D-9'] },
+      { label: 'Content and sensory warnings', phrase: 'content and sensory warnings in advance', options: [{ questionId: '7.2-PC-6', anyOf: ['yes-detailed', 'yes-basic'] }, { questionId: '6.4-D-7', anyOf: ['yes-advance-and-immediate', 'yes-advance', 'yes-immediate'] }] },
+    ],
+  },
+  {
     id: 'getting-there',
     title: 'Getting to the venue',
     lead: 'Getting here',
@@ -73,6 +86,7 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
       { label: 'Main paths at least 1 metre wide', phrase: 'wide, uncluttered paths', yesNo: ['2.3-1-1'] },
       { label: 'Room to pass or turn a wheelchair', phrase: 'room to pass others or turn a wheelchair', yesNo: ['2.3-D-21'] },
       { label: 'Slip-resistant floors', phrase: 'firm, slip-resistant floors', yesNo: ['2.3-D-11'] },
+      { label: 'Clear signage and wayfinding', phrase: 'clear signage and wayfinding to key places', yesNo: ['2.3-D-5'] },
       { label: 'Seating to rest along the way', phrase: 'places to sit and rest along the way', yesNo: ['2.3-D-13', '3.1-D-5'] },
     ],
   },
@@ -135,6 +149,7 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
       { label: 'Priority access when needed', phrase: 'priority entry so you can settle in before the crowd', yesNo: ['2.4-1-2'] },
       { label: 'Access needs captured at booking', phrase: 'the chance to tell us your access needs when you book', yesNo: ['1.3-PC-2', '4.3-D-2'] },
       { label: 'Accessible online booking', phrase: 'an accessible online booking process', yesNo: ['4.3-D-1'] },
+      { label: 'Assistive equipment to borrow', phrase: 'assistive equipment you can borrow, like a wheelchair', options: [{ questionId: '3.4-F-1', anyOf: ['yes-multiple', 'yes-limited'] }] },
       { label: 'Alternatives to phone contact', phrase: 'ways to reach us beyond the phone', yesNo: ['4.1-PC-1'] },
     ],
   },

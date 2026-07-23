@@ -4,11 +4,11 @@ import { getSession } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import { useSites, getActiveSiteId } from '../hooks/useSites';
 import { usePageTitle } from '../hooks/usePageTitle';
-import { accessStatementModuleIds } from '../data/accessStatementFeatures';
+import { ACCESS_STATEMENT_CATEGORIES, accessStatementModuleIds } from '../data/accessStatementFeatures';
 import {
   generateAccessStatement,
   serializeAccessStatementText,
-  buildAccessProfileProse,
+  buildAccessProfileLayout,
   accessProfileIntro,
   accessProfileClosing,
 } from '../utils/generateAccessStatement';
@@ -49,9 +49,8 @@ export default function AccessProfile() {
 
   const base = useMemo(() => generateAccessStatement(progress, venueName), [progress, venueName]);
   const statement = useMemo(() => applyOverrides(base, overrides), [base, overrides]);
-  const prose = useMemo(() => buildAccessProfileProse(statement), [statement]);
-  const sections = statement.sections ?? [];
-  const hasContent = statement.featureCount > 0 || sections.length > 0;
+  const layout = useMemo(() => buildAccessProfileLayout(statement), [statement]);
+  const hasContent = statement.featureCount > 0 || (statement.sections ?? []).length > 0;
 
   const hasEdits = Object.values(overrides.features ?? {}).some((f) => f?.hidden) || (overrides.sections ?? []).length > 0;
 
@@ -76,15 +75,24 @@ export default function AccessProfile() {
   };
 
   const addSection = () => {
-    commit({ ...overrides, sections: [...(overrides.sections ?? []), { id: newId(), heading: '', text: '' }] });
+    commit({ ...overrides, sections: [...(overrides.sections ?? []), { id: newId(), heading: '', text: '', placement: 'general' }] });
   };
 
-  const updateSection = (id: string, patch: { heading?: string; text?: string }) => {
+  const updateSection = (id: string, patch: { heading?: string; text?: string; placement?: string }) => {
     commit({ ...overrides, sections: (overrides.sections ?? []).map((s) => (s.id === id ? { ...s, ...patch } : s)) });
   };
 
   const removeSection = (id: string) => {
     commit({ ...overrides, sections: (overrides.sections ?? []).filter((s) => s.id !== id) });
+  };
+
+  const moveSection = (id: string, dir: -1 | 1) => {
+    const list = [...(overrides.sections ?? [])];
+    const idx = list.findIndex((s) => s.id === id);
+    const j = idx + dir;
+    if (idx < 0 || j < 0 || j >= list.length) return;
+    [list[idx], list[j]] = [list[j], list[idx]];
+    commit({ ...overrides, sections: list });
   };
 
   const handleCopy = async () => {
@@ -166,15 +174,21 @@ export default function AccessProfile() {
               <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-muted)' }}>Self-reported as of {generatedDate}.</p>
             </div>
 
-            {prose.map((section) => (
-              <div key={section.id} style={{ marginBottom: '20px' }}>
-                <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '17px' }}>{section.title}</h3>
-                <p style={{ margin: 0 }}>{section.paragraph}</p>
+            {layout.categories.map((block) => (
+              <div key={block.id} style={{ marginBottom: '20px' }}>
+                <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '17px' }}>{block.title}</h3>
+                {block.paragraph && <p style={{ margin: '0 0 10px 0' }}>{block.paragraph}</p>}
+                {block.sections.map((s) => (
+                  <div key={s.id} style={{ marginTop: '10px' }}>
+                    {s.heading?.trim() && <strong style={{ display: 'block' }}>{s.heading.trim()}</strong>}
+                    <span style={{ whiteSpace: 'pre-wrap' }}>{s.text}</span>
+                  </div>
+                ))}
               </div>
             ))}
 
-            {sections.map((s, i) => (
-              <div key={i} style={{ marginBottom: '20px' }}>
+            {layout.general.map((s) => (
+              <div key={s.id} style={{ marginBottom: '20px' }}>
                 <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '17px' }}>{s.heading?.trim() || 'More information'}</h3>
                 <p style={{ margin: 0, whiteSpace: 'pre-wrap' }}>{s.text}</p>
               </div>
@@ -217,8 +231,19 @@ export default function AccessProfile() {
                 contact, quiet times or specific parking directions.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {(overrides.sections ?? []).map((s) => (
+                {(overrides.sections ?? []).map((s, i, arr) => (
                   <div key={s.id} style={{ padding: '12px', border: '1px solid #e5e7eb', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                      <label style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Show under:</label>
+                      <select value={s.placement || 'general'} onChange={(e) => updateSection(s.id, { placement: e.target.value })} style={{ ...inputStyle, width: 'auto' }} aria-label="Where to show this section">
+                        <option value="general">General (at the end)</option>
+                        {ACCESS_STATEMENT_CATEGORIES.map((c) => (
+                          <option key={c.id} value={c.id}>{c.title}</option>
+                        ))}
+                      </select>
+                      <button className="btn btn-secondary" onClick={() => moveSection(s.id, -1)} disabled={i === 0} style={{ padding: '4px 10px' }} aria-label="Move up">↑</button>
+                      <button className="btn btn-secondary" onClick={() => moveSection(s.id, 1)} disabled={i === arr.length - 1} style={{ padding: '4px 10px' }} aria-label="Move down">↓</button>
+                    </div>
                     <input type="text" value={s.heading || ''} placeholder="Heading (optional)" onChange={(e) => updateSection(s.id, { heading: e.target.value })} style={inputStyle} aria-label="Section heading" />
                     <textarea value={s.text} placeholder="Write your information here" onChange={(e) => updateSection(s.id, { text: e.target.value })} rows={3} style={{ ...inputStyle, resize: 'vertical' }} aria-label="Section text" />
                     <button className="btn btn-secondary" onClick={() => removeSection(s.id)} style={{ alignSelf: 'flex-start', padding: '6px 12px' }}>

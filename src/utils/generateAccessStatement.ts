@@ -22,8 +22,18 @@ export interface StatementFeature {
 }
 
 export interface ProfileSection {
+  id?: string;
   heading?: string;
   text: string;
+  /** Category id this section renders under, or 'general' (rendered at the end). */
+  placement?: string;
+}
+
+export interface ProfileBlock {
+  id: string;
+  title: string;
+  paragraph?: string;
+  sections: ProfileSection[];
 }
 
 export interface StatementCategory {
@@ -231,6 +241,30 @@ export function buildAccessProfileProse(statement: AccessStatement): ProseSectio
     .filter((s) => s.paragraph.length > 0);
 }
 
+/**
+ * Lay out the profile for rendering: each category with its prose and any custom
+ * sections placed under it, in canonical order, plus general sections for the end.
+ */
+export function buildAccessProfileLayout(statement: AccessStatement): {
+  categories: ProfileBlock[];
+  general: ProfileSection[];
+} {
+  const proseById = new Map(buildAccessProfileProse(statement).map((p) => [p.id, p.paragraph]));
+  const titleById = new Map(ACCESS_STATEMENT_CATEGORIES.map((c) => [c.id, c.title]));
+  const catIds = ACCESS_STATEMENT_CATEGORIES.map((c) => c.id);
+  const sections = statement.sections ?? [];
+
+  const categories: ProfileBlock[] = [];
+  for (const cid of catIds) {
+    const paragraph = proseById.get(cid);
+    const secs = sections.filter((s) => s.placement === cid);
+    if (!paragraph && secs.length === 0) continue;
+    categories.push({ id: cid, title: titleById.get(cid) || cid, paragraph, sections: secs });
+  }
+  const general = sections.filter((s) => !s.placement || s.placement === 'general' || !catIds.includes(s.placement));
+  return { categories, general };
+}
+
 export function accessProfileIntro(venueName: string): string {
   return `${venueName} is committed to a welcoming and accessible experience for every visitor. Here is what is in place today.`;
 }
@@ -247,10 +281,13 @@ export function serializeAccessStatementText(statement: AccessStatement): string
     year: 'numeric',
   });
   let out = `${venue}\nAccessibility profile\n\n${accessProfileIntro(venue)}\nSelf-reported as of ${date}.\n`;
-  for (const section of buildAccessProfileProse(statement)) {
-    out += `\n${section.title}\n${section.paragraph}\n`;
+  const layout = buildAccessProfileLayout(statement);
+  for (const b of layout.categories) {
+    out += `\n${b.title}\n`;
+    if (b.paragraph) out += `${b.paragraph}\n`;
+    for (const s of b.sections) out += `${s.heading?.trim() ? `${s.heading.trim()}\n` : ''}${s.text.trim()}\n`;
   }
-  for (const s of statement.sections ?? []) {
+  for (const s of layout.general) {
     out += `\n${s.heading?.trim() || 'More information'}\n${s.text.trim()}\n`;
   }
   out += `\n${accessProfileClosing(venue)}\n\nPrepared with Access Compass.`;

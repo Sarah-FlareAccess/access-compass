@@ -22,6 +22,8 @@ export interface CustomSection {
   id: string;
   heading?: string;
   text: string;
+  /** Which category this section renders under: a category id, or 'general' (at the end). */
+  placement?: string;
 }
 
 export interface AccessProfileOverrides {

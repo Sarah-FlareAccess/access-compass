@@ -7,7 +7,7 @@
 
 import jsPDF from 'jspdf';
 import {
-  buildAccessProfileProse,
+  buildAccessProfileLayout,
   accessProfileIntro,
   accessProfileClosing,
   type AccessStatement,
@@ -112,27 +112,39 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
   doc.line(PAGE.marginLeft, y, PAGE.marginLeft + PAGE.contentWidth, y);
   y += 8;
 
-  // Category sections as prose
-  for (const section of buildAccessProfileProse(statement)) {
+  const heading = (text: string) => {
     ensure(16);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
     doc.setTextColor(73, 14, 103);
-    doc.text(section.title, PAGE.marginLeft, y);
+    doc.text(text, PAGE.marginLeft, y);
     y += 7;
     doc.setTextColor(0, 0, 0);
-    paragraph(section.paragraph, 12, [40, 40, 50], 7);
+  };
+
+  const layout = buildAccessProfileLayout(statement);
+
+  // Each category with its prose and any custom sections placed under it.
+  for (const block of layout.categories) {
+    heading(block.title);
+    if (block.paragraph) paragraph(block.paragraph, 12, [40, 40, 50], block.sections.length ? 4 : 7);
+    for (const s of block.sections) {
+      if (s.heading?.trim()) {
+        ensure(8);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(60, 60, 70);
+        doc.text(s.heading.trim(), PAGE.marginLeft, y);
+        y += 6;
+        doc.setTextColor(0, 0, 0);
+      }
+      paragraph(s.text.trim(), 12, [40, 40, 50], 7);
+    }
   }
 
-  // Custom free-text sections the venue added.
-  for (const s of statement.sections ?? []) {
-    ensure(16);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
-    doc.setTextColor(73, 14, 103);
-    doc.text(s.heading?.trim() || 'More information', PAGE.marginLeft, y);
-    y += 7;
-    doc.setTextColor(0, 0, 0);
+  // General custom sections at the end.
+  for (const s of layout.general) {
+    heading(s.heading?.trim() || 'More information');
     paragraph(s.text.trim(), 12, [40, 40, 50], 7);
   }
 

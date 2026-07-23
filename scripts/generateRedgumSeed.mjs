@@ -136,7 +136,7 @@ const VENUES = [
   // Showcase venue for the public Accessibility Profile: runs every module the
   // profile draws from, answered in full (not just the first questions) and
   // skewed strongly positive, so the shared profile reads rich and welcoming.
-  { name: 'Riverside Theatre', maturity: 'showcase', modules: ['1.1', '1.3', '2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.7', '3.8', '4.1', '4.2', '4.3', '5.1', '5.3'] },
+  { name: 'Riverside Theatre', maturity: 'showcase', modules: ['1.1', '1.2', '1.3', '2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '3.6', '3.7', '3.8', '4.1', '4.2', '4.3', '5.1', '5.3', '6.4', '7.2'] },
 ];
 
 // (venue, module) pairs that get a prior reassessment snapshot (improved since)
