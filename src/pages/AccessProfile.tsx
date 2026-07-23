@@ -121,7 +121,7 @@ export default function AccessProfile() {
   const confirmBeforeShare = () => {
     if (needsPartialReview) {
       window.alert(
-        `This profile has ${unconfirmedPartials.length} feature${unconfirmedPartials.length === 1 ? '' : 's'} marked "in some areas" that must be reviewed before you share it. Open Customise, check the notes are accurate, then choose "Confirm partial features".`,
+        'Please review the partly-in-place features first. Open Customise, make sure each "In some areas" note is accurate, then confirm. Then you can share the profile.',
       );
       return false;
     }
@@ -191,11 +191,13 @@ export default function AccessProfile() {
           <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', marginBottom: '20px', border: '2px solid #ea580c', background: 'rgba(234, 88, 12, 0.07)', borderRadius: '8px', fontSize: '14px' }}>
             <span aria-hidden="true">⚠️</span>
             <div>
-              <strong>{unconfirmedPartials.length} feature{unconfirmedPartials.length === 1 ? '' : 's'} need reviewing before you can share this profile.</strong>{' '}
-              These show as "in some areas". Check the note for each is accurate.
+              <strong>Review needed before you share.</strong>{' '}
+              {editMode
+                ? "The features flagged “partly in place” below each have a note describing what's available. Make sure each note is accurate, then confirm."
+                : `Some features are only partly in place and appear on the profile as “In some areas”. Please make sure ${unconfirmedPartials.length === 1 ? 'that note is' : 'those notes are'} accurate before sharing.`}
               <div style={{ marginTop: '10px' }}>
                 {editMode ? (
-                  <button className="btn btn-primary" onClick={confirmPartials}>Confirm partial features are accurate</button>
+                  <button className="btn btn-primary" onClick={confirmPartials}>The notes are accurate, confirm</button>
                 ) : (
                   <button className="btn btn-primary" onClick={() => setEditMode(true)}>Review partial features</button>
                 )}
