@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSession } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
-import { useSites, getActiveSiteId } from '../hooks/useSites';
+import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { ACCESS_STATEMENT_CATEGORIES, accessStatementModuleIds } from '../data/accessStatementFeatures';
 import {
@@ -27,25 +27,27 @@ export default function AccessProfile() {
   usePageTitle('Accessibility Profile');
   const { progress, isLoading } = useModuleProgress(accessStatementModuleIds);
   const { sites } = useSites();
+  const [activeSiteId, setActiveSite] = useActiveSiteId();
   const [copied, setCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
   const venueName = useMemo(() => {
-    const activeId = getActiveSiteId();
-    const site = sites.find((s) => s.id === activeId);
+    const site = sites.find((s) => s.id === activeSiteId);
     if (site?.name) return site.name;
     const session = getSession();
     return session?.business_snapshot?.organisation_name || 'Your Venue';
-  }, [sites]);
+  }, [sites, activeSiteId]);
 
   const overridesKey = useMemo(() => {
-    const activeId = getActiveSiteId();
-    if (activeId) return `site:${activeId}`;
+    if (activeSiteId) return `site:${activeSiteId}`;
     const session = getSession();
     return `org:${session?.business_snapshot?.organisation_name || 'venue'}`;
-  }, []);
+  }, [activeSiteId]);
 
   const [overrides, setOverrides] = useState<AccessProfileOverrides>(() => loadOverrides(overridesKey));
+  useEffect(() => {
+    setOverrides(loadOverrides(overridesKey));
+  }, [overridesKey]);
 
   const base = useMemo(() => generateAccessStatement(progress, venueName), [progress, venueName]);
   const statement = useMemo(() => applyOverrides(base, overrides), [base, overrides]);
@@ -175,6 +177,23 @@ export default function AccessProfile() {
           </p>
         </div>
 
+        {!isLoading && sites.length > 0 && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', flexWrap: 'wrap' }}>
+            <label htmlFor="venue-select" style={{ fontWeight: 600 }}>Venue:</label>
+            <select
+              id="venue-select"
+              value={activeSiteId ?? ''}
+              onChange={(e) => setActiveSite(e.target.value || null)}
+              style={{ ...inputStyle, width: 'auto', minWidth: '220px' }}
+            >
+              <option value="">Select a venue…</option>
+              {sites.map((s) => (
+                <option key={s.id} value={s.id}>{s.name}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
         {isLoading && <div className="card">Loading your accessibility profile...</div>}
 
         {!isLoading && (
@@ -230,14 +249,25 @@ export default function AccessProfile() {
         {!isLoading && !editMode && !hasContent && (
           <div className="card" style={{ border: '2px solid var(--warm-orange)', background: 'rgba(230, 119, 0, 0.05)', textAlign: 'center' }}>
             <div style={{ fontSize: '2rem', marginBottom: '12px' }}>📋</div>
-            <h3>No accessibility features to show yet</h3>
-            <p style={{ color: 'var(--text-muted)', margin: '12px 0' }}>
-              Complete the access modules to build your profile. Only features you have in place are
-              shown. You can also add your own information with Customise.
-            </p>
-            <Link to="/dashboard" className="btn btn-primary" style={{ marginTop: '12px' }}>
-              Go to Dashboard
-            </Link>
+            {sites.length > 0 && !activeSiteId ? (
+              <>
+                <h3>Choose a venue to see its profile</h3>
+                <p style={{ color: 'var(--text-muted)', margin: '12px 0' }}>
+                  This profile is specific to each venue. Pick one from the <strong>Venue</strong> menu above.
+                </p>
+              </>
+            ) : (
+              <>
+                <h3>No accessibility features to show yet{activeSiteId ? ` for ${venueName}` : ''}</h3>
+                <p style={{ color: 'var(--text-muted)', margin: '12px 0' }}>
+                  Complete the access modules for this venue to build its profile. Only features in place
+                  are shown. You can also add your own information with Customise.
+                </p>
+                <Link to="/dashboard" className="btn btn-primary" style={{ marginTop: '12px' }}>
+                  Go to Dashboard
+                </Link>
+              </>
+            )}
           </div>
         )}
 
