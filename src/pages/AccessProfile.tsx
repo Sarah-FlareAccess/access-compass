@@ -52,6 +52,17 @@ export default function AccessProfile() {
   const layout = useMemo(() => buildAccessProfileLayout(statement), [statement]);
   const hasContent = statement.featureCount > 0 || (statement.sections ?? []).length > 0;
 
+  const partialKeys = useMemo(
+    () =>
+      statement.categories.flatMap(
+        (c) => c.features.filter((f) => f.state === 'partial').map((f) => f.refKey).filter(Boolean) as string[],
+      ),
+    [statement],
+  );
+  const confirmedPartials = overrides.confirmedPartials ?? [];
+  const unconfirmedPartials = partialKeys.filter((k) => !confirmedPartials.includes(k));
+  const needsPartialReview = unconfirmedPartials.length > 0;
+
   const hasEdits = Object.values(overrides.features ?? {}).some((f) => f?.hidden) || (overrides.sections ?? []).length > 0;
 
   const generatedDate = new Date(statement.generatedAt).toLocaleDateString('en-AU', {
@@ -64,6 +75,8 @@ export default function AccessProfile() {
     setOverrides(next);
     saveOverrides(overridesKey, next);
   };
+
+  const confirmPartials = () => commit({ ...overrides, confirmedPartials: partialKeys });
 
   const isHidden = (categoryId: string, label: string) =>
     Boolean(overrides.features[featureKey(categoryId, label)]?.hidden);
@@ -105,10 +118,17 @@ export default function AccessProfile() {
     commit({ ...overrides, sections: list });
   };
 
-  const confirmBeforeShare = () =>
-    window.confirm(
+  const confirmBeforeShare = () => {
+    if (needsPartialReview) {
+      window.alert(
+        `This profile has ${unconfirmedPartials.length} feature${unconfirmedPartials.length === 1 ? '' : 's'} marked "in some areas" that must be reviewed before you share it. Open Customise, check the notes are accurate, then choose "Confirm partial features".`,
+      );
+      return false;
+    }
+    return window.confirm(
       'This profile is self-reported. Please make sure you have reviewed it for accuracy before sharing it publicly.\n\nContinue?',
     );
+  };
 
   const handleCopy = async () => {
     if (!confirmBeforeShare()) return;
@@ -167,10 +187,27 @@ export default function AccessProfile() {
           </div>
         )}
 
-        {!isLoading && hasContent && (
+        {!isLoading && hasContent && needsPartialReview && (
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', marginBottom: '20px', border: '2px solid #ea580c', background: 'rgba(234, 88, 12, 0.07)', borderRadius: '8px', fontSize: '14px' }}>
+            <span aria-hidden="true">⚠️</span>
+            <div>
+              <strong>{unconfirmedPartials.length} feature{unconfirmedPartials.length === 1 ? '' : 's'} need reviewing before you can share this profile.</strong>{' '}
+              These show as "in some areas". Check the note for each is accurate.
+              <div style={{ marginTop: '10px' }}>
+                {editMode ? (
+                  <button className="btn btn-primary" onClick={confirmPartials}>Confirm partial features are accurate</button>
+                ) : (
+                  <button className="btn btn-primary" onClick={() => setEditMode(true)}>Review partial features</button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!isLoading && hasContent && !needsPartialReview && (
           <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', marginBottom: '20px', border: '1px solid #fcd9a6', background: 'rgba(230, 119, 0, 0.06)', borderRadius: '8px', fontSize: '14px' }}>
             <span aria-hidden="true">ℹ️</span>
-            <span>This profile is self-reported. Please review it for accuracy before sharing it publicly. Items shown as "working on" are in progress, check those especially.</span>
+            <span>This profile is self-reported. Please review it for accuracy before sharing it publicly.</span>
           </div>
         )}
 

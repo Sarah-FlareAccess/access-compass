@@ -31,6 +31,8 @@ export interface CustomSection {
 export interface AccessProfileOverrides {
   features: Record<string, FeatureOverride>;
   sections: CustomSection[];
+  /** refKeys of partial features the venue has reviewed and confirmed. */
+  confirmedPartials?: string[];
 }
 
 const STORAGE_PREFIX = 'access-profile-overrides:';
@@ -56,6 +58,7 @@ export function loadOverrides(organisationName: string): AccessProfileOverrides 
     return {
       features: parsed.features ?? {},
       sections: Array.isArray(parsed.sections) ? parsed.sections : [],
+      confirmedPartials: Array.isArray(parsed.confirmedPartials) ? parsed.confirmedPartials : [],
     };
   } catch {
     return emptyOverrides();
