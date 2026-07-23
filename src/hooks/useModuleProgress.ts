@@ -447,6 +447,51 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
             }
           }
 
+          // One-time self-heal: earlier builds recovered responses from the cloud
+          // WITHOUT multi_select_values, so single/multi select answers were lost
+          // from the local cache and never re-fetched (recovery only runs for
+          // modules with zero responses). Fill any missing selections from the
+          // cloud once per site. Fill-only: nothing local is ever deleted, so no
+          // unsynced work can be lost.
+          const healKey = `access_compass_msv_heal_v1::${loadSiteId ?? 'default'}`;
+          if (!localStorage.getItem(healKey)) {
+            try {
+              const healProgress = getLocalProgress(loadSiteId);
+              const needsHeal = Object.values(healProgress).some(
+                (m) => (m.responses || []).some((r) => !r.answer && (!r.multiSelectValues || r.multiSelectValues.length === 0)),
+              );
+              if (needsHeal) {
+                const { data: healRows } = await fetchOrgRecords('module_responses', organisationId, undefined, activeSiteId);
+                const rows = (healRows as Record<string, unknown>[]) || [];
+                if (rows.length > 0) {
+                  const cloudMsv = new Map<string, string[] | undefined>();
+                  for (const r of rows) cloudMsv.set(`${r.module_id}::${r.question_id}`, parseStoredMultiSelect(r.multi_select_values));
+                  let healed = false;
+                  const next = { ...healProgress };
+                  for (const [modId, mod] of Object.entries(next)) {
+                    if (!mod.responses || mod.responses.length === 0) continue;
+                    next[modId] = {
+                      ...mod,
+                      responses: mod.responses.map((resp) => {
+                        if (resp.multiSelectValues && resp.multiSelectValues.length > 0) return resp;
+                        const msv = cloudMsv.get(`${modId}::${resp.questionId}`);
+                        if (msv && msv.length > 0) { healed = true; return { ...resp, multiSelectValues: msv }; }
+                        return resp;
+                      }),
+                    };
+                  }
+                  if (healed) {
+                    setProgress(next);
+                    saveLocalProgress(next, loadSiteId);
+                  }
+                }
+              }
+              localStorage.setItem(healKey, '1');
+            } catch (healError) {
+              console.log('[useModuleProgress] multi-select heal skipped:', healError);
+            }
+          }
+
           // Hydrate reassessment history from cloud snapshots (migration 033),
           // so run comparison survives a browser clear or device switch.
           // Snapshots are org-wide; filter to the active site so a venue's
