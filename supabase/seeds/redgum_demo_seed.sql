@@ -1935,5 +1935,494 @@ begin
     ('seed-redgum-town-hall-civic-centre','5.10','5.10-DD-10',null,null,null,'["no"]',v_org,v_site,v_user)
   on conflict (organisation_id, site_id, module_id, question_id) do nothing;
 
+  -- ===== Riverside Theatre =====
+  insert into sites (organisation_id, name) values (v_org, 'Riverside Theatre') on conflict (organisation_id, name) do nothing;
+  select id into v_site from sites where organisation_id = v_org and name = 'Riverside Theatre';
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','1.1','1.1','completed','strong','{"doingWell":["Do you have accessibility information available for customers before they visit?","What''s currently a barrier for you to share accessibility information?","Where would it be easiest to start sharing accessibility information?"],"priorityActions":[{"questionId":"1.1-F-6","questionText":"Do staff know how to confidently respond to accessibility enquiries?","action":"Prepare a reference guide of common accessibility enquiries and accurate answers so staff can respond confidently. Include details like accessible parking location, entrance type, available supports, and who to escalate to when unsure.","priority":"high","timeframe":"30-90 days"}],"areasToExplore":["Who is responsible for maintaining your accessibility information?"],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-1','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-2A',null,null,null,'["worried-wrong","inconsistent","hard-to-update","never-asked"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-3A',null,null,null,'["website","booking-platform","social-media","email-responses","on-request"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-2B',null,null,null,'["physical-access","what-to-expect","sensory","communication","equipment-resources","companion","peak-times","social-story","visual narrative"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-2a',null,null,null,'["measurements","photos","step-free-routes","limitations"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-2b',null,null,null,'["queuing","noise","lighting","crowds","staff-interactions"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-1a',null,null,null,'["dedicated-page","scattered","faqs","pdfs","third-party","social-only"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-1b',null,null,null,'["two-three-clicks"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-3B',null,null,null,'["very-confident"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-3a',null,null,null,'["within-6-months"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-3b',null,null,null,'["site-inspection","staff-review","customer-feedback","consultant","not-checked"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-9','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-10','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-11','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-12',null,null,null,'["shared"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-5','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-5a',null,null,null,'["trained-staff"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-5b','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-5c','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-5d',null,null,null,'["yes-flare-review"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-5e',null,null,null,'["contact-forms","booking-forms","email","mobile","confirmations","live-chat","chatbots"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-5f',null,null,null,'["yes-review"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-6','partially',null,'Accessible toilet available but the change table is not adult-sized.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-6a',null,null,null,'["written"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-6b',null,null,null,'["clear-escalation"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-7',null,null,null,'["yes-offered"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-7a',null,null,null,'["time","staffing","awareness","demand","liability"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-7b',null,null,null,'["website","booking","enquiry","staff-offer","not-communicated"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-F-8','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-8a','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-8b','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.1','1.1-D-13',null,null,null,'["yes-downloadable","yes-online","on-request","in-development","no"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','1.3','1.3','completed','strong','{"doingWell":["Are customers invited to share their accessibility requirements during the booking or enquiry process?","Can customers explain their accessibility needs in their own words?","Is the accessibility field available on all booking paths?"],"priorityActions":[{"questionId":"1.3-PC-3","questionText":"If a customer shares accessibility requirements, is there a process to follow up before their visit?","action":"Establish a process to follow up with customers who share accessibility requirements before their visit. Confirm arrangements, provide relevant information, and ask if anything else is needed. This prevents issues on arrival.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"1.3-DD-5c","questionText":"Is booking information available in plain language or Easy Read format?","action":"Provide booking information in plain language, and consider creating an Easy Read version for customers with intellectual or cognitive disabilities. Use short sentences, common words, and supporting images.","priority":"medium","timeframe":"30-90 days"},{"questionId":"1.3-DD-1c","questionText":"Are time limits in the booking process generous or adjustable?","action":"Extend time limits in your booking process or provide a mechanism for users to request more time, as required by WCAG 2.2 Success Criterion 2.2.1 (Timing Adjustable). Users must be warned before timeout and given at least 20 seconds to extend.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"1.3-DD-3d","questionText":"Is the booking confirmation accessible?","action":"Ensure your booking confirmation emails and pages are accessible. Use semantic HTML, sufficient colour contrast, and plain language. Include accessibility arrangements in the confirmation details.","priority":"medium","timeframe":"30-90 days"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-2','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-2b','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-2c','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-2a','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-4','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-3','partially',null,'Designated accessible parking exists but line-marking has faded.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-3b','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-1d','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-6','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-6c','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-7',null,null,null,'["third-party"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-8','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-1','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-1a',null,null,null,'["date-picker","dropdown","payment","captcha","modals","navigation","no-issues","not-tested"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-5','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-5b','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-5c','partially',null,'Accessible toilet available but the change table is not adult-sized.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-1b','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-1c','partially',null,'Large-print materials available on request but not routinely offered.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-PC-9','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-1f','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-1g','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-3d','partially',null,'Accessible toilet available but the change table is not adult-sized.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-3e','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-4b','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-4c','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-7b','partially',null,'Signage is clear at the entry but wayfinding inside is inconsistent.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-7d','partially',null,'Staff had training in 2023; a refresher is scheduled but not yet booked.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-8b','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-8c','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-8d','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-8e','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-8f','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-DD-8g','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','1.3','1.3-D-9',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','2.1','2.1','completed','strong','{"doingWell":["Do you have designated accessible parking spaces?","Are accessible parking spaces located close to the main entrance?","Is there a drop-off zone near the entrance for customers who need it?"],"priorityActions":[{"questionId":"2.1-D-12b","questionText":"Are there kerb ramps or dropped kerbs where the path crosses vehicle areas or changes level?","action":"Install kerb ramps or dropped kerbs at every point where the accessible path crosses a vehicle area or encounters a level change. Ramps must have a maximum gradient of 1:8, tactile ground surface indicators at the base, and a slip-resistant surface per AS 1428.1 Cl 10.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory","safetyRelated":true},{"questionId":"2.1-D-16","questionText":"Is the walking route from parking to the entrance safely lit, with readable signage after dark?","action":"Install or upgrade lighting along the walking route from parking to the entrance so that surfaces and signage are clearly visible after dark. Ensure wayfinding signs are illuminated or retroreflective. Target at least 40 lux at ground level per AS/NZS 1158.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory","safetyRelated":true}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-1','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-2','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-3','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-3a','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-4','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-5','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-6','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-6a','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-6b','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-7','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-F-8','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-9','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-9a','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-9c','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-13','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-10','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-11','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-12b','partially',null,'Accessibility information is on the website but scattered across a few pages rather than one place.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-12c','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-15','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-16','partially',null,'Signage is clear at the entry but wayfinding inside is inconsistent.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-17','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-18','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-19','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-20','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-22','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-23',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.1','2.1-D-24',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','2.2','2.2','completed','strong','{"doingWell":["What does your main entrance have? (select all that apply)","If there are stairs or steps at the entrance, do they have handrails or grab rails on both sides?","Do the stair or step edges have contrasting nosing strips so each step is clearly visible?"],"priorityActions":[{"questionId":"2.2-D-25","questionText":"Are the stair or step risers enclosed (no open gaps between steps)?","action":"Enclose all open risers on entrance stairs. Open risers create a catch hazard for cane tips, prosthetic feet, and shoe toes. Install riser panels or replace the staircase with a compliant design per AS 1428.1 Cl 11.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"2.2-D-18","questionText":"Are entrance mats and surface changes flush and secure?","action":"Secure all entrance mats flush with the surrounding floor surface (max 3mm lip). Replace any mats that curl at edges, have thick pile that impedes wheels, or sit in a recessed frame with raised edges. Ensure surface changes do not create trip hazards.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"2.2-F-6","questionText":"Do staff know how to assist customers who need support entering the building?","action":"Train customer-facing staff on how to assist visitors who may need support entering the building. Cover door holding, guiding someone with vision impairment, wheelchair etiquette (always ask first), and the location of the accessible entrance and alternative routes.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-1',null,null,null,'["level-access","permanent-ramp","stairs","portable-ramp","lift-at-entrance","escalator","secondary-entrance"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-23','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-24','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-25','partially',null,'Staff had training in 2023; a refresher is scheduled but not yet booked.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-26','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-27','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-28','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-29','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-30','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-31','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-32',null,null,null,'["yes-independent"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-33','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-13','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-18','partially',null,'Staff had training in 2023; a refresher is scheduled but not yet booked.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-12','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-2','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-3','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-11','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-16','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-4','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-5','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-6','partially',null,'Designated accessible parking exists but line-marking has faded.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-7','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-F-8','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-14','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-15a','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-15b','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-17','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-18c','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-18d','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-21','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.2','2.2-D-22','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','2.3','2.3','completed','strong','{"doingWell":["Are main circulation paths at least 1 metre wide?","Are paths kept clear of obstacles and trip hazards (e.g., bins, plant pots, or furniture)?","Does your venue have any internal level changes? Select all that apply:"],"priorityActions":[{"questionId":"2.3-D-26","questionText":"Do internal stair edges have contrasting nosing strips so each step is clearly visible?","action":"Apply contrasting nosing strips to every step edge on internal stairs. Strips must provide min 30% luminance contrast with both the tread and riser, extend the full width, and be 50-75mm on the tread and 30mm on the riser per AS 1428.1 Cl 11.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory","safetyRelated":true}],"areasToExplore":["Are internal doors easy to open for people with limited hand strength or dexterity?"],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','2.3','2.3-1-1','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-1-2','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-1-3',null,null,null,'["no-level-changes","internal-stairs","internal-ramp","lift","platform-lift","escalator"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-20','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-21','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-22','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-23','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-5','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-6','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-7','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-8','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-9','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-10','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-11','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-24','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-12','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-13','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-18',null,null,null,'["lever-heavy"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-19','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-25','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-26','partially',null,'Accessibility information is on the website but scattered across a few pages rather than one place.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-27','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-28','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-14','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-29','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-30','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-16',null,null,null,'["adequate-size","door-width","door-dwell","level-entry","tactile-buttons","visual-indicators","audible-indicators","rear-mirror","handrails","adequate-lighting","glare-free-walls","contrast-controls","emergency-comms"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-17',null,null,null,'["yes-independent"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-31','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-32','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-D-15','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.3','2.3-1-4','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','2.4','2.4','completed','strong','{"doingWell":["Is there seating available in queue areas for people who cannot stand for long?","Can customers request priority access when needed?","Is there a streamlined or dedicated accessible entry option that bypasses the main queue?"],"priorityActions":[{"questionId":"2.4-D-7","questionText":"Do you communicate expected wait times to customers?","action":"Implement a system to communicate expected wait times to customers. Options include digital displays, staff announcements, app notifications, or a simple chalkboard. Update the estimate at regular intervals. Provide the information in both visual and auditory formats.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"},{"questionId":"2.4-D-8","questionText":"During busy periods, do pathways remain accessible?","action":"Develop a crowd management plan that explicitly protects accessible pathways during peak periods. Assign staff to monitor key routes, use barriers that maintain 1000mm clear width, and never use queuing overflow to block accessible paths, ramps, or lift access.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','2.4','2.4-1-1','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-1-2','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-1-2a','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-1-3','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-4','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-5','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-6','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-7','partially',null,'Designated accessible parking exists but line-marking has faded.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-8','partially',null,'Signage is clear at the entry but wayfinding inside is inconsistent.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-9','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-10','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-11','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-12','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-13','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-14','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-15','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','2.4','2.4-D-16',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','3.1','3.1','completed','strong','{"doingWell":["Is there a variety of seating options (with arms, without arms, different heights)?","Which of these seating options does your venue currently offer?","Is there space for wheelchair users alongside seated companions?"],"priorityActions":[{"questionId":"3.1-1-4","questionText":"Can furniture be rearranged to accommodate different needs?","action":"Replace or supplement fixed furniture with movable options so staff can rearrange layouts for wheelchair users, mobility aid users, or service animals.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"},{"questionId":"3.1-D-2","questionText":"Are aisles and pathways between furniture wide enough throughout the space?","action":"Rearrange furniture to achieve minimum 1000mm clear width between obstacles, with 1200mm preferred and 1800mm at passing points, per AS 1428.1:2021 Clause 7.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"3.1-D-7","questionText":"Is there a designated guide dog or assistance animal relief area?","action":"Establish a designated assistance animal relief area with appropriate surface, drainage, waste disposal, and clear signage. Locate it within reasonable distance of main areas and communicate its location to visitors.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','3.1','3.1-1-1','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-1',null,null,null,'["high-seats","firm-seats","back-support","armrests","wide-seats","leg-elevation","soft-cushioned","perching-stools"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-1-2','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-1-3','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-1-4','partially',null,'Ramp at the main entrance but the side entrance still has a single step.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-2','partially',null,'Designated accessible parking exists but line-marking has faded.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-3',null,null,null,'["yes-lowered"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-4',null,null,null,'["wca","eaa","eas","extra-width","companion","no-fixed-seating"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-5',null,null,null,'["yes-throughout"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-6','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-7',null,null,null,'["outdoor-access"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-8','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-9','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-10',null,null,null,'["yes-desk"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-12',null,null,null,'["yes-equivalent"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-13',null,null,null,'["phone-only"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-14','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.1','3.1-D-15',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','3.2','3.2','completed','strong','{"doingWell":["Do you have at least one accessible toilet?","Do you know where the nearest accessible toilet is?","Is toilet signage clear, with tactile and Braille elements where required?"],"priorityActions":[{"questionId":"3.2-D-1","questionText":"Are toilet doors easy to open and lock from inside?","action":"Replace toilet door hardware with lever handles or D-pulls operable with one hand. Ensure the lock is a sliding bolt type easy to operate without fine motor skills. The accessible toilet door must open outward or slide, and provide minimum 850mm clear opening width per AS 1428.1:2021 Clause 19.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"3.2-D-4","questionText":"Are taps lever-type, sensor-operated, or otherwise usable without gripping or twisting?","action":"Replace all taps in accessible facilities with lever-type, sensor-operated, or push-type taps that can be operated without gripping or twisting, per AS 1428.1:2021 Clause 19.5. Set sensor taps to stay on for at least 10 seconds.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"}],"areasToExplore":["Is there a mirror that can be used from both standing and seated positions?"],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','3.2','3.2-1-1',null,null,null,'["yes-offsite"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-1-2','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-1-3','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-1-4','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-1-5','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-1','partially',null,'Hearing loop installed at the main desk only, not in meeting rooms.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-2',null,null,null,'["in-accessible"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-3',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-4','partially',null,'Staff had training in 2023; a refresher is scheduled but not yet booked.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-5',null,null,null,'["soap-accessible","hand-dryer-accessible","paper-towel-accessible","clearly-located","none-accessible"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-6',null,null,null,'["sanitary-bin-near-pan","incontinence-pad-bin","sharps-container","general-bin-accessible","none-provided"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-7',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-8',null,null,null,'["both-sides"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-9',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-10',null,null,null,'["partial"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-11',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-12',null,null,null,'["standing-only"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-13',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.2','3.2-D-14',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','3.3','3.3','completed','strong','{"doingWell":["Does lighting support comfortable navigation and sensory regulation?","Are there quiet or reset spaces available for people who need a sensory break?","Is background noise at a level that allows conversation?"],"priorityActions":[{"questionId":"3.3-1-4","questionText":"Are there any flashing lights or sudden loud noises that could affect some visitors?","action":"Audit the venue for any flashing lights (strobe effects, digital signage, emergency beacons) and sudden loud noises, then eliminate them or provide advance warnings per WCAG 2.2 SC 2.3.1 (three flashes threshold).","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory","safetyRelated":true},{"questionId":"3.3-1-6","questionText":"Are sensory kits or supports available for customers and visitors?","action":"Create sensory support kits (noise-reducing headphones, fidget tools, sunglasses, communication cards) available for loan at reception or entry points.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"},{"questionId":"3.3-D-2","questionText":"Is lighting even and consistent at key service and communication areas (reception, counters, information points)?","action":"Improve lighting at service counters, reception, and information points to a minimum 300 lux evenly distributed, avoiding shadows on faces. Good lighting at these points is essential for lipreading and clear communication.","priority":"high","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-1','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-2','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-3','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-4','partially',null,'Accessible toilet available but the change table is not adult-sized.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-5','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-6','partially',null,'Accessibility information is on the website but scattered across a few pages rather than one place.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-7',null,null,null,'["yes-occasional"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-1-8',null,null,null,'["yes-auracast"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-1',null,null,null,'["yes-throughout"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-2','partially',null,'Designated accessible parking exists but line-marking has faded.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-3','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-4',null,null,null,'["acoustic-panels","soft-furnishings","rubber-tips","carpet-flooring","quiet-equipment","double-glazing","music-control"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-5','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-6',null,null,null,'["yes-screens"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-7',null,null,null,'["reception","service-counters","meeting-rooms","performance-space","cinema","place-of-worship","pa-areas","tour-areas","waiting-areas"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-8',null,null,null,'["yes-all"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-9',null,null,null,'["dimmable-lighting","comfortable-seating","minimal-decor","calming-colours","sensory-items","noise-reduction","privacy","timer"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-10',null,null,null,'["yes-basic"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-11',null,null,null,'["scent-aware"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-12',null,null,null,'["yes-detailed"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-13',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-14',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.3','3.3-D-15',null,null,null,'["yes-throughout"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','3.7','3.7','completed','strong','{"doingWell":["Do you have key information available in alternative formats on-site (large print, Easy Read, audio)?","Can customers access information digitally during their visit (QR codes, app, website)?","Do you provide tactile information for people who are blind or have low vision (tactile signs, Braille, tactile maps)?"],"priorityActions":[{"questionId":"3.7-DD-6b","questionText":"Are hearing loops regularly tested and maintained?","action":"Establish a monthly testing schedule for all hearing loops. Test field strength with a loop listener or field-strength meter, check for interference from electronic equipment, and keep a maintenance log. Engage a specialist for annual calibration.","priority":"high","timeframe":"30-90 days","complianceLevel":"mandatory"},{"questionId":"3.7-DD-7b","questionText":"Do you ask about captioning needs when people register for events or book tours?","action":"Add a question about captioning or communication needs to event registration, tour booking, and group visit enquiry forms. Allow adequate lead time (minimum 2 weeks) to arrange services.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-1','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-2','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-5','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-6','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-7','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-8','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-9','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-PC-10','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-1a',null,null,null,'["large-print-menu","large-print-info","easy-read","audio-guide","tactile-materials","braille","digital-qr","magnifier"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-1b','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-2a',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-5a',null,null,null,'["braille-toilets","braille-lifts","braille-rooms","tactile-signs","tgsi-warning","tgsi-directional","tactile-map","handrail-braille"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-6a',null,null,null,'["reception","service-counters","meeting-rooms","performance-space","cinema-theatre","throughout","portable"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-6b','partially',null,'Designated accessible parking exists but line-marking has faded.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-7a','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-7b','partially',null,'Signage is clear at the entry but wayfinding inside is inconsistent.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-8a',null,null,null,'["exhibitions","tours","venue-orientation","safety-information","menus-pricing","events-programmes","wayfinding"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-9a',null,null,null,'["common-requests","yes-no","emotions","numbers","payment","custom","digital-app"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-9b','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-10a',null,null,null,'["yes-multiple"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.7','3.7-DD-11a',null,null,null,'["no"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','3.8','3.8','completed','strong','{"doingWell":["What types of experiences or activities does your venue offer? Select all that apply:","Can activities or experiences be modified to suit different abilities?","Can customers take breaks or pauses during experiences without losing their place?"],"priorityActions":[{"questionId":"3.8-1-3","questionText":"Are participants able to go at their own pace during activities?","action":"Redesign activity scheduling to allow self-paced participation, including options to pause, repeat segments, or take breaks without disadvantage.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":["Is there step-free access to all spectator areas, including premium areas?","Can you provide accessible tables with knee clearance at various locations in meeting rooms?"],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','3.8','3.8-1-1',null,null,null,'["spectator-events","conferences","guided-tours","recreation","health-wellbeing","general-visit","outdoor-nature"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-1-2',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-1-3',null,null,null,'["no"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-1',null,null,null,'["yes-flexible"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-2',null,null,null,'["yes-basic"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-3',null,null,null,'["yes-multiple-locations"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-4',null,null,null,'["yes-aisle"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-5',null,null,null,'["yes-multiple"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-6',null,null,null,'["seated-events"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-7',null,null,null,'["yes-phone-fast"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-8',null,null,null,'["main-only"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-9',null,null,null,'["yes-seating"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-10',null,null,null,'["yes-fixed"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-11',null,null,null,'["yes-interpreter"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-12',null,null,null,'["some-locations"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-13',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-14',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-15',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-16',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-17',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-18',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-19',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-19a',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-20',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-21',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-22',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-23',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-24',null,null,null,'["yes-occasional"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-25',null,null,null,'["yes-portable"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-26',null,null,null,'["yes-discretion"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-27',null,null,null,'["yes-trained"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-28',null,null,null,'["yes-available"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-29',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-30',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-31',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-32',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-33',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','3.8','3.8-D-34',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','4.1','4.1','completed','strong','{"doingWell":["Do you offer alternatives to phone calls for customers who cannot or prefer not to use voice telephone?","Are your staff trained to receive calls via the National Relay Service (NRS)?","Do non-phone enquiries (email, text, chat) receive responses within the same timeframe as phone calls?"],"priorityActions":[{"questionId":"4.1-PC-3","questionText":"Do you capture and use customer communication preferences (preferred contact method, format needs)?","action":"Add a communication preferences field to your customer records (preferred contact method, format needs such as large print or Easy Read). Ask at first contact and store for future use.","priority":"high","timeframe":"30-90 days","complianceLevel":"best-practice"},{"questionId":"4.1-PC-7","questionText":"Is there a quiet space available for communication with customers who need a calmer environment?","action":"Designate a quiet, low-stimulus space where staff can have conversations with customers who need a calmer environment. This could be a private office, meeting room, or screened area.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-1','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-2','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-3','partially',null,'Hearing loop installed at the main desk only, not in meeting rooms.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-4','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-5','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-6','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-7','partially',null,'Large-print materials available on request but not routinely offered.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-8','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-9','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-PC-10','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-1a',null,null,null,'["email","sms","contact-form","live-chat","social-media","video-call","in-person","nrs-registered","none-promoted"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-1b','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-2a',null,null,null,'["all-phone-staff","reception","customer-service","management","some-staff","no-training"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-3a',null,null,null,'["booking-system","crm","account-profile","booking-form","manual-notes","not-captured"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-3b','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-5a',null,null,null,'["disability-awareness","communication-specific","aac-training","deaf-awareness","auslan-basics","informal","no-training"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-6a',null,null,null,'["communication-board","picture-cards","pen-paper","tablet-app","staff-guide"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-8a',null,null,null,'["standard-all"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-9a',null,null,null,'["online-form","email","phone","in-person","post","sms","social-media","feedback-card","qr-code"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-10a',null,null,null,'["large-print-letter","plain-text-email","phone-callback","posted-instead-email","easy-read","audio-message","none-yet"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-11a',null,null,null,'["fully-accessible"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.1','4.1-DD-12a','yes',null,null,null,v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','4.2','4.2','completed','strong','{"doingWell":["Do staff know how to welcome and assist customers with assistance animals?","Do staff feel confident communicating with customers who have different needs?","Do you have a process for customers to request assistance before arriving?"],"priorityActions":[],"areasToExplore":["Have staff received disability awareness or inclusion training?"],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-1',null,null,null,'["onboarding-only"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-2','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-3','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-4','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-5','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-6','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-F-7','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-9','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-10','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-11','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-12','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-13','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-14','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-15','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-16','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-17','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-18','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-18b',null,null,null,'["yes-available"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-19','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-20','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-21',null,null,null,'["yes-informal"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-22','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-23',null,null,null,'["yes-both"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-25',null,null,null,'["tableside","delivery","phone-service","mobile-staff","extended-time","out-of-hours"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-26','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-27',null,null,null,'["yes-general"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-28',null,null,null,'["intersectionality","cultural-factors","trauma-informed","first-nations","cald"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-31',null,null,null,'["yes-less"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-32',null,null,null,'["yes-ongoing"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.2','4.2-D-33',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','4.3','4.3','completed','strong','{"doingWell":["Can customers easily modify bookings if their needs change?","Are payment terminals positioned at accessible heights?","Can staff bring payment terminals to customers if needed?"],"priorityActions":[{"questionId":"4.3-D-10","questionText":"Are your concessions and discounts clearly communicated and easy to access?","action":"Clearly promote concessions and discounts on your website, at point of sale, and in booking confirmations. Include eligibility criteria, how to claim, and what evidence (if any) is needed. Avoid requiring customers to ask.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"},{"questionId":"4.3-D-11","questionText":"Can customers with disability use all the same payment methods as other customers?","action":"Ensure customers with disability can use all the same payment methods as other customers. If any method is inaccessible (e.g., PIN pad out of reach, no audio feedback on EFTPOS), provide an equally convenient alternative.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','4.3','4.3-1-1','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-1-2','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-1-3','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-1-4','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-1',null,null,null,'["phone-alternative"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-2',null,null,null,'["yes-notes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-3',null,null,null,'["yes-promoted"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-4',null,null,null,'["yes-specific"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-5',null,null,null,'["cash","contactless","chip-pin","signature","mobile-pay","invoice","payment plan","ndis"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-6',null,null,null,'["yes-accessible-email"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-7',null,null,null,'["yes-phone"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-8',null,null,null,'["booking-form","dedicated-contact","phone-option","follow-up-call","pre-visit-meeting","no-process"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-9',null,null,null,'["large-print","screen-reader","verbal","easy-read","braille"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-10',null,null,null,'["no-concessions"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-11',null,null,null,'["limited"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-12',null,null,null,'["yes-accessible"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-13',null,null,null,'["yes-multiple"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-14',null,null,null,'["alternative-available"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-15',null,null,null,'["alternative-available"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','4.3','4.3-D-16',null,null,null,'["yes"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','5.1','5.1','completed','strong','{"doingWell":["Do you have a documented accessibility or disability inclusion policy?","Do you have a Disability Inclusion Action Plan (DIAP) or equivalent?","Do you accept the Companion Card for carers or support people?"],"priorityActions":[{"questionId":"5.1-D-10","questionText":"Is there a dedicated budget for accessibility improvements?","action":"Allocate a dedicated budget line for accessibility improvements. Without ring-fenced funding, accessibility competes with other priorities and is often deprioritised. Include both capital works and ongoing operational costs.","priority":"medium","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":["When physical access changes (lift outage, ramp work, accessible toilet closure), is there a documented process to update all downstream channels within 24 hours?"],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','5.1','5.1-F-1',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-F-3',null,null,null,'["yes-current"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-F-4',null,null,null,'["yes"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-F-5',null,null,null,'["yes-basic"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-F-6',null,null,null,'["yes-informal"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-F-7',null,null,null,'["yes-documented"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-6','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-7',null,null,null,'["yes-regular"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-8','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-9',null,null,null,'["yes-senior"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-10',null,null,null,'["no"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-11',null,null,null,'["yes-trained"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-12',null,null,null,'["yes-specific"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-13',null,null,null,'["yes-certified"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-14',null,null,null,'["yes-regular"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-15',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-16',null,null,null,'["yes-multiple"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-17',null,null,null,'["large-print","easy-read","audio","braille","auslan","accessible-digital","on-request"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-18',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-19',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-20',null,null,null,'["yes-bcp"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-21',null,null,null,'["yes-owner-cadence"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.1','5.1-D-22',null,null,null,'["reactive"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary, started_at, completed_at, organisation_id, site_id, user_id, last_modified_by_user_id)
+  values ('seed-redgum-riverside-theatre','5.3','5.3','completed','strong','{"doingWell":["Do all customer-facing staff receive disability awareness training?","Do staff know how to use accessibility features and equipment?","Is disability training refreshed regularly?"],"priorityActions":[{"questionId":"5.3-F-2","questionText":"Is disability awareness included in staff onboarding?","action":"Add disability awareness to your staff onboarding program. Cover your legal obligations under the DDA 1992, your organisation''s accessibility policy, how to communicate respectfully, and where to find accessibility resources and support.","priority":"high","timeframe":"30-90 days","complianceLevel":"best-practice"}],"areasToExplore":[],"professionalReview":[]}'::jsonb,now() - interval '6 days',now() - interval '4 days',v_org,v_site,v_user,v_user)
+  on conflict (organisation_id, site_id, module_id) do nothing;
+  insert into module_responses (session_id, module_id, question_id, answer, notes, partial_description, multi_select_values, organisation_id, site_id, user_id) values
+    ('seed-redgum-riverside-theatre','5.3','5.3-F-1',null,null,null,'["yes-all"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-F-2','partially',null,'Staff had training in 2023; a refresher is scheduled but not yet booked.',null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-F-3',null,null,null,'["yes-confident"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-1','yes','Verified with the venue coordinator.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-3','yes','Confirmed on site during the March access walk-through.',null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-4',null,null,null,'["yes-comprehensive"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-5',null,null,null,'["yes-practical"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-6',null,null,null,'["yes-all"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-7',null,null,null,'["yes-formal"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-8','yes',null,null,null,v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-9',null,null,null,'["yes-included"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-10',null,null,null,'["yes-included"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-11',null,null,null,'["yes-all"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-12',null,null,null,'["yes-covered"]',v_org,v_site,v_user),
+    ('seed-redgum-riverside-theatre','5.3','5.3-D-13',null,null,null,'["yes-regular"]',v_org,v_site,v_user)
+  on conflict (organisation_id, site_id, module_id, question_id) do nothing;
+
   raise notice 'Redgum demo seed complete for org %', v_org;
 end $$;

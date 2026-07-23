@@ -133,12 +133,17 @@ const VENUES = [
   { name: 'Winter Markets', maturity: 'low', modules: ['1.1', '2.1', '2.4', '3.5', '4.2', '4.4', '4.7', '6.1', '6.2'] },
   { name: 'Riverbend Summer Festival', maturity: 'low', modules: ['1.1', '1.4', '2.1', '2.4', '3.6', '4.2', '4.7', '4.4', '4.5', '6.1', '6.3', '7.1'] },
   { name: 'Town Hall & Civic Centre', maturity: 'high', modules: ['1.1', '2.1', '2.2', '3.1', '4.2', '5.1', '5.3', '5.5', '4.4', '4.5', '4.6', '5.4', '5.6', '5.7', '5.8', '5.9', '5.10'] },
+  // Showcase venue for the public Accessibility Profile: runs every module the
+  // profile draws from, answered in full (not just the first questions) and
+  // skewed strongly positive, so the shared profile reads rich and welcoming.
+  { name: 'Riverside Theatre', maturity: 'showcase', modules: ['1.1', '1.3', '2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.7', '3.8', '4.1', '4.2', '4.3', '5.1', '5.3'] },
 ];
 
 // (venue, module) pairs that get a prior reassessment snapshot (improved since)
 const REASSESSED = new Set(['Central Library|3.1', 'Aquatic & Leisure Centre|2.1', 'Winter Markets|2.1']);
 
 const DIST = {
+  showcase: { yes: 0.85, partially: 0.15, no: 0, 'unable-to-check': 0 },
   high: { yes: 0.68, partially: 0.18, no: 0.08, 'unable-to-check': 0.06 },
   med: { yes: 0.55, partially: 0.22, no: 0.14, 'unable-to-check': 0.09 },
   low: { yes: 0.42, partially: 0.25, no: 0.22, 'unable-to-check': 0.11 },
@@ -149,6 +154,7 @@ function rollAnswer(maturity) {
   return 'yes';
 }
 const GRADE_DIST = {
+  showcase: { positive: 0.9, neutral: 0.1, negative: 0 },
   high: { positive: 0.66, neutral: 0.2, negative: 0.14 },
   med: { positive: 0.5, neutral: 0.27, negative: 0.23 },
   low: { positive: 0.36, neutral: 0.3, negative: 0.34 },
@@ -221,6 +227,13 @@ function answerQuestion(q, maturity, worse) {
   }
   // multi-select: select a subset of the positive options by maturity
   if (!q.options.length) return null;
+  // Showcase venue: select every real option so the public profile surfaces the
+  // full set of features (option ids the Access Profile looks for).
+  if (maturity === 'showcase') {
+    const chosen = q.options.filter(o => !isSkip(o));
+    const sel = chosen.length ? chosen : q.options;
+    return { qid: q.qid, type: q.type, answer: null, selected: sel.map(o => o.id), notes: null, partial: null, grade: 'positive' };
+  }
   const positives = q.options.filter(o => grade(o, q.sentiments) === 'positive' && !isSkip(o));
   const p = maturity === 'high' ? 0.8 : maturity === 'med' ? 0.55 : 0.35;
   let selected = positives.filter(() => rnd() < p);
@@ -232,7 +245,7 @@ function answerQuestion(q, maturity, worse) {
 
 // build one module's answers + summary
 function buildModule(code, maturity, worse = false) {
-  const qs = (byModule.get(code) || []).slice(0, 16);
+  const qs = (byModule.get(code) || []).slice(0, maturity === 'showcase' ? 200 : 16);
   const answers = qs.map(q => answerQuestion(q, maturity, worse)).filter(Boolean);
   const doingWell = answers.filter(a => a.grade === 'positive').slice(0, 3)
     .map(a => qs.find(q => q.qid === a.qid)?.text).filter(Boolean);
