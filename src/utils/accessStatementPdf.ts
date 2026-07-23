@@ -112,8 +112,10 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
   doc.line(PAGE.marginLeft, y, PAGE.marginLeft + PAGE.contentWidth, y);
   y += 8;
 
+  // Reserve room for the heading plus a few lines of its content, so a heading
+  // can never be left orphaned at the bottom of a page.
   const heading = (text: string) => {
-    ensure(16);
+    ensure(28);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
     doc.setTextColor(73, 14, 103);
@@ -130,7 +132,7 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
     if (block.paragraph) paragraph(block.paragraph, 12, [40, 40, 50], block.sections.length ? 4 : 7);
     for (const s of block.sections) {
       if (s.heading?.trim()) {
-        ensure(8);
+        ensure(20);
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(12);
         doc.setTextColor(60, 60, 70);

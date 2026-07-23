@@ -121,26 +121,21 @@ function resolveFeature(
   optionLabels: Map<string, Map<string, string>>,
   optionSentiments: Map<string, Map<string, string>>,
 ): StatementFeature | null {
+  // Only fully-present features appear on the public profile. Partial and "no"
+  // answers are omitted (they still inform the internal report and DIAP), so a
+  // public statement never advertises something that is only half in place.
   let present = false;
-  let partial = false;
-  let partialDetail: string | undefined;
   const matchedLabels: string[] = [];
 
   for (const qid of def.yesNo ?? []) {
     const r = responseByQuestion.get(qid);
     if (!r) continue;
     if (r.answer === 'yes') { present = true; continue; }
-    if (r.answer === 'partially') {
-      partial = true;
-      if (!partialDetail) partialDetail = r.partialDescription?.trim() || r.notes?.trim() || undefined;
-      continue;
-    }
+    if (r.answer) continue; // 'partially' / 'no' / 'unable-to-check' do not appear
     // Some questions mapped here are actually single/multi-select and store the
-    // answer in multiSelectValues. Grade the selected options so they count too.
-    if (!r.answer && r.multiSelectValues && r.multiSelectValues.length > 0) {
-      const graded = gradeSelectedOptions(qid, r.multiSelectValues, optionSentiments);
-      if (graded === 'positive') present = true;
-      else if (graded === 'neutral') partial = true;
+    // answer in multiSelectValues. Only a clearly positive selection counts.
+    if (r.multiSelectValues && r.multiSelectValues.length > 0) {
+      if (gradeSelectedOptions(qid, r.multiSelectValues, optionSentiments) === 'positive') present = true;
     }
   }
 
@@ -159,15 +154,11 @@ function resolveFeature(
   for (const qid of def.yesOption ?? []) {
     const values = responseByQuestion.get(qid)?.multiSelectValues ?? [];
     if (values.some((v) => /^yes/i.test(v))) present = true;
-    else if (values.some((v) => /partial|limited|request|some/i.test(v))) partial = true;
   }
 
-  if (present) {
-    const detail = Array.from(new Set(matchedLabels)).slice(0, 2).join(', ') || undefined;
-    return { label: def.label, phrase: def.phrase, state: 'yes', detail };
-  }
-  if (partial) return { label: def.label, phrase: def.phrase, state: 'partial', detail: partialDetail };
-  return null;
+  if (!present) return null;
+  const detail = Array.from(new Set(matchedLabels)).slice(0, 2).join(', ') || undefined;
+  return { label: def.label, phrase: def.phrase, state: 'yes', detail };
 }
 
 export function generateAccessStatement(
@@ -219,22 +210,19 @@ export function buildAccessProfileProse(statement: AccessStatement): ProseSectio
   return statement.categories
     .map((cat) => {
       const lead = cat.lead || cat.title;
-      const yes = cat.features.filter((f) => f.state === 'yes').map(phraseOf);
-      const partial = cat.features.filter((f) => f.state === 'partial').map(phraseOf);
+      const phrases = cat.features.map(phraseOf);
       let paragraph = '';
-      if (yes.length > 0) {
-        if (yes.length <= 3) {
-          paragraph = `${lead}, you'll find ${humanJoin(yes)}.`;
-        } else {
-          // Split a long list into two sentences so it reads naturally.
-          const half = Math.ceil(yes.length / 2);
-          paragraph = `${lead}, you'll find ${humanJoin(yes.slice(0, half))}. You'll also find ${humanJoin(yes.slice(half))}.`;
+      if (phrases.length > 0 && phrases.length <= 3) {
+        paragraph = `${lead}, you'll find ${humanJoin(phrases)}.`;
+      } else if (phrases.length > 3) {
+        // Break a long list into sentences of about three so nothing runs on.
+        const chunks: string[][] = [];
+        for (let i = 0; i < phrases.length; i += 3) chunks.push(phrases.slice(i, i + 3));
+        paragraph = `${lead}, you'll find ${humanJoin(chunks[0])}.`;
+        const connectors = ["You'll also find", 'You can also expect'];
+        for (let i = 1; i < chunks.length; i += 1) {
+          paragraph += ` ${connectors[(i - 1) % connectors.length]} ${humanJoin(chunks[i])}.`;
         }
-        if (partial.length > 0) {
-          paragraph += ` Some features are partly in place, including ${humanJoin(partial)}.`;
-        }
-      } else if (partial.length > 0) {
-        paragraph = `${lead}, some features are partly in place, including ${humanJoin(partial)}.`;
       }
       return { id: cat.id, title: cat.title, paragraph };
     })
