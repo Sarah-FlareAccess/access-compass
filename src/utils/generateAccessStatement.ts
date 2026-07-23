@@ -62,10 +62,54 @@ function buildOptionLabelIndex(): Map<string, Map<string, string>> {
   return index;
 }
 
+/** questionId -> (optionId -> sentiment), for grading select-type answers. */
+function buildOptionSentimentIndex(): Map<string, Map<string, string>> {
+  const index = new Map<string, Map<string, string>>();
+  for (const mod of accessModules) {
+    for (const q of mod.questions) {
+      if (!q.options || q.options.length === 0) continue;
+      const opts = new Map<string, string>();
+      for (const opt of q.options) if (opt.sentiment) opts.set(opt.id, opt.sentiment);
+      if (opts.size > 0) index.set(q.id, opts);
+    }
+  }
+  return index;
+}
+
+/**
+ * Grade the options selected for a single/multi-select answer, so a question
+ * whose answer lives in multiSelectValues (not `answer`) is read correctly.
+ * The question's own option sentiment wins; otherwise infer conservatively.
+ */
+function gradeSelectedOptions(
+  questionId: string,
+  values: string[],
+  sentiments: Map<string, Map<string, string>>,
+): 'positive' | 'neutral' | 'negative' | null {
+  const map = sentiments.get(questionId);
+  let pos = false;
+  let neu = false;
+  let neg = false;
+  for (const v of values) {
+    const s = map?.get(v);
+    if (s === 'positive') pos = true;
+    else if (s === 'negative') neg = true;
+    else if (s === 'neutral') neu = true;
+    else if (/^yes/i.test(v)) pos = true;
+    else if (/^(no|none)$|not-applicable|^na$/i.test(v)) neg = true;
+    else neu = true;
+  }
+  if (pos) return 'positive';
+  if (neu) return 'neutral';
+  if (neg) return 'negative';
+  return null;
+}
+
 function resolveFeature(
   def: FeatureDef,
   responseByQuestion: Map<string, QuestionResponse>,
   optionLabels: Map<string, Map<string, string>>,
+  optionSentiments: Map<string, Map<string, string>>,
 ): StatementFeature | null {
   let present = false;
   let partial = false;
@@ -75,10 +119,18 @@ function resolveFeature(
   for (const qid of def.yesNo ?? []) {
     const r = responseByQuestion.get(qid);
     if (!r) continue;
-    if (r.answer === 'yes') present = true;
-    else if (r.answer === 'partially') {
+    if (r.answer === 'yes') { present = true; continue; }
+    if (r.answer === 'partially') {
       partial = true;
       if (!partialDetail) partialDetail = r.partialDescription?.trim() || r.notes?.trim() || undefined;
+      continue;
+    }
+    // Some questions mapped here are actually single/multi-select and store the
+    // answer in multiSelectValues. Grade the selected options so they count too.
+    if (!r.answer && r.multiSelectValues && r.multiSelectValues.length > 0) {
+      const graded = gradeSelectedOptions(qid, r.multiSelectValues, optionSentiments);
+      if (graded === 'positive') present = true;
+      else if (graded === 'neutral') partial = true;
     }
   }
 
@@ -118,13 +170,14 @@ export function generateAccessStatement(
   }
 
   const optionLabels = buildOptionLabelIndex();
+  const optionSentiments = buildOptionSentimentIndex();
   const categories: StatementCategory[] = [];
   let featureCount = 0;
 
   for (const cat of ACCESS_STATEMENT_CATEGORIES) {
     const features: StatementFeature[] = [];
     for (const def of cat.features) {
-      const feature = resolveFeature(def, responseByQuestion, optionLabels);
+      const feature = resolveFeature(def, responseByQuestion, optionLabels, optionSentiments);
       if (feature) features.push(feature);
     }
     if (features.length > 0) {

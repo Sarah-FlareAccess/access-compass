@@ -66,6 +66,7 @@ const mustHave = [
   'Wheelchair spaces',
   'Wider seats for larger bodies',
   'Hearing loop or assistive listening',
+  'Accessible toilet', // single-select question read via option sentiment
 ];
 const missing = mustHave.filter((l) => !labels.includes(l));
 

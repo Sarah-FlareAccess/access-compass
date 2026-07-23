@@ -43,10 +43,10 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
     title: 'Getting to the venue',
     lead: 'Getting here',
     features: [
-      { label: 'Accessible parking near the entrance', phrase: 'accessible parking, with bays close to the main entrance', yesNo: ['2.1-F-1', '2.1-F-2'] },
+      { label: 'Accessible parking', phrase: 'accessible parking', yesNo: ['2.1-F-1', '2.1-F-2'] },
       { label: 'Drop-off point near the entrance', phrase: 'a drop-off point right by the entrance', yesNo: ['2.1-F-3'] },
       { label: 'Step-free path from parking to the entrance', phrase: 'a level, step-free path from the car park to the door', yesNo: ['2.1-F-4'] },
-      { label: 'Accessible transport information provided', phrase: 'clear information about accessible public transport before you arrive', yesNo: ['1.1-F-8'] },
+      { label: 'Accessible transport information provided', phrase: 'clear information about accessible public transport', yesNo: ['1.1-F-8'] },
     ],
   },
   {
@@ -59,7 +59,7 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
       { label: 'Ramp access', phrase: 'a ramp for level access', options: [{ questionId: '2.2-F-1', anyOf: ['permanent-ramp', 'portable-ramp'] }] },
       { label: 'Lift at the entrance', phrase: 'a lift at the entrance', options: [{ questionId: '2.2-F-1', anyOf: ['lift-at-entrance'] }] },
       { label: 'Handrails on entrance steps', phrase: 'handrails on the entrance steps', yesNo: ['2.2-D-23'] },
-      { label: 'Entrance door at least 850mm wide', phrase: 'a doorway wide enough for wheelchairs and mobility aids', yesNo: ['2.2-F-2'] },
+      { label: 'Entrance door at least 850mm wide', phrase: 'an entrance door at least 850mm wide', yesNo: ['2.2-F-2'] },
       { label: 'Easy-open or automatic doors', phrase: 'doors that are easy to open, or automatic', yesNo: ['2.2-F-3'] },
     ],
   },
@@ -110,7 +110,7 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
       { label: 'Adjustable or dimmable lighting', phrase: 'lighting that can be dimmed or adjusted', yesNo: ['3.3-D-1'] },
       { label: 'Quiet or sensory-break space', phrase: 'a quiet space set aside for a sensory break', yesNo: ['3.3-1-2'] },
       { label: 'Relaxed or sensory-friendly sessions', phrase: 'relaxed and sensory-friendly performances', yesNo: ['3.3-1-7'] },
-      { label: 'Background noise kept manageable', phrase: 'background noise kept low so you can hear clearly', yesNo: ['3.3-1-3'] },
+      { label: 'Background noise kept manageable', phrase: 'background noise kept to a comfortable level', yesNo: ['3.3-1-3'] },
     ],
   },
   {
