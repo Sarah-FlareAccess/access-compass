@@ -155,6 +155,19 @@ export const ACCESS_STATEMENT_CATEGORIES: FeatureCategory[] = [
   },
 ];
 
+/** Default, warm-but-neutral intro for each category. Editable by the venue. */
+export const DEFAULT_CATEGORY_INTROS: Record<string, string> = {
+  planning: 'A few things worth sorting out before you visit.',
+  'getting-there': "Here's what to know about getting to us.",
+  'getting-in': 'What to expect as you come in.',
+  inside: "Getting around once you're inside.",
+  toilets: 'Accessible facilities are available on site.',
+  seating: 'Your options for seating and views.',
+  sensory: 'Comfort for a range of sensory needs.',
+  'hearing-comms': 'Support for hearing and communication.',
+  service: 'How our team can help.',
+};
+
 /** Module codes referenced by the feature map, so the page loads their progress. */
 export const accessStatementModuleIds: string[] = Array.from(
   new Set(

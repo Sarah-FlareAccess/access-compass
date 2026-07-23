@@ -113,6 +113,27 @@ export default function AccessProfile() {
     commit({ ...overrides, confirmedPartials: Array.from(set) });
   };
 
+  const categoryIntroValue = (categoryId: string, fallback?: string) => {
+    const ov = overrides.categoryIntros?.[categoryId];
+    return ov !== undefined ? ov : fallback || '';
+  };
+
+  const setCategoryIntro = (categoryId: string, text: string) => {
+    commit({ ...overrides, categoryIntros: { ...(overrides.categoryIntros ?? {}), [categoryId]: text } });
+  };
+
+  // Editing wording changes only how a real feature reads, never whether it is
+  // present, so an edit can reword a feature but cannot invent one.
+  const featureLabelValue = (categoryId: string, label: string, fallback?: string) => {
+    const ov = overrides.features[featureKey(categoryId, label)]?.label;
+    return ov !== undefined ? ov : fallback || '';
+  };
+
+  const setFeatureLabel = (categoryId: string, label: string, text: string) => {
+    const key = featureKey(categoryId, label);
+    commit({ ...overrides, features: { ...overrides.features, [key]: { ...overrides.features[key], label: text } } });
+  };
+
   const addSection = () => {
     commit({ ...overrides, sections: [...(overrides.sections ?? []), { id: newId(), heading: '', text: '', placement: 'general' }] });
   };
@@ -294,16 +315,6 @@ export default function AccessProfile() {
                     </ul>
                   </>
                 )}
-                {block.notes.length > 0 && (
-                  <div style={{ background: 'rgba(230,119,0,0.06)', border: '1px solid #fcd9a6', borderRadius: '8px', padding: '10px 14px', marginBottom: '12px' }}>
-                    <strong style={{ display: 'block', marginBottom: '4px', color: '#7c3a09' }}>Good to know</strong>
-                    <ul style={{ margin: 0, paddingLeft: '20px', lineHeight: 1.6 }}>
-                      {block.notes.map((n, i) => (
-                        <li key={i}>{n}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
                 {block.sections.map((s) => (
                   <div key={s.id} style={{ marginTop: '10px' }}>
                     {s.heading?.trim() && <strong style={{ display: 'block' }}>{s.heading.trim()}</strong>}
@@ -332,12 +343,21 @@ export default function AccessProfile() {
             <div className="card" style={{ marginBottom: '20px' }}>
               <h2 style={{ marginTop: 0, fontSize: '18px' }}>Choose what to show</h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginTop: 0 }}>
-                These come straight from your self-review, so the wording stays accurate and can't be
-                changed here. Untick anything you'd rather not publish.
+                These features come from your self-review. You can reword how each reads and edit each
+                section's intro, but the features stay tied to your answers, so you can reword or hide,
+                not invent. Please keep the wording accurate before you share.
               </p>
               {base.categories.map((cat) => (
-                <div key={cat.id} style={{ marginBottom: '18px' }}>
-                  <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '15px' }}>{cat.title}</h3>
+                <div key={cat.id} style={{ marginBottom: '22px' }}>
+                  <h3 style={{ margin: '0 0 6px 0', color: '#490E67', fontSize: '15px' }}>{cat.title}</h3>
+                  <textarea
+                    value={categoryIntroValue(cat.id, cat.intro)}
+                    onChange={(e) => setCategoryIntro(cat.id, e.target.value)}
+                    placeholder="Section intro (optional)"
+                    rows={2}
+                    style={{ ...inputStyle, resize: 'vertical', marginBottom: '10px' }}
+                    aria-label={`Intro for ${cat.title}`}
+                  />
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {cat.features.map((f) => {
                       const partial = f.state === 'partial';
@@ -358,15 +378,26 @@ export default function AccessProfile() {
                                 : {}),
                           }}
                         >
-                          <label style={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
-                            <input type="checkbox" checked={shown} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} />
-                            <span style={{ color: shown ? 'inherit' : 'var(--text-muted)' }}>{f.label}</span>
+                          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <input type="checkbox" checked={shown} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} aria-label={`Show ${f.label}`} />
+                            {partial ? (
+                              <span style={{ color: shown ? 'inherit' : 'var(--text-muted)' }}>{f.label}</span>
+                            ) : (
+                              <input
+                                type="text"
+                                value={featureLabelValue(cat.id, f.label, f.label)}
+                                onChange={(e) => setFeatureLabel(cat.id, f.label, e.target.value)}
+                                disabled={!shown}
+                                style={{ ...inputStyle, flex: 1 }}
+                                aria-label={`Wording for ${f.label}`}
+                              />
+                            )}
                             {partial && (
                               <span style={{ fontSize: '12px', fontWeight: 700, borderRadius: '5px', padding: '1px 7px', color: confirmed ? '#166534' : '#7c3a09', background: confirmed ? '#dcfce7' : '#fef3c7' }}>
                                 {confirmed ? 'reviewed' : 'needs review'}
                               </span>
                             )}
-                          </label>
+                          </div>
                           {partial && shown && (
                             <div style={{ marginLeft: '27px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
                               <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>

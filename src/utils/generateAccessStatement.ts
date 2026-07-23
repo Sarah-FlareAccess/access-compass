@@ -9,7 +9,7 @@
 
 import type { ModuleProgress, QuestionResponse } from '../hooks/useModuleProgress';
 import { accessModules } from '../data/accessModules';
-import { ACCESS_STATEMENT_CATEGORIES, type FeatureDef } from '../data/accessStatementFeatures';
+import { ACCESS_STATEMENT_CATEGORIES, DEFAULT_CATEGORY_INTROS, type FeatureDef } from '../data/accessStatementFeatures';
 
 export interface StatementFeature {
   label: string;
@@ -37,8 +37,6 @@ export interface ProfileBlock {
   intro: string;
   leadIn: string;
   bullets: string[];
-  /** The venue's own notes for partial features (the "Good to know" callout). */
-  notes: string[];
   sections: ProfileSection[];
 }
 
@@ -46,6 +44,8 @@ export interface StatementCategory {
   id: string;
   title: string;
   lead?: string;
+  /** Warm intro for the section; overridable by the venue. */
+  intro?: string;
   features: StatementFeature[];
 }
 
@@ -65,10 +65,8 @@ export interface ProseSection {
   intro: string;
   /** A varied lead-in phrase before the bullet list. */
   leadIn: string;
-  /** In-place features as concise bullet points. */
+  /** All features (in place, plus partials in the venue's own words) as bullets. */
   bullets: string[];
-  /** The venue's own notes for partial features (the "Good to know" callout). */
-  notes: string[];
 }
 
 /** questionId -> (optionId -> label). */
@@ -206,7 +204,7 @@ export function generateAccessStatement(
       if (feature) features.push(feature);
     }
     if (features.length > 0) {
-      categories.push({ id: cat.id, title: cat.title, lead: cat.lead, features });
+      categories.push({ id: cat.id, title: cat.title, lead: cat.lead, intro: DEFAULT_CATEGORY_INTROS[cat.id], features });
       featureCount += features.length;
     }
   }
@@ -222,20 +220,6 @@ function phraseOf(f: StatementFeature): string {
   return f.phrase || lowerFirst(f.label);
 }
 
-// A warm one-line intro for each category, so a section opens with a welcome
-// before the scannable bullet list.
-const CATEGORY_INTROS: Record<string, string> = {
-  planning: "A little planning goes a long way, so here's what you can sort out before you arrive.",
-  'getting-there': 'Getting here is straightforward, whether you drive or come by public transport.',
-  'getting-in': "We've worked to make coming through the door easy.",
-  inside: "There's room to move around comfortably once you're inside.",
-  toilets: 'Accessible facilities are available on site.',
-  seating: 'There are seating options to suit different needs, with clear views of the stage.',
-  sensory: "We've thought about comfort for a range of sensory needs.",
-  'hearing-comms': 'Support is on hand so everyone can follow along.',
-  service: 'Our team is here to help, and a few extras make your visit easier.',
-};
-
 // Varied lead-ins so no two sections open the same way.
 const LEAD_INS = ["You'll find:", 'Features include:', 'Available at the venue:', 'You can expect:', "Here's what's on hand:", 'On offer:'];
 
@@ -243,10 +227,10 @@ export function buildAccessProfileProse(statement: AccessStatement): ProseSectio
   const sections: ProseSection[] = [];
   let index = 0;
   for (const cat of statement.categories) {
-    const bullets = cat.features.filter((f) => f.state === 'yes').map((f) => f.label);
-    // Partial features carry the venue's own note (its exact words). Fall back
-    // to a plain "in some areas" line only if a note is somehow missing.
-    const notes = cat.features
+    const inPlace = cat.features.filter((f) => f.state === 'yes').map((f) => f.label);
+    // Partial features sit in the same list, using the venue's own note (its
+    // exact words) so the detail isn't lost.
+    const partials = cat.features
       .filter((f) => f.state === 'partial')
       .map((f) => {
         const n = f.note?.trim();
@@ -254,14 +238,14 @@ export function buildAccessProfileProse(statement: AccessStatement): ProseSectio
         const p = phraseOf(f);
         return `${p.charAt(0).toUpperCase()}${p.slice(1)} is available in some areas.`;
       });
-    if (bullets.length === 0 && notes.length === 0) continue;
+    const bullets = [...inPlace, ...partials];
+    if (bullets.length === 0) continue;
     sections.push({
       id: cat.id,
       title: cat.title,
-      intro: CATEGORY_INTROS[cat.id] || '',
+      intro: cat.intro || '',
       leadIn: LEAD_INS[index % LEAD_INS.length],
       bullets,
-      notes,
     });
     index += 1;
   }
@@ -292,7 +276,6 @@ export function buildAccessProfileLayout(statement: AccessStatement): {
       intro: p?.intro || '',
       leadIn: p?.leadIn || '',
       bullets: p?.bullets ?? [],
-      notes: p?.notes ?? [],
       sections: secs,
     });
   }
@@ -323,10 +306,6 @@ export function serializeAccessStatementText(statement: AccessStatement): string
     if (b.bullets.length > 0) {
       if (b.leadIn) out += `${b.leadIn}\n`;
       for (const bl of b.bullets) out += `- ${bl}\n`;
-    }
-    if (b.notes.length > 0) {
-      out += 'Good to know:\n';
-      for (const n of b.notes) out += `- ${n}\n`;
     }
     for (const s of b.sections) out += `${s.heading?.trim() ? `${s.heading.trim()}\n` : ''}${s.text.trim()}\n`;
   }

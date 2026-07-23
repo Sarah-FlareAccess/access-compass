@@ -115,12 +115,13 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
   // Reserve room for the heading plus a few lines of its content, so a heading
   // can never be left orphaned at the bottom of a page.
   const heading = (text: string) => {
+    y += 6; // breathing room above each heading
     ensure(28);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
     doc.setTextColor(73, 14, 103);
     doc.text(text, PAGE.marginLeft, y);
-    y += 7;
+    y += 8;
     doc.setTextColor(0, 0, 0);
   };
 
@@ -157,11 +158,6 @@ export function downloadAccessProfilePdf(statement: AccessStatement): void {
       if (block.leadIn) label(block.leadIn, [60, 60, 70]);
       for (const b of block.bullets) bullet(b);
       y += 2;
-    }
-    if (block.notes.length > 0) {
-      label('Good to know', [180, 83, 9]);
-      for (const n of block.notes) bullet(n, [90, 90, 90]);
-      y += 3;
     }
     for (const s of block.sections) {
       if (s.heading?.trim()) {

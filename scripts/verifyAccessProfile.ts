@@ -51,10 +51,6 @@ for (const s of buildAccessProfileProse(statement)) {
     log('  ' + s.leadIn);
     for (const b of s.bullets) log('    - ' + b);
   }
-  if (s.notes.length > 0) {
-    log('  Good to know:');
-    for (const n of s.notes) log('    - ' + n);
-  }
   log('');
 }
 

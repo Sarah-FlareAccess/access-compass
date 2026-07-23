@@ -18,6 +18,8 @@ export interface FeatureOverride {
   hidden?: boolean;
   /** Venue-edited note for a partial feature, replacing the note from the module. */
   note?: string;
+  /** Venue-edited wording for an in-place feature, replacing the default label. */
+  label?: string;
 }
 
 export interface CustomSection {
@@ -33,6 +35,8 @@ export interface AccessProfileOverrides {
   sections: CustomSection[];
   /** refKeys of partial features the venue has reviewed and confirmed. */
   confirmedPartials?: string[];
+  /** Venue-edited section intros, keyed by category id. */
+  categoryIntros?: Record<string, string>;
 }
 
 const STORAGE_PREFIX = 'access-profile-overrides:';
@@ -59,6 +63,7 @@ export function loadOverrides(organisationName: string): AccessProfileOverrides 
       features: parsed.features ?? {},
       sections: Array.isArray(parsed.sections) ? parsed.sections : [],
       confirmedPartials: Array.isArray(parsed.confirmedPartials) ? parsed.confirmedPartials : [],
+      categoryIntros: parsed.categoryIntros && typeof parsed.categoryIntros === 'object' ? parsed.categoryIntros : {},
     };
   } catch {
     return emptyOverrides();
@@ -97,9 +102,11 @@ export function applyOverrides(
         const ov = featureOverrides[key];
         if (ov?.hidden) continue;
         const note = ov?.note !== undefined ? ov.note.trim() || undefined : f.note;
-        features.push({ ...f, note, refKey: key });
+        const label = ov?.label?.trim() || f.label;
+        features.push({ ...f, label, note, refKey: key });
       }
-      return { id: cat.id, title: cat.title, lead: cat.lead, features };
+      const intro = overrides.categoryIntros?.[cat.id] ?? cat.intro;
+      return { id: cat.id, title: cat.title, lead: cat.lead, intro, features };
     })
     .filter((c) => c.features.length > 0);
 
