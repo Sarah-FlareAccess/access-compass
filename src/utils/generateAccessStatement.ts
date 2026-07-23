@@ -1,10 +1,10 @@
 /**
  * Access Statement generator
  *
- * Turns an organisation's module responses into a customer-facing Access Profile:
- * a grouped list of accessibility features the venue HAS. Per product decision,
- * only Yes and Partial features render. "No" and unanswered features are omitted
- * so nothing reads as a failing on the venue.
+ * Turns an organisation's module responses into a customer-facing Access Profile,
+ * then composes it as warm, flowing copy (not a Yes/No list). Per product
+ * decision, only features in place (Yes) or partly in place (Partial) appear.
+ * "No" and unanswered features are omitted so nothing reads as a failing.
  */
 
 import type { ModuleProgress, QuestionResponse } from '../hooks/useModuleProgress';
@@ -15,6 +15,8 @@ export interface StatementFeature {
   label: string;
   state: 'yes' | 'partial';
   detail?: string;
+  /** Warm mid-sentence fragment for composed copy. */
+  phrase?: string;
   /** Set by applyOverrides so the edit UI can target a generated feature. */
   refKey?: string;
   /** Set by applyOverrides for a user-added custom feature. */
@@ -24,6 +26,7 @@ export interface StatementFeature {
 export interface StatementCategory {
   id: string;
   title: string;
+  lead?: string;
   features: StatementFeature[];
 }
 
@@ -34,7 +37,13 @@ export interface AccessStatement {
   featureCount: number;
 }
 
-/** questionId -> (optionId -> label), so present features can name the option matched. */
+export interface ProseSection {
+  id: string;
+  title: string;
+  paragraph: string;
+}
+
+/** questionId -> (optionId -> label). */
 function buildOptionLabelIndex(): Map<string, Map<string, string>> {
   const index = new Map<string, Map<string, string>>();
   for (const mod of accessModules) {
@@ -88,9 +97,9 @@ function resolveFeature(
 
   if (present) {
     const detail = Array.from(new Set(matchedLabels)).slice(0, 2).join(', ') || undefined;
-    return { label: def.label, state: 'yes', detail };
+    return { label: def.label, phrase: def.phrase, state: 'yes', detail };
   }
-  if (partial) return { label: def.label, state: 'partial', detail: partialDetail };
+  if (partial) return { label: def.label, phrase: def.phrase, state: 'partial', detail: partialDetail };
   return null;
 }
 
@@ -114,32 +123,69 @@ export function generateAccessStatement(
       if (feature) features.push(feature);
     }
     if (features.length > 0) {
-      categories.push({ id: cat.id, title: cat.title, features });
+      categories.push({ id: cat.id, title: cat.title, lead: cat.lead, features });
       featureCount += features.length;
     }
   }
 
-  return {
-    organisationName,
-    generatedAt: new Date().toISOString(),
-    categories,
-    featureCount,
-  };
+  return { organisationName, generatedAt: new Date().toISOString(), categories, featureCount };
+}
+
+function lowerFirst(s: string): string {
+  return s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
+}
+
+/** Join without an Oxford comma: "a", "a and b", "a, b and c". */
+function humanJoin(items: string[]): string {
+  if (items.length === 0) return '';
+  if (items.length === 1) return items[0];
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
+}
+
+function phraseOf(f: StatementFeature): string {
+  return f.phrase || lowerFirst(f.label);
+}
+
+/** Compose each category as a warm paragraph from its features. */
+export function buildAccessProfileProse(statement: AccessStatement): ProseSection[] {
+  return statement.categories
+    .map((cat) => {
+      const lead = cat.lead || cat.title;
+      const yes = cat.features.filter((f) => f.state === 'yes').map(phraseOf);
+      const partial = cat.features.filter((f) => f.state === 'partial').map(phraseOf);
+      let paragraph = '';
+      if (yes.length > 0) {
+        paragraph = `${lead}, you'll find ${humanJoin(yes)}.`;
+        if (partial.length > 0) {
+          paragraph += ` Some features are partly in place, including ${humanJoin(partial)}.`;
+        }
+      } else if (partial.length > 0) {
+        paragraph = `${lead}, some features are partly in place, including ${humanJoin(partial)}.`;
+      }
+      return { id: cat.id, title: cat.title, paragraph };
+    })
+    .filter((s) => s.paragraph.length > 0);
+}
+
+export function accessProfileIntro(venueName: string): string {
+  return `${venueName} is committed to a welcoming and accessible experience for every visitor. Here is what is in place today.`;
+}
+
+export function accessProfileClosing(venueName: string): string {
+  return `This profile is self-reported and updated as ${venueName} keeps improving access. Features described as partly in place are being worked on. If you have an access need that is not covered here, please get in touch before your visit so we can help.`;
 }
 
 export function serializeAccessStatementText(statement: AccessStatement): string {
+  const venue = statement.organisationName;
   const date = new Date(statement.generatedAt).toLocaleDateString('en-AU', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   });
-  let out = `${statement.organisationName}\nAccessibility profile\nSelf-reported as of ${date}\n${'='.repeat(40)}\n`;
-  for (const cat of statement.categories) {
-    out += `\n${cat.title}\n`;
-    for (const f of cat.features) {
-      out += `  ${f.state === 'yes' ? 'Yes' : 'Partial'} - ${f.label}${f.detail ? ` (${f.detail})` : ''}\n`;
-    }
+  let out = `${venue}\nAccessibility profile\n\n${accessProfileIntro(venue)}\nSelf-reported as of ${date}.\n`;
+  for (const section of buildAccessProfileProse(statement)) {
+    out += `\n${section.title}\n${section.paragraph}\n`;
   }
-  out += '\nGenerated by Access Compass.';
+  out += `\n${accessProfileClosing(venue)}\n\nPrepared with Access Compass.`;
   return out;
 }

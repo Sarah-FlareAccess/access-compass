@@ -78,6 +78,7 @@ export function applyOverrides(
   overrides: AccessProfileOverrides,
 ): AccessStatement {
   const titleById = new Map(ACCESS_STATEMENT_CATEGORIES.map((c) => [c.id, c.title]));
+  const leadById = new Map(ACCESS_STATEMENT_CATEGORIES.map((c) => [c.id, c.lead]));
   const order = ACCESS_STATEMENT_CATEGORIES.map((c) => c.id);
 
   const categories: StatementCategory[] = statement.categories.map((cat) => {
@@ -88,18 +89,20 @@ export function applyOverrides(
       if (ov?.hidden) continue;
       features.push({
         label: ov?.label?.trim() || f.label,
+        phrase: f.phrase,
         state: ov?.state ?? f.state,
         detail: ov?.detail !== undefined ? ov.detail.trim() || undefined : f.detail,
         refKey: key,
       });
     }
-    return { id: cat.id, title: cat.title, features };
+    return { id: cat.id, title: cat.title, lead: cat.lead, features };
   });
 
   const indexById = new Map(categories.map((c, i) => [c.id, i]));
   for (const cf of overrides.custom) {
     const feature: StatementFeature = {
       label: cf.label,
+      phrase: cf.label ? cf.label.charAt(0).toLowerCase() + cf.label.slice(1) : cf.label,
       state: cf.state,
       detail: cf.detail?.trim() || undefined,
       customId: cf.id,
@@ -108,7 +111,12 @@ export function applyOverrides(
     if (idx !== undefined) {
       categories[idx].features.push(feature);
     } else {
-      categories.push({ id: cf.categoryId, title: titleById.get(cf.categoryId) || 'Other', features: [feature] });
+      categories.push({
+        id: cf.categoryId,
+        title: titleById.get(cf.categoryId) || 'Other',
+        lead: leadById.get(cf.categoryId),
+        features: [feature],
+      });
       indexById.set(cf.categoryId, categories.length - 1);
     }
   }

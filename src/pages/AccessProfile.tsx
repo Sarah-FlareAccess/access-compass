@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSession } from '../utils/session';
 import { useModuleProgress } from '../hooks/useModuleProgress';
+import { useSites, getActiveSiteId } from '../hooks/useSites';
 import { usePageTitle } from '../hooks/usePageTitle';
 import {
   ACCESS_STATEMENT_CATEGORIES,
@@ -10,6 +11,9 @@ import {
 import {
   generateAccessStatement,
   serializeAccessStatementText,
+  buildAccessProfileProse,
+  accessProfileIntro,
+  accessProfileClosing,
   type StatementFeature,
 } from '../utils/generateAccessStatement';
 import { downloadAccessProfilePdf } from '../utils/accessStatementPdf';
@@ -25,26 +29,32 @@ import {
 export default function AccessProfile() {
   usePageTitle('Accessibility Profile');
   const { progress, isLoading } = useModuleProgress(accessStatementModuleIds);
+  const { sites } = useSites();
   const [copied, setCopied] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-  const organisationName = useMemo(() => {
+  const venueName = useMemo(() => {
+    const activeId = getActiveSiteId();
+    const site = sites.find((s) => s.id === activeId);
+    if (site?.name) return site.name;
     const session = getSession();
     return session?.business_snapshot?.organisation_name || 'Your Venue';
+  }, [sites]);
+
+  const overridesKey = useMemo(() => {
+    const activeId = getActiveSiteId();
+    if (activeId) return `site:${activeId}`;
+    const session = getSession();
+    return `org:${session?.business_snapshot?.organisation_name || 'venue'}`;
   }, []);
 
-  const [overrides, setOverrides] = useState<AccessProfileOverrides>(() =>
-    loadOverrides(organisationName),
-  );
+  const [overrides, setOverrides] = useState<AccessProfileOverrides>(() => loadOverrides(overridesKey));
 
-  const base = useMemo(
-    () => generateAccessStatement(progress, organisationName),
-    [progress, organisationName],
-  );
+  const base = useMemo(() => generateAccessStatement(progress, venueName), [progress, venueName]);
   const statement = useMemo(() => applyOverrides(base, overrides), [base, overrides]);
+  const prose = useMemo(() => buildAccessProfileProse(statement), [statement]);
 
-  const hasEdits =
-    Object.keys(overrides.features).length > 0 || overrides.custom.length > 0;
+  const hasEdits = Object.keys(overrides.features).length > 0 || overrides.custom.length > 0;
 
   const generatedDate = new Date(statement.generatedAt).toLocaleDateString('en-AU', {
     day: 'numeric',
@@ -54,20 +64,14 @@ export default function AccessProfile() {
 
   const commit = (next: AccessProfileOverrides) => {
     setOverrides(next);
-    saveOverrides(organisationName, next);
+    saveOverrides(overridesKey, next);
   };
 
   const patchFeature = (feature: StatementFeature, patch: { label?: string; detail?: string; state?: 'yes' | 'partial' }) => {
     if (feature.customId) {
-      commit({
-        ...overrides,
-        custom: overrides.custom.map((c) => (c.id === feature.customId ? { ...c, ...patch } : c)),
-      });
+      commit({ ...overrides, custom: overrides.custom.map((c) => (c.id === feature.customId ? { ...c, ...patch } : c)) });
     } else if (feature.refKey) {
-      commit({
-        ...overrides,
-        features: { ...overrides.features, [feature.refKey]: { ...overrides.features[feature.refKey], ...patch } },
-      });
+      commit({ ...overrides, features: { ...overrides.features, [feature.refKey]: { ...overrides.features[feature.refKey], ...patch } } });
     }
   };
 
@@ -75,18 +79,12 @@ export default function AccessProfile() {
     if (feature.customId) {
       commit({ ...overrides, custom: overrides.custom.filter((c) => c.id !== feature.customId) });
     } else if (feature.refKey) {
-      commit({
-        ...overrides,
-        features: { ...overrides.features, [feature.refKey]: { ...overrides.features[feature.refKey], hidden: true } },
-      });
+      commit({ ...overrides, features: { ...overrides.features, [feature.refKey]: { ...overrides.features[feature.refKey], hidden: true } } });
     }
   };
 
   const addFeature = (categoryId: string) => {
-    commit({
-      ...overrides,
-      custom: [...overrides.custom, { id: newCustomId(), categoryId, label: 'New feature', state: 'yes' }],
-    });
+    commit({ ...overrides, custom: [...overrides.custom, { id: newCustomId(), categoryId, label: 'New feature', state: 'yes' }] });
   };
 
   const handleCopy = async () => {
@@ -97,27 +95,6 @@ export default function AccessProfile() {
     } catch {
       setCopied(false);
     }
-  };
-
-  const stateBadge = (state: 'yes' | 'partial') => {
-    const isYes = state === 'yes';
-    return (
-      <span
-        style={{
-          display: 'inline-block',
-          minWidth: '58px',
-          textAlign: 'center',
-          fontSize: '13px',
-          fontWeight: 700,
-          padding: '2px 8px',
-          borderRadius: '6px',
-          color: isYes ? '#14532d' : '#7c3a09',
-          background: isYes ? '#dcfce7' : '#fef3c7',
-        }}
-      >
-        {isYes ? 'Yes' : 'Partial'}
-      </span>
-    );
   };
 
   const featuresFor = (categoryId: string): StatementFeature[] =>
@@ -132,11 +109,11 @@ export default function AccessProfile() {
 
   return (
     <div className="export-page">
-      <div className="export-container" style={{ maxWidth: '860px', margin: '0 auto', padding: '24px 20px' }}>
+      <div className="export-container" style={{ maxWidth: '820px', margin: '0 auto', padding: '24px 20px' }}>
         <div style={{ marginBottom: '20px' }}>
           <h1 style={{ marginBottom: '6px' }}>Accessibility profile</h1>
           <p className="helper-text" style={{ color: 'var(--text-muted)', margin: 0 }}>
-            A shareable summary of the accessibility features at {organisationName}, drawn from your
+            A shareable, written summary of the accessibility features at {venueName}, drawn from your
             self-review. Share it with festivals, event organisers and patrons.
           </p>
         </div>
@@ -145,33 +122,20 @@ export default function AccessProfile() {
 
         {!isLoading && (
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '24px', alignItems: 'center' }}>
-            <button
-              className={editMode ? 'btn btn-primary' : 'btn btn-secondary'}
-              onClick={() => setEditMode((v) => !v)}
-            >
+            <button className={editMode ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setEditMode((v) => !v)}>
               {editMode ? 'Done editing' : 'Edit profile'}
             </button>
-            <button
-              className="btn btn-primary"
-              onClick={() => downloadAccessProfilePdf(statement)}
-              disabled={statement.featureCount === 0}
-            >
+            <button className="btn btn-primary" onClick={() => downloadAccessProfilePdf(statement)} disabled={statement.featureCount === 0}>
               Download PDF
             </button>
-            <button
-              className="btn btn-secondary"
-              onClick={handleCopy}
-              disabled={statement.featureCount === 0}
-            >
+            <button className="btn btn-secondary" onClick={handleCopy} disabled={statement.featureCount === 0}>
               {copied ? 'Copied' : 'Copy for web page'}
             </button>
             {hasEdits && (
               <button
                 className="btn btn-secondary"
                 onClick={() => {
-                  if (window.confirm('Remove all your edits and restore the generated profile?')) {
-                    commit(emptyOverrides());
-                  }
+                  if (window.confirm('Remove all your edits and restore the generated profile?')) commit(emptyOverrides());
                 }}
               >
                 Reset edits
@@ -181,14 +145,7 @@ export default function AccessProfile() {
         )}
 
         {!isLoading && !editMode && statement.featureCount === 0 && (
-          <div
-            className="card"
-            style={{
-              border: '2px solid var(--warm-orange)',
-              background: 'rgba(230, 119, 0, 0.05)',
-              textAlign: 'center',
-            }}
-          >
+          <div className="card" style={{ border: '2px solid var(--warm-orange)', background: 'rgba(230, 119, 0, 0.05)', textAlign: 'center' }}>
             <div style={{ fontSize: '2rem', marginBottom: '12px' }}>📋</div>
             <h3>No accessibility features to show yet</h3>
             <p style={{ color: 'var(--text-muted)', margin: '12px 0' }}>
@@ -201,36 +158,26 @@ export default function AccessProfile() {
           </div>
         )}
 
-        {/* View mode */}
+        {/* View mode: warm written profile */}
         {!isLoading && !editMode && statement.featureCount > 0 && (
-          <div className="card">
-            <div style={{ borderBottom: '2px solid var(--warm-orange)', paddingBottom: '14px', marginBottom: '18px' }}>
-              <h2 style={{ margin: '0 0 4px 0', color: '#490E67' }}>{organisationName}</h2>
+          <div className="card" style={{ lineHeight: 1.7 }}>
+            <div style={{ borderBottom: '2px solid var(--warm-orange)', paddingBottom: '16px', marginBottom: '20px' }}>
+              <h2 style={{ margin: '0 0 10px 0', color: '#490E67' }}>{venueName}</h2>
+              <p style={{ margin: '0 0 8px 0' }}>{accessProfileIntro(venueName)}</p>
               <p style={{ margin: 0, fontSize: '14px', color: 'var(--text-muted)' }}>
-                Accessibility features, self-reported as of {generatedDate}.
+                Self-reported as of {generatedDate}.
               </p>
             </div>
 
-            {statement.categories.map((cat) => (
-              <div key={cat.id} style={{ marginBottom: '24px' }}>
-                <h3 style={{ margin: '0 0 12px 0', color: '#490E67', fontSize: '17px' }}>{cat.title}</h3>
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {cat.features.map((f, i) => (
-                    <li key={f.refKey || f.customId || i} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                      {stateBadge(f.state)}
-                      <span style={{ lineHeight: 1.5 }}>
-                        <strong style={{ fontWeight: 600 }}>{f.label}</strong>
-                        {f.detail && <span style={{ color: 'var(--text-muted)' }}> ({f.detail})</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+            {prose.map((section) => (
+              <div key={section.id} style={{ marginBottom: '20px' }}>
+                <h3 style={{ margin: '0 0 8px 0', color: '#490E67', fontSize: '17px' }}>{section.title}</h3>
+                <p style={{ margin: 0 }}>{section.paragraph}</p>
               </div>
             ))}
 
-            <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '20px', marginBottom: 0 }}>
-              Self-reported information. Features marked Partial are in place but not complete. See the
-              detail for each.
+            <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginTop: '24px', marginBottom: 0, borderTop: '1px solid #eee', paddingTop: '16px' }}>
+              {accessProfileClosing(venueName)}
             </p>
           </div>
         )}
@@ -239,8 +186,8 @@ export default function AccessProfile() {
         {!isLoading && editMode && (
           <div className="card">
             <p style={{ marginTop: 0, color: 'var(--text-muted)', fontSize: '14px' }}>
-              Edit the wording, change Yes to Partial, remove a feature or add your own. Your edits are
-              saved on this device. Reset edits restores the generated profile at any time.
+              Change Yes to Partial, remove a feature or add your own. The written profile updates from
+              these. Your edits are saved on this device, and Reset edits restores the generated profile.
             </p>
 
             {ACCESS_STATEMENT_CATEGORIES.map((cat) => {
@@ -254,44 +201,17 @@ export default function AccessProfile() {
                         key={f.refKey || f.customId || i}
                         style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', padding: '10px', border: '1px solid #e5e7eb', borderRadius: '8px' }}
                       >
-                        <select
-                          value={f.state}
-                          onChange={(e) => patchFeature(f, { state: e.target.value as 'yes' | 'partial' })}
-                          style={inputStyle}
-                          aria-label="Feature status"
-                        >
+                        <select value={f.state} onChange={(e) => patchFeature(f, { state: e.target.value as 'yes' | 'partial' })} style={inputStyle} aria-label="Feature status">
                           <option value="yes">Yes</option>
                           <option value="partial">Partial</option>
                         </select>
-                        <input
-                          type="text"
-                          value={f.label}
-                          onChange={(e) => patchFeature(f, { label: e.target.value })}
-                          style={{ ...inputStyle, flex: '1 1 220px' }}
-                          aria-label="Feature name"
-                        />
-                        <input
-                          type="text"
-                          value={f.detail || ''}
-                          placeholder="Detail (optional)"
-                          onChange={(e) => patchFeature(f, { detail: e.target.value })}
-                          style={{ ...inputStyle, flex: '1 1 180px' }}
-                          aria-label="Feature detail"
-                        />
-                        <button
-                          className="btn btn-secondary"
-                          onClick={() => removeFeature(f)}
-                          style={{ padding: '6px 10px' }}
-                        >
+                        <input type="text" value={f.label} onChange={(e) => patchFeature(f, { label: e.target.value })} style={{ ...inputStyle, flex: '1 1 240px' }} aria-label="Feature name" />
+                        <button className="btn btn-secondary" onClick={() => removeFeature(f)} style={{ padding: '6px 10px' }}>
                           Remove
                         </button>
                       </div>
                     ))}
-                    <button
-                      className="btn btn-secondary"
-                      onClick={() => addFeature(cat.id)}
-                      style={{ alignSelf: 'flex-start', padding: '6px 12px' }}
-                    >
+                    <button className="btn btn-secondary" onClick={() => addFeature(cat.id)} style={{ alignSelf: 'flex-start', padding: '6px 12px' }}>
                       + Add feature
                     </button>
                   </div>
