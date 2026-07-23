@@ -77,13 +77,17 @@ export function applyOverrides(
   overrides: AccessProfileOverrides,
 ): AccessStatement {
   const order = ACCESS_STATEMENT_CATEGORIES.map((c) => c.id);
+  // Tolerate a partially-shaped overrides object (e.g. edit data saved by an
+  // earlier version of this feature) so a stale local cache can never crash.
+  const featureOverrides = overrides.features ?? {};
+  const savedSections = Array.isArray(overrides.sections) ? overrides.sections : [];
 
   const categories: StatementCategory[] = statement.categories
     .map((cat) => {
       const features: StatementFeature[] = [];
       for (const f of cat.features) {
         const key = featureKey(cat.id, f.label);
-        if (overrides.features[key]?.hidden) continue;
+        if (featureOverrides[key]?.hidden) continue;
         features.push({ ...f, refKey: key });
       }
       return { id: cat.id, title: cat.title, lead: cat.lead, features };
@@ -92,7 +96,7 @@ export function applyOverrides(
 
   categories.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
   const featureCount = categories.reduce((n, c) => n + c.features.length, 0);
-  const sections = overrides.sections.filter((s) => s.text.trim().length > 0);
+  const sections = savedSections.filter((s) => s && typeof s.text === 'string' && s.text.trim().length > 0);
 
   return { ...statement, categories, sections, featureCount };
 }

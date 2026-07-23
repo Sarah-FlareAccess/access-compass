@@ -53,7 +53,7 @@ export default function AccessProfile() {
   const sections = statement.sections ?? [];
   const hasContent = statement.featureCount > 0 || sections.length > 0;
 
-  const hasEdits = Object.values(overrides.features).some((f) => f.hidden) || overrides.sections.length > 0;
+  const hasEdits = Object.values(overrides.features ?? {}).some((f) => f?.hidden) || (overrides.sections ?? []).length > 0;
 
   const generatedDate = new Date(statement.generatedAt).toLocaleDateString('en-AU', {
     day: 'numeric',
@@ -76,15 +76,15 @@ export default function AccessProfile() {
   };
 
   const addSection = () => {
-    commit({ ...overrides, sections: [...overrides.sections, { id: newId(), heading: '', text: '' }] });
+    commit({ ...overrides, sections: [...(overrides.sections ?? []), { id: newId(), heading: '', text: '' }] });
   };
 
   const updateSection = (id: string, patch: { heading?: string; text?: string }) => {
-    commit({ ...overrides, sections: overrides.sections.map((s) => (s.id === id ? { ...s, ...patch } : s)) });
+    commit({ ...overrides, sections: (overrides.sections ?? []).map((s) => (s.id === id ? { ...s, ...patch } : s)) });
   };
 
   const removeSection = (id: string) => {
-    commit({ ...overrides, sections: overrides.sections.filter((s) => s.id !== id) });
+    commit({ ...overrides, sections: (overrides.sections ?? []).filter((s) => s.id !== id) });
   };
 
   const handleCopy = async () => {
@@ -217,7 +217,7 @@ export default function AccessProfile() {
                 contact, quiet times or specific parking directions.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {overrides.sections.map((s) => (
+                {(overrides.sections ?? []).map((s) => (
                   <div key={s.id} style={{ padding: '12px', border: '1px solid #e5e7eb', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <input type="text" value={s.heading || ''} placeholder="Heading (optional)" onChange={(e) => updateSection(s.id, { heading: e.target.value })} style={inputStyle} aria-label="Section heading" />
                     <textarea value={s.text} placeholder="Write your information here" onChange={(e) => updateSection(s.id, { text: e.target.value })} rows={3} style={{ ...inputStyle, resize: 'vertical' }} aria-label="Section text" />
