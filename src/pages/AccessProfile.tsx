@@ -95,7 +95,13 @@ export default function AccessProfile() {
     commit({ ...overrides, sections: list });
   };
 
+  const confirmBeforeShare = () =>
+    window.confirm(
+      'This profile is self-reported. Please make sure you have reviewed it for accuracy before sharing it publicly.\n\nContinue?',
+    );
+
   const handleCopy = async () => {
+    if (!confirmBeforeShare()) return;
     try {
       await navigator.clipboard.writeText(serializeAccessStatementText(statement));
       setCopied(true);
@@ -132,7 +138,7 @@ export default function AccessProfile() {
             <button className={editMode ? 'btn btn-primary' : 'btn btn-secondary'} onClick={() => setEditMode((v) => !v)}>
               {editMode ? 'Done' : 'Customise'}
             </button>
-            <button className="btn btn-primary" onClick={() => downloadAccessProfilePdf(statement)} disabled={!hasContent}>
+            <button className="btn btn-primary" onClick={() => { if (confirmBeforeShare()) downloadAccessProfilePdf(statement); }} disabled={!hasContent}>
               Download PDF
             </button>
             <button className="btn btn-secondary" onClick={handleCopy} disabled={!hasContent}>
@@ -148,6 +154,13 @@ export default function AccessProfile() {
                 Reset
               </button>
             )}
+          </div>
+        )}
+
+        {!isLoading && hasContent && (
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 14px', marginBottom: '20px', border: '1px solid #fcd9a6', background: 'rgba(230, 119, 0, 0.06)', borderRadius: '8px', fontSize: '14px' }}>
+            <span aria-hidden="true">ℹ️</span>
+            <span>This profile is self-reported. Please review it for accuracy before sharing it publicly. Items shown as "working on" are in progress, check those especially.</span>
           </div>
         )}
 
@@ -217,6 +230,9 @@ export default function AccessProfile() {
                       <label key={f.label} style={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
                         <input type="checkbox" checked={!isHidden(cat.id, f.label)} onChange={() => toggleHidden(cat.id, f.label)} style={{ width: '17px', height: '17px' }} />
                         <span style={{ color: isHidden(cat.id, f.label) ? 'var(--text-muted)' : 'inherit' }}>{f.label}</span>
+                        {f.state === 'partial' && (
+                          <span style={{ fontSize: '12px', fontWeight: 700, color: '#7c3a09', background: '#fef3c7', borderRadius: '5px', padding: '1px 7px' }}>working on — review</span>
+                        )}
                       </label>
                     ))}
                   </div>

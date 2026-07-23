@@ -121,21 +121,24 @@ function resolveFeature(
   optionLabels: Map<string, Map<string, string>>,
   optionSentiments: Map<string, Map<string, string>>,
 ): StatementFeature | null {
-  // Only fully-present features appear on the public profile. Partial and "no"
-  // answers are omitted (they still inform the internal report and DIAP), so a
-  // public statement never advertises something that is only half in place.
+  // Fully-present answers are shown as in place. Partial answers keep their
+  // positive element but are shown as "working on". "No" answers are omitted.
+  // Everything still flows to the internal report and DIAP.
   let present = false;
+  let partial = false;
   const matchedLabels: string[] = [];
 
   for (const qid of def.yesNo ?? []) {
     const r = responseByQuestion.get(qid);
     if (!r) continue;
     if (r.answer === 'yes') { present = true; continue; }
-    if (r.answer) continue; // 'partially' / 'no' / 'unable-to-check' do not appear
-    // Some questions mapped here are actually single/multi-select and store the
-    // answer in multiSelectValues. Only a clearly positive selection counts.
+    if (r.answer === 'partially') { partial = true; continue; }
+    if (r.answer) continue; // 'no' / 'unable-to-check' are omitted
+    // Some questions mapped here are single/multi-select; grade the selection.
     if (r.multiSelectValues && r.multiSelectValues.length > 0) {
-      if (gradeSelectedOptions(qid, r.multiSelectValues, optionSentiments) === 'positive') present = true;
+      const graded = gradeSelectedOptions(qid, r.multiSelectValues, optionSentiments);
+      if (graded === 'positive') present = true;
+      else if (graded === 'neutral') partial = true;
     }
   }
 
@@ -156,9 +159,12 @@ function resolveFeature(
     if (values.some((v) => /^yes/i.test(v))) present = true;
   }
 
-  if (!present) return null;
-  const detail = Array.from(new Set(matchedLabels)).slice(0, 2).join(', ') || undefined;
-  return { label: def.label, phrase: def.phrase, state: 'yes', detail };
+  if (present) {
+    const detail = Array.from(new Set(matchedLabels)).slice(0, 2).join(', ') || undefined;
+    return { label: def.label, phrase: def.phrase, state: 'yes', detail };
+  }
+  if (partial) return { label: def.label, phrase: def.phrase, state: 'partial' };
+  return null;
 }
 
 export function generateAccessStatement(
@@ -206,23 +212,28 @@ function phraseOf(f: StatementFeature): string {
 }
 
 /** Compose each category as a warm paragraph from its features. */
+/** Compose a list of phrases into sentences of about three, so nothing runs on. */
+function composeList(lead: string, phrases: string[]): string {
+  if (phrases.length <= 3) return `${lead}, you'll find ${humanJoin(phrases)}.`;
+  const chunks: string[][] = [];
+  for (let i = 0; i < phrases.length; i += 3) chunks.push(phrases.slice(i, i + 3));
+  let out = `${lead}, you'll find ${humanJoin(chunks[0])}.`;
+  const connectors = ["You'll also find", 'You can also expect'];
+  for (let i = 1; i < chunks.length; i += 1) out += ` ${connectors[(i - 1) % connectors.length]} ${humanJoin(chunks[i])}.`;
+  return out;
+}
+
 export function buildAccessProfileProse(statement: AccessStatement): ProseSection[] {
   return statement.categories
     .map((cat) => {
       const lead = cat.lead || cat.title;
-      const phrases = cat.features.map(phraseOf);
-      let paragraph = '';
-      if (phrases.length > 0 && phrases.length <= 3) {
-        paragraph = `${lead}, you'll find ${humanJoin(phrases)}.`;
-      } else if (phrases.length > 3) {
-        // Break a long list into sentences of about three so nothing runs on.
-        const chunks: string[][] = [];
-        for (let i = 0; i < phrases.length; i += 3) chunks.push(phrases.slice(i, i + 3));
-        paragraph = `${lead}, you'll find ${humanJoin(chunks[0])}.`;
-        const connectors = ["You'll also find", 'You can also expect'];
-        for (let i = 1; i < chunks.length; i += 1) {
-          paragraph += ` ${connectors[(i - 1) % connectors.length]} ${humanJoin(chunks[i])}.`;
-        }
+      const inPlace = cat.features.filter((f) => f.state === 'yes').map(phraseOf);
+      const working = cat.features.filter((f) => f.state === 'partial').map(phraseOf);
+      let paragraph = inPlace.length > 0 ? composeList(lead, inPlace) : '';
+      if (working.length > 0) {
+        paragraph += paragraph
+          ? ` We're also working on ${humanJoin(working)}.`
+          : `${lead}, we're working on ${humanJoin(working)}.`;
       }
       return { id: cat.id, title: cat.title, paragraph };
     })
@@ -258,7 +269,7 @@ export function accessProfileIntro(venueName: string): string {
 }
 
 export function accessProfileClosing(venueName: string): string {
-  return `This profile is self-reported and updated as ${venueName} keeps improving access. Features described as partly in place are being worked on. If you have an access need that is not covered here, please get in touch before your visit so we can help.`;
+  return `This profile is self-reported and updated as ${venueName} keeps improving access. Anything shown as "working on" is in progress. Please check it for accuracy before sharing it publicly. If you have an access need that is not covered here, please get in touch before your visit so we can help.`;
 }
 
 export function serializeAccessStatementText(statement: AccessStatement): string {
