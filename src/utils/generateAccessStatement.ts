@@ -155,7 +155,13 @@ export function buildAccessProfileProse(statement: AccessStatement): ProseSectio
       const partial = cat.features.filter((f) => f.state === 'partial').map(phraseOf);
       let paragraph = '';
       if (yes.length > 0) {
-        paragraph = `${lead}, you'll find ${humanJoin(yes)}.`;
+        if (yes.length <= 3) {
+          paragraph = `${lead}, you'll find ${humanJoin(yes)}.`;
+        } else {
+          // Split a long list into two sentences so it reads naturally.
+          const half = Math.ceil(yes.length / 2);
+          paragraph = `${lead}, you'll find ${humanJoin(yes.slice(0, half))}. You'll also find ${humanJoin(yes.slice(half))}.`;
+        }
         if (partial.length > 0) {
           paragraph += ` Some features are partly in place, including ${humanJoin(partial)}.`;
         }

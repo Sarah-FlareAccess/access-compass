@@ -416,6 +416,17 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
               const recovered = { ...currentProgress };
               let hasRecovery = false;
 
+              // multi_select_values is jsonb (already an array from the seed) or a
+              // JSON string (from the app's own writes). Parse both so single and
+              // multi select answers survive a cloud reload, not just yes/no ones.
+              const parseMsv = (v: unknown): string[] | undefined => {
+                if (Array.isArray(v)) return v as string[];
+                if (typeof v === 'string' && v.trim()) {
+                  try { const p = JSON.parse(v); return Array.isArray(p) ? (p as string[]) : undefined; } catch { return undefined; }
+                }
+                return undefined;
+              };
+
               for (const mod of modulesNeedingRecovery) {
                 const modResponses = (responseRows as Record<string, unknown>[])
                   .filter(r => r.module_id === mod.moduleId)
@@ -426,6 +437,7 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
                     partialDescription: (r.partial_description as string) || undefined,
                     otherDescription: (r.other_description as string) || undefined,
                     linkValue: (r.link_value as string) || undefined,
+                    multiSelectValues: parseMsv(r.multi_select_values),
                     timestamp: (r.updated_at as string) || new Date().toISOString(),
                   }));
 
