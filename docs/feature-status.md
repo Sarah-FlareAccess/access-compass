@@ -23,7 +23,7 @@ The second kind is the expensive one. That was work already paid for, sitting un
 
 | Row on the page | Where claimed | Status | Implemented by |
 |---|---|---|---|
-| Accessibility Self-Assessment | all tabs | **BUILT** | `data/accessModules.ts` (50 modules), `lib/recommendationEngine.ts` |
+| Accessibility Self-Assessment | all tabs | **BUILT** | `data/accessModules.ts` (51 modules), `lib/recommendationEngine.ts` |
 | Action Plan Management | MS, MV, Auth | **BUILT** | `pages/DIAPWorkspace.tsx`, `hooks/useDIAPManagement.ts`, `diap_items` (001) |
 | Plan Import (guided + undo) | MV, Auth | **BUILT** | `hooks/useDIAPManagement.ts` — CSV/Excel map+preview+reverse, AI paste |
 | Statutory Framework Alignment | MV, Auth | **BUILT** ⚠️ not gated | `data/frameworks.ts` (9 jurisdictions), `frameworkMappings.ts`, `hooks/useReportGeneration.ts`, `components/ReportViewer.tsx`, `utils/pdfGenerator.ts` |
