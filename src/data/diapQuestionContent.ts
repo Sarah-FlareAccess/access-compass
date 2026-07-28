@@ -11018,4 +11018,368 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Staff able to describe the service, confirmed at induction and annual refresher',
     ],
   },
+
+  // ============================================================
+  // Module 2.5 - Streetscape and public realm
+  // ============================================================
+  '2.5-F-1': {
+    steps: [
+      'Commission a pedestrian access audit of your main activity centres covering clear width, surface, crossfall, gradient, kerb ramps, crossings and street furniture placement',
+      'Involve people with disability in the audit rather than only in comment on its findings',
+      'Record every barrier by location in a register that can feed the capital works program and DIAP actions',
+    ],
+    indicators: [
+      'Pedestrian access audit of main centres completed within 12 months',
+      'Barrier register established and linked to capital works prioritisation',
+      'Audit refreshed on a defined cycle rather than left to age',
+    ],
+  },
+  '2.5-F-2': {
+    steps: [
+      'Trace the pedestrian route end to end between transport stops, accessible parking, civic buildings, shops and open space, and record every break point',
+      'Prioritise removal of missing kerb ramps, steps in the path of travel and pinch points below 1000mm clear width',
+      'Where topography prevents a continuous route, signpost the accessible alternative at the decision point rather than at the barrier',
+    ],
+    indicators: [
+      'Break points on main routes mapped within 6 months',
+      'Continuous accessible path of travel achieved between key destinations in the primary centre within 3 years',
+      'Alternative routes signposted at decision points where a direct accessible route is not achievable',
+    ],
+  },
+  '2.5-F-3': {
+    steps: [
+      'Audit pedestrian crossing points for missing kerb ramps, including crossings with a ramp on one side only',
+      'Install kerb ramps to AS 1428.1 Cl 10 (maximum 1:8 gradient, flush transition to the gutter) on both sides of each crossing',
+      'Add kerb ramp installation to the standing scope for resurfacing and renewal works so ramps are picked up whenever a street is opened',
+    ],
+    indicators: [
+      'Kerb ramp audit completed within 6 months',
+      'All crossings on priority routes have compliant ramps on both sides within 3 years',
+      'Kerb ramp check included in the scope of every resurfacing and renewal project',
+    ],
+  },
+  '2.5-F-4': {
+    steps: [
+      'Identify signalised pedestrian crossings without working audio-tactile push button units with both an audible tone and a vibrating tactile arrow',
+      'Program installation or repair, prioritising crossings near health, aged care, disability and community services',
+      'Where the signal asset is owned by the state road authority, make a formal request and record the advocacy in your plan',
+    ],
+    indicators: [
+      'Signalised crossings audited for audio-tactile provision within 12 months',
+      'Defined repair response time set for faulty units, given the safety risk',
+      'Requests to the road authority documented with dates and responses',
+    ],
+  },
+  '2.5-F-5': {
+    steps: [
+      'Audit on-street accessible parking for AS/NZS 2890.6 dimensions, marked shared area, signage and an adjacent kerb ramp',
+      'Install kerb ramps within the bay length where missing, treating a bay with no ramp as a priority defect',
+      'Distribute bays across each centre rather than concentrating them, and review permit time limits to allow for transfer time',
+    ],
+    indicators: [
+      'On-street accessible bays audited within 6 months',
+      'Every on-street accessible bay connected to the footpath by a kerb ramp within 2 years',
+      'Bay distribution reviewed against destinations in each centre',
+    ],
+  },
+  '2.5-F-6': {
+    steps: [
+      'Assess bus stops against DSAPT 2002 and the AHRC Accessible bus stop guideline for a compliant hard standing boarding area',
+      'Prioritise stops that have a compliant boarding area but no footpath connection, since these deliver no benefit until connected',
+      'Confirm and document the split of responsibility with the transport operator so no stop sits unowned',
+    ],
+    indicators: [
+      'Bus stop accessibility assessment completed within 12 months',
+      'Upgrade program funded with annual targets and public progress reporting',
+      'Responsibility split with the transport operator documented and agreed',
+    ],
+  },
+  '2.5-F-7': {
+    steps: [
+      'Map rest seating provision against main pedestrian routes and identify the intervals where no seating exists',
+      'Install seating with armrests and backrests at intervals along those routes, with a clear space beside each seat for a wheelchair or pram',
+      'Specify a mix of heights including an approximately 520mm option per AS 1428.2 Cl 27.2 Note 1',
+    ],
+    indicators: [
+      'Rest seating gaps on main routes mapped within 6 months',
+      'Seating installed at defined intervals on priority routes within 3 years',
+      'All new and replacement seating includes armrests, backrests and a clear space alongside',
+    ],
+  },
+  '2.5-F-8': {
+    steps: [
+      'Define a street furniture zone that keeps bins, poles, planters, bike racks and cabinets clear of the path of travel',
+      'Require a clear width check before any new street asset is approved or installed, including assets installed by utilities and third parties',
+      'Audit existing pinch points, including overhead obstructions below 2000mm, and relocate or guard obstructing assets',
+    ],
+    indicators: [
+      'Street furniture zone defined and adopted in your streetscape standard within 12 months',
+      'Clear width check embedded in the approval process for new street assets',
+      'Identified pinch points cleared or scheduled within 2 years',
+    ],
+  },
+  '2.5-F-9': {
+    steps: [
+      'Set a minimum clear path width as a numbered condition in footpath trading and outdoor dining permits, covering A-frames and goods displays',
+      'Define permitted placement so furniture holds a consistent alignment that is detectable with a cane',
+      'Establish a routine inspection regime with a defined response for non-compliance',
+    ],
+    indicators: [
+      'Minimum clear width condition in all footpath trading permits within 12 months',
+      'Routine inspection program in place with recorded results',
+      'Non-compliance rate falling year on year across inspected permits',
+    ],
+  },
+  '2.5-F-10': {
+    steps: [
+      'Require a signed accessible pedestrian route as a condition of every permit for works, hoarding, scaffolding and street events',
+      'Specify the surface, gradient, edge protection and signage standard for temporary routes, and require signage at the decision point',
+      'Apply the requirement to utilities and private developers as well as your own works',
+    ],
+    indicators: [
+      'Accessible temporary route condition applied to all relevant permit types within 12 months',
+      'Temporary route standard published and issued with permits',
+      'Compliance checked on site during works, with results recorded',
+    ],
+  },
+  '2.5-F-11': {
+    steps: [
+      'Review defect intervention levels so they reflect access barriers rather than trip hazard liability alone, including crossfall from settlement',
+      'Move vegetation clearance and pedestrian route lighting onto a programmed cycle rather than complaint response',
+      'Set repair timeframes by barrier severity and report performance against them',
+    ],
+    indicators: [
+      'Access-based defect intervention levels adopted within 12 months',
+      'Programmed vegetation and lighting maintenance cycle in place',
+      'Repair timeframe performance reported at least annually',
+    ],
+  },
+  '2.5-F-12': {
+    steps: [
+      'Provide a clearly promoted way to report a streetscape access barrier, available through more than one channel and by location rather than asset type',
+      'Feed reports into the same register as audit findings so they compete for funding on equal terms',
+      'Tell the reporter what action will be taken, and publish what has been fixed',
+    ],
+    indicators: [
+      'Multi-channel access barrier reporting live and promoted within 6 months',
+      'Every report acknowledged with an outcome or timeframe',
+      'Completed streetscape access works published at least annually',
+    ],
+  },
+  '2.5-D-1': {
+    steps: [
+      'Measure clear width at the narrowest point on each main route, excluding furniture, poles, tree pits, vegetation and permitted trading areas',
+      'Widen or clear pinch points below 1000mm as a priority, since these prevent wheelchair access entirely',
+      'Where 1800mm cannot be achieved, provide passing spaces at intervals per AS 1428.2 Cl 6.5 matched to how busy the route is',
+    ],
+    indicators: [
+      'Clear width measured and recorded for all main routes within 12 months',
+      'No pinch point below 1000mm remaining on priority routes within 3 years',
+      'Passing spaces provided where continuous 1800mm is not achievable',
+    ],
+  },
+  '2.5-D-2': {
+    steps: [
+      'Survey crossfall on main pedestrian routes, giving particular attention to driveway crossings and settled sections',
+      'Correct crossfall exceeding 1:40 through resheeting or reconstruction, prioritising driveway crossings',
+      'Where full-width correction is not feasible, provide a compliant strip on the building line side',
+    ],
+    indicators: [
+      'Crossfall survey of main routes completed within 12 months',
+      'Crossfall within 1:40 on priority routes within 3 years or a compliant strip provided',
+      'Crossfall included in routine defect inspection criteria',
+    ],
+  },
+  '2.5-D-3': {
+    steps: [
+      'Identify steep sections on main pedestrian routes and record their gradient and length',
+      'Mitigate through regrading, handrails or rest points, or signpost an accessible alternative at the decision point',
+      'Publish gradient information for main routes so people can plan before they leave home',
+    ],
+    indicators: [
+      'Steep sections identified and recorded within 12 months',
+      'Alternative routes signposted at decision points within 2 years',
+      'Gradient information for main routes published and kept current',
+    ],
+  },
+  '2.5-D-4': {
+    steps: [
+      'Record surface types along main pedestrian routes and identify loose, uneven and heritage surfaces',
+      'Provide a firm, stable trafficable strip through cobbled, sett-paved or loose-surfaced sections rather than removing the character surface',
+      'Relay lifted and settled pavers, and check gaps and grates run across the direction of travel at no more than 13mm',
+    ],
+    indicators: [
+      'Surface type recorded for all main routes within 12 months',
+      'Trafficable strip provided through non-compliant surfaces on priority routes within 3 years',
+      'Slip resistance checked in wet conditions on smooth pavers and boardwalks',
+    ],
+  },
+  '2.5-D-5': {
+    steps: [
+      'Audit kerb ramps, crossing points and street hazards for warning TGSIs, inspecting by touch rather than by eye',
+      'Install or replace TGSIs to AS 1428.4.1 with at least 30% luminance contrast against the surrounding surface',
+      'Apply the same standard to streets built by developers that you will later adopt',
+    ],
+    indicators: [
+      'TGSI audit completed within 12 months',
+      'TGSIs installed at all kerb ramps and crossings on priority routes within 3 years',
+      'Worn and low-contrast units identified and replaced through routine inspection',
+    ],
+  },
+  '2.5-D-6': {
+    steps: [
+      'Review pedestrian crossing phase timings against slower walking speeds, prioritising crossings near health, aged care, disability and community services',
+      'Request extended timings and check median refuges are wide enough to hold a wheelchair or scooter clear of traffic lanes',
+      'Ask local people with disability which crossings they avoid and use that to set the priority order',
+    ],
+    indicators: [
+      'Crossing timing review completed for priority locations within 12 months',
+      'Extended timings implemented or formally requested and documented',
+      'Median refuge widths assessed on priority crossings',
+    ],
+  },
+  '2.5-D-7': {
+    steps: [
+      'Review shared zones and shared surface treatments for a continuous detectable delineator where the kerb line has been removed',
+      'Install a corduroy or contrasting textured strip to replace the navigation cue the kerb provided',
+      'Separate pedestrian and cycle movements on shared paths where volumes justify it, marked tactilely rather than only with paint',
+    ],
+    indicators: [
+      'Shared surfaces reviewed for detectable delineation within 12 months',
+      'Continuous delineation installed in existing shared zones within 3 years',
+      'New shared surface designs tested with people who are blind or have low vision before construction',
+    ],
+  },
+  '2.5-D-8': {
+    steps: [
+      'Measure on-street accessible bays against AS/NZS 2890.6 for width, length and shared area, and mark shared areas where missing',
+      'Check vertical clearance from the street entry through to each bay for high-top and hoist-equipped vehicles',
+      'Reposition bollards so they protect the shared area without obstructing transfer or the route to the kerb ramp',
+    ],
+    indicators: [
+      'All on-street accessible bays measured within 12 months',
+      'Shared areas marked and undersized bays corrected within 2 years',
+      'Vertical clearance on approach routes to accessible parking confirmed and published',
+    ],
+  },
+  '2.5-D-9': {
+    steps: [
+      'Audit bus shelters for seating with armrests and a clear space of at least 800mm by 1300mm beside the seating',
+      'Retrofit clear space where benches run the full shelter width, keeping it clear of the boarding area and ramp deployment zone',
+      'Extend shelter provision beyond major stops and check real-time displays are readable from a seated height',
+    ],
+    indicators: [
+      'Bus shelter audit completed within 12 months',
+      'Clear space beside seating provided in all shelters on priority routes within 3 years',
+      'Shelter lighting and display readability assessed at each upgrade',
+    ],
+  },
+  '2.5-D-10': {
+    steps: [
+      'Revise your street furniture palette so new and replacement seating includes armrests, backrests and a mix of heights by default',
+      'Include an approximately 520mm seat height option per AS 1428.2 Cl 27.2 Note 1 alongside the standard 450mm',
+      'Program replacement of backless and armless seating on main routes at renewal',
+    ],
+    indicators: [
+      'Street furniture palette updated within 12 months',
+      'All new and replacement street seating meets the revised specification',
+      'Backless and armless seating on priority routes replaced at renewal',
+    ],
+  },
+  '2.5-D-11': {
+    steps: [
+      'Audit bollard, gate and chicane spacing against the footprint and turning circle of a large mobility scooter, testing with an actual device',
+      'Redesign pinch points so vehicle exclusion is retained while mobility devices can pass',
+      'Ensure bollards have luminance contrast and a cane-detectable base at ground level',
+    ],
+    indicators: [
+      'Bollard and chicane audit completed within 12 months',
+      'Identified pinch points redesigned within 3 years',
+      'Mobility device clearance check added to the specification for new installations',
+    ],
+  },
+  '2.5-D-12': {
+    steps: [
+      'Develop a street wayfinding standard covering luminance contrast of at least 30%, mounting height, text size for viewing distance and map orientation',
+      'Orient maps heads-up to the reader and include distance and, where known, gradient on key routes',
+      'Check signs are not positioned where furniture, vegetation or parked vehicles will obscure them',
+    ],
+    indicators: [
+      'Street wayfinding standard adopted within 12 months',
+      'Signage in the primary centre brought to standard within 3 years',
+      'New and replacement signage meets the standard by default',
+    ],
+  },
+  '2.5-D-13': {
+    steps: [
+      'Assess lighting levels and uniformity on main pedestrian routes, including connections between car parks, transport stops and destinations',
+      'Conduct an after-dark walk of priority routes to find what a daytime inspection cannot',
+      'Add lighting to routine inspection so outages, dimming and flicker are found before they are reported',
+    ],
+    indicators: [
+      'Pedestrian route lighting assessment completed within 12 months',
+      'Defined response time set for outages and flickering lights',
+      'After-dark walk of priority routes repeated at least annually',
+    ],
+  },
+  '2.5-D-14': {
+    steps: [
+      'Audit public toilets for compliant accessible provision, and check none are locked while the area is in use or used as storage',
+      'Publish locations, opening hours and any key scheme arrangements, including a listing on the National Public Toilet Map',
+      'Assess whether a Changing Places facility with an adult change table and hoist is warranted in your main centre',
+    ],
+    indicators: [
+      'Public toilet accessibility audit completed within 12 months',
+      'Locations, hours and key arrangements published and listed on the National Public Toilet Map',
+      'Changing Places need assessed and a decision recorded',
+    ],
+  },
+  '2.5-D-15': {
+    steps: [
+      'Establish a mechanism for involving people with disability at concept and design stage on streetscape projects, including renewal works',
+      'Pay for professional access expertise rather than relying on unpaid contribution',
+      'Record how input changed the design and close the loop with the people who contributed',
+    ],
+    indicators: [
+      'Consultation mechanism established and applied at concept stage within 12 months',
+      'Every streetscape project records how access input shaped the design',
+      'Contributors advised of the outcome on each project',
+    ],
+  },
+  '2.5-D-16': {
+    steps: [
+      'Consolidate audit findings and public reports into one prioritised streetscape access barrier register',
+      'Attach a defined annual budget and prioritise by whole journey rather than by asset type, weighting routes serving health, aged care, disability services, schools, transport and shopping',
+      'Bundle access works into renewal and resurfacing projects, and report progress publicly',
+    ],
+    indicators: [
+      'Prioritised barrier register with allocated budget in place within 12 months',
+      'Annual delivery targets set and reported publicly',
+      'Access scope included as standard in renewal and resurfacing projects',
+    ],
+  },
+  '2.5-D-17': {
+    steps: [
+      'Map asset ownership along whole pedestrian routes rather than by asset class, so boundary gaps are visible',
+      'Record every access request made to another asset owner with dates and responses, and include it in plan reporting',
+      'Set accessibility standards in conditions of consent for developer-built public infrastructure and verify at handover',
+    ],
+    indicators: [
+      'Asset ownership mapped for main pedestrian routes within 12 months',
+      'Advocacy register of requests to other asset owners maintained and reported',
+      'Accessibility verified at handover for all developer-built public infrastructure',
+    ],
+  },
+  '2.5-D-18': {
+    steps: [
+      'Publish practical accessibility information for your main centres covering accessible routes with distances and gradients, accessible parking, public toilet locations and hours, and transport connections',
+      'State known barriers as well as accessible features, so people can plan around what is not yet fixed',
+      'Set a review cycle so the information stays current, and make the page itself accessible and easy to find',
+    ],
+    indicators: [
+      'Public realm accessibility information published within 12 months',
+      'Known barriers stated alongside accessible features',
+      'Information reviewed on a defined cycle and after any completed works',
+    ],
+  },
 };
