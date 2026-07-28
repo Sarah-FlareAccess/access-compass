@@ -157,6 +157,7 @@ export const MODULE_TO_DIAP_MAPPING: Record<string, string> = {
   '2.2': 'built-environment',          // Entry and doors
   '2.3': 'built-environment',          // Paths and aisles
   '2.4': 'built-environment',          // Queues and busy times
+  '2.5': 'built-environment',          // Streetscape and public realm
 
   // During the visit
   '3.1': 'built-environment',          // Seating, furniture and layout

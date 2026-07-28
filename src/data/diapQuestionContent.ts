@@ -10886,4 +10886,136 @@ export const DIAP_QUESTION_CONTENT: Record<string, DiapQuestionContent> = {
       'Reach into the disability community extended',
     ],
   },
+
+  // ============================================================
+  // Module 1.2 - Website basics (accessibility filtering)
+  // ============================================================
+  '1.2-DD-FILTER': {
+    steps: [
+      'Define the accessibility features customers actually choose between (step-free access, accessible toilet, hearing loop, captioned or interpreted sessions, relaxed or quiet sessions, assistance animal welcome)',
+      'Add those features as filters or search facets on your listings, with a shareable filtered results URL',
+      'Test that site searches for terms like "accessible" and "wheelchair" return useful results rather than nothing',
+    ],
+    indicators: [
+      'Accessibility filters live on all listing pages within 6 months',
+      'Filtered results show a match count and can be shared by link',
+      'Site search for accessibility terms returns relevant results, confirmed by quarterly spot check',
+    ],
+  },
+
+  // ============================================================
+  // Module 1.3 - Booking and ticketing (seat maps, multi-channel)
+  // ============================================================
+  '1.3-PC-SEATMAP': {
+    steps: [
+      'Publish a seating map at the point of booking with wheelchair spaces, companion seats, aisle seats and extra-legroom seats marked',
+      'Enable customers to select accessible seats themselves through the standard booking flow rather than by allocation',
+      'Provide a text alternative and keyboard access for the map so it does not become a new barrier',
+    ],
+    indicators: [
+      'Seating map with accessible seats marked available for all ticketed spaces within 12 months',
+      'Accessible seats selectable online through the same flow as standard seats',
+      'Seat map passes keyboard and screen reader testing at launch and after any platform change',
+    ],
+  },
+  '1.3-DD-TICKETESTATE': {
+    steps: [
+      'Map the accessible booking process for every channel you sell through, covering companion tickets, access requirements capture and seat selection',
+      'Publish which channel sells what and what the access process is for each, in one place customers can find before booking',
+      'Raise accessible booking parity with third-party providers at contract renewal and record the request',
+    ],
+    indicators: [
+      'Channel-by-channel accessible booking process documented within 6 months',
+      'Differences between channels published at the point of booking',
+      'Availability kept in step across channels, with discrepancies resolved within 1 business day',
+    ],
+  },
+
+  // ============================================================
+  // Module 2.2 - Entry and doors (turnstiles and access control)
+  // ============================================================
+  '2.2-D-GATES': {
+    steps: [
+      'Audit every turnstile, ticket gate and access control barrier for clear width and usability by wheelchair, mobility scooter and assistance animal users',
+      'Provide an accessible gate or lane of at least 850mm clear width alongside the barriers at each entry point, usable without staff assistance',
+      'Reposition card readers and ticket scanners so they are reachable from a seated position on the accessible lane',
+    ],
+    indicators: [
+      'Accessible lane of at least 850mm provided at every controlled entry within 12 months',
+      'Accessible lane unlocked and available whenever the entry is open, verified by spot check',
+      'Readers and scanners reachable from seated height, confirmed at commissioning and after any works',
+    ],
+  },
+
+  // ============================================================
+  // Module 3.1 - Seating (body size and published dimensions)
+  // ============================================================
+  '3.1-PC-SEATSIZE': {
+    steps: [
+      'Measure current seat widths, armrest type and row spacing and identify where a range of body sizes cannot be accommodated',
+      'Introduce wider seating and seats with lifting or no armrests, distributed across price points and locations rather than one area',
+      'Check the weight rating of loose and folding furniture and replace items that do not meet a reasonable range',
+    ],
+    indicators: [
+      'Seat dimensions audited and gaps identified within 6 months',
+      'Wider and armless seating options available in more than one area and price point within 12 months',
+      'Loose furniture weight ratings confirmed and non-compliant items removed',
+    ],
+  },
+  '3.1-DD-SEATSPEC': {
+    steps: [
+      'Measure and record seat width, armrest type and row spacing or legroom for each seating area',
+      'Publish those figures alongside your other accessibility information rather than supplying them only on request',
+      'Add a review of the published figures to your process for any refurbishment or furniture change',
+    ],
+    indicators: [
+      'Seat dimensions published for all seating areas within 6 months',
+      'Figures published as measurements rather than descriptions',
+      'Published information reviewed and updated after any seating change',
+    ],
+  },
+
+  // ============================================================
+  // Module 3.4 - Equipment (self-service machines)
+  // ============================================================
+  '3.4-DD-SELFSERVICE': {
+    steps: [
+      'Audit all customer-operated machines for reach range (900-1200mm), approach and knee clearance, screen contrast and non-visual operation',
+      'Fit or specify a non-visual option such as audio output through a headphone socket, or tactile keys, on touchscreen-only machines',
+      'Provide and signpost a staffed or alternative route to the same service at each machine location',
+    ],
+    indicators: [
+      'All customer-operated machines audited within 6 months',
+      'Operable parts, payment points and dispensing trays within 900-1200mm reach range within 12 months',
+      'Alternative route to the same service signposted at every machine',
+    ],
+  },
+
+  // ============================================================
+  // Module 4.2 - Customer service (handover and assistance partners)
+  // ============================================================
+  '4.2-PC-FOHFLAG': {
+    steps: [
+      'Identify which operational roles need to know a customer\'s access requirements before the customer arrives',
+      'Build the handover into an existing routine such as the pre-shift briefing, run sheet or a flag on the booking or ticket',
+      'Extend the briefing to contractors, agency staff and volunteers, and confirm to the customer that the venue has been told',
+    ],
+    indicators: [
+      'Handover route documented and in use within 3 months',
+      'Access requirements visible to floor staff on every shift, verified by spot check',
+      'Customers receive confirmation that the venue has been informed, with no repeat requests to re-explain on arrival',
+    ],
+  },
+  '4.2-DD-ASSISTPARTNER': {
+    steps: [
+      'Identify travel and mobility assistance services, volunteer companion programs or community transport operating in your area',
+      'Publish what each service provides, what it costs and how to arrange it, where customers plan their visit',
+      'Brief customer-facing staff so they can offer it when a customer describes a barrier it would solve',
+    ],
+    indicators: [
+      'Relevant assistance services identified and published within 6 months',
+      'Published detail covers what the service does, cost and booking lead time',
+      'Staff able to describe the service, confirmed at induction and annual refresher',
+    ],
+  },
 };

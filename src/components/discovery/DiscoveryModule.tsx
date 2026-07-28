@@ -810,7 +810,7 @@ export function DiscoveryModule({
                   icon: '🏪',
                   description: 'Create a physical space where everyone can participate fully',
                   outcome: 'Customers navigate and engage independently',
-                  codes: ['2.1', '2.2', '2.3', '2.4', '3.1', '3.2', '3.3', '3.4', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '4.4'],
+                  codes: ['2.1', '2.2', '2.3', '2.4', '2.5', '3.1', '3.2', '3.3', '3.4', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '4.4'],
                 },
                 {
                   id: 'service',

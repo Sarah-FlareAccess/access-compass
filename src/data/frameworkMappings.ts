@@ -42,6 +42,7 @@ export const MODULE_FRAMEWORK_MAPPINGS: Record<string, Record<string, string[]>>
   '2.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
   '2.3': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
   '2.4': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
+  '2.5': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] }, // streetscape and public realm
   // During visit - on-site environment & participation
   '3.1': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
   '3.2': { 'AU-SA': ['SDIP-1'], AU: ['ADS-2'], 'AU-VIC': ['VIC-A'], 'AU-NSW': ['NSW-2'], 'AU-WA': ['WA-2'] },
@@ -95,7 +96,7 @@ export const MODULE_FRAMEWORK_MAPPINGS: Record<string, Record<string, string[]>>
 // mapping. NT (5 outcomes) and ACT (6 focus areas) have their own outcome sets.
 const NT_MODULE_MAP: Record<string, string[]> = {
   '1.1': ['NT-3'], '1.2': ['NT-3'], '1.3': ['NT-3'], '1.4': ['NT-3'], '1.5': ['NT-3'], '1.6': ['NT-3'],
-  '2.1': ['NT-3'], '2.2': ['NT-3'], '2.3': ['NT-3'], '2.4': ['NT-3'],
+  '2.1': ['NT-3'], '2.2': ['NT-3'], '2.3': ['NT-3'], '2.4': ['NT-3'], '2.5': ['NT-3'],
   '3.1': ['NT-3'], '3.2': ['NT-3'], '3.3': ['NT-3'], '3.4': ['NT-3'], '3.5': ['NT-3'], '3.6': ['NT-3'],
   '3.7': ['NT-3'], '3.8': ['NT-3'], '3.9': ['NT-3'], '3.10': ['NT-3'], '3.11': ['NT-3'], '3.12': ['NT-3'],
   '4.1': ['NT-3'], '4.2': ['NT-3'], '4.3': ['NT-3'], '4.4': ['NT-1'], '4.5': ['NT-3'], '4.6': ['NT-3'], '4.7': ['NT-3'],
@@ -106,7 +107,7 @@ const NT_MODULE_MAP: Record<string, string[]> = {
 };
 const ACT_MODULE_MAP: Record<string, string[]> = {
   '1.1': ['ACT-4'], '1.2': ['ACT-4'], '1.3': ['ACT-4'], '1.4': ['ACT-4'], '1.5': ['ACT-4'], '1.6': ['ACT-4'],
-  '2.1': ['ACT-4'], '2.2': ['ACT-4'], '2.3': ['ACT-4'], '2.4': ['ACT-4'],
+  '2.1': ['ACT-4'], '2.2': ['ACT-4'], '2.3': ['ACT-4'], '2.4': ['ACT-4'], '2.5': ['ACT-4'],
   '3.1': ['ACT-4'], '3.2': ['ACT-4'], '3.3': ['ACT-4'], '3.4': ['ACT-4'], '3.5': ['ACT-4'], '3.6': ['ACT-4'],
   '3.7': ['ACT-4'], '3.8': ['ACT-4'], '3.9': ['ACT-4'], '3.10': ['ACT-4'], '3.11': ['ACT-4'], '3.12': ['ACT-4'],
   '4.1': ['ACT-4'], '4.2': ['ACT-4'], '4.3': ['ACT-4'], '4.4': ['ACT-2'], '4.5': ['ACT-4'], '4.6': ['ACT-4'], '4.7': ['ACT-4'],
@@ -128,7 +129,7 @@ for (const [mod, entry] of Object.entries(MODULE_FRAMEWORK_MAPPINGS)) {
 // the facility service-domain overlay (Layer 2). Employment/policy/support/comms
 // modules keep their inherent domains regardless of sector.
 export const FACILITY_CONTEXT_MODULES = new Set<string>([
-  '2.1', '2.2', '2.3', '2.4',
+  '2.1', '2.2', '2.3', '2.4', '2.5',
   '3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7', '3.8', '3.9', '3.10', '3.11', '3.12',
   '6.1', '6.2', '6.3', '6.4', '6.5',
   '7.1', '7.2', '7.3', '7.4', '7.6', '7.7',

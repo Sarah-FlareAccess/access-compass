@@ -525,6 +525,7 @@ const MODULE_DOMAINS: Record<string, Domain[]> = {
   '2.2': ['physical'],
   '2.3': ['physical'],
   '2.4': ['physical', 'service'],
+  '2.5': ['physical', 'service'],
   '3.1': ['physical'],
   '3.2': ['physical'],
   '3.3': ['sensory', 'physical'],

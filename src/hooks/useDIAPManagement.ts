@@ -2243,6 +2243,7 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   '2.2': 'Welcome all visitors through accessible, dignified entry points',
   '2.3': 'Provide paths and aisles that all visitors can use comfortably',
   '2.4': 'Create a comfortable queuing and arrival experience for all visitors',
+  '2.5': 'Provide streets, footpaths and public spaces everyone can move through safely',
   // 3.x During Visit
   '3.1': {
     default: 'Provide comfortable seating, furniture and layout for all visitors',

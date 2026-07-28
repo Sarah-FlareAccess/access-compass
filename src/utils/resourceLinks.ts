@@ -73,6 +73,7 @@ export function getReportResourceLinks(questionId: string, moduleCode: string): 
     '2.2': 'getting-in',
     '2.3': 'getting-in',
     '2.4': 'getting-in',
+    '2.5': 'getting-in',
     '3.1': 'during-visit',
     '3.2': 'during-visit',
     '3.3': 'during-visit',

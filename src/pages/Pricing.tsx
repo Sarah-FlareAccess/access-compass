@@ -1334,7 +1334,7 @@ export default function Pricing() {
         {/* Header */}
         <div className="pricing-header">
           <h1 style={{ color: colors.walnut }}>Pricing Plans</h1>
-          <p style={{ color: colors.subtleText }}>50 modules covering every touchpoint of your visitor journey and business operations: staff, policies, procurement and more.</p>
+          <p style={{ color: colors.subtleText }}>51 modules covering every touchpoint of your visitor journey and business operations: staff, policies, procurement and more.</p>
         </div>
 
         {/* Founding Partner banner */}

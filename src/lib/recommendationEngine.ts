@@ -94,6 +94,8 @@ export const MODULES: ModuleDefinition[] = [
     description: 'Ensures everyone can get inside. Relevant if your entrance has steps, heavy doors or narrow access.' },
   { id: '2.3', name: 'Paths and aisles', journeyTheme: 'during-visit', estimatedTime: 12, cost: 85,
     description: 'Makes moving around easy. Relevant if customers navigate through your space.' },
+  { id: '2.5', name: 'Streetscape and public realm', journeyTheme: 'during-visit', estimatedTime: 15, cost: 130,
+    description: 'Covers footpaths, kerb ramps, crossings, on-street parking, bus stops and street furniture in the public right-of-way. Relevant if you own, manage or regulate public streets and civic spaces.' },
   { id: '2.4', name: 'Queues and busy times', journeyTheme: 'during-visit', estimatedTime: 10, cost: 65,
     description: 'Manages crowds comfortably. Relevant if customers wait in line or you have peak periods.' },
   // During the visit (5 modules)
@@ -198,6 +200,7 @@ export const MODULE_ID_TO_CODE: Record<string, string> = {
   '2.2': '2.2',
   '2.3': '2.3',
   '2.4': '2.4',
+  '2.5': '2.5',
   '3.1': '3.1',
   '3.2': '3.2',
   '3.3': '3.3',
@@ -258,6 +261,7 @@ export const TOUCHPOINT_TO_MODULES: Record<string, string[]> = {
 
   // During visit touchpoints
   'getting-in': ['2.1', '2.2', '2.3', '2.4'],           // Arrival, entry, paths, queues
+  'public-realm': ['2.5'],                               // Streetscape and public right-of-way
   'using-space': ['3.1', '3.2', '2.4', '3.4', '3.7'],   // Seating, toilets, queues, equipment, on-site info
   'experiences-activities': ['3.8'],                     // Experiences, events, tours, recreation
   'accommodation-rooms': ['3.9'],                        // Accommodation and guest rooms

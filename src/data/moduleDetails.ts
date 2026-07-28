@@ -222,6 +222,28 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
       'Parents managing children',
     ],
   },
+  '2.5': {
+    id: '2.5',
+    overview: 'This module covers the public right-of-way outside your property boundary: footpaths, kerb ramps, pedestrian crossings, on-street accessible parking, bus stops, street furniture and the permit systems that govern what businesses and contractors put on the footpath. It is written for organisations that own, manage or regulate public infrastructure.',
+    topics: [
+      'Continuous accessible path of travel between key destinations',
+      'Footpath clear width, crossfall, gradient and surface',
+      'Kerb ramps, crossings and audio-tactile signals',
+      'On-street accessible parking and bus stops',
+      'Street furniture placement and rest seating',
+      'Footpath trading, works and temporary obstruction permits',
+      'Maintenance, defect intervention levels and public reporting',
+      'Consultation, asset ownership and funded improvement programs',
+    ],
+    whyMatters: 'The Premises Standards stop at the building. The DDA does not. Section 23 covers any place the public is allowed to enter, and the definition of premises expressly includes public parks, pathways, streetscapes and road crossings. This is the ground the Australian Human Rights Commission\'s Advisory Notes on streetscape were written to cover, precisely because it falls outside the mandatory building code.\n\nIt is also where journeys fail. A fully accessible building is unreachable if the footpath outside has no kerb ramp, the crossing gives no audible signal, the only accessible parking bay has a kerb between it and the path or an A-frame narrows the footway to 700mm. People describe abandoning trips not because the destination was inaccessible but because they could not get to it, and they usually find out only once they are already out.\n\nFor councils and authorities this is a large share of a Disability Inclusion Action Plan, and it is the part most often documented as an aspiration rather than assessed as an asset.',
+    whoHelps: [
+      'People using wheelchairs and mobility scooters who need a continuous step-free route',
+      'People who are blind or have low vision relying on tactile cues and audible signals',
+      'Older people and people with energy-limiting conditions who need rest seating at intervals',
+      'People using walking sticks, crutches and frames affected by crossfall and loose surfaces',
+      'Parents with prams and anyone moving goods or luggage through the street',
+    ],
+  },
   '3.1': {
     id: '3.1',
     overview: 'This module covers seating arrangements, table heights and furniture that works for customers with different needs.',

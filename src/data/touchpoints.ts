@@ -101,7 +101,7 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
       {
         id: 'physical-access',
         label: 'Your space and facilities',
-        touchpointIds: ['getting-in', 'using-space', 'accommodation-rooms', 'wayfinding'],
+        touchpointIds: ['getting-in', 'public-realm', 'using-space', 'accommodation-rooms', 'wayfinding'],
       },
       {
         id: 'experiences-activities',
@@ -124,6 +124,18 @@ export const JOURNEY_PHASES: JourneyPhaseData[] = [
           { id: 'queues', label: 'Queues or busy times' },
         ],
         moduleMapping: ['2.1', '2.2', '2.3', '2.4'],
+      },
+      {
+        id: 'public-realm',
+        label: 'Do you manage or regulate public streets, footpaths or civic spaces?',
+        description: 'Footpaths, kerb ramps, crossings, on-street parking, bus stops and street furniture in the public right-of-way',
+        example: 'e.g. Main street footpaths, pedestrian crossings, accessible parking bays, bus stops, town square, footpath trading permits',
+        subTouchpoints: [
+          { id: 'footpaths-crossings', label: 'Footpaths, kerb ramps and crossings' },
+          { id: 'on-street-parking-transport', label: 'On-street parking and bus stops' },
+          { id: 'street-furniture-trading', label: 'Street furniture and footpath trading' },
+        ],
+        moduleMapping: ['2.5'],
       },
       {
         id: 'using-space',
