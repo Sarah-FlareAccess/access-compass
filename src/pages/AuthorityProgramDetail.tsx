@@ -3,6 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
+import { useProgramBusinessSummaries } from '../hooks/useProgramBusinessSummaries';
+import type { BusinessInsight } from '../hooks/useProgramBusinessSummaries';
+import {
+  AUTHORITY_CAN_SEE,
+  AUTHORITY_CANNOT_SEE,
+  AUTHORITY_HIDDEN_REASON,
+} from '../utils/authorityVisibility';
 import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
 import { supabaseRest } from '../utils/supabase';
 import { accessModules, moduleGroups } from '../data/accessModules';
@@ -56,6 +63,7 @@ export default function AuthorityProgramDetail() {
   const csvInputRef = useRef<HTMLInputElement>(null);
   const [carryovers, setCarryovers] = useState<CarryoverDeclaration[]>([]);
   const [expandedBusiness, setExpandedBusiness] = useState<string | null>(null);
+  const { insights: businessInsights } = useProgramBusinessSummaries(id ?? null);
   const [editingModules, setEditingModules] = useState(false);
   const [editedModuleIds, setEditedModuleIds] = useState<string[]>([]);
   const [savingModules, setSavingModules] = useState(false);
@@ -458,6 +466,48 @@ export default function AuthorityProgramDetail() {
       {/* Enrolled businesses */}
       <div className="authority-section">
         <h2>Enrolled Businesses</h2>
+        <details style={{ marginBottom: '1rem', fontSize: '0.8125rem' }}>
+          <summary style={{ cursor: 'pointer', fontWeight: 600, color: 'var(--amethyst-diamond, #490E67)' }}>
+            What you can and cannot see about each business
+          </summary>
+          <div style={{
+            marginTop: '0.75rem',
+            padding: '0.875rem 1rem',
+            background: 'rgba(73, 14, 103, 0.03)',
+            border: '1px solid rgba(73, 14, 103, 0.12)',
+            borderRadius: '6px',
+            color: 'var(--text-secondary, #5C4A4E)',
+            lineHeight: 1.6,
+          }}>
+            <p style={{ margin: '0 0 0.75rem' }}>
+              Each business owns its own assessment. You see enough to support them and to
+              report on the program, and no more. Every business is shown this same list
+              before they enrol.
+            </p>
+            <div style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+              <div>
+                <div style={{ fontWeight: 600, color: 'var(--text-primary, #2d2420)', marginBottom: '0.25rem' }}>
+                  You can see
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                  {AUTHORITY_CAN_SEE.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+              <div>
+                <div style={{ fontWeight: 600, color: 'var(--text-primary, #2d2420)', marginBottom: '0.25rem' }}>
+                  You cannot see
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                  {AUTHORITY_CANNOT_SEE.map(item => <li key={item}>{item}</li>)}
+                </ul>
+              </div>
+            </div>
+            <p style={{ margin: '0.75rem 0 0', fontStyle: 'italic' }}>
+              {AUTHORITY_HIDDEN_REASON} Strengths and opportunities are generated summaries
+              written from the assessment, not the answers themselves.
+            </p>
+          </div>
+        </details>
         {summaries.length === 0 ? (
           <p className="authority-empty-text">No businesses enrolled yet.</p>
         ) : (
@@ -475,18 +525,29 @@ export default function AuthorityProgramDetail() {
 
               return (
                 <div key={summary.child_org_id}>
-                  <div
-                    className="authority-business-row"
-                    style={{ cursor: hasCarryovers ? 'pointer' : undefined }}
-                    onClick={() => hasCarryovers && setExpandedBusiness(isExpanded ? null : summary.child_org_id)}
-                  >
+                  <div className="authority-business-row">
                     <span className="authority-business-name">
-                      {summary.child_org_name}
-                      {hasCarryovers && (
-                        <span style={{ marginLeft: '0.5rem', fontSize: '0.7rem', verticalAlign: 'middle' }}>
-                          {isExpanded ? '▾' : '▸'}
-                        </span>
-                      )}
+                      <button
+                        type="button"
+                        aria-expanded={isExpanded}
+                        aria-controls={`business-detail-${summary.child_org_id}`}
+                        onClick={() => setExpandedBusiness(isExpanded ? null : summary.child_org_id)}
+                        style={{
+                          background: 'none',
+                          border: 0,
+                          padding: 0,
+                          font: 'inherit',
+                          color: 'inherit',
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.4rem',
+                        }}
+                      >
+                        <span aria-hidden="true" style={{ fontSize: '0.7rem' }}>{isExpanded ? '▾' : '▸'}</span>
+                        {summary.child_org_name}
+                      </button>
                     </span>
                     <span className={`authority-enrolment-status ${summary.enrolment_status || 'enrolled'}`}>
                       {formatEnrolmentStatus(summary.enrolment_status)}
@@ -546,6 +607,13 @@ export default function AuthorityProgramDetail() {
                       )}
                     </span>
                   </div>
+                  {isExpanded && (
+                    <BusinessSummaryPanel
+                      panelId={`business-detail-${summary.child_org_id}`}
+                      businessName={summary.child_org_name}
+                      insight={businessInsights.get(summary.child_org_id)}
+                    />
+                  )}
                   {isExpanded && hasCarryovers && (
                     <div style={{
                       padding: '0.75rem 1rem 0.75rem 2rem',
@@ -593,6 +661,94 @@ export default function AuthorityProgramDetail() {
           accessLevel={program.access_level}
         />
       )}
+    </div>
+  );
+}
+
+// Per-business strengths and opportunities. Generated narrative from the
+// assessment, never the answers themselves, and never the staff modules.
+// Framed as strengths and next steps rather than a score, because a score
+// across a cohort reads as a ranking and these programs are not punitive.
+function BusinessSummaryPanel({
+  panelId,
+  businessName,
+  insight,
+}: {
+  panelId: string;
+  businessName: string;
+  insight?: BusinessInsight;
+}) {
+  const strengths = insight?.strengths ?? [];
+  const opportunities = insight?.opportunities ?? [];
+  const hasAny = strengths.length > 0 || opportunities.length > 0;
+
+  const MAX = 6;
+
+  return (
+    <div
+      id={panelId}
+      style={{
+        padding: '1rem 1rem 1rem 2rem',
+        background: 'rgba(73, 14, 103, 0.02)',
+        borderBottom: '1px solid rgba(62, 43, 47, 0.05)',
+        fontSize: '0.8125rem',
+        lineHeight: 1.6,
+      }}
+    >
+      {!hasAny ? (
+        <p style={{ margin: 0, color: 'var(--text-secondary, #5C4A4E)' }}>
+          No completed modules yet, so there is nothing to summarise for {businessName}.
+        </p>
+      ) : (
+        <div style={{ display: 'grid', gap: '1.25rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
+          <div>
+            <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#14532d' }}>
+              Strengths
+            </h3>
+            {strengths.length === 0 ? (
+              <p style={{ margin: 0, color: 'var(--text-secondary, #5C4A4E)' }}>None recorded yet.</p>
+            ) : (
+              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+                {strengths.slice(0, MAX).map((s, i) => (
+                  <li key={`${s.moduleId}-${i}`}>{s.text}</li>
+                ))}
+              </ul>
+            )}
+            {strengths.length > MAX && (
+              <p style={{ margin: '0.35rem 0 0', fontSize: '0.75rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+                and {strengths.length - MAX} more
+              </p>
+            )}
+          </div>
+
+          <div>
+            <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, margin: '0 0 0.5rem', color: 'var(--amethyst-diamond, #490E67)' }}>
+              Opportunities
+            </h3>
+            {opportunities.length === 0 ? (
+              <p style={{ margin: 0, color: 'var(--text-secondary, #5C4A4E)' }}>None recorded yet.</p>
+            ) : (
+              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+                {opportunities.slice(0, MAX).map((o, i) => (
+                  <li key={`${o.moduleId}-${i}`}>{o.text}</li>
+                ))}
+              </ul>
+            )}
+            {opportunities.length > MAX && (
+              <p style={{ margin: '0.35rem 0 0', fontSize: '0.75rem', color: 'var(--text-secondary, #5C4A4E)' }}>
+                and {opportunities.length - MAX} more
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      <p style={{ margin: '0.875rem 0 0', fontSize: '0.75rem', fontStyle: 'italic', color: 'var(--text-secondary, #5C4A4E)' }}>
+        Summarised from {insight?.modulesSummarised ?? 0} completed module
+        {(insight?.modulesSummarised ?? 0) === 1 ? '' : 's'}. Generated from the assessment,
+        not the individual answers.
+        {(insight?.withheldModules ?? 0) > 0 && ` ${insight?.withheldModules} completed module${insight?.withheldModules === 1 ? '' : 's'} withheld from this view because ${insight?.withheldModules === 1 ? 'it describes' : 'they describe'} staff rather than the place.`}
+      </p>
     </div>
   );
 }

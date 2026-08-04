@@ -6,6 +6,11 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import { supabase, supabaseRest } from '../utils/supabase';
 import { accessModules } from '../data/accessModules';
 import { readActiveModuleProgressRaw } from '../utils/moduleProgressStore';
+import {
+  AUTHORITY_CAN_SEE,
+  AUTHORITY_CANNOT_SEE,
+  AUTHORITY_HIDDEN_REASON,
+} from '../utils/authorityVisibility';
 import '../styles/authority.css';
 
 import type { AuthorityProgram } from '../types/access';
@@ -429,6 +434,48 @@ export default function ProgramEnrol() {
             ))}
           </ul>
         </details>
+
+        {/* Stated before they enrol, not buried in terms. The program host sees
+            the same list on its own screen, so both sides read one definition. */}
+        <div style={{
+          marginBottom: '1.5rem',
+          padding: '0.875rem 1rem',
+          background: 'rgba(73, 14, 103, 0.03)',
+          border: '1px solid rgba(73, 14, 103, 0.12)',
+          borderRadius: '6px',
+          fontSize: '0.8125rem',
+          lineHeight: 1.6,
+          color: 'var(--text-secondary, #5C4A4E)',
+        }}>
+          <h2 style={{ fontSize: '0.875rem', fontWeight: 700, margin: '0 0 0.5rem', color: 'var(--text-primary, #2d2420)' }}>
+            What {authorityName || 'the program host'} will see
+          </h2>
+          <p style={{ margin: '0 0 0.75rem' }}>
+            Your assessment stays yours. You keep it and update it whether or not you are in
+            this program next year.
+          </p>
+          <div style={{ display: 'grid', gap: '0.75rem', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+            <div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary, #2d2420)', marginBottom: '0.25rem' }}>
+                They can see
+              </div>
+              <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                {AUTHORITY_CAN_SEE.map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+            <div>
+              <div style={{ fontWeight: 600, color: 'var(--text-primary, #2d2420)', marginBottom: '0.25rem' }}>
+                They cannot see
+              </div>
+              <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
+                {AUTHORITY_CANNOT_SEE.map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+          <p style={{ margin: '0.75rem 0 0', fontStyle: 'italic' }}>
+            {AUTHORITY_HIDDEN_REASON}
+          </p>
+        </div>
 
         {error && (
           <p style={{ color: 'var(--coral-flare, #ea0b3f)', fontSize: '0.875rem', marginBottom: '1rem' }}>{error}</p>
