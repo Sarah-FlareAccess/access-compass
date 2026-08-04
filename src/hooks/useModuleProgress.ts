@@ -598,19 +598,33 @@ export function useModuleProgress(selectedModules: string[] = []): UseModuleProg
     }
   }, [syncModuleToCloud]);
 
-  // Calculate confidence snapshot based on responses
+  // Calculate confidence snapshot based on responses.
+  //
+  // Two corrections over the original, both of which made 'mixed' the default
+  // landing zone regardless of how accessible a site actually was:
+  //
+  // 1. 'not-applicable' and unanswered questions are excluded from the
+  //    denominator. Previously they sat in the total while counting toward
+  //    neither outcome, so marking a question as not applying to your site made
+  //    'strong' harder to reach. That is straightforwardly wrong.
+  // 2. 'partially' now counts as half a positive rather than only inflating the
+  //    denominator. Previously it pushed a module away from 'strong' and away
+  //    from 'needs-work' at the same time, so any realistic spread of answers
+  //    landed in 'mixed' by construction.
+  //
+  // Direction of travel: scores move UP. Sanity-check a real completed module
+  // before trusting a headline figure built on this.
   const calculateConfidenceSnapshot = (responses: QuestionResponse[]): 'strong' | 'mixed' | 'needs-work' => {
-    if (responses.length === 0) return 'needs-work';
+    const scored = responses.filter(r => r.answer && r.answer !== 'not-applicable');
+    if (scored.length === 0) return 'needs-work';
 
-    const yesCount = responses.filter(r => r.answer === 'yes').length;
-    const noCount = responses.filter(r => r.answer === 'no').length;
-    const unsureCount = responses.filter(r => r.answer === 'unable-to-check').length;
-    const total = responses.length;
+    const countOf = (answer: ResponseOption) => scored.filter(r => r.answer === answer).length;
+    const total = scored.length;
 
-    const yesPercentage = (yesCount / total) * 100;
-    const negativePercentage = ((noCount + unsureCount) / total) * 100;
+    const positivePercentage = ((countOf('yes') + countOf('partially') * 0.5) / total) * 100;
+    const negativePercentage = ((countOf('no') + countOf('unable-to-check')) / total) * 100;
 
-    if (yesPercentage >= 70) return 'strong';
+    if (positivePercentage >= 70) return 'strong';
     if (negativePercentage >= 50) return 'needs-work';
     return 'mixed';
   };
