@@ -266,8 +266,11 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
   },
   enterprise: {
     name: 'Enterprise',
+    // The floor stays here as the internal record. The page shows "Contact us"
+    // instead, so keep priceLabel matching what the page prints or the two
+    // sources disagree about what a buyer was told.
     priceAmountCents: 2500000,
-    priceLabel: 'from $25,000',
+    priceLabel: 'Contact us',
     period: '12 months',
     accessLevel: 'deep_dive',
     sites: 'from 20 sites / venues / events',

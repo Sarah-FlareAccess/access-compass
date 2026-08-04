@@ -1119,7 +1119,7 @@ const orgAccessibilityTiers: Tier[] = [
     price: '$7,900',
     period: '12 months',
     description: 'Keep your action plan active, accountable and on track.',
-    whoFor: 'For regional councils and smaller authorities running their accessibility action plan.',
+    whoFor: 'For regional councils, smaller authorities and festival or event organisers running an accessibility action plan across a handful of sites, venues or events.',
     highlight: false,
     features: {
       diap: 'Full (import, assign, track, export)',
@@ -1149,7 +1149,7 @@ const orgAccessibilityTiers: Tier[] = [
     price: '$12,900',
     period: '12 months',
     description: 'Coordinate accessibility across teams, sites and funded programs.',
-    whoFor: 'For mid-size authorities running accessibility across more sites and teams, with a small Network Program for suppliers, tenants or grant recipients.',
+    whoFor: 'For mid-size authorities, festivals and event organisers running accessibility across more sites, venues and teams, with a small Network Program for suppliers, partner venues, tenants or grant recipients.',
     highlight: true,
     features: {
       diap: 'Full (import, assign, track, export)',
@@ -1176,10 +1176,14 @@ const orgAccessibilityTiers: Tier[] = [
   },
   {
     name: 'Enterprise',
-    price: 'from $25,000',
-    period: '12 months',
+    // Deliberately unpriced on the page. The $25,000 floor is kept in
+    // pricingEngine.AUTHORITY_TIERS.enterprise.priceAmountCents as the internal
+    // record; Enterprise is always a scoped conversation, so a printed number
+    // only ever anchors the negotiation before the scope is known.
+    price: 'Contact us',
+    period: '',
     description: 'Govern accessibility across a complex organisation, with executive oversight and reporting your board will accept.',
-    whoFor: 'For large councils, government departments, universities, health networks and complex organisations that need accessibility governed across the whole organisation. Scoped with you, not off the shelf.',
+    whoFor: 'For large councils, government departments, universities, health networks, major festivals and complex organisations that need accessibility governed across the whole organisation. Scoped with you, not off the shelf.',
     highlight: false,
     features: {
       diap: 'Full (import, assign, track, export)',
