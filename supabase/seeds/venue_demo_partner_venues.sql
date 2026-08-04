@@ -10,7 +10,7 @@
 -- shape a festival or a council recognises: a host organisation with a network
 -- of independent venues it can influence but not manage.
 --
--- TWO THINGS THIS DOES DIFFERENTLY TO venue_demo_programs.sql
+-- THREE THINGS THIS DOES DIFFERENTLY TO venue_demo_programs.sql
 --
 -- 1. Confidence is assigned from a per-venue readiness profile, not the
 --    `v_mi % 3` rotation used previously. That rotation gave every venue an
@@ -22,6 +22,15 @@
 --
 -- 2. Bands follow the CORRECTED banding (see backfill_confidence_snapshot.sql),
 --    so this data is consistent with what the app now computes.
+--
+-- 3. The program covers the whole visitor journey, not just the event modules.
+--    The first version required six modules, which read as a token checklist:
+--    no parking, no entrance, no toilets, no wayfinding, no emergency plan. A
+--    host that sends this to a venue it does not own is asking whether a
+--    visitor can get there, get in, get around, use the loo and get out again,
+--    so the module set now runs 1.x through 6.x in journey order. 7.1 was
+--    dropped: precinct coordination is something the host does across venues,
+--    not something an individual partner venue can answer for.
 --
 -- PREREQUISITE: venue_demo_programs.sql must have run (it creates the org as an
 -- authority and defines the shared content map). Idempotent; safe to re-run.
@@ -48,12 +57,20 @@ declare
   -- Module-specific findings, same shape as venue_demo_programs.sql so the
   -- cohort report and the per-business panel read as real content.
   v_content jsonb := jsonb_build_object(
+    '1.1', jsonb_build_object('priority','high','action','Publish an access statement covering parking, the entrance, toilets, seating and sensory conditions, and keep it current on your own site and on every event listing.','strengths',jsonb_build_array('Accessibility information is published before people book.','Photos of the entrance and the main space are included so people can judge the venue for themselves.'),'explore','Whether the published access information matches what visitors actually find on the day.'),
+    '2.1', jsonb_build_object('priority','high','action','Mark accessible parking bays and a step-free drop-off point close to the entrance, and state the distance and surface in your access information.','strengths',jsonb_build_array('Accessible parking is available within a short distance of the entrance.','A drop-off point is available close to the door.'),'explore','Whether the route from parking to the entrance is step-free and lit after dark.'),
+    '2.2', jsonb_build_object('priority','high','action','Make the step-free entrance the main entrance, and keep the door powered, propped or staffed so nobody has to ask to be let in another way.','strengths',jsonb_build_array('The main entrance is step-free.','Doorways are wide enough for a wheelchair or mobility scooter.'),'explore','Whether the accessible entrance is easy to identify from the street.'),
+    '2.3', jsonb_build_object('priority','medium','action','Keep internal routes at least 1000mm clear and free of cables, stored equipment and trip hazards once the room is set for an event.','strengths',jsonb_build_array('Internal paths are level and free of steps.','Floor surfaces are firm and slip resistant.'),'explore','Whether aisle widths hold up under a full event set-up.'),
+    '2.4', jsonb_build_object('priority','medium','action','Offer a seated or priority queuing option at the box office and bar, and a way to ask for it without queueing first.','strengths',jsonb_build_array('Seating is available near queuing areas.','Staff will bring service to a customer who cannot stand in a queue.'),'explore','How queues in the foyer are managed when several sessions turn over at once.'),
     '3.1', jsonb_build_object('priority','high','action','Provide a choice of seating heights with armrests and keep circulation routes at least 1200mm wide in all public areas.','strengths',jsonb_build_array('Clear space is kept between furniture so mobility-aid users can move through freely.','A mix of seating with and without armrests is offered in waiting areas.'),'explore','Whether floor-to-furniture colour contrast is strong enough for people with low vision.'),
+    '3.2', jsonb_build_object('priority','high','action','Provide an accessible toilet on the same level as the event space, keep it unlocked and clear of storage, and check the grab rails and door hardware.','strengths',jsonb_build_array('An accessible toilet is available to visitors.','The accessible toilet is signed and easy to find from the main space.'),'explore','Whether the accessible toilet stays unlocked and clear for the whole event.'),
+    '3.3', jsonb_build_object('priority','medium','action','Cut background noise and glare where you can, and offer a quieter space or a quieter session for people who need one.','strengths',jsonb_build_array('Lighting levels can be adjusted in the main space.','Some acoustic treatment softens the hard surfaces.'),'explore','Whether there is somewhere a visitor can go to take a break from the noise.'),
+    '3.5', jsonb_build_object('priority','medium','action','Sign the accessible entrance, the accessible toilet and the lift or ramp in high-contrast type, starting from the street.','strengths',jsonb_build_array('Signage uses large clear type with good contrast.','Key facilities are signed from the entrance.'),'explore','Whether a first-time visitor can find the accessible route without having to ask.'),
     '4.2', jsonb_build_object('priority','high','action','Run disability-awareness and communication-access training so front-line staff can confidently assist a range of access needs.','strengths',jsonb_build_array('Staff offer assistance without waiting to be asked.','Team members are comfortable using plain language and assistive devices.'),'explore','How to support customers who are non-speaking or have communication disability.'),
+    '4.4', jsonb_build_object('priority','high','action','Set out how you would evacuate someone who cannot use stairs, name who assists them, and brief staff on it before every event.','strengths',jsonb_build_array('Emergency exits are step-free or have an identified alternative.','Staff know where the accessible exits are.'),'explore','Whether the emergency plan covers visitors who cannot self-evacuate.'),
     '6.2', jsonb_build_object('priority','high','action','Audit the accessible path of travel from drop-off and parking to the event space and keep it clear of cables, signage and furniture on the day.','strengths',jsonb_build_array('Accessible parking and a step-free entrance are available.','Accessible toilets are within easy reach of the event space.'),'explore','Whether temporary event layouts keep the accessible path of travel clear.'),
     '6.4', jsonb_build_object('priority','medium','action','Offer a hearing augmentation system and a quiet or low-sensory space, and test AV captioning before doors open.','strengths',jsonb_build_array('A hearing loop is available in the main space.','Lighting and sound can be adjusted for sensory comfort.'),'explore','Whether hearing augmentation coverage reaches the whole space.'),
-    '6.5', jsonb_build_object('priority','medium','action','Brief all event staff and volunteers on the access features and the location of accessible facilities before doors open.','strengths',jsonb_build_array('A staffed help point is available for attendees.','Accessible facilities are signed and kept clear during the event.'),'explore','Whether all casual event staff receive the access briefing.'),
-    '7.1', jsonb_build_object('priority','medium','action','Publish a consistent accessible wayfinding scheme across all venues and shared spaces in the precinct.','strengths',jsonb_build_array('Accessible routes between venues are mapped.','Wayfinding signage is coordinated across the precinct.'),'explore','Whether wayfinding is consistent across every venue in the precinct.')
+    '6.5', jsonb_build_object('priority','medium','action','Brief all event staff and volunteers on the access features and the location of accessible facilities before doors open.','strengths',jsonb_build_array('A staffed help point is available for attendees.','Accessible facilities are signed and kept clear during the event.'),'explore','Whether all casual event staff receive the access briefing.')
   );
 begin
   select id into v_org from organisations
@@ -73,13 +90,13 @@ begin
     (v_org,
      'Partner Venue Program',
      'partner-venue',
-     'Accessibility assessment for the offsite and satellite venues the centre programs events into. Covers getting to and into the space, moving around it, sensory and hearing access, and how the venue runs on the day.',
-     array['6.2','3.1','6.4','7.1','4.2','6.5'],
+     'Accessibility assessment for the offsite and satellite venues the centre programs events into. Follows the whole visitor journey: access information before booking, parking and arrival, getting in the door, moving around, toilets, signage, sensory conditions, staff support, emergencies and how the venue runs on event day.',
+     array['1.1','2.1','2.2','2.3','2.4','3.1','3.2','3.3','3.5','4.2','4.4','6.2','6.4','6.5'],
      'pulse',
      now() - interval '100 days', now() + interval '265 days',
      true, true, 'authority_funded',
      null,
-     'Redgum Convention & Exhibition Centre asks partner venues to complete this accessibility assessment once a year. It takes about 25 minutes. You keep your assessment and can reuse it, and the centre sees your progress and a summary of your strengths and opportunities, not your individual answers.')
+     'Redgum Convention & Exhibition Centre asks partner venues to complete this accessibility assessment once a year. It follows a visitor from the moment they look you up to the moment they leave, and takes about two hours in total. Work through it module by module and come back to it whenever suits. You keep your assessment and can reuse it, and the centre sees your progress and a summary of your strengths and opportunities, not your individual answers.')
   on conflict (organisation_id, slug) do update
     set name = excluded.name,
         description = excluded.description,
@@ -96,6 +113,15 @@ begin
 
   select id, required_module_ids into v_prog_id, v_prog_mods
     from authority_programs where organisation_id = v_org and slug = 'partner-venue';
+
+  -- An earlier version of this seed required a different, shorter module set.
+  -- The upserts below cannot remove what they no longer write, so a venue would
+  -- keep a stale assessment (7.1) that the program no longer asks for. The
+  -- cohort report filters to required modules, but the dashboard the venue
+  -- sees does not. The session_id prefix keeps this to rows this seed created.
+  delete from module_progress
+   where session_id like 'seed-pv-%'
+     and not (module_id = any (v_prog_mods));
 
   -- ---------------------------------------------------------------
   -- 2. PARTNER VENUES
@@ -238,5 +264,5 @@ begin
      and slug = 'procurement-partner'
      and enrol_message like '%only see your completion status%';
 
-  raise notice 'Partner Venue Program seeded with 10 partner venues.';
+  raise notice 'Partner Venue Program seeded: 10 partner venues across % modules.', array_length(v_prog_mods, 1);
 end $$;
