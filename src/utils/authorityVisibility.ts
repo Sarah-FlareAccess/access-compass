@@ -2,9 +2,10 @@
  * What a program host can see about an individual participant, and what it
  * cannot.
  *
- * One definition, stated to both sides. The authority-facing summary renders it
- * so the host understands the limits of what it is reading, and the enrolment
- * screen shows the participant the same list before they agree to join.
+ * One set of facts, two voices. The host reads the HOST_ lists on its own
+ * screens; the participant reads the PARTICIPANT_ lists on the enrolment screen
+ * before agreeing to join. Keep the two in step: they are deliberately adjacent
+ * here so a change to one that is not mirrored is obvious in review.
  *
  * The boundary is enforced server-side rather than here:
  * get_program_cohort_summaries (supabase/migrations/029_program_reports.sql)
@@ -26,19 +27,43 @@ export const AUTHORITY_HIDDEN_MODULE_IDS: readonly string[] = ['5.2', '5.3'];
 export const AUTHORITY_HIDDEN_REASON =
   'Modules covering employment and individual staff training are withheld from this view, because they describe people rather than the place.';
 
-/** Shown to both the host and the participant, worded for the participant. */
-export const AUTHORITY_CAN_SEE: readonly string[] = [
+/* ------------------------------------------------------------------ */
+/* Host voice: shown to the authority on the program and business pages */
+/* ------------------------------------------------------------------ */
+
+export const HOST_CAN_SEE: readonly string[] = [
+  'Each business by name, its enrolment status and the dates it starts and finishes',
+  'Which of the required modules it has completed',
+  'A summary of its strengths and the opportunities its assessment identifies',
+];
+
+export const HOST_CANNOT_SEE: readonly string[] = [
+  'Its individual answers to any question',
+  'Photos, documents or other evidence it uploads',
+  'Its action plan, or how far through it the business is',
+  'Anything in the employment and staff training modules',
+];
+
+/* ------------------------------------------------------------------ */
+/* Participant voice: shown on the enrolment screen, before they join   */
+/* ------------------------------------------------------------------ */
+
+export const PARTICIPANT_CAN_SEE: readonly string[] = [
   'Your enrolment status, and the dates you start and finish',
   'Which of the required modules you have completed',
   'A summary of your strengths and the opportunities your assessment identifies',
 ];
 
-export const AUTHORITY_CANNOT_SEE: readonly string[] = [
+export const PARTICIPANT_CANNOT_SEE: readonly string[] = [
   'Your individual answers to any question',
   'Photos, documents or other evidence you upload',
   'Your action plan, or how far through it you are',
   'Anything in the employment and staff training modules',
 ];
+
+/** One-line host-voice version, for places with no room for the full lists. */
+export const AUTHORITY_VISIBILITY_SUMMARY =
+  'You see each business by name with its status, its dates and a summary of strengths and opportunities. Individual answers, evidence and action plans stay private to the business.';
 
 export function isHiddenFromAuthority(moduleId: string): boolean {
   return AUTHORITY_HIDDEN_MODULE_IDS.includes(moduleId);

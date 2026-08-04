@@ -4,10 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
 import { useProgramBusinessSummaries } from '../hooks/useProgramBusinessSummaries';
-import type { BusinessInsight } from '../hooks/useProgramBusinessSummaries';
+import BusinessSummaryPanel from '../components/authority/BusinessSummaryPanel';
 import {
-  AUTHORITY_CAN_SEE,
-  AUTHORITY_CANNOT_SEE,
+  HOST_CAN_SEE,
+  HOST_CANNOT_SEE,
   AUTHORITY_HIDDEN_REASON,
 } from '../utils/authorityVisibility';
 import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
@@ -490,7 +490,7 @@ export default function AuthorityProgramDetail() {
                   You can see
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
-                  {AUTHORITY_CAN_SEE.map(item => <li key={item}>{item}</li>)}
+                  {HOST_CAN_SEE.map(item => <li key={item}>{item}</li>)}
                 </ul>
               </div>
               <div>
@@ -498,7 +498,7 @@ export default function AuthorityProgramDetail() {
                   You cannot see
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
-                  {AUTHORITY_CANNOT_SEE.map(item => <li key={item}>{item}</li>)}
+                  {HOST_CANNOT_SEE.map(item => <li key={item}>{item}</li>)}
                 </ul>
               </div>
             </div>
@@ -665,90 +665,3 @@ export default function AuthorityProgramDetail() {
   );
 }
 
-// Per-business strengths and opportunities. Generated narrative from the
-// assessment, never the answers themselves, and never the staff modules.
-// Framed as strengths and next steps rather than a score, because a score
-// across a cohort reads as a ranking and these programs are not punitive.
-function BusinessSummaryPanel({
-  panelId,
-  businessName,
-  insight,
-}: {
-  panelId: string;
-  businessName: string;
-  insight?: BusinessInsight;
-}) {
-  const strengths = insight?.strengths ?? [];
-  const opportunities = insight?.opportunities ?? [];
-  const hasAny = strengths.length > 0 || opportunities.length > 0;
-
-  const MAX = 6;
-
-  return (
-    <div
-      id={panelId}
-      style={{
-        padding: '1rem 1rem 1rem 2rem',
-        background: 'rgba(73, 14, 103, 0.02)',
-        borderBottom: '1px solid rgba(62, 43, 47, 0.05)',
-        fontSize: '0.8125rem',
-        lineHeight: 1.6,
-      }}
-    >
-      {!hasAny ? (
-        <p style={{ margin: 0, color: 'var(--text-secondary, #5C4A4E)' }}>
-          No completed modules yet, so there is nothing to summarise for {businessName}.
-        </p>
-      ) : (
-        <div style={{ display: 'grid', gap: '1.25rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
-          <div>
-            <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#14532d' }}>
-              Strengths
-            </h3>
-            {strengths.length === 0 ? (
-              <p style={{ margin: 0, color: 'var(--text-secondary, #5C4A4E)' }}>None recorded yet.</p>
-            ) : (
-              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: 'var(--text-secondary, #5C4A4E)' }}>
-                {strengths.slice(0, MAX).map((s, i) => (
-                  <li key={`${s.moduleId}-${i}`}>{s.text}</li>
-                ))}
-              </ul>
-            )}
-            {strengths.length > MAX && (
-              <p style={{ margin: '0.35rem 0 0', fontSize: '0.75rem', color: 'var(--text-secondary, #5C4A4E)' }}>
-                and {strengths.length - MAX} more
-              </p>
-            )}
-          </div>
-
-          <div>
-            <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, margin: '0 0 0.5rem', color: 'var(--amethyst-diamond, #490E67)' }}>
-              Opportunities
-            </h3>
-            {opportunities.length === 0 ? (
-              <p style={{ margin: 0, color: 'var(--text-secondary, #5C4A4E)' }}>None recorded yet.</p>
-            ) : (
-              <ul style={{ margin: 0, paddingLeft: '1.1rem', color: 'var(--text-secondary, #5C4A4E)' }}>
-                {opportunities.slice(0, MAX).map((o, i) => (
-                  <li key={`${o.moduleId}-${i}`}>{o.text}</li>
-                ))}
-              </ul>
-            )}
-            {opportunities.length > MAX && (
-              <p style={{ margin: '0.35rem 0 0', fontSize: '0.75rem', color: 'var(--text-secondary, #5C4A4E)' }}>
-                and {opportunities.length - MAX} more
-              </p>
-            )}
-          </div>
-        </div>
-      )}
-
-      <p style={{ margin: '0.875rem 0 0', fontSize: '0.75rem', fontStyle: 'italic', color: 'var(--text-secondary, #5C4A4E)' }}>
-        Summarised from {insight?.modulesSummarised ?? 0} completed module
-        {(insight?.modulesSummarised ?? 0) === 1 ? '' : 's'}. Generated from the assessment,
-        not the individual answers.
-        {(insight?.withheldModules ?? 0) > 0 && ` ${insight?.withheldModules} completed module${insight?.withheldModules === 1 ? '' : 's'} withheld from this view because ${insight?.withheldModules === 1 ? 'it describes' : 'they describe'} staff rather than the place.`}
-      </p>
-    </div>
-  );
-}

@@ -28,6 +28,10 @@ import {
   THEME_RATIONALE,
 } from '../utils/programReportModel';
 import { generateProgramReportPdf } from '../utils/programReportPdfGenerator';
+import { useProgramBusinessSummaries } from '../hooks/useProgramBusinessSummaries';
+import BusinessSummaryPanel from '../components/authority/BusinessSummaryPanel';
+import { AUTHORITY_VISIBILITY_SUMMARY } from '../utils/authorityVisibility';
+import type { ChildOrgSummary } from '../types/access';
 import type { AuthorityProgram } from '../types/access';
 import '../styles/authority.css';
 import '../styles/program-report.css';
@@ -57,7 +61,7 @@ export default function AuthorityProgramReport() {
   const { id } = useParams<{ id: string }>();
   const programId = id ?? null;
   const { accessState } = useAuth();
-  const { getProgram } = useAuthorityAdmin();
+  const { getProgram, getChildOrgSummaries } = useAuthorityAdmin();
   const {
     snapshots,
     isLoading,
@@ -75,12 +79,24 @@ export default function AuthorityProgramReport() {
   const [genFrom, setGenFrom] = useState('');
   const [genTo, setGenTo] = useState('');
 
+  const { insights: businessInsights } = useProgramBusinessSummaries(programId);
+  const [businessRoster, setBusinessRoster] = useState<ChildOrgSummary[]>([]);
+  const [expandedBusiness, setExpandedBusiness] = useState<string | null>(null);
+
   usePageTitle(program ? `${program.name} intelligence report` : 'Program intelligence report');
 
   useEffect(() => {
     if (!programId) return;
     getProgram(programId).then(p => { if (p) setProgram(p); });
   }, [programId]);
+
+  const authorityOrgId = accessState.organisation?.id;
+  useEffect(() => {
+    if (!programId || !authorityOrgId) return;
+    getChildOrgSummaries(authorityOrgId).then(rows => {
+      setBusinessRoster(rows.filter(r => r.program_id === programId));
+    });
+  }, [programId, authorityOrgId]);
 
   // Auto-select the latest snapshot when snapshots load
   useEffect(() => {
@@ -262,8 +278,11 @@ export default function AuthorityProgramReport() {
                       {formatAssessmentWindow(s.snapshot_data.assessmentWindow, true)
                         ? ` · ${formatAssessmentWindow(s.snapshot_data.assessmentWindow, true)}`
                         : ''}
+                      {/* A property of the snapshot, not an instruction. Every
+                          other item on this line is a fact about the report, so
+                          "view by X or Y" read as though the report were both. */}
                       {s.snapshot_data.outcomes
-                        ? ` · view by theme or ${s.snapshot_data.outcomes.frameworkShort} outcome areas`
+                        ? ` · includes ${s.snapshot_data.outcomes.frameworkShort} outcome areas`
                         : ''}
                     </span>
                   </button>
@@ -312,6 +331,57 @@ export default function AuthorityProgramReport() {
 
       {/* Selected snapshot render */}
       {selected && <ReportRender data={selected.snapshot_data} groupBy={groupBy} />}
+
+      {/* Per-business breakdown. Deliberately placed after the cohort report and
+          labelled as current, because the snapshot payload holds aggregates only
+          and this is read live. Blurring the two would date-stamp it wrongly. */}
+      {selected && businessRoster.length > 0 && (
+        <section className="authority-section" style={{ marginTop: '2rem' }}>
+          <h2>By business</h2>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-secondary, #5C4A4E)', margin: '0 0 1rem', maxWidth: '60ch' }}>
+            {AUTHORITY_VISIBILITY_SUMMARY} This section reflects each business today, not the
+            date the report above was generated.
+          </p>
+          <div className="authority-business-list">
+            {businessRoster.map(biz => {
+              const isOpen = expandedBusiness === biz.child_org_id;
+              return (
+                <div key={biz.child_org_id}>
+                  <div className="authority-business-row">
+                    <span className="authority-business-name">
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-controls={`report-business-${biz.child_org_id}`}
+                        onClick={() => setExpandedBusiness(isOpen ? null : biz.child_org_id)}
+                        style={{
+                          background: 'none', border: 0, padding: 0, font: 'inherit', color: 'inherit',
+                          cursor: 'pointer', textAlign: 'left',
+                          display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                        }}
+                      >
+                        <span aria-hidden="true" style={{ fontSize: '0.7rem' }}>{isOpen ? '▾' : '▸'}</span>
+                        {biz.child_org_name}
+                      </button>
+                    </span>
+                    <span className={`authority-enrolment-status ${biz.enrolment_status || 'enrolled'}`}>
+                      {biz.enrolment_status || 'Enrolled'}
+                    </span>
+                  </div>
+                  {isOpen && (
+                    <BusinessSummaryPanel
+                      panelId={`report-business-${biz.child_org_id}`}
+                      businessName={biz.child_org_name}
+                      insight={businessInsights.get(biz.child_org_id)}
+                      provenanceNote="Generated from the assessment, not from the individual answers. Reflects this business as at today."
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Footer authority context */}
       {selected && accessState.organisation && (

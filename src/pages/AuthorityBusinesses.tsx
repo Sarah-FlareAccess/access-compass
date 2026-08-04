@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
+import { AUTHORITY_VISIBILITY_SUMMARY } from '../utils/authorityVisibility';
 import '../styles/authority.css';
 
 import type { ChildOrgSummary } from '../types/access';
@@ -43,7 +44,7 @@ export default function AuthorityBusinesses() {
       </div>
 
       <p className="authority-privacy-note">
-        Privacy: You can see assessment completion status and score bands. Individual answers and evidence remain private to each business.
+        Privacy: {AUTHORITY_VISIBILITY_SUMMARY} Strengths and opportunities are shown inside each program.
       </p>
 
       {/* Filter bar */}

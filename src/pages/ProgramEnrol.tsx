@@ -7,8 +7,8 @@ import { supabase, supabaseRest } from '../utils/supabase';
 import { accessModules } from '../data/accessModules';
 import { readActiveModuleProgressRaw } from '../utils/moduleProgressStore';
 import {
-  AUTHORITY_CAN_SEE,
-  AUTHORITY_CANNOT_SEE,
+  PARTICIPANT_CAN_SEE,
+  PARTICIPANT_CANNOT_SEE,
   AUTHORITY_HIDDEN_REASON,
 } from '../utils/authorityVisibility';
 import '../styles/authority.css';
@@ -460,7 +460,7 @@ export default function ProgramEnrol() {
                 They can see
               </div>
               <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
-                {AUTHORITY_CAN_SEE.map(item => <li key={item}>{item}</li>)}
+                {PARTICIPANT_CAN_SEE.map(item => <li key={item}>{item}</li>)}
               </ul>
             </div>
             <div>
@@ -468,7 +468,7 @@ export default function ProgramEnrol() {
                 They cannot see
               </div>
               <ul style={{ margin: 0, paddingLeft: '1.1rem' }}>
-                {AUTHORITY_CANNOT_SEE.map(item => <li key={item}>{item}</li>)}
+                {PARTICIPANT_CANNOT_SEE.map(item => <li key={item}>{item}</li>)}
               </ul>
             </div>
           </div>
