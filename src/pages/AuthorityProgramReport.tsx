@@ -278,12 +278,12 @@ export default function AuthorityProgramReport() {
                       {formatAssessmentWindow(s.snapshot_data.assessmentWindow, true)
                         ? ` · ${formatAssessmentWindow(s.snapshot_data.assessmentWindow, true)}`
                         : ''}
-                      {/* A property of the snapshot, not an instruction. Every
-                          other item on this line is a fact about the report, so
-                          "view by X or Y" read as though the report were both. */}
-                      {s.snapshot_data.outcomes
-                        ? ` · includes ${s.snapshot_data.outcomes.frameworkShort} outcome areas`
-                        : ''}
+                      {/* Grouping is deliberately NOT described here. It is a view
+                          setting applied at render time, not a property of the
+                          saved snapshot: the same report renders either way. Naming
+                          a framework on the row made a theme-grouped report look
+                          like an outcome-areas report. The Group by control above
+                          is the honest place for it. */}
                     </span>
                   </button>
                   {/* Named per report so "Delete" and "Download PDF" are not
@@ -597,27 +597,43 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
           Readiness distribution per module, with a tag showing how the cohort is tracking. <strong>On track</strong> = most businesses strong ·
           <strong>Developing</strong> = mixed, targeted support pays off · <strong>Priority</strong> = the biggest collective gap.
         </p>
+        <div className="report-heatmap__legend">
+          <span><span className="key key--strong" aria-hidden="true" />Strong</span>
+          <span><span className="key key--mixed" aria-hidden="true" />Mixed</span>
+          <span><span className="key key--needs" aria-hidden="true" />Needs work</span>
+          <span><span className="key key--none" aria-hidden="true" />Not yet assessed</span>
+        </div>
         <div className="report-heatmap">
           {moduleAggregates.map(m => {
-            const total = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
-            const strongP = total > 0 ? (m.confidence_strong / total) * 100 : 0;
-            const mixedP = total > 0 ? (m.confidence_mixed / total) * 100 : 0;
-            const needsP = total > 0 ? (m.confidence_needs_work / total) * 100 : 0;
+            // Each bar spans the WHOLE cohort, not just the businesses that have
+            // been assessed. Scaling to the assessed subset made every module a
+            // full-width bar, so a module assessed by 2 of 6 looked identical to
+            // one assessed by 6 of 6 and the coverage figure beside it read as a
+            // contradiction. The unassessed remainder is now visible as a gap.
+            const assessed = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+            const denom = Math.max(m.total_enrolments, assessed) || 1;
+            const w = (n: number) => (n / denom) * 100;
+            const unassessed = Math.max(0, denom - assessed);
             const verdict = moduleVerdict(m);
             return (
               <div key={m.module_id} className="report-heatmap__row">
                 <div className="report-heatmap__label">
                   {getModuleName(m.module_id)} <strong>({m.module_id})</strong>
                 </div>
-                <div className="report-heatmap__bar" role="img" aria-label={`Strong ${m.confidence_strong}, Mixed ${m.confidence_mixed}, Needs work ${m.confidence_needs_work}`}>
-                  {strongP > 0 && <div className="seg seg--strong" style={{ width: `${strongP}%` }}>{strongP >= 10 && <span>{m.confidence_strong}</span>}</div>}
-                  {mixedP > 0 && <div className="seg seg--mixed" style={{ width: `${mixedP}%` }}>{mixedP >= 10 && <span>{m.confidence_mixed}</span>}</div>}
-                  {needsP > 0 && <div className="seg seg--needs" style={{ width: `${needsP}%` }}>{needsP >= 10 && <span>{m.confidence_needs_work}</span>}</div>}
+                <div
+                  className="report-heatmap__bar"
+                  role="img"
+                  aria-label={`${getModuleName(m.module_id)}: strong ${m.confidence_strong}, mixed ${m.confidence_mixed}, needs work ${m.confidence_needs_work}, not yet assessed ${unassessed}, of ${denom} businesses`}
+                >
+                  {m.confidence_strong > 0 && <div className="seg seg--strong" style={{ width: `${w(m.confidence_strong)}%` }}>{w(m.confidence_strong) >= 12 && <span>{m.confidence_strong}</span>}</div>}
+                  {m.confidence_mixed > 0 && <div className="seg seg--mixed" style={{ width: `${w(m.confidence_mixed)}%` }}>{w(m.confidence_mixed) >= 12 && <span>{m.confidence_mixed}</span>}</div>}
+                  {m.confidence_needs_work > 0 && <div className="seg seg--needs" style={{ width: `${w(m.confidence_needs_work)}%` }}>{w(m.confidence_needs_work) >= 12 && <span>{m.confidence_needs_work}</span>}</div>}
+                  {unassessed > 0 && <div className="seg seg--none" style={{ width: `${w(unassessed)}%` }} />}
                 </div>
                 {verdict
                   ? <span className={`report-verdict report-verdict--${verdict.key}`}>{verdict.label}</span>
                   : <span className="report-verdict report-verdict--none">-</span>}
-                <div className="report-heatmap__count">{m.completed}/{m.total_enrolments}</div>
+                <div className="report-heatmap__count">{assessed} of {denom} assessed</div>
               </div>
             );
           })}

@@ -214,12 +214,41 @@
   gap: 0.5rem;
 }
 
+/* Four columns for four children. It was three, so the coverage count wrapped
+   onto an implicit second row and appeared orphaned under the module name. */
 .report-heatmap__row {
   display: grid;
-  grid-template-columns: minmax(180px, 1.2fr) 2fr 60px;
+  grid-template-columns: minmax(180px, 1.2fr) 2fr auto minmax(96px, auto);
   align-items: center;
   gap: 0.75rem;
 }
+
+.report-heatmap__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #5C4A4E);
+}
+
+.report-heatmap__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.report-heatmap__legend .key {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.report-heatmap__legend .key--strong { background: #16a34a; }
+.report-heatmap__legend .key--mixed  { background: #6B7280; }
+.report-heatmap__legend .key--needs  { background: #DC2626; }
+.report-heatmap__legend .key--none   { background: rgba(62, 43, 47, 0.10); }
 
 @media (max-width: 720px) {
   .report-heatmap__row {
@@ -260,9 +289,14 @@
    - Strong:    #86EFAC bg / #14532D text  ~ 6.0:1
    - Mixed:     #FCD34D bg / #78350F text  ~ 5.5:1
    - Needs work: #FCA5A5 bg / #7F1D1D text  ~ 4.8:1 */
-.report-heatmap__bar .seg--strong { background: #86EFAC; color: #14532D; }
-.report-heatmap__bar .seg--mixed  { background: #FCD34D; color: #78350F; }
-.report-heatmap__bar .seg--needs  { background: #FCA5A5; color: #7F1D1D; }
+/* A readiness ramp is diverging (good to poor), not categorical, so it takes two
+   hues with a neutral midpoint. The previous green/amber/red pastels failed CVD
+   separation in every variant tested (green vs amber, protan dE 3.6) and sat at
+   1.4:1 against the surface. This set separates at dE 12.9 deutan, 19.6 normal. */
+.report-heatmap__bar .seg--strong { background: #16a34a; color: #ffffff; }
+.report-heatmap__bar .seg--mixed  { background: #6B7280; color: #ffffff; }
+.report-heatmap__bar .seg--needs  { background: #DC2626; color: #ffffff; }
+.report-heatmap__bar .seg--none   { background: rgba(62, 43, 47, 0.10); }
 
 .report-heatmap__count {
   font-size: 0.8125rem;
