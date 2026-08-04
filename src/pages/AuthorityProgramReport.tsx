@@ -107,12 +107,15 @@ export default function AuthorityProgramReport() {
     }
   };
 
-  const handleDownloadPdf = () => {
-    if (!selected) return;
+  // Download the row that was clicked, not whichever snapshot happens to be
+  // selected, so a report downloaded from history is the one you asked for.
+  // generateProgramReportPdf resolves groupBy against that snapshot's own
+  // framework, falling back to theme when it has none.
+  const handleDownloadPdf = (row: ProgramReportRow) => {
     generateProgramReportPdf({
-      payload: selected.snapshot_data,
-      reportName: selected.name,
-      generatedAt: selected.generated_at,
+      payload: row.snapshot_data,
+      reportName: row.name,
+      generatedAt: row.generated_at,
       groupBy,
     });
   };
@@ -180,15 +183,6 @@ export default function AuthorityProgramReport() {
               </div>
             </div>
           )}
-          {selected && (
-            <button
-              type="button"
-              className="btn btn-outline"
-              onClick={handleDownloadPdf}
-            >
-              Download PDF
-            </button>
-          )}
           <div
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8125rem', color: 'var(--text-muted, #6b7280)' }}
             title="Limit the report to assessments completed in this range. Leave blank to include all."
@@ -249,6 +243,7 @@ export default function AuthorityProgramReport() {
                 >
                   <button
                     type="button"
+                    aria-current={isSelected ? 'true' : undefined}
                     onClick={() => setSelectedSnapshotId(s.id)}
                     style={{
                       background: 'none',
@@ -272,14 +267,26 @@ export default function AuthorityProgramReport() {
                         : ''}
                     </span>
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline btn-small"
-                    onClick={() => handleDelete(s.id)}
-                    style={{ marginLeft: '0.5rem' }}
-                  >
-                    Delete
-                  </button>
+                  {/* Named per report so "Delete" and "Download PDF" are not
+                      repeated identically down the list for screen readers. */}
+                  <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, marginLeft: '0.5rem' }}>
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-small"
+                      aria-label={`Download PDF of ${s.name}, generated ${formatDateTime(s.generated_at)}`}
+                      onClick={() => handleDownloadPdf(s)}
+                    >
+                      Download PDF
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-small"
+                      aria-label={`Delete report ${s.name}, generated ${formatDateTime(s.generated_at)}`}
+                      onClick={() => handleDelete(s.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </li>
               );
             })}
