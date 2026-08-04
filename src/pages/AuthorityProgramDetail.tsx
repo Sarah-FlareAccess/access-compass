@@ -63,6 +63,7 @@ export default function AuthorityProgramDetail() {
   const csvInputRef = useRef<HTMLInputElement>(null);
   const [carryovers, setCarryovers] = useState<CarryoverDeclaration[]>([]);
   const [expandedBusiness, setExpandedBusiness] = useState<string | null>(null);
+  const [businessSearch, setBusinessSearch] = useState('');
   const { insights: businessInsights } = useProgramBusinessSummaries(id ?? null);
   const [editingModules, setEditingModules] = useState(false);
   const [editedModuleIds, setEditedModuleIds] = useState<string[]>([]);
@@ -71,6 +72,13 @@ export default function AuthorityProgramDetail() {
   const [detailModuleId, setDetailModuleId] = useState<string | null>(null);
 
   usePageTitle(program?.name || 'Program Detail');
+
+  // Filter the roster only. The enrolled count in the stats band stays the
+  // total, because a search should not look like businesses have left.
+  const searchTerm = businessSearch.trim().toLowerCase();
+  const visibleSummaries = searchTerm
+    ? summaries.filter(s => (s.child_org_name || '').toLowerCase().includes(searchTerm))
+    : summaries;
 
   // Store orgId in ref so it survives accessState resets
   const orgIdRef = useRef(orgId);
@@ -367,102 +375,6 @@ export default function AuthorityProgramDetail() {
         )}
       </div>
 
-      {/* Shareable enrolment link */}
-      {program.allow_self_enrol && program.is_active && (
-        <div className="authority-form-card">
-          <h2>Enrolment link</h2>
-          <p className="authority-subtitle">Share this link with businesses to let them self-enrol in this program.</p>
-          <div className="authority-enrol-row">
-            <div className="authority-form-group">
-              <input
-                type="text"
-                readOnly
-                value={`${window.location.origin}/enrol/${program.slug}`}
-                onFocus={e => e.target.select()}
-              />
-            </div>
-            <button
-              className="btn btn-outline"
-              onClick={() => {
-                navigator.clipboard.writeText(`${window.location.origin}/enrol/${program.slug}`);
-              }}
-            >
-              Copy link
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Enrol a business */}
-      {program.is_active && (
-        <div className="authority-form-card">
-          <h2>Enrol a business</h2>
-          <div className="authority-enrol-row">
-            <div className="authority-form-group">
-              <label htmlFor="enrol-org">Business name</label>
-              <input
-                id="enrol-org"
-                type="text"
-                value={inviteOrgName}
-                onChange={e => setInviteOrgName(e.target.value)}
-                placeholder="e.g. Sunrise Cafe"
-              />
-            </div>
-            <div className="authority-form-group">
-              <label htmlFor="enrol-email">Contact email (optional)</label>
-              <input
-                id="enrol-email"
-                type="email"
-                value={inviteEmail}
-                onChange={e => setInviteEmail(e.target.value)}
-                placeholder="owner@business.com"
-              />
-            </div>
-            <button
-              className="btn btn-primary"
-              onClick={handleEnrol}
-              disabled={enrolling || !inviteOrgName.trim()}
-            >
-              {enrolling ? 'Enrolling...' : 'Enrol'}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* CSV bulk upload */}
-      {program.is_active && (
-        <div className="authority-form-card">
-          <h2>Bulk enrol from CSV</h2>
-          <p className="authority-subtitle">
-            Upload a CSV file with columns: business name, contact email (optional).
-            One business per row.
-          </p>
-          <div className="authority-enrol-row">
-            <input
-              ref={csvInputRef}
-              type="file"
-              accept=".csv,.txt"
-              onChange={handleCsvUpload}
-              disabled={csvUploading}
-              aria-label="Upload CSV file for bulk enrolment"
-            />
-            {csvUploading && <span>Enrolling businesses...</span>}
-          </div>
-          {csvResult && (
-            <div style={{ marginTop: '0.75rem' }}>
-              <p style={{ color: 'var(--deep-plum, #490E67)', fontWeight: 600 }}>
-                {csvResult.success} business{csvResult.success !== 1 ? 'es' : ''} enrolled successfully.
-              </p>
-              {csvResult.failed.length > 0 && (
-                <p style={{ color: 'var(--coral-flare, #ea0b3f)', fontSize: '0.875rem' }}>
-                  Failed: {csvResult.failed.join(', ')}
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Enrolled businesses */}
       <div className="authority-section">
         <h2>Enrolled Businesses</h2>
@@ -511,14 +423,54 @@ export default function AuthorityProgramDetail() {
         {summaries.length === 0 ? (
           <p className="authority-empty-text">No businesses enrolled yet.</p>
         ) : (
+          <>
+            <div className="authority-business-search">
+              <label htmlFor="business-search">Search enrolled businesses</label>
+              <div className="authority-business-search-row">
+                <input
+                  id="business-search"
+                  type="search"
+                  value={businessSearch}
+                  onChange={e => setBusinessSearch(e.target.value)}
+                  placeholder="Start typing a business name"
+                  autoComplete="off"
+                />
+                {searchTerm && (
+                  <button
+                    type="button"
+                    className="btn btn-outline"
+                    onClick={() => setBusinessSearch('')}
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+              <p className="authority-business-search-count" aria-live="polite">
+                {searchTerm
+                  ? `Showing ${visibleSummaries.length} of ${summaries.length} enrolled business${summaries.length !== 1 ? 'es' : ''}`
+                  : `${summaries.length} enrolled business${summaries.length !== 1 ? 'es' : ''}`}
+              </p>
+            </div>
+            {visibleSummaries.length === 0 ? (
+              <p className="authority-empty-text">No enrolled business matches that name.</p>
+            ) : (
           <div className="authority-business-list">
+            {/* Scrolls within itself so a roster of 170 does not run the page
+                off the bottom of the screen. tabIndex makes the region
+                keyboard-scrollable, which WCAG 2.1.1 requires. */}
+            <div
+              className="authority-business-scroll"
+              role="region"
+              aria-label="Enrolled businesses"
+              tabIndex={0}
+            >
             <div className="authority-business-header">
               <span>Business</span>
               <span>Status</span>
               <span>Enrolled</span>
               <span>Assessment</span>
             </div>
-            {summaries.map(summary => {
+            {visibleSummaries.map(summary => {
               const bizCarryovers = carryovers.filter(c => c.organisation_id === summary.child_org_id);
               const hasCarryovers = bizCarryovers.length > 0;
               const isExpanded = expandedBusiness === summary.child_org_id;
@@ -647,9 +599,108 @@ export default function AuthorityProgramDetail() {
                 </div>
               );
             })}
+            </div>
           </div>
+            )}
+          </>
         )}
       </div>
+
+      {/* Shareable enrolment link */}
+      {program.allow_self_enrol && program.is_active && (
+        <div className="authority-form-card">
+          <h2>Enrolment link</h2>
+          <p className="authority-subtitle">Share this link with businesses to let them self-enrol in this program.</p>
+          <div className="authority-enrol-row">
+            <div className="authority-form-group">
+              <input
+                type="text"
+                readOnly
+                value={`${window.location.origin}/enrol/${program.slug}`}
+                onFocus={e => e.target.select()}
+              />
+            </div>
+            <button
+              className="btn btn-outline"
+              onClick={() => {
+                navigator.clipboard.writeText(`${window.location.origin}/enrol/${program.slug}`);
+              }}
+            >
+              Copy link
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Enrol a business */}
+      {program.is_active && (
+        <div className="authority-form-card">
+          <h2>Enrol a business</h2>
+          <div className="authority-enrol-row">
+            <div className="authority-form-group">
+              <label htmlFor="enrol-org">Business name</label>
+              <input
+                id="enrol-org"
+                type="text"
+                value={inviteOrgName}
+                onChange={e => setInviteOrgName(e.target.value)}
+                placeholder="e.g. Sunrise Cafe"
+              />
+            </div>
+            <div className="authority-form-group">
+              <label htmlFor="enrol-email">Contact email (optional)</label>
+              <input
+                id="enrol-email"
+                type="email"
+                value={inviteEmail}
+                onChange={e => setInviteEmail(e.target.value)}
+                placeholder="owner@business.com"
+              />
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={handleEnrol}
+              disabled={enrolling || !inviteOrgName.trim()}
+            >
+              {enrolling ? 'Enrolling...' : 'Enrol'}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* CSV bulk upload */}
+      {program.is_active && (
+        <div className="authority-form-card">
+          <h2>Bulk enrol from CSV</h2>
+          <p className="authority-subtitle">
+            Upload a CSV file with columns: business name, contact email (optional).
+            One business per row.
+          </p>
+          <div className="authority-enrol-row">
+            <input
+              ref={csvInputRef}
+              type="file"
+              accept=".csv,.txt"
+              onChange={handleCsvUpload}
+              disabled={csvUploading}
+              aria-label="Upload CSV file for bulk enrolment"
+            />
+            {csvUploading && <span>Enrolling businesses...</span>}
+          </div>
+          {csvResult && (
+            <div style={{ marginTop: '0.75rem' }}>
+              <p style={{ color: 'var(--deep-plum, #490E67)', fontWeight: 600 }}>
+                {csvResult.success} business{csvResult.success !== 1 ? 'es' : ''} enrolled successfully.
+              </p>
+              {csvResult.failed.length > 0 && (
+                <p style={{ color: 'var(--coral-flare, #ea0b3f)', fontSize: '0.875rem' }}>
+                  Failed: {csvResult.failed.join(', ')}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Module detail popup */}
       {detailModuleId && (
