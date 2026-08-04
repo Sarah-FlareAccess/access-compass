@@ -1259,7 +1259,7 @@ export default function Pricing() {
     individual: 'Single Site / Venue',
     multisite: 'Multi-Site Chains & Groups',
     majorvenue: 'Major Venue (Single Complex)',
-    authority: 'Councils & Authorities',
+    authority: 'Councils, Authorities & Festivals',
     networkprograms: 'Network Programs',
   };
 
