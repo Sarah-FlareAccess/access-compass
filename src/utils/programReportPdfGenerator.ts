@@ -28,6 +28,7 @@ import {
   pctOfCohort,
   formatAssessmentWindow,
   moduleVerdict,
+  MIN_ASSESSED_TO_FLAG,
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
@@ -360,76 +361,58 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     doc.setDrawColor(0, 0, 0);
   };
 
-  const addModuleRow = (moduleId: string, agg: typeof moduleAggregates[number] | undefined) => {
-    ensureSpace(22);
+  // Readiness meter, matching the in-app view. This was a stacked band bar, which
+  // does not survive a small cohort: every business lands in one band, so each bar
+  // rendered as a single solid block and read as a status rather than a
+  // distribution, while the verdict tag encoded the same value a second time.
+  // One bar, one meaning: length is the only quantitative encoding and the tag
+  // bands that same number, so the two cannot disagree.
+  const addModuleRow = (
+    moduleId: string,
+    agg: typeof moduleAggregates[number] | undefined,
+    strongPct: number | null,
+    assessed: number,
+  ) => {
+    ensureSpace(20);
     yPos += 1;
 
     // Module title is the skim anchor - larger and bold so the eye lands on it
-    // before the muted completion count and the band-count line below the bar.
+    // before the muted coverage figure and the readiness line below the bar.
     doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...hexToRgb(COLORS.amethystDiamond));
     doc.text(`${moduleName(moduleId)} (${moduleId})`, PAGE.marginX, yPos);
 
     const total = agg?.total_enrolments ?? 0;
-    const completed = agg?.completed ?? 0;
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(BODY_TEXT_SIZE);
     doc.setTextColor(...hexToRgb(COLORS.textMuted));
-    doc.text(`${completed}/${total} completed`, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
+    const lowSample = assessed > 0 && assessed < MIN_ASSESSED_TO_FLAG;
+    doc.text(
+      `${assessed} of ${total} assessed${lowSample ? '  -  small sample' : ''}`,
+      PAGE.width - PAGE.marginX,
+      yPos,
+      { align: 'right' },
+    );
     yPos += 5;
 
     const barW = PAGE.contentWidth;
     const barH = 4;
     doc.setFillColor(...hexToRgb(COLORS.greyBar));
     doc.roundedRect(PAGE.marginX, yPos, barW, barH, 1, 1, 'F');
-
-    // Confidence band heatmap bar (matches in-app heatmap)
-    const confStrong = agg?.confidence_strong ?? 0;
-    const confMixed = agg?.confidence_mixed ?? 0;
-    const confNeeds = agg?.confidence_needs_work ?? 0;
-    const confTotal = confStrong + confMixed + confNeeds;
-    if (confTotal > 0) {
-      let x = PAGE.marginX;
-      if (confStrong > 0) {
-        const w = (confStrong / confTotal) * barW;
-        doc.setFillColor(...hexToRgb(COLORS.strongFill));
-        doc.rect(x, yPos, w, barH, 'F');
-        x += w;
-      }
-      if (confMixed > 0) {
-        const w = (confMixed / confTotal) * barW;
-        doc.setFillColor(...hexToRgb(COLORS.mixedFill));
-        doc.rect(x, yPos, w, barH, 'F');
-        x += w;
-      }
-      if (confNeeds > 0) {
-        const w = (confNeeds / confTotal) * barW;
-        doc.setFillColor(...hexToRgb(COLORS.needsFill));
-        doc.rect(x, yPos, w, barH, 'F');
-      }
-    } else if (total > 0) {
-      // No confidence data yet, show completion vs not-started in grey/pastel
-      const completedPct = completed / total;
-      const x = PAGE.marginX;
-      if (completedPct > 0) {
-        const w = completedPct * barW;
-        doc.setFillColor(...hexToRgb(COLORS.strongFill));
-        doc.rect(x, yPos, w, barH, 'F');
-      }
+    if (strongPct !== null && strongPct > 0) {
+      doc.setFillColor(...hexToRgb(COLORS.amethystDiamond));
+      doc.roundedRect(PAGE.marginX, yPos, (strongPct / 100) * barW, barH, 1, 1, 'F');
     }
     yPos += barH + 6;
 
-    if (confTotal > 0) {
-      doc.setFontSize(BODY_TEXT_SIZE);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(...hexToRgb(COLORS.textMuted));
-      doc.text(
-        `Strong ${confStrong}  -  Mixed ${confMixed}  -  Needs work ${confNeeds}`,
-        PAGE.marginX,
-        yPos,
-      );
-      // Verdict, right-aligned and colour-coded (Maintain / Invest / Improve).
+    doc.setFontSize(BODY_TEXT_SIZE);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...hexToRgb(COLORS.textMuted));
+    if (strongPct === null) {
+      doc.text('Not yet assessed', PAGE.marginX, yPos);
+    } else {
+      doc.text(`${strongPct}% of assessed businesses rated strong`, PAGE.marginX, yPos);
       const verdict = agg ? moduleVerdict(agg) : null;
       if (verdict) {
         const vColor = verdict.key === 'maintain' ? COLORS.strongText : verdict.key === 'invest' ? COLORS.mixedText : COLORS.needsText;
@@ -437,10 +420,8 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
         doc.setTextColor(...hexToRgb(vColor));
         doc.text(verdict.label, PAGE.width - PAGE.marginX, yPos, { align: 'right' });
       }
-      yPos += 6;
-    } else {
-      yPos += 1;
     }
+    yPos += 6;
 
     doc.setTextColor(0, 0, 0);
     yPos += 4;
@@ -811,28 +792,32 @@ export function generateProgramReportPdf(options: ProgramReportPdfOptions): void
     addParagraph(`Measured only for the ${imp.reassessedCount} business${imp.reassessedCount !== 1 ? 'es' : ''} that have re-assessed since joining - a fair before-and-after needs two assessments. Readiness is a 0 to 100 score weighted by confidence (strong 100, mixed 50, needs work 0). Businesses assessed once are not counted here until they re-assess.`, 9);
   }
 
-  addSectionHeader('Module progress');
-  addParagraph('Completion rate and readiness distribution for each module in scope. Wider green means the cohort is doing well, wider red means collective attention is needed. The tag on the right shows how the cohort is tracking on each module: On track (most businesses strong), Developing (mixed, targeted support pays off) or Priority (the biggest collective gap).');
+  addSectionHeader('Module readiness');
+  addParagraph(`Share of assessed businesses rated strong in each module, weakest first, so the top of the list is where support goes furthest. The tag on the right bands that same figure: Priority under 30%, Developing 30 to 54%, On track 55% and above. Modules assessed by fewer than ${MIN_ASSESSED_TO_FLAG} businesses are marked as a small sample and should not be acted on alone.`);
 
-  // Legend for the confidence bars
-  ensureSpace(8);
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  let lx = PAGE.marginX;
-  for (const li of [{ c: COLORS.strongFill, l: 'Strong' }, { c: COLORS.mixedFill, l: 'Mixed' }, { c: COLORS.needsFill, l: 'Needs work' }]) {
-    doc.setFillColor(...hexToRgb(li.c));
-    doc.rect(lx, yPos - 2.6, 3, 3, 'F');
-    doc.setTextColor(...hexToRgb(COLORS.textMuted));
-    doc.text(li.l, lx + 4.5, yPos);
-    lx += 4.5 + doc.getTextWidth(li.l) + 8;
-  }
-  yPos += 7;
-  doc.setTextColor(0, 0, 0);
-
-  program.moduleIds.forEach(mid => {
-    const agg = moduleAggregates.find(a => a.module_id === mid);
-    addModuleRow(mid, agg);
-  });
+  // No band legend: one bar, one colour, one meaning. The bands are still shown
+  // in the statutory outcomes section, where domains aggregate across every
+  // assessment and so genuinely distribute.
+  program.moduleIds
+    .map(mid => {
+      const agg = moduleAggregates.find(a => a.module_id === mid);
+      const assessed = (agg?.confidence_strong ?? 0) + (agg?.confidence_mixed ?? 0) + (agg?.confidence_needs_work ?? 0);
+      return {
+        mid,
+        agg,
+        assessed,
+        strongPct: assessed > 0 ? Math.round(((agg?.confidence_strong ?? 0) / assessed) * 100) : null,
+      };
+    })
+    // Weakest first. Modules nobody has assessed sort to the bottom: they are a
+    // coverage problem, not a readiness one.
+    .sort((a, b) => {
+      if (a.strongPct === null && b.strongPct === null) return 0;
+      if (a.strongPct === null) return 1;
+      if (b.strongPct === null) return -1;
+      return a.strongPct - b.strongPct;
+    })
+    .forEach(r => addModuleRow(r.mid, r.agg, r.strongPct, r.assessed));
 
   // What this means. Uses the SAME tie-group function as the barrier insight and
   // the at-a-glance box, so all three name the same module(s) and a genuine tie is
