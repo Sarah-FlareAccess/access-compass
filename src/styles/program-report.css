@@ -215,12 +215,21 @@
 }
 
 /* Four columns for four children. It was three, so the coverage count wrapped
-   onto an implicit second row and appeared orphaned under the module name. */
+   onto an implicit second row and appeared orphaned under the module name.
+
+   The last two columns are FIXED, not auto. Each row is its own grid, so an
+   auto column sizes to that row's own content: the wider "On track" pill stole
+   width from the bar beside it and two modules with identical counts drew
+   different-length bars. Fixed widths keep every bar on the same scale. */
 .report-heatmap__row {
   display: grid;
-  grid-template-columns: minmax(180px, 1.2fr) 2fr auto minmax(96px, auto);
+  grid-template-columns: minmax(180px, 1.2fr) 2fr 104px 118px;
   align-items: center;
   gap: 0.75rem;
+}
+
+.report-heatmap__row .report-verdict {
+  justify-self: start;
 }
 
 .report-heatmap__legend {
