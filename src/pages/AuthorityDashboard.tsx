@@ -303,17 +303,6 @@ export default function AuthorityDashboard() {
         </div>
       </div>
 
-      {/* Cohort snapshot - rich visuals from latest program reports */}
-      <CohortSnapshot
-        maturity={cohortMaturity}
-        categoryHeatmap={categoryHeatmap}
-        recentActivity={recentActivity}
-        hasReports={latestSnapshots.length > 0}
-        programs={programs}
-        filterProgramId={filterProgramId}
-        setFilterProgramId={setFilterProgramId}
-        programCount={programs.length}
-      />
 
 
       {/* Charts section */}
@@ -394,6 +383,22 @@ export default function AuthorityDashboard() {
           </div>
         </div>
       )}
+
+      {/* Everything above this point is all-programs. The filter lives here and
+          everything below it is scoped to the selection, so the page changes scope
+          exactly once. It previously alternated: filtered snapshot, then unfiltered
+          charts and program progress, then filtered narrative lists again. */}
+      {/* Cohort snapshot - rich visuals from latest program reports */}
+      <CohortSnapshot
+        maturity={cohortMaturity}
+        categoryHeatmap={categoryHeatmap}
+        recentActivity={recentActivity}
+        hasReports={latestSnapshots.length > 0}
+        programs={programs}
+        filterProgramId={filterProgramId}
+        setFilterProgramId={setFilterProgramId}
+        programCount={programs.length}
+      />
 
       {/* Cohort narrative lists - detailed read, kept at the foot of the page */}
       {latestSnapshots.length > 0 && programs.length > 0 && (

@@ -123,16 +123,17 @@ export default function AuthorityProgramReport() {
     }
   };
 
-  // Download the row that was clicked, not whichever snapshot happens to be
-  // selected, so a report downloaded from history is the one you asked for.
-  // generateProgramReportPdf resolves groupBy against that snapshot's own
-  // framework, falling back to theme when it has none.
-  const handleDownloadPdf = (row: ProgramReportRow) => {
+  // Download the row that was clicked, in the format asked for, rather than
+  // inheriting whatever the on-screen Group by toggle happens to be set to.
+  // A snapshot is format-agnostic: it renders either way, and the same report is
+  // wanted by theme for delivery teams and by outcome areas for statutory
+  // reporting. So the format is chosen per download, at the row.
+  const handleDownloadPdf = (row: ProgramReportRow, mode: 'theme' | 'framework') => {
     generateProgramReportPdf({
       payload: row.snapshot_data,
       reportName: row.name,
       generatedAt: row.generated_at,
-      groupBy,
+      groupBy: mode,
     });
   };
 
@@ -288,15 +289,41 @@ export default function AuthorityProgramReport() {
                   </button>
                   {/* Named per report so "Delete" and "Download PDF" are not
                       repeated identically down the list for screen readers. */}
-                  <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, marginLeft: '0.5rem' }}>
-                    <button
-                      type="button"
-                      className="btn btn-outline btn-small"
-                      aria-label={`Download PDF of ${s.name}, generated ${formatDateTime(s.generated_at)}`}
-                      onClick={() => handleDownloadPdf(s)}
-                    >
-                      Download PDF
-                    </button>
+                  {/* Format is chosen here, per download, because the same
+                      snapshot is wanted by theme for delivery teams and by
+                      outcome areas for statutory reporting. Only offered when
+                      the snapshot actually carries a mapped framework. */}
+                  <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, marginLeft: '0.5rem', alignItems: 'center' }}>
+                    {s.snapshot_data.outcomes ? (
+                      <>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary, #5C4A4E)' }}>PDF</span>
+                        <button
+                          type="button"
+                          className="btn btn-outline btn-small"
+                          aria-label={`Download PDF of ${s.name} grouped by theme, generated ${formatDateTime(s.generated_at)}`}
+                          onClick={() => handleDownloadPdf(s, 'theme')}
+                        >
+                          Theme
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-outline btn-small"
+                          aria-label={`Download PDF of ${s.name} grouped by ${s.snapshot_data.outcomes.frameworkShort} outcome areas, generated ${formatDateTime(s.generated_at)}`}
+                          onClick={() => handleDownloadPdf(s, 'framework')}
+                        >
+                          {s.snapshot_data.outcomes.frameworkShort} outcome areas
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        type="button"
+                        className="btn btn-outline btn-small"
+                        aria-label={`Download PDF of ${s.name}, generated ${formatDateTime(s.generated_at)}`}
+                        onClick={() => handleDownloadPdf(s, 'theme')}
+                      >
+                        Download PDF
+                      </button>
+                    )}
                     <button
                       type="button"
                       className="btn btn-outline btn-small"
