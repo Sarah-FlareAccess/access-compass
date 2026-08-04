@@ -28,9 +28,11 @@
 --    no parking, no entrance, no toilets, no wayfinding, no emergency plan. A
 --    host that sends this to a venue it does not own is asking whether a
 --    visitor can get there, get in, get around, use the loo and get out again,
---    so the module set now runs 1.x through 6.x in journey order. 7.1 was
---    dropped: precinct coordination is something the host does across venues,
---    not something an individual partner venue can answer for.
+--    so the module set now runs in journey order from booking to the end of the
+--    event. 7.4 is in as well, because a performance venue is also a workplace
+--    for the artists on its stage. 7.1 was dropped: precinct coordination is
+--    something the host does across venues, not something an individual partner
+--    venue can answer for.
 --
 -- PREREQUISITE: venue_demo_programs.sql must have run (it creates the org as an
 -- authority and defines the shared content map). Idempotent; safe to re-run.
@@ -57,6 +59,8 @@ declare
   -- Module-specific findings, same shape as venue_demo_programs.sql so the
   -- cohort report and the per-business panel read as real content.
   v_content jsonb := jsonb_build_object(
+    '1.3', jsonb_build_object('priority','high','action','Make the online booking path work with a keyboard and a screen reader, and let people book accessible seating and a companion ticket without having to phone.','strengths',jsonb_build_array('Accessible seating can be booked without calling.','A companion or carer ticket is available.'),'explore','Whether the booking form asks about access needs early enough to act on them.'),
+    '7.4', jsonb_build_object('priority','high','action','Provide step-free access to the stage and an accessible dressing room, and ask every artist about access needs at the point of booking.','strengths',jsonb_build_array('Backstage areas are on the same level as the stage or reachable by lift.','Artists are asked about access requirements when they are booked.'),'explore','Whether an artist who uses a wheelchair could get from the loading dock to the stage unaided.'),
     '1.1', jsonb_build_object('priority','high','action','Publish an access statement covering parking, the entrance, toilets, seating and sensory conditions, and keep it current on your own site and on every event listing.','strengths',jsonb_build_array('Accessibility information is published before people book.','Photos of the entrance and the main space are included so people can judge the venue for themselves.'),'explore','Whether the published access information matches what visitors actually find on the day.'),
     '2.1', jsonb_build_object('priority','high','action','Mark accessible parking bays and a step-free drop-off point close to the entrance, and state the distance and surface in your access information.','strengths',jsonb_build_array('Accessible parking is available within a short distance of the entrance.','A drop-off point is available close to the door.'),'explore','Whether the route from parking to the entrance is step-free and lit after dark.'),
     '2.2', jsonb_build_object('priority','high','action','Make the step-free entrance the main entrance, and keep the door powered, propped or staffed so nobody has to ask to be let in another way.','strengths',jsonb_build_array('The main entrance is step-free.','Doorways are wide enough for a wheelchair or mobility scooter.'),'explore','Whether the accessible entrance is easy to identify from the street.'),
@@ -90,13 +94,13 @@ begin
     (v_org,
      'Partner Venue Program',
      'partner-venue',
-     'Accessibility assessment for the offsite and satellite venues the centre programs events into. Follows the whole visitor journey: access information before booking, parking and arrival, getting in the door, moving around, toilets, signage, sensory conditions, staff support, emergencies and how the venue runs on event day.',
-     array['1.1','2.1','2.2','2.3','2.4','3.1','3.2','3.3','3.5','4.2','4.4','6.2','6.4','6.5'],
+     'Accessibility assessment for the offsite and satellite venues the centre programs events into. Follows the whole visitor journey: access information and booking, parking and arrival, getting in the door, moving around, toilets, signage, sensory conditions, staff support, emergencies, how the venue runs on event day and access for the artists and performers on the stage.',
+     array['1.1','1.3','2.1','2.2','2.3','2.4','3.1','3.2','3.3','3.5','4.2','4.4','6.2','6.4','6.5','7.4'],
      'pulse',
      now() - interval '100 days', now() + interval '265 days',
      true, true, 'authority_funded',
      null,
-     'Redgum Convention & Exhibition Centre asks partner venues to complete this accessibility assessment once a year. It follows a visitor from the moment they look you up to the moment they leave, and takes about two hours in total. Work through it module by module and come back to it whenever suits. You keep your assessment and can reuse it, and the centre sees your progress and a summary of your strengths and opportunities, not your individual answers.')
+     'Redgum Convention & Exhibition Centre asks partner venues to complete this accessibility assessment once a year. It follows a visitor from the moment they look you up to the moment they leave, plus access for the artists and performers you host, and takes about three hours in total. Work through it module by module and come back to it whenever suits. You keep your assessment and can reuse it, and the centre sees your progress and a summary of your strengths and opportunities, not your individual answers.')
   on conflict (organisation_id, slug) do update
     set name = excluded.name,
         description = excluded.description,
