@@ -39,6 +39,7 @@ const PAGES_WITH_SIDEBAR = [
   '/questions',
   '/constraints',
   '/report',
+  '/access-profile',
   '/diap',
   '/clarify',
   '/resources',
