@@ -11,10 +11,30 @@
 /* Header */
 .authority-header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: var(--spacing-md, 24px);
   gap: 1rem;
+}
+
+/* The title block keeps a readable width. When the controls no longer fit beside
+   it they wrap to their own row instead of squeezing the heading into a column. */
+.authority-header__main {
+  flex: 1 1 22rem;
+  min-width: 0;
+}
+
+.authority-header__main .authority-subtitle {
+  max-width: 60ch;
+}
+
+.authority-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .authority-header h1 {
@@ -40,6 +60,7 @@
   align-items: center;
   gap: 0.25rem;
   margin-bottom: 0.75rem;
+  white-space: nowrap;
 }
 
 .authority-back-link::before {

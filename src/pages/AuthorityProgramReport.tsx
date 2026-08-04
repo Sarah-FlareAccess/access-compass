@@ -132,21 +132,21 @@ export default function AuthorityProgramReport() {
   return (
     <div className="authority-page">
       <div className="authority-header">
-        <div>
+        <div className="authority-header__main">
           <Link to={`/authority/programs/${programId}`} className="authority-back-link">
             Back to program
           </Link>
           <h1>{program?.name || 'Program report'}</h1>
           {program?.description && <p className="authority-subtitle">{program.description}</p>}
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+        <div className="authority-header__actions">
           {(outcomesFramework || snapshots.length === 0) && (
             <div
               role="group"
               aria-label="Group recommendations by"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
             >
-              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-muted, #6b7280)' }}>
+              <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--text-muted, #6b7280)', whiteSpace: 'nowrap' }}>
                 Group by
               </span>
               <div style={{ display: 'inline-flex', border: '1px solid #490E67', borderRadius: 6, overflow: 'hidden' }}>
