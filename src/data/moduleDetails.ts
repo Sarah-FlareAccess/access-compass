@@ -58,7 +58,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '1.3': {
     id: '1.3',
-    overview: 'This module helps you make online booking, ticketing and forms accessible so everyone can complete transactions independently.',
+    overview: 'This module covers the booking journey and the system behind it: telling you about access needs, keyboard and screen reader use, error messages, time limits, choosing a seat and the confirmation that follows.',
     topics: [
       'Accessible form design',
       'Clear error messages and validation',
@@ -458,7 +458,7 @@ export const MODULE_DETAILS: Record<string, ModuleDetail> = {
   },
   '4.3': {
     id: '4.3',
-    overview: 'This module covers accessible booking, payment and service delivery options that give customers flexibility and independence.',
+    overview: 'This module covers paying and the counter: payment terminal heights, self-service kiosks and checkouts, receipts in accessible formats, concessions and the Companion Card.',
     topics: [
       'Flexible booking and cancellation policies',
       'Accessible payment options',

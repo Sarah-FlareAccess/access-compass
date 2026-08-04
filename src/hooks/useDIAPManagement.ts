@@ -2234,7 +2234,7 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   // 1.x Before Arrival
   '1.1': 'Welcome all visitors with clear pre-visit information to plan their journey',
   '1.2': 'Provide a website that all visitors can use with confidence',
-  '1.3': 'Offer booking and ticketing systems that work for all customers',
+  '1.3': 'Make booking accessible from the first enquiry through to the confirmation',
   '1.4': 'Create social media, video and audio content everyone can enjoy',
   '1.5': 'Communicate in clear, welcoming and inclusive language',
   '1.6': 'Reflect and welcome diverse audiences in marketing materials',
@@ -2286,7 +2286,7 @@ const MODULE_OBJECTIVES: Record<string, string | { default: string; keywords: { 
   // 4.x Service & Support
   '4.1': 'Offer contact channels that all customers can use with ease',
   '4.2': 'Build staff confidence in delivering welcoming, inclusive service',
-  '4.3': 'Offer booking and ticketing processes that all customers can complete',
+  '4.3': 'Make paying, concessions and receipts work for every customer',
   '4.4': 'Include all visitors in safety and emergency planning',
   '4.5': 'Invite feedback through channels all customers can use',
   '4.6': 'Keep in touch with all customers through accessible communications',

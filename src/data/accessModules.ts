@@ -2092,8 +2092,8 @@ export const accessModules: AccessModule[] = [
   {
     id: '1.3',
     code: '1.3',
-    name: 'Booking & ticketing systems',
-    description: 'End-to-end accessibility of your booking and ticketing process, including payments and flexibility',
+    name: 'Making a booking',
+    description: 'How people book, reserve or buy a ticket, from telling you their access needs to getting a confirmation',
     group: 'before-arrival',
     estimatedTime: 12,
     estimatedTimeDeepDive: 35,
@@ -3361,7 +3361,7 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: '1.3-OTHER',
-        text: 'Is there anything else about booking and ticketing systems that concerns you or that we haven\'t covered?',
+        text: 'Is there anything else about making a booking that concerns you or that we haven\'t covered?',
         helpText: 'Use this space to note any accessibility concerns specific to your situation that weren\'t addressed above.',
         type: 'text',
         category: 'feedback',
@@ -21628,8 +21628,8 @@ export const accessModules: AccessModule[] = [
   {
     id: '4.3',
     code: '4.3',
-    name: 'Bookings and ticketing',
-    description: 'Flexibility in your booking and payment processes',
+    name: 'Payments and concessions',
+    description: 'Paying at the counter or online, plus concessions, receipts and the Companion Card',
     group: 'service-support',
     estimatedTime: 10,
     estimatedTimeDeepDive: 35,
@@ -22388,7 +22388,7 @@ export const accessModules: AccessModule[] = [
       },
       {
         id: '4.3-OTHER',
-        text: 'Is there anything else about bookings and ticketing that concerns you or that we haven\'t covered?',
+        text: 'Is there anything else about payments and concessions that concerns you or that we haven\'t covered?',
         helpText: 'Use this space to note any accessibility concerns specific to your situation that weren\'t addressed above.',
         type: 'text',
         category: 'feedback',
