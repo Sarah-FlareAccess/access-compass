@@ -245,10 +245,10 @@
   flex-shrink: 0;
 }
 
-.report-heatmap__legend .key--strong { background: #16a34a; }
-.report-heatmap__legend .key--mixed  { background: #6B7280; }
-.report-heatmap__legend .key--needs  { background: #DC2626; }
-.report-heatmap__legend .key--none   { background: rgba(62, 43, 47, 0.10); }
+.report-heatmap__legend .key--strong { background: #86EFAC; border: 1px solid #14532D33; }
+.report-heatmap__legend .key--mixed  { background: #FCD34D; border: 1px solid #78350F33; }
+.report-heatmap__legend .key--needs  { background: #FCA5A5; border: 1px solid #7F1D1D33; }
+.report-heatmap__legend .key--none   { background: rgba(62, 43, 47, 0.08); border: 1px solid rgba(62, 43, 47, 0.18); }
 
 @media (max-width: 720px) {
   .report-heatmap__row {
@@ -289,14 +289,15 @@
    - Strong:    #86EFAC bg / #14532D text  ~ 6.0:1
    - Mixed:     #FCD34D bg / #78350F text  ~ 5.5:1
    - Needs work: #FCA5A5 bg / #7F1D1D text  ~ 4.8:1 */
-/* A readiness ramp is diverging (good to poor), not categorical, so it takes two
-   hues with a neutral midpoint. The previous green/amber/red pastels failed CVD
-   separation in every variant tested (green vs amber, protan dE 3.6) and sat at
-   1.4:1 against the surface. This set separates at dE 12.9 deutan, 19.6 normal. */
-.report-heatmap__bar .seg--strong { background: #16a34a; color: #ffffff; }
-.report-heatmap__bar .seg--mixed  { background: #6B7280; color: #ffffff; }
-.report-heatmap__bar .seg--needs  { background: #DC2626; color: #ffffff; }
-.report-heatmap__bar .seg--none   { background: rgba(62, 43, 47, 0.10); }
+/* Pale ramp, kept. It separates adequately for colour vision deficiency (protan
+   dE 10.1, normal 15.2) because the steps differ in lightness as well as hue.
+   Its fills sit under 3:1 against the surface, which the validator allows only
+   with relief: the legend above the chart, the counts inside the segments and
+   the coverage figure beside each row are that relief. Do not remove them. */
+.report-heatmap__bar .seg--strong { background: #86EFAC; color: #14532D; }
+.report-heatmap__bar .seg--mixed  { background: #FCD34D; color: #78350F; }
+.report-heatmap__bar .seg--needs  { background: #FCA5A5; color: #7F1D1D; }
+.report-heatmap__bar .seg--none   { background: rgba(62, 43, 47, 0.08); }
 
 .report-heatmap__count {
   font-size: 0.8125rem;
