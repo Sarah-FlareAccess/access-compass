@@ -22,6 +22,7 @@ import {
   pctOfCohort,
   formatAssessmentWindow,
   moduleVerdict,
+  MIN_ASSESSED_TO_FLAG,
   resolveGroupMode,
   groupWordFor,
   groupRecommendations,
@@ -619,51 +620,74 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
 
       {/* Module heatmap */}
       <section className="authority-form-card report-section">
-        <h2>Module maturity heatmap</h2>
+        <h2>Module readiness</h2>
         <p className="report-section__subtitle">
-          Readiness distribution per module, with a tag showing how the cohort is tracking. <strong>On track</strong> = most businesses strong ·
-          <strong>Developing</strong> = mixed, targeted support pays off · <strong>Priority</strong> = the biggest collective gap.
+          Share of assessed businesses rated strong in each module, weakest first, so the top of
+          the list is where support goes furthest. The tag bands that same figure:{' '}
+          <strong>Priority</strong> under 30%, <strong>Developing</strong> 30 to 54%,{' '}
+          <strong>On track</strong> 55% and above.
         </p>
-        <div className="report-heatmap__legend">
-          <span><span className="key key--strong" aria-hidden="true" />Strong</span>
-          <span><span className="key key--mixed" aria-hidden="true" />Mixed</span>
-          <span><span className="key key--needs" aria-hidden="true" />Needs work</span>
-          <span><span className="key key--none" aria-hidden="true" />Not yet assessed</span>
-        </div>
-        <div className="report-heatmap">
-          {moduleAggregates.map(m => {
-            // Each bar spans the WHOLE cohort, not just the businesses that have
-            // been assessed. Scaling to the assessed subset made every module a
-            // full-width bar, so a module assessed by 2 of 6 looked identical to
-            // one assessed by 6 of 6 and the coverage figure beside it read as a
-            // contradiction. The unassessed remainder is now visible as a gap.
-            const assessed = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
-            const denom = Math.max(m.total_enrolments, assessed) || 1;
-            const w = (n: number) => (n / denom) * 100;
-            const unassessed = Math.max(0, denom - assessed);
-            const verdict = moduleVerdict(m);
-            return (
-              <div key={m.module_id} className="report-heatmap__row">
-                <div className="report-heatmap__label">
-                  {getModuleName(m.module_id)} <strong>({m.module_id})</strong>
+        {/* One bar, one meaning. This was previously a stacked distribution of
+            strong/mixed/needs-work, which does not work at cohort sizes of three
+            or four: every business lands in one band, so every bar rendered as a
+            single solid block and read as a status rather than a distribution.
+            The verdict tag was then derived from the same value, so colour and
+            tag said the same thing twice and appeared to contradict each other
+            when two different colours both produced "Priority".
+
+            Now the bar length is the only quantitative encoding, the tag is a
+            banding of that same number so the two can never disagree, and the
+            sort does the work of pointing at where support goes. */}
+        <div className="report-readiness">
+          {[...moduleAggregates]
+            .map(m => {
+              const assessed = m.confidence_strong + m.confidence_mixed + m.confidence_needs_work;
+              return {
+                m,
+                assessed,
+                strongPct: assessed > 0 ? Math.round((m.confidence_strong / assessed) * 100) : null,
+                verdict: moduleVerdict(m),
+              };
+            })
+            // Weakest first. Modules nobody has assessed sort to the bottom:
+            // they are a coverage problem, not a readiness one.
+            .sort((a, b) => {
+              if (a.strongPct === null && b.strongPct === null) return 0;
+              if (a.strongPct === null) return 1;
+              if (b.strongPct === null) return -1;
+              return a.strongPct - b.strongPct;
+            })
+            .map(({ m, assessed, strongPct, verdict }) => {
+              const lowSample = assessed > 0 && assessed < MIN_ASSESSED_TO_FLAG;
+              return (
+                <div key={m.module_id} className="report-heatmap__row">
+                  <div className="report-heatmap__label">
+                    {getModuleName(m.module_id)} <strong>({m.module_id})</strong>
+                  </div>
+                  {strongPct === null ? (
+                    <div className="report-readiness__none">Not yet assessed</div>
+                  ) : (
+                    <div className="report-readiness__meter">
+                      <div
+                        className="report-readiness__track"
+                        role="img"
+                        aria-label={`${getModuleName(m.module_id)}: ${strongPct}% of ${assessed} assessed businesses rated strong`}
+                      >
+                        <div className="report-readiness__fill" style={{ width: `${strongPct}%` }} />
+                      </div>
+                      <span className="report-readiness__value">{strongPct}%</span>
+                    </div>
+                  )}
+                  {verdict
+                    ? <span className={`report-verdict report-verdict--${verdict.key}`}>{verdict.label}</span>
+                    : <span className="report-verdict report-verdict--none">-</span>}
+                  <div className="report-heatmap__count">
+                    {assessed} of {m.total_enrolments} assessed
+                    {lowSample && <span className="report-readiness__caution" title={`Fewer than ${MIN_ASSESSED_TO_FLAG} assessments. Too small a sample to act on alone.`}> · small sample</span>}
+                  </div>
                 </div>
-                <div
-                  className="report-heatmap__bar"
-                  role="img"
-                  aria-label={`${getModuleName(m.module_id)}: strong ${m.confidence_strong}, mixed ${m.confidence_mixed}, needs work ${m.confidence_needs_work}, not yet assessed ${unassessed}, of ${denom} businesses`}
-                >
-                  {m.confidence_strong > 0 && <div className="seg seg--strong" style={{ width: `${w(m.confidence_strong)}%` }}>{w(m.confidence_strong) >= 12 && <span>{m.confidence_strong}</span>}</div>}
-                  {m.confidence_mixed > 0 && <div className="seg seg--mixed" style={{ width: `${w(m.confidence_mixed)}%` }}>{w(m.confidence_mixed) >= 12 && <span>{m.confidence_mixed}</span>}</div>}
-                  {m.confidence_needs_work > 0 && <div className="seg seg--needs" style={{ width: `${w(m.confidence_needs_work)}%` }}>{w(m.confidence_needs_work) >= 12 && <span>{m.confidence_needs_work}</span>}</div>}
-                  {unassessed > 0 && <div className="seg seg--none" style={{ width: `${w(unassessed)}%` }} />}
-                </div>
-                {verdict
-                  ? <span className={`report-verdict report-verdict--${verdict.key}`}>{verdict.label}</span>
-                  : <span className="report-verdict report-verdict--none">-</span>}
-                <div className="report-heatmap__count">{assessed} of {denom} assessed</div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </section>
 
@@ -778,6 +802,14 @@ function OutcomesView({ outcomes }: { outcomes: OutcomesSnapshot }) {
         These headings mirror the framework, so they can be pasted straight into your statutory report.
       </p>
       <p className="outcome-citation">{outcomes.citation}</p>
+      {/* The only remaining stacked distribution on the page, and the one place
+          a band legend is still needed. Domains aggregate across every
+          assessment, so unlike the per-module view they genuinely distribute. */}
+      <div className="report-heatmap__legend">
+        <span><span className="key key--strong" aria-hidden="true" />Strong</span>
+        <span><span className="key key--mixed" aria-hidden="true" />Mixed</span>
+        <span><span className="key key--needs" aria-hidden="true" />Needs work</span>
+      </div>
       <div className="outcome-domains">
         {outcomes.domains.map(d => (
           <div key={d.domainId} className="outcome-domain">

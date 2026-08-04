@@ -232,6 +232,58 @@
   justify-self: start;
 }
 
+/* Readiness meter. One series, so one colour: length is the only quantitative
+   encoding and the verdict tag beside it bands the same number. Deliberately NOT
+   coloured by verdict, which is what made the old chart read as two competing
+   signals. */
+.report-readiness {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.report-readiness .report-heatmap__row { grid-template-columns: minmax(180px, 1.2fr) 2fr 104px 152px; }
+
+.report-readiness__meter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.report-readiness__track {
+  flex: 1;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(62, 43, 47, 0.08);
+  overflow: hidden;
+}
+
+.report-readiness__fill {
+  height: 100%;
+  border-radius: 7px;
+  background: var(--amethyst-diamond, #490E67);
+}
+
+.report-readiness__value {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary, #2d2420);
+  min-width: 2.6rem;
+  text-align: right;
+}
+
+.report-readiness__none {
+  font-size: 0.8125rem;
+  color: var(--text-secondary, #5C4A4E);
+  font-style: italic;
+}
+
+.report-readiness__caution {
+  color: var(--text-secondary, #5C4A4E);
+  font-style: italic;
+}
+
 .report-heatmap__legend {
   display: flex;
   flex-wrap: wrap;
