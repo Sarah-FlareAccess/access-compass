@@ -14,7 +14,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { getModuleDetail } from '../../data/moduleDetails';
 import { MODULES } from '../../lib/recommendationEngine';
-import { getModuleById } from '../../data/accessModules';
 import './ModuleDetailModal.css';
 
 interface ModuleDetailModalProps {
@@ -40,7 +39,6 @@ export function ModuleDetailModal({
 
   // Get module basic info and detail
   const moduleInfo = MODULES.find(m => m.id === moduleId);
-  const fullModule = getModuleById(moduleId);
   const moduleDetail = getModuleDetail(moduleId);
 
   // Handle close - manages history state
@@ -146,18 +144,11 @@ export function ModuleDetailModal({
             </button>
           </div>
           <div className="module-detail-meta">
+            {/* Was a clock plus a minute estimate. The estimate is hidden (see
+                ModuleRecommendationCard), and a clock icon next to a depth
+                label would still read as a duration, so the clock goes too. */}
             <span className="module-detail-time">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 6v6l4 2" />
-              </svg>
-              {(() => {
-                const pulseTime = moduleInfo.estimatedTime;
-                const deepDiveTime = fullModule?.estimatedTimeDeepDive ?? pulseTime * 3;
-                if (accessLevel === 'deep_dive') return `${deepDiveTime} min (Deep Dive)`;
-                if (accessLevel === 'pulse') return `${pulseTime} min (Pulse)`;
-                return `${pulseTime} min (Pulse) / ${deepDiveTime} min (Deep Dive)`;
-              })()}
+              {accessLevel === 'deep_dive' ? 'Deep Dive' : accessLevel === 'pulse' ? 'Pulse Check' : 'Pulse Check or Deep Dive'}
             </span>
             <span className={`module-detail-status ${isSelected ? 'selected' : ''}`}>
               {isSelected ? 'In your review' : 'Not selected'}

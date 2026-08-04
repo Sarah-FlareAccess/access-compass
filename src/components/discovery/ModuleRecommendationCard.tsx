@@ -33,7 +33,9 @@ export function ModuleRecommendationCard({
       <div className="module-card-header">
         <div>
           <h4 className="module-card-title">{module.moduleName}</h4>
-          <p className="module-card-time">{module.estimatedTime} min</p>
+          {/* Time estimate hidden: the stated minutes are not derived from
+              question counts and contradict each other module to module.
+              Re-base them off content, then restore. */}
         </div>
       </div>
 

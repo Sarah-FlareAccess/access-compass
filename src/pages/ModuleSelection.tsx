@@ -81,12 +81,6 @@ export default function ModuleSelection() {
     modules: accessModules.filter(m => m.group === group.id),
   }));
 
-  // Calculate estimated time (using base time, review mode selected later)
-  const totalTime = selectedModules.reduce((total, moduleId) => {
-    const module = accessModules.find(m => m.id === moduleId);
-    if (!module) return total;
-    return total + module.estimatedTime;
-  }, 0);
 
   return (
     <div className="module-selection-page">
@@ -153,9 +147,7 @@ export default function ModuleSelection() {
                       <div className="module-content">
                         <h3 className="module-title">{module.name}</h3>
                         <p className="module-description">{module.description}</p>
-                        <div className="module-meta">
-                          <span className="module-time">~{module.estimatedTime} min</span>
-                        </div>
+                        {/* Time estimate hidden: see ModuleRecommendationCard. */}
                       </div>
                     </div>
                   );
@@ -176,11 +168,7 @@ export default function ModuleSelection() {
             <div className="module-counter">
               {selectedModules.length} module{selectedModules.length !== 1 ? 's' : ''} selected
             </div>
-            {selectedModules.length > 0 && (
-              <div className="time-estimate">
-                Estimated time: ~{totalTime} minutes
-              </div>
-            )}
+            {/* Total time hidden: see ModuleRecommendationCard. */}
           </div>
           <button
             className="btn btn-primary"

@@ -100,7 +100,7 @@ begin
      now() - interval '100 days', now() + interval '265 days',
      true, true, 'authority_funded',
      null,
-     'Redgum Convention & Exhibition Centre asks partner venues to complete this accessibility assessment once a year. It follows a visitor from the moment they look you up to the moment they leave, plus access for the artists and performers you host, and takes about three hours in total. Work through it module by module and come back to it whenever suits. You keep your assessment and can reuse it, and the centre sees your progress and a summary of your strengths and opportunities, not your individual answers.')
+     'Redgum Convention & Exhibition Centre asks partner venues to complete this accessibility assessment once a year. It follows a visitor from the moment they look you up to the moment they leave, plus access for the artists and performers you host. Work through it module by module and come back to it whenever suits. You keep your assessment and can reuse it, and the centre sees your progress and a summary of your strengths and opportunities, not your individual answers.')
   on conflict (organisation_id, slug) do update
     set name = excluded.name,
         description = excluded.description,
