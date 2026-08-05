@@ -148,7 +148,12 @@ const DIAP_ITEMS_KEY = 'access_compass_diap_items';
 const DIAP_DOCUMENTS_KEY = 'access_compass_diap_documents';
 
 // Local storage functions
-const DIAP_MIGRATION_KEY = 'diap_migration_v9';
+// Bump this whenever the migration below needs to re-run. It is a one-shot
+// flag, so an existing browser that already ran v9 keeps its stored
+// complianceLevel and priority for ever and never sees a correction to either.
+// v10: re-sync after the compliance resolver landed (follow-ups inherit from
+// their gating question, and dda-compliant / wcag-aa now count as obligations).
+const DIAP_MIGRATION_KEY = 'diap_migration_v10';
 
 function getLocalItems(): DIAPItem[] {
   const data = localStorage.getItem(DIAP_ITEMS_KEY);
@@ -199,15 +204,18 @@ function getLocalItems(): DIAPItem[] {
               // user-set, so a corrected question tag must overwrite the stored value,
               // otherwise a stale tag (e.g. "mandatory") lingers on the item while the
               // priority beside it recalculates, leaving the two out of sync.
-              if (question.complianceLevel && item.complianceLevel !== question.complianceLevel) {
-                item.complianceLevel = question.complianceLevel;
+              // Resolved, not raw: a follow-up carries no level of its own and
+              // must inherit from the question that gates it.
+              const resolvedLevel = resolveComplianceLevel(question, questions);
+              if (resolvedLevel && item.complianceLevel !== resolvedLevel) {
+                item.complianceLevel = resolvedLevel;
                 changed = true;
               }
 
               // Recalculate priority from question data
               const answer = item.status === 'achieved' ? 'yes' : 'no';
               const newPriority = calculateQuestionPriority({
-                complianceLevel: question.complianceLevel,
+                complianceLevel: resolvedLevel,
                 safetyRelated: question.safetyRelated,
                 impactLevel: question.impactLevel,
                 answer,
