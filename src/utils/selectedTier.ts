@@ -55,6 +55,12 @@ export function maxMembersForSize(size: OrgSize): number {
 // Keep this in sync if the advertised "users" field changes on any tier.
 // The Enterprise authority tier advertises "from 20"; we set 20 as the floor
 // and allow seat expansion to be configured on a per-customer basis.
+// Corrected 2026-08-05 against the v4 reprice of 2026-07-17. Premier, Major
+// (now Flagship), Core and Professional had all drifted below what the page
+// advertises, so a customer was provisioned fewer seats than they had just
+// bought: Flagship sells 60 and was granting 20, Core sells 20 and was
+// granting 6. Precinct and Enterprise are scoped per customer, so they carry
+// a floor here and the real number is set on the org.
 const TIER_SEATS: Record<string, number> = {
   'Free': 1,
   'Starter': 2,
@@ -62,10 +68,11 @@ const TIER_SEATS: Record<string, number> = {
   'Multi-Site Pulse': 6,
   'Multi-Site Deep': 6,
   'Multi-Site Plus': 12,
-  'Premier Venue': 10,
-  'Major Venue': 20,
-  'Core': 6,
-  'Professional': 12,
+  'Premier Venue': 20,
+  'Flagship Venue': 60,
+  'Precinct': 60,
+  'Core': 20,
+  'Professional': 30,
   'Enterprise': 20,
 };
 

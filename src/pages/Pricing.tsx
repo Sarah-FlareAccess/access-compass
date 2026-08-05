@@ -463,17 +463,30 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
       'A premium retail or tourism precinct',
     ],
   },
-  'Major Venue': {
-    title: 'Major Venue',
+  'Flagship Venue': {
+    title: 'Flagship Venue',
     situation: 'Your brand is on the line every day. You need governance-grade accessibility evidence, board-ready reporting and a program that can survive a public-incident inquiry.',
     audience: 'Best for flagship venues where one accessibility incident becomes news, with unlimited zones, cross-zone trend analysis and named consultant support.',
     examples: [
       'A flagship national or state stadium',
       'A major convention and exhibition centre',
-      'An integrated resort or precinct complex',
+      'An integrated resort complex',
       'A major state gallery or museum',
-      'A flagship retail destination or shopping precinct',
-      'A major airport precinct or transport hub',
+      'A flagship retail destination',
+      'A major airport terminal',
+    ],
+  },
+  'Precinct': {
+    title: 'Precinct',
+    situation: 'You run more than one complex and you are asked to speak for all of them at once. Each venue has its own operator, its own quirks and its own reporting, and nobody can currently answer "how accessible are we" across the portfolio.',
+    audience: 'Best for operators running several complexes or a venue portfolio under one accessibility program, where the reporting has to roll up across venues as well as within them. Scoped with you, not off the shelf.',
+    examples: [
+      'A stadium and entertainment precinct under one operator',
+      'A cultural precinct of several venues',
+      'A venue portfolio held by one owner or trust',
+      'A transport hub with multiple terminals',
+      'A university or health campus with several public venues',
+      'A festival with permanent venues of its own',
     ],
   },
   'Core': {
@@ -1079,7 +1092,7 @@ const majorVenueTiers: Tier[] = [
     }
   },
   {
-    name: 'Major Venue',
+    name: 'Flagship Venue',
     price: '$18,900',
     period: '12 months',
     description: 'Govern accessibility at flagship scale, with evidence your board can table.',
@@ -1109,6 +1122,42 @@ const majorVenueTiers: Tier[] = [
       seatExpansion: '$250/seat',
       training: 'Expert advisory available',
       support: 'Named consultant + priority onboarding'
+    }
+  },
+  {
+    // Unpriced on purpose. A precinct is never the same shape twice, so a
+    // printed number would anchor the negotiation before the scope is known.
+    // "Contact us" also routes to the enquiry mailto via the CTA branch below.
+    name: 'Precinct',
+    price: 'Contact us',
+    period: '',
+    description: 'One accessibility program across every venue in the precinct.',
+    whoFor: 'For operators running several complexes under one program, where reporting has to roll up across venues as well as within them.',
+    highlight: false,
+    features: {
+      assessment: 'Deep Dive (all relevant modules, scoped to each venue from a library of 50)',
+      sites: 'Multiple complexes',
+      zones: 'Unlimited zones per complex',
+      users: 'Tailored to your organisation',
+      diap: 'Full (assign, track, export)',
+      diapImport: true,
+      frameworkAlignment: true,
+      teamAllocation: true,
+      evidenceLibrary: true,
+      superuserTraining: 'Organisation-wide Superuser Program with ongoing retraining',
+      integrations: 'Standalone, or delivery packages to your tools. API access, custom integrations on request',
+      sso: true,
+      zoneReporting: true,
+      crossZoneTrends: true,
+      stakeholderReporting: 'Tailored report (select assessment, sections, zones, venues)',
+      businessGroupIncluded: 'Network Programs tailored to your needs',
+      comparison: 'Unlimited',
+      consultantTime: 'Quarterly strategic review across the precinct',
+      report: 'PDF + interactive + cross-venue summary',
+      resourceHub: '12 months',
+      seatExpansion: 'Included in your scope',
+      training: 'Expert advisory available',
+      support: 'Dedicated implementation and ongoing success support'
     }
   }
 ];
@@ -1258,7 +1307,7 @@ export default function Pricing() {
   const viewLabels: Record<string, string> = {
     individual: 'Single Site / Venue',
     multisite: 'Multi-Site Chains & Groups',
-    majorvenue: 'Major Venue (Single Complex)',
+    majorvenue: 'Major Venues & Precincts',
     authority: 'Councils, Authorities & Festivals',
     networkprograms: 'Network Programs',
   };
