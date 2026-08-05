@@ -27,6 +27,7 @@ import { getFramework, FRAMEWORKS } from '../data/frameworks';
 import { aggregateDomains } from '../lib/outcomesAggregation';
 import type { DomainAggregate } from '../lib/outcomesAggregation';
 import { normalizeModuleCode } from '../utils/moduleCompat';
+import { resolveComplianceLevel, isComplianceObligation } from '../utils/complianceLevel';
 
 export interface CategorisedItem {
   text: string;
@@ -5908,6 +5909,11 @@ function getSpecificRecommendations(
   // Look up the question for Tier 2.5 and Tier 3
   const module = getModuleById(moduleCode);
   const question = module?.questions.find(q => q.id === questionId);
+  // A diagnostic follow-up carries no complianceLevel of its own, so inherit
+  // from the question that gates it. Without this, "Where does keyboard access
+  // break down?" reads as best practice directly beneath its own parent, which
+  // is flagged as an obligation. Same requirement, two badges, one card.
+  const effectiveCompliance = resolveComplianceLevel(question, module?.questions ?? []);
 
   // Tier 2.5a: Rich help content (solutions with steps from help system)
   const richHelp = getHelpByQuestionId(questionId);
@@ -6006,8 +6012,8 @@ function getSpecificRecommendations(
   fallbackAction = fallbackAction.charAt(0).toUpperCase() + fallbackAction.slice(1);
   fallbackActions.push(fallbackAction);
 
-  if (question?.complianceLevel === 'mandatory') {
-    fallbackActions.push(`This is a mandatory compliance requirement${question.complianceRef ? ` (${question.complianceRef})` : ''}. Prioritise addressing this item.`);
+  if (isComplianceObligation(effectiveCompliance)) {
+    fallbackActions.push(`This maps to a compliance obligation${question?.complianceRef ? ` (${question.complianceRef})` : ''}. Prioritise addressing this item.`);
   }
 
   fallbackActions.push('Document current state with photos and measurements where applicable');
@@ -6045,8 +6051,11 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
 
         coveredQuestionIds.add(question.id);
 
+        // Inherited from the gating question when the follow-up has none.
+        const effectiveCompliance = resolveComplianceLevel(question, module.questions);
+
         const priority = calculateQuestionPriority({
-          complianceLevel: question.complianceLevel,
+          complianceLevel: effectiveCompliance,
           safetyRelated: question.safetyRelated,
           impactLevel: question.impactLevel,
           answer: response.answer || '',
@@ -6085,7 +6094,7 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
           priority,
           recommendedActions,
           resourceLinks,
-          complianceLevel: question.complianceLevel,
+          complianceLevel: effectiveCompliance,
           complianceRef: question.complianceRef,
         };
       })
@@ -6102,6 +6111,7 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
 
       const question = module.questions.find(q => q.id === actionItem.questionId);
       const questionText = question?.text || actionItem.questionText;
+      const effectiveCompliance = resolveComplianceLevel(question, module.questions);
 
       const recommendations = getSpecificRecommendations(
         actionItem.questionId,
@@ -6121,7 +6131,7 @@ function generateDetailedFindings(completedModules: ModuleProgress[]): Report['d
         priority: actionItem.priority,
         recommendedActions,
         resourceLinks,
-        complianceLevel: question?.complianceLevel,
+        complianceLevel: effectiveCompliance,
         complianceRef: question?.complianceRef,
       });
     }

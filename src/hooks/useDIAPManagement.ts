@@ -22,6 +22,7 @@ import { generateActionText } from '../components/questions/QuestionFlow';
 import { selectDiapContent } from '../utils/diapContent';
 import { DIAP_QUESTION_CONTENT } from '../data/diapQuestionContent';
 import { generateModuleSummary } from '../utils/generateModuleSummary';
+import { resolveComplianceLevel } from '../utils/complianceLevel';
 
 export type DIAPCategory =
   | 'physical-access'
@@ -1663,7 +1664,10 @@ export function useDIAPManagement(): UseDIAPManagementReturn {
         importSource: 'audit',
         impactStatement,
         successIndicators: generateSuccessIndicator(q, moduleCodeForObj),
-        complianceLevel: q.complianceLevel,
+        // Inherit from the gating question when a follow-up carries none of
+        // its own, so a DIAP action cannot contradict the report item it came
+        // from. See utils/complianceLevel.ts.
+        complianceLevel: resolveComplianceLevel(q, questions),
         complianceRef: q.complianceRef,
         createdAt: now,
         updatedAt: now,

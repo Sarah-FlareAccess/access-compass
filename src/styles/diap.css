@@ -1772,7 +1772,8 @@ details[open] .diap-framework__domain-summary::after {
 }
 
 /* Compliance badges */
-.compliance-badge.compliance-mandatory {
+.compliance-badge.compliance-mandatory,
+.compliance-badge.compliance-obligation {
   background: #fef2f2;
   color: #991b1b;
   border-color: #e88a8a;

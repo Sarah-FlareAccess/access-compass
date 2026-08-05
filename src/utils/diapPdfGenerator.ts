@@ -2,6 +2,7 @@ import jsPDF from 'jspdf';
 import type { DIAPItem } from '../hooks/useDIAPManagement';
 import { getCustomCategories } from '../data/diapMapping';
 import { getModuleById } from '../data/accessModules';
+import { complianceLabel, isComplianceObligation } from './complianceLevel';
 
 const COLORS = {
   amethystDark: '#3a0b52',
@@ -1051,10 +1052,11 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
     badgeX += prioBadgeW + 4;
 
     if (item.complianceLevel) {
-      const compLabel = item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice';
+      const isObligation = isComplianceObligation(item.complianceLevel);
+      const compLabel = complianceLabel(item.complianceLevel) ?? 'Best practice';
       const compBadgeW = doc.getTextWidth(compLabel) + 6;
-      const compColor = item.complianceLevel === 'mandatory' ? '#991b1b' : '#1e3a8a';
-      const compBg = item.complianceLevel === 'mandatory' ? '#fee2e2' : '#dbeafe';
+      const compColor = isObligation ? '#991b1b' : '#1e3a8a';
+      const compBg = isObligation ? '#fee2e2' : '#dbeafe';
       doc.setFillColor(...hexToRgb(compBg));
       doc.roundedRect(badgeX, yPos - 3, compBadgeW, 5, 1.5, 1.5, 'F');
       doc.setTextColor(...hexToRgb(compColor));

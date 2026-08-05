@@ -1239,7 +1239,8 @@
   white-space: nowrap;
 }
 
-.compliance-badge.compliance-mandatory {
+.compliance-badge.compliance-mandatory,
+.compliance-badge.compliance-obligation {
   background: rgba(220, 38, 38, 0.12);
   color: #991b1b;
   border: 1px solid rgba(220, 38, 38, 0.3);

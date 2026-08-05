@@ -1,3 +1,5 @@
+import { isComplianceObligation } from './complianceLevel';
+
 type Priority = 'high' | 'medium' | 'low';
 
 interface PriorityInput {
@@ -17,7 +19,10 @@ export function calculateQuestionPriority({
 
   if (answer === 'unable-to-check' || answer === 'not-sure') return 'medium';
 
-  const isMandatory = complianceLevel === 'mandatory';
+  // Was `=== 'mandatory'`, which silently excluded the 16 questions authored
+  // as dda-compliant and the one as wcag-aa. Those are obligations too, and
+  // could never reach high priority however they were answered.
+  const isMandatory = isComplianceObligation(complianceLevel);
 
   if (answer === 'no') {
     if (isMandatory) return 'high';
@@ -50,7 +55,7 @@ export const PRIORITY_LEGEND: { level: Priority; label: string; description: str
   {
     level: 'high',
     label: 'High',
-    description: 'Gaps in mandatory compliance requirements (Premises Standards, WCAG, NCC) and safety-related items. These carry the highest legal and safety risk and should be addressed first where possible.',
+    description: 'Gaps against a compliance obligation (the DDA, the Premises Standards, AS 1428, WCAG 2.2 AA or the NCC) and safety-related items. These carry the highest legal and safety risk and should be addressed first where possible.',
   },
   {
     level: 'medium',

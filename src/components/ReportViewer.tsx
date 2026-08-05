@@ -17,6 +17,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ExternalLink, ArrowUp } from 'lucide-react';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
+import { complianceLabel, complianceBadgeClass } from '../utils/complianceLevel';
 import { downloadPDFReport } from '../utils/pdfGenerator';
 import { RESPONSE_LABELS } from '../constants/responseOptions';
 import { hasHelpContent, getHelpByQuestionId } from '../data/help';
@@ -1214,8 +1215,8 @@ export function ReportViewer({ report, onClose, onDownload }: ReportViewerProps)
                               {issue.priority} priority
                             </span>
                             {issue.complianceLevel && (
-                              <span className={`compliance-badge compliance-${issue.complianceLevel}`}>
-                                {issue.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
+                              <span className={`compliance-badge compliance-${complianceBadgeClass(issue.complianceLevel)}`}>
+                                {complianceLabel(issue.complianceLevel)}
                                 {issue.complianceRef && ` (${issue.complianceRef})`}
                               </span>
                             )}
