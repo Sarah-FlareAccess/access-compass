@@ -380,7 +380,10 @@ export default function AuthorityDashboard() {
                     aria-valuenow={completedPct}
                     aria-valuemin={0}
                     aria-valuemax={100}
-                    aria-label={`${program.name}: ${completedPct}% completed`}
+                    /* The bar draws three states but the label named only one,
+                       so submitted and in progress were unavailable to a
+                       screen reader as well as being carried by hue alone. */
+                    aria-label={`${program.name}: ${completedPct}% completed, ${submittedPct}% submitted, ${inProgressPct}% in progress`}
                   >
                     <div className="authority-progress-fill completed" style={{ width: `${completedPct}%` }} />
                     <div className="authority-progress-fill submitted" style={{ width: `${submittedPct}%` }} />

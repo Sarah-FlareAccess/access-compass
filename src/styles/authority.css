@@ -1043,16 +1043,26 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
   transition: width 0.4s ease;
 }
 
+/* Program progress: three segments flush against each other with no text
+   inside, so hue was the only thing separating completed from submitted from
+   in progress. Same texture language as the maturity heatmap and the DAP
+   objectives bar: the first state is clean, the second hatched, the third
+   cross-hatched. */
 .authority-progress-fill.completed {
-  background: #16A34A;
+  background-color: #16A34A;
 }
 
 .authority-progress-fill.submitted {
-  background: #F59E0B;
+  background-color: #F59E0B;
+  background-image: repeating-linear-gradient(
+    45deg, rgba(69, 26, 3, 0.32) 0 2px, transparent 2px 7px);
 }
 
 .authority-progress-fill.in-progress {
-  background: #7C3AED;
+  background-color: #7C3AED;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.42) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.42) 0 2px, transparent 2px 7px);
 }
 
 /* Responsive */

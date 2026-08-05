@@ -306,9 +306,12 @@
   flex-shrink: 0;
 }
 
-.report-heatmap__legend .key--strong { background: #86EFAC; border: 1px solid #14532D33; }
-.report-heatmap__legend .key--mixed  { background: #FCD34D; border: 1px solid #78350F33; }
-.report-heatmap__legend .key--needs  { background: #FCA5A5; border: 1px solid #7F1D1D33; }
+.report-heatmap__legend .key--strong { background: #DCFCE7; border: 1px solid #14532D33; }
+.report-heatmap__legend .key--mixed { background-color: #FCD34D; border: 1px solid #6B2E0A55;
+  background-image: repeating-linear-gradient(45deg, rgba(107,46,10,0.32) 0 1px, transparent 1px 4px); }
+.report-heatmap__legend .key--needs { background-color: #F87171; border: 1px solid #450A0A55;
+  background-image: repeating-linear-gradient(45deg, rgba(69,10,10,0.34) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(-45deg, rgba(69,10,10,0.34) 0 1px, transparent 1px 4px); }
 .report-heatmap__legend .key--none   { background: rgba(62, 43, 47, 0.08); border: 1px solid rgba(62, 43, 47, 0.18); }
 
 @media (max-width: 720px) {
@@ -355,9 +358,16 @@
    Its fills sit under 3:1 against the surface, which the validator allows only
    with relief: the legend above the chart, the counts inside the segments and
    the coverage figure beside each row are that relief. Do not remove them. */
-.report-heatmap__bar .seg--strong { background: #86EFAC; color: #14532D; }
-.report-heatmap__bar .seg--mixed  { background: #FCD34D; color: #78350F; }
-.report-heatmap__bar .seg--needs  { background: #FCA5A5; color: #7F1D1D; }
+/* Duplicate of the maturity heatmap in authority.css. Kept in step with it
+   deliberately: strong clean, mixed hatched, needs work cross-hatched, with
+   luminance stepping down so the bands survive greyscale and colour vision
+   deficiency. */
+.report-heatmap__bar .seg--strong { background-color: #DCFCE7; color: #14532D; }
+.report-heatmap__bar .seg--mixed { background-color: #FCD34D; color: #6B2E0A;
+  background-image: repeating-linear-gradient(45deg, rgba(107,46,10,0.26) 0 2px, transparent 2px 7px); }
+.report-heatmap__bar .seg--needs { background-color: #F87171; color: #450A0A;
+  background-image: repeating-linear-gradient(45deg, rgba(69,10,10,0.3) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg, rgba(69,10,10,0.3) 0 2px, transparent 2px 7px); }
 .report-heatmap__bar .seg--none   { background: rgba(62, 43, 47, 0.08); }
 
 .report-heatmap__count {
@@ -752,7 +762,7 @@
 .report-verdict--maintain { background: #dcfce7; color: #166534; }
 .report-verdict--invest   { background: #fef3c7; color: #92400e; }
 .report-verdict--improve  { background: #fee2e2; color: #991b1b; }
-.report-verdict--none     { background: #f3f4f6; color: #9ca3af; }
+.report-verdict--none     { background: #f3f4f6; color: #6B6360; }
 
 /* ===== Network accessibility risk strip ===== */
 .report-risk {
