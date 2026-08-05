@@ -11,6 +11,7 @@ import { accessModules } from '../data/accessModules';
 import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professionalSupportGroups';
 import { groupLabel, groupOrderIndex } from './maturityModel';
 import type { ThematicSummary } from './reportAnalysis';
+import { isComplianceObligation } from './complianceLevel';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -823,7 +824,7 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
     const rankKey = (it: CategorisedItem): number => {
       let s = rank[it.priority || 'low'];
       if (it.safetyRelated) s -= 20;
-      if (it.complianceLevel === 'mandatory') s -= 10;
+      if (isComplianceObligation(it.complianceLevel)) s -= 10;
       return s;
     };
     const topActions = (report.sections.priorityActions.categorised || [])
