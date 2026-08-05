@@ -23,6 +23,7 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import type { ReviewMode } from '../types/index';
 import type { Report, CategorisedItem } from '../hooks/useReportGeneration';
 import { PageGuide, type GuideFeature } from '../components/PageGuide';
+import { complianceLabel, complianceBadgeClass } from '../utils/complianceLevel';
 import './ReportPage.css';
 
 const REPORT_FEATURES: GuideFeature[] = [
@@ -258,15 +259,15 @@ function ModuleTile({
                                   })()}
                                 </div>
                               </details>
-                              <span className={`rp-compliance-tag rp-compliance-${item.complianceLevel || 'best-practice'}`}>
-                                {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best practice'}
+                              <span className={`rp-compliance-tag rp-compliance-${complianceBadgeClass(item.complianceLevel)}`}>
+                                {complianceLabel(item.complianceLevel) ?? 'Best practice'}
                               </span>
                             </div>
                           ) : (
                             <>
                               <span>{formatActionText(item)}</span>
-                              <span className={`rp-compliance-tag rp-compliance-${item.complianceLevel || 'best-practice'}`}>
-                                {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best practice'}
+                              <span className={`rp-compliance-tag rp-compliance-${complianceBadgeClass(item.complianceLevel)}`}>
+                                {complianceLabel(item.complianceLevel) ?? 'Best practice'}
                               </span>
                             </>
                           )}

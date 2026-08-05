@@ -52,6 +52,7 @@ async function openAttachment(att: DIAPAttachment) {
   }
 }
 import { Zap, Upload, Paperclip, Filter, Users as UsersIcon, CalendarDays, Plus, BookOpen } from 'lucide-react';
+import { complianceLabel, complianceBadgeClass } from '../utils/complianceLevel';
 import '../styles/diap.css';
 
 // First meaningful step of an action, for the compact row subtitle (so items
@@ -3406,8 +3407,8 @@ function DIAPItemCard({ item, onStatusChange, onEdit, onAddAttachment, onAttachE
           )}
         </div>
         {item.complianceLevel && (
-          <span className={`compliance-badge compliance-${item.complianceLevel}`}>
-            {item.complianceLevel === 'mandatory' ? 'Mandatory' : 'Best Practice'}
+          <span className={`compliance-badge compliance-${complianceBadgeClass(item.complianceLevel)}`}>
+            {complianceLabel(item.complianceLevel)}
           </span>
         )}
       </div>

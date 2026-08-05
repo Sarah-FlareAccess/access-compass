@@ -1002,7 +1002,8 @@
   flex-shrink: 0;
 }
 
-.rp-compliance-mandatory {
+.rp-compliance-mandatory,
+.rp-compliance-obligation {
   background: rgba(239, 68, 68, 0.12);
   color: #991b1b;
 }
