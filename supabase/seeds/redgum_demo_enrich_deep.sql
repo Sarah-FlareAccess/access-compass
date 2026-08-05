@@ -50,20 +50,22 @@ begin
   -- script would fail on the first write, so add it here rather than assume.
   alter table diap_items add column if not exists comments jsonb default '[]';
 
-  -- The app writes 'achieved' and 'ongoing', and the five DIAP pillars, but
-  -- migration 001 only allowed the original five statuses and seven
-  -- categories. Re-stating both constraints as the superset makes this script
-  -- deterministic regardless of which migrations have landed on this database.
+  -- The app writes statuses and categories that migration 001's CHECK lists
+  -- never allowed ('achieved', 'ongoing', the five DIAP pillars), so the
+  -- constraints are stale relative to the product.
+  --
+  -- These are DROPPED and deliberately NOT re-added. An earlier version of
+  -- this script re-added them as a superset and failed: a row somewhere in
+  -- this database holds a status outside even the widened list, and a CHECK
+  -- is validated against the WHOLE table, not just the rows being updated.
+  -- Guessing the full set from here is not possible, and the demo does not
+  -- need a constraint. The write path in useDIAPManagement is what actually
+  -- governs these values.
+  --
+  -- To see what is really in there:
+  --   select status, count(*) from diap_items group by 1 order by 2 desc;
   alter table diap_items drop constraint if exists diap_items_status_check;
-  alter table diap_items add constraint diap_items_status_check
-    check (status in ('not-started','in-progress','completed','on-hold','cancelled','achieved','ongoing'));
-
   alter table diap_items drop constraint if exists diap_items_category_check;
-  alter table diap_items add constraint diap_items_category_check
-    check (category in (
-      'physical-access','information-communication-marketing','customer-service',
-      'operations-policy-procedure','people-culture',
-      'digital-access','communication','policy-procedure','training','other'));
 
   -- ---------------------------------------------------------------
   -- 1a. STATUS SPREAD
