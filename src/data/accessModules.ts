@@ -95,7 +95,6 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Some info on our website but not comprehensive' or 'We mention parking but not entrances or toilets'",
@@ -319,7 +318,6 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Where customers can find your accessibility information affects whether they find it at all. Multiple locations can be good for reaching customers where they search, but ensure consistency across platforms.',
@@ -796,7 +794,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'tested-confident', label: 'Yes - we\'ve tested them and are confident they work well' },
@@ -1301,6 +1298,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.1.1 Keyboard',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'Main navigation works but dropdown menus are not accessible' or 'Most pages work but booking forms require a mouse'",
@@ -1369,6 +1367,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.4.7 Focus Visible',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Focus visible on buttons but not on links' or 'Header menu shows focus but footer doesn't'",
         helpContent: {
@@ -1404,6 +1403,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.1.1 Non-text Content',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Key venue photos have alt text but additional images don't' or 'Blog posts have alt text but older pages don't'",
         helpContent: {
@@ -1473,6 +1473,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.4.3 Contrast (Minimum)',
         reviewMode: 'pulse-check',
         allowPartial: true,
         partialPlaceholder: "E.g., 'Main text is fine but footer links are hard to read' or 'Text on hero images lacks contrast'",
@@ -1580,6 +1581,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.4.4 Resize Text',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Works at 200% but breaks at higher zoom' or 'Content readable but navigation menu covers most of the window'",
         helpContent: {
@@ -1616,6 +1618,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.4.10 Reflow',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Content reads well but menus are hard to use' or 'Works on iPhone but issues on Android'",
         helpContent: {
@@ -1652,6 +1655,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.5.8 Target Size (Minimum)',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main buttons fine but footer links too small' or 'Easy on most pages but filter buttons are cramped'",
         helpContent: {
@@ -1717,6 +1721,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.2 Captions (Prerecorded)',
         reviewMode: 'deep-dive',
         helpContent: {
           summary: 'Captions are text versions of spoken content that appear on screen, making video content accessible to people who are deaf or hard of hearing. This assesses whether your videos have captions and how accurate they are.',
@@ -1751,6 +1756,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.3 Audio Description or Media Alternative',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main promotional video has transcript but tour videos don't' or 'Written summaries but not full transcripts'",
         helpContent: {
@@ -1784,6 +1790,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.4.4 Link Purpose (In Context)',
         reviewMode: 'deep-dive',
         partialPlaceholder: "E.g., 'Main navigation is clear but blog posts use generic Read more links' or 'Most links good but some Click here remain'",
         helpContent: {
@@ -1824,7 +1831,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-regular', label: 'Yes, we test regularly' },
@@ -1898,6 +1904,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 3.3.2 Labels or Instructions',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Labels are visible but required fields aren't clearly marked' or 'Contact form is good but newsletter signup just has placeholder text'",
         helpContent: {
@@ -1936,6 +1943,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 3.3.1 Error Identification',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes, clear and helpful error messages' },
@@ -1973,6 +1981,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.2.1 Timing Adjustable',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-extended', label: 'Yes, extended timeouts and/or warnings' },
@@ -2113,7 +2122,6 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         partialPlaceholder: "E.g., 'There is a general notes field but nothing specifically for accessibility' or 'Only available when booking certain ticket types'",
@@ -2273,7 +2281,6 @@ export const accessModules: AccessModule[] = [
         type: 'yes-no-unsure',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Requests are stored but we don\'t always follow up' or 'Depends on who is rostered that day'",
         helpContent: {
@@ -2474,6 +2481,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992 s24 (goods, services and facilities)',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Wheelchair spaces can be booked online but companion tickets require calling' or 'Accessible options only available for some events'",
         helpContent: {
@@ -2514,6 +2522,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.1.1 Keyboard',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Most fields work but the date picker requires a mouse' or 'Haven\'t tested this yet'",
         helpContent: {
@@ -2591,6 +2600,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 3.3.1 Error Identification',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some errors are explained but others just show red highlighting' or 'Messages appear but are not read by screen readers'",
         helpContent: {
@@ -2637,6 +2647,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 4.1.3 Status Messages',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Not tested with screen readers' or 'Errors appear visually but may not be announced'",
@@ -2706,6 +2717,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 4.1.2 Name, Role, Value',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Tested with VoiceOver, mostly works but calendar is problematic' or 'Not tested with assistive technology'",
@@ -2738,6 +2750,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.2.1 Timing Adjustable',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Session times out after 15 minutes with no warning' or 'Generous time but no option to extend'",
@@ -2770,6 +2783,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.4.10 Reflow',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Works but buttons are small' or 'Date picker difficult on mobile'",
         helpContent: {
@@ -2834,6 +2848,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (payment flow)',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.3-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Main form works but card entry is problematic' or 'Haven't specifically tested payment step'",
@@ -3409,6 +3424,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.2 Captions (Prerecorded)',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         options: [
@@ -3451,6 +3467,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.5 Audio Description (Prerecorded)',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -3492,6 +3509,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.1.1 Non-text Content',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Sometimes but not consistently' or 'We don't post images on social media'",
         helpContent: {
@@ -3567,6 +3585,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.1.1 Keyboard',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'YouTube embeds work but custom player doesn't' or 'No videos on our website'",
         helpContent: {
@@ -3601,6 +3620,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.4.2 Audio Control',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.4-PC-4', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
@@ -3762,6 +3782,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.2 Captions (Prerecorded)',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.4-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
@@ -4001,6 +4022,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 2.3.1 Three Flashes or Below Threshold',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.4-PC-5', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         partialPlaceholder: "E.g., 'Only for videos we produce, not user-generated content' or 'Not aware of testing tools'",
@@ -4136,6 +4158,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.1 Audio-only and Video-only (Prerecorded)',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, transcripts for all audio content' },
@@ -4801,6 +4824,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.1.1 Non-text Content',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '1.5-PC-8', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Some images have alt text but not all' or 'Videos have auto-captions only'",
@@ -5297,6 +5321,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'pulse-check',
         complianceLevel: 'mandatory',
+        complianceRef: 'Premises Standards 2010 and AS 1428.1',
         showWhen: { questionId: '2.1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Close to an entrance but not the main one' or 'Closer spaces exist but are not designated accessible'",
         helpContent: {
@@ -5357,7 +5382,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        complianceLevel: 'mandatory',
         showWhen: { questionId: '2.1-F-3', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Level but needs a kerb ramp to footpath' or 'Mostly accessible but uneven in places'",
         helpContent: {
@@ -5620,7 +5644,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        complianceLevel: 'mandatory',
         showWhen: { questionId: '2.1-F-1', answers: ['yes', 'partially'] },
         partialPlaceholder: "E.g., 'Usually available but blocked during deliveries' or 'Available most times but full during major events'",
         helpContent: {
@@ -5923,7 +5946,6 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         safetyRelated: true,
         reviewMode: 'deep-dive',
-        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Path is lit but signs are hard to read at night' or 'Well-lit near entrance but darker in the car park'",
         helpContent: {
           summary: 'Can people safely find their way when it\'s getting dark? Both path visibility (can you see where to walk safely?) and signage visibility (can you read the wayfinding signs?) need to work in low light conditions.',
@@ -5993,7 +6015,6 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         reviewMode: 'deep-dive',
-        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Signage at main junction but not at all corners' or 'Signs at entrance but not in car park'",
         helpContent: {
           summary: 'People get lost at decision points - any location where the route is not immediately obvious, such as car park entrances, level changes, path junctions, corners where the destination is not visible, areas with multiple paths and transitions between indoor and outdoor areas. Strategic signage placement at each of these points ensures continuous wayfinding without gaps.',
@@ -6062,6 +6083,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.4.1 (tactile ground surface indicators)',
         supportsEvidence: true,
         evidenceTypes: ['photo'],
         evidenceHint: 'Upload a photo showing tactile ground surface indicators on the path to the entrance',
@@ -6586,6 +6608,7 @@ export const accessModules: AccessModule[] = [
         reviewMode: 'both',
         showWhen: { questionId: '2.2-F-1', answers: ['lift-at-entrance'] },
         complianceLevel: 'mandatory',
+        complianceRef: 'Premises Standards 2010 (accessible lifts)',
         options: [
           { id: 'yes-independent', label: 'Yes - fully independent operation' },
           { id: 'mostly-independent', label: 'Mostly - some limitations' },
@@ -6900,7 +6923,6 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Visible from the street but not from the bus stop' or 'Signage exists but is small or unclear'",
         helpContent: {
           summary: 'First-time visitors should be able to easily spot and recognise the main entrance as they approach on foot, from public transport or from a drop-off point. Clear sightlines, signage, canopies, contrasting colours or good lighting all help. Not needing to search or ask reduces anxiety and confusion.',
@@ -6997,7 +7019,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'pulse-check',
-        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Well-lit during business hours but dim at night' or 'Main door lit but approach path is darker'",
         helpContent: {
           summary: 'Lighting at and around the entrance should be sufficient for people with low vision or those arriving in low-light conditions to safely identify the entrance, see door handles, read signage and notice any steps or level changes.',
@@ -7161,7 +7182,6 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
-        complianceLevel: 'mandatory',
         partialPlaceholder: "E.g., 'Adequate timing but can be rushed during peak times' or 'Sensors sometimes miss slower walkers'",
         helpContent: {
           summary: 'Automatic doors should remain open long enough for people who move slowly - including those using wheelchairs, walkers, canes or who simply need more time - to pass through safely and without stress. Doors that close too quickly can cause anxiety, physical contact or injury and may deter people from visiting.',
@@ -8347,6 +8367,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'Premises Standards 2010 (accessible lifts)',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '2.3-1-3', answers: ['lift', 'platform-lift'] },
         options: [
@@ -9740,7 +9761,6 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'medium',
         reviewMode: 'deep-dive',
         safetyRelated: true,
-        complianceLevel: 'dda-compliant',
         partialPlaceholder: "E.g., 'Shared zone in the mall with no tactile edge treatment' or 'Shared path with no separation between bikes and pedestrians'",
         helpContent: {
           summary: 'Level surface treatments look elegant and are frequently specified in main street upgrades, but removing the kerb removes the one continuous tactile cue that tells a blind pedestrian where the footway ends and the carriageway begins. Where a shared surface is used, a detectable delineator has to replace what the kerb was doing.',
@@ -9964,6 +9984,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         reviewMode: 'deep-dive',
         complianceLevel: 'mandatory',
+        complianceRef: 'Premises Standards 2010 and AS 1428.1',
         partialPlaceholder: "E.g., 'Accessible toilets exist but the locations are not published anywhere' or 'MLAK key required and nobody knows how to get one'",
         helpContent: {
           summary: 'Toilet availability determines how far from home many people can travel and for how long. An accessible public toilet that nobody can find, or that is locked with a key scheme nobody has heard of, delivers very little. Publishing locations and hours is often the higher-value half of the work.',
@@ -11086,6 +11107,7 @@ export const accessModules: AccessModule[] = [
         impactLevel: 'high',
         safetyRelated: true,
         complianceLevel: 'mandatory',
+        complianceRef: 'AS 1428.1 (accessible sanitary facilities)',
         reviewMode: 'pulse-check',
         showWhen: { questionId: '3.2-1-1', answers: ['yes', 'yes-offsite'] },
         partialPlaceholder: "E.g., 'Alarm exists but not sure if it's connected or monitored' or 'Cord present but may not reach floor level'",
@@ -14051,6 +14073,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (linked content)',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '3.6-1-3', answers: ['yes', 'partially'] },
         options: [
@@ -14273,6 +14296,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.2 Captions (Prerecorded)',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, all videos are captioned' },
@@ -14313,6 +14337,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.5 Audio Description (Prerecorded)',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-all', label: 'Yes, audio description available for all videos' },
@@ -19427,7 +19452,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'physical',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -20404,6 +20428,7 @@ export const accessModules: AccessModule[] = [
         category: 'digital',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA',
         reviewMode: 'deep-dive',
         showWhen: { questionId: '4.1-PC-1', answers: ['yes', 'partially', 'no', 'unable-to-check'] },
         options: [
@@ -21774,6 +21799,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (booking system)',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-tested', label: 'Yes - tested for accessibility' },
@@ -22011,7 +22037,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-online', label: 'Yes - bookable online' },
@@ -23570,6 +23595,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (electronic communications)',
         reviewMode: 'pulse-check',
         isEntryPoint: true,
         options: [
@@ -24059,6 +24085,7 @@ export const accessModules: AccessModule[] = [
         category: 'digital',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 SC 1.2.2 and SC 1.2.5',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-both', label: 'Yes, captions and audio description on all videos' },
@@ -24235,6 +24262,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (electronic communications)',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Good contrast and fonts but no plain text option' or 'Marketing emails accessible but not transactional'",
         helpContent: {
@@ -24267,6 +24295,7 @@ export const accessModules: AccessModule[] = [
         category: 'information',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (PDF documents)',
         reviewMode: 'pulse-check',
         partialPlaceholder: "E.g., 'Some documents are tagged but not all' or 'Not sure how to create accessible PDFs'",
         helpContent: {
@@ -28105,7 +28134,6 @@ export const accessModules: AccessModule[] = [
             'Consider noting that accessibility information will only be used for event planning purposes, to protect privacy',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Excellent. Providing a clear accommodation request pathway during registration is essential under DDA 1992 obligations.',
           no: 'Add an accessibility accommodation request field to your registration or ticketing process. Under the DDA 1992, you have an obligation to make reasonable adjustments. Attendees need a clear, private way to communicate their needs before the event.',
@@ -28181,6 +28209,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        complianceRef: 'WCAG 2.2 Level AA (registration flow)',
         actionText: {
           yes: 'Well done. An accessible registration process ensures no one is excluded before the event even begins.',
           no: 'Audit your registration and ticketing platform against WCAG 2.2 Level AA. Ensure it works with screen readers, supports keyboard navigation, has sufficient colour contrast and provides an alternative booking method (phone or email) for people who cannot use the online system.',
@@ -28313,7 +28342,6 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'information',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'accessible-website', label: 'Accessible website (WCAG compliant)' },
@@ -28725,6 +28753,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992 s23 (access to premises)',
         actionText: {
           yes: 'Good. Physical accessibility of the venue is fundamental to inclusion and a legal requirement under the DDA 1992 and Australian Premises Standards.',
           no: 'Assess the venue for wheelchair accessibility, including entrances, circulation routes, stages, amenities and emergency egress. Under the Disability (Access to Premises) Standards 2010, public venues must provide accessible entry and facilities. If the venue has barriers, identify modifications or choose an alternative.',
@@ -28763,7 +28792,6 @@ export const accessModules: AccessModule[] = [
             'Clearly signing accessible parking and routes to the entrance prevents confusion on arrival',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good. Accessible parking and drop-off are essential first steps in the attendee journey.',
           no: 'Provide accessible parking spaces compliant with AS/NZS 2890.6 and a drop-off zone close to an accessible entrance. Spaces must have adequate width (minimum 3.2m for shared zones), firm level surfaces and clear signage. If on-site parking is unavailable, arrange accessible shuttle services.',
@@ -28803,6 +28831,7 @@ export const accessModules: AccessModule[] = [
           ],
         },
         complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992 s23 (access to premises)',
         actionText: {
           yes: 'Essential provision. Accessible toilets are a legal requirement under the Premises Standards.',
           no: 'Provide accessible toilets compliant with AS 1428.1. For temporary or outdoor events, hire accessible portable toilets. Ensure they are on level ground, connected by accessible paths, well-lit and clearly signed. The ratio should be at least 1 accessible toilet per 100 attendees.',
@@ -28845,7 +28874,6 @@ export const accessModules: AccessModule[] = [
             'Making accessible seating bookable online, not just by phone, removes an unnecessary barrier',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good range of seating options. Flexible seating ensures people with different needs can enjoy the event comfortably.',
           no: 'Provide diverse accessible seating: wheelchair spaces integrated into general seating (not segregated), companion seating adjacent to wheelchair spaces, extra-width seating, end-of-row aisle seats and seating with back support. AS 1428.1 requires wheelchair spaces with clear dimensions and sightlines.',
@@ -29138,7 +29166,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'raised-platform', label: 'Yes - raised accessible viewing platform' },
@@ -29205,7 +29232,6 @@ export const accessModules: AccessModule[] = [
             'Consider adding tactile indicators before cable crossing points to alert people with vision impairment',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good. Trip hazard management is a safety-critical requirement, particularly for people using mobility aids or with vision impairments.',
           no: 'Implement comprehensive trip hazard management: use cable covers rated for mobility aids, secure all wiring and cabling, eliminate changes in floor level or clearly mark them with high-contrast tape and conduct regular walk-throughs during the event. This is a safety and legal obligation.',
@@ -29283,7 +29309,6 @@ export const accessModules: AccessModule[] = [
             'Briefing all performers and presenters on the stage layout and edges helps prevent accidents',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good safety practice. Clearly defined edges prevent falls and are particularly important for people with vision impairments.',
           no: 'Mark all stage and platform edges with high-contrast, non-slip strip (minimum 50mm width) that is both visually and tactilely detectable. Ensure adequate lighting on edges and provide guardrails where the drop exceeds 250mm. This is a safety requirement.',
@@ -29419,7 +29444,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-multiple', label: 'Yes - multiple platforms at different locations' },
@@ -29804,7 +29828,6 @@ export const accessModules: AccessModule[] = [
             'Repeating important announcements and keeping them on screens helps people who missed the first one',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good. Multi-modal announcements ensure safety-critical information reaches everyone, regardless of hearing or vision ability.',
           no: 'Implement multi-modal announcements: combine PA/audio with visual displays (screens, LED boards), text messages or app notifications and Auslan interpretation for live announcements. Emergency announcements must be both audible and visible as required under the DDA 1992.',
@@ -29857,7 +29880,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'information',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-throughout', label: 'Yes - QR codes on most signage' },
@@ -29895,7 +29917,6 @@ export const accessModules: AccessModule[] = [
         type: 'multi-select',
         category: 'operational',
         impactLevel: 'medium',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'tgsi', label: 'Tactile ground surface indicators (TGSIs) on key routes' },
@@ -30556,7 +30577,6 @@ export const accessModules: AccessModule[] = [
             'Having a backup plan such as assistive listening devices gives you a safety net if the loop fails',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good. Hearing loop coverage is essential for hearing aid users and is required in public assembly areas under the Premises Standards.',
           no: 'Install or hire hearing loop systems that cover all presentation and seated areas. Loops must meet AS 60118.4 for signal strength and clarity. Test coverage with a loop receiver before the event. Display the hearing loop symbol prominently. This is a mandatory requirement in public assembly buildings.',
@@ -30716,7 +30736,6 @@ export const accessModules: AccessModule[] = [
             'Make sure people can step out and re-enter easily during effects so they do not feel trapped',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Essential safety practice. Sensory trigger warnings allow attendees to prepare or move to a safe space.',
           no: 'Provide advance warnings for sensory triggers including strobe lights, pyrotechnics, loud sudden noises, smoke/haze effects and strong scents. Warnings must appear in pre-event materials, at venue entry and immediately before the trigger occurs. Under DDA obligations, this is a safety and access requirement.',
@@ -31660,7 +31679,6 @@ export const accessModules: AccessModule[] = [
             'Make sure wheelchairs and stretchers can reach all areas including accessible seating in case of a medical emergency',
           ],
         },
-        complianceLevel: 'mandatory',
         actionText: {
           yes: 'Good. Comprehensive medical support is essential for attendee safety, particularly for people with disability who may have complex health needs.',
           no: 'Provide comprehensive medical support: first aid officers trained in disability-specific scenarios (seizures, insulin management, communication with non-verbal patients), accessible first aid stations, medical equipment storage for attendees and a clear escalation path to emergency services. This is a mandatory safety requirement.',
@@ -31716,7 +31734,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'comprehensive', label: 'Yes - security staff trained and accessible procedures in place' },
@@ -32901,7 +32918,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-certified', label: 'Yes, certified human providers for both AD and captioning' },
@@ -33660,6 +33676,7 @@ export const accessModules: AccessModule[] = [
         category: 'physical',
         impactLevel: 'medium',
         complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992 s24 (goods, services and facilities)',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes-multi', label: 'Yes, multiple accessible payment methods' },
@@ -37082,6 +37099,7 @@ export const accessModules: AccessModule[] = [
         category: 'digital',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992 s15 (employment) with WCAG 2.2 Level AA',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -37403,7 +37421,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'digital',
         impactLevel: 'medium',
-        complianceLevel: 'wcag-aa',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -37580,7 +37597,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'operational',
         impactLevel: 'high',
-        complianceLevel: 'dda-compliant',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -37618,6 +37634,7 @@ export const accessModules: AccessModule[] = [
         category: 'training',
         impactLevel: 'high',
         complianceLevel: 'dda-compliant',
+        complianceRef: 'DDA 1992 s15 (employment) and s30 (unlawful questions)',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -37873,6 +37890,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'medium',
         complianceLevel: 'dda-compliant',
+        complianceRef: 'DDA 1992 s15 (employment), reasonable adjustment',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -38012,7 +38030,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'policy',
         impactLevel: 'medium',
-        complianceLevel: 'dda-compliant',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -38192,6 +38209,7 @@ export const accessModules: AccessModule[] = [
         category: 'digital',
         impactLevel: 'high',
         complianceLevel: 'mandatory',
+        complianceRef: 'DDA 1992 s15 (employment), reasonable adjustment',
         reviewMode: 'pulse-check',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -38375,7 +38393,6 @@ export const accessModules: AccessModule[] = [
         type: 'single-select',
         category: 'safety',
         impactLevel: 'high',
-        complianceLevel: 'mandatory',
         safetyRelated: true,
         reviewMode: 'deep-dive',
         options: [
@@ -38447,6 +38464,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'dda-compliant',
+        complianceRef: 'DDA 1992 s15 (employment), reasonable adjustment',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -38517,6 +38535,7 @@ export const accessModules: AccessModule[] = [
         category: 'policy',
         impactLevel: 'high',
         complianceLevel: 'dda-compliant',
+        complianceRef: 'DDA 1992 s15 (employment), reasonable adjustment',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
@@ -38552,6 +38571,7 @@ export const accessModules: AccessModule[] = [
         category: 'operational',
         impactLevel: 'high',
         complianceLevel: 'dda-compliant',
+        complianceRef: 'DDA 1992 s15 (employment)',
         reviewMode: 'deep-dive',
         options: [
           { id: 'yes', label: 'Yes' },
