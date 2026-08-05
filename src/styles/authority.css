@@ -253,7 +253,7 @@ a.authority-program-card:focus-visible {
 
 .authority-program-status.inactive {
   background: rgba(107, 114, 128, 0.1);
-  color: #6b7280;
+  color: #6B6360;
   border: 1px solid rgba(107, 114, 128, 0.15);
 }
 
@@ -314,14 +314,18 @@ a.authority-program-card:focus-visible {
 .authority-form-group input:not([type="checkbox"]):focus,
 .authority-form-group textarea:focus,
 .authority-form-group select:focus {
-  outline: none;
+  /* Was `outline: none` with a 10%-opacity amethyst glow, which is nowhere
+     near the 3:1 WCAG 2.2 SC 1.4.11 wants of a focus indicator: on the ivory
+     page it was almost invisible. Every other focusable element in this file
+     already uses the sunrise outline, so match it. */
+  outline: 3px solid var(--aussie-sunrise, #FF9015);
+  outline-offset: 2px;
   border-color: var(--amethyst-diamond, #490E67);
-  box-shadow: 0 0 0 3px rgba(73, 14, 103, 0.1);
 }
 
 .authority-form-group input::placeholder,
 .authority-form-group textarea::placeholder {
-  color: #757575;
+  color: #6B6360;
 }
 
 .authority-form-hint {
@@ -629,7 +633,7 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 
 .authority-enrolment-status.withdrawn {
   background: rgba(107, 114, 128, 0.1);
-  color: #6b7280;
+  color: #6B6360;
   border: 1px solid rgba(107, 114, 128, 0.15);
 }
 

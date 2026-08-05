@@ -336,7 +336,16 @@ export default function AuthorityDashboard() {
           {/* Enrolment timeline */}
           <div className="authority-chart-card">
             <h3>Enrolments (last 6 months)</h3>
-            <div className="authority-timeline" role="img" aria-label="Monthly enrolment chart">
+            {/* role="img" makes the whole subtree presentational, so the month
+                labels and counts inside were unreachable and the label alone
+                carried no data: a screen reader user got "Monthly enrolment
+                chart" and nothing else (WCAG 1.1.1). The values are built from
+                the same array that draws the bars, so they cannot go stale. */}
+            <div
+              className="authority-timeline"
+              role="img"
+              aria-label={`Enrolments over the last 6 months. ${timeline.map(t => `${t.label}: ${t.count}`).join('. ')}`}
+            >
               {timeline.map(({ label, count }) => (
                 <div key={label} className="authority-timeline-bar">
                   <div className="authority-timeline-fill" style={{ height: `${(count / timelineMax) * 100}%` }}>
