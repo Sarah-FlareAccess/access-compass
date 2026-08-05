@@ -24,12 +24,25 @@ export function calculateQuestionPriority({
   // could never reach high priority however they were answered.
   const isMandatory = isComplianceObligation(complianceLevel);
 
+  // A flat "no" on a high-impact item now reaches high priority on its own.
+  // Previously the only routes to high were compliance and safety, so high
+  // impact was capped at medium and "high priority but best practice" was
+  // unreachable. That forced the compliance badge to do the priority's job:
+  // items were tagged as obligations to get them into the top band, which is
+  // how a copy task ended up labelled as compliance.
+  //
+  // Priority answers "where do I start", the compliance badge answers "is this
+  // a legal obligation". They are separate questions and both can now be true
+  // or false independently.
   if (answer === 'no') {
     if (isMandatory) return 'high';
-    if (impactLevel === 'high') return 'medium';
+    if (impactLevel === 'high') return 'high';
     return 'low';
   }
 
+  // "Partially" stays at medium for high impact. Something part-done is not
+  // the same as absent, and promoting both would flood the top band and make
+  // the ranking useless, which is the failure this is meant to fix.
   if (answer === 'partially') {
     if (isMandatory) return 'high';
     if (impactLevel === 'high') return 'medium';
@@ -55,12 +68,12 @@ export const PRIORITY_LEGEND: { level: Priority; label: string; description: str
   {
     level: 'high',
     label: 'High',
-    description: 'Gaps against a compliance obligation (the DDA, the Premises Standards, AS 1428, WCAG 2.2 AA or the NCC) and safety-related items. These carry the highest legal and safety risk and should be addressed first where possible.',
+    description: 'Safety-related items, gaps against a compliance obligation (the DDA, the Premises Standards, AS 1428, WCAG 2.2 AA or the NCC), and high-impact items that are not in place at all. These carry the greatest legal, safety or human cost, and are where to start.',
   },
   {
     level: 'medium',
     label: 'Medium',
-    description: 'High-impact improvements that significantly affect the experience of people with disability and items that need further investigation to determine their current state.',
+    description: 'High-impact items that are partly in place and need finishing, and items that need further investigation to determine their current state. Real improvements to the experience of people with disability, on foundations that already exist.',
   },
   {
     level: 'low',

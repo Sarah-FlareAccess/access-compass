@@ -484,28 +484,14 @@ export function useReportGeneration(
               if (seenAction.has(key)) return;
               seenAction.add(key);
               const text = a.action;
-              // complianceLevel and priority are DERIVED, but they were baked
-              // into the module summary when the module was completed and
-              // stored. A correction to the question tagging therefore never
-              // reached an already-assessed module: the report kept showing
-              // the value computed under the old rules. Re-derive both here.
-              const srcQ = mod?.questions.find(qq => qq.id === a.questionId);
-              // When the question is found, ITS value wins outright, including
-              // when that value is "none". Falling back to the stored level
-              // (`?? a.complianceLevel`) would mean a tag REMOVED from a
-              // question never disappears from an already-assessed module, so
-              // an over-tagging correction could never be undone. The stored
-              // value is only a fallback when the question no longer exists.
-              const level = srcQ
-                ? resolveComplianceLevel(srcQ, mod?.questions ?? [])
-                : a.complianceLevel;
-              // A summary priority action only exists for a negative answer, so
-              // an obligation is high by the same rule calculateQuestionPriority
-              // applies. Never downgrade a stored priority: safety and impact
-              // reasons for a higher band are not recoverable from here.
-              const priority = isComplianceObligation(level) ? 'high' : a.priority;
-              allPriorityActions.push(`${a.action} (${priority} priority)`);
-              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority, complianceLevel: level, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || ''), group: mod?.group });
+              // No re-derivation here. `summary` above is already regenerated
+              // from the live responses and current question data, so priority
+              // and complianceLevel are computed fresh on every read. An extra
+              // pass on top of that is not a safety net, it is a second source
+              // of truth: it was what applied compliance inheritance to a card
+              // the summary had already got right.
+              allPriorityActions.push(`${a.action} (${a.priority} priority)`);
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || ''), group: mod?.group });
             });
           }
           if (summary?.areasToExplore) {
