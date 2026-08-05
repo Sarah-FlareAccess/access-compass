@@ -484,8 +484,20 @@ export function useReportGeneration(
               if (seenAction.has(key)) return;
               seenAction.add(key);
               const text = a.action;
-              allPriorityActions.push(`${a.action} (${a.priority} priority)`);
-              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority: a.priority, complianceLevel: a.complianceLevel, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || ''), group: mod?.group });
+              // complianceLevel and priority are DERIVED, but they were baked
+              // into the module summary when the module was completed and
+              // stored. A correction to the question tagging therefore never
+              // reached an already-assessed module: the report kept showing
+              // the value computed under the old rules. Re-derive both here.
+              const srcQ = mod?.questions.find(qq => qq.id === a.questionId);
+              const level = resolveComplianceLevel(srcQ, mod?.questions ?? []) ?? a.complianceLevel;
+              // A summary priority action only exists for a negative answer, so
+              // an obligation is high by the same rule calculateQuestionPriority
+              // applies. Never downgrade a stored priority: safety and impact
+              // reasons for a higher band are not recoverable from here.
+              const priority = isComplianceObligation(level) ? 'high' : a.priority;
+              allPriorityActions.push(`${a.action} (${priority} priority)`);
+              catPriorityActions.push({ text, moduleCode: mCode, moduleName: mName, questionId: a.questionId, priority, complianceLevel: level, safetyRelated: a.safetyRelated, ownerArea: groupOwnerArea(mod?.group || ''), group: mod?.group });
             });
           }
           if (summary?.areasToExplore) {
