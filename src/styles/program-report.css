@@ -428,8 +428,8 @@
   line-height: 1;
 }
 
-.report-list__rank--green  { background: #16A34A; }
-.report-list__rank--amber  { background: #F59E0B; }
+.report-list__rank--green  { background: #15803D; }
+.report-list__rank--amber  { background: #B45309; }
 .report-list__rank--purple { background: #7C3AED; }
 
 .report-list__text {
