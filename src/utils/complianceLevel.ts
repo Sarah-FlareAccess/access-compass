@@ -3,13 +3,24 @@
  *
  * Three defects this exists to fix, all found together on 2026-08-05:
  *
- * 1. FOLLOW-UPS INHERITED NOTHING. A diagnostic follow-up carries no
- *    complianceLevel of its own. `1.2-1-1` ("Can all website content be
- *    accessed using only a keyboard?") is mandatory; `1.2-1-1a` ("Where does
- *    keyboard access break down?") had no value at all. The same obligation
- *    then rendered as "Mandatory" and "Best practice" in a single card, which
- *    is indefensible in front of a reviewer. A follow-up now inherits from the
- *    question that gates it.
+ * 1. FOLLOW-UPS CARRY NO LEVEL, AND MUST NOT INHERIT ONE. `1.2-1-1a` ("Where
+ *    does keyboard access break down?") has no complianceLevel while its
+ *    gating question `1.2-1-1` is an obligation, so one card showed two
+ *    different badges.
+ *
+ *    Inheriting from the gating question was TRIED AND REVERTED on
+ *    2026-08-05. In module 1.1 almost every follow-up gates off `1.1-F-1`,
+ *    which is an obligation, so inheritance promoted the entire module to
+ *    Compliance and High, including "Consider also adding: sensory
+ *    considerations", which is plainly optional. Being gated by an obligation
+ *    does not make a follow-up an obligation: most add something extra rather
+ *    than diagnosing the same requirement, and only the authoring knows which.
+ *
+ *    So the mixed badge is left as-is. Where a follow-up genuinely restates
+ *    its parent's requirement, the fix is to tag that question, not to infer
+ *    it from branching. This resolver is kept because it re-derives the value
+ *    from the question at read time, which is what makes an authoring
+ *    correction reach a module that was assessed months ago.
  *
  * 2. FOUR VALUES, TWO BRANCHES. The renderer tested
  *    `=== 'mandatory' ? 'Mandatory' : 'Best Practice'`, so the 16 questions
@@ -64,23 +75,7 @@ interface QuestionLike {
  */
 export function resolveComplianceLevel(
   question: QuestionLike | undefined,
-  allQuestions: readonly QuestionLike[],
+  _allQuestions: readonly QuestionLike[],
 ): ComplianceLevel | undefined {
-  if (!question) return undefined;
-  if (question.complianceLevel) return question.complianceLevel as ComplianceLevel;
-
-  const seen = new Set<string>([question.id]);
-  let current = question;
-
-  for (let depth = 0; depth < 5; depth++) {
-    const parentId = current.showWhen?.questionId ?? current.showWhenOr?.questionId;
-    if (!parentId || seen.has(parentId)) return undefined;
-    seen.add(parentId);
-
-    const parent = allQuestions.find(q => q.id === parentId);
-    if (!parent) return undefined;
-    if (parent.complianceLevel) return parent.complianceLevel as ComplianceLevel;
-    current = parent;
-  }
-  return undefined;
+  return question?.complianceLevel as ComplianceLevel | undefined;
 }
