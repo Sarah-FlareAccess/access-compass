@@ -96,7 +96,7 @@ begin
      now() - interval '120 days', now() + interval '300 days',
      true, true, 'authority_funded',
      null,
-     'Redgum Convention & Exhibition Centre asks event partners to complete this short accessibility checklist as part of confirming your event. It takes about 20 minutes and helps us support your delegates on the day.'),
+     'Redgum Convention & Exhibition Centre asks event partners to complete this accessibility checklist as part of confirming your event. It helps us support your delegates on the day.'),
 
     (v_org,
      'Supplier & Procurement Partner Program',

@@ -781,7 +781,7 @@ ${targetDateFormatted ? `Target completion date: ${targetDateFormatted}\n` : ''}
 To get started, open your assessment:
 ${moduleUrl}
 
-The review should take about 10-15 minutes. Your insights will help us create a more inclusive experience for all our customers.
+You can work through it in one sitting or come back to it. Your insights will help us create a more inclusive experience for all our customers.
 
 If you have any questions or need access, please let me know.
 

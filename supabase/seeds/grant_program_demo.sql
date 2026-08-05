@@ -57,7 +57,7 @@ begin
      'A grant-funded accessibility uplift for local tourism businesses. Each recipient completes a short accessibility assessment across the visitor journey so the council can target shared training, guidance and funding.',
      v_mods, 'pulse', now() - interval '90 days', now() + interval '270 days',
      true, true, 'authority_funded', null,
-     'As a condition of the accessibility grant, please complete this short assessment. It takes about 20 minutes. Your individual responses stay private; the council only sees aggregate results.')
+     'As a condition of the accessibility grant, please complete this assessment. Work through it module by module and come back to it whenever suits. Your individual responses stay private; the council only sees aggregate results.')
   on conflict (organisation_id, slug) do update
     set name = excluded.name, description = excluded.description,
         required_module_ids = excluded.required_module_ids, access_level = excluded.access_level,
