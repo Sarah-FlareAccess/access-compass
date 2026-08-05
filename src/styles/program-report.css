@@ -358,6 +358,17 @@
    Its fills sit under 3:1 against the surface, which the validator allows only
    with relief: the legend above the chart, the counts inside the segments and
    the coverage figure beside each row are that relief. Do not remove them. */
+/* The percentage sits directly on the texture, which makes it hard to read on
+   the hatched and cross-hatched bands. A translucent chip lifts it clear
+   without hiding the pattern behind it. Same treatment as
+   .cohort-heatmap__seg > span in authority.css. */
+.report-heatmap__bar .seg > span {
+  position: relative;
+  padding: 0 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
 /* Duplicate of the maturity heatmap in authority.css. Kept in step with it
    deliberately: strong clean, mixed hatched, needs work cross-hatched, with
    luminance stepping down so the bands survive greyscale and colour vision
