@@ -12,6 +12,7 @@ import { groupProfessionalReviewByExpertise, FLARE_CONTACT } from './professiona
 import { groupLabel, groupOrderIndex } from './maturityModel';
 import type { ThematicSummary } from './reportAnalysis';
 import { isComplianceObligation } from './complianceLevel';
+import { PRIORITY_LEGEND } from './priorityCalculation';
 
 // Brand Colors - matching Access Compass design system
 const COLORS = {
@@ -1511,11 +1512,21 @@ export function generatePDFReport(options: PDFGeneratorOptions): jsPDF {
   doc.text('Understanding Priority Levels', PAGE.marginLeft, yPosition);
   yPosition += 8;
 
-  const legendItems: { label: string; color: string; desc: string }[] = [
-    { label: 'High', color: '#b91c1c', desc: 'Compliance-oriented and safety-related items, generally the highest-risk areas and the usual place to start. This is a prioritisation guide, not a legal compliance assessment, so confirm the specific requirements that apply to you.' },
-    { label: 'Medium', color: '#945a00', desc: 'High-impact improvements that significantly affect the experience of people with disability and items needing further investigation.' },
-    { label: 'Low', color: '#1a4fd6', desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower risk.' },
-  ];
+  // Derived from PRIORITY_LEGEND rather than restated. These descriptions were
+  // hardcoded and had drifted: the PDF still told the reader that Medium meant
+  // high-impact improvements, after high-impact items answered "no" had been
+  // moved to High, so the legend contradicted the priorities printed beside it
+  // in the same document. The disclaimer is appended to High only.
+  const PRIORITY_PDF_COLOURS: Record<string, string> = {
+    high: '#b91c1c', medium: '#945a00', low: '#1a4fd6',
+  };
+  const legendItems: { label: string; color: string; desc: string }[] = PRIORITY_LEGEND.map(l => ({
+    label: l.label,
+    color: PRIORITY_PDF_COLOURS[l.level],
+    desc: l.description + (l.level === 'high'
+      ? ' This is a prioritisation guide, not a legal compliance assessment, so confirm the specific requirements that apply to you.'
+      : ''),
+  }));
   for (const item of legendItems) {
     // Reserve label + first description line so the label never orphans.
     checkNewPage(12);

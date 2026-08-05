@@ -2163,10 +2163,31 @@
   margin-top: 8px;
 }
 
+/* Disability Action Plan objectives bar.
+   These three segments sit flush against each other and carried no cue but
+   hue, so a reader with colour vision deficiency, or anyone with a printed
+   board pack, saw one continuous strip. Same treatment and same palette as
+   the maturity heatmap in authority.css, deliberately, so the two charts read
+   as one visual language: strong is clean, mixed is hatched, needs work is
+   cross-hatched, and the luminance steps down across the three. */
 .rp-legal-seg { display: block; height: 100%; }
-.rp-legal-seg.rp-legal-strong { background: #16a34a; }
-.rp-legal-seg.rp-legal-mixed { background: #ca8a04; }
-.rp-legal-seg.rp-legal-needs { background: #dc2626; }
+
+.rp-legal-seg.rp-legal-strong {
+  background-color: #DCFCE7;
+}
+
+.rp-legal-seg.rp-legal-mixed {
+  background-color: #FCD34D;
+  background-image: repeating-linear-gradient(
+    45deg, rgba(107, 46, 10, 0.26) 0 2px, transparent 2px 7px);
+}
+
+.rp-legal-seg.rp-legal-needs {
+  background-color: #F87171;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(69, 10, 10, 0.3) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg, rgba(69, 10, 10, 0.3) 0 2px, transparent 2px 7px);
+}
 
 .rp-legal-cite {
   font-size: 0.75rem;

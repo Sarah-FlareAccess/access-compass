@@ -3,6 +3,7 @@ import type { DIAPItem } from '../hooks/useDIAPManagement';
 import { getCustomCategories } from '../data/diapMapping';
 import { getModuleById } from '../data/accessModules';
 import { complianceLabel, isComplianceObligation } from './complianceLevel';
+import { PRIORITY_LEGEND } from './priorityCalculation';
 
 const COLORS = {
   amethystDark: '#3a0b52',
@@ -878,11 +879,19 @@ export function generateDIAPPdf(options: DIAPPdfOptions): void {
   doc.text('Understanding Priority Levels', PAGE.marginX, yPos);
   yPos += 7;
 
-  const legendItems = [
-    { label: 'High', color: COLORS.statusHigh, desc: 'Compliance-oriented and safety-related items, generally the highest-risk areas and the usual place to start. This is a prioritisation guide, not a legal compliance assessment, so confirm the specific requirements that apply to you.' },
-    { label: 'Medium', color: COLORS.statusMedium, desc: 'High-impact improvements that significantly affect the experience of people with disability and items needing further investigation.' },
-    { label: 'Low', color: COLORS.statusLow, desc: 'Best-practice improvements that make a real, meaningful difference. Not less important, just lower risk.' },
-  ];
+  // Derived from PRIORITY_LEGEND, not restated. See the same fix in
+  // pdfGenerator.ts: these had drifted from the app and described the old
+  // model, where high impact could not reach High.
+  const PRIORITY_PDF_COLOURS: Record<string, string> = {
+    high: COLORS.statusHigh, medium: COLORS.statusMedium, low: COLORS.statusLow,
+  };
+  const legendItems = PRIORITY_LEGEND.map(l => ({
+    label: l.label,
+    color: PRIORITY_PDF_COLOURS[l.level],
+    desc: l.description + (l.level === 'high'
+      ? ' This is a prioritisation guide, not a legal compliance assessment, so confirm the specific requirements that apply to you.'
+      : ''),
+  }));
   for (const item of legendItems) {
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
