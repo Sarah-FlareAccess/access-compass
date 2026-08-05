@@ -1243,9 +1243,24 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 }
 
 /* Cohort maturity dots - matched to heatmap pastels for consistency */
-.dot--green { background: #86EFAC; border: 1px solid #14532D; }
-.dot--amber { background: #FCD34D; border: 1px solid #78350F; }
-.dot--red   { background: #FCA5A5; border: 1px solid #7F1D1D; }
+/* Legend keys carry the same textures as the bands, so the mapping is
+   learnable without relying on hue. */
+.dot--green { background: #DCFCE7; border: 1px solid #14532D; }
+
+.dot--amber {
+  background-color: #FCD34D;
+  border: 1px solid #6B2E0A;
+  background-image: repeating-linear-gradient(
+    45deg, rgba(107, 46, 10, 0.32) 0 1px, transparent 1px 4px);
+}
+
+.dot--red {
+  background-color: #F87171;
+  border: 1px solid #450A0A;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(69, 10, 10, 0.34) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(-45deg, rgba(69, 10, 10, 0.34) 0 1px, transparent 1px 4px);
+}
 
 /* Big-number activity card */
 .cohort-bignum {
@@ -1477,9 +1492,48 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 }
 
 /* Softer pastel fills + dark text for WCAG AA contrast. */
-.cohort-heatmap__seg--strong { background: #86EFAC; color: #14532D; }
-.cohort-heatmap__seg--mixed  { background: #FCD34D; color: #78350F; }
-.cohort-heatmap__seg--needs  { background: #FCA5A5; color: #7F1D1D; }
+/* The three bands used to differ by hue alone. Converted to greyscale they
+   landed at 200, 208 and 191 out of 255, a spread under 7%, so on a printed
+   board pack or for a reader with colour vision deficiency the bar read as one
+   continuous block. Two changes fix it without adding clutter:
+
+   1. Luminance now steps down across the three (roughly 240, 208, 153), so the
+      bands separate even when hue does not carry.
+   2. Each band takes a texture: strong is clean, mixed is hatched, needs work
+      is cross-hatched. Texture is the non-colour cue WCAG 1.4.1 asks for, and
+      it costs no extra rows on screen the way a text breakdown would.
+
+   Patterns are kept at low opacity so the chart stays light. */
+.cohort-heatmap__seg--strong {
+  background-color: #DCFCE7;
+  color: #14532D;
+}
+
+.cohort-heatmap__seg--mixed {
+  background-color: #FCD34D;
+  color: #6B2E0A;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(107, 46, 10, 0.26) 0 2px,
+    transparent 2px 7px
+  );
+}
+
+.cohort-heatmap__seg--needs {
+  background-color: #F87171;
+  color: #450A0A;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(69, 10, 10, 0.3) 0 2px, transparent 2px 7px),
+    repeating-linear-gradient(-45deg, rgba(69, 10, 10, 0.3) 0 2px, transparent 2px 7px);
+}
+
+/* Segment counts sit on top of the texture, so give them a solid backing. */
+.cohort-heatmap__seg > span {
+  position: relative;
+  padding: 0 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.72);
+}
 
 .cohort-heatmap__count {
   font-size: 0.75rem;

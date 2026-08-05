@@ -674,7 +674,7 @@ function ModuleHeatmap({ rows }: { rows: Array<{ category: string; strong: numbe
                   style={{ width: `${strongPct}%` }}
                   title={`Strong: ${r.strong}`}
                 >
-                  {strongPct >= 12 && <span>{r.strong}</span>}
+                  {strongPct >= 8 && <span>{r.strong}</span>}
                 </div>
               )}
               {mixedPct > 0 && (
@@ -683,7 +683,7 @@ function ModuleHeatmap({ rows }: { rows: Array<{ category: string; strong: numbe
                   style={{ width: `${mixedPct}%` }}
                   title={`Mixed: ${r.mixed}`}
                 >
-                  {mixedPct >= 12 && <span>{r.mixed}</span>}
+                  {mixedPct >= 8 && <span>{r.mixed}</span>}
                 </div>
               )}
               {needsWorkPct > 0 && (
@@ -692,7 +692,7 @@ function ModuleHeatmap({ rows }: { rows: Array<{ category: string; strong: numbe
                   style={{ width: `${needsWorkPct}%` }}
                   title={`Needs work: ${r.needsWork}`}
                 >
-                  {needsWorkPct >= 12 && <span>{r.needsWork}</span>}
+                  {needsWorkPct >= 8 && <span>{r.needsWork}</span>}
                 </div>
               )}
             </div>
@@ -739,7 +739,7 @@ function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: nu
         {strongLen > 0 && (
           <circle
             cx={cx} cy={cy} r={radius}
-            stroke="#86EFAC" strokeWidth={strokeWidth} fill="none"
+            stroke="#DCFCE7" strokeWidth={strokeWidth} fill="none"
             strokeDasharray={`${strongLen} ${c - strongLen}`}
             strokeDashoffset={0}
             strokeLinecap="butt"
@@ -757,7 +757,7 @@ function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: nu
         {needsWorkLen > 0 && (
           <circle
             cx={cx} cy={cy} r={radius}
-            stroke="#FCA5A5" strokeWidth={strokeWidth} fill="none"
+            stroke="#F87171" strokeWidth={strokeWidth} fill="none"
             strokeDasharray={`${needsWorkLen} ${c - needsWorkLen}`}
             strokeDashoffset={-(strongLen + mixedLen)}
             strokeLinecap="butt"
