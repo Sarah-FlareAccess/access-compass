@@ -11,10 +11,20 @@
 import { accessModules } from '../src/data/accessModules';
 
 // Deterministic pseudo-random from a string, so regenerating is stable.
+// A plain (x*31 + c) rolling hash clusters badly on ids that share a long
+// prefix, which every question id in a module does. That made the first
+// several questions of a module land on the same verdict. Mixing the bits
+// afterwards spreads them.
 function h(s: string): number {
-  let x = 0;
-  for (let i = 0; i < s.length; i++) x = (x * 31 + s.charCodeAt(i)) >>> 0;
-  return x;
+  let x = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    x ^= s.charCodeAt(i);
+    x = Math.imul(x, 16777619) >>> 0;
+  }
+  x ^= x >>> 15;
+  x = Math.imul(x, 2246822507) >>> 0;
+  x ^= x >>> 13;
+  return x >>> 0;
 }
 
 const PROFILE: Record<string, 'strong' | 'mixed' | 'needs-work'> = {
@@ -267,7 +277,12 @@ for (const code of Object.keys(PROFILE)) {
     '',
     '  -- ' + code + ' ' + mod.name + ' -> ' + SITE[code],
     "  select id into v_site from sites where organisation_id = v_org and name = '" + esc(SITE[code]) + "';",
-    "  delete from module_responses where session_id = '" + sess + "';",
+    // Delete by (org, site, module), NOT by session_id. The unique index is
+    // module_responses_org_site_module_question_uniq, so a row seeded earlier
+    // under a different session_id still collides. Scoping the delete to the
+    // session only would leave those rows in place and the insert would fail.
+    "  delete from module_responses where organisation_id = v_org and module_id = '" + code + "'",
+    "    and coalesce(site_id::text,'-') = coalesce(v_site::text,'-');",
     "  delete from module_progress where organisation_id = v_org and module_id = '" + code + "'",
     "    and coalesce(site_id::text,'-') = coalesce(v_site::text,'-');",
     '  insert into module_progress (session_id, module_id, module_code, status, confidence_snapshot, summary,',
