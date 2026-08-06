@@ -1259,7 +1259,7 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 /* Cohort maturity dots - matched to heatmap pastels for consistency */
 /* Legend keys carry the same textures as the bands, so the mapping is
    learnable without relying on hue. */
-.dot--green { background: #DCFCE7; border: 1px solid #14532D; }
+.dot--green { background: #4ADE80; border: 1px solid #14532D; }
 
 .dot--amber {
   background-color: #FCD34D;
@@ -1519,7 +1519,7 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 
    Patterns are kept at low opacity so the chart stays light. */
 .cohort-heatmap__seg--strong {
-  background-color: #DCFCE7;
+  background-color: #4ADE80;
   color: #14532D;
 }
 

@@ -523,7 +523,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
           <div className="report-donut-wrap">
             <Donut
               segments={[
-                { value: confidence.strong, color: '#86EFAC' },
+                { value: confidence.strong, color: '#4ADE80' },
                 { value: confidence.mixed, color: '#FCD34D' },
                 { value: confidence.needsWork, color: '#FCA5A5' },
               ]}
@@ -546,7 +546,7 @@ function ReportRender({ data, groupBy }: { data: ProgramReportPayload; groupBy: 
           <div className="report-donut-wrap">
             <Donut
               segments={[
-                { value: completedDisplay, color: '#86EFAC' },
+                { value: completedDisplay, color: '#4ADE80' },
                 { value: enrolment.in_progress, color: '#C4B5FD' },
                 { value: notStartedDisplay, color: 'rgba(62, 43, 47, 0.18)' },
               ]}

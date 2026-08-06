@@ -751,7 +751,7 @@ function MaturityDonut({ strong, mixed, needsWork }: { strong: number; mixed: nu
         {strongLen > 0 && (
           <circle
             cx={cx} cy={cy} r={radius}
-            stroke="#DCFCE7" strokeWidth={strokeWidth} fill="none"
+            stroke="#4ADE80" strokeWidth={strokeWidth} fill="none"
             strokeDasharray={`${strongLen} ${c - strongLen}`}
             strokeDashoffset={0}
             strokeLinecap="butt"

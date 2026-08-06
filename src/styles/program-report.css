@@ -101,7 +101,7 @@
 }
 
 /* Maturity dots use heatmap pastel palette with dark borders for visibility */
-.dot--green { background: #86EFAC; border: 1px solid #14532D; }
+.dot--green { background: #4ADE80; border: 1px solid #14532D; }
 .dot--amber { background: #FCD34D; border: 1px solid #78350F; }
 .dot--red   { background: #FCA5A5; border: 1px solid #7F1D1D; }
 .dot--purple { background: #C4B5FD; border: 1px solid #4C1D95; }
@@ -306,7 +306,7 @@
   flex-shrink: 0;
 }
 
-.report-heatmap__legend .key--strong { background: #DCFCE7; border: 1px solid #14532D33; }
+.report-heatmap__legend .key--strong { background: #4ADE80; border: 1px solid #14532D33; }
 .report-heatmap__legend .key--mixed { background-color: #FCD34D; border: 1px solid #6B2E0A55;
   background-image: repeating-linear-gradient(45deg, rgba(107,46,10,0.32) 0 1px, transparent 1px 4px); }
 .report-heatmap__legend .key--needs { background-color: #F87171; border: 1px solid #450A0A55;
@@ -350,7 +350,7 @@
 }
 
 /* Softer pastel fills + dark text for WCAG AA contrast.
-   - Strong:    #86EFAC bg / #14532D text  ~ 6.0:1
+   - Strong:    #4ADE80 bg / #14532D text  ~ 7.0:1
    - Mixed:     #FCD34D bg / #78350F text  ~ 5.5:1
    - Needs work: #FCA5A5 bg / #7F1D1D text  ~ 4.8:1 */
 /* Pale ramp, kept. It separates adequately for colour vision deficiency (protan
@@ -373,7 +373,7 @@
    deliberately: strong clean, mixed hatched, needs work cross-hatched, with
    luminance stepping down so the bands survive greyscale and colour vision
    deficiency. */
-.report-heatmap__bar .seg--strong { background-color: #DCFCE7; color: #14532D; }
+.report-heatmap__bar .seg--strong { background-color: #4ADE80; color: #14532D; }
 .report-heatmap__bar .seg--mixed { background-color: #FCD34D; color: #6B2E0A;
   background-image: repeating-linear-gradient(45deg, rgba(107,46,10,0.26) 0 2px, transparent 2px 7px); }
 .report-heatmap__bar .seg--needs { background-color: #F87171; color: #450A0A;

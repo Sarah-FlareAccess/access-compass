@@ -42,14 +42,14 @@ const COLORS = {
   text: '#1f2937',
   textMuted: '#6b7280',
   // Maturity palette (matches in-app heatmap pastels)
-  strongFill: '#86EFAC',
+  strongFill: '#4ADE80',
   strongText: '#14532D',
   mixedFill: '#FCD34D',
   mixedText: '#78350F',
   needsFill: '#FCA5A5',
   needsText: '#7F1D1D',
   // Status palette (used for progress bar - completion, in-progress, not-started)
-  statusCompleted: '#86EFAC',
+  statusCompleted: '#4ADE80',
   statusInProgress: '#FCD34D',
   statusNotStarted: '#E5E7EB',
   // Insight callout
