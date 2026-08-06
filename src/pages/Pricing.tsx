@@ -2192,10 +2192,14 @@ export default function Pricing() {
                   Upgrades into the unpriced tiers (Multi-Site Plus, the Major
                   Venue editions, the Authority editions) are credited in the
                   quote instead, so they are not listed here. */}
+              {/* Credit equals the full price of the tier being left, which is
+                  what the heading promises. v4 credited less than full on two
+                  of these and full on the others, so the heading was false
+                  wherever the discount applied. */}
               {[
-                { path: 'Starter \u2192 Committed', credit: '$399' },
-                { path: 'Committed \u2192 Multi-Site Deep', credit: '$899' },
-                { path: 'Multi-Site Pulse \u2192 Deep', credit: '$999' }
+                { path: 'Starter \u2192 Committed', credit: '$499' },
+                { path: 'Committed \u2192 Multi-Site Deep', credit: '$1,290' },
+                { path: 'Multi-Site Pulse \u2192 Deep', credit: '$1,490' }
               ].map((item, i) => (
                 <span key={i} className="pricing-upgrade-pill" style={{ backgroundColor: colors.ivory, color: colors.walnut, border: `1px solid ${colors.ivoryDark}` }}>
                   {item.path}: <strong style={{ color: colors.amethyst }}>{item.credit}</strong>

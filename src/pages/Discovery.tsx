@@ -125,7 +125,7 @@ function Discovery() {
       const tierData = tierInfo || { tier: '', category: '' };
       const tierName = (tierData.tier || '').toLowerCase();
       const tierCategory = tierData.category || '';
-      // Deep Dive tiers: Free (3 modules deep dive), Committed, Multi-Site Deep/Plus, all authority tiers
+      // Deep Dive tiers: Free (2 modules deep dive), Committed, Multi-Site Deep/Plus, all authority tiers
       if (
         tierName === 'free' ||
         tierName === 'committed' ||

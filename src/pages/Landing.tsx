@@ -263,7 +263,7 @@ export default function Landing() {
             <Link to="/disclaimer" className="btn btn-primary btn-large">
               Start your free accessibility check
             </Link>
-            <p className="cta-subtext">Free for up to 3 modules. No credit card required.</p>
+            <p className="cta-subtext">Free for up to 2 modules. No credit card required.</p>
           </div>
         </div>
       </section>
