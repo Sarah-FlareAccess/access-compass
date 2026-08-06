@@ -6,6 +6,7 @@ import { normalizeModuleCode } from '../utils/moduleCompat';
 import { useReportGeneration } from '../hooks/useReportGeneration';
 import { useModuleProgress } from '../hooks/useModuleProgress';
 import type { ModuleProgress, ModuleSummary, QuestionResponse } from '../hooks/useModuleProgress';
+import { parseStoredMultiSelect } from '../utils/parseStoredMultiSelect';
 import { useAuth } from '../contexts/AuthContext';
 import { useSites, useActiveSiteId } from '../hooks/useSites';
 import { supabase } from '../utils/supabase';
@@ -469,7 +470,7 @@ export default function ReportPage() {
     (async () => {
       const [mpRes, respRes] = await Promise.all([
         sb.from('module_progress').select('module_id, module_code, status, summary, confidence_snapshot').eq('organisation_id', oid),
-        sb.from('module_responses').select('module_id, question_id, answer, notes, partial_description, other_description, link_value, updated_at').eq('organisation_id', oid),
+        sb.from('module_responses').select('module_id, question_id, answer, notes, partial_description, other_description, link_value, multi_select_values, updated_at').eq('organisation_id', oid),
       ]);
       if (cancelled) return;
       const map: Record<string, ModuleProgress> = {};
@@ -509,6 +510,7 @@ export default function ReportPage() {
           partialDescription: (r.partial_description as string) || undefined,
           otherDescription: (r.other_description as string) || undefined,
           linkValue: (r.link_value as string) || undefined,
+          multiSelectValues: parseStoredMultiSelect(r.multi_select_values),
           timestamp: (r.updated_at as string) || new Date().toISOString(),
         });
       }
