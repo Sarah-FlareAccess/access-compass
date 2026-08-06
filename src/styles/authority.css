@@ -1355,7 +1355,7 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 }
 
 .cohort-list__rank--green {
-  background: #16A34A;
+  background: #15803D;
 }
 
 .cohort-list__text {
@@ -1558,5 +1558,5 @@ label.authority-toggle-checkbox input[type="checkbox"]:focus-visible {
 
 /* Amber rank for areas-to-explore list */
 .cohort-list__rank--amber {
-  background: #F59E0B;
+  background: #B45309;
 }
