@@ -34,10 +34,10 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
     priceAmountCents: 0,
     period: '',
     accessLevel: 'deep_dive',
-    moduleLimit: 3,
+    moduleLimit: 2,
     resourceHubMonths: 0,
     inclusions: [
-      'Up to 3 modules (Deep Dive depth)',
+      'Up to 2 modules (Deep Dive depth)',
       'Scoped PDF report',
       'Self-service only',
     ],
@@ -58,7 +58,7 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
   },
   committed: {
     name: 'Committed',
-    priceAmountCents: 89900,
+    priceAmountCents: 129000,
     period: '12 months',
     accessLevel: 'deep_dive',
     moduleLimit: null,
@@ -135,10 +135,10 @@ interface MultiSiteTierConfig {
 const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   pulse_3: {
     name: 'Multi-Site Pulse',
-    priceAmountCents: 119900,
+    priceAmountCents: 149000,
     period: '12 months',
     sites: 3,
-    perSiteCents: 39967,
+    perSiteCents: 49667,
     isPurchasable: true,
     inclusions: [
       'Pulse Check for 3 sites',
@@ -149,10 +149,10 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   },
   deep_3: {
     name: 'Multi-Site Deep',
-    priceAmountCents: 199900,
+    priceAmountCents: 249000,
     period: '12 months',
     sites: 3,
-    perSiteCents: 66600,
+    perSiteCents: 83000,
     isPurchasable: true,
     inclusions: [
       'Deep Dive for 3 sites',
@@ -163,17 +163,21 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   },
   plus_6: {
     name: 'Multi-Site Plus',
-    priceAmountCents: 349900,
+    // The background quoting target, not a printed price. The page shows
+    // "Contact us" from six sites up, so this number never reaches a buyer
+    // except through a quote. Absorbed the old Multi-Site Custom card.
+    priceAmountCents: 490000,
     period: '12 months',
-    sites: 6,
-    perSiteCents: 58300,
-    isPurchasable: true,
+    sites: null,
+    perSiteCents: 0,
+    isPurchasable: false,
     inclusions: [
-      'Deep Dive for 6 sites',
+      'Deep Dive from 6 sites up',
       'Resource Hub access (12 months)',
       'Full DIAP workspace per site',
       'Cross-site comparison + trends',
-      'Priority support',
+      'API access, SSO and custom integrations on request',
+      'Dedicated account manager',
     ],
   },
   custom: {
@@ -216,8 +220,11 @@ interface AuthorityTierConfig {
 const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
   core: {
     name: 'Core',
-    priceAmountCents: 790000,
-    priceLabel: '$7,900',
+    // Background quoting target. Every Authority edition is now a scoped
+    // conversation, so the page prints "Contact us" and this number is the
+    // internal record only. Floor rule: Core stays above Multi-Site Plus.
+    priceAmountCents: 990000,
+    priceLabel: 'Contact us',
     period: '12 months',
     accessLevel: 'deep_dive',
     sites: '6 sites / venues / events',
@@ -225,7 +232,7 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     reAssessments: 6,
     networkProgramsIncluded: null,
     multiDiap: false,
-    isPurchasable: true,
+    isPurchasable: false,
     inclusions: [
       'Full DIAP management (import, assign, track, export)',
       'Statutory framework alignment and reporting',
@@ -244,8 +251,9 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
   },
   professional: {
     name: 'Professional',
-    priceAmountCents: 1290000,
-    priceLabel: '$12,900',
+    // Background quoting target, as with Core. Page prints "Contact us".
+    priceAmountCents: 1690000,
+    priceLabel: 'Contact us',
     period: '12 months',
     accessLevel: 'deep_dive',
     sites: '12 sites / venues / events',
@@ -253,7 +261,7 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     reAssessments: 24,
     networkProgramsIncluded: '1 Lite group (up to 10 businesses)',
     multiDiap: true,
-    isPurchasable: true,
+    isPurchasable: false,
     inclusions: [
       'Everything in Core',
       '12 sites / events, 30 user seats',
@@ -269,7 +277,7 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     // The floor stays here as the internal record. The page shows "Contact us"
     // instead, so keep priceLabel matching what the page prints or the two
     // sources disagree about what a buyer was told.
-    priceAmountCents: 2500000,
+    priceAmountCents: 3000000,
     priceLabel: 'Contact us',
     period: '12 months',
     accessLevel: 'deep_dive',
@@ -315,38 +323,38 @@ export const CONSULTATION_ADDONS = {
 const PRICING_MATRIX: Record<BusinessSizeTier, Record<AccessLevel, Record<ModuleBundle, number>>> = {
   small: {
     pulse: {
-      core: 39900,      // Starter: $399
-      expanded: 39900,
-      full: 39900,
+      core: 49900,      // Starter: $499
+      expanded: 49900,
+      full: 49900,
     },
     deep_dive: {
-      core: 89900,      // Committed: $899
-      expanded: 89900,
-      full: 89900,
+      core: 129000,     // Committed: $1,290
+      expanded: 129000,
+      full: 129000,
     },
   },
   medium: {
     pulse: {
-      core: 39900,
-      expanded: 39900,
-      full: 39900,
+      core: 49900,
+      expanded: 49900,
+      full: 49900,
     },
     deep_dive: {
-      core: 89900,
-      expanded: 89900,
-      full: 89900,
+      core: 129000,
+      expanded: 129000,
+      full: 129000,
     },
   },
   large: {
     pulse: {
-      core: 99900,      // Multi-Site Pulse (3 sites): $999
-      expanded: 199900,  // Multi-Site Deep: $1,999
-      full: 349900,      // Multi-Site Plus: $3,499
+      core: 149000,     // Multi-Site Pulse (3 sites): $1,490
+      expanded: 249000,  // Multi-Site Deep: $2,490
+      full: 0,           // Multi-Site Plus: quoted, no printed price
     },
     deep_dive: {
-      core: 199900,
-      expanded: 349900,
-      full: 0,           // Custom
+      core: 249000,
+      expanded: 0,       // Quoted
+      full: 0,           // Quoted
     },
   },
   enterprise: {

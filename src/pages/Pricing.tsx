@@ -441,9 +441,9 @@ const tierDetailContent: Record<string, { title: string; situation: string; audi
   'Multi-Site Plus': {
     title: 'Multi-Site Plus',
     situation: 'You operate a real chain across multiple sites and need one accessibility program that covers them all, with team allocation, evidence and a full action plan.',
-    audience: 'Best for mid-size chains with up to six commercial venues running accessibility as a coordinated group operation.',
+    audience: 'Best for chains from six commercial venues up, running accessibility as one coordinated group operation. Scoped with you, not off the shelf.',
     examples: [
-      'A hotel chain with four to six properties',
+      'A hotel chain with six or more properties',
       'A regional retail chain across multiple stores',
       'A multi-studio fitness brand',
       'A regional tourism operator running multiple experiences across a state',
@@ -907,12 +907,13 @@ const individualTiers: Tier[] = [
     description: 'Try it. See where you stand.',
     whoFor: 'A free first look. Start small, no commitment.',
     highlight: false,
+    note: 'About 15 to 20 minutes to complete',
     features: {
-      assessment: '3 modules (Deep Dive)',
+      assessment: '2 modules (Deep Dive)',
       sites: '1 site / venue / event',
       assessments: '1',
       users: '1',
-      report: 'PDF report (scoped to 3 modules)',
+      report: 'PDF report (scoped to 2 modules)',
       resourceHub: false,
       diap: false,
       comparison: false,
@@ -942,7 +943,7 @@ const individualTiers: Tier[] = [
   },
   {
     name: 'Committed',
-    price: '$899',
+    price: '$1,290',
     period: '12 months',
     description: 'Manage accessibility as an ongoing plan, not a one-off report.',
     whoFor: 'Your living action plan for one venue, renewed every year.',
@@ -966,12 +967,12 @@ const individualTiers: Tier[] = [
 const multisiteTiers: Tier[] = [
   {
     name: 'Multi-Site Pulse',
-    price: '$1,199',
+    price: '$1,490',
     period: '12 months',
     description: 'Understand where every venue stands.',
     whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
-    perSite: '$400/site',
+    perSite: '$497/site',
     features: {
       assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 50)',
       sites: 'Up to 3 sites / venues / events',
@@ -987,12 +988,12 @@ const multisiteTiers: Tier[] = [
   },
   {
     name: 'Multi-Site Deep',
-    price: '$1,999',
+    price: '$2,490',
     period: '12 months',
     description: 'Manage accessibility across two or three venues.',
     whoFor: 'Coordinated action plans across two or three venues, one program.',
     highlight: true,
-    perSite: '$666/site',
+    perSite: '$830/site',
     features: {
       assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
       sites: 'Up to 3 sites / venues / events',
@@ -1010,39 +1011,19 @@ const multisiteTiers: Tier[] = [
     }
   },
   {
+    // Unpriced on purpose. A group at this size is never the same shape twice,
+    // so a printed number anchors the negotiation before the scope is known.
+    // This tier absorbed the old "Multi-Site Custom" card: two adjacent
+    // "Contact us" cards gave a buyer nothing to choose between.
     name: 'Multi-Site Plus',
-    price: '$3,499',
-    period: '12 months',
-    description: 'One accessibility program across every venue, run the same way.',
-    whoFor: 'For a larger group running one program across up to six venues.',
-    highlight: false,
-    perSite: '$583/site',
-    features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
-      sites: 'Up to 6 sites / venues / events',
-      assessments: '1 per site',
-      users: '12',
-      report: 'In-app report, plus PDF export',
-      resourceHub: '12 months',
-      diap: 'Full (assign, track, export)',
-      teamAllocation: true,
-      evidenceLibrary: true,
-      integrations: 'Standalone, or delivery packages to your tools',
-      comparison: '1 per site',
-      training: 'Expert advisory available',
-      support: 'Email support + quarterly check-ins'
-    }
-  },
-  {
-    name: 'Multi-Site Custom',
     price: 'Contact us',
     period: '',
-    description: 'One governed program across a large group of venues.',
-    whoFor: 'For chains and groups beyond six venues that want enterprise-grade scale, SSO and API access, and one accessibility program run the same way across every site.',
+    description: 'One governed accessibility program across every venue, run the same way.',
+    whoFor: 'For chains and groups from six venues up that want one program across every site, with enterprise-grade scale, SSO and API access.',
     highlight: false,
     features: {
       assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
-      sites: '7+ sites / venues / events',
+      sites: '6+ sites / venues / events',
       assessments: '1 per site',
       users: 'Tailored to your group',
       report: 'PDF + interactive + cross-site trends',
@@ -1061,8 +1042,8 @@ const multisiteTiers: Tier[] = [
 const majorVenueTiers: Tier[] = [
   {
     name: 'Premier Venue',
-    price: '$9,900',
-    period: '12 months',
+    price: 'Contact us',
+    period: '',
     description: 'Manage accessibility across a complex, zone by zone.',
     whoFor: 'When one site is the whole operation.',
     highlight: false,
@@ -1093,8 +1074,8 @@ const majorVenueTiers: Tier[] = [
   },
   {
     name: 'Flagship Venue',
-    price: '$18,900',
-    period: '12 months',
+    price: 'Contact us',
+    period: '',
     description: 'Govern accessibility at flagship scale, with evidence your board can table.',
     whoFor: 'Governance-grade accessibility for flagship venues.',
     highlight: true,
@@ -1165,8 +1146,8 @@ const majorVenueTiers: Tier[] = [
 const orgAccessibilityTiers: Tier[] = [
   {
     name: 'Core',
-    price: '$7,900',
-    period: '12 months',
+    price: 'Contact us',
+    period: '',
     description: 'Keep your action plan active, accountable and on track.',
     whoFor: 'For regional councils, smaller authorities and festival or event organisers running an accessibility action plan across a handful of sites, venues or events.',
     highlight: false,
@@ -1195,8 +1176,8 @@ const orgAccessibilityTiers: Tier[] = [
   },
   {
     name: 'Professional',
-    price: '$12,900',
-    period: '12 months',
+    price: 'Contact us',
+    period: '',
     description: 'Coordinate accessibility across teams, sites and funded programs.',
     whoFor: 'For mid-size authorities, festivals and event organisers running accessibility across more sites, venues and teams, with a small Network Program for suppliers, partner venues, tenants or grant recipients.',
     highlight: true,
@@ -1225,7 +1206,8 @@ const orgAccessibilityTiers: Tier[] = [
   },
   {
     name: 'Enterprise',
-    // Deliberately unpriced on the page. The $25,000 floor is kept in
+    // Deliberately unpriced on the page, as Core and Professional now are too.
+    // The ~$30,000 background target is kept in
     // pricingEngine.AUTHORITY_TIERS.enterprise.priceAmountCents as the internal
     // record; Enterprise is always a scoped conversation, so a printed number
     // only ever anchors the negotiation before the scope is known.
@@ -1590,14 +1572,16 @@ export default function Pricing() {
                 {tier.price === 'Contact us' || tier.price === 'Custom pricing' || tier.price.startsWith('from ') ? (
                   <a
                     className="pricing-card-select-btn"
-                    href="mailto:hello@accesscompass.com.au?subject=Enterprise%20%2F%20Partnership%20enquiry"
+                    href={`mailto:hello@accesscompass.com.au?subject=${encodeURIComponent(`${tier.name} enquiry`)}`}
                     style={{
                       marginTop: '1.25rem', width: '100%', padding: '0.9375rem 1.5rem',
-                      borderRadius: '0.5rem', border: `2px solid ${colors.amethyst}`,
-                      backgroundColor: colors.amethyst, color: '#FFFFFF',
+                      borderRadius: '0.5rem',
+                      border: tier.highlight ? `2px solid ${colors.sunriseBright}` : `2px solid ${colors.amethyst}`,
+                      backgroundColor: tier.highlight ? colors.sunriseBright : colors.amethyst,
+                      color: tier.highlight ? '#1A0F11' : '#FFFFFF',
                       fontWeight: 700, fontSize: '0.9375rem', cursor: 'pointer',
                       display: 'block', textAlign: 'center', textDecoration: 'none', boxSizing: 'border-box',
-                      boxShadow: '0 3px 8px rgba(73, 14, 103, 0.25)',
+                      boxShadow: tier.highlight ? '0 4px 12px rgba(255, 144, 21, 0.35)' : '0 3px 8px rgba(73, 14, 103, 0.25)',
                       transition: 'transform 0.15s ease, box-shadow 0.15s ease',
                     }}
                   >
@@ -2085,7 +2069,7 @@ export default function Pricing() {
                 <div style={{ marginBottom: '1.5rem' }}>
                   <p style={{ color: colors.amethyst, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.12em', marginTop: 0, marginBottom: '0.375rem' }}>Pricing</p>
                   <h3 style={{ color: colors.walnut, fontSize: '1.5rem', fontWeight: 800, margin: '0 0 0.625rem', lineHeight: 1.2 }}>
-                    From $2,500 setup plus from $97 per business
+                    From $2,500 setup plus from $199 per business
                   </h3>
                   <p style={{ color: colors.subtleText, fontSize: '0.875rem', margin: 0, lineHeight: 1.55, fontStyle: 'italic' }}>
                     One consultant assesses 5 venues over 6 months. One Network Program assesses 50 in the same window, at a fraction of the per-business cost.
@@ -2110,7 +2094,7 @@ export default function Pricing() {
                   </div>
                   <div>
                     <p style={{ color: colors.sunrise, fontSize: '0.6875rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', marginTop: 0, marginBottom: '0.375rem' }}>Per business</p>
-                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $97</p>
+                    <p style={{ color: colors.amethyst, fontSize: '1.5rem', fontWeight: 800, margin: 0, lineHeight: 1 }}>From $199</p>
                     <p style={{ color: colors.subtleText, fontSize: '0.75rem', margin: '0.25rem 0 0' }}>banded by module count</p>
                   </div>
                   <div>
@@ -2204,13 +2188,14 @@ export default function Pricing() {
           <div className="pricing-upgrades" style={{ backgroundColor: colors.white, border: `2px solid ${colors.amethyst}` }}>
             <h3 style={{ color: colors.amethyst }}>Upgrade Paths: Full credit applied</h3>
             <div className="pricing-upgrades-list">
+              {/* Only paths that end on a printed price can advertise a credit.
+                  Upgrades into the unpriced tiers (Multi-Site Plus, the Major
+                  Venue editions, the Authority editions) are credited in the
+                  quote instead, so they are not listed here. */}
               {[
                 { path: 'Starter \u2192 Committed', credit: '$399' },
                 { path: 'Committed \u2192 Multi-Site Deep', credit: '$899' },
-                { path: 'Multi-Site Pulse \u2192 Deep', credit: '$999' },
-                { path: 'Multi-Site Deep \u2192 Plus', credit: '$1,999' },
-                { path: 'Multi-Site Plus \u2192 Premier Venue', credit: '$3,499' },
-                { path: 'Premier Venue \u2192 Major Venue', credit: '$7,900' }
+                { path: 'Multi-Site Pulse \u2192 Deep', credit: '$999' }
               ].map((item, i) => (
                 <span key={i} className="pricing-upgrade-pill" style={{ backgroundColor: colors.ivory, color: colors.walnut, border: `1px solid ${colors.ivoryDark}` }}>
                   {item.path}: <strong style={{ color: colors.amethyst }}>{item.credit}</strong>

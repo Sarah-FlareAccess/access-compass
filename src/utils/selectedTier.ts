@@ -59,8 +59,11 @@ export function maxMembersForSize(size: OrgSize): number {
 // (now Flagship), Core and Professional had all drifted below what the page
 // advertises, so a customer was provisioned fewer seats than they had just
 // bought: Flagship sells 60 and was granting 20, Core sells 20 and was
-// granting 6. Precinct and Enterprise are scoped per customer, so they carry
-// a floor here and the real number is set on the org.
+// granting 6. Multi-Site Plus, Precinct and Enterprise are scoped per customer,
+// so they carry a floor here and the real number is set on the org. Plus joined
+// them in the v5 reprice of 2026-08-07, when it went unpriced and absorbed the
+// old Multi-Site Custom card; its 12 is now the floor, not the advertised seat
+// count.
 const TIER_SEATS: Record<string, number> = {
   'Free': 1,
   'Starter': 2,
