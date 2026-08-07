@@ -135,11 +135,11 @@ const featureInfoContent: Record<string, { title: string; description: string; e
   },
   assessmentOutcome: {
     title: 'Accessibility Self-Assessment',
-    description: 'Answer questions about your venue, your service and your organisation, and Access Compass produces your accessibility maturity score, the priorities to fix first and recommendations written for your situation. Only the modules relevant to you are asked, scoped from a library of 50 by what you tell us about your operation.',
+    description: 'Answer questions about your venue, your service and your organisation, and Access Compass produces your accessibility maturity score, the priorities to fix first and recommendations written for your situation. Only the modules relevant to you are asked, scoped from a library of 51 by what you tell us about your operation.',
   },
   businessGroupIncluded: {
     title: 'Network Program Included (Lite)',
-    description: 'Pro and Enterprise tiers include Lite Network Program(s). Each Lite program covers: up to 10 businesses, 10 Pulse Check modules of your choice (out of 50), aggregate progress dashboard, 12-month duration. Deep Dive depth, question guidance notes and per-program PDF reports are full Network Program features. Upgrade to a full Network Program for unlimited businesses, all modules at Deep Dive depth, guidance notes and per-program reports.',
+    description: 'Pro and Enterprise tiers include Lite Network Program(s). Each Lite program covers: up to 10 businesses, 10 Pulse Check modules of your choice (out of 51), aggregate progress dashboard, 12-month duration. Deep Dive depth, question guidance notes and per-program PDF reports are full Network Program features. Upgrade to a full Network Program for unlimited businesses, all modules at Deep Dive depth, guidance notes and per-program reports.',
     examples: [
       'Grant recipients completing 3 modules as part of funding acquittal',
       'Regional venues completing a Pulse Check across priority areas',
@@ -935,7 +935,7 @@ const individualTiers: Tier[] = [
     whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
     features: {
-      assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 51)',
       sites: '1 site / venue / event',
       assessments: '1',
       users: '2',
@@ -955,7 +955,7 @@ const individualTiers: Tier[] = [
     whoFor: 'Your living action plan for one venue, renewed every year.',
     highlight: true,
     features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 51)',
       sites: '1 site / venue / event',
       assessments: '1',
       users: '3',
@@ -981,7 +981,7 @@ const multisiteTiers: Tier[] = [
     highlight: false,
     perSite: '$497/site',
     features: {
-      assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 51)',
       sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
@@ -1002,7 +1002,7 @@ const multisiteTiers: Tier[] = [
     highlight: true,
     perSite: '$830/site',
     features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 51)',
       sites: 'Up to 3 sites / venues / events',
       assessments: '1 per site',
       users: '6',
@@ -1029,7 +1029,7 @@ const multisiteTiers: Tier[] = [
     whoFor: 'For chains and groups from six venues up that want one program across every site, with enterprise-grade scale, SSO and API access.',
     highlight: false,
     features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 51)',
       sites: '6+ sites / venues / events',
       assessments: '1 per site',
       users: 'Tailored to your group',
@@ -1055,7 +1055,7 @@ const majorVenueTiers: Tier[] = [
     whoFor: 'When one site is the whole operation.',
     highlight: false,
     features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 51)',
       sites: '1 complex',
       zones: 'Up to 10 zones',
       users: '20',
@@ -1087,7 +1087,7 @@ const majorVenueTiers: Tier[] = [
     whoFor: 'Governance-grade accessibility for flagship venues.',
     highlight: true,
     features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 50)',
+      assessment: 'Deep Dive (all relevant modules, scoped to your venue from a library of 51)',
       sites: '1 complex',
       zones: 'Unlimited zones',
       users: '60',
@@ -1123,7 +1123,7 @@ const majorVenueTiers: Tier[] = [
     whoFor: 'For operators running several complexes under one program, where reporting has to roll up across venues as well as within them.',
     highlight: false,
     features: {
-      assessment: 'Deep Dive (all relevant modules, scoped to each venue from a library of 50)',
+      assessment: 'Deep Dive (all relevant modules, scoped to each venue from a library of 51)',
       sites: 'Multiple complexes',
       zones: 'Unlimited zones per complex',
       users: 'Tailored to your organisation',
