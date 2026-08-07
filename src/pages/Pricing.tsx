@@ -141,7 +141,7 @@ const featureInfoContent: Record<string, { title: string; description: string; e
     title: 'Network Program Included (Lite)',
     description: 'Pro and Enterprise tiers include Lite Network Program(s). Each Lite program covers: up to 10 businesses, 10 Pulse Check modules of your choice (out of 51), aggregate progress dashboard, 12-month duration. Deep Dive depth, question guidance notes and per-program PDF reports are full Network Program features. Upgrade to a full Network Program for unlimited businesses, all modules at Deep Dive depth, guidance notes and per-program reports.',
     examples: [
-      'Grant recipients completing 3 modules as part of funding acquittal',
+      'Grant recipients completing 5 modules as part of funding acquittal',
       'Regional venues completing a Pulse Check across priority areas',
       'Suppliers completing a pre-qualification accessibility review',
     ],
@@ -165,7 +165,7 @@ const featureInfoContent: Record<string, { title: string; description: string; e
       'Approved supplier accessibility review (5 modules per supplier)',
       'Event vendor compliance check (event-specific modules)',
       'Tenant accessibility assessment (full assessment per tenant)',
-      'Contractor pre-qualification review (3 modules)',
+      'Contractor pre-qualification review (5 modules)',
     ],
   },
   businessAccess: {
@@ -925,22 +925,26 @@ const individualTiers: Tier[] = [
   },
   {
     name: 'Starter',
-    price: '$499',
-    // Report-only tiers run 30 days. There is nothing to come back to
-    // after the report, so a longer term only blurred Starter into
-    // Committed. The Resource Hub and the action plan are what you buy
-    // a year of.
-    period: '30 days',
+    price: '$449',
+    // A one-off purchase, not a subscription. The 30 days is the window to
+    // complete the assessment and take the report away, so it belongs in the
+    // note rather than the period slot, where a buyer reads it as a billing
+    // term and concludes the tier is poor value against Committed's year.
+    period: 'one-off',
     description: 'Understand your accessibility across every relevant area.',
     whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
+    note: '30 days to complete your assessment',
     features: {
       assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 51)',
       sites: '1 site / venue / event',
       assessments: '1',
       users: '2',
       report: 'In-app report, plus PDF export',
-      resourceHub: false,
+      // Matches the assessment window, and keeps the report tiers from
+      // sitting below Free and the single-module bundles, which both
+      // carry 30 days.
+      resourceHub: '30 days',
       diap: false,
       comparison: false,
       training: 'Expert advisory available',
@@ -974,11 +978,12 @@ const multisiteTiers: Tier[] = [
   {
     name: 'Multi-Site Pulse',
     price: '$1,490',
-    // Report-only, so 30 days, matching Starter.
-    period: '30 days',
+    // A one-off purchase, matching Starter.
+    period: 'one-off',
     description: 'Understand where every venue stands.',
     whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
+    note: '30 days to complete your assessments',
     perSite: '$497/site',
     features: {
       assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 51)',
@@ -986,7 +991,7 @@ const multisiteTiers: Tier[] = [
       assessments: '1 per site',
       users: '6',
       report: 'In-app report, plus PDF export',
-      resourceHub: false,
+      resourceHub: '30 days',
       diap: false,
       comparison: false,
       training: 'Expert advisory available',
@@ -1721,7 +1726,7 @@ export default function Pricing() {
         {view !== 'networkprograms' && (
           <p className="pricing-table-notes" style={{ color: colors.subtleText, fontSize: '0.8125rem', lineHeight: 1.6, margin: '0.75rem auto 0', textAlign: 'center', maxWidth: '60ch' }}>
             {view === 'authority'
-              ? 'One 60-minute advisory session included on Core and Professional, two on Enterprise. Additional expert advisory available. Core and Professional expand mid-cycle, extra sites from $525 each and extra seats from $300 each, so you can scale before moving to Enterprise. Pro-rated for the months remaining.'
+              ? 'One 60-minute advisory session included on Core and Professional, two on Enterprise. Additional expert advisory available. Core and Professional expand mid-cycle with extra sites and seats, so you can scale before moving to Enterprise. Pro-rated for the months remaining.'
               : view === 'majorvenue'
               ? 'Expert advisory available in addition to your included strategic reviews. Seats expandable mid-cycle, pro-rated for the months remaining.'
               : 'Expert advisory available on any tier.'}
@@ -1936,7 +1941,7 @@ export default function Pricing() {
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
                   {[
-                    { intensity: 1, label: 'Light', title: 'Grant acquittal', scope: 'Pulse Check, 3 to 5 modules', timeline: '~3 months', detail: '15 to 20 grant recipients show their funded work meets your accessibility expectations.' },
+                    { intensity: 1, label: 'Light', title: 'Grant acquittal', scope: 'Pulse Check, 5 modules', timeline: '~3 months', detail: '15 to 20 grant recipients show their funded work meets your accessibility expectations.' },
                     { intensity: 2, label: 'Standard', title: 'Vendors and delivery partners', scope: 'Pulse Check (minimum baseline)', timeline: '3 to 6 months', detail: '20 to 50 suppliers, contractors, event vendors and delivery partners meet a minimum accessibility baseline.' },
                     { intensity: 3, label: 'In-depth', title: 'Sector capacity', scope: 'Scoped Deep Dive', timeline: '6 to 12 months', detail: '30+ businesses lift readiness across a sector (tourism, hospitality, retail).' },
                     { intensity: 4, label: 'Comprehensive', title: 'Flagship initiative', scope: 'Full Deep Dive plus action plan', timeline: '12 to 18 months', detail: '50 anchor businesses run a comprehensive assessment with action plans.' },
@@ -2204,7 +2209,7 @@ export default function Pricing() {
                   of these and full on the others, so the heading was false
                   wherever the discount applied. */}
               {[
-                { path: 'Starter \u2192 Committed', credit: '$499' },
+                { path: 'Starter \u2192 Committed', credit: '$449' },
                 { path: 'Committed \u2192 Multi-Site Deep', credit: '$1,290' },
                 { path: 'Multi-Site Pulse \u2192 Deep', credit: '$1,490' }
               ].map((item, i) => (

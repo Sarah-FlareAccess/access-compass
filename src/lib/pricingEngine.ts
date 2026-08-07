@@ -44,18 +44,22 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
       'Resource Hub access (30 days)',
       'Self-service only',
     ],
+    // Deep Dive on 2 modules is roughly 42 questions at ~21 per module,
+    // which is where the "about 15 to 20 minutes" on the page comes from.
   },
   starter: {
     name: 'Starter',
-    priceAmountCents: 49900,
-    // Report-only, so a 30-day term and no Resource Hub. Both belong to the
-    // tiers you buy a year of.
-    period: '30 days',
+    priceAmountCents: 44900,
+    // A one-off report, not a subscription. 30 days is the window to complete
+    // the assessment, and the Resource Hub runs with it so the report tiers
+    // never sit below Free or a single-module bundle, which both get 30 days.
+    period: 'one-off, 30 days to complete',
     accessLevel: 'pulse',
     moduleLimit: null,
-    resourceHubMonths: 0,
+    resourceHubMonths: 1,
     inclusions: [
-      'Pulse Check on all relevant modules (scoped to your venue from a library of 50)',
+      'Pulse Check on all relevant modules (scoped to your venue from a library of 51)',
+      'Resource Hub access (30 days)',
       'Self-service support',
       'Priority action recommendations',
     ],
@@ -124,7 +128,9 @@ const MODULE_BUNDLES: ModuleBundlePrice[] = [
 // MULTI-SITE TIERS
 // ============================================
 
-export type MultiSiteTier = 'pulse_3' | 'deep_3' | 'plus_6' | 'custom';
+// 'custom' was removed in the v5 reprice: Multi-Site Plus went unpriced and
+// absorbed it, so there is no second unpriced Multi-Site tier to configure.
+export type MultiSiteTier = 'pulse_3' | 'deep_3' | 'plus_6';
 
 interface MultiSiteTierConfig {
   name: string;
@@ -140,13 +146,14 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   pulse_3: {
     name: 'Multi-Site Pulse',
     priceAmountCents: 149000,
-    // Report-only, so 30 days and no Resource Hub, matching Starter.
-    period: '30 days',
+    // A one-off report, matching Starter.
+    period: 'one-off, 30 days to complete',
     sites: 3,
     perSiteCents: 49667,
     isPurchasable: true,
     inclusions: [
       'Pulse Check for 3 sites',
+      'Resource Hub access (30 days)',
       'Cross-site comparison',
       'Self-service support',
     ],
@@ -182,20 +189,6 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
       'Cross-site comparison + trends',
       'API access, SSO and custom integrations on request',
       'Dedicated account manager',
-    ],
-  },
-  custom: {
-    name: 'Multi-Site Custom',
-    priceAmountCents: 0,
-    period: '',
-    sites: null,
-    perSiteCents: 0,
-    isPurchasable: false,
-    inclusions: [
-      '7+ locations or complex requirements',
-      'Custom module selection per site',
-      'Dedicated account manager',
-      'Enterprise reporting',
     ],
   },
 };
@@ -285,15 +278,17 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     priceLabel: 'Contact us',
     period: '12 months',
     accessLevel: 'deep_dive',
-    sites: 'from 20 sites / venues / events',
-    users: 'Unlimited',
+    // Tailored, matching what the page prints. Enterprise is scoped per
+    // customer, so a floor here would only disagree with the card.
+    sites: 'Tailored to your organisation',
+    users: 'Tailored to your organisation',
     reAssessments: null,
     networkProgramsIncluded: '2 Lite Network Programs (up to 10 businesses each)',
     multiDiap: true,
     isPurchasable: false,
     inclusions: [
       'Everything in Professional',
-      'From 20 sites / events, unlimited user seats',
+      'Sites and user seats tailored to your organisation',
       '2 Lite Network Programs (10 businesses each, 10 Pulse Check modules of your choice per program, aggregate dashboard, 12 months)',
       'Single sign-on (SAML)',
       'API access and custom integrations on request',
@@ -303,6 +298,51 @@ const AUTHORITY_TIERS: Record<AuthorityTier, AuthorityTierConfig> = {
     ],
   },
 };
+
+// ============================================
+// NETWORK PROGRAM PER-BUSINESS BANDS (v5)
+// ============================================
+// What each business in a Network Program pays, banded by how many modules
+// the program asks them to complete. Replaces the old flat Pulse/Deep Dive
+// split, which priced a 3-module program the same as a 40-module one.
+//
+// A paid program has a 5-module minimum: below that is Free-tier taster
+// depth, so the first band is the floor rather than a discount for asking
+// less. The top band sits at roughly two thirds of Committed so a host
+// cannot assemble a cheaper full assessment out of a program.
+
+export interface NetworkProgramBand {
+  /** Inclusive upper bound on module count. null means no upper bound. */
+  maxModules: number | null;
+  priceAmountCents: number;
+  label: string;
+  description: string;
+}
+
+export const NETWORK_PROGRAM_MODULE_MINIMUM = 5;
+
+const NETWORK_PROGRAM_BANDS: NetworkProgramBand[] = [
+  { maxModules: 5, priceAmountCents: 19900, label: '$199', description: 'up to 5 modules' },
+  { maxModules: 10, priceAmountCents: 34900, label: '$349', description: 'up to 10 modules' },
+  { maxModules: 20, priceAmountCents: 54900, label: '$549', description: 'up to 20 modules' },
+  { maxModules: null, priceAmountCents: 84900, label: '$849', description: 'all modules, Deep Dive' },
+];
+
+/**
+ * Resolve the per-business band for a program of a given module count.
+ * Counts at or below the minimum resolve to the floor band.
+ */
+export function getNetworkProgramBand(moduleCount: number): NetworkProgramBand {
+  return (
+    NETWORK_PROGRAM_BANDS.find(
+      (band) => band.maxModules === null || moduleCount <= band.maxModules
+    ) ?? NETWORK_PROGRAM_BANDS[NETWORK_PROGRAM_BANDS.length - 1]
+  );
+}
+
+export function getNetworkProgramBands(): NetworkProgramBand[] {
+  return [...NETWORK_PROGRAM_BANDS];
+}
 
 // ============================================
 // AUTHORITY ADD-ONS
@@ -327,9 +367,9 @@ export const CONSULTATION_ADDONS = {
 const PRICING_MATRIX: Record<BusinessSizeTier, Record<AccessLevel, Record<ModuleBundle, number>>> = {
   small: {
     pulse: {
-      core: 49900,      // Starter: $499
-      expanded: 49900,
-      full: 49900,
+      core: 44900,      // Starter: $449
+      expanded: 44900,
+      full: 44900,
     },
     deep_dive: {
       core: 129000,     // Committed: $1,290
@@ -339,9 +379,9 @@ const PRICING_MATRIX: Record<BusinessSizeTier, Record<AccessLevel, Record<Module
   },
   medium: {
     pulse: {
-      core: 49900,
-      expanded: 49900,
-      full: 49900,
+      core: 44900,
+      expanded: 44900,
+      full: 44900,
     },
     deep_dive: {
       core: 129000,

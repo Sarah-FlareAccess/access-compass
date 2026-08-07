@@ -436,7 +436,7 @@ export default function Decision() {
       <div className="pathway-reassurance-new">
         <div className="reassurance-icon">🔄</div>
         <p>
-          <strong>No pressure.</strong> You can always upgrade from Pulse Check to Deep Dive later. Your progress is always saved.
+          <strong>You can change your mind.</strong> Upgrade from Pulse Check to Deep Dive whenever you are ready. Your progress is always saved.
         </p>
       </div>
     </>

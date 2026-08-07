@@ -5,6 +5,7 @@ import { usePageTitle } from '../hooks/usePageTitle';
 import { useAuthorityAdmin } from '../hooks/useAuthorityAdmin';
 import { ModuleDetailModal } from '../components/discovery/ModuleDetailModal';
 import { accessModules, moduleGroups } from '../data/accessModules';
+import { getNetworkProgramBand, NETWORK_PROGRAM_MODULE_MINIMUM } from '../lib/pricingEngine';
 import '../styles/authority.css';
 
 import type { AuthorityProgram, AccessLevel, FundingModel } from '../types/access';
@@ -219,9 +220,13 @@ export default function AuthorityPrograms() {
                 id="license-price"
                 type="text"
                 readOnly
-                value={newAccessLevel === 'pulse' ? '$99' : '$349'}
+                value={getNetworkProgramBand(selectedModules.length).label}
               />
-              <p className="authority-form-hint">Set by your plan. Pulse Check: $99, Deep Dive cohort: $349.</p>
+              <p className="authority-form-hint">
+                Set by module count. {selectedModules.length} selected, which is the{' '}
+                {getNetworkProgramBand(selectedModules.length).label} band ({getNetworkProgramBand(selectedModules.length).description}).
+                {selectedModules.length < NETWORK_PROGRAM_MODULE_MINIMUM && ` Paid programs start at ${NETWORK_PROGRAM_MODULE_MINIMUM} modules.`}
+              </p>
             </div>
           )}
           {fundingModel === 'co_funded' && (
@@ -234,7 +239,7 @@ export default function AuthorityPrograms() {
                 step="1"
                 value={licensePrice}
                 onChange={e => setLicensePrice(e.target.value)}
-                placeholder={newAccessLevel === 'pulse' ? 'Standard rate: $99' : 'Standard rate: $349'}
+                placeholder={`Standard rate: ${getNetworkProgramBand(selectedModules.length).label}`}
               />
               <p className="authority-form-hint">Set a reduced rate. Your organisation covers the difference.</p>
             </div>

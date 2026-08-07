@@ -42,14 +42,33 @@ The second kind is the expensive one. That was work already paid for, sitting un
 | Superuser Program | Premier, Major, Core, Prof, Ent | **PLANNED** | The Training Hub platform exists (`026`, `027`, courses + lessons + progress). **The superuser course itself does not.** Content work, build once. |
 | Single Sign-On (SSO) | Enterprise, Major Venue | **PLANNED** | Nothing. The only SAML strings in the repo are the pricing copy. |
 | API access | Enterprise, Major Venue | **PLANNED** | Nothing. No edge functions, no endpoints. |
-| Cross-site / org-wide reporting | Multi-Site (engine inclusions) | 🔴 **PLANNED** | **Nothing.** No side-by-side site scoring anywhere. The engine already claims "cross-site comparison" on all three Multi-Site tiers. |
+| Cross-site / org-wide reporting | Multi-Site (engine inclusions **and now the Plus card**) | 🔴 **PLANNED** | **Nothing.** No side-by-side site scoring anywhere. The engine claims "cross-site comparison" on all three Multi-Site tiers, and since v5 the Multi-Site Plus card prints "cross-site trends" on its report row. |
 | Report format (PDF vs PDF + interactive) | Single Site, Multi-Site | ⚠️ **NOT GATED** | No tier gate found in `ReportPage.tsx`. Deep and Plus are identical on this row anyway — candidate for removal. |
 
 ## The two that cost you money right now
 
-**Framework alignment is not tier-gated.** Every tier gets it in the product. It is off the Single Site and Multi-Site tabs, so it is *unadvertised*, not *restricted*. Until it is enforced, Core's reason to exist above Multi-Site Plus ($7,900 vs $3,499) is a presentational choice rather than a product one.
+> **Repriced to v5 on 7 Aug 2026.** The tiers named below no longer print a price: Multi-Site Plus, all three Major Venue editions and all three Authority editions are quoted, not published. Background quoting targets are in `project-todo-master` "PRICING v5" and in `pricingEngine.ts`. The figures in this section are those targets, not page prices.
 
-**Zones and program history carry two prices between them.** Zones are the only thing separating Major Venue ($18,900) from Multi-Site Plus ($3,499). Program history is the only thing Professional ($12,900) structurally cannot have, and it is what Enterprise ($25,000) rests on. Both are unbuilt. Those two prices are currently held up by rows with nothing behind them.
+**Framework alignment is not tier-gated.** Every tier gets it in the product. It is off the Single Site and Multi-Site tabs, so it is *unadvertised*, not *restricted*. Until it is enforced, Core's reason to exist above Multi-Site Plus (quoted around $9,900 against around $4,900) is a presentational choice rather than a product one.
+
+**Zones and program history carry two prices between them.** Zones are the only thing separating the Major Venue editions (quoted around $12,900 for Premier and around $24,000 for Flagship) from Multi-Site Plus (around $4,900). Program history is the only thing Professional (around $16,900) structurally cannot have, and it is what Enterprise (from around $30,000) rests on. Both are unbuilt. Those prices are currently held up by rows with nothing behind them.
+
+**Going unpriced did not reduce this exposure, it moved it.** A quoted price still has to be justified in the conversation where it is quoted, and now it is justified live rather than on a page the buyer reads alone.
+
+## Entitlement enforcement: nothing is gated
+
+Added 7 Aug 2026, after the v5 report tiers went to a 30-day term.
+
+| Mechanism | Status |
+|---|---|
+| `subscription_ends_at` | **Does not exist.** No tier records when it expires. |
+| Expiry banner / renewal nudge | **Nothing.** |
+| `resourceHubMonths` | Declarative. **Read by nothing.** |
+| `moduleLimit` (Free = 2) | Declarative. **Read by nothing.** |
+| `/resources` route guard | `requireAccess="pulse"`, the lowest level, which every tier satisfies. |
+| `bypassPaywall` | `true` in `RouteGuard.tsx`, so guards are off regardless. |
+
+So every account today gets every module, the full Resource Hub and no expiry. Every term on the pricing page is a statement of intent. **Do not describe a term as a mechanism in a document to a named prospect.**
 
 ## Build order (by value per hour, 17 Jul 2026)
 

@@ -5,8 +5,8 @@ import './FoundingPartnerBanner.css';
 const BENEFITS = [
   {
     icon: '🔒',
-    title: 'Price lock for two years',
-    body: 'Your Founding Partner rate is locked for the first two years from sign-up. After that, renewals move to the current rate for your edition. Move up an edition and the new edition is billed at current rates.',
+    title: 'Rate locked for two years',
+    body: 'Whatever rate you start on, whether it is published on this page or quoted to you, is your Founding Partner rate and it holds for two years from sign-up. After that, renewals move to the current rate for your edition. Move up an edition and the new edition is billed at current rates.',
   },
   {
     icon: '🤝',
@@ -43,7 +43,8 @@ export function FoundingPartnerBanner() {
             Founding Partner pricing
           </h2>
           <p className="founding-partner-banner-subtitle">
-            The first <strong>50 organisations</strong> can lock today's pricing for two years while the platform continues to grow.
+            The first <strong>50 organisations</strong> lock their rate for two years while the platform continues to grow.
+            That applies to the editions priced on this page and to the ones we scope with you.
             Future customers move onto our standard pricing as new capabilities and services are introduced.
           </p>
         </div>
