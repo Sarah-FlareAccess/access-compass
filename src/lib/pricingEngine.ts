@@ -145,11 +145,13 @@ interface MultiSiteTierConfig {
 const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   pulse_3: {
     name: 'Multi-Site Pulse',
-    priceAmountCents: 149000,
+    // Held below three Starters (3 x 44900 = 134700) so the group product is
+    // never worse value than buying the single-site tier once per venue.
+    priceAmountCents: 119900,
     // A one-off report, matching Starter.
     period: 'one-off, 30 days to complete',
     sites: 3,
-    perSiteCents: 49667,
+    perSiteCents: 39967,
     isPurchasable: true,
     inclusions: [
       'Pulse Check for 3 sites',
@@ -391,7 +393,7 @@ const PRICING_MATRIX: Record<BusinessSizeTier, Record<AccessLevel, Record<Module
   },
   large: {
     pulse: {
-      core: 149000,     // Multi-Site Pulse (3 sites): $1,490
+      core: 119900,     // Multi-Site Pulse (3 sites): $1,199
       expanded: 249000,  // Multi-Site Deep: $2,490
       full: 0,           // Multi-Site Plus: quoted, no printed price
     },

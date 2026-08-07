@@ -977,14 +977,16 @@ const individualTiers: Tier[] = [
 const multisiteTiers: Tier[] = [
   {
     name: 'Multi-Site Pulse',
-    price: '$1,490',
+    // Held below three Starters ($1,347) so the group product is never worse
+    // value than buying the single-site tier once per venue.
+    price: '$1,199',
     // A one-off purchase, matching Starter.
     period: 'one-off',
     description: 'Understand where every venue stands.',
     whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
     note: '30 days to complete your assessments',
-    perSite: '$497/site',
+    perSite: '$400/site',
     features: {
       assessment: 'Pulse Check (all relevant modules, scoped to your venue from a library of 51)',
       sites: 'Up to 3 sites / venues / events',
@@ -2211,7 +2213,7 @@ export default function Pricing() {
               {[
                 { path: 'Starter \u2192 Committed', credit: '$449' },
                 { path: 'Committed \u2192 Multi-Site Deep', credit: '$1,290' },
-                { path: 'Multi-Site Pulse \u2192 Deep', credit: '$1,490' }
+                { path: 'Multi-Site Pulse \u2192 Deep', credit: '$1,199' }
               ].map((item, i) => (
                 <span key={i} className="pricing-upgrade-pill" style={{ backgroundColor: colors.ivory, color: colors.walnut, border: `1px solid ${colors.ivoryDark}` }}>
                   {item.path}: <strong style={{ color: colors.amethyst }}>{item.credit}</strong>
