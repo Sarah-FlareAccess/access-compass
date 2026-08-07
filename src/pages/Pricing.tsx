@@ -914,7 +914,9 @@ const individualTiers: Tier[] = [
       assessments: '1',
       users: '1',
       report: 'PDF report (scoped to 2 modules)',
-      resourceHub: false,
+      // Free keeps the Resource Hub deliberately: it is the hook, and the
+      // hub is what shows a visitor there is something worth paying for.
+      resourceHub: '30 days',
       diap: false,
       comparison: false,
       training: 'Expert advisory available',
@@ -924,7 +926,11 @@ const individualTiers: Tier[] = [
   {
     name: 'Starter',
     price: '$499',
-    period: '12 months',
+    // Report-only tiers run 3 months. There is nothing to come back to
+    // after the report, so a 12-month term only blurred Starter into
+    // Committed. The Resource Hub and the action plan are what you buy
+    // a year of.
+    period: '3 months',
     description: 'Understand your accessibility across every relevant area.',
     whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
@@ -934,7 +940,7 @@ const individualTiers: Tier[] = [
       assessments: '1',
       users: '2',
       report: 'In-app report, plus PDF export',
-      resourceHub: '12 months',
+      resourceHub: false,
       diap: false,
       comparison: false,
       training: 'Expert advisory available',
@@ -968,7 +974,8 @@ const multisiteTiers: Tier[] = [
   {
     name: 'Multi-Site Pulse',
     price: '$1,490',
-    period: '12 months',
+    // Report-only, so 3 months, matching Starter.
+    period: '3 months',
     description: 'Understand where every venue stands.',
     whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
@@ -979,7 +986,7 @@ const multisiteTiers: Tier[] = [
       assessments: '1 per site',
       users: '6',
       report: 'In-app report, plus PDF export',
-      resourceHub: '12 months',
+      resourceHub: false,
       diap: false,
       comparison: false,
       training: 'Expert advisory available',

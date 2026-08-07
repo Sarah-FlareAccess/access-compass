@@ -35,23 +35,27 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
     period: '',
     accessLevel: 'deep_dive',
     moduleLimit: 2,
-    resourceHubMonths: 0,
+    // Free keeps a Resource Hub window on purpose: it is the hook, and the
+    // paid report tiers deliberately carry none.
+    resourceHubMonths: 1,
     inclusions: [
       'Up to 2 modules (Deep Dive depth)',
       'Scoped PDF report',
+      'Resource Hub access (30 days)',
       'Self-service only',
     ],
   },
   starter: {
     name: 'Starter',
     priceAmountCents: 49900,
-    period: '12 months',
+    // Report-only, so a 3-month term and no Resource Hub. Both belong to the
+    // tiers you buy a year of.
+    period: '3 months',
     accessLevel: 'pulse',
     moduleLimit: null,
-    resourceHubMonths: 12,
+    resourceHubMonths: 0,
     inclusions: [
       'Pulse Check on all relevant modules (scoped to your venue from a library of 50)',
-      'Resource Hub access (12 months)',
       'Self-service support',
       'Priority action recommendations',
     ],
@@ -136,13 +140,13 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   pulse_3: {
     name: 'Multi-Site Pulse',
     priceAmountCents: 149000,
-    period: '12 months',
+    // Report-only, so 3 months and no Resource Hub, matching Starter.
+    period: '3 months',
     sites: 3,
     perSiteCents: 49667,
     isPurchasable: true,
     inclusions: [
       'Pulse Check for 3 sites',
-      'Resource Hub access (12 months)',
       'Cross-site comparison',
       'Self-service support',
     ],
