@@ -48,9 +48,9 @@ const INDIVIDUAL_TIERS: Record<IndividualTier, IndividualTierConfig> = {
   starter: {
     name: 'Starter',
     priceAmountCents: 49900,
-    // Report-only, so a 3-month term and no Resource Hub. Both belong to the
+    // Report-only, so a 30-day term and no Resource Hub. Both belong to the
     // tiers you buy a year of.
-    period: '3 months',
+    period: '30 days',
     accessLevel: 'pulse',
     moduleLimit: null,
     resourceHubMonths: 0,
@@ -140,8 +140,8 @@ const MULTI_SITE_TIERS: Record<MultiSiteTier, MultiSiteTierConfig> = {
   pulse_3: {
     name: 'Multi-Site Pulse',
     priceAmountCents: 149000,
-    // Report-only, so 3 months and no Resource Hub, matching Starter.
-    period: '3 months',
+    // Report-only, so 30 days and no Resource Hub, matching Starter.
+    period: '30 days',
     sites: 3,
     perSiteCents: 49667,
     isPurchasable: true,

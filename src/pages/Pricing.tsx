@@ -926,11 +926,11 @@ const individualTiers: Tier[] = [
   {
     name: 'Starter',
     price: '$499',
-    // Report-only tiers run 3 months. There is nothing to come back to
-    // after the report, so a 12-month term only blurred Starter into
+    // Report-only tiers run 30 days. There is nothing to come back to
+    // after the report, so a longer term only blurred Starter into
     // Committed. The Resource Hub and the action plan are what you buy
     // a year of.
-    period: '3 months',
+    period: '30 days',
     description: 'Understand your accessibility across every relevant area.',
     whoFor: 'Know where you stand, so you know where to focus next.',
     highlight: false,
@@ -974,8 +974,8 @@ const multisiteTiers: Tier[] = [
   {
     name: 'Multi-Site Pulse',
     price: '$1,490',
-    // Report-only, so 3 months, matching Starter.
-    period: '3 months',
+    // Report-only, so 30 days, matching Starter.
+    period: '30 days',
     description: 'Understand where every venue stands.',
     whoFor: 'Know where each venue stands, so you know where to focus first.',
     highlight: false,
@@ -2273,7 +2273,7 @@ export default function Pricing() {
         {/* Footer note */}
         <div className="pricing-footer-note">
           <p style={{ color: colors.subtleText }}>
-            All prices AUD. Payment plans available on all paid tiers (3 instalments, 0% interest).
+            All prices AUD.
           </p>
         </div>
       </div>
